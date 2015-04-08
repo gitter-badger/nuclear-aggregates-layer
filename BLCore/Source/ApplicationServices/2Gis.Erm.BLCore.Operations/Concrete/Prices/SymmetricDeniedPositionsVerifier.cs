@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
@@ -11,7 +12,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 {
     public sealed class SymmetricDeniedPositionsVerifier : ISymmetricDeniedPositionsVerifier
     {
-        private const int RulesToShowLimiter = 50;
         private readonly IPositionReadModel _positionReadModel;
 
         public SymmetricDeniedPositionsVerifier(IPositionReadModel positionReadModel)
@@ -21,12 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 
         public void VerifyForSymmetryWithinCollection(IEnumerable<DeniedPosition> deniedPositions)
         {
-            var rulesWithoutSymmetricOne = deniedPositions.Where(deniedPosition => !deniedPositions.Any(x =>
-                                                                                                        x.PositionId == deniedPosition.PositionDeniedId &&
-                                                                                                        x.PositionDeniedId == deniedPosition.PositionId &&
-                                                                                                        x.ObjectBindingType == deniedPosition.ObjectBindingType))
-                                                          .Take(RulesToShowLimiter)
-                                                          .ToArray();
+            var rulesWithoutSymmetricOne = deniedPositions.PickRulesWithoutSymmetricOnes();
 
             if (rulesWithoutSymmetricOne.Any())
             {

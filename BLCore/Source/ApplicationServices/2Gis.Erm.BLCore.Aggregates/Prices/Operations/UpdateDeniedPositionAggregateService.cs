@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -19,14 +21,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void Update(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition)
         {
-            if (deniedPosition.IsSelfDenied())
+            if (deniedPosition == null)
             {
-                throw new NonSelfDeniedPositionExpectedException();
+                throw new ArgumentNullException("deniedPosition");
             }
 
             if (symmetricDeniedPosition == null)
             {
-                throw new SymmetricDeniedPositionExpectedException();
+                throw new ArgumentNullException("symmetricDeniedPosition");
+            }
+
+            if (deniedPosition.IsSelfDenied())
+            {
+                throw new NonSelfDeniedPositionExpectedException();
             }
 
             if (!deniedPosition.IsSymmetricTo(symmetricDeniedPosition))
@@ -48,6 +55,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void UpdateSelfDeniedPosition(DeniedPosition selfDeniedPosition)
         {
+            if (selfDeniedPosition == null)
+            {
+                throw new ArgumentNullException("selfDeniedPosition");
+            }
+
             if (!selfDeniedPosition.IsSelfDenied())
             {
                 throw new SelfDeniedPositionExpectedException();

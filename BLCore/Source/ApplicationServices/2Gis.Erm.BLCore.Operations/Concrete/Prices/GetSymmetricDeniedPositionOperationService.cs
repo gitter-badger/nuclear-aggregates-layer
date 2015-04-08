@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                                    .ToArray();
 
                 EnsureUniqueness(symmetricDeniedPositions);
-                EnsureExistance(deniedPosition, symmetricDeniedPositions);
+                EnsureExistence(deniedPosition, symmetricDeniedPositions);
                 scope.Complete();
 
                 return symmetricDeniedPositions.Single();
@@ -52,11 +52,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                     _priceReadModel.GetDeniedPositions(positionId: deniedPosition.PositionDeniedId,
                                                        positionDeniedId: deniedPosition.PositionId,
                                                        priceId: deniedPosition.PriceId,
-                                                       objectBindingType: deniedPosition.ObjectBindingType)
-                                   .ToArray();
+                                                       objectBindingType: deniedPosition.ObjectBindingType);
 
                 EnsureUniqueness(symmetricDeniedPositions);
-                EnsureExistance(deniedPosition, symmetricDeniedPositions);
+                EnsureExistence(deniedPosition, symmetricDeniedPositions);
                 scope.Complete();
 
                 return symmetricDeniedPositions.Single();
@@ -71,17 +70,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                     _priceReadModel.GetInactiveDeniedPositions(positionId: deniedPosition.PositionDeniedId,
                                                                positionDeniedId: deniedPosition.PositionId,
                                                                priceId: deniedPosition.PriceId,
-                                                               objectBindingType: deniedPosition.ObjectBindingType)
-                                   .ToArray();
+                                                               objectBindingType: deniedPosition.ObjectBindingType);
 
-                EnsureExistance(deniedPosition, symmetricDeniedPositions);
+                EnsureExistence(deniedPosition, symmetricDeniedPositions);
                 scope.Complete();
 
                 return symmetricDeniedPositions.First();
             }
         }
 
-        private void EnsureExistance(DeniedPosition deniedPosition, IEnumerable<DeniedPosition> symmetricDeniedPositions)
+        private void EnsureExistence(DeniedPosition deniedPosition, IEnumerable<DeniedPosition> symmetricDeniedPositions)
         {
             if (!symmetricDeniedPositions.Any())
             {
@@ -93,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             }
         }
 
-        private void EnsureUniqueness(IEnumerable<DeniedPosition> symmetricDeniedPositions)
+        private void EnsureUniqueness(IReadOnlyCollection<DeniedPosition> symmetricDeniedPositions)
         {
             if (symmetricDeniedPositions.Count() > 1)
             {

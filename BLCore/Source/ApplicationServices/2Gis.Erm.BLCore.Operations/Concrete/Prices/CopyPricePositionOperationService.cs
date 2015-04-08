@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
 
@@ -55,21 +56,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 
             using (var operationScope = _operationScopeFactory.CreateNonCoupled<CopyPricePositionIdentity>())
             {
-                var pricePosition = _priceReadModel.GetPricePosition(sourcePricePositionId);
-                if (pricePosition == null)
+                var sourcePricePosition = _priceReadModel.GetPricePosition(sourcePricePositionId);
+                if (sourcePricePosition == null)
                 {
                     _tracer.Fatal(BLResources.UnableToGetExisitingPricePosition);
                     throw new EntityNotFoundException(typeof(PricePosition), sourcePricePositionId);
                 }
 
+                var pricePosition = sourcePricePosition.ResetToNew();
+
                 var sourcePositionId = pricePosition.PositionId;
                 var allPricePositionDescendantsDto = _priceReadModel.GetAllPricePositionDescendantsDto(sourcePricePositionId, sourcePositionId);
-                pricePosition.PriceId = priceId;
+                
                 pricePosition.PositionId = positionId;
-
                 _createPricePositionAggregateService.Create(pricePosition);
 
-                CreateDeniedPositions(allPricePositionDescendantsDto.DeniedPositions, priceId, sourcePositionId, positionId);
+                CreateDeniedPositions(allPricePositionDescendantsDto.DeniedPositions.Where(x => x.IsActive && !x.IsDeleted), sourcePositionId, positionId);
 
                 var associatedPositionsToCreate = CreateAssociatedPositionsGroups(allPricePositionDescendantsDto.AssociatedPositionsGroups,
                                                                                   allPricePositionDescendantsDto.AssociatedPositionsMapping,
@@ -105,7 +107,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         }
 
         private void CreateDeniedPositions(IEnumerable<DeniedPosition> enumerableDeniedPositions,
-                                           long priceId,
                                            long sourcePositionId,
                                            long positionId)
         {
@@ -125,13 +126,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             foreach (var deniedPosition in positionDeniedPositions)
             {
                 deniedPosition.PositionId = positionId;
-                deniedPosition.PriceId = priceId;
             }
 
             foreach (var deniedPosition in symmetricDeniedPositions)
             {
                 deniedPosition.PositionDeniedId = positionId;
-                deniedPosition.PriceId = priceId;
             }
 
             var allPositionDeniedPositions = positionDeniedPositions.Concat(symmetricDeniedPositions).DistinctDeniedPositions();

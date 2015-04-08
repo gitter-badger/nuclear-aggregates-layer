@@ -271,40 +271,44 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             return _finder.FindOne(Specs.Find.ById<DeniedPosition>(deniedPositionId));
         }
 
-        public IEnumerable<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId)
+        public IReadOnlyCollection<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId)
         {
             return
                 _finder.FindMany(Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
                                  PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
-                                 PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId));
+                                 PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId))
+                       .ToArray();
         }
 
-        public IEnumerable<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
+        public IReadOnlyCollection<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
         {
             return
                 _finder.FindMany(Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
                                  PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
                                  PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId) &&
-                                 PriceSpecs.DeniedPositions.Find.ByObjectBindingType(objectBindingType));
+                                 PriceSpecs.DeniedPositions.Find.ByObjectBindingType(objectBindingType))
+                       .ToArray();
         }
 
-        public IEnumerable<DeniedPosition> GetInactiveDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
+        public IReadOnlyCollection<DeniedPosition> GetInactiveDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
         {
             return
                 _finder.FindMany(Specs.Find.InactiveAndNotDeletedEntities<DeniedPosition>() &&
                                  PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
                                  PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId) &&
-                                 PriceSpecs.DeniedPositions.Find.ByObjectBindingType(objectBindingType));
+                                 PriceSpecs.DeniedPositions.Find.ByObjectBindingType(objectBindingType))
+                       .ToArray();
         }
 
-        public IEnumerable<DeniedPosition> GetDeniedPositionsOrSymmetricDuplicates(long deniedPositionId, long positionId, long positionDeniedId, long priceId)
+        public IReadOnlyCollection<DeniedPosition> GetDeniedPositionsOrSymmetricDuplicates(long deniedPositionId, long positionId, long positionDeniedId, long priceId)
         {
             return
                 _finder.FindMany(Specs.Find.ExceptById<DeniedPosition>(deniedPositionId) &&
                                  Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
                                  PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
                                  (PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId) ||
-                                  PriceSpecs.DeniedPositions.Find.ByPositions(positionDeniedId, positionId)));
+                                  PriceSpecs.DeniedPositions.Find.ByPositions(positionDeniedId, positionId)))
+                       .ToArray();
         }
 
         private static decimal GetCategoryRateInternal(IQueryable<Category> categoryQuery, long organizationUnitId)

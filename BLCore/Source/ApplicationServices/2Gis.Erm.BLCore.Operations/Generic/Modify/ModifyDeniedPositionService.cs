@@ -99,7 +99,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 
                 if (originalDeniedPosition.IsSelfDenied())
                 {
-                    var symmetricDeniedPosition = MakeSymmetric(deniedPosition);
+                    var symmetricDeniedPosition = MakeSymmetric(deniedPosition).ResetToNew();
                     _createService.Create(symmetricDeniedPosition);
                 }
             }
@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
             else
             {
                 var currentSymmetricDeniedPosition = _getSymmetricDeniedPositionOperationService.Get(deniedPosition);
-                var updatedSymmetricDeniedPosition = MakeSymmetric(deniedPosition);
+                var updatedSymmetricDeniedPosition = MakeSymmetric(deniedPosition).ResetToNew();
                 
                 updatedSymmetricDeniedPosition.Id = currentSymmetricDeniedPosition.Id;
                 updatedSymmetricDeniedPosition.CreatedBy = currentSymmetricDeniedPosition.CreatedBy;

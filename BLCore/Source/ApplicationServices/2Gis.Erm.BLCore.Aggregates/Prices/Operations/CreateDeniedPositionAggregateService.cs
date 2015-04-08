@@ -26,14 +26,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void Create(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition)
         {
-            if (deniedPosition.IsSelfDenied())
+            if (deniedPosition == null)
             {
-                throw new NonSelfDeniedPositionExpectedException();
+                throw new ArgumentNullException("deniedPosition");
             }
 
             if (symmetricDeniedPosition == null)
             {
-                throw new SymmetricDeniedPositionExpectedException();
+                throw new ArgumentNullException("symmetricDeniedPosition");
+            }
+
+            if (deniedPosition.IsSelfDenied())
+            {
+                throw new NonSelfDeniedPositionExpectedException();
             }
 
             if (!deniedPosition.IsSymmetricTo(symmetricDeniedPosition))
@@ -56,6 +61,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void CreateSelfDeniedPosition(DeniedPosition selfDeniedPosition)
         {
+            if (selfDeniedPosition == null)
+            {
+                throw new ArgumentNullException("selfDeniedPosition");
+            }
+
             if (!selfDeniedPosition.IsSelfDenied())
             {
                 throw new SelfDeniedPositionExpectedException();
@@ -77,6 +87,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
         /// </summary>
         public void Create(DeniedPosition deniedPosition)
         {
+            if (deniedPosition == null)
+            {
+                throw new ArgumentNullException("deniedPosition");
+            }
+
             if (deniedPosition.IsSelfDenied())
             {
                 throw new NonSelfDeniedPositionExpectedException();

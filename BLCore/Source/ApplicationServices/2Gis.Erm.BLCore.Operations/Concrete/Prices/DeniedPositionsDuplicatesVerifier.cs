@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
@@ -12,7 +13,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 {
     public sealed class DeniedPositionsDuplicatesVerifier : IDeniedPositionsDuplicatesVerifier
     {
-        private const int RulesToShowLimiter = 50;
         private readonly IPositionReadModel _positionReadModel;
         private readonly IPriceReadModel _priceReadModel;
 
@@ -39,14 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 
         public void VerifyForDuplicatesWithinCollection(IEnumerable<DeniedPosition> deniedPositions)
         {
-            var duplicateRules = deniedPositions.GroupBy(x => new
-                                                                  {
-                                                                      x.PositionId,
-                                                                      x.PositionDeniedId,
-                                                                  })
-                                                .Where(x => x.Count() > 1)
-                                                .SelectMany(x => x)
-                                                .ToArray();
+            var duplicateRules = deniedPositions.PickDuplicates();
             if (duplicateRules.Any())
             {
                 ThrowError(duplicateRules);
@@ -61,7 +54,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                                                        x.PositionDeniedId,
                                                    })
                                  .Select(x => x.Key)
-                                 .Take(RulesToShowLimiter)
                                  .ToArray();
 
             var positionNames = _positionReadModel.GetPositionNames(keys.Select(x => x.PositionId)

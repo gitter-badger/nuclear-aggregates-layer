@@ -25,6 +25,27 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             return deniedPositions.Distinct(new DeniedPositionComparer()).ToArray();
         }
 
+        public static IEnumerable<DeniedPosition> PickDuplicates(this IEnumerable<DeniedPosition> deniedPositions)
+        {
+            return deniedPositions.GroupBy(x => new
+                                                    {
+                                                        x.PositionId,
+                                                        x.PositionDeniedId,
+                                                    })
+                                  .Where(x => x.Count() > 1)
+                                  .SelectMany(x => x)
+                                  .ToArray();
+        }
+
+        public static IEnumerable<DeniedPosition> PickRulesWithoutSymmetricOnes(this IEnumerable<DeniedPosition> deniedPositions)
+        {
+            return deniedPositions.Where(deniedPosition => !deniedPositions.Any(x =>
+                                                                                x.PositionId == deniedPosition.PositionDeniedId &&
+                                                                                x.PositionDeniedId == deniedPosition.PositionId &&
+                                                                                x.ObjectBindingType == deniedPosition.ObjectBindingType))
+                                  .ToArray();
+        }
+
         private class DeniedPositionComparer : EqualityComparer<DeniedPosition>
         {
             public override bool Equals(DeniedPosition x, DeniedPosition y)
@@ -36,7 +57,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
                 return x.PositionId == y.PositionId &&
                        x.PositionDeniedId == y.PositionDeniedId &&
-                       x.ObjectBindingType == y.ObjectBindingType;
+                       x.ObjectBindingType == y.ObjectBindingType &&
+                       x.IsActive == y.IsActive &&
+                       x.IsDeleted == y.IsDeleted;
             }
 
             public override int GetHashCode(DeniedPosition obj)

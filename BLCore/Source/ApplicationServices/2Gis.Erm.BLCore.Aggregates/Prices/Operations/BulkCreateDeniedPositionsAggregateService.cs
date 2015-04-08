@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+using DoubleGis.Erm.BLCore.API.Common.Exceptions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -29,36 +30,30 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void Create(IEnumerable<DeniedPosition> deniedPositions)
         {
-            var positionDeniedPositions = deniedPositions.GroupBy(x => new
-                                                                           {
-                                                                               x.PositionId,
-                                                                               x.PositionDeniedId,
-                                                                           })
-                                                         .ToDictionary(x => x.Key, y => y);
+            if (deniedPositions.Any(x => !x.IsActive || x.IsDeleted))
+            {
+                throw new InactiveEntityCreationException();
+            }
 
-            var duplicateRules = positionDeniedPositions.Where(x => x.Value.Count() > 1);
+            var duplicateRules = deniedPositions.PickDuplicates();
             if (duplicateRules.Any())
             {
                 throw new EntityIsNotUniqueException(typeof(DeniedPosition),
                                                      string.Format(BLResources.DuplicateDeniedPositionsAreFound,
                                                                    string.Join(",",
                                                                                duplicateRules.Select(x =>
-                                                                                                     string.Format("({0}, {1})", x.Key.PositionId, x.Key.PositionDeniedId)))));
+                                                                                                     string.Format("({0}, {1})", x.PositionId, x.PositionDeniedId)))));
             }
 
-            var rulesWithoutSymmetric = positionDeniedPositions.Where(deniedPosition => !deniedPositions.Any(x =>
-                                                                                                             x.PositionId == deniedPosition.Key.PositionDeniedId &&
-                                                                                                             x.PositionDeniedId == deniedPosition.Key.PositionId &&
-                                                                                                             x.ObjectBindingType == deniedPosition.Value.Single().ObjectBindingType));
+            var rulesWithoutSymmetric = deniedPositions.PickRulesWithoutSymmetricOnes();
             if (rulesWithoutSymmetric.Any())
             {
                 throw new SymmetricDeniedPositionIsMissingException(string.Format(BLResources.SymmetricDeniedPositionIsMissing,
-                                                                                      string.Join(",",
-                                                                                                  rulesWithoutSymmetric.Select(
-                                                                                                                               x =>
-                                                                                                                               string.Format("({0}, {1})",
-                                                                                                                                             x.Key.PositionId,
-                                                                                                                                             x.Key.PositionDeniedId)))));
+                                                                                  string.Join(",",
+                                                                                              rulesWithoutSymmetric.Select(x =>
+                                                                                                                           string.Format("({0}, {1})",
+                                                                                                                                         x.PositionId,
+                                                                                                                                         x.PositionDeniedId)))));
             }
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, DeniedPosition>())

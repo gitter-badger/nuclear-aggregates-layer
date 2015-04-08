@@ -1,4 +1,6 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -19,6 +21,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void Delete(DeniedPosition deniedPosition)
         {
+            if (deniedPosition == null)
+            {
+                throw new ArgumentNullException("deniedPosition");
+            }
+
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, DeniedPosition>())
             {
                 _deniedPositionRepository.Delete(deniedPosition);

@@ -35,10 +35,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
         PricePosition GetPricePosition(long priceId, long positionId);
         PricePositionDetailedInfo GetPricePositionDetailedInfo(long pricePositionId);
         DeniedPosition GetDeniedPosition(long deniedPositionId);
-        
-        IEnumerable<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId);
-        IEnumerable<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType);
-        IEnumerable<DeniedPosition> GetInactiveDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType);
-        IEnumerable<DeniedPosition> GetDeniedPositionsOrSymmetricDuplicates(long deniedPositionId, long positionId, long positionDeniedId, long priceId);
+
+        IReadOnlyCollection<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId);
+        IReadOnlyCollection<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType);
+        IReadOnlyCollection<DeniedPosition> GetInactiveDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType);
+        IReadOnlyCollection<DeniedPosition> GetDeniedPositionsOrSymmetricDuplicates(long deniedPositionId, long positionId, long positionDeniedId, long priceId);
     }
 }

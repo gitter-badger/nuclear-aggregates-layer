@@ -1,4 +1,7 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+﻿using System;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+using DoubleGis.Erm.BLCore.API.Common.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -19,19 +22,34 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void Deactivate(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition)
         {
+            if (deniedPosition == null)
+            {
+                throw new ArgumentNullException("deniedPosition");
+            }
+
+            if (symmetricDeniedPosition == null)
+            {
+                throw new ArgumentNullException("symmetricDeniedPosition");
+            }
+
             if (deniedPosition.IsSelfDenied())
             {
                 throw new NonSelfDeniedPositionExpectedException();
             }
 
-            if (symmetricDeniedPosition == null)
+            if (!deniedPosition.IsSymmetricTo(symmetricDeniedPosition))
             {
                 throw new SymmetricDeniedPositionExpectedException();
             }
 
-            if (!deniedPosition.IsSymmetricTo(symmetricDeniedPosition))
+            if (!deniedPosition.IsActive)
             {
-                throw new SymmetricDeniedPositionExpectedException();
+                throw new InactiveEntityDeactivationException(typeof(DeniedPosition), deniedPosition.Id);
+            }
+
+            if (!symmetricDeniedPosition.IsActive)
+            {
+                throw new InactiveEntityDeactivationException(typeof(DeniedPosition), symmetricDeniedPosition.Id);
             }
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, DeniedPosition>())
@@ -50,9 +68,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void DeactivateSelfDeniedPosition(DeniedPosition selfDeniedPosition)
         {
+            if (selfDeniedPosition == null)
+            {
+                throw new ArgumentNullException("selfDeniedPosition");
+            }
+
             if (!selfDeniedPosition.IsSelfDenied())
             {
                 throw new SelfDeniedPositionExpectedException();
+            }
+
+            if (!selfDeniedPosition.IsActive)
+            {
+                throw new InactiveEntityDeactivationException(typeof(DeniedPosition), selfDeniedPosition.Id);
             }
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, DeniedPosition>())
