@@ -236,6 +236,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.AppendExtendedInfo(filterToParentsFeature.ToExtendedInfo());
             }
 
+            var defaultDataViewFeature = element.Features<DefaultDataViewFeature>().SingleOrDefault();
+            if (defaultDataViewFeature != null)
+            {
+                result.DefaultDataView = defaultDataViewFeature.DataView;
+            }
+
             return result;
         }
     }

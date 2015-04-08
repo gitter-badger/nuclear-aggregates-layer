@@ -220,6 +220,7 @@ Ext.DoubleGis.Global.Helpers = {
                     text: textLengthLimit && leaf.LocalizedName.length > textLengthLimit ? leaf.LocalizedName.substring(0, textLengthLimit - 2) + '...' : leaf.LocalizedName,
                     qtip: leaf.LocalizedName,
                     leaf: !(leaf.Items && leaf.Items.length),
+                    defaultDataView: leaf.DefaultDataView,
                     disabledExpression: leaf.DisabledExpression,
                     expanded: true,
                     requestUrl: leaf.RequestUrl,
