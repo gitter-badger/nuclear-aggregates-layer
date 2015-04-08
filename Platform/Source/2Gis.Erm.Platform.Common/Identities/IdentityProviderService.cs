@@ -18,13 +18,11 @@ namespace DoubleGis.Erm.Platform.Common.Identities
         private readonly IIdentityServiceUniqueIdProvider _identityServiceUniqueIdProvider;
         private readonly object _timeCheckSync = new object();
         private long _previousTimestamp;
-        private int _incrementedValue;
 
         public IdentityProviderService(IIdentityServiceUniqueIdProvider identityServiceUniqueIdProvider)
         {
             _identityServiceUniqueIdProvider = identityServiceUniqueIdProvider;
             _previousTimestamp = 0;
-            _incrementedValue = 0;
         }
 
         public long[] GetIdentities(int count)
@@ -41,7 +39,6 @@ namespace DoubleGis.Erm.Platform.Common.Identities
             }
 
             var timestamp = GetTimestamp();
-            var startIndex = Interlocked.Add(ref _incrementedValue, count) - count;
 
             if ((timestamp & ~TimeMask) != 0)
             {
@@ -49,7 +46,7 @@ namespace DoubleGis.Erm.Platform.Common.Identities
                                                           new DateTime(ErmEpochStart + (TimeMask * 10000))));
             }
 
-            return Ids(timestamp, count, startIndex, identityServiceUniqueId);
+            return Ids(timestamp, count, identityServiceUniqueId);
         }
 
         private static long GetCurrentTimestamp()
@@ -60,13 +57,13 @@ namespace DoubleGis.Erm.Platform.Common.Identities
             return (now - ErmEpochStart) / 10000;
         }
 
-        private static long[] Ids(long timestamp, int count, int startIndex, int identityProvider)
+        private static long[] Ids(long timestamp, int count, int identityProvider)
         {
             var result = new long[count];
 
             for (var i = 0; i < count; i++)
             {
-                var sequence = (startIndex + i) & SequenceMask;
+                var sequence = i;
                 result[i] = timestamp << (SequenceMaskLength + IdentityProviderMaskLength);
                 result[i] |= sequence << IdentityProviderMaskLength;
                 result[i] |= (uint)identityProvider;
