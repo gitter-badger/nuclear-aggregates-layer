@@ -102,8 +102,6 @@
     <Compile Include="Proxies\Messaging\UnityMessageTransformerProxy.cs" />
     <Compile Include="Factories\PerformedOperationsAnalysis\UnityOperationScopeDisposableFactoryAccessor.cs" />
     <Compile Include="Proxies\PerformedOperations\UnityOperationScopeFactoryProxy.cs" />
-    <Compile Include="Proxies\UnityContainerScopeProxy.Dispose.cs" />
-    <Compile Include="Proxies\UnityContainerScopeProxy.cs" />
     <Compile Include="Proxies\Messaging\UnityMessageValidatorProxy.cs" />
   </ItemGroup>
   <ItemGroup>

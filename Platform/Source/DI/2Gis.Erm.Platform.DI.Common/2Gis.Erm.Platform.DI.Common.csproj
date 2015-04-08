@@ -70,31 +70,10 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Config\PlatformBootstrapper.Aspects.Settings.cs" />
-    <Compile Include="Config\ContainerUtils.Common.cs" />
-    <Compile Include="Config\ContainerUtils.Resolve.cs" />
-    <Compile Include="Config\TypeExtensions.cs" />
-    <Compile Include="Config\DependencyScope.cs" />
     <Compile Include="Config\ErmScope.cs" />
     <Compile Include="Config\Policy.cs" />
     <Compile Include="Config\Mapping.cs" />
     <Compile Include="Config\UnsecureErmScope.cs" />
-    <Compile Include="Extensions\DisposableExtension\BuildTreeDisposer.cs" />
-    <Compile Include="Extensions\DisposableExtension\BuildTreeItemNode.cs" />
-    <Compile Include="Extensions\DisposableExtension\BuildTreeRecovery.cs" />
-    <Compile Include="Extensions\DisposableExtension\BuildTreeStore.cs" />
-    <Compile Include="Extensions\DisposableExtension\BuildTreeTracker.cs" />
-    <Compile Include="Extensions\DisposableExtension\DeferredResolutionTracker.cs" />
-    <Compile Include="Extensions\DisposableExtension\DisposableStrategyExtension.cs" />
-    <Compile Include="Extensions\DisposableExtension\IBuildTreeStore.cs" />
-    <Compile Include="Extensions\DisposableExtension\IBuildTreeTracker.cs" />
-    <Compile Include="Extensions\DisposableExtension\LockReader.cs" />
-    <Compile Include="Extensions\DisposableExtension\LockWriter.cs" />
-    <Compile Include="Extensions\InjectionConstructorEx.cs" />
-    <Compile Include="Extensions\PerScopeLifetimeBehaviorUtils.cs" />
-    <Compile Include="Extensions\QueryableContainerExtension.cs" />
-    <Compile Include="Extensions\ScopedDependencyOverride\ConstructorParamsExtractor.cs" />
-    <Compile Include="Extensions\ScopedDependencyOverride\ScopedDependencyOverride.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

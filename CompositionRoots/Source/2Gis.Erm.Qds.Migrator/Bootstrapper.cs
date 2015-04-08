@@ -2,13 +2,13 @@
 using DoubleGis.Erm.BLQuerying.DI.Config;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Qds.Common.Settings;
 
 using Microsoft.Practices.Unity;
 
 using NuClear.DI.Unity.Config;
 using NuClear.Settings.API;
+using NuClear.Settings.Unity;
 
 namespace DoubleGis.Erm.Qds.Migrator
 {

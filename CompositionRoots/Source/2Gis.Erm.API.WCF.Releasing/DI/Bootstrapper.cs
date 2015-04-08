@@ -43,8 +43,6 @@ using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 
-using ContainerUtils = DoubleGis.Erm.Platform.DI.Common.Config.ContainerUtils;
-
 namespace DoubleGis.Erm.API.WCF.Releasing.DI
 {
     internal static class Bootstrapper

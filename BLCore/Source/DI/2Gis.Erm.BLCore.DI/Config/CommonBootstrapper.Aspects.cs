@@ -62,8 +62,6 @@ using Microsoft.Practices.Unity;
 using NuClear.DI.Unity.Config;
 using NuClear.Tracing.API;
 
-using ContainerUtils = DoubleGis.Erm.Platform.DI.Common.Config.ContainerUtils;
-
 namespace DoubleGis.Erm.BLCore.DI.Config
 {
     public static partial class CommonBootstrapper
