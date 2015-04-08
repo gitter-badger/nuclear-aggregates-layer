@@ -1,11 +1,11 @@
 ﻿using System.Security;
 
-using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -15,11 +15,9 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
-using NuClear.Tracing.API;
-
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
-    public class AssignAccountOperationService : IAssignGenericEntityService<Account>
+    public sealed class AssignAccountOperationService : IAssignGenericEntityService<Account>
     {
         private readonly IAccountReadModel _accountReadModel;
         private readonly IAssignAccountAggregateService _assignAccountAggregateService;
@@ -28,18 +26,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserContext _userContext;
-        private readonly ITracer _tracer;
         private readonly IAccountDebtsChecker _accountDebtsChecker;
+        private readonly IActionLogger _actionLogger;
 
         public AssignAccountOperationService(IAccountReadModel accountReadModel,
-                                    IAssignAccountAggregateService assignAccountAggregateService,
-            ISecurityServiceEntityAccess entityAccessService,
-            ISecurityServiceFunctionalAccess functionalAccessService,
-            IOperationScopeFactory scopeFactory,
-            IUserContext userContext,
-                                    ITracer tracer,
-                                    IOwnerValidator ownerValidator,
-                                    IAccountDebtsChecker accountDebtsChecker)
+                                             IAssignAccountAggregateService assignAccountAggregateService,
+                                             ISecurityServiceEntityAccess entityAccessService,
+                                             ISecurityServiceFunctionalAccess functionalAccessService,
+                                             IOperationScopeFactory scopeFactory,
+                                             IUserContext userContext,
+                                             IOwnerValidator ownerValidator,
+                                             IAccountDebtsChecker accountDebtsChecker,
+                                             IActionLogger actionLogger)
         {
             _accountReadModel = accountReadModel;
             _assignAccountAggregateService = assignAccountAggregateService;
@@ -47,61 +45,54 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _functionalAccessService = functionalAccessService;
             _scopeFactory = scopeFactory;
             _userContext = userContext;
-            _tracer = tracer;
             _ownerValidator = ownerValidator;
             _accountDebtsChecker = accountDebtsChecker;
+            _actionLogger = actionLogger;
         }
 
-        // COMMENT {all, 16.03.2015}: Should be virtual for interception
-        public virtual AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
+        public AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
         {
-            try
+            using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Account>())
             {
-                using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Account>())
+                _ownerValidator.CheckIsNotReserve<Account>(entityId);
+
+                string message;
+                if (_accountDebtsChecker.HasDebts(bypassValidation, _userContext.Identity.Code, () => new[] { entityId }, out message))
                 {
-                    _ownerValidator.CheckIsNotReserve<Account>(entityId);
-
-                    _accountDebtsChecker.Check(bypassValidation, _userContext.Identity.Code, () => new[] { entityId }, delegate { });
-
-                    var accountToAssign = _accountReadModel.GetInfoForAssignAccount(entityId);
-                    var accountOwnerCode = accountToAssign.Account.OwnerCode;
-                    if (!_userContext.Identity.SkipEntityAccessCheck)
+                    if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.ProcessAccountsWithDebts, _userContext.Identity.Code))
                     {
-                        var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
-                                                                                     EntityName.Account,
-                                                                                     _userContext.Identity.Code,
-                                                                                     entityId,
-                                                                                     ownerCode,
-                                                                                     accountOwnerCode);
-                        if (!ownerCanBeChanged)
-                        {
-                            throw new SecurityException(BLResources.AssignAccountAccessDenied);
-                        }
+                        throw new SecurityException(string.Format("{0}. {1}", BLResources.OperationNotAllowed, message));
                     }
 
-                    _assignAccountAggregateService.Assign(accountToAssign, ownerCode);
-
-                    operationScope.Complete();
-                }
-                
-                _tracer.InfoFormat("Куратором ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
-            }
-            catch (ProcessAccountsWithDebtsException ex)
-            {
-                var hasProcessAccountsWithDebtsPermissionGranted =
-                    _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.ProcessAccountsWithDebts, _userContext.Identity.Code);
-                if (!hasProcessAccountsWithDebtsPermissionGranted)
-                {
-                    throw new SecurityException(string.Format("{0}. {1}", BLResources.OperationNotAllowed, ex.Message), ex);
+                    return new AssignResult
+                               {
+                                   EntityId = entityId,
+                                   OwnerCode = ownerCode,
+                                   CanProceed = true,
+                                   Message = message
+                               };
                 }
 
-                return new AssignResult
+                var accountToAssign = _accountReadModel.GetInfoForAssignAccount(entityId);
+                var accountOwnerCode = accountToAssign.Account.OwnerCode;
+                if (!_userContext.Identity.SkipEntityAccessCheck)
                 {
-                    EntityId = entityId,
-                    OwnerCode = ownerCode,
-                    CanProceed = true,
-                    Message = ex.Message
-                };
+                    var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
+                                                                                 EntityName.Account,
+                                                                                 _userContext.Identity.Code,
+                                                                                 entityId,
+                                                                                 ownerCode,
+                                                                                 accountOwnerCode);
+                    if (!ownerCanBeChanged)
+                    {
+                        throw new SecurityException(BLResources.AssignAccountAccessDenied);
+                    }
+                }
+
+                var changes = _assignAccountAggregateService.Assign(accountToAssign, ownerCode);
+                _actionLogger.LogChanges(changes);
+
+                operationScope.Complete();
             }
 
             return null;

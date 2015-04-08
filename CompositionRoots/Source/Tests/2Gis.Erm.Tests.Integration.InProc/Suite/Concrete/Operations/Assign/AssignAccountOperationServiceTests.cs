@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Operations.Assig
 
             Action a = () => _os.Assign(initial.Id, OwnerCode, false, false);
 
-            a.ShouldThrow<NotificationException>();
+            a.ShouldThrow<EntityIsInReserveException>();
 
             return OrdinaryTestResult.As.Succeeded;
         }

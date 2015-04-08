@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -13,39 +14,36 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
-using NuClear.Tracing.API;
-
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
-    public class AssignAccountDetailOperationService : IAssignGenericEntityService<AccountDetail>
+    public sealed class AssignAccountDetailOperationService : IAssignGenericEntityService<AccountDetail>
     {
         private readonly IOwnerValidator _ownerValidator;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IUserContext _userContext;
-        private readonly ITracer _tracer;
         private readonly IAccountReadModel _accountReadModel;
         private readonly IAssignAccountDetailAggregateService _assignAccountDetailAggregateService;
+        private readonly IActionLogger _actionLogger;
 
         public AssignAccountDetailOperationService(IOwnerValidator ownerValidator,
-            IOperationScopeFactory scopeFactory,
-            ISecurityServiceEntityAccess entityAccessService, 
-                                          IUserContext userContext,
-                                          ITracer tracer,
-                                          IAccountReadModel accountReadModel,
-                                          IAssignAccountDetailAggregateService assignAccountDetailAggregateService)
+                                                   IOperationScopeFactory scopeFactory,
+                                                   ISecurityServiceEntityAccess entityAccessService,
+                                                   IUserContext userContext,
+                                                   IAccountReadModel accountReadModel,
+                                                   IAssignAccountDetailAggregateService assignAccountDetailAggregateService,
+                                                   IActionLogger actionLogger)
         {
             _ownerValidator = ownerValidator;
             _scopeFactory = scopeFactory;
             _entityAccessService = entityAccessService;
             _userContext = userContext;
-            _tracer = tracer;
             _accountReadModel = accountReadModel;
             _assignAccountDetailAggregateService = assignAccountDetailAggregateService;
+            _actionLogger = actionLogger;
         }
 
-        // COMMENT {all, 16.03.2015}: Should be virtual for interception
-        public virtual AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
+        public AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, AccountDetail>())
             {
@@ -63,12 +61,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     throw new SecurityException(BLResources.AssignAccountDetailAccessDenied);
                 }
 
-                _assignAccountDetailAggregateService.Assign(accountDetail, ownerCode);
+                var changes = _assignAccountDetailAggregateService.Assign(accountDetail, ownerCode);
+                _actionLogger.LogChanges(changes);
 
                 operationScope.Complete();
             }
-
-            _tracer.InfoFormat("Куратором операции по ЛС с id={0} назначен пользователь {1}", entityId, ownerCode);
 
             return null;
         }

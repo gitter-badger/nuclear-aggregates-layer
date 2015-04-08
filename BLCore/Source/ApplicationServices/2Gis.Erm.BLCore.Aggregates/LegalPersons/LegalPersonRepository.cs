@@ -433,7 +433,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
                                             LockDetailBalance = lockDetailBalance
                                         })
                 .ToArray();
-            CheckForDebtsHelper.ThrowIfAnyError(accountWithDebts);
+            DebtsAuditor.ThrowIfAnyError(accountWithDebts);
 
         }
 

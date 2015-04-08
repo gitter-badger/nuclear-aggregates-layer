@@ -5,9 +5,9 @@ using DoubleGis.Erm.Platform.Common.Crosscutting;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting
 {
-    // возможно должно быть operation
     public interface IAccountDebtsChecker : IInvariantSafeCrosscuttingService
     {
-        void Check(bool bypassValidation, long userCode, Func<IReadOnlyCollection<long>> getTargetAccountsFunc, Action<IReadOnlyCollection<AccountWithDebtInfo>> processErrorsAction);
+        bool HasDebts(bool bypassValidation, long userCode, Func<IReadOnlyCollection<long>> getTargetAccountsFunc, out string message);
+        bool HasDebts(bool bypassValidation, long userCode, Func<IReadOnlyCollection<long>> getTargetAccountsFunc, Action<IReadOnlyCollection<AccountWithDebtInfo>> processErrorsAction, out string message);
     }
 }

@@ -1,5 +1,8 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
+﻿using System.Collections.Generic;
+
+using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -22,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
             _scopeFactory = scopeFactory;
         }
 
-        public void Assign(AssignAccountDto assignAccountDto, long ownerCode)
+        public IEnumerable<ChangesDescriptor> Assign(AssignAccountDto assignAccountDto, long ownerCode)
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Account>())
             {
@@ -37,6 +40,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 _limitGenericSecureRepository.Save();
 
                 var account = assignAccountDto.Account;
+                var originalOwnerCode = account.OwnerCode;
                 account.OwnerCode = ownerCode;
                 _accountGenericSecureRepository.Update(account);
                 _accountGenericSecureRepository.Save();
@@ -44,6 +48,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                 operationScope
                     .Updated(account)
                     .Complete();
+
+                return new[] { ChangesDescriptor.Create(account, x => x.OwnerCode, originalOwnerCode, account.OwnerCode) };
             }
         }
     }

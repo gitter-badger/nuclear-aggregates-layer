@@ -314,7 +314,7 @@
     <Compile Include="Generic\ChangeTerritory\ChangeClientTerritoryService.cs" />
     <Compile Include="Generic\ChangeTerritory\ChangeFirmTerritoryService.cs" />
     <Compile Include="Generic\ChangeTerritory\ChangeGenericEntityTerritoryService.cs" />
-    <Compile Include="Generic\CheckForDebts\CheckAccountForDebtsService.cs" />
+    <Compile Include="Generic\CheckForDebts\CheckAccountForDebtsOperationService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckClientForDebtsService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckGenericEntityForDebtsService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckLegalPersonForDebtsService.cs" />

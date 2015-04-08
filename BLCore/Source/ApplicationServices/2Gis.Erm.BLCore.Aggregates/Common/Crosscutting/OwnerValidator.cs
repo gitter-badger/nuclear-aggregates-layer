@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
             var reserveUser = _securityService.GetReserveUserIdentity();
             if (ownerCode == reserveUser.Code)
             {
-                throw new NotificationException(string.Format(BLResources.PleaseUseQualifyOperation, reserveUser.DisplayName));
+                throw new EntityIsInReserveException(string.Format(BLResources.PleaseUseQualifyOperation, reserveUser.DisplayName));
             }
         }
     }

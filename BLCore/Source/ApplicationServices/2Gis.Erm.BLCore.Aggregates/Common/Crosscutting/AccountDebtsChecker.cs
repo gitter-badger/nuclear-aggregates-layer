@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security;
 
+using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -10,7 +11,7 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
 {
-    public class AccountDebtsChecker : IAccountDebtsChecker
+    public sealed class AccountDebtsChecker : IAccountDebtsChecker
     {
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IAccountReadModel _accountReadModel;
@@ -21,10 +22,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
             _accountReadModel = accountReadModel;
         }
 
-        public void Check(bool bypassValidation,
-                          long userCode,
-                          Func<IReadOnlyCollection<long>> getTargetAccountsFunc,
-                          Action<IReadOnlyCollection<AccountWithDebtInfo>> processErrorsAction)
+        public bool HasDebts(bool bypassValidation,
+                             long userCode,
+                             Func<IReadOnlyCollection<long>> getTargetAccountsFunc,
+                             out string message)
+        {
+            return HasDebts(bypassValidation, userCode, getTargetAccountsFunc, delegate { }, out message);
+        }
+
+        public bool HasDebts(bool bypassValidation,
+                             long userCode,
+                             Func<IReadOnlyCollection<long>> getTargetAccountsFunc,
+                             Action<IReadOnlyCollection<AccountWithDebtInfo>> processErrorsAction,
+                             out string message)
         {
             if (bypassValidation)
             {
@@ -37,8 +47,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
             {
                 var accountsWithDebts = _accountReadModel.GetAccountsWithDebts(getTargetAccountsFunc());
                 processErrorsAction(accountsWithDebts);
-                CheckForDebtsHelper.ThrowIfAnyError(accountsWithDebts);
+
+                try
+                {
+                    DebtsAuditor.ThrowIfAnyError(accountsWithDebts);
+                }
+                catch (ProcessAccountsWithDebtsException e)
+                {
+                    message = e.Message;
+                    return true;
+                }
             }
+
+            message = null;
+            return false;
         }
     }
 }

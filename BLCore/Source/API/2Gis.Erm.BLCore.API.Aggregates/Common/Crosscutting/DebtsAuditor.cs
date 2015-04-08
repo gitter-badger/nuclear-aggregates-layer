@@ -7,19 +7,11 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting
 {
-    public class AccountWithDebtInfo
-    {
-        public string ClientName { get; set; }
-        public string LegalPersonName { get; set; }
-        public long AccountNumber { get; set; }
-        public decimal LockDetailBalance { get; set; }
-    }
-
-    public static class CheckForDebtsHelper
+    [Obsolete("При дальнейшем рефакторинге агрегирующих репозиториев весь функционал переедет в AccountDebtsChecker")]
+    public static class DebtsAuditor
     {
         public static void ThrowIfAnyError(IReadOnlyCollection<AccountWithDebtInfo> accountWithDebts)
         {
-            // ReSharper disable PossibleMultipleEnumeration
             if (accountWithDebts == null || !accountWithDebts.Any())
             {
                 return;
@@ -41,10 +33,15 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting
                                      accountWithDebt.LockDetailBalance);
             }
 
-            if (message.Length != 0)
-            {
-                throw new ProcessAccountsWithDebtsException(message.ToString());
-            }
+            throw new ProcessAccountsWithDebtsException(message.ToString());
         }
+    }
+
+    public class AccountWithDebtInfo
+    {
+        public string ClientName { get; set; }
+        public string LegalPersonName { get; set; }
+        public long AccountNumber { get; set; }
+        public decimal LockDetailBalance { get; set; }
     }
 }
