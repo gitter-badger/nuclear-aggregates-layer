@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Validator;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
 using NuClear.Metamodeling.Elements;
@@ -17,9 +16,7 @@ using NuClear.Metamodeling.UI.Utils.Resources;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
 {
-    public abstract class ViewModelMetadata<TElement, TBuilder> : MetadataElement<TElement, TBuilder>, IViewModelMetadata
-        where TElement : MetadataElement<TElement, TBuilder> 
-        where TBuilder : MetadataElementBuilder<TBuilder, TElement>, new()
+    public abstract class ViewModelMetadata : MetadataElement, IViewModelMetadata
     {
         private readonly Lazy<IViewModelPartsFeature> _partsFeature;
         private readonly Lazy<IRelatedItemsFeature> _relatedItemsFeature;
@@ -132,6 +129,24 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             get
             {
                 return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new OldUIElementMetadata[0];
+            }
+        }
+    }
+
+    public abstract class ViewModelMetadata<TElement, TBuilder> : ViewModelMetadata
+        where TElement : ViewModelMetadata<TElement, TBuilder>
+        where TBuilder : ViewModelMetadataBuilder<TBuilder, TElement>, new()
+    {
+        protected ViewModelMetadata(IEnumerable<IMetadataFeature> features)
+            : base(features)
+        {
+        }
+
+        public static TBuilder Config
+        {
+            get
+            {
+                return new TBuilder();
             }
         }
     }

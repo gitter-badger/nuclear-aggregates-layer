@@ -37,13 +37,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Russia
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
-    using NuClear.Model.Common.Entities;
-    using NuClear.Model.Common.Operations.Identity;
-    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Russia/Deal.cshtml")]
-    public partial class Deal : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureDealViewModel>
+    public partial class Deal : System.Web.Mvc.WebViewPage<DealViewModel>
     {
         public Deal()
         {
@@ -70,15 +67,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 209), Tuple.Create("\"", 260)
-, Tuple.Create(Tuple.Create("", 216), Tuple.Create("/Content/time-period.css?", 216), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 151), Tuple.Create("\"", 202)
+, Tuple.Create(Tuple.Create("", 158), Tuple.Create("/Content/time-period.css?", 158), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 241), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 183), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 241), false)
+, 183), false)
 );
 
 WriteLiteral(" />\r\n    <link");
@@ -87,15 +84,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 308), Tuple.Create("\"", 361)
-, Tuple.Create(Tuple.Create("", 315), Tuple.Create("/Content/input-overlay.css?", 315), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 250), Tuple.Create("\"", 303)
+, Tuple.Create(Tuple.Create("", 257), Tuple.Create("/Content/input-overlay.css?", 257), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 342), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 284), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 342), false)
+, 284), false)
 );
 
 WriteLiteral(" />\r\n    <style");
@@ -105,15 +102,15 @@ WriteLiteral(" type=\"text/css\"");
 WriteLiteral(">\r\n        .wide-labels div.label-wrapper { width: 180px; }\r\n    </style>\r\n\r\n    " +
 "<script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 481), Tuple.Create("\"", 540)
-, Tuple.Create(Tuple.Create("", 487), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Deal.js?", 487), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 423), Tuple.Create("\"", 482)
+, Tuple.Create(Tuple.Create("", 429), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Deal.js?", 429), true)
             
             #line 16 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 521), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 463), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 521), false)
+, 463), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -213,14 +210,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 915), Tuple.Create("\"", 951)
+WriteAttribute("title", Tuple.Create(" title=\"", 857), Tuple.Create("\"", 893)
             
             #line 30 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 923), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 865), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 923), false)
+, 865), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -248,7 +245,7 @@ WriteLiteral("            ");
 
             
             #line 35 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-       Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = !Model.IsNew }));
+       Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew }));
 
             
             #line default
@@ -304,7 +301,7 @@ WriteLiteral("            ");
 
             
             #line 45 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-       Write(Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true }));
+       Write(Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true }));
 
             
             #line default
@@ -330,7 +327,7 @@ WriteLiteral("            ");
 
             
             #line 49 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Bargain(), ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew }));
+       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew }));
 
             
             #line default
@@ -341,14 +338,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdditionalTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2325), Tuple.Create("\"", 2364)
+WriteAttribute("title", Tuple.Create(" title=\"", 2234), Tuple.Create("\"", 2273)
             
             #line 52 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 2333), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 2242), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 2333), false)
+, 2242), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -361,7 +358,7 @@ WriteLiteral("            ");
 
             
             #line 54 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId" }));
+       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
             #line default
@@ -443,14 +440,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdvertisementCampaignTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3596), Tuple.Create("\"", 3636)
+WriteAttribute("title", Tuple.Create(" title=\"", 3483), Tuple.Create("\"", 3523)
             
             #line 70 "..\..\Views\CreateOrUpdate\Russia\Deal.cshtml"
-, Tuple.Create(Tuple.Create("", 3604), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
+, Tuple.Create(Tuple.Create("", 3491), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
             
             #line default
             #line hidden
-, 3604), false)
+, 3491), false)
 );
 
 WriteLiteral(">\r\n");

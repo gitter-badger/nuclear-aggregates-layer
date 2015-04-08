@@ -168,15 +168,14 @@
     <Compile Include="Modules\Documents\ViewModels\ICompositeDocumentViewModel.cs" />
     <Compile Include="Modules\Toolbar\ToolbarModule.cs" />
     <Compile Include="PresentationMetadata\Cards\CardsMetadataValidator.cs" />
-    <Compile Include="PresentationMetadata\Cards\MetadataCardsIdentity.cs" />
-    <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.OrderPosition.cs" />
+    <Compile Include="PresentationMetadata\Cards\Settings\CardMetadatas.OrderPosition.cs" />
     <Compile Include="PresentationMetadata\Cards\UseGeneratorView.xaml.cs">
       <DependentUpon>UseGeneratorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.Account.cs" />
-    <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.cs" />
-    <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.LegalPerson.cs" />
-    <Compile Include="PresentationMetadata\Cards\Settings\CardStructures.Order.cs" />
+    <Compile Include="PresentationMetadata\Cards\Settings\CardMetadatas.Account.cs" />
+    <Compile Include="PresentationMetadata\Cards\Settings\CardMetadatas.cs" />
+    <Compile Include="PresentationMetadata\Cards\Settings\CardMetadatas.LegalPerson.cs" />
+    <Compile Include="PresentationMetadata\Cards\Settings\CardMetadatas.Order.cs" />
     <Compile Include="PresentationMetadata\Common\HandlerFeatureAspectExtensions.cs" />
     <Compile Include="PresentationMetadata\Common\HierarchyElementsBuilder.cs" />
     <Compile Include="PresentationMetadata\Documents\AttachedMetadata.cs" />
@@ -226,7 +225,6 @@
     <Compile Include="ViewModels\Card\ICardDocumentViewModelFactory.cs" />
     <Compile Include="ViewModels\Card\ICardViewModel.cs" />
     <Compile Include="ViewModels\Card\ICardViewModelIdentity.cs" />
-    <Compile Include="PresentationMetadata\Cards\CardMetadataBuilder.cs" />
     <Compile Include="ViewModels\Card\CardMetadata2ViewModelPropertiesMapper.cs" />
     <Compile Include="Modules\Documents\ViewModels\CompositeDocumentViewModel.cs" />
     <Compile Include="Modules\Documents\ViewModels\NullDocumentsStateInfo.cs" />
@@ -237,7 +235,6 @@
     <Compile Include="Modules\Documents\Views\Contextual\TitleOnlyContextView.xaml.cs">
       <DependentUpon>TitleOnlyContextView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PresentationMetadata\Cards\CardMetadata.cs" />
     <Compile Include="PresentationMetadata\Cards\CardMetadataSource.cs" />
     <Compile Include="ViewModels\Card\ICardViewModelFactory.cs" />
     <Compile Include="Blendability\Documents\FakeDocumentsProvider.cs" />

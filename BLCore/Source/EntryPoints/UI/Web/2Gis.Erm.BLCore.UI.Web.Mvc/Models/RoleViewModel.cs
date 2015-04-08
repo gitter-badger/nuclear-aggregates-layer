@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -6,7 +7,7 @@ using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
 {
-    public sealed class RoleViewModel : EditableIdEntityViewModelBase<Role>
+    public sealed class RoleViewModel : EditableIdEntityViewModelBase<Role>, INameAspect
     {
         [RequiredLocalized]
         public string Name { get; set; }

@@ -3,14 +3,17 @@ using System;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities.Aspects;
 
+using MessageType = DoubleGis.Erm.Platform.UI.Metadata.UIElements.MessageType;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class FirmContactViewModel : EntityViewModelBase<FirmContact>
+    public sealed class FirmContactViewModel : EntityViewModelBase<FirmContact>, IContactAspect
     {
         public FirmAddressContactType ContactType { get; set; }
 
@@ -33,12 +36,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
                 return;
             }
 
-            MessageType = (DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType)(modelDto.IsFirmAddressDeleted || modelDto.IsFirmDeleted
-                                            ? (int)DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType.CriticalError
+            MessageType = (MessageType)(modelDto.IsFirmAddressDeleted || modelDto.IsFirmDeleted
+                                            ? (int)MessageType.CriticalError
                                             : !modelDto.IsFirmAddressActive || !modelDto.IsFirmActive ||
                                               modelDto.FirmAddressClosedForAscertainment || modelDto.FirmClosedForAscertainment
-                                                  ? (int)DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType.Warning
-                                                  : (int)DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType.None);
+                                                  ? (int)MessageType.Warning
+                                                  : (int)MessageType.None);
 
             Message = modelDto.IsFirmAddressDeleted || modelDto.IsFirmDeleted
                           ? BLResources.FirmContactOrFirmAddressOrFirmIsDeletedAlertText

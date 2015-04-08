@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
@@ -8,7 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Models
 {
-    public sealed class UserViewModel : EditableIdEntityViewModelBase<User>
+    public sealed class UserViewModel : EditableIdEntityViewModelBase<User>, IDisplayNameAspect
     {
         [RequiredLocalized]
         public string FirstName { get; set; }

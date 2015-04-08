@@ -10,8 +10,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents
     {
         protected override DocumentMetadata Create()
         {
-            var operationsSet = Features.OfType<OperationsSetFeature>().Single();
-            var targetOperation = operationsSet.OperationFeatures.Select(f => f.Identity).Single();
+            var targetOperation = Features.OfType<OperationFeature>().Single().Identity;
             return new DocumentMetadata(targetOperation, Features);
         }
     }

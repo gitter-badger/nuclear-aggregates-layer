@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                               {
                                   Id = x.Id,
                                   OrderId = x.OrderId,
-                                  BillNumber = x.BillNumber,
+                                  Number = x.Number,
                                   BillDate = x.BillDate,
                                   BeginDistributionDate = x.BeginDistributionDate,
                                   EndDistributionDate = x.EndDistributionDate,

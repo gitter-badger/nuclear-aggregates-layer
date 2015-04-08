@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Common;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Utils;
@@ -99,13 +100,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             foreach (var resourceEntryKey in metadata.Parts)
             {
                 var item =
-                    new NavigationItem(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Unique().For("CardStructures/Parts"), _titleProviderFactory.Create(new ResourceTitleDescriptor(resourceEntryKey)), partNavigateCommand);
+                    new NavigationItem(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Unique().For("CardMetadatas/Parts"), _titleProviderFactory.Create(new ResourceTitleDescriptor(resourceEntryKey)), partNavigateCommand);
                 cardPartsItems.Add(item);
                 partsMap.Add(resourceEntryKey.ResourceEntryName, item);
             }
 
             var cardPartsRootItem = new NavigationItem(
-                NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Unique().For("CardStructures/Parts"),
+                NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Unique().For("CardMetadatas/Parts"),
                 _titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ErmConfigLocalization.CrdRelInformation)),
                 cardPartsRootNavigateCommand) { Items = cardPartsItems.ToArray() };
             items.Add(cardPartsRootItem);
@@ -124,7 +125,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
                 return;
             }
 
-            var registry = new Dictionary<Type, IViewModelViewMapping>();
+            var registry = new Dictionary<Type, IViewModelViewTypeMapping>();
             foreach (var relatedItem in metadata.RelatedItems)
             {
                 relatedItem.ProcessMVVMMappings(registry);

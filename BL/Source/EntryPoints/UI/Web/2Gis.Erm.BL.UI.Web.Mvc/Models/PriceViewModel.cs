@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -12,7 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class PriceViewModel : EntityViewModelBase<DoubleGis.Erm.Platform.Model.Entities.Erm.Price>
+    public sealed class PriceViewModel : EntityViewModelBase<Platform.Model.Entities.Erm.Price>, IPublishableAspect, INameAspect
     {
         public string Name { get; set; }
 
@@ -54,6 +55,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
             CurrencyId = modelDto.CurrencyRef.Id ?? 0;
             IsPublished = modelDto.IsPublished;
             Timestamp = modelDto.Timestamp;
+            Name = modelDto.Name;
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

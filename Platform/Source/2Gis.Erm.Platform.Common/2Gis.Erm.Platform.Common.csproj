@@ -67,10 +67,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RabbitMQ.Client, Version=3.2.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll</HintPath>
-    </Reference>
     <Reference Include="SevenZipSharp, Version=0.64.3890.29348, Culture=neutral, PublicKeyToken=20de82c62b055c88, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CompositionRoots\Source\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll</HintPath>
@@ -111,8 +107,6 @@
     <Compile Include="Serialization\Int64ToStringConverter.cs" />
     <Compile Include="Utils\ActivatorUtils.cs" />
     <Compile Include="Utils\CompareObjects.cs" />
-    <Compile Include="CorporateQueue\RabbitMq\IRabbitMqQueueFactory.cs" />
-    <Compile Include="CorporateQueue\RabbitMq\RabbitMqQueueFactory.cs" />
     <Compile Include="Utils\CompareObjectsHelper.cs" />
     <Compile Include="Utils\DataTableExtensions.cs" />
     <Compile Include="Utils\Data\ArrayExtensions.cs" />
@@ -136,9 +130,9 @@
     <Compile Include="Utils\LambdaExtensions.cs" />
     <Compile Include="Utils\PropertyChangeDescriptor.cs" />
     <Compile Include="Utils\Resources\IResourceGroupManager.cs" />
-    <Compile Include="Utils\Resources\ResourceGroupManager.cs" />
     <Compile Include="Utils\Resources\ResourceEntriesRegistry.cs" />
     <Compile Include="Utils\Resources\ResourceEntryValuesContainer.cs" />
+    <Compile Include="Utils\Resources\ResourceGroupManager.cs" />
     <Compile Include="Utils\Resources\ResourceUtils.cs" />
     <Compile Include="Utils\StaticReflection.cs" />
     <Compile Include="Utils\StrictKeyEqualityComparer.cs" />

@@ -3,11 +3,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.Discounts;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
@@ -21,7 +23,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
@@ -69,6 +70,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         private readonly IDetermineOrderBargainOperationService _determineOrderBargainOperationService;
         private readonly IChangeOrderLegalPersonProfileOperationService _changeOrderLegalPersonProfileOperationService;
         private readonly ICheckIfOrderPositionCanBeCreatedForOrderOperationService _checkIfOrderPositionCanBeCreatedForOrderOperationService;
+        private readonly IGetOrderDocumentsDebtOperationService _getOrderDocumentsDebtOperationService;
+        private readonly ISetOrderDocumentsDebtOperationService _setOrderDocumentsDebtOperationService;
 
         public OrderController(IMsCrmSettings msCrmSettings,
                                IAPIOperationsServiceSettings operationsServiceSettings,
@@ -93,7 +96,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                ISecurityServiceUserIdentifier userIdentifierService,
                                IDetermineOrderBargainOperationService determineOrderBargainOperationService,
                                ICheckIfOrderPositionCanBeCreatedForOrderOperationService checkIfOrderPositionCanBeCreatedForOrderOperationService,
-                               IChangeOrderLegalPersonProfileOperationService changeOrderLegalPersonProfileOperationService)
+                               IChangeOrderLegalPersonProfileOperationService changeOrderLegalPersonProfileOperationService,
+                               IGetOrderDocumentsDebtOperationService getOrderDocumentsDebtOperationService,
+                               ISetOrderDocumentsDebtOperationService setOrderDocumentsDebtOperationService)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _copyOrderOperationService = copyOrderOperationService;
@@ -113,9 +118,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _determineOrderBargainOperationService = determineOrderBargainOperationService;
             _checkIfOrderPositionCanBeCreatedForOrderOperationService = checkIfOrderPositionCanBeCreatedForOrderOperationService;
             _changeOrderLegalPersonProfileOperationService = changeOrderLegalPersonProfileOperationService;
+            _getOrderDocumentsDebtOperationService = getOrderDocumentsDebtOperationService;
+            _setOrderDocumentsDebtOperationService = setOrderDocumentsDebtOperationService;
         }
-
-
 
         #region Ajax methods
 
@@ -238,7 +243,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     });
             }
 
-
             return new JsonNetResult(new
                                          {
                                              CanCreate = _checkIfOrderPositionCanBeCreatedForOrderOperationService.Check(orderId, orderType, out report),
@@ -309,6 +313,31 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _changeOrderLegalPersonProfileOperationService.ChangeLegalPersonProfile(orderId, legalPersonProfileId);
             return new EmptyResult();
         }
+
+        // TODO {all, 18.03.2015}: Есть понимание, что это должно быть вынесено.
+        [HttpGet]
+        public ViewResult SetOrderDocumentsDebt(long orderId)
+        {
+            var dto = _getOrderDocumentsDebtOperationService.Get(orderId);
+
+            var model = new SetOrderDocumentsDebtViewModel
+            {
+                Order = dto.Order.ToLookupField(),
+                DocumentsComment = dto.DocumentsComment,
+                HasDocumentsDebt = dto.HasDocumentsDebt
+            };
+
+            return View(model);
+        }
+
+        // TODO {all, 18.03.2015}: Есть понимание, что это должно быть вынесено.
+        [HttpPost]
+        public ViewResult SetOrderDocumentsDebt(SetOrderDocumentsDebtViewModel model)
+        {
+            _setOrderDocumentsDebtOperationService.Set(model.Order.Key.Value, model.HasDocumentsDebt, model.DocumentsComment);
+            model.Message = BLResources.OK;
+            return View(model);
+        }        
 
         public ActionResult CheckOrdersReadinessForReleaseDialog()
         {
@@ -737,7 +766,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     // TODO {all, 13.11.2013}: перенос старого cr - убрать этот класс нафиг
     public static class ConfigUtil
     {
-        public static ToolbarJson FindCardToolbarItem(this EntityViewConfig config, string toolBarItemName, bool throwIfNotFound = true)
+        public static ToolbarElementStructure FindCardToolbarItem(this EntityViewConfig config, string toolBarItemName, bool throwIfNotFound = true)
         {
             var result = config.CardSettings.CardToolbar.FirstOrDefault(x => string.Equals(x.Name, toolBarItemName, StringComparison.OrdinalIgnoreCase));
             if (result == null && throwIfNotFound)

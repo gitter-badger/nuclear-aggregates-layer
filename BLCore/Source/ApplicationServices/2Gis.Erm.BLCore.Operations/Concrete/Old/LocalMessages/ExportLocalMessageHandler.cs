@@ -3,7 +3,6 @@ using System.IO;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.AutoMailer;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -28,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
         protected override Response Handle(ExportLocalMessageRequest request)
         {
             Response response = null;
-            var sucсessFlag = true;
+            var successFlag = true;
             var errorMsg = string.Empty;
             BusinessLogicException ex2 = null;
             var statusOnSuccess = LocalMessageStatus.WaitForProcess;
@@ -43,14 +42,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             }
             catch (BusinessLogicException ex)
             {
-                sucсessFlag = false;
+                successFlag = false;
                 errorMsg = ex.Message;
                 ex2 = new BusinessLogicException(string.Format(BLResources.ExportLocalMessageError, ex.Message), ex);
             }
 
             var integrationResponse = response as IntegrationResponse;
 
-            var haveErrors = !sucсessFlag || (integrationResponse != null && integrationResponse.BlockingErrorsAmount > 0);
+            var haveErrors = !successFlag || (integrationResponse != null && integrationResponse.BlockingErrorsAmount > 0);
 
             // fix 3451, но нужна переработка локальных сообщений в части экспорта
             // не должно создаваться пустое сообщение с ошибкой - нужно просто логгировать ошибку, так же как сделано везде в системе
@@ -60,17 +59,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 _subRequestProcessor
                     .HandleSubRequest(new CreateLocalMessageRequest
                         {
-                            Content = sucсessFlag && integrationResponse != null ? integrationResponse.Stream : new MemoryStream(),
+                            Content = successFlag && integrationResponse != null ? integrationResponse.Stream : new MemoryStream(),
                             IntegrationType = (int)request.IntegrationType,
-                            FileName = sucсessFlag && integrationResponse != null ? integrationResponse.FileName : string.Empty,
-                            ContentType = sucсessFlag && integrationResponse != null ? integrationResponse.ContentType : string.Empty,
+                            FileName = successFlag && integrationResponse != null ? integrationResponse.FileName : string.Empty,
+                            ContentType = successFlag && integrationResponse != null ? integrationResponse.ContentType : string.Empty,
                             Entity =
                                 new LocalMessage
                                     {
                                         EventDate = DateTime.UtcNow,
                                         Status = !haveErrors ? statusOnSuccess : LocalMessageStatus.Failed,
                                         OrganizationUnitId = request.OrganizationUnitId,
-                                        ProcessResult = sucсessFlag && integrationResponse != null
+                                        ProcessResult = successFlag && integrationResponse != null
                                                 ? (integrationResponse.BlockingErrorsAmount > 0
                                                    || integrationResponse.NonBlockingErrorsAmount > 0
                                                        ? BLResources.ErrorsAreInTheFile
@@ -82,10 +81,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                             // BusinessLogicException. Поэтому открываем новую.
                         },
                     Context,
-                    sucсessFlag);
+                    successFlag);
             }
 
-            if (!sucсessFlag)
+            if (!successFlag)
             {
                 throw ex2;
             }
@@ -97,11 +96,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
         {
             switch (request.IntegrationType)
             {
-                case IntegrationTypeExport.FirmsWithActiveOrdersToDgpp:
-                    {
-                        return _subRequestProcessor.HandleSubRequest(new ExportFirmsWithActiveOrdersRequest(), Context);
-                    }
-
                 case IntegrationTypeExport.LegalPersonsTo1C:
                     {
                         return _subRequestProcessor.HandleSubRequest(

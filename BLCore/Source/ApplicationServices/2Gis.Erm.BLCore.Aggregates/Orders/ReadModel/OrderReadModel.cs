@@ -567,7 +567,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public Order GetOrderSecure(long orderId)
         {
-            return _secureFinder.Find(Specs.Find.ById<Order>(orderId)).Single();
+            return _secureFinder.FindOne(Specs.Find.ById<Order>(orderId));
         }
 
         public OrderLinkingObjectsDto GetOrderLinkingObjectsDto(long orderId)
@@ -1360,6 +1360,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        .Select(x => x.PricePosition.Position.SalesModel)
                        .Distinct()
                        .SingleOrDefault();
+        }
+
+        public OrderDocumentsDebtDto GetOrderDocumentsDebtInfo(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(x => new OrderDocumentsDebtDto
+                                           {
+                                               Order = new EntityReference
+                                                           {
+                                                               Id = x.Id,
+                                                               Name = x.Number
+                                                           },
+                                               DocumentsComment = x.DocumentsComment,
+                                               HasDocumentsDebt = x.HasDocumentsDebt
+                                           })
+                          .Single();
         }
 
         public long? GetBargainIdByOrder(long orderId)

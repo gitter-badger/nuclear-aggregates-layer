@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
@@ -37,6 +36,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         {
             var bill = _billObtainer.ObtainBusinessModelEntity(domainEntityDto);
             var order = _orderReadModel.GetOrderSecure(bill.OrderId);
+            if (order == null)
+            {
+                throw new EntityNotFoundException(typeof(Order), bill.OrderId);
+            }
+
             var otherBills = _orderReadModel.GetBillsForOrder(bill.OrderId).Where(x => x.Id != bill.Id);
             var orderBills = otherBills.Concat(new[] { bill }).ToArray();
 

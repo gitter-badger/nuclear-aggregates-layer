@@ -3,6 +3,8 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Kazakhstan;
+using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities.Aspects;
@@ -13,7 +15,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Kazakhstan
 {
-    public sealed class KazakhstanLegalPersonViewModel : EntityViewModelBase<LegalPerson>, IKazakhstanAdapted
+    public sealed class KazakhstanLegalPersonViewModel : EntityViewModelBase<LegalPerson>, ILegalNameAspect, IDoesLegalPersonHaveAnyProfilesAspect, IKazakhstanAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

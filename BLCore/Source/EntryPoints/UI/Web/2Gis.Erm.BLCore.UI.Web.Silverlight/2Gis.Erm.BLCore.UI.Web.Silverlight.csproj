@@ -107,7 +107,7 @@
     <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\ViewModels\IViewModel.cs">
       <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\IViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\ViewModels\MessageType.cs">
+    <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\UiElements\MessageType.cs">
       <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\MessageType.cs</Link>
     </Compile>
     <Compile Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\ViewModels\ValidationMessage.cs">
@@ -121,18 +121,6 @@
     </Compile>
     <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Models\UserProfileViewModel.cs">
       <Link>UserProfileViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Settings\ConfigurationDto\CardJson.cs">
-      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\CardJson.cs</Link>
-    </Compile>
-    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Settings\ConfigurationDto\CardRelatedItemsAreaJson.cs">
-      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\CardRelatedItemsAreaJson.cs</Link>
-    </Compile>
-    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Settings\ConfigurationDto\CardRelatedItemsJson.cs">
-      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\CardRelatedItemsJson.cs</Link>
-    </Compile>
-    <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\Settings\ConfigurationDto\ToolbarJson.cs">
-      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\ToolbarJson.cs</Link>
     </Compile>
     <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\UserProfiles\CultureInfoDto.cs">
       <Link>UserProfiles\DomainModel\CultureInfoDto.cs</Link>
@@ -166,6 +154,18 @@
     </Compile>
     <Compile Include="..\2Gis.Erm.BLCore.UI.Web.Mvc\ViewModels\IEntityViewModelBase.cs">
       <Link>Infrastructure\Interaction\ServerJSBridge\ViewModels\IEntityViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Common\Metadata\Old\Dto\CardStructure.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\CardStructure.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Common\Metadata\Old\Dto\ToolbarElementStructure.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\ToolbarElementStructure.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Common\Metadata\Old\Dto\CardRelatedItemsGroupStructure.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\CardRelatedItemsGroupStructure.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Common\Metadata\Old\Dto\CardRelatedItemStructure.cs">
+      <Link>Infrastructure\Interaction\ServerJSBridge\Configuration\CardRelatedItemStructuree.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

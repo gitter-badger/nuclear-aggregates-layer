@@ -11,6 +11,5 @@ namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old
     {
         IEnumerable<NavigationElementStructure> GetNavigationSettings(CultureInfo culture);
         EntityDataListsContainer GetGridSettings(IEntityType entityName, CultureInfo culture);
-        CardStructure GetCardSettings(IEntityType entityName, CultureInfo culture);
     }
 }

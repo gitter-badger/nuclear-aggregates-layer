@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                                                 new EnumPropertyFeature(EnumResources.ResourceManager),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.ObjectBindingType)),
 
-                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.IsPricePublished),
+                    EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.PriceIsPublished),
 
                     EntityPropertyMetadata.Create<DeniedPositionDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(

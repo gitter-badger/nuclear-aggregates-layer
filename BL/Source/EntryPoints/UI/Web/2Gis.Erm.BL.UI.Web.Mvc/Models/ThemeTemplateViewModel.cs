@@ -2,16 +2,17 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities.Aspects;
 
-using MessageType = DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels.MessageType;
+using MessageType = DoubleGis.Erm.Platform.UI.Metadata.UIElements.MessageType;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public class ThemeTemplateViewModel : FileViewModel<ThemeTemplate>
+    public class ThemeTemplateViewModel : FileViewModel<ThemeTemplate>, IThemeTemplateCodeAspect
     {
         public ThemeTemplateCode TemplateCode { get; set; }
 

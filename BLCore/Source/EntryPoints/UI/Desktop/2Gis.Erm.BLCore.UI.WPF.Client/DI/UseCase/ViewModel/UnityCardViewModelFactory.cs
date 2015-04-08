@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.Platform.Model.Simplified;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 
 using Microsoft.Practices.Unity;

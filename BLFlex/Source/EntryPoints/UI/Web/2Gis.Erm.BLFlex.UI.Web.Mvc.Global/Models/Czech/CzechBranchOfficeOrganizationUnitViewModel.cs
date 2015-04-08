@@ -1,6 +1,7 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Czech;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -10,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 {
-    public sealed class CzechBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, ICzechAdapted
+    public sealed class CzechBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IShortLegalNameAspect, ICzechAdapted
     {
         [DisplayNameLocalized("BranchOfficeName")]
         [RequiredLocalized]

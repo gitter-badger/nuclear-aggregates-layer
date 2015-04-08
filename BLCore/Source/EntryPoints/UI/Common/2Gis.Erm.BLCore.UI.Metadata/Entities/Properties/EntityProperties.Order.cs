@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.Id)
                                   .WithFeatures(new HiddenFeature()),
 
-                    EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.OrderNumber)
+                    EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.Number)
                                   .WithFeatures(
                                       new LimitedLengthPropertyFeature(200),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.OrderNumber)),
@@ -290,15 +290,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     // TODO: далее идет ряд признаков наличия привилегий. 
                     // Можно использовать сервис метаданных для получения информации о этих привелегиях 
-                    EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.CanSwitchToAccount)
-                                  .WithFeatures(new HiddenFeature()),
-
                     new EntityPropertyMetadata("HasOrderCreationExtended", typeof(bool))
-                        .WithFeatures(
-                            new ReadOnlyPropertyFeature(),
-                            new HiddenFeature()),
-
-                    new EntityPropertyMetadata("HasOrderDocumentsDebtChecking", typeof(bool))
                         .WithFeatures(
                             new ReadOnlyPropertyFeature(),
                             new HiddenFeature()),

@@ -2,6 +2,7 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -11,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 {
-    public sealed class ChileBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IChileAdapted
+    public sealed class ChileBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IShortLegalNameAspect, IChileAdapted
     {
         [DisplayNameLocalized("BranchOfficeName")]
         [RequiredLocalized]

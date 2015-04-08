@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.Views;
-using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

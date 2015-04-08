@@ -113,6 +113,10 @@
       <Project>{F5C50F83-8C4F-42F9-AD37-03740AB78416}</Project>
       <Name>2Gis.Erm.BL.API.Operations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Aggregates\2Gis.Erm.BL.API.Aggregates.csproj">
+      <Project>{EE2770E5-5EC2-4D4A-84EE-81301E6C81DF}</Project>
+      <Name>2Gis.Erm.BL.API.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

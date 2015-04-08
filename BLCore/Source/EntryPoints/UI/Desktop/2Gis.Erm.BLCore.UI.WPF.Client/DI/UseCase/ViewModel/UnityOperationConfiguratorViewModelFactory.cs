@@ -19,13 +19,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 {
     public sealed class UnityOperationConfiguratorViewModelFactory : IOperationConfiguratorViewModelFactory
     {
-        private readonly IDictionary<IOperationIdentity, IViewModelViewMapping> _concreteOperationManagersMap;
+        private readonly IDictionary<IOperationIdentity, IViewModelViewTypeMapping> _concreteOperationManagersMap;
 
         public UnityOperationConfiguratorViewModelFactory()
         {
-            _concreteOperationManagersMap = new Dictionary<IOperationIdentity, IViewModelViewMapping>
+            _concreteOperationManagersMap = new Dictionary<IOperationIdentity, IViewModelViewTypeMapping>
                 {
-                    { AssignIdentity.Instance, ViewModelViewMapping<AssignConfiguratorViewModel, AssignConfiguratorView>.Instance }
+                    { AssignIdentity.Instance, ViewModelTypedViewMapping<AssignConfiguratorViewModel, AssignConfiguratorView>.Instance }
                 };
         }
 
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 
         public IOperationConfiguratorViewModel Create(IUseCase useCase, IOperationIdentity operationIdentity, IEntityType entityName, long[] operationProcessingEntities)
         {
-            IViewModelViewMapping concreteOperationConfiguratorMapping;
+            IViewModelViewTypeMapping concreteOperationConfiguratorMapping;
             if (!_concreteOperationManagersMap.TryGetValue(operationIdentity, out concreteOperationConfiguratorMapping))
             {
                 return null;

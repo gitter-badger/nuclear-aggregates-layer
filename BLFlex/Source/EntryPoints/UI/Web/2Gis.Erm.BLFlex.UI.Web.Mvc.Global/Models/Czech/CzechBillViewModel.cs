@@ -2,6 +2,7 @@ using System;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -11,10 +12,10 @@ using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 {
-    public sealed class CzechBillViewModel : EntityViewModelBase<Bill>, ICzechAdapted
+    public sealed class CzechBillViewModel : EntityViewModelBase<Bill>, INumberAspect, ICzechAdapted
     {
         [RequiredLocalized]
-        public string BillNumber { get; set; }
+        public string Number { get; set; }
 
         public DateTime BillDate { get; set; }
 
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             var modelDto = (BillDomainEntityDto)domainEntityDto;
 
             Id = modelDto.Id;
-            BillNumber = modelDto.BillNumber;
+            Number = modelDto.Number;
             BillDate = modelDto.BillDate;
             BeginDistributionDate = modelDto.BeginDistributionDate;
             EndDistributionDate = modelDto.EndDistributionDate;
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             return new BillDomainEntityDto
                        {
                            Id = Id,
-                           BillNumber = BillNumber,
+                           Number = Number,
                            BillDate = BillDate,
                            BeginDistributionDate = BeginDistributionDate,
                            EndDistributionDate = EndDistributionDate,

@@ -14,7 +14,7 @@ using Newtonsoft.Json.Converters;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
-    public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, IEmiratesAdapted
+    public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, INameAspect, IEmiratesAdapted
     {
         // Наименование
         [StringLengthLocalized(250)]

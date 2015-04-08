@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/MultiCultureOrderPosition.cshtml")]
-    public partial class MultiCultureOrderPosition : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureOrderPositionViewModel>
+    public partial class MultiCultureOrderPosition : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BL.UI.Web.Mvc.Models.OrderPositionViewModel>
     {
         public MultiCultureOrderPosition()
         {
@@ -70,15 +70,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 215), Tuple.Create("\"", 270)
-, Tuple.Create(Tuple.Create("", 222), Tuple.Create("/Content/ext-ux-treegrid.css?", 222), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 192), Tuple.Create("\"", 247)
+, Tuple.Create(Tuple.Create("", 199), Tuple.Create("/Content/ext-ux-treegrid.css?", 199), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 251), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 228), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 251), false)
+, 228), false)
 );
 
 WriteLiteral(" />\r\n    <link");
@@ -87,163 +87,163 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 318), Tuple.Create("\"", 372)
-, Tuple.Create(Tuple.Create("", 325), Tuple.Create("/Content/order-position.css?", 325), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 295), Tuple.Create("\"", 349)
+, Tuple.Create(Tuple.Create("", 302), Tuple.Create("/Content/order-position.css?", 302), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 353), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 330), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 353), false)
+, 330), false)
 );
 
 WriteLiteral(" />\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 395), Tuple.Create("\"", 454)
-, Tuple.Create(Tuple.Create("", 401), Tuple.Create("/Scripts/Ext.ux.TreeGridSorter.js?", 401), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 372), Tuple.Create("\"", 431)
+, Tuple.Create(Tuple.Create("", 378), Tuple.Create("/Scripts/Ext.ux.TreeGridSorter.js?", 378), true)
             
             #line 13 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 435), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 412), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 435), false)
+, 412), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 501), Tuple.Create("\"", 567)
-, Tuple.Create(Tuple.Create("", 507), Tuple.Create("/Scripts/Ext.ux.TreeGridColumnResizer.js?", 507), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 478), Tuple.Create("\"", 544)
+, Tuple.Create(Tuple.Create("", 484), Tuple.Create("/Scripts/Ext.ux.TreeGridColumnResizer.js?", 484), true)
             
             #line 14 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 548), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 525), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 548), false)
+, 525), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 614), Tuple.Create("\"", 673)
-, Tuple.Create(Tuple.Create("", 620), Tuple.Create("/Scripts/Ext.ux.TreeGridNodeUI.js?", 620), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 591), Tuple.Create("\"", 650)
+, Tuple.Create(Tuple.Create("", 597), Tuple.Create("/Scripts/Ext.ux.TreeGridNodeUI.js?", 597), true)
             
             #line 15 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 654), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 631), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 654), false)
+, 631), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 720), Tuple.Create("\"", 779)
-, Tuple.Create(Tuple.Create("", 726), Tuple.Create("/Scripts/Ext.ux.TreeGridLoader.js?", 726), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 697), Tuple.Create("\"", 756)
+, Tuple.Create(Tuple.Create("", 703), Tuple.Create("/Scripts/Ext.ux.TreeGridLoader.js?", 703), true)
             
             #line 16 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 760), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 737), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 760), false)
+, 737), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 826), Tuple.Create("\"", 886)
-, Tuple.Create(Tuple.Create("", 832), Tuple.Create("/Scripts/Ext.ux.TreeGridColumns.js?", 832), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 803), Tuple.Create("\"", 863)
+, Tuple.Create(Tuple.Create("", 809), Tuple.Create("/Scripts/Ext.ux.TreeGridColumns.js?", 809), true)
             
             #line 17 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 867), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 844), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 867), false)
+, 844), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 933), Tuple.Create("\"", 986)
-, Tuple.Create(Tuple.Create("", 939), Tuple.Create("/Scripts/Ext.ux.TreeGrid.js?", 939), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 910), Tuple.Create("\"", 963)
+, Tuple.Create(Tuple.Create("", 916), Tuple.Create("/Scripts/Ext.ux.TreeGrid.js?", 916), true)
             
             #line 18 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 967), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 944), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 967), false)
+, 944), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1039), Tuple.Create("\"", 1107)
-, Tuple.Create(Tuple.Create("", 1045), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.js?", 1045), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1016), Tuple.Create("\"", 1084)
+, Tuple.Create(Tuple.Create("", 1022), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.js?", 1022), true)
             
             #line 20 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 1088), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 1065), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1088), false)
+, 1065), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1154), Tuple.Create("\"", 1236)
-, Tuple.Create(Tuple.Create("", 1160), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.BusinessLogic.js?", 1160), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1131), Tuple.Create("\"", 1213)
+, Tuple.Create(Tuple.Create("", 1137), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.BusinessLogic.js?", 1137), true)
             
             #line 21 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 1217), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 1194), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1217), false)
+, 1194), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1283), Tuple.Create("\"", 1365)
-, Tuple.Create(Tuple.Create("", 1289), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.LinkingObject.js?", 1289), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1260), Tuple.Create("\"", 1342)
+, Tuple.Create(Tuple.Create("", 1266), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.LinkingObject.js?", 1266), true)
             
             #line 22 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 1346), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 1323), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1346), false)
+, 1323), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1412), Tuple.Create("\"", 1504)
-, Tuple.Create(Tuple.Create("", 1418), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.AdvertisementController.js?", 1418), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 1389), Tuple.Create("\"", 1481)
+, Tuple.Create(Tuple.Create("", 1395), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderPosition.AdvertisementController.js?", 1395), true)
             
             #line 23 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-    , Tuple.Create(Tuple.Create("", 1485), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+    , Tuple.Create(Tuple.Create("", 1462), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1485), false)
+, 1462), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -282,14 +282,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1903), Tuple.Create("\"", 1939)
+WriteAttribute("title", Tuple.Create(" title=\"", 1880), Tuple.Create("\"", 1916)
             
             #line 45 "..\..\Views\CreateOrUpdate\MultiCultureOrderPosition.cshtml"
-, Tuple.Create(Tuple.Create("", 1911), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 1888), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1911), false)
+, 1888), false)
 );
 
 WriteLiteral(">\r\n");

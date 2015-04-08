@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public long OrderId { get; set; }
 
         [DataMember]
-        public string BillNumber { get; set; }
+        public string Number { get; set; }
 
         [DataMember]
         public DateTime BillDate { get; set; }

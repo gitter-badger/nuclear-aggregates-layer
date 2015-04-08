@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             var orderOwnerCode = _orderReadModel.GetOrderOwnerCode(dto.OrderId);
 
-            dto.UserDoesntHaveRightsToEditOrder = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+            dto.SetReadonly = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                                 EntityType.Instance.Order(),
                                                                                                 _userContext.Identity.Code,
                                                                                                 dto.OrderId,

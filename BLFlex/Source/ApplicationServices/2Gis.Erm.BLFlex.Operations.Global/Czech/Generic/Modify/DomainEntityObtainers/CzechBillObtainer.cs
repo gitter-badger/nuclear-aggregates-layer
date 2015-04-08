@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.DomainEnti
             if (isNew)
             {
                 bill.OrderId = dto.OrderId;
-                bill.BillNumber = dto.BillNumber;
+                bill.Number = dto.Number;
                 bill.BeginDistributionDate = dto.BeginDistributionDate;
                 bill.EndDistributionDate = dto.EndDistributionDate;
                 bill.PayablePlan = dto.PayablePlan;

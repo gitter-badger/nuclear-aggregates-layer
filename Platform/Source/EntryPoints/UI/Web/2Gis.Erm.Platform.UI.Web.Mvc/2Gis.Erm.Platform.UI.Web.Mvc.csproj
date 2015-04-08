@@ -127,7 +127,7 @@
     <Compile Include="DI\MassProcessing\UIServicesMassProcessor.cs" />
     <Compile Include="DI\UnityPerWebRequestLifetimeManager.cs" />
     <Compile Include="DI\UnityPerWebRequestLifetimeModule.cs" />
-    <Compile Include="DI\PlatformUiWebMvcAssembly.cs" />
+    <Compile Include="DI\PlatformUIWebMvcAssembly.cs" />
     <Compile Include="DI\WebMvcZone.cs" />
     <Compile Include="ResourceHandling\ResourcesResolver.cs" />
     <Compile Include="Security\IDefaultUserContextConfigurator.cs" />
@@ -154,22 +154,14 @@
     <Compile Include="Utils\SilverlightHtmlExtensions.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\IViewModelTypesRegistry.cs" />
-    <Compile Include="ViewModels\MessageType.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ViewModels\ValidationMessage.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Compile Include="ViewModels\ViewModel.Server.cs" />
     <Compile Include="ViewModels\ViewModelTypesRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
-      <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
-      <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
       <Project>{01de365d-2340-4071-8701-aaf37878ddc5}</Project>
@@ -190,6 +182,10 @@
     <ProjectReference Include="..\..\..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

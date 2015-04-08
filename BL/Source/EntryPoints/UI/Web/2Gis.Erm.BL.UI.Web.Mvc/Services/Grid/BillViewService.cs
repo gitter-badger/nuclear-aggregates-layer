@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -33,6 +34,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
             if (parentEntityName.Equals(EntityType.Instance.Order()) && parentEntityId.HasValue)
             {
                 var order = _orderReadModel.GetOrderSecure(parentEntityId.Value);
+                if (order == null)
+                {
+                    throw new EntityNotFoundException(typeof(Order), parentEntityId.Value);
+                }
+
                 if (!order.IsActive || order.IsDeleted || order.IsTerminated)
                 {
                     var createButtons =

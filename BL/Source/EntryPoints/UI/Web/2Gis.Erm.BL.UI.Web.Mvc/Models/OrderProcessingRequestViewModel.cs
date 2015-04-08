@@ -3,6 +3,8 @@ using System;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -11,7 +13,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class OrderProcessingRequestViewModel : EntityViewModelBase<OrderProcessingRequest>
+    public sealed class OrderProcessingRequestViewModel : EntityViewModelBase<OrderProcessingRequest>, ITitleAspect, IOrderProcessingRequestStateAspect
     {
         public LookupField Firm { get; set; }
 
@@ -45,9 +47,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         public short ReleaseCountPlan { get; set; }
 
         public DateTime BeginDistributionDate { get; set; }
-
-        // Определяет хватает ли у пользователя прав на создание заказа по заявке
-        public bool CanCreateOrder { get; set; }
 
         public OrderProcessingRequestType RequestType { get; set; }
 

@@ -8,19 +8,19 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelVie
 {
     public static class ViewModelViewMappingUtils
     {
-        public static void ProcessMVVMMappings(this IMetadataElement element, Dictionary<Type, IViewModelViewMapping> registry)
+        public static void ProcessMVVMMappings(this IMetadataElement element, Dictionary<Type, IViewModelViewTypeMapping> registry)
         {
             var feature = element.Features.OfType<IViewModelViewMappingFeature>().SingleOrDefault();
             if (feature != null)
             {
-                IViewModelViewMapping alreadyExistingMapping;
+                IViewModelViewTypeMapping alreadyExistingMapping;
                 if (!registry.TryGetValue(feature.Mapping.ViewModelType, out alreadyExistingMapping))
                 {
-                    registry.Add(feature.Mapping.ViewModelType, feature.Mapping);
+                    registry.Add(feature.Mapping.ViewModelType, (IViewModelViewTypeMapping)feature.Mapping);
                 }
                 else
                 {
-                    if (alreadyExistingMapping.ViewType != feature.Mapping.ViewType)
+                    if (alreadyExistingMapping.ViewType != ((IViewModelViewTypeMapping)feature.Mapping).ViewType)
                     {
                         throw new InvalidOperationException("For the same view model type " + alreadyExistingMapping.ViewModelType + " specified several different view types");
                     }

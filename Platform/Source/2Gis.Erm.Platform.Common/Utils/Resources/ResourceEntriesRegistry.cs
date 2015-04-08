@@ -11,6 +11,11 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Resources
         private readonly IDictionary<ResourceEntryKey, ResourceEntryValuesContainer> _entryRegistry = 
             new Dictionary<ResourceEntryKey, ResourceEntryValuesContainer>();
 
+        public IDictionary<ResourceEntryKey, ResourceEntryValuesContainer> Entries
+        {
+            get { return new ReadOnlyDictionary<ResourceEntryKey, ResourceEntryValuesContainer>(_entryRegistry); }
+        }
+
         public ResourceEntriesRegistry Add(ResourceEntryKey entryKey, CultureInfo entryCulture, object entryValue)
         {
             ResourceEntryValuesContainer container;
@@ -23,11 +28,6 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Resources
             container.Add(entryCulture, entryValue);
 
             return this;
-        }
-
-        public IDictionary<ResourceEntryKey, ResourceEntryValuesContainer> Entries
-        {
-            get { return new ReadOnlyDictionary<ResourceEntryKey, ResourceEntryValuesContainer>(_entryRegistry); }
         }
     }
 }

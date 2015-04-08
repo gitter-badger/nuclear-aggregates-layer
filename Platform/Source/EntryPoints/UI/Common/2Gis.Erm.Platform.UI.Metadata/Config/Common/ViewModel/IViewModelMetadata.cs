@@ -1,7 +1,5 @@
 ﻿using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Validator;
 
 using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;

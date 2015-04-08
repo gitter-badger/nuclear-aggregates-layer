@@ -114,7 +114,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public bool CanUserChangeStatus { get; set; }
 
         [DataMember]
-        public bool DisableEdit { get; set; }
+        public bool SetReadonly { get; set; }
 
         [DataMember]
         public AdvertisementElementStatusValue Status { get; set; }

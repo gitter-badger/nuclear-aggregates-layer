@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                         Type controllerType;
                         if (!CreateOrUpdateContollerConcreteTypes.Value.TryGetValue(entityType, out controllerType))
                         {
-                            controllerType = typeof(CreateOrUpdateController<,,>).MakeGenericType(new[] { entityType, entityViewModelType, _businessModelSettings.BusinessModelIndicator });
+                            controllerType = typeof(CreateOrUpdateController<,>).MakeGenericType(new[] { entityType, entityViewModelType });
                             CreateOrUpdateContollerConcreteTypes.Value.Add(entityType, controllerType);
                         }
 

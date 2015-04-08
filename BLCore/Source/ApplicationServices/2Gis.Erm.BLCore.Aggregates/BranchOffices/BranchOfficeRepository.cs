@@ -261,14 +261,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         private PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
         {
             return new PrimaryBranchOfficeOrganizationUnits
-                {
-                    Primary =
+                       {
+                           Primary =
                                _finder.FindOne(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
                                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId) &&
                                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.Primary()),
-                    PrimaryForRegionalSales =
-                        _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
-                };
+                           PrimaryForRegionalSales =
+                               _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
+                       };
         }
 
         private int Activate(BranchOffice branchOffice)
@@ -278,9 +278,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                 branchOffice.IsActive = true;
                 _branchOfficeGenericRepository.Update(branchOffice);
 
-                var cnt =  _branchOfficeGenericRepository.Save();
-                scope.Updated(branchOffice).
-                      Complete();
+                var cnt = _branchOfficeGenericRepository.Save();
+                scope.Updated(branchOffice)
+                     .Complete();
 
                 return cnt;
             }

@@ -3,17 +3,16 @@ using System.Linq;
 using System.Security;
 using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
-using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
@@ -21,6 +20,7 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Serialization;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
@@ -36,25 +36,28 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
         private readonly IUserRepository _userRepository;
-        private readonly IUIConfigurationService _configurationService;
         private readonly ICategoryService _categoryService;
 
         public CategoryGroupsMembershipController(IMsCrmSettings msCrmSettings,
-                                                  IAPIOperationsServiceSettings operationsServiceSettings,
-                                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                                  IAPIIdentityServiceSettings identityServiceSettings,
                                                   IUserContext userContext,
                                                   ITracer tracer,
-                                                  IGetBaseCurrencyService getBaseCurrencyService,
                                                   ISecurityServiceEntityAccess securityServiceEntityAccess,
                                                   IUserRepository userRepository,
-                                                  IUIConfigurationService configurationService,
+                                                  IAPIOperationsServiceSettings operationsServiceSettings,
+                                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
+                                                  IGetBaseCurrencyService getBaseCurrencyService,
+                                                  IAPIIdentityServiceSettings identityServiceSettings,
                                                   ICategoryService categoryService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
+            : base(msCrmSettings,
+                   operationsServiceSettings,
+                   specialOperationsServiceSettings,
+                   identityServiceSettings,
+                   userContext,
+                   tracer,
+                   getBaseCurrencyService)
         {
             _securityServiceEntityAccess = securityServiceEntityAccess;
             _userRepository = userRepository;
-            _configurationService = configurationService;
             _categoryService = categoryService;
         }
 
@@ -71,7 +74,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                                                                    EntityType.Instance.OrganizationUnit(),
                                                                                    UserContext.Identity.Code,
                                                                                    organizationUnitId,
-                                                                                   -1, //TODO: Сделать с этим что-то порядочное
+                                                                                   -1,
+                                                                                   //TODO: Сделать с этим что-то порядочное
                                                                                    null);
             if (!hasClientPrivileges)
             {
@@ -88,10 +92,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                         }
                 };
 
-            var cardSettings = _configurationService.GetCardSettings(EntityType.Instance.CategoryGroupMembership(), UserContext.Profile.UserLocaleInfo.UserCultureInfo);
-            cardSettings.CardLocalizedName = string.Format(BLResources.OrganizationUnitCategoryGroupsCardTitle, orgUnit.Name);
-
-            model.ViewConfig.CardSettings = cardSettings.ToCardJson();
+            var cardSettings = GetCategoryGroupMembershipSettings();
+            cardSettings.Title = string.Format(BLResources.OrganizationUnitCategoryGroupsCardTitle, orgUnit.Name);
+            model.ViewConfig.CardSettings = cardSettings;
 
             return View(model);
         }
@@ -102,8 +105,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             model.ViewConfig.EntityName = EntityType.Instance.CategoryGroupMembership();
             model.ViewConfig.PType = EntityType.Instance.None();
 
-            var cardSettings = _configurationService.GetCardSettings(EntityType.Instance.CategoryGroupMembership(), UserContext.Profile.UserLocaleInfo.UserCultureInfo);
-            model.ViewConfig.CardSettings = cardSettings.ToCardJson();
+            var cardSettings = GetCategoryGroupMembershipSettings();
+            model.ViewConfig.CardSettings = cardSettings;
 
             return new JsonNetResult(model);
         }
@@ -134,14 +137,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                     categoryGroupsMembership, 
                     new[] 
                         { 
-                            new {
+                                                             new
+                                                                 {
                                     Id = -1L, 
                                     CategoryId = -1L, 
                                     CategoryName = string.Empty, 
                                     CategoryGroupId = (long?)-1
                                 }
                         }, 
-                    new JsonSerializerSettings {Converters = {new Int64ToStringConverter()}});
+                                                     new JsonSerializerSettings { Converters = { new Int64ToStringConverter() } });
 
             var categoryGroupMembershipDtos = deserializedData.Select(x => new CategoryGroupMembershipDto
             {
@@ -155,6 +159,104 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
             // javascript requires to return boolean property success=true
             return new JsonNetResult(new { success = true });
+        }
+
+        private CardStructure GetCategoryGroupMembershipSettings()
+        {
+            return new CardStructure
+                       {
+                           Icon = "en_ico_lrg_Category.gif",
+                           EntityName = EntityName.CategoryGroupMembership.ToString(),
+                           EntityLocalizedName = ErmConfigLocalization.EnCategoryGroups,
+                           CardRelatedItems = new CardRelatedItemsGroupStructure[0],
+                           CardToolbar = new[]
+                                             {
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Save",
+                                                         LocalizedName = ErmConfigLocalization.ControlSave,
+                                                         ControlType = ControlType.ImageButton.ToString(),
+                                                         Action = "scope.Save",
+                                                         Icon = "Save.gif",
+
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                         SecurityPrivelege = 34
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Splitter",
+                                                         LocalizedName = ErmConfigLocalization.ControlSplitter,
+                                                         ControlType = ControlType.Splitter.ToString(),
+                                                         
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "SaveAndClose",
+                                                         LocalizedName = ErmConfigLocalization.ControlSaveAndClose,
+                                                         ControlType = ControlType.TextImageButton.ToString(),
+                                                         Action = "scope.SaveAndClose",
+                                                         Icon = "SaveAndClose.gif",
+
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                         SecurityPrivelege = 34
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Splitter",
+                                                         LocalizedName = ErmConfigLocalization.ControlSplitter,
+                                                         ControlType = ControlType.Splitter.ToString(),
+                                                         
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Refresh",
+                                                         LocalizedName = ErmConfigLocalization.ControlRefresh,
+                                                         ControlType = ControlType.TextImageButton.ToString(),
+                                                         Action = "scope.refresh",
+                                                         Icon = "Refresh.gif",
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Splitter",
+                                                         LocalizedName = ErmConfigLocalization.ControlSplitter,
+                                                         ControlType = ControlType.Splitter.ToString(),
+                                                         
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "ViewCategoryGroups",
+                                                         LocalizedName = ErmConfigLocalization.ControlViewCategoryGroups,
+                                                         ControlType = ControlType.TextImageButton.ToString(),
+                                                         Action = "scope.ViewCategoryGroups",
+                                                         Icon = "en_ico_16_Category.gif",
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Splitter",
+                                                         LocalizedName = ErmConfigLocalization.ControlSplitter,
+                                                         ControlType = ControlType.Splitter.ToString(),
+                                                         
+                                                         // Никто на это не смотрит
+                                                         LockOnInactive = true,
+                                                     },
+                                                 new ToolbarElementStructure
+                                                     {
+                                                         Name = "Close",
+                                                         LocalizedName = ErmConfigLocalization.ControlClose,
+                                                         ControlType = ControlType.TextImageButton.ToString(),
+                                                         Action = "scope.Close",
+                                                         Icon = "Close.gif",
+                                                     },
+                                             }
+                       };
         }
     }
 }

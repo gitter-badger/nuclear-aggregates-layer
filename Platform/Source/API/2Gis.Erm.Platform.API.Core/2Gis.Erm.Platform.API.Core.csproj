@@ -92,12 +92,13 @@
     </Compile>
     <Compile Include="ActionLogging\ActionType.cs" />
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\RequiredFieldIsEmptyException.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\EntityIsNotUniqueException.cs" />
     <Compile Include="Exceptions\OperationAccessDeniedException.cs" />
     <Compile Include="Exceptions\EntityNotLinkedException.cs" />
-    <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\MetadataNotFoundException.cs" />
     <Compile Include="Exceptions\IntegrationException.cs" />
     <Compile Include="Exceptions\MsCrm\MsCrmIntegrationException.cs" />
     <Compile Include="Exceptions\MsCrm\ReplicationDisabledException.cs" />

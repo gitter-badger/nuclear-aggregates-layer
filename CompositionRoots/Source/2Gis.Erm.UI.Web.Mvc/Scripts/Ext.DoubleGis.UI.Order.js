@@ -76,6 +76,17 @@ window.InitPage = function () {
                         failure: function (response) { Card.Mask.hide(); this.AddNotification(response.responseText, 'CriticalError', 'ServerError'); }
                     });
                 },
+                SetDocumentsDebt: function () {
+                    this.Items.Toolbar.disable();
+                    var params = "dialogWidth:" + 600 + "px; dialogHeight:" + 250 + "px; status:yes; scroll:no;resizable:no;";
+                    var url = Ext.urlAppend('/Order/SetOrderDocumentsDebt', Ext.urlEncode({ orderId: Ext.getDom('Id').value }));
+                    var result = window.showModalDialog(url, null, params);
+                    if (result == 'OK') {
+                        this.refresh();
+                    } else {
+                        this.recalcToolbarButtonsAvailability();
+                    }
+                },
                 checkDirty: function () {
                     if (this.form.Id.value == 0) {
                         Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
@@ -315,12 +326,9 @@ window.InitPage = function () {
                 fillOrderAggregateFields: function (orderAggregate, card) {
                     //Do NOT use SetValue in this method, because the card shouldn't become dirty
 
-                    // updating EntityStateToken
-                    card.form.EntityStateToken.value = orderAggregate.EntityStateToken,
-
                     card.form.DiscountReason.value = orderAggregate.DiscountReason;
                     // prevent setting of "null"
-                    card.form.OrderNumber.value = (orderAggregate.Order.Number == null) ? "" : orderAggregate.Order.Number;;
+                    card.form.Number.value = (orderAggregate.Order.Number == null) ? "" : orderAggregate.Order.Number;;
                     card.form.RegionalNumber.value = (orderAggregate.Order.RegionalNumber == null) ? "" : orderAggregate.Order.RegionalNumber;
                     card.form.DiscountComment.value = (orderAggregate.Order.DiscountComment == null) ? "" : orderAggregate.Order.DiscountComment;
                     card.form.Platform.value = (orderAggregate.Platform == null) ? "" : orderAggregate.Platform;
@@ -349,6 +357,9 @@ window.InitPage = function () {
                         Ext.getDom('DiscountPercentChecked').click();
                     else
                         Ext.getDom('DiscountSumChecked').click();
+
+                    // updating EntityStateToken
+                    card.form.EntityStateToken.value = orderAggregate.EntityStateToken,
 
                     this.refreshDiscountRelatedAvailability();
 
@@ -971,6 +982,4 @@ window.InitPage = function () {
 
     this.on("afterbuild", this.discountChecker, this);
     this.on("formbind", this.discountChecker, this);
-    this.on("afterbuild", this.setupMenuAvailability, this);
-    this.on("formbind", this.setupMenuAvailability, this);
 };

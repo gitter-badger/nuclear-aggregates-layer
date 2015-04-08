@@ -5,7 +5,7 @@ using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BLQuerying.UI.Metadata.DI
 {
-    public sealed class BlQueryingUiMetadataAssembly : IZoneAssembly<MetadataZone>,
+    public sealed class BlQueryingUIMetadataAssembly : IZoneAssembly<MetadataZone>,
                                                        IZoneAnchor<MetadataZone>,
                                                        IContainsType<IMetadataSource>
     {

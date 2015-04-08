@@ -16,6 +16,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         /// <summary>
         /// Список значений EntityName, являющихся виртуальными, т.е. существующими только в виде UI-форм
         /// </summary>
+        // TODO {all, 02.04.2015}: в случае появления времени или 3-ей записи необходимо выделить хранилище настроек карточек виртуальных сущностей
         public static readonly IEntityType[] VirtualEntityNames = { EntityType.Instance.CategoryGroupMembership(), EntityType.Instance.PositionSortingOrder() };
 
         /// <summary>

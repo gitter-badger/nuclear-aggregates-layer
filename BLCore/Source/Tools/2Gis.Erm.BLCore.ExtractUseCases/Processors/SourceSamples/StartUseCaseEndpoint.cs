@@ -165,11 +165,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Processors.SourceSamples
             orderModel.HasOrderCreationExtended = functionalPrivilegeValidator(FunctionalPrivilegeName.OrderCreationExtended);
             orderModel.CanEditOrderType = functionalPrivilegeValidator(FunctionalPrivilegeName.EditOrderType);
 
-            orderModel.HasOrderDocumentsDebtChecking = FunctionalAccessService.HasOrderChangeDocumentsDebtAccess(orderModel.SourceOrganizationUnit.Key.Value, currentUserCode);
-
-            // Если есть права и нет сборки в настоящий момент 
-            orderModel.HasOrderDocumentsDebtChecking &= !orderModel.IsWorkflowLocked;
-
             // Карточка только на чтение если не "на регистрациии"
             orderModel.ViewConfig.ReadOnly = orderModel.WorkflowStepId != (int)OrderState.OnRegistration;
 

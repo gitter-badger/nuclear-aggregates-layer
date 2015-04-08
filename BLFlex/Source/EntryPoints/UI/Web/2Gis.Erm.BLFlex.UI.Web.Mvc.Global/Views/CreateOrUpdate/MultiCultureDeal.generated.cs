@@ -37,13 +37,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
-    using NuClear.Model.Common.Entities;
-    using NuClear.Model.Common.Operations.Identity;
-    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/MultiCultureDeal.cshtml")]
-    public partial class MultiCultureDeal : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureDealViewModel>
+    public partial class MultiCultureDeal : System.Web.Mvc.WebViewPage<DealViewModel>
     {
         public MultiCultureDeal()
         {
@@ -70,15 +67,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 206), Tuple.Create("\"", 257)
-, Tuple.Create(Tuple.Create("", 213), Tuple.Create("/Content/time-period.css?", 213), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 148), Tuple.Create("\"", 199)
+, Tuple.Create(Tuple.Create("", 155), Tuple.Create("/Content/time-period.css?", 155), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-, Tuple.Create(Tuple.Create("", 238), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 180), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 238), false)
+, 180), false)
 );
 
 WriteLiteral(" />\r\n    <link");
@@ -87,15 +84,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 305), Tuple.Create("\"", 358)
-, Tuple.Create(Tuple.Create("", 312), Tuple.Create("/Content/input-overlay.css?", 312), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 247), Tuple.Create("\"", 300)
+, Tuple.Create(Tuple.Create("", 254), Tuple.Create("/Content/input-overlay.css?", 254), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-, Tuple.Create(Tuple.Create("", 339), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 281), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 339), false)
+, 281), false)
 );
 
 WriteLiteral(" />\r\n    <style");
@@ -105,15 +102,15 @@ WriteLiteral(" type=\"text/css\"");
 WriteLiteral(">\r\n        .wide-labels div.label-wrapper { width: 180px; }\r\n    </style>\r\n\r\n    " +
 "<script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 478), Tuple.Create("\"", 537)
-, Tuple.Create(Tuple.Create("", 484), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Deal.js?", 484), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 420), Tuple.Create("\"", 479)
+, Tuple.Create(Tuple.Create("", 426), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Deal.js?", 426), true)
             
             #line 16 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-, Tuple.Create(Tuple.Create("", 518), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 460), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 518), false)
+, 460), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -227,14 +224,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 955), Tuple.Create("\"", 991)
+WriteAttribute("title", Tuple.Create(" title=\"", 897), Tuple.Create("\"", 933)
             
             #line 31 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-, Tuple.Create(Tuple.Create("", 963), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 905), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 963), false)
+, 905), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -262,7 +259,7 @@ WriteLiteral("            ");
 
             
             #line 36 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-       Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = !Model.IsNew }));
+       Write(Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = !Model.IsNew }));
 
             
             #line default
@@ -303,7 +300,7 @@ WriteLiteral("            ");
 
             
             #line 43 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-       Write(Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true }));
+       Write(Html.TemplateField(m => m.Currency, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true }));
 
             
             #line default
@@ -329,7 +326,7 @@ WriteLiteral("            ");
 
             
             #line 47 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Bargain(), ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew }));
+       Write(Html.TemplateField(m => m.Bargain, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Bargain, ShowReadOnlyCard = true, ExtendedInfo = "dealId={Id}", ReadOnly = Model.IsNew }));
 
             
             #line default
@@ -340,14 +337,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdditionalTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2153), Tuple.Create("\"", 2192)
+WriteAttribute("title", Tuple.Create(" title=\"", 2062), Tuple.Create("\"", 2101)
             
             #line 50 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-, Tuple.Create(Tuple.Create("", 2161), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 2070), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 2161), false)
+, 2070), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -360,7 +357,7 @@ WriteLiteral("            ");
 
             
             #line 52 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId" }));
+       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId" }));
 
             
             #line default
@@ -442,14 +439,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdvertisementCampaignTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 3424), Tuple.Create("\"", 3464)
+WriteAttribute("title", Tuple.Create(" title=\"", 3311), Tuple.Create("\"", 3351)
             
             #line 68 "..\..\Views\CreateOrUpdate\MultiCultureDeal.cshtml"
-, Tuple.Create(Tuple.Create("", 3432), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
+, Tuple.Create(Tuple.Create("", 3319), Tuple.Create<System.Object, System.Int32>(BLResources.AdvertisingCampaign
             
             #line default
             #line hidden
-, 3432), false)
+, 3319), false)
 );
 
 WriteLiteral(">\r\n");

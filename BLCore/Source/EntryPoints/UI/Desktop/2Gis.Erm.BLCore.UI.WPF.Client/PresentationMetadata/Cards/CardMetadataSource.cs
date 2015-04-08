@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings;
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Provider.Sources;
@@ -14,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
 
         public CardMetadataSource()
         {
-            _metadata = CardStructures.Settings.Aggregate(new Dictionary<Uri, IMetadataElement>(), Process);
+            _metadata = CardMetadatas.Settings.Aggregate(new Dictionary<Uri, IMetadataElement>(), Process);
         }
 
         public override IReadOnlyDictionary<Uri, IMetadataElement> Metadata

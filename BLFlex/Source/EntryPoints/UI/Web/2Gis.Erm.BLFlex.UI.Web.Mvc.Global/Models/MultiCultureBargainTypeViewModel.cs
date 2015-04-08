@@ -1,13 +1,14 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.MultiCulture;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 {
-    public sealed class MultiCultureBargainTypeViewModel : EditableIdEntityViewModelBase<BargainType>, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
+    public sealed class MultiCultureBargainTypeViewModel : EditableIdEntityViewModelBase<BargainType>, INameAspect, IChileAdapted, ICyprusAdapted, ICzechAdapted, IUkraineAdapted, IKazakhstanAdapted
     {
         [RequiredLocalized]
         public string Name { get; set; }

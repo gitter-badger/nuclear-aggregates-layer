@@ -110,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels
 
             return area;
         }
-
+       
         private INavigationItem ConvertItem(OldUIElementMetadata metadata)
         {
             var item = new NavigationItem(

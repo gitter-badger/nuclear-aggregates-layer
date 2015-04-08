@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels.Contex
                 throw new InvalidOperationException("Can't resolve navigation root metadata");
             }
 
-            var registry = new Dictionary<Type, IViewModelViewMapping>();
+            var registry = new Dictionary<Type, IViewModelViewTypeMapping>();
             foreach (var container in navigationRoot.Elements)
             {
                 if (container.Elements == null || !container.Elements.Any())

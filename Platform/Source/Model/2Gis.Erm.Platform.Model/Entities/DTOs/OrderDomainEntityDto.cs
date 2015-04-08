@@ -176,9 +176,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public PaymentMethod PaymentMethod { get; set; }
 
         [DataMember]
-        public string OrderNumber { get; set; }
-
-        [DataMember]
         public EntityReference ClientRef { get; set; }
 
         [DataMember]
@@ -201,9 +198,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public string Platform { get; set; }
-
-        [DataMember]
-        public bool CanSwitchToAccount { get; set; }
 
         [DataMember]
         public bool ShowRegionalAttributes { get; set; }

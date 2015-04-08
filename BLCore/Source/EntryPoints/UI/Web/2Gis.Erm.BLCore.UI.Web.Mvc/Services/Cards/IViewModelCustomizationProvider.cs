@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-using NuClear.Model.Common.Entities;
+using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {
     public interface IViewModelCustomizationProvider
     {
-        IEnumerable<Type> GetCustomizations(IEntityType entityName);
+        IEnumerable<IViewModelCustomization<TModel>> GetCustomizations<TModel, TEntity>() where TModel : IEntityViewModelBase where TEntity : IEntityKey;
     }
 }

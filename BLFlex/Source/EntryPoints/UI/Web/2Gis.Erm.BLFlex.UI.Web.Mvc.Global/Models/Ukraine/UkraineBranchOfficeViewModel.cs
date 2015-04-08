@@ -1,6 +1,7 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -8,7 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 {
-    public sealed class UkraineBranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, IUkraineAdapted
+    public sealed class UkraineBranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, INameAspect, IUkraineAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

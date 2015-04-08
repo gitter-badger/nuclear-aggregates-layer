@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 .SingleOrDefault();
 
             // для заглушек вместо прав на фирму проверяем функциональную привилегию
-            dtoInfo.Dto.DisableEdit = firmInfo != null
+            dtoInfo.Dto.SetReadonly = firmInfo != null
                                           ? !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                           EntityType.Instance.Firm(),
                                                                                           UserContext.Identity.Code,

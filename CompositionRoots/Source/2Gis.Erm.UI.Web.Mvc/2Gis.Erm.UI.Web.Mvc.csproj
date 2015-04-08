@@ -311,8 +311,8 @@
     <Content Include="Content\images\Configuration\Entity\Delete.gif" />
     <Content Include="Content\images\Configuration\Entity\Delete.png" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Account.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_16_Links.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_16_Action.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_ClientLink.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Activity.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Advertisement.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementElement.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_AdvertisementElementTemplate.gif" />
@@ -366,9 +366,8 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Task.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_Territory.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_User.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_16_UserAccount.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_UserAccountGroup.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_16_UserGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_16_Role.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Appointment.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Assembly.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Bargain.gif" />
@@ -407,9 +406,8 @@
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Task.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Territory.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_lrg_User.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserAccount.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserAccountGroup.gif" />
-    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_UserGroup.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_RolePrivilege.gif" />
+    <Content Include="Content\images\Configuration\Entity\en_ico_lrg_Role.gif" />
     <Content Include="Content\images\Configuration\Entity\en_ico_16_importCustomizations.gif" />
     <Content Include="Content\images\Configuration\Entity\Merge.gif" />
     <Content Include="Content\images\Configuration\Entity\NavCalendar.gif" />
@@ -718,6 +716,7 @@
     <Content Include="Scripts\Emirates\Ext.DoubleGis.UI.Client.Emirates.js" />
     <Content Include="Scripts\Emirates\MergeClients.Emirates.js" />
     <Content Include="Scripts\Ext.DoubleGis.Store.js" />
+    <Content Include="Scripts\Ext.DoubleGis.UI.SetOrderDocumentsDebt.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Deal.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.Bargain.js" />
     <Content Include="Scripts\Ext.DoubleGis.UI.AdvertisementTemplate.js" />
@@ -1230,6 +1229,18 @@
       <Project>{0545D6B0-D443-443D-8939-C42EE20DD418}</Project>
       <Name>2Gis.Erm.BLCore.API.Aggregates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Metadata\2Gis.Erm.BLCore.UI.Web.Metadata.csproj">
+      <Project>{995BF65F-5951-40E5-A0F0-DF8DD343116A}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.UI.Web.Metadata\2Gis.Erm.BLFlex.UI.Web.Metadata.csproj">
+      <Project>{75699A90-60A2-404A-9691-041066F1B572}</Project>
+      <Name>2Gis.Erm.BLFlex.UI.Web.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
       <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
       <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
@@ -1257,6 +1268,14 @@
     <ProjectReference Include="..\..\..\BL\Source\DI\2Gis.Erm.BL.DI\2Gis.Erm.BL.DI.csproj">
       <Project>{9494A7DE-2786-4AE8-B0CF-0D3BD893AC07}</Project>
       <Name>2Gis.Erm.BL.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\UI\Common\2Gis.Erm.BL.UI.Metadata\2Gis.Erm.BL.UI.Metadata.csproj">
+      <Project>{6D3EF801-AAE6-4A56-BCDB-8ED3E90C45A4}</Project>
+      <Name>2Gis.Erm.BL.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Metadata\2Gis.Erm.BL.UI.Web.Metadata.csproj">
+      <Project>{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}</Project>
+      <Name>2Gis.Erm.BL.UI.Web.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
       <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
@@ -1397,6 +1416,10 @@
     <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\Common\2Gis.Erm.Platform.AppFabric\2Gis.Erm.Platform.AppFabric.csproj">
       <Project>{e97bc051-bc95-4183-950b-0685dde66d7d}</Project>
       <Name>2Gis.Erm.Platform.AppFabric</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
       <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
