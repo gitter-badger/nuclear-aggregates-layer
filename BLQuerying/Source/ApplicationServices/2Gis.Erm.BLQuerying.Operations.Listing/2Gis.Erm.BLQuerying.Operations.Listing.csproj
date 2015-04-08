@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
@@ -94,7 +98,6 @@
     <Compile Include="List\ListAccountDetailService.cs" />
     <Compile Include="List\ListAccountService.cs" />
     <Compile Include="List\ListActivityService.cs" />
-    <Compile Include="List\ListAdditionalFirmServiceService.cs" />
     <Compile Include="List\ListAdvertisementElementService.cs" />
     <Compile Include="List\ListAdvertisementElementTemplateService.cs" />
     <Compile Include="List\ListAdvertisementService.cs" />

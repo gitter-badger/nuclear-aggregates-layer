@@ -66,7 +66,6 @@
     <Compile Include="Concrete\HotClients\GetHotClientRequestOperationService.cs" />
     <Compile Include="Concrete\Deals\ChangeDealStageOperationService.cs" />
     <Compile Include="Concrete\Firms\CreateBlankFirmsOperationService.cs" />
-    <Compile Include="Concrete\Firms\FirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\BirthdaysCongratulationIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\DenialReasonIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\PositionChildrenOperationsExportService.cs" />
@@ -77,7 +76,6 @@
     <Compile Include="Concrete\Integration\Export\Exporters\ExportableEntityDto.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\AdvertismentIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\ClientIntegrationProcessorOperationService.cs" />
-    <Compile Include="Concrete\Integration\Export\Processors\Concrete\FirmAddressIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\ImportedFirmAddressIntegrationProcessorOperationService.cs" />
     <Compile Include="Concrete\Integration\Export\IntegrationService.cs" />
     <Compile Include="Concrete\Integration\Export\Processors\Concrete\InvoiceIntegrationProcessorOperationService.cs" />
@@ -112,7 +110,6 @@
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForCreateBillHandler.cs" />
     <Compile Include="Concrete\Old\Bills\GetRelatedOrdersForPrintJointBillHandler.cs" />
     <Compile Include="Concrete\Bills\PaymentDatePlanEvaluator.cs" />
-    <Compile Include="Concrete\Old\Bills\PrintJointBillHandler.cs" />
     <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimary.cs" />
     <Compile Include="Concrete\Old\BranchOfficeOrganizationUnits\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSales.cs" />
     <Compile Include="Concrete\Old\Clients\CheckIsWarmClientHandler.cs" />
@@ -121,22 +118,15 @@
     <Compile Include="Concrete\Old\Deals\CloseDealHandler.cs" />
     <Compile Include="Concrete\Old\Deals\ReopenDealHandler.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportFirmsHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\LocalMessageHelper.cs" />
     <Compile Include="Concrete\Old\Integration\Olap\ImportFirmPromisingHandler.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\AccountDetailsFrom1CHelper.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ExportLegalPersonsHandler.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ImportAccountDetailsFrom1CHandler.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ValidateAccountDetailsFrom1CHandler.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\RabbitMq\ImportlocalMessagesFromRabbitMqHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAccountDetailHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAdvertisementHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeClientHandler.cs" />
-    <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeFirmAddressHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeLegalPersonHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeObjectsHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeInvoicesHandler.cs" />
@@ -179,6 +169,7 @@
     <Compile Include="Concrete\Old\LocalMessages\SaveLocalMessageHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\CalculateOrderPositionPricesHandler.cs" />
     <Compile Include="Concrete\OrderPositions\ChangeOrderPositionBindingObjectsOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\CalculateOrderPositionPricePerUnitOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\ReplaceOrderPositionAdvertisementLinksOperationService.cs" />
     <Compile Include="Concrete\Old\OrderPositions\GetInitialDiscountHandler.cs" />
     <Compile Include="Concrete\Old\OrderPositions\RecalculateOrderPositionDiscountHandler.cs" />
@@ -234,6 +225,7 @@
     <Compile Include="Concrete\Orders\RegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\ChangeOrderLegalPersonProfileOperationService.cs" />
     <Compile Include="Concrete\Orders\RepairOutdatedPositionsOperationService.cs" />
+    <Compile Include="Concrete\Positions\ChangePositionSortingOrderOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
     <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
@@ -252,7 +244,6 @@
     <Compile Include="Concrete\Simplified\Dictionary\Countries\CountryService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Currency\CurrencyService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Currency\GetBaseCurrencyService.cs" />
-    <Compile Include="Concrete\Simplified\Dictionary\Firms\AdditionalFirmServicesService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\PlatformService.cs" />
     <Compile Include="Concrete\Simplified\NoteService.cs" />
     <Compile Include="Concrete\Simplified\OperationService.cs" />
@@ -351,7 +342,6 @@
     <Compile Include="Generic\Delete\DeleteAccountDetailService.cs" />
     <Compile Include="Generic\Delete\DeleteLegalPersonDealService.cs" />
     <Compile Include="Generic\Delete\DeleteClientLinkService.cs" />
-    <Compile Include="Generic\Delete\DeleteAdditionalFirmServiceService.cs" />
     <Compile Include="Generic\Delete\DeleteAdsTemplatesAdsElementTemplateService.cs" />
     <Compile Include="Generic\Delete\DeleteAdvertisementElementTemplateService.cs" />
     <Compile Include="Generic\Delete\DeleteAdvertisementService.cs" />
@@ -394,7 +384,6 @@
     <Compile Include="Generic\Get\Activity\GetTaskDtoService.cs" />
     <Compile Include="Generic\Get\GetAccountDetailDtoService.cs" />
     <Compile Include="Generic\Get\GetAccountDtoService.cs" />
-    <Compile Include="Generic\Get\GetAdditionalFirmServiceDtoService.cs" />
     <Compile Include="Generic\Get\GetAdsTemplatesAdsElementTemplateDtoService.cs" />
     <Compile Include="Generic\Get\GetAdvertisementDtoService.cs" />
     <Compile Include="Generic\Get\GetAdvertisementElementDtoService.cs" />
@@ -459,7 +448,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountDetailObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AccountObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\Activity\LetterObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\AdditionalFirmServiceObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdsTemplatesAdsElementTemplateObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementElementObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\AdvertisementElementTemplateObtainer.cs" />
@@ -470,7 +458,6 @@
     <Compile Include="Generic\Modify\DomainEntityObtainers\AssociatedPositionsGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainFileObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\BargainObtainer.cs" />
-    <Compile Include="Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryGroupObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\CategoryObtainer.cs" />
     <Compile Include="Generic\Modify\DomainEntityObtainers\ContactObtainer.cs" />
@@ -515,7 +502,6 @@
     <Compile Include="Generic\Modify\Old\EditAccessSharingHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountDetailHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditAdditionalFirmServiceHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdsTemplatesAdsElementTemplateHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdvertisementElementTemplateHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditAdvertisementHandler.cs" />
@@ -598,6 +584,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
@@ -776,9 +766,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Concrete\Integration\Schemas\flowCardExtensions.CardCommercial.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Concrete\Integration\Schemas\flowDeliveryData.SendingGroup.xsd">
       <SubType>Designer</SubType>
     </None>

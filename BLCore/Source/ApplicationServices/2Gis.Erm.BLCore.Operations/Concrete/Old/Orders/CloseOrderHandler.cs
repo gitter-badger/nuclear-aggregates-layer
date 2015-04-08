@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
             var order = _orderReadModel.GetOrderSecure(request.OrderId);
             if (order == null)
             {
-                throw new NotificationException(BLResources.EntityNotFound);
+                throw new EntityNotFoundException(typeof(Order), request.OrderId);
             }
 
             if (!(order.WorkflowStepId == OrderState.OnRegistration || order.WorkflowStepId == OrderState.Rejected))

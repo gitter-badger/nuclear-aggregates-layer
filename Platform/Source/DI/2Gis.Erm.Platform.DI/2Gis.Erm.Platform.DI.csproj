@@ -101,9 +101,6 @@
     <Compile Include="Proxies\UnityContainerScopeProxy.Dispose.cs" />
     <Compile Include="Proxies\UnityContainerScopeProxy.cs" />
     <Compile Include="Proxies\Messaging\UnityMessageValidatorProxy.cs" />
-    <Compile Include="Zones\ZonePartInfo.cs" />
-    <Compile Include="Zones\ZonePartTypesExtractor.cs" />
-    <Compile Include="Zones\ZoneUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
@@ -148,6 +145,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

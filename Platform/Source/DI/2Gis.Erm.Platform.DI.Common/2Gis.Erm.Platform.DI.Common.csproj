@@ -70,6 +70,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Config\ContainerUtils.Register.cs" />
     <Compile Include="Config\PlatformBootstrapper.Aspects.Settings.cs" />
     <Compile Include="Config\ContainerUtils.Common.cs" />
     <Compile Include="Config\ContainerUtils.Resolve.cs" />
@@ -78,7 +79,6 @@
     <Compile Include="Config\ErmScope.cs" />
     <Compile Include="Config\Lifetime.cs" />
     <Compile Include="Config\Policy.cs" />
-    <Compile Include="Config\ContainerUtils.Register.cs" />
     <Compile Include="Config\Mapping.cs" />
     <Compile Include="Config\UnsecureErmScope.cs" />
     <Compile Include="Extensions\DisposableExtension\BuildTreeDisposer.cs" />

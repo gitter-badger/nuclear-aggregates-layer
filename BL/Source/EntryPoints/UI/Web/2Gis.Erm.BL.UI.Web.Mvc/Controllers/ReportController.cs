@@ -34,9 +34,9 @@ using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
-using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 using Newtonsoft.Json;

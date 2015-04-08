@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
                            OrderId = order.Id,
                            OwnerCode = order.OwnerCode,
 
-                           BillNumber = billNumber,
+                           Number = billNumber,
                            BeginDistributionDate = createBillInfo.BeginDistributionDate,
                            EndDistributionDate = createBillInfo.EndDistributionDate,
                            PaymentDatePlan = createBillInfo.PaymentDatePlan,

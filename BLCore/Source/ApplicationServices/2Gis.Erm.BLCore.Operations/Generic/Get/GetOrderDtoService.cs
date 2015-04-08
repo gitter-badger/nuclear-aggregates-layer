@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
@@ -13,7 +12,6 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -40,8 +38,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IOrderReadModel _orderReadModel;
         private readonly IUserReadModel _userReadModel;
-        private readonly IAccountReadModel _accountReadModel;
-        private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IClientReadModel _clientReadModel;
@@ -49,12 +45,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
         public GetOrderDtoService(IUserContext userContext,
                                   ISecureFinder finder,
                                   ISecurityServiceFunctionalAccess functionalAccessService,
-                                  ISecurityServiceEntityAccess entityAccessService,
                                   IOrderReadModel orderReadModel,
                                   IFirmReadModel firmReadModel,
                                   IBranchOfficeRepository branchOfficeRepository,
                                   IUserReadModel userReadModel,
-                                  IAccountReadModel accountReadModel,
                                   ILegalPersonReadModel legalPersonReadModel,
                                   IBusinessModelSettings businessModelSettings,
                                   IClientReadModel clientReadModel)
@@ -66,18 +60,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
             _firmReadModel = firmReadModel;
             _branchOfficeRepository = branchOfficeRepository;
             _userReadModel = userReadModel;
-            _accountReadModel = accountReadModel;
             _legalPersonReadModel = legalPersonReadModel;
             _businessModelSettings = businessModelSettings;
             _clientReadModel = clientReadModel;
-            _entityAccessService = entityAccessService;
         }
 
         protected override IDomainEntityDto<Order> GetDto(long entityId)
         {
             var dto = _finder.Find(OrderSpecs.Orders.Select.OrderDomainEntityDto(), Specs.Find.ById<Order>(entityId)).Single();
 
-            dto.CanSwitchToAccount = CanSwitchToAccount(entityId, UserContext.Identity);
             dto.ShowRegionalAttributes = dto.SourceOrganizationUnitRef.Id != dto.DestOrganizationUnitRef.Id &&
                 !_orderReadModel.CheckIsBranchToBranchOrder(dto.SourceOrganizationUnitRef.Id.Value, dto.DestOrganizationUnitRef.Id.Value, false);
 
@@ -226,28 +217,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                 var branchOfficeOrganizationUnitShortInfo = _branchOfficeRepository.GetBranchOfficeOrganizationUnitShortInfo(resultDto.SourceOrganizationUnitRef.Id.Value);
                 resultDto.BranchOfficeOrganizationUnitRef = new EntityReference(branchOfficeOrganizationUnitShortInfo.Id, branchOfficeOrganizationUnitShortInfo.ShortLegalName);
             }
-        }
-
-        private bool CanSwitchToAccount(long orderId, IUserIdentity userIdentity)
-        {
-            var accountInfo = _accountReadModel.GetAccountIdAndOwnerCodeByOrder(orderId);
-            if (accountInfo == null || !accountInfo.AccountId.HasValue)
-            {
-                return false;
-            }
-
-            var securityControlAspect = userIdentity as IUserIdentitySecurityControl;
-            if (securityControlAspect != null && securityControlAspect.SkipEntityAccessCheck)
-            {
-                return true;
-            }
-
-            return _entityAccessService.HasEntityAccess(EntityAccessTypes.Read,
-                                                        EntityName.Account,
-                                                        userIdentity.Code,
-                                                        accountInfo.AccountId.Value,
-                                                        accountInfo.OwnerCode.Value,
-                                                        null);
         }
 
         private decimal RoundValueToSignificantDigits(decimal value)

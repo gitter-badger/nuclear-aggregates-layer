@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -7,7 +8,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 {
-    public sealed class ChileBankViewModel : EntityViewModelBase<Bank>, IChileAdapted
+    public sealed class ChileBankViewModel : EntityViewModelBase<Bank>, INameAspect, IChileAdapted
     {
         public string Name { get; set; }
         public override byte[] Timestamp { get; set; }

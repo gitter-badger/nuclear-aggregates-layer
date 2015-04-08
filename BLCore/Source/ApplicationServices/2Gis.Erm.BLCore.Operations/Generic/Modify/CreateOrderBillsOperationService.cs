@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.Bills;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
@@ -35,6 +36,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         public void Create(long orderId, CreateBillInfo[] createBillInfos)
         {
             var order = _orderReadModel.GetOrderSecure(orderId);
+            if (order == null)
+            {
+                throw new EntityNotFoundException(typeof(Order), orderId);
+            }
+
             var bills = _billFactory.Create(order, createBillInfos);
             SaveBills(order, bills);
         }

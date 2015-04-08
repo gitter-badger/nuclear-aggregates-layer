@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
 
             if (billInfo.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             var legalPerson = _legalPersonReadModel.GetLegalPerson(billInfo.LegalPersonId.Value);
@@ -121,7 +121,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
 
                     Bill = new
                         {
-                            billInfo.Bill.BillNumber,
+                            BillNumber = billInfo.Bill.Number,
                             billInfo.Bill.PaymentDatePlan,
                             billInfo.Bill.BeginDistributionDate,
                             billInfo.Bill.EndDistributionDate,

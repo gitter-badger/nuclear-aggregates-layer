@@ -124,7 +124,6 @@
     <Compile Include="ApplicationServices\Aggregates\Clients\DenormalizedLinksTestData.cs" />
     <Compile Include="ApplicationServices\Operations\Generic\Modify\DomainEntityObtainers\LegalPersonProfileObtainerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations\Generic\Modify\DomainEntityObtainers\LegalPersonObtainerSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations\Generic\Modify\DomainEntityObtainers\BranchOfficeOrganizationUnitObtainerSpecs.cs" />
     <Compile Include="BL\Client\ClientObtainerSpecs.cs">
       <SubType>Code</SubType>
     </Compile>

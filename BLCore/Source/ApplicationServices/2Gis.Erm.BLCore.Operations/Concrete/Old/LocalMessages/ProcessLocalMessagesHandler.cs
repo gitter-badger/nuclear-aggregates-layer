@@ -7,11 +7,9 @@ using System.Xml;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages.DTO;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.RabbitMq;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -115,6 +113,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 {
                     messages.AddRange(response.Messages);
                 }
+
                 return;
             }
 
@@ -125,6 +124,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 {
                     messages.AddRange(response.Messages);
                 }
+
                 return;
             }
 
@@ -136,11 +136,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             var integrationType = (IntegrationTypeExport)localMessageDto.IntegrationType;
             switch (integrationType)
             {
-                case IntegrationTypeExport.FirmsWithActiveOrdersToDgpp:
-                    {
-                        return ProcessFirmsWithActiveOrdersToDgpp(localMessageDto);
-                    }
-
                 case IntegrationTypeExport.DataForAutoMailer:
                     {
                         return ProcessDataForAutoMailer(localMessageDto);
@@ -154,29 +149,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             }
         }
 
-        private ExportResponse ProcessFirmsWithActiveOrdersToDgpp(LocalMessageDto localMessageDto)
-        {
-            if (localMessageDto.LocalMessage.OrganizationUnitId == null)
-            {
-                throw new NotificationException(
-                    string.Format("Для обработки сообщения типа '{0}' должен быть указан город", IntegrationTypeExport.FirmsWithActiveOrdersToDgpp));
-            }
 
-            var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
-            var stream = file.Content;
-
-            var response = (ExportResponse)_subRequestProcessor.HandleSubRequest(
-                new WriteFirmsWithActiveOrdersToRabbitMqRequest
-                {
-                    MessageStream = stream,
-                                                                                         OrganizationUnitId =
-                                                                                             localMessageDto.LocalMessage.OrganizationUnitId.Value,
-                },
-                Context,
-                false);
-
-            return response;
-        }
 
         private ExportResponse ProcessDataForAutoMailer(LocalMessageDto localMessageDto)
         {
@@ -213,18 +186,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
         {
             switch (integrationType)
             {
-                case IntegrationTypeImport.FirmsFromDgpp:
-                    return new DgppImportFirmsRequest
-                    {
-                                   MessageStream = stream
-                               };
-
-                case IntegrationTypeImport.TerritoriesFromDgpp:
-                    return new DgppImportTerritoriesRequest
-                    {
-                                   MessageStream = stream
-                               };
-
                 case IntegrationTypeImport.AccountDetailsFrom1C:
                     return new ImportAccountDetailsFrom1CRequest
                                                                                          {

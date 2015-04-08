@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.BLCore.TaskService.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
 
+using NuClear.Assembling.Zones;
 using NuClear.Jobs;
 
 namespace DoubleGis.Erm.BLQuerying.TaskService.DI

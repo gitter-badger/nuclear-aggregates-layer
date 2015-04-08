@@ -383,9 +383,6 @@
   <data name="PositionNameFormatCategorySingle" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
-  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
-    <value>С данным клиентом работает рекламное агентство:</value>
-  </data>
   <data name="PositionNameFormatAddressCategorySingle" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>

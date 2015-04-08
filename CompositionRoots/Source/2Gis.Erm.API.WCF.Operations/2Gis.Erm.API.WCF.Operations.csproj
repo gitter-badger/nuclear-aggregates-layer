@@ -76,23 +76,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
-      <HintPath>..\packages\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
-      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -100,11 +86,6 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Activate.svc" />
@@ -185,10 +166,6 @@
     <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
       <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
       <Name>2Gis.Erm.BLCore.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.OrderValidation\2Gis.Erm.BLCore.OrderValidation.csproj">
-      <Project>{1DE6FFCD-A1E7-4670-83C7-67F52B129B58}</Project>
-      <Name>2Gis.Erm.BLCore.OrderValidation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLCore\Source\EntryPoints\ServiceBackend\2Gis.Erm.BLCore.WCF.Operations\2Gis.Erm.BLCore.WCF.Operations.csproj">
       <Project>{72c6a1a2-370a-4a28-94bd-ec26edfa7538}</Project>

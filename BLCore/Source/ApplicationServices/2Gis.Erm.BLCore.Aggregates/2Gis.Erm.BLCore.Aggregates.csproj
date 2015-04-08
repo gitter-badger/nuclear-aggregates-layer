@@ -40,6 +40,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
@@ -215,6 +219,7 @@
     <Compile Include="Orders\Operations\Bills\BulkCreateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\BulkDeleteBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\UpdateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\SetOrderDocumentsDebtAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderCreateReleaseTotalsAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderCreateReleaseWithdrawalsAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderDeleteReleaseTotalsAggregateService.cs" />
@@ -228,11 +233,13 @@
     <Compile Include="Orders\Operations\OrderPositions\OrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
+    <Compile Include="Positions\Operations\ChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\SalesModelUtil.cs" />
     <Compile Include="SimplifiedModel\Categories\BulkCreateSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\SalesModelCategoryRestrictionReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\CategoryReadModel.cs" />
     <Compile Include="Roles\ReadModel\RoleReadModel.cs" />
+    <Compile Include="SimplifiedModel\Currencies\CurrencyReadModel.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\AttachValidResultToCacheAggregateService.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\InvalidateCachedValidationResultAggregateService.cs" />
     <Compile Include="Orders\ReadModel\GetPositionsByOrderService.cs" />
@@ -259,7 +266,6 @@
     <Compile Include="Prices\Operations\UpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\UpdatePricePositionAggregateService.cs" />
     <Compile Include="Prices\PositionRepository.cs" />
-    <Compile Include="Prices\PositionSpecs.cs" />
     <Compile Include="Prices\PriceRepository.cs" />
     <Compile Include="Prices\ReadModel\PriceReadModel.cs" />
     <Compile Include="Common\Generics\ActivateAggregateRepository.cs" />

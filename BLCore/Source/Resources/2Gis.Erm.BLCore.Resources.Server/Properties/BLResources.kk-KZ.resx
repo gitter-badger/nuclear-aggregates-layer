@@ -546,8 +546,8 @@
   <data name="TitlePlan" xml:space="preserve">
     <value>Планирование</value>
   </data>
-  <data name="TitlePurpose" xml:space="preserve">
-    <value>Цель/Результат</value>
+  <data name="TitleResult" xml:space="preserve">
+    <value>Результат</value>
   </data>
   <data name="TitleRegarding" xml:space="preserve">
     <value>В отношении</value>
@@ -1375,9 +1375,6 @@
   </data>
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value>Выбранная позиция не может быть запрещающей, так как является основной</value>
-  </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value>Большая иконка</value>
   </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value>Невозможно добавить позицию в опубликованный прайс-лист</value>
@@ -4101,9 +4098,6 @@ Cумма по операции: {5}.
   <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
     <value>Содержимое файла изображения не соответствует его расширению</value>
   </data>
-  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
-    <value>Нельзя удалить услугу '{0}', так как она используется для {1} адресов</value>
-  </data>
   <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
     <value>Не удалось сохранить шаблон: может быть только один шаблон небоскрёба</value>
   </data>
@@ -4320,9 +4314,6 @@ Cумма по операции: {5}.
   <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
     <value>Создание, изменение и удаление объектов "Территория продаж" учетной системы.</value>
   </data>
-  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
-    <value>Доп. услуги для фирм</value>
-  </data>
   <data name="AdministrationPage_Project" xml:space="preserve">
     <value>Проекты</value>
   </data>
@@ -4472,12 +4463,6 @@ Cумма по операции: {5}.
   </data>
   <data name="SecurityAdministrationPage_HeaderOthers" xml:space="preserve">
     <value>Другие</value>
-  </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharings" xml:space="preserve">
-    <value>Обмен региональной рекламой</value>
-  </data>
-  <data name="SecurityAdministrationPage_RegionalAdvertisingSharingDetails" xml:space="preserve">
-    <value>Журнал обмена региональной рекламой</value>
   </data>
   <data name="List" xml:space="preserve">
     <value>Список</value>
@@ -4935,9 +4920,6 @@ Cумма по операции: {5}.
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value>Нельзя удалить юридическое лицо клиента, имеющее связанные лицевые счета</value>
   </data>
-  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Создание, изменение и удаление объектов "Доп.услуги для фирмы" учетной системы.</value>
-  </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Выбран невалидный адрес для следующих позиций: {0}</value>
   </data>
@@ -5191,10 +5173,10 @@ Cумма по операции: {5}.
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Отделение организации {0} не связано с проектом.</value>
   </data>
-  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForFirmInReserve" xml:space="preserve">
     <value>Невозможно сохранить действие на фирму в резерве</value>
   </data>
-  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>Невозможно сохранить действие на клиента в резерве</value>
   </data>
   <data name="CancelConfirmation" xml:space="preserve">
@@ -5223,5 +5205,14 @@ Cумма по операции: {5}.
   </data>
   <data name="Support" xml:space="preserve">
     <value>Техподдержка</value>
+  </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
+  <data name="ManageDocumentsDebt" xml:space="preserve">
+    <value>Управление наличием документов</value>
+  </data>
+  <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Операция не может быть проведена т.к. выполняется сборка</value>
   </data>
 </root>

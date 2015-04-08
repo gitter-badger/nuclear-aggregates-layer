@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
 
         protected override AvailableTransitionsResponse Handle(AvailableTransitionsRequest request)
         {
-            var transitions = OrderStateBehaviourFactory.GetTransitionsForUi(request.CurrentState);
+            var transitions = OrderStateBehaviourFactory.GetTransitionsForUI(request.CurrentState);
             transitions = FilterStates(request.OrderId, request.SourceOrganizationUnitId, request.CurrentState, transitions.ToList());            
             return new AvailableTransitionsResponse(transitions);
         }

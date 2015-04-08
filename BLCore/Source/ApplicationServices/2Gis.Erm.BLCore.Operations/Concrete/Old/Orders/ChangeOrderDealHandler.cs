@@ -63,6 +63,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                 }
 
                 var order = _orderReadModel.GetOrderSecure(request.OrderId);
+                if (order == null)
+                {
+                    throw new EntityNotFoundException(typeof(Order), request.OrderId);
+                }
+
                 var oldDealId = order.DealId;
                 if (oldDealId == null || (oldDealId != newDealInfo.Id))
                 {

@@ -321,8 +321,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
             // TODO {all, 09.09.2013}: SetOrderStateIdentity
             using (var scope = _scopeFactory.CreateOrUpdateOperationFor(order))
             {
-                _orderGenericRepository.Update(order);
-                var cnt = _orderGenericRepository.Save();
+                _orderSecureGenericRepository.Update(order);
+                var cnt = _orderSecureGenericRepository.Save();
 
                 scope.Updated<Order>(order.Id)
                      .Complete();

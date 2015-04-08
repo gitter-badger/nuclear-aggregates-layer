@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
@@ -56,6 +60,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="CostCalculation\PricePerUnitCalculationResult.cs" />
     <Compile Include="DI\BlCoreApiOperationsSpecialAssembly.cs" />
     <Compile Include="CostCalculation\BizAccountCostResult.cs" />
     <Compile Include="CostCalculation\BizAccountCostWithVatResult.cs" />
@@ -69,9 +74,9 @@
     <Compile Include="CostCalculation\ICostCalculator.cs" />
     <Compile Include="CostCalculation\PositionIsNotRepresentedException.cs" />
     <Compile Include="FirmInfo\CategoryInfoDto.cs" />
-    <Compile Include="FirmInfo\FirmGuidDto.cs" />
+    <Compile Include="FirmInfo\FirmIdDto.cs" />
     <Compile Include="FirmInfo\FirmInfoDto.cs" />
-    <Compile Include="FirmInfo\IGetFirmInfoService.cs" />
+    <Compile Include="FirmInfo\IGetFirmInfoOperationService.cs" />
     <Compile Include="FirmInfo\ProjectInfoDto.cs" />
     <Compile Include="DI\OperationsSpecialZone.cs" />
     <Compile Include="OrderProcessingRequests\CancelledOrderRequestStateDescription.cs" />

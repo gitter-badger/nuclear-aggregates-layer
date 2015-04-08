@@ -18,6 +18,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         AdditionalAgreementNaturalPerson = 22,
         BargainAdditionalAgreementLegalPerson = 23,
         BargainAdditionalAgreementBusinessman = 24,
+        FirmNameChangeAgreement = 25,
+        BindingChangeAgreement = 26,
 
         // счёт на оплату
         BillLegalPerson = 30,
@@ -25,9 +27,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         BillNaturalPerson = 32,
 
         // единый счёт на оплату
-        JointBillLegalPerson = 40,
-        JointBillBusinessman = 41,
-        JointBillNaturalPerson = 42,
+        JointBill = 40,
 
         // бланк заказа (58, 60, 61 - устаревшие)
         Order = 59,

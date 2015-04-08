@@ -450,35 +450,11 @@
   <data name="IntegrationTypeNone" xml:space="preserve">
     <value>Не указан</value>
   </data>
-  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
-    <value>Загрузка фирм</value>
-  </data>
-  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
-    <value>Загрузка рубрик</value>
-  </data>
-  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
-    <value>Загрузка территорий</value>
-  </data>
-  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
-    <value>Выгрузка фирм с активными заказами</value>
-  </data>
-  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
-    <value>Загрузка списаний</value>
-  </data>
-  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
-    <value>Выгрузка заказов</value>
-  </data>
   <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
     <value>Загрузка поступлений по лицевым счетам</value>
   </data>
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Выгрузка юр. лиц клиентов</value>
-  </data>
-  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
-    <value>Выгрузка лицевых счетов</value>
-  </data>
-  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
-    <value>Выгрузка сверок</value>
   </data>
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Акционная</value>
@@ -538,19 +514,19 @@
     <value>Временный отказ. Не сезон.</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementBusinessman" xml:space="preserve">
-    <value>Доп. соглашение для ИП</value>
+    <value></value>
   </data>
   <data name="TemplateCodeBillBusinessman" xml:space="preserve">
-    <value>Счёт на оплату для ИП</value>
+    <value></value>
   </data>
   <data name="TemplateCodeTerminationNoticeBusinessman" xml:space="preserve">
     <value>Уведомление о расторжении для ИП</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementLegalPerson" xml:space="preserve">
-    <value>Доп. соглашение для юр. лица</value>
+    <value>Доп. соглашение (расторжение)</value>
   </data>
   <data name="TemplateCodeBillLegalPerson" xml:space="preserve">
-    <value>Счёт на оплату для юр. лица</value>
+    <value>Счёт на оплату</value>
   </data>
   <data name="TemplateCodeOrderDesktopWithVat" xml:space="preserve">
     <value>Бланк заказа (ПК, с НДС)</value>
@@ -583,10 +559,10 @@
     <value>Заявка на лимиты</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementNaturalPerson" xml:space="preserve">
-    <value>Доп. соглашение для физ. лица</value>
+    <value></value>
   </data>
   <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
-    <value>Счёт на оплату для физ. лица</value>
+    <value></value>
   </data>
   <data name="TemplateCodeTerminationNoticeNaturalPerson" xml:space="preserve">
     <value>Уведомление о расторжении для физ. лица</value>
@@ -798,14 +774,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Другое</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Единый счёт на оплату для ИП</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
-    <value>Единый счёт на оплату для юр. лица</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Единый счёт на оплату для физ. лица</value>
+  <data name="TemplateCodeJointBill" xml:space="preserve">
+    <value>Единый счёт на оплату</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Договор</value>
@@ -1232,9 +1202,6 @@
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Профиль юр. лица клиента</value>
-  </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Доп. услуги для фирмы</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Удаление профиля юр. лица клиента</value>
@@ -1673,6 +1640,12 @@
   </data>
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Соглашение о расторжении договора для юр. лица</value>
+  </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>Доп. соглашение (смена названия фирмы)</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>Доп. соглашение (смена привязки)</value>
   </data>
   <data name="ReleaseStatusSuccess" xml:space="preserve">
     <value>Success</value>

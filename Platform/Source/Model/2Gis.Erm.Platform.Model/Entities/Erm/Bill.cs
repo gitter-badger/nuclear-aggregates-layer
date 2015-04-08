@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public long Id { get; set; }
         public long? DgppId { get; set; }
         public long OrderId { get; set; }
-        public string BillNumber { get; set; }
+        public string Number { get; set; }
         public DateTime BillDate { get; set; }
         public DateTime BeginDistributionDate { get; set; }
         public DateTime EndDistributionDate { get; set; }

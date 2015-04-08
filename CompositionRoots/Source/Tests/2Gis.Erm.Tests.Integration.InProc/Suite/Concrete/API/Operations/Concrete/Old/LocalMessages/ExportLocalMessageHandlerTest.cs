@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.C
                 {
                     OrganizationUnitId = modelEntity.Id,
                     PeriodStart = periodStart,
-                    IntegrationType = IntegrationTypeExport.FirmsWithActiveOrdersToDgpp
+                    IntegrationType = IntegrationTypeExport.LegalPersonsTo1C
                 };
 
             return true;

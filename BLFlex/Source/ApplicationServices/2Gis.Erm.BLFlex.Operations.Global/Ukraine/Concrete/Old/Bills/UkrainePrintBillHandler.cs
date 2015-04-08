@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
 
             if (billInfo.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             if (billInfo.BranchOfficeOrganizationUnitId == null)
@@ -100,7 +100,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
                 new PrintDocumentRequest
                     {
                         CurrencyIsoCode = billInfo.CurrencyISOCode,
-                        FileName = billInfo.Bill.BillNumber,
+                        FileName = billInfo.Bill.Number,
                         BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
                         PrintData = printData,
                         TemplateCode = GetTemplateCode(billInfo.LegalPersonTypeEnum)
@@ -112,7 +112,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
         {
             return new PrintData
                 {
-                    { "BillNumber", bill.BillNumber },
+                    { "BillNumber", bill.Number },
                     { "BillDate", bill.BillDate },
                     { "PaymentDatePlan", bill.PaymentDatePlan },
                     { "BeginDistributionDate", bill.BeginDistributionDate },

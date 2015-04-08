@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
@@ -197,7 +201,6 @@
     <Compile Include="MetaData\LocalizedMetaDataProvider.cs" />
     <Compile Include="Models\AccessSharingModel.cs" />
     <Compile Include="Models\Administration\MessageQueueManagementViewModel.cs" />
-    <Compile Include="Models\CorporateQueueViewModel.cs" />
     <Compile Include="Models\CrudStatus.cs" />
     <Compile Include="Models\EditableIdEntityViewModelBase.cs" />
     <Compile Include="Models\EditPrivilegeViewModel.cs" />
@@ -214,6 +217,7 @@
     <Compile Include="Models\LocalMessageImportFromFileViewModel.cs" />
     <Compile Include="Models\LocalMessageViewModel.cs" />
     <Compile Include="Models\MainPageViewModel.cs" />
+    <Compile Include="Models\DealViewModel.cs" />
     <Compile Include="Models\OperationViewModel.cs" />
     <Compile Include="Models\ReleaseDialogViewModel.cs" />
     <Compile Include="Models\ReleaseInfoViewModel.cs" />
@@ -228,29 +232,24 @@
     <Compile Include="Models\WithdrawalRevertDialogViewModel.cs" />
     <Compile Include="Security\WebCookieSignInService.cs" />
     <Compile Include="Services\Cards\IViewModelCustomization.cs" />
+    <Compile Include="Services\Cards\IViewModelCustomizationFeature.cs" />
     <Compile Include="Services\Cards\IViewModelCustomizationProvider.cs" />
     <Compile Include="Services\Cards\IViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\LocalMessageViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\NullViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\ReleaseInfoViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\UserViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\WithdrawalInfoViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\GenericViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationFeature.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationsIdentity.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationsMetadata.cs" />
+    <Compile Include="Services\Cards\ViewModelCustomizationsMetadataBuilder.cs" />
     <Compile Include="Services\Enumeration\EnumCustomizationBase.cs" />
     <Compile Include="Services\Grid\GenericEntityGridViewService.cs" />
     <Compile Include="Services\Grid\IGenericEntityGridViewService.cs" />
     <Compile Include="Services\IUIServicesManager.cs" />
-    <Compile Include="Settings\ConfigurationDto\CardJson.cs" />
-    <Compile Include="Settings\ConfigurationDto\CardJson.Server.cs" />
-    <Compile Include="Settings\ConfigurationDto\CardRelatedItemsAreaJson.cs" />
-    <Compile Include="Settings\ConfigurationDto\CardRelatedItemsJson.cs" />
     <Compile Include="Settings\ConfigurationDto\DataListScriptsJson.cs" />
     <Compile Include="Settings\ConfigurationDto\DataViewFieldJson.cs" />
     <Compile Include="Settings\ConfigurationDto\DataViewJson.cs" />
     <Compile Include="Settings\ConfigurationDto\DtoUtils.cs" />
     <Compile Include="Settings\ConfigurationDto\EntityViewSet.cs" />
     <Compile Include="Settings\ConfigurationDto\NavigationDto.cs" />
-    <Compile Include="Settings\ConfigurationDto\ToolbarJson.cs" />
-    <Compile Include="Settings\ConfigurationDto\ToolbarJson.Server.cs" />
     <Compile Include="Settings\ISupportDepartmentIntegrationSettings.cs" />
     <Compile Include="Settings\IReportsSettings.cs" />
     <Compile Include="Settings\IWebAppProcesingSettings.cs" />
@@ -335,16 +334,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WithdrawalInfo.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Edit\AdditionalFirmAddressServices.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AdditionalFirmAddressServices.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Edit\AdditionalFirmServices.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AdditionalFirmServices.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Edit\EntityPrivileges.generated.cs">
       <AutoGen>True</AutoGen>
@@ -541,7 +530,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WithdrawalRevertDialog.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="DI\BlCoreUiWebMvcAssembly.cs" />
+    <Compile Include="DI\BlCoreUIWebMvcAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -591,14 +580,6 @@
     <None Include="Views\CreateOrUpdate\WithdrawalInfo.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>WithdrawalInfo.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Edit\AdditionalFirmAddressServices.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>AdditionalFirmAddressServices.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Edit\AdditionalFirmServices.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>AdditionalFirmServices.generated.cs</LastGenOutput>
     </None>
     <None Include="Views\Edit\EntityPrivileges.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -787,6 +768,10 @@
       <Project>{035e4aa9-9547-4b1c-b105-902ecad7e53f}</Project>
       <Name>2Gis.Erm.Platform.DI.Interception</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
       <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
       <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
@@ -834,6 +819,10 @@
     <ProjectReference Include="..\..\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
       <Project>{f662d986-079c-469c-8a01-0d2cd1092eab}</Project>
       <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.UI.Web.Metadata\2Gis.Erm.BLCore.UI.Web.Metadata.csproj">
+      <Project>{995BF65F-5951-40E5-A0F0-DF8DD343116A}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Web.Metadata</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

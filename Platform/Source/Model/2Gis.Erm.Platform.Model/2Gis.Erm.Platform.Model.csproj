@@ -41,6 +41,10 @@
     <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -54,6 +58,50 @@
     </Compile>
     <Compile Include="Aggregates\Aliases\ChargeAggregate.cs" />
     <Compile Include="Aggregates\Aliases\OrganizationUnitAggregate.cs" />
+    <Compile Include="Aspects\Entities\IActivityStateAspect.cs" />
+    <Compile Include="Aspects\Entities\IOrderValidationServiceAspect.cs" />
+    <Compile Include="Aspects\Entities\IOrderWorkflowLockableAspect.cs" />
+    <Compile Include="Aspects\Entities\IAddressAspect.cs" />
+    <Compile Include="Aspects\Entities\IAdvertisementElementRequiresVerificationAspect.cs" />
+    <Compile Include="Aspects\Entities\IAdvertisementElementVerificationAspect.cs" />
+    <Compile Include="Aspects\Entities\IAdvertisementElementVerificationStateAspect.cs" />
+    <Compile Include="Aspects\Entities\ICompositePositionAspect.cs" />
+    <Compile Include="Aspects\Entities\IClosedForAscertainmentAspect.cs" />
+    <Compile Include="Aspects\Entities\IDoesLegalPersonHaveAnyProfilesAspect.cs" />
+    <Compile Include="Aspects\Entities\IContactSalutationsAspect.cs" />
+    <Compile Include="Aspects\Entities\IContactAspect.cs" />
+    <Compile Include="Aspects\Entities\IDeletablePriceAspect.cs" />
+    <Compile Include="Aspects\Entities\IDummyAdvertisementAspect.cs" />
+    <Compile Include="Aspects\Entities\IFullNameAspect.cs" />
+    <Compile Include="Aspects\Entities\ILimitStateAspect.cs" />
+    <Compile Include="Aspects\Entities\IMainLegalPersonProfileAspect.cs" />
+    <Compile Include="Aspects\Entities\IOrderProcessingRequestStateAspect.cs" />
+    <Compile Include="Aspects\Entities\IOrderWorkflowAspect.cs" />
+    <Compile Include="Aspects\Entities\IOrganizationUnitCountAspect.cs" />
+    <Compile Include="Aspects\Entities\IPositionAspect.cs" />
+    <Compile Include="Aspects\Entities\IPriceAspect.cs" />
+    <Compile Include="Aspects\Entities\IPublishablePriceAspect.cs" />
+    <Compile Include="Aspects\Entities\ISelectableToWhiteListAspect.cs" />
+    <Compile Include="Aspects\Entities\IThemeTemplateCodeAspect.cs" />
+    <Compile Include="Aspects\IAspect.cs" />
+    <Compile Include="Aspects\Entities\IBaseCurrencyAspect.cs" />
+    <Compile Include="Aspects\IBusinessOperationTypeAspect.cs" />
+    <Compile Include="Aspects\IDeactivatableAspect.cs" />
+    <Compile Include="Aspects\IDeletableAspect.cs" />
+    <Compile Include="Aspects\IDisplayNameAspect.cs" />
+    <Compile Include="Aspects\ITerminatableAspect.cs" />
+    <Compile Include="Aspects\Entities\IOrderSecurityAspect.cs" />
+    <Compile Include="Aspects\IFileNameAspect.cs" />
+    <Compile Include="Aspects\IIdentityAspect.cs" />
+    <Compile Include="Aspects\ILegalNameAspect.cs" />
+    <Compile Include="Aspects\IBusinessModelAreaAspect.cs" />
+    <Compile Include="Aspects\INameAspect.cs" />
+    <Compile Include="Aspects\INewableAspect.cs" />
+    <Compile Include="Aspects\INumberAspect.cs" />
+    <Compile Include="Aspects\IPublishableAspect.cs" />
+    <Compile Include="Aspects\ISetReadOnlyAspect.cs" />
+    <Compile Include="Aspects\IShortLegalNameAspect.cs" />
+    <Compile Include="Aspects\ITitleAspect.cs" />
     <Compile Include="BusinessModel.cs" />
     <Compile Include="DI\PlatformZone.cs" />
     <Compile Include="Entities\Activity\Activity.cs" />
@@ -85,7 +133,6 @@
     <Compile Include="Entities\DTOs\Activity\LetterDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Activity\PhonecallDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\Activity\TaskDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\AdditionalFirmServiceDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\AdsTemplatesAdsElementTemplateDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\AdvertisementDescriptor.cs" />
     <Compile Include="Entities\DTOs\AdvertisementDomainEntityDto.cs" />
@@ -136,7 +183,6 @@
     <Compile Include="Entities\DTOs\DictionaryEntityPropertyInstanceDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\FileDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\FirmAddressDomainEntityDto.cs" />
-    <Compile Include="Entities\DTOs\FirmAddressServiceDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\FirmContactDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\FirmDomainEntityDto.cs" />
     <Compile Include="Entities\DTOs\HotClientRequestDomainEntityDto.cs" />
@@ -286,7 +332,6 @@
     <Compile Include="Entities\Erm\AccountDetail.cs" />
     <Compile Include="Entities\Erm\ActionsHistory.cs" />
     <Compile Include="Entities\Erm\ActionsHistoryDetail.cs" />
-    <Compile Include="Entities\Erm\AdditionalFirmService.cs" />
     <Compile Include="Entities\Erm\AdsTemplatesAdsElementTemplate.cs" />
     <Compile Include="Entities\Erm\Advertisement.cs" />
     <Compile Include="Entities\Erm\AdvertisementElement.cs" />
@@ -338,7 +383,6 @@
     <Compile Include="Entities\Erm\ErmContainer.cs" />
     <Compile Include="Entities\Erm\ErmEntities.cs" />
     <Compile Include="Entities\Erm\ExportFailedEntity.cs" />
-    <Compile Include="Entities\Erm\ExportFlowCardExtensionsCardCommercial.cs" />
     <Compile Include="Entities\Erm\ExportFlowDeliveryData_LetterSendRequest.cs" />
     <Compile Include="Entities\Erm\ExportFlowFinancialDataDebitsInfoInitial.cs" />
     <Compile Include="Entities\Erm\ExportFlowFinancialDataClient.cs" />
@@ -358,7 +402,6 @@
     <Compile Include="Entities\Erm\FileWithContent.cs" />
     <Compile Include="Entities\Erm\Firm.cs" />
     <Compile Include="Entities\Erm\FirmAddress.cs" />
-    <Compile Include="Entities\Erm\FirmAddressService.cs" />
     <Compile Include="Entities\Erm\FirmContact.cs" />
     <Compile Include="Entities\Erm\FirmDeal.cs" />
     <Compile Include="Entities\Erm\HotClientRequest.cs" />
@@ -535,6 +578,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateCategoryRateIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionCostIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ChangeOrderPositionBindingObjectsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\CalculateOrderPositionPricePerUnitIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ReplaceOrderPositionAdvertisementLinksIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\GetAvailableBinfingObjectsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\OrderPosition\ValidateOrderPositionAdvertisementIdentity.cs" />
@@ -551,6 +595,8 @@
     <Compile Include="Identities\Operations\Identity\Specific\OrderValidation\ValidateOrdersIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ActualizeOrderAmountToWithdrawIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CalculateOrderCostIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\SetOrderDocumentsDebtIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\GetOrderDocumentsDebtIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CheckIfOrderPositionCanBeModifiedIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CreateOrderBillsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\DeleteOrderBillsIdentity.cs" />
@@ -558,6 +604,10 @@
     <Compile Include="Identities\Operations\Identity\Specific\Order\ObtainDealForBizaccountOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\ChangeOrderLegalPersonProfileIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CheckIfOrderPositionCanBeCreatedForOrderIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\PrintCancellationAgreementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\PrintFirmNameChangeAgreementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Order\PrintBindingChangeAgreementIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Position\ChangePositionSortingOrderIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPriceIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\CopyPricePositionIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Price\PublishPriceIdentity.cs" />
@@ -629,7 +679,6 @@
     <Compile Include="Identities\Operations\Identity\INonCoupledOperationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\AccountDetail\ImportOperationsInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\ChangeDealStageIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportTerritoriesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportFirmIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\HotClientRequest\ImportHotClientIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\LegalPerson\ChangeRequisitesIdentity.cs" />
@@ -679,7 +728,6 @@
     <Compile Include="Identities\Operations\Identity\OperationIdentityRegistry.cs" />
     <Compile Include="Identities\Operations\Identity\OperationIdentityUtils.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Advertisement\SelectAdvertisementToWhitelistIdentity.cs" />
-    <Compile Include="Identities\Operations\Identity\Specific\Firm\SpecifyAdditionalServicesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportCardIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\LegalPersonProfile\SetAsMainLegalPersonProfileIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Order\CloseWithDenialIdentity.cs" />
@@ -694,18 +742,6 @@
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\StrictOperationIdentityUtils.cs" />
     <Compile Include="UndefinedEnumValueAttribute.cs" />
-    <Compile Include="Zones\CompositionRoot.cs" />
-    <Compile Include="Zones\IContainsType.cs" />
-    <Compile Include="Zones\Infrastructure\AssemblyZonePartScope.cs" />
-    <Compile Include="Zones\Infrastructure\IZonePart.cs" />
-    <Compile Include="Zones\Infrastructure\IZonePartScope.cs" />
-    <Compile Include="Zones\Infrastructure\MemberZonePartScope.cs" />
-    <Compile Include="Zones\Infrastructure\NamespaceZonePartScope.cs" />
-    <Compile Include="Zones\IZone.cs" />
-    <Compile Include="Zones\IZoneAnchor.cs" />
-    <Compile Include="Zones\IZoneAssembly.cs" />
-    <Compile Include="Zones\IZoneMember.cs" />
-    <Compile Include="Zones\IZoneNamespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -716,7 +752,9 @@
       <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

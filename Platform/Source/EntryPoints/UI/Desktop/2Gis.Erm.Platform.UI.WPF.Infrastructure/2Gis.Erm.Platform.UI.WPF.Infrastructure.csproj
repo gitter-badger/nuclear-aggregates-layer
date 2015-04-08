@@ -426,11 +426,11 @@
     <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_LegalPerson.gif">
       <Link>Presentation\Resources\Images\Navigation\en_ico_16_LegalPerson.gif</Link>
     </Resource>
-    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_UserAccount.gif">
-      <Link>Presentation\Resources\Images\Navigation\en_ico_16_UserAccount.gif</Link>
+    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_User.gif">
+      <Link>Presentation\Resources\Images\Navigation\en_ico_16_User.gif</Link>
     </Resource>
-    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_UserGroup.gif">
-      <Link>Presentation\Resources\Images\Navigation\en_ico_16_UserGroup.gif</Link>
+    <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\en_ico_16_Role.gif">
+      <Link>Presentation\Resources\Images\Navigation\en_ico_16_Role.gif</Link>
     </Resource>
     <Resource Include="..\..\..\..\..\..\CompositionRoots\Source\2Gis.Erm.UI.Web.Mvc\Content\images\Configuration\Entity\Settings.gif">
       <Link>Presentation\Resources\Images\Navigation\Settings.gif</Link>

@@ -177,6 +177,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName CategoryFirmAddresses = new SchemaQualifiedObjectName(ErmSchemas.BusinessDirectory,
                                                                                                                "CategoryFirmAddresses");
 
+        [Obsolete("Таблица была удалена")]
         public static readonly SchemaQualifiedObjectName FirmAddressServices = new SchemaQualifiedObjectName(ErmSchemas.BusinessDirectory, "FirmAddressServices");
 
         [Obsolete("заменена на PerformedBusinessOperations")]
@@ -222,7 +223,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         [Obsolete("Таблица была удалена")]
         public static readonly SchemaQualifiedObjectName ExportToMsCrmHotClients = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                  "ExportToMsCrm_HotClients");
-        
+
+        [Obsolete("Таблица была удалена")]
         public static readonly SchemaQualifiedObjectName ExportFlowCardExtensionsCardCommercial = new SchemaQualifiedObjectName(ErmSchemas.Integration,
                                                                                                                                 "ExportFlowCardExtensions_CardCommercial");
         
@@ -278,6 +280,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName UserTerritories = new SchemaQualifiedObjectName(ErmSchemas.Security, "UserTerritories");
 
+        [Obsolete("Таблица была удалена")]
         public static readonly SchemaQualifiedObjectName AdditionalFirmServices = new SchemaQualifiedObjectName(ErmSchemas.Integration, "AdditionalFirmServices");
 
         [Obsolete("Таблица была удалена")]
