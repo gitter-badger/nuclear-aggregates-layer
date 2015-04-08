@@ -181,7 +181,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                 new OperationServiceInterceptionDescriptor<ModifyLegalPersonUsingHandlerService>(CompareObjectMode.Shallow, new[] { "*.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyLegalPersonService>(CompareObjectMode.Shallow, new[] { "*.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyOrderUsingHandlerService>(CompareObjectMode.Shallow, new[] { "OrderPositions", "OrderReleaseTotals", "Account", "*.Count" }),
-                                new OperationServiceInterceptionDescriptor<ModifyBargainService>(CompareObjectMode.Shallow, new[] { "Orders", "BargainFiles", "LegalPerson", "BargainType", "BranchOfficeOrganizationUnit", "*.Count" }),
+                                new OperationServiceInterceptionDescriptor<ModifyBargainOperationService>(CompareObjectMode.Shallow, new[] { "Orders", "BargainFiles", "LegalPerson", "BargainType", "BranchOfficeOrganizationUnit", "*.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyOrderPositionUsingHandlerService>(CompareObjectMode.Shallow, new[] { "ReleasesWithdrawals, *.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyAdvertisementUsingHandlerService>(CompareObjectMode.Shallow, new[] { "AdvertisementElements, OrderPositionAdvertisements, *.Count" }),
                                 new OperationServiceInterceptionDescriptor<ModifyAdvertisementElementOperationService>(CompareObjectMode.Shallow, new[] { "*.Count" }),

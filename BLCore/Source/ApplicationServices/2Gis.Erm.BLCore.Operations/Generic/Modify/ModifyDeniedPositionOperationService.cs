@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 {
-    public class ModifyDeniedPositionService : IModifyBusinessModelEntityService<DeniedPosition>
+    public class ModifyDeniedPositionOperationService : IModifyBusinessModelEntityService<DeniedPosition>
     {
         private readonly ICreateDeniedPositionAggregateService _createService;
         private readonly IUpdateDeniedPositionAggregateService _updateService;
@@ -26,14 +26,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         private readonly IPriceReadModel _priceReadModel;
         private readonly IDeleteDeniedPositionAggregateService _deleteDeniedPositionAggregateService;
 
-        public ModifyDeniedPositionService(ICreateDeniedPositionAggregateService createService,
-                                           IUpdateDeniedPositionAggregateService updateService,
-                                           IOperationScopeFactory operationScopeFactory,
-                                           IBusinessModelEntityObtainer<DeniedPosition> deniedPositionObtainer,
-                                           IGetSymmetricDeniedPositionOperationService getSymmetricDeniedPositionOperationService,
-                                           IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier,
-                                           IPriceReadModel priceReadModel,
-                                           IDeleteDeniedPositionAggregateService deleteDeniedPositionAggregateService)
+        public ModifyDeniedPositionOperationService(ICreateDeniedPositionAggregateService createService,
+                                                    IUpdateDeniedPositionAggregateService updateService,
+                                                    IOperationScopeFactory operationScopeFactory,
+                                                    IBusinessModelEntityObtainer<DeniedPosition> deniedPositionObtainer,
+                                                    IGetSymmetricDeniedPositionOperationService getSymmetricDeniedPositionOperationService,
+                                                    IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier,
+                                                    IPriceReadModel priceReadModel,
+                                                    IDeleteDeniedPositionAggregateService deleteDeniedPositionAggregateService)
         {
             _createService = createService;
             _updateService = updateService;

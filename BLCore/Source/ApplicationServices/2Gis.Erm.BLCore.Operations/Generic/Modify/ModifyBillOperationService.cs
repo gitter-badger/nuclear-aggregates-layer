@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
@@ -15,17 +14,17 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 {
-    public class ModifyBillService : IModifyBusinessModelEntityService<Bill>
+    public class ModifyBillOperationService : IModifyBusinessModelEntityService<Bill>
     {
         private readonly IUpdateBillAggregateService _updateService;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IBusinessModelEntityObtainer<Bill> _billObtainer;
         private readonly IOrderReadModel _orderReadModel;
 
-        public ModifyBillService(IUpdateBillAggregateService updateService,
-                                 IOperationScopeFactory operationScopeFactory,
-                                 IBusinessModelEntityObtainer<Bill> billObtainer,
-                                 IOrderReadModel orderReadModel)
+        public ModifyBillOperationService(IUpdateBillAggregateService updateService,
+                                          IOperationScopeFactory operationScopeFactory,
+                                          IBusinessModelEntityObtainer<Bill> billObtainer,
+                                          IOrderReadModel orderReadModel)
         {
             _updateService = updateService;
             _operationScopeFactory = operationScopeFactory;

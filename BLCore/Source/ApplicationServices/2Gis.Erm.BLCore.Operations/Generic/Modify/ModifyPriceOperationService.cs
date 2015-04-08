@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
 {
-    public sealed class ModifyPriceService : IModifyBusinessModelEntityService<Price>
+    public sealed class ModifyPriceOperationService : IModifyBusinessModelEntityService<Price>
     {
         private readonly IPriceReadModel _priceReadModel;
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
@@ -25,12 +25,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         private readonly IBusinessModelEntityObtainer<Price> _priceObtainer;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public ModifyPriceService(IPriceReadModel priceReadModel,
-                                  IOrganizationUnitReadModel organizationUnitReadModel,
-                                  ICreatePriceAggregateService createPriceAggregateService,
-                                  IUpdatePriceAggregateService updatePriceAggregateService,
-                                  IBusinessModelEntityObtainer<Price> priceObtainer,
-                                  IOperationScopeFactory operationScopeFactory)
+        public ModifyPriceOperationService(IPriceReadModel priceReadModel,
+                                           IOrganizationUnitReadModel organizationUnitReadModel,
+                                           ICreatePriceAggregateService createPriceAggregateService,
+                                           IUpdatePriceAggregateService updatePriceAggregateService,
+                                           IBusinessModelEntityObtainer<Price> priceObtainer,
+                                           IOperationScopeFactory operationScopeFactory)
         {
             _priceReadModel = priceReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
