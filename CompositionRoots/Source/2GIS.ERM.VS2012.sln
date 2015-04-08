@@ -513,6 +513,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.Resources.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.Operations.Tests.Unit", "..\..\BL\Source\Tests\2Gis.Erm.BL.Operations.Tests.Unit\2Gis.Erm.BL.Operations.Tests.Unit.csproj", "{50B591AE-4761-4324-83F9-9359A876033C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BL.UI.Web.Metadata", "..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Metadata\2Gis.Erm.BL.UI.Web.Metadata.csproj", "{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.UI.Web.Metadata", "..\..\BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.UI.Web.Metadata\2Gis.Erm.BLFlex.UI.Web.Metadata.csproj", "{75699A90-60A2-404A-9691-041066F1B572}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.UI.Web.Metadata", "..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Metadata\2Gis.Erm.BLCore.UI.Web.Metadata.csproj", "{995BF65F-5951-40E5-A0F0-DF8DD343116A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1723,6 +1729,36 @@ Global
 		{50B591AE-4761-4324-83F9-9359A876033C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{50B591AE-4761-4324-83F9-9359A876033C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{50B591AE-4761-4324-83F9-9359A876033C}.Release|x64.ActiveCfg = Release|Any CPU
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D}.Release|x64.ActiveCfg = Release|Any CPU
+		{75699A90-60A2-404A-9691-041066F1B572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75699A90-60A2-404A-9691-041066F1B572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75699A90-60A2-404A-9691-041066F1B572}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{75699A90-60A2-404A-9691-041066F1B572}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{75699A90-60A2-404A-9691-041066F1B572}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{75699A90-60A2-404A-9691-041066F1B572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75699A90-60A2-404A-9691-041066F1B572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75699A90-60A2-404A-9691-041066F1B572}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{75699A90-60A2-404A-9691-041066F1B572}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{75699A90-60A2-404A-9691-041066F1B572}.Release|x64.ActiveCfg = Release|Any CPU
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1922,5 +1958,8 @@ Global
 		{E97BC051-BC95-4183-950B-0685DDE66D7D} = {25116287-6464-416E-986B-65E374B8FC7C}
 		{153868E3-4C4C-45FE-86D6-6B4FBD39249C} = {BF15FB1A-8859-4BC4-9BAF-083D37AF2DB5}
 		{50B591AE-4761-4324-83F9-9359A876033C} = {E652E39A-CF32-4A9B-ADFF-01CEA4403747}
+		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D} = {C87ED53C-F768-47C8-80E0-4CEF3D9C7A9D}
+		{75699A90-60A2-404A-9691-041066F1B572} = {60D0D089-7A06-4B9F-A162-3EEBF516311D}
+		{995BF65F-5951-40E5-A0F0-DF8DD343116A} = {E0B086E9-70F7-4FB1-B895-1D341440A893}
 	EndGlobalSection
 EndGlobal

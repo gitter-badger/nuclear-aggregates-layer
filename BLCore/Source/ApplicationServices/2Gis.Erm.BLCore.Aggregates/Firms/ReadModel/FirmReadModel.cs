@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 {
@@ -36,40 +37,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             return _secureFinder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.FirmId).Single();
         }
 
-        public IReadOnlyDictionary<Guid, FirmWithAddressesAndProjectDto> GetFirmInfosByCrmIds(IEnumerable<Guid> crmIds)
+        public IReadOnlyDictionary<long, FirmWithAddressesAndProjectDto> GetFirmInfosByIds(IEnumerable<long> ids)
         {
-            return _secureFinder.Find(FirmSpecs.Firms.Find.ByReplicationCodes(crmIds))
-                                .Select(f => new
-                                {
-                                    CrmId = f.ReplicationCode,
-                                    Dto = new FirmWithAddressesAndProjectDto
-                                    {
-                                        Id = f.Id,
-                                        Name = f.Name,
-                                        FirmAddresses = f.FirmAddresses
-                                                         .Where(fa => fa.IsActive && !fa.IsDeleted && !fa.ClosedForAscertainment)
-                                                         .Select(fa => new FirmAddressWithCategoriesDto
-                                                         {
-                                                             Id = fa.Id,
-                                                             Address = fa.Address,
-                                                             Categories = fa.CategoryFirmAddresses
-                                                                            .Where(cfa => cfa.IsActive && !cfa.IsDeleted)
-                                                                            .Select(cfa => new CategoryDto
-                                                                            {
-                                                                                Id = cfa.CategoryId,
-                                                                                Name = cfa.Category.Name
-                                                                            })
-                                                         }),
-                                        Project = f.OrganizationUnit.Projects
-                                                   .Where(p => p.IsActive)
-                                                   .Select(p => new ProjectDto
-                                                   {
-                                                       Code = p.Id,
-                                                       Name = p.DisplayName
-                                                   }).FirstOrDefault()
-                                    }
-                                })
-                                .ToDictionary(x => x.CrmId, x => x.Dto);
+            return _secureFinder.Find(FirmSpecs.Firms.Select.FirmWithAddressesAndProject(), Specs.Find.ByIds<Firm>(ids))
+                                .ToDictionary(dto => dto.Id, dto => dto);
         }
 
         public IEnumerable<long> GetFirmNonArchivedOrderIds(long firmId)
@@ -361,6 +332,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             return _finder.Find(Specs.Find.ByIds<FirmAddress>(firmAddressIds) && FirmSpecs.Addresses.Find.NotBelongToFirm(firmId))
                           .Select(x => x.Address)
                           .ToArray();
+        }
+
+        public long GetFirmOwnerCodeUnsecure(long firmId)
+        {
+            return _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.OwnerCode).Single();
         }
 
         private Dictionary<int, string> GetReferenceItems(IEnumerable<int> referenceItemCodes, string referenceCode)

@@ -46,7 +46,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
@@ -163,7 +162,6 @@ namespace DoubleGis.Erm.TaskService.DI
                     .ConfigureMetadata()
                     .ConfigureExportMetadata()
                     .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                    .RegisterCorporateQueues(connectionStringSettings)
                     .ConfigureQuartz()
                     .ConfigureEAV()
                     .ConfigurePerformedOperationsProcessing();
@@ -319,12 +317,6 @@ namespace DoubleGis.Erm.TaskService.DI
             return container
                 .RegisterType<IJobFactory, JobFactory>(Lifetime.Singleton)
                 .RegisterType<ISchedulerManager, SchedulerManager>(Lifetime.Singleton);
-        }
-
-        private static IUnityContainer RegisterCorporateQueues(this IUnityContainer container, IConnectionStringSettings connectionStringSettings)
-        {
-            return container.RegisterType<IRabbitMqQueueFactory, RabbitMqQueueFactory>(Lifetime.Singleton,
-                        new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmRabbitMq)));
         }
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)

@@ -55,6 +55,11 @@
         <xs:documentation>Код экспорта элемента номенклатуры</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="SortingPosition" type="xs:int" use="optional">
+      <xs:annotation>
+        <xs:documentation>Заданный вручную порядок отображения позиции</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="Name" type="string256" use="required">
       <xs:annotation>
         <xs:documentation>Название номенклатуры</xs:documentation>

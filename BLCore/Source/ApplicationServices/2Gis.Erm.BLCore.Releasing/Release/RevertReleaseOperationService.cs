@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
     {
         private readonly IAccountReadModel _accountReadModel;
         private readonly IReleaseReadModel _releaseReadModel;
-        private readonly ICheckOperationPeriodService _operationPeriodChecker;
+        private readonly IMonthPeriodValidationService _operationPeriodChecker;
         private readonly IAccountBulkDeleteLocksAggregateService _accountBulkDeleteLocksAggregateService;
         private readonly IAccountBulkReopenLimitsAggregateService _accountBulkReopenLimitsAggregateService;
         private readonly IReleaseChangeStatusAggregateService _changeReleaseStatusAggregateService;
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
         public RevertReleaseOperationService(IAccountReadModel accountReadModel,
                                              IReleaseReadModel releaseReadModel,
-                                             ICheckOperationPeriodService operationPeriodChecker,
+                                             IMonthPeriodValidationService operationPeriodChecker,
                                              IAccountBulkDeleteLocksAggregateService accountBulkDeleteLocksAggregateService,
                                              IAccountBulkReopenLimitsAggregateService accountBulkReopenLimitsAggregateService,
                                              IReleaseChangeStatusAggregateService changeReleaseStatusAggregateService,
@@ -208,7 +208,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
             acquiredRelease = null;
             acquiredReleaseDescriptor = new AcquiredReleaseDescriptor();
 
-            if (!_operationPeriodChecker.IsOperationPeriodValid(period, out report))
+            if (!_operationPeriodChecker.IsValid(period, out report))
             {
                 _tracer.Error(report);
                 return false;

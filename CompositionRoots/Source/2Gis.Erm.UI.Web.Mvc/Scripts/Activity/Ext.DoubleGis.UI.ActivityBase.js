@@ -10,29 +10,110 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         build: function () {
             return (this.suffix ? this.prefix + ' - ' + this.suffix : this.prefix) || "";
         }
-    },
-    getComboboxText: function (name) {
-        var element = Ext.get(name);
-        if (element) {
-            var dom = element.dom;
-            return dom.options[dom.selectedIndex].text;
-        }
-        return null;
-    },
-    getTitlePrefix : function() {
-        return Ext.get("ClientName").getValue();
-    },
-    getTitleSuffix : function() {
-        return null;
-    },
+    },    
 
     constructor: function (config) {
         Ext.DoubleGis.UI.ActivityBase.superclass.constructor.call(this, config);
 
         this.contactField = config.contactField;
         this.contactComp = config.contactComponent;
+
+        var scope = this;
+
+        function evaluateOperationUrlTemplate(operationName) {
+            return String.format("{0}{1}.svc/Rest/", Ext.BasicOperationsServiceRestUrl, operationName) + "{0}";
+        }
+        function evaluateOperationUrl(operationName) {
+            return String.format(evaluateOperationUrlTemplate(operationName), scope.EntityName);
+        }
+        function postOperation(operationName) {
+            scope.Items.Toolbar.disable();
+            scope.submitMode = scope.submitModes.SAVE;
+            var operationUrl = evaluateOperationUrl(operationName) + "/" + scope.form.Id.value;
+            window.Ext.Ajax.syncRequest({
+                timeout: 1200000,
+                url: operationUrl,
+                method: 'POST',
+                scope: scope,
+                success: scope.refresh,
+                failure: scope.postFormFailure
+            });
+         }
+        function checkDirty() {
+            if (scope.form.Id.value == 0) {
+                Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
+                return false;
+            }
+            if (scope.isDirty) {
+                Ext.Msg.alert('', Ext.LocalizedResources.CardIsDirtyAlert);
+                return false;
+            }
+            return true;
+        }
+        function сhangeStatus(operation)
+        {
+            var currentIsDirty = scope.isDirty;
+            if (currentIsDirty)
+            {
+                scope.Items.Toolbar.disable();
+                scope.submitMode = scope.submitModes.SAVE;
+                if (scope.fireEvent('beforepost', scope) && scope.normalizeForm()) {
+                    scope.postForm();
+                    scope.on('postformsuccess', function () { postOperation(operation); });
+                }
+                else {
+                    scope.recalcDisabling();
+                    scope.isDirty = currentIsDirty;
+                }
+            }
+            else
+            {
+                postOperation(operation);
+            }
+        }
+
+
+        this.getComboboxText = function (name) {
+            var element = Ext.get(name);
+            if (element) {
+                var dom = element.dom;
+                return dom.options[dom.selectedIndex].text;
+            }
+            return null;
+        }                
+        this.CompleteActivity =  function () {        
+            сhangeStatus("Complete");
+        }
+        this.CancelActivity = function () {        
+            сhangeStatus("Cancel");
+        }
+        this.ReopenActivity = function() {        
+            сhangeStatus("Reopen");
+        }
+        this.Assign = function () {
+            if (!checkDirty()) return;
+            var result = window.showModalDialog("/GroupOperation/Assign/" + this.EntityName, [this.form.Id.value],
+                "dialogWidth:450px; dialogHeight:300px; status:yes; scroll:no; resizable:no;");
+            if (result) {
+                this.refresh(true);
+            }
+        }
+       
+        
     },
-    autocompleteHeader: function () {
+    Build : function() {
+        Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
+
+        Ext.getCmp("Client").on("change",this.autocompleteHeader, this);
+
+        if (this.contactField && this.contactComp) {
+            this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
+        }
+        this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
+
+        this.autocompleteHeader();
+    },
+    autocompleteHeader: function() {
         var prefix = this.getTitlePrefix();
         var suffix = this.getTitleSuffix();
 
@@ -47,65 +128,12 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             headerElement.setValue(this.autoHeader.build());
         }
     },
-    checkDirty: function () {
-        if (this.form.Id.value == 0) {
-            Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
-            return false;
-        }
-        if (this.isDirty) {
-            Ext.Msg.alert('', Ext.LocalizedResources.CardIsDirtyAlert);
-            return false;
-        }
-        return true;
+    getTitlePrefix: function() {
+        return Ext.get("ClientName").getValue();
     },
-    changeStatus: function (newStatus) {
-        var statusEl = Ext.get("Status");
-
-        var currentStatus = statusEl.getValue();
-        if (currentStatus === newStatus) return;
-
-        var currentIsDirty = this.isDirty;
-        statusEl.setValue(newStatus);
-
-        this.Items.Toolbar.disable();
-        this.submitMode = this.submitModes.SAVE;
-        if (this.fireEvent('beforepost', this) && this.normalizeForm()) {
-            this.postForm();
-            this.on('afterpost', this.refresh, this, { single: true });
-        }
-        else {
-            this.recalcDisabling();
-            statusEl.setValue(currentStatus);
-            this.isDirty = currentIsDirty;
-        }
-    },
-    CompleteActivity: function () {
-        this.changeStatus("Completed");
-    },
-    CancelActivity: function () {
-        this.changeStatus("Canceled");
-    },
-    RevertActivity: function() {
-        this.changeStatus("InProgress");
-    },
-    Assign: function () {
-        if (!this.checkDirty()) return;
-        var result = window.showModalDialog("/GroupOperation/Assign/" + this.EntityName, [this.form.Id.value],
-            "dialogWidth:450px; dialogHeight:300px; status:yes; scroll:no; resizable:no;");
-        if (result) {
-            this.refresh(true);
-        }
-    },
-    Build: function () {     
-        Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
-
-        Ext.getCmp("Client").on("change", this.autocompleteHeader, this);
-
-        if (this.contactField && this.contactComp) {
-            this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
-        }
-        this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
-
-        this.autocompleteHeader();
-    }
+    getTitleSuffix: function() {
+            return null;
+    }      
+    
+    
 });

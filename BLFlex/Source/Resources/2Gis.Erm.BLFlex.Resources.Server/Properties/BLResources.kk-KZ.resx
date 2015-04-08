@@ -387,9 +387,6 @@ SWIFT {5}
   <data name="VerificationTitle" xml:space="preserve">
     <value>Выверка ЭРМ</value>
   </data>
-  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
-    <value>С данным клиентом работает рекламное агентство:</value>
-  </data>
   <data name="QuotedValue" xml:space="preserve">
     <value>«{0}»</value>
   </data>

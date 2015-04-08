@@ -456,36 +456,13 @@
   <data name="IntegrationTypeNone" xml:space="preserve">
     <value>No especificado</value>
   </data>
-  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
-    <value>Carga de empresas</value>
-  </data>
-  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
-    <value>Carga de categorías</value>
-  </data>
-  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
-    <value>Carga de territorios</value>
-  </data>
-  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
-    <value>Descarga de empresas con las órdenes activas</value>
-  </data>
-  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
-    <value>Carga de amortizaciones</value>
-  </data>
-  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
-    <value>Descarga de órdenes</value>
-  </data>
   <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
     <value>Carga de ingresos desde las cuentas personales</value>
   </data>
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Descarga las personas jurídicas de clientes</value>
   </data>
-  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
-    <value>Descarga de cuentas personales</value>
-  </data>
-  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
-    <value>Descarga de verificaciones</value>
-  </data>
+
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Promocional</value>
   </data>
@@ -801,14 +778,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Otro</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Factura única para EIRL</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>Factura única para una persona jurídica</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Factura única para una persona natural</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Contrato</value>
@@ -1244,9 +1215,6 @@
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Perfil de la  persona jurídica del cliente</value>
-  </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Servicios adicionales para la empresa</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Eliminar el perfil de la  persona jurídica del cliente</value>
@@ -1722,6 +1690,12 @@
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Acuerdo de anulación del  contrato para una persona jurídica</value>
   </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
     <value>Descarga al canal de amortizaciones según las cuentas personales</value>
   </data>
@@ -2043,6 +2017,18 @@
   </data>
   <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Prestación garantizada</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Prestación planificada</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Retiro</value>
   </data>
   <data name="PositionsGroupMedia" xml:space="preserve">
     <value>Publicidad mediática</value>

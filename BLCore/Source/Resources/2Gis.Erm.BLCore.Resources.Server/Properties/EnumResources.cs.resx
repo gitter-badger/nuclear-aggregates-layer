@@ -346,7 +346,7 @@
     <value>Datum</value>
   </data>
   <data name="FasCommentNewFasComment" xml:space="preserve">
-    <value>Nové upozornění.</value>
+    <value>Nové upozornění</value>
   </data>
   <data name="FasCommentAlcohol" xml:space="preserve">
     <value>Reklama na alkoholické výrobky.</value>
@@ -450,35 +450,11 @@
   <data name="IntegrationTypeNone" xml:space="preserve">
     <value>Neuvedeno</value>
   </data>
-  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
-    <value>Načtení firem</value>
-  </data>
-  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
-    <value>Načtení rubrik</value>
-  </data>
-  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
-    <value>Načtení území</value>
-  </data>
-  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
-    <value>Odeslání firem s aktivními objednávkami</value>
-  </data>
-  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
-    <value>Načtení odpisů</value>
-  </data>
-  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
-    <value>Načtení aktivních objednávek</value>
-  </data>
   <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
     <value>Načtení připsaných částek na osobní účty</value>
   </data>
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Načtení pr. osob klientů</value>
-  </data>
-  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
-    <value>Načtení osobních účtů</value>
-  </data>
-  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
-    <value>Načtení ověření</value>
   </data>
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Akční</value>
@@ -789,14 +765,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Jiné</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Jednotná faktura pro SP</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>Jednotná faktura pro pr. osobu</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Jednotná faktura pro fyz. osobu</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Smlouva</value>
@@ -1232,9 +1202,6 @@
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Profil pr. osoby klienta</value>
-  </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Dod. služby pro firmy</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Odstranění profilu pr. osoby klienta</value>
@@ -1713,6 +1680,12 @@
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Dohoda o zrušení smlouvy pro pr. osobu</value>
   </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
     <value>Odeslání odpisů z osobních účtů do sběrnice</value>
   </data>
@@ -2031,6 +2004,18 @@
   </data>
   <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Zaručené poskytnutí</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Plánované poskytnutí</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Stržení prostředků</value>
   </data>
   <data name="PositionsGroupMedia" xml:space="preserve">
     <value>Mediální reklama</value>

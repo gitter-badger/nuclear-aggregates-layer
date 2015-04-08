@@ -990,14 +990,8 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="ActivityBaseViewModelAbstract_Type" xml:space="preserve">
-    <value>Тип</value>
-  </data>
   <data name="Priority" xml:space="preserve">
     <value>Приоритет</value>
-  </data>
-  <data name="ActivityBaseViewModelAbstract_Status" xml:space="preserve">
-    <value>Состояние</value>
   </data>
   <data name="Purpose" xml:space="preserve">
     <value>Цель</value>
@@ -1407,6 +1401,20 @@
   <data name="ControlResetToDraft" xml:space="preserve">
     <value>Редактировать</value>
   </data>
+  <data name="Attendee" xml:space="preserve">
+    <value>Участник</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Место встречи</value>
+  </data>
+  <data name="Recipient" xml:space="preserve">
+    <value>Получатель</value>
+    <comment>Кому направлено действие, например, письмо.</comment>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>Отправитель</value>
+    <comment>От кого направлено действие, например, письмо.</comment>
+  </data>
   <data name="AdvertisingCampaignBeginDate" xml:space="preserve">
     <value>Начало рекламной кампании</value>
   </data>
@@ -1478,5 +1486,11 @@
   </data>
   <data name="PositionsGroup" xml:space="preserve">
     <value>Группа номенклатур</value>
+  </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Способ учета оказания услуг</value>
+  </data>
+  <data name="ApplicationCityName" xml:space="preserve">
+    <value>Город обращения</value>
   </data>
 </root>

@@ -31,8 +31,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
             _scopeFactory = scopeFactory;
         }
 
-        public WithdrawalInfo Start(long organizationUnitId, TimePeriod period)
+        public WithdrawalInfo Start(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod)
         {
+            if (accountingMethod == AccountingMethod.Undefined)
+            {
+                throw new AccountingMethodViolationException(accountingMethod);
+            }
+
             WithdrawalInfo newWithdrawal;
             using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity, WithdrawalInfo>())
             {
@@ -43,6 +48,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
                         PeriodEndDate = period.End,
                         OrganizationUnitId = organizationUnitId,
                         Status = WithdrawalStatus.Withdrawing,
+                        AccountingMethod = accountingMethod,
                         OwnerCode = _userContext.Identity.Code,
                         IsActive = true
                     };

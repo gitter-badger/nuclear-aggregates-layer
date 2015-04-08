@@ -133,6 +133,20 @@ height: 16px;
 font-weight: bold;
 }
 
+#HelpMe a {
+    color: #d6e8ff; 
+    font-weight: normal;
+}
+
+#HelpMe img {
+    vertical-align: middle;
+    margin-right: 5px
+}
+
+#HelpMe span {
+    vertical-align: top
+}
+
 SPAN.main-header-sign-in,
 .main-header-sign-in-org
 {

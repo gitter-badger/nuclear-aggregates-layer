@@ -128,10 +128,7 @@
     <Compile Include="Suite\Concrete\API\Metadata\MetadataProviderTest.cs" />
     <Compile Include="Suite\Concrete\API\Metadata\OperationsMetadataProviderTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Deals\ReplicateDealStageOperationServiceTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Firms\FirmAdditionalServiceOperationsTest.cs" />
     <Compile Include="Suite\Base\UseModelEntityHandlerTestBase.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\GetAccountDetailsForExportContentTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\GetDebitsInfoInitialForExportTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\PerfomedOperationsProcessorOperationsTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowBillingTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsForErmTest.cs" />
@@ -142,6 +139,7 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowPhoneZonesTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowRubricsTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowStickersTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Withdrawals\BulkWithdrawTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CancelOrderProcessingRequestOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CreateOrderCreationRequestOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\BLFlex\Operations\Concrete\OrderProcessingRequests\CreateOrderProlongationRequestOperationServiceTest.cs" />
@@ -155,7 +153,6 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Categories\CategoryServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Countries\CountryServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Currencies\CurrencyServiceTest.cs" />
-    <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Firms\AdditionalFirmServicesServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Platforms\PlatformServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Simplified\Dictionary\Projects\ProjectServiceTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Themes\SetAsDefaultThemeOperationServiceTest.cs" />
@@ -215,6 +212,7 @@
     <Compile Include="Suite\Concrete\Common\FinderEntityProvider.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Generic\GetDomainEntityDtoOperationServiceTest.cs" />
     <Compile Include="Suite\Concrete\Common\IAppropriateEntityProvider.cs" />
+    <Compile Include="Suite\Concrete\BLCore\Operations\Concrete\Old\Integration\ServiceBus\SerializeAccountDetailHandlerTest.cs" />
     <Compile Include="Suite\Concrete\Operations\Assign\AssignAccountOperationServiceTests.cs" />
     <Compile Include="Suite\Concrete\OrderValidation\AdvertisementsOnlyWhiteListOrderValidationRuleTest.cs" />
     <Compile Include="Suite\Concrete\Platform\DAL\QueryAllRegisteredEntitiesTest.cs" />
