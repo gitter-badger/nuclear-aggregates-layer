@@ -89,30 +89,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
             var originalDeniedPosition = _priceReadModel.GetDeniedPosition(deniedPosition.Id);
             if (originalDeniedPosition.PositionDeniedId != deniedPosition.PositionDeniedId)
             {
-                if (deniedPosition.IsSelfDenied())
-                {
-                    var symmetricOriginalDeniedPosition = _getSymmetricDeniedPositionOperationService.Get(originalDeniedPosition);
-                    _deleteDeniedPositionAggregateService.Delete(symmetricOriginalDeniedPosition);
-                }
-
-                _deniedPositionsDuplicatesVerifier.VerifyForDuplicates(deniedPosition);
-
-                if (originalDeniedPosition.IsSelfDenied())
-                {
-                    var symmetricDeniedPosition = MakeSymmetric(deniedPosition).ResetToNew();
-                    _createService.Create(symmetricDeniedPosition);
-                }
+                ChangeRoute(originalDeniedPosition, deniedPosition);
             }
 
             if (deniedPosition.IsSelfDenied())
             {
-                _updateService.UpdateSelfDeniedPosition(deniedPosition);
+                _updateService.UpdateSelfDenied(deniedPosition);
             }
             else
             {
                 var currentSymmetricDeniedPosition = _getSymmetricDeniedPositionOperationService.Get(deniedPosition);
                 var updatedSymmetricDeniedPosition = MakeSymmetric(deniedPosition).ResetToNew();
-                
+
                 updatedSymmetricDeniedPosition.Id = currentSymmetricDeniedPosition.Id;
                 updatedSymmetricDeniedPosition.CreatedBy = currentSymmetricDeniedPosition.CreatedBy;
                 updatedSymmetricDeniedPosition.CreatedOn = currentSymmetricDeniedPosition.CreatedOn;
@@ -144,6 +132,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
                                                   };
 
                 _createService.Create(deniedPosition, symmetricDeniedPosition);
+            }
+        }
+
+        private void ChangeRoute(DeniedPosition originalDeniedPosition, DeniedPosition newDeniedPosition)
+        {
+            if (newDeniedPosition.IsSelfDenied())
+            {
+                var symmetricOriginalDeniedPosition = _getSymmetricDeniedPositionOperationService.Get(originalDeniedPosition);
+                _deleteDeniedPositionAggregateService.Delete(symmetricOriginalDeniedPosition);
+            }
+
+            _deniedPositionsDuplicatesVerifier.VerifyForDuplicates(newDeniedPosition);
+
+            if (originalDeniedPosition.IsSelfDenied())
+            {
+                var symmetricDeniedPosition = MakeSymmetric(newDeniedPosition).ResetToNew();
+                _createService.Create(symmetricDeniedPosition);
             }
         }
 

@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             }
         }
 
-        public void DeactivateSelfDeniedPosition(DeniedPosition selfDeniedPosition)
+        public void DeactivateSelfDenied(DeniedPosition selfDeniedPosition)
         {
             if (selfDeniedPosition == null)
             {

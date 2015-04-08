@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
 
                 if (deniedPosition.IsSelfDenied())
                 {
-                    _activateDeniedPositionAggregateService.ActivateSelfDeniedPosition(deniedPosition);
+                    _activateDeniedPositionAggregateService.ActivateSelfDenied(deniedPosition);
                 }
                 else
                 {

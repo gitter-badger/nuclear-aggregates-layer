@@ -7,6 +7,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
     public interface IDeactivateDeniedPositionAggregateService : IAggregateSpecificOperation<Price, DeactivateIdentity>
     {
         void Deactivate(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition);
-        void DeactivateSelfDeniedPosition(DeniedPosition selfDeniedPosition);
+        void DeactivateSelfDenied(DeniedPosition selfDeniedPosition);
     }
 }

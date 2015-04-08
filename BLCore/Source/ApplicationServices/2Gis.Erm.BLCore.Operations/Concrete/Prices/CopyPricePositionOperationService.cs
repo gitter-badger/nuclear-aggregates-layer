@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _deniedPositionsDuplicatesVerifier = deniedPositionsDuplicatesVerifier;
         }
 
-        public long Copy(long priceId, long sourcePricePositionId, long positionId)
+        public void Copy(long priceId, long sourcePricePositionId, long positionId)
         {
             PerformValidation(priceId, positionId);
 
@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 
                 var sourcePositionId = pricePosition.PositionId;
                 var allPricePositionDescendantsDto = _priceReadModel.GetAllPricePositionDescendantsDto(sourcePricePositionId, sourcePositionId);
-                
+
                 pricePosition.PositionId = positionId;
                 _createPricePositionAggregateService.Create(pricePosition);
 
@@ -80,8 +80,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                 CreateAssociatedPositions(associatedPositionsToCreate);
 
                 operationScope.Complete();
-
-                return pricePosition.Id;
             }
         }
 
