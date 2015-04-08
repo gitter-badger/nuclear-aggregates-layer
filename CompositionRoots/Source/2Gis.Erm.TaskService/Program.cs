@@ -7,12 +7,12 @@ using System.ServiceProcess;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
-using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.TaskService.DI;
 using DoubleGis.Erm.TaskService.Settings;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Jobs.Schedulers;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 using NuClear.Tracing.Environment;

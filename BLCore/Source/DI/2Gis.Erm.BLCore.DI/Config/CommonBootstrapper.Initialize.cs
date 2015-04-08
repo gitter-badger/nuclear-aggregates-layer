@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Common.Crosscutting;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Erm.Platform.Model;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
+using NuClear.DI.Unity.Config.RegistrationResolvers;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {
@@ -16,18 +19,20 @@ namespace DoubleGis.Erm.BLCore.DI.Config
     {
         public static void InitializeDIInfrastructure(this IUnityContainer unityContainer)
         {
-            var queryableContainerExtension = new QueryableContainerExtension();
-            unityContainer.AddExtension(queryableContainerExtension);
-            unityContainer.RegisterInstance(Mapping.QueryableExtension, queryableContainerExtension);
-
-            ContainerUtils.AddParameterResolver(OnAggregateReadModelDependencyResolver);
-            ContainerUtils.AddParameterResolver(OnAggregateRepositoryDependencyResolver);
-            ContainerUtils.AddParameterResolver(OnSimplifiedModelConsumerReadModelDependencyResolver);
-            ContainerUtils.AddParameterResolver(OnSimplifiedModelConsumerDependencyResolver);
-            ContainerUtils.AddParameterResolver(OnPersistenceServiceDependencyResolver);
-            ContainerUtils.AddParameterResolver(OnOperationServicesDependencyResolver);
-            ContainerUtils.AddParameterResolver(OnCrosscuttingDependencyResolver);
-            ContainerUtils.AddParameterResolver(OnDynamicEntitiesRepositoriesDependencyResolver);
+            unityContainer.AttachQueryableContainerExtension()
+                          .UseParameterResolvers(ParameterResolvers.Defaults
+                                                                   .Concat(new ParameterResolver[]
+                                                                               {
+                                                                                   OnAggregateReadModelDependencyResolver,
+                                                                                   OnAggregateReadModelDependencyResolver,
+                                                                                   OnAggregateRepositoryDependencyResolver,
+                                                                                   OnSimplifiedModelConsumerReadModelDependencyResolver,
+                                                                                   OnSimplifiedModelConsumerDependencyResolver,
+                                                                                   OnPersistenceServiceDependencyResolver,
+                                                                                   OnOperationServicesDependencyResolver,
+                                                                                   OnCrosscuttingDependencyResolver,
+                                                                                   OnDynamicEntitiesRepositoriesDependencyResolver
+                                                                               }));
         }
         
         private static bool OnAggregateReadModelDependencyResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)

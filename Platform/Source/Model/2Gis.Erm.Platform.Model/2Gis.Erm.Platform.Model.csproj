@@ -41,6 +41,10 @@
     <AssemblyOriginatorKeyFile>..\..\2Gis.Erm.PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -738,18 +742,6 @@
     <Compile Include="Identities\Operations\Identity\Specific\Withdrawal\WithdrawIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\StrictOperationIdentityUtils.cs" />
     <Compile Include="UndefinedEnumValueAttribute.cs" />
-    <Compile Include="Zones\CompositionRoot.cs" />
-    <Compile Include="Zones\IContainsType.cs" />
-    <Compile Include="Zones\Infrastructure\AssemblyZonePartScope.cs" />
-    <Compile Include="Zones\Infrastructure\IZonePart.cs" />
-    <Compile Include="Zones\Infrastructure\IZonePartScope.cs" />
-    <Compile Include="Zones\Infrastructure\MemberZonePartScope.cs" />
-    <Compile Include="Zones\Infrastructure\NamespaceZonePartScope.cs" />
-    <Compile Include="Zones\IZone.cs" />
-    <Compile Include="Zones\IZoneAnchor.cs" />
-    <Compile Include="Zones\IZoneAssembly.cs" />
-    <Compile Include="Zones\IZoneMember.cs" />
-    <Compile Include="Zones\IZoneNamespace.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -760,7 +752,9 @@
       <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\..\..\..\CompositionRoots\Source\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

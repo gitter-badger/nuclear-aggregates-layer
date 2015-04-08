@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.Platform.API.Security.UserContext;
+﻿using NuClear.Security.API.UserContext;
 
 using Microsoft.Practices.Unity;
 
