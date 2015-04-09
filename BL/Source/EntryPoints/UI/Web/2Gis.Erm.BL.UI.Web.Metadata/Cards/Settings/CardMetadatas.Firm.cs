@@ -32,9 +32,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Close())
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.FirmAddress, () => ErmConfigLocalization.CrdRelFirmAddresses),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.CategoryFirmAddress,
-                                                                               Icons.Icons.Entity.Small(EntityName.Category),
-                                                                               () => ErmConfigLocalization.CrdRelCategories),
+                                          RelatedItems.RelatedItem.CategoryFirmAddressesGrid(),
                                           RelatedItems.RelatedItem.EntityGrid(EntityName.Advertisement,
                                                                                Icons.Icons.Entity.Small(EntityName.Advertisement),
                                                                                () => ErmConfigLocalization.CrdRelFirmAdvertisements),
