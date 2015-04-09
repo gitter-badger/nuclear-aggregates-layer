@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 
                 var userLocale = _userContext.Profile.UserLocaleInfo;
 
-                if (task.ScheduledOn.ToUserDateTime(userLocale).Date > userLocale.ToLocalUserTime().Date)
+                if (userLocale.UserTimeZoneInfo.ConvertDateFromUtc(task.ScheduledOn) > userLocale.UserTimeZoneInfo.ConvertDateFromLocal(DateTime.Now))
                 {
                     throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
                 }

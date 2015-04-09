@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 {
    public static class TimeZoneInfoExtenstion
-    {
-       public static DateTime ToUserDateTime(this DateTime time, LocaleInfo info)
+    {      
+       public static DateTime ConvertDate(this TimeZoneInfo from, TimeZoneInfo to, DateTime date)
        {
-           return TimeZoneInfo.ConvertTimeFromUtc(time, info.UserTimeZoneInfo);
+           return TimeZoneInfo.ConvertTime(date, from, to).Date;
        }
 
-       public static DateTime ToLocalUserTime(this LocaleInfo info)
+       public static DateTime ConvertDateFromUtc(this TimeZoneInfo toTimeZoneInfo, DateTime date)
        {
-           return TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Local, info.UserTimeZoneInfo);
+           return ConvertDate(TimeZoneInfo.Utc, toTimeZoneInfo, date);
+       }
+       
+       public static DateTime ConvertDateFromLocal(this TimeZoneInfo toTimeZoneInfo, DateTime date)
+       {
+           return ConvertDate(TimeZoneInfo.Local, toTimeZoneInfo, date);
        }
     }
 }

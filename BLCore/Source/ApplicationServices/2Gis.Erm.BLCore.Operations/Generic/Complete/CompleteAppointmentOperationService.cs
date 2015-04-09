@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
                 var originalStatus = appointment.Status;
                 var userLocale = _userContext.Profile.UserLocaleInfo;
 
-                if (appointment.ScheduledStart.ToUserDateTime(userLocale).Date > userLocale.ToLocalUserTime().Date)
+                if (userLocale.UserTimeZoneInfo.ConvertDateFromUtc(appointment.ScheduledStart) > userLocale.UserTimeZoneInfo.ConvertDateFromLocal(DateTime.Now))
                 {
                     throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
                 }
