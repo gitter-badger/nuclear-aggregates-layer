@@ -29,12 +29,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Complete
             {
                 throw new ArgumentNullException("appointment");
             }
-
-            if (appointment.Status == ActivityStatus.Completed)
-            {
-                return;
-            }
-
+         
             if (appointment.Status != ActivityStatus.InProgress)
             {
                 throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, appointment.Header));

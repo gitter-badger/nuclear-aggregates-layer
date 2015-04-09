@@ -30,11 +30,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Complete
                 throw new ArgumentNullException("phonecall");
             }
 
-            if (phonecall.Status == ActivityStatus.Completed)
-            {
-                return;
-            }
-
             if (phonecall.Status != ActivityStatus.InProgress)
             {
                 throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, phonecall.Header));
