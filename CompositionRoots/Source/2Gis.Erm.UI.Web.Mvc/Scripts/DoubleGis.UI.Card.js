@@ -835,19 +835,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             var reg;
             var filters;
             var val;
-            var i;
-
-            var defaultDataView = n.attributes.defaultDataView;
-            if (defaultDataView) {
-                filters = defaultDataView.match(/\{\w{1,}\}/g);
-                if (filters) {
-                    for (i = 0; i < filters.length; i++) {
-                        reg = new RegExp(filters[i], "g");
-                        val = window.Ext.get(filters[i].substring(1, filters[i].length - 1)).getValue();
-                        defaultDataView = defaultDataView.replace(reg, val);
-                    }
-                }
-            }
+            var i;                 
 
             var extendedInfo = n.attributes.extendedInfo;
             if (extendedInfo) {
@@ -923,6 +911,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                     frameUrl = window.Ext.urlAppend(frameUrl, window.Ext.urlEncode({ extendedInfo: extendedInfo }));
                 }
                 
+                var defaultDataView = n.attributes.defaultDataView;
                 if (defaultDataView) {
                     frameUrl = window.Ext.urlAppend(frameUrl, window.Ext.urlEncode({ defaultDataView: defaultDataView }));
                 }

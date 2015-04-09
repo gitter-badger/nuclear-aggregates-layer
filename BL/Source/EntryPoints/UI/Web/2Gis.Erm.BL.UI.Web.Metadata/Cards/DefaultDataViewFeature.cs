@@ -9,6 +9,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             DataView = dataView;
         }
 
-        public string DataView { get; set; }
+        public string DataView { get; private set; }
     }
 }
