@@ -6,7 +6,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
     {      
        public static DateTime ConvertDate(this TimeZoneInfo from, TimeZoneInfo to, DateTime date)
        {
-           return TimeZoneInfo.ConvertTime(date, from, to).Date;
+           return TimeZoneInfo.ConvertTime(date, from, to);
        }
 
        public static DateTime ConvertDateFromUtc(this TimeZoneInfo toTimeZoneInfo, DateTime date)

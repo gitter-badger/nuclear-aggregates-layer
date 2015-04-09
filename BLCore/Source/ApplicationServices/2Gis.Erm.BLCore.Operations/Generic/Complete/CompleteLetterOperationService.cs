@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
                 var originalStatus = letter.Status;
                 var userLocale = _userContext.Profile.UserLocaleInfo;
 
-                if (userLocale.UserTimeZoneInfo.ConvertDateFromUtc(letter.ScheduledOn) > userLocale.UserTimeZoneInfo.ConvertDateFromLocal(DateTime.Now))
+                if (userLocale.UserTimeZoneInfo.ConvertDateFromUtc(letter.ScheduledOn).Date > userLocale.UserTimeZoneInfo.ConvertDateFromLocal(DateTime.Now).Date)
                 {
                     throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
                 }

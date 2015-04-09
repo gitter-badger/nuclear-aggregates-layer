@@ -61,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 
                 var userLocale = _userContext.Profile.UserLocaleInfo;
 
-                if (userLocale.UserTimeZoneInfo.ConvertDateFromUtc(phonecall.ScheduledOn) > userLocale.UserTimeZoneInfo.ConvertDateFromLocal(DateTime.Now))
+                if (userLocale.UserTimeZoneInfo.ConvertDateFromUtc(phonecall.ScheduledOn).Date > userLocale.UserTimeZoneInfo.ConvertDateFromLocal(DateTime.Now).Date)
                 {
                     throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
                 }
