@@ -37,13 +37,9 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 method: 'POST',
                 scope: scope,
                 success: scope.refresh,
-                failure: changeStatusFailure
+                failure: scope.postFormFailure
             });
-        }
-        function changeStatusFailure(xhr) {
-            scope.changeStatusOperation = undefined;
-            scope.postFormFailure(xhr);
-        }
+        }       
         function checkDirty() {
             if (scope.form.Id.value == 0) {
                 Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
