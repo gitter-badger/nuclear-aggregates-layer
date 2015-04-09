@@ -1,15 +1,14 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System;
+using System.Linq.Expressions;
+
+using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 {
-    using System;
-    using System.Linq.Expressions;
-
-    using DoubleGis.Erm.Platform.Common.Utils;
-
     public static class UIElementMetadataBuilderExtensions
     {
         public static UIElementMetadataBuilder AppendapleEntity<TEntity>(this UIElementMetadataBuilder builder)
