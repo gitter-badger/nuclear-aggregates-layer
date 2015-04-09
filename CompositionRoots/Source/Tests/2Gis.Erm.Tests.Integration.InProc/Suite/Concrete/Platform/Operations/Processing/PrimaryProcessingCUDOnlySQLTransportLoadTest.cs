@@ -18,7 +18,7 @@ using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Processing
 {
-    public sealed class PrimaryProcessingLoadTest : IIntegrationTest
+    public sealed class PrimaryProcessingCUDOnlySQLTransportLoadTest : IIntegrationTest
     {
         private readonly IOperationsPrimaryProcessingAbandonAggregateService _operationsPrimaryProcessingAbandonAggregateService;
         private readonly IOperationsPrimaryProcessingCompleteAggregateService _operationsPrimaryProcessingCompleteAggregateService;
@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
         private readonly IRepository<PerformedOperationPrimaryProcessing> _primaryProcessingsRepository;
         private readonly ITracer _tracer;
 
-        public PrimaryProcessingLoadTest(
+        public PrimaryProcessingCUDOnlySQLTransportLoadTest(
             IRepository<PerformedOperationPrimaryProcessing> primaryProcessingsRepository,
             IOperationsPrimaryProcessingAbandonAggregateService operationsPrimaryProcessingAbandonAggregateService,
             IOperationsPrimaryProcessingCompleteAggregateService operationsPrimaryProcessingCompleteAggregateService,
@@ -148,7 +148,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
         {
             const int BatchSize = 3000;
 
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
             {
                 for (int i = 0; i < primaryProcessings.Count; i++)
                 {

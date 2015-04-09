@@ -115,6 +115,7 @@
     <Compile Include="DI\Zones\IntegrationTestsZone.cs" />
     <Compile Include="DI\Zones\Parts\IntegrationTestsZonePartAssembly.cs" />
     <Compile Include="DI\TestsIntegrationInProcRoot.cs" />
+    <Compile Include="Suite\Concrete\Platform\Operations\Processing\PrimaryProcessingSimulationSQLTransportLoadTest.cs" />
     <Compile Include="Suite\Base\DelegateResponseAsserter.cs" />
     <Compile Include="Suite\Base\EmptyResponseAsserter.cs" />
     <Compile Include="Suite\Base\IResponseAsserter.cs" />
@@ -222,7 +223,7 @@
     <Compile Include="Suite\Concrete\Platform\Identity\BufferedIdentityRequestStrategyTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Logging\ServiceBusLoggingTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\PerformedOperationsProcessingReadModelTest.cs" />
-    <Compile Include="Suite\Concrete\Platform\Operations\Processing\PrimaryProcessingLoadTest.cs" />
+    <Compile Include="Suite\Concrete\Platform\Operations\Processing\PrimaryProcessingCUDOnlySQLTransportLoadTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\ServiceBusReceiverTest.cs" />
     <Compile Include="Suite\Infrastructure\CompositeTestResult.cs" />
     <Compile Include="Suite\Infrastructure\Fakes\CachingProducedQueryLogAccessor.cs" />

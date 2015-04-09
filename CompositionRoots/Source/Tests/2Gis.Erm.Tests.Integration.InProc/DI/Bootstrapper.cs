@@ -96,10 +96,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             container.InitializeDIInfrastructure();
 
             Type[] explicitlyTypesSpecified = null;
-            // { typeof(PrimaryProcessingLoadTest) };
-            // { typeof(PerformedOperationsProcessingReadModelTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
+            // typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
             Type[] explicitlyExcludedTypes = //null;
-            { typeof(PrimaryProcessingLoadTest), typeof(BulkWithdrawTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest), typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };
+            { typeof(PrimaryProcessingSimulationSQLTransportLoadTest), typeof(PrimaryProcessingCUDOnlySQLTransportLoadTest), typeof(BulkWithdrawTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest), typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };
 
 
             var massProcessors = new IMassProcessor[]
