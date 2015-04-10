@@ -204,6 +204,17 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             EntityName appendedEntityName = entityNames[0];
             switch (parentEntityName)
             {
+                case EntityName.BranchOffice:
+                    {
+                        switch (appendedEntityName)
+                        {
+                            case EntityName.User:
+                                return new AppendMetadata();
+                        }
+
+                        break;
+                    }
+
                 case EntityName.Client:
                     {
                         switch (appendedEntityName)
@@ -239,6 +250,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
 
                         break;
                     }
+
                 case EntityName.Theme:
                     {
                         switch (appendedEntityName)

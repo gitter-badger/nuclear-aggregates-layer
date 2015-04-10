@@ -116,6 +116,7 @@
     <Compile Include="List\DTO\ListTerritoryDto.cs" />
     <Compile Include="List\DTO\ListThemeDto.cs" />
     <Compile Include="List\DTO\ListTimeZoneDto.cs" />
+    <Compile Include="List\DTO\ListUserBranchOfficeDto.cs" />
     <Compile Include="List\DTO\ListUserOrganizationUnitDto.cs" />
     <Compile Include="List\DTO\ListThemeTemplateDto.cs" />
     <Compile Include="List\DTO\ListUserDto.cs" />

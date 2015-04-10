@@ -3,6 +3,7 @@ using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -13,6 +14,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .WithEntityIcon()
                         .CommonCardToolbar()
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.BranchOffice)),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.BranchOfficeOrganizationUnit, () => ErmConfigLocalization.CrdRelBOOU));
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.BranchOfficeOrganizationUnit, () => ErmConfigLocalization.CrdRelBOOU),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityName.UserBranchOffice, () => ErmConfigLocalization.CrdRelUsers)
+                                                      .AppendapleEntity<User>());
     }
 }

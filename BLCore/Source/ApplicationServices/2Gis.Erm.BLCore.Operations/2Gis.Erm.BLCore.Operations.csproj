@@ -124,7 +124,6 @@
     <Compile Include="Concrete\Old\Integration\OneC\ImportAccountDetailsFrom1CHandler.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ValidateAccountDetailsFrom1CHandler.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesHandler.cs" />
-
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAccountDetailHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAdvertisementHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeClientHandler.cs" />
@@ -284,13 +283,14 @@
     <Compile Include="Generic\Activate\ActivatePriceService.cs" />
     <Compile Include="Generic\Activate\ActivateUserService.cs" />
     <Compile Include="Generic\Activate\ActivateBargainOperationService.cs" />
-    <Compile Include="Generic\Append\AppendLegalPersonDealService.cs" />
-    <Compile Include="Generic\Append\AppendFirmDealService.cs" />
-    <Compile Include="Generic\Append\AppendThemeCategoryService.cs" />
-    <Compile Include="Generic\Append\AppendThemeOrganizationUnitService.cs" />
-    <Compile Include="Generic\Append\AppendUserOrganizationUnitService.cs" />
-    <Compile Include="Generic\Append\AppendUserRoleOperationService.cs" />
-    <Compile Include="Generic\Append\AppendUserTerritoryService.cs" />
+    <Compile Include="Generic\Append\AppendUserToBranchOfficeOperationService.cs" />
+    <Compile Include="Generic\Append\AppendLegalPersonDealOperationService.cs" />
+    <Compile Include="Generic\Append\AppendFirmDealOperationService.cs" />
+    <Compile Include="Generic\Append\AppendThemeCategoryOperationService.cs" />
+    <Compile Include="Generic\Append\AppendThemeOrganizationUnitOperationService.cs" />
+    <Compile Include="Generic\Append\AppendUserOrganizationUnitOperationService.cs" />
+    <Compile Include="Generic\Append\AppendUserRoleOperationOperationService.cs" />
+    <Compile Include="Generic\Append\AppendUserTerritoryOperationService.cs" />
     <Compile Include="Generic\Assign\ActivitySecurityAccessExtension.cs" />
     <Compile Include="Generic\Assign\AssignAccountDetailService.cs" />
     <Compile Include="Generic\Assign\AssignAccountService.cs" />

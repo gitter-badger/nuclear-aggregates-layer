@@ -20,7 +20,7 @@ using EntityName = DoubleGis.Erm.Platform.Model.Entities.EntityName;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
 {
-    public class AppendUserRoleOperationService : IAppendGenericEntityService<Role, User> 
+    public class AppendUserRoleOperationOperationService : IAppendGenericEntityService<Role, User> 
     {
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IUserReadModel _userReadModel;
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
         private readonly IUserAppendRoleAggregateService _userAppendRoleAggregateService;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public AppendUserRoleOperationService(
+        public AppendUserRoleOperationOperationService(
             IMsCrmSettings msCrmSettings,
             IUserReadModel userReadModel,
             IRoleReadModel roleReadModel,

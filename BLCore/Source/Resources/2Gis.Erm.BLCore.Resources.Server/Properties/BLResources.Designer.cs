@@ -14861,6 +14861,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string UserIsAlreadyLinkedWithBranchOffice {
+            get {
+                return ResourceManager.GetString("UserIsAlreadyLinkedWithBranchOffice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string UserIsNotAllowedToCopyOrder {
             get {
                 return ResourceManager.GetString("UserIsNotAllowedToCopyOrder", resourceCulture);

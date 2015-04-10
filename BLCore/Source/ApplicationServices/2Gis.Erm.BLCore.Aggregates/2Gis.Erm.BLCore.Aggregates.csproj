@@ -278,6 +278,7 @@
     <Compile Include="Themes\ThemeRepository.cs" />
     <Compile Include="Users\ActivateUserAggregateService.cs" />
     <Compile Include="Users\DeactivateUserAggregateService.cs" />
+    <Compile Include="Users\Operations\UserAppendToBranchOfficeAggregateService.cs" />
     <Compile Include="Users\Operations\UserAppendRoleAggregateService.cs" />
     <Compile Include="Users\ReadModel\UserReadModel.cs" />
     <Compile Include="Users\UserRepository.cs" />

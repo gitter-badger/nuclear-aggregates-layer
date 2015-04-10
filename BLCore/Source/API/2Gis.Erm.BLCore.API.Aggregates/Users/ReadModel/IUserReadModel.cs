@@ -16,6 +16,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
         User GetNotServiceUser(long userId);
         User GetOrganizationUnitDirector(long organizationUnitId);
         long? GetUserOrganizationUnitId(long userId);
-        IDictionary<long, string> GetUserNames(IEnumerable<long> userIds);
+        IReadOnlyDictionary<long, string> GetUserNames(IEnumerable<long> userIds);
+        string GetUserName(long userId);
+        bool IsUserLinkedToBranchOffice(long userId, long branchOffice);
+        IReadOnlyCollection<long> GetUserBranchOffices(long userId);
     }
 }

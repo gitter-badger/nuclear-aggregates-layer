@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
@@ -20,71 +19,47 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly IFinder _finder;
         private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
+        private readonly IUserReadModel _userReadModel;
 
         public ListBranchOfficeOrganizationUnitService(
             ISecurityServiceFunctionalAccess functionalAccessService,
             IFinder finder,
-            IUserContext userContext, FilterHelper filterHelper)
+            IUserContext userContext,
+            FilterHelper filterHelper,
+            IUserReadModel userReadModel)
         {
             _functionalAccessService = functionalAccessService;
             _finder = finder;
             _userContext = userContext;
             _filterHelper = filterHelper;
+            _userReadModel = userReadModel;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<BranchOfficeOrganizationUnit>();
 
-            var filter = querySettings.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long, bool>(
-                "userId", 
-                "restrictByFP",
-                (userId, restrictByPrivelege) =>
-                {
-                    if (restrictByPrivelege)
+            var filter = querySettings.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long>(
+                "sourceOrganizationUnitId",
+                sourceOrganizationUnitId =>
                     {
-                        var hasPrivilege = _functionalAccessService
-                            .HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection, _userContext.Identity.Code);
-                        if (!hasPrivilege)
+                        var userId = _userContext.Identity.Code;
+
+                        if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection, userId))
                         {
-                            return null;
+                            return x => x.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
                         }
-
-                        Expression<Func<BranchOfficeOrganizationUnit, bool>> filterExpression =
-                            x => x.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
-
-                        return filterExpression;
-                    }
-                    return null;
-                });
-
-            if (filter == null)
-            {
-                filter = querySettings.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long, bool>(
-                    "sourceOrganizationUnitId", 
-                    "restrictByFP",
-                    (sourceOrganizationUnitId, restrictByPrivelege) =>
+                        else
                         {
-                            Expression<Func<BranchOfficeOrganizationUnit, bool>> filterExpression =
-                                x => x.OrganizationUnitId == sourceOrganizationUnitId;
-
-                            if (restrictByPrivelege)
+                            var branchOfficeIds = _userReadModel.GetUserBranchOffices(userId);
+                            if (branchOfficeIds.Any())
                             {
-                                var hasPrivilege = _functionalAccessService
-                                    .HasFunctionalPrivilegeGranted(
-                                        FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection,
-                                        _userContext.Identity.Code);
-
-                                if (!hasPrivilege)
-                                {
-                                    return filterExpression;
-                                }
-                                return null;
+                                return x => branchOfficeIds.Contains(x.BranchOfficeId);
                             }
 
-                            return filterExpression;
-                        });
-            }
+                            return x => x.OrganizationUnitId == sourceOrganizationUnitId;
+                        }
+                    });
 
             var data = query
                 .Filter(_filterHelper, filter)

@@ -1,0 +1,51 @@
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.Operation;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
+using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
+{
+    public class AppendUserToBranchOfficeOperationService : IAppendGenericEntityService<User, BranchOffice>
+    {
+        private readonly IOperationScopeFactory _scopeFactory;
+        private readonly IUserAppendToBranchOfficeAggregateService _userAppendToBranchOfficeAggregateService;
+        private readonly IUserReadModel _userReadModel;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
+
+        public AppendUserToBranchOfficeOperationService(IOperationScopeFactory scopeFactory,
+                                                        IUserAppendToBranchOfficeAggregateService userAppendToBranchOfficeAggregateService,
+                                                        IUserReadModel userReadModel,
+                                                        IBranchOfficeReadModel branchOfficeReadModel)
+        {
+            _scopeFactory = scopeFactory;
+            _userAppendToBranchOfficeAggregateService = userAppendToBranchOfficeAggregateService;
+            _userReadModel = userReadModel;
+            _branchOfficeReadModel = branchOfficeReadModel;
+        }
+
+        public void Append(AppendParams appendParams)
+        {
+            var branchOfficeId = appendParams.ParentId.Value;
+            var userId = appendParams.AppendedId.Value;
+
+            using (var scope = _scopeFactory.CreateSpecificFor<AppendIdentity, User, BranchOffice>())
+            {
+                if (_userReadModel.IsUserLinkedToBranchOffice(userId, branchOfficeId))
+                {
+                    var userName = _userReadModel.GetUserName(userId);
+                    var branchOfficeName = _branchOfficeReadModel.GetBranchOfficeName(branchOfficeId);
+                    throw new EntityIsNotUniqueException(typeof(UserBranchOffice), string.Format(BLResources.UserIsAlreadyLinkedWithBranchOffice, userName, branchOfficeName));
+                }
+
+                _userAppendToBranchOfficeAggregateService.AppendUser(userId, branchOfficeId);
+                scope.Complete();
+            }
+        }
+    }
+}

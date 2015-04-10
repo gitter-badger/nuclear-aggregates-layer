@@ -114,6 +114,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterRelatedFilter<ListUserTerritoryDto>(EntityName.User, x => x.UserId)
 
+            .RegisterRelatedFilter<ListUserBranchOfficeDto>(EntityName.BranchOffice, x => x.BranchOfficeId)
+
             .RegisterRelatedFilter<ListUserOrganizationUnitDto>(EntityName.User, x => x.UserId)
             .RegisterRelatedFilter<ListUserOrganizationUnitDto>(EntityName.OrganizationUnit, x => x.OrganizationUnitId)
 

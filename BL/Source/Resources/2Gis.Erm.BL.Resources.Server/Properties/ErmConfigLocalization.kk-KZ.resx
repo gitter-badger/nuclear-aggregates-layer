@@ -1382,7 +1382,7 @@
   </data>
   <data name="ControlPrintFirmNameChangeAgreement" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
-  </data>  
+  </data>
   <data name="ControlPrintBindingChangeAgreement" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
@@ -1662,7 +1662,7 @@
   <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
     <value>Мои запланированные планы на сегодня</value>
   </data>
-  <data name ="DListMyOpenedActivities" xml:space="preserve">
+  <data name="DListMyOpenedActivities" xml:space="preserve">
     <value>Мои открытые планы</value>
   </data>
   <data name="DListMyCompletedActivities" xml:space="preserve">
@@ -1883,5 +1883,11 @@
   </data>
   <data name="ControlSetDocumentsDebt" xml:space="preserve">
     <value>Наличие документов</value>
+  </data>
+  <data name="CrdRelUsers" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
+  <data name="DListUserBranchOffice" xml:space="preserve">
+    <value>Пользователи</value>
   </data>
 </root>

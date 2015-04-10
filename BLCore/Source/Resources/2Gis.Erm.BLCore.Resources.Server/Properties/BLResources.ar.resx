@@ -5176,7 +5176,7 @@ Placement period: {3}.</value>
     <value>You cannot save the action to a client in reserve</value>
   </data>
   <data name="CancelConfirmation" xml:space="preserve">
-    <value >Confirm action cancellation</value>
+    <value>Confirm action cancellation</value>
   </data>
   <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
     <value>Cannot cancel action {0} with "Completed"/"Canceled" status</value>
@@ -5185,7 +5185,7 @@ Placement period: {3}.</value>
     <value>Cannot finish action {0} with "Completed"/"Canceled" status</value>
   </data>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
-    <value >Client change operation is not specified for the selected type of entity</value>
+    <value>Client change operation is not specified for the selected type of entity</value>
   </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Please specify the period, service accounting method, and company branch</value>
@@ -5210,5 +5210,8 @@ Placement period: {3}.</value>
   </data>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Operation cannot be performed because a build is in progress</value>
+  </data>
+  <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
+    <value>Пользователь {0} уже связан с юр. лицом {1}</value>
   </data>
 </root>

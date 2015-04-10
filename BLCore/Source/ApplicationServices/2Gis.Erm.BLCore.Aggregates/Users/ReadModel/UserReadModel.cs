@@ -32,12 +32,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
         public UserWithRoleRelationsDto GetUserWithRoleRelations(long userid)
         {
             return _finder.Find(Specs.Find.ById<User>(userid))
-                            .Select(x => new UserWithRoleRelationsDto
-                                        {
-                                            User = x,
-                                            RolesRelations = x.UserRoles
-                                        })
-                            .Single();
+                          .Select(x => new UserWithRoleRelationsDto
+                                           {
+                                               User = x,
+                                               RolesRelations = x.UserRoles
+                                           })
+                          .Single();
         }
 
         public User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelegeName)
@@ -56,8 +56,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
         public User GetNotServiceUser(long userId)
         {
             return _finder.Find(Specs.Find.ById<User>(userId)
-                                    && UserSpecs.Users.Find.NotService()
-                                    && Specs.Find.ActiveAndNotDeleted<User>())
+                                && UserSpecs.Users.Find.NotService()
+                                && Specs.Find.ActiveAndNotDeleted<User>())
                           .SingleOrDefault();
         }
 
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
             const int DirectorRoleId = 2;
 
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<User>()
-                                    && UserSpecs.Users.Find.NotService())
+                                && UserSpecs.Users.Find.NotService())
                           .FirstOrDefault(user => user.UserRoles.Any(role => role.RoleId == DirectorRoleId)
                                                   && user.UserOrganizationUnits.Any(unit => unit.OrganizationUnitId == organizationUnitId));
         }
@@ -74,10 +74,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
         public long? GetUserOrganizationUnitId(long userId)
         {
             var singleOrganizationUnitIds = _finder.Find(Specs.Find.ById<User>(userId))
-                .SelectMany(x => x.UserOrganizationUnits)
-                .Select(x => x.OrganizationUnitId)
-                .Take(2)
-                .ToArray();
+                                                   .SelectMany(x => x.UserOrganizationUnits)
+                                                   .Select(x => x.OrganizationUnitId)
+                                                   .Take(2)
+                                                   .ToArray();
 
             if (singleOrganizationUnitIds.Length == 1)
             {
@@ -87,10 +87,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
             return null;
         }
 
-        public IDictionary<long, string> GetUserNames(IEnumerable<long> userIds)
+        public IReadOnlyDictionary<long, string> GetUserNames(IEnumerable<long> userIds)
         {
             return _finder.Find(Specs.Find.ByIds<User>(userIds))
                           .ToDictionary(user => user.Id, user => user.DisplayName);
+        }
+
+        public string GetUserName(long userId)
+        {
+            return _finder.Find(Specs.Find.ById<User>(userId))
+                          .Select(x => x.DisplayName)
+                          .Single();
+        }
+
+        public bool IsUserLinkedToBranchOffice(long userId, long branchOfficeId)
+        {
+            return _finder.Find(Specs.Find.ById<User>(userId))
+                          .Select(x => x.UserBranchOffices.Any(y => y.BranchOfficeId == branchOfficeId))
+                          .SingleOrDefault();
+        }
+
+        public IReadOnlyCollection<long> GetUserBranchOffices(long userId)
+        {
+            return _finder.Find(UserSpecs.UserBranchOffices.Find.ByUser(userId)).Select(x => x.BranchOfficeId).ToArray();
         }
     }
 }

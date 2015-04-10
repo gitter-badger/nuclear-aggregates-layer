@@ -123,6 +123,7 @@
     <Compile Include="List\ListThemeService.cs" />
     <Compile Include="List\ListThemeTemplateService.cs" />
     <Compile Include="List\ListTimeZoneService.cs" />
+    <Compile Include="List\ListUserBranchOfficeService.cs" />
     <Compile Include="List\ListUserOrganizationUnitService.cs" />
     <Compile Include="List\ListUserTerritoryService.cs" />
     <Compile Include="List\ListUserRoleService.cs" />

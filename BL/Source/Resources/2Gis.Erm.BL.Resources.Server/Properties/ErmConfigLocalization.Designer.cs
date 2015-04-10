@@ -1440,6 +1440,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CrdRelUsers {
+            get {
+                return ResourceManager.GetString("CrdRelUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CrdRelUserTerritory {
             get {
                 return ResourceManager.GetString("CrdRelUserTerritory", resourceCulture);
@@ -4107,6 +4116,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string DListUserAccount {
             get {
                 return ResourceManager.GetString("DListUserAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DListUserBranchOffice {
+            get {
+                return ResourceManager.GetString("DListUserBranchOffice", resourceCulture);
             }
         }
         
