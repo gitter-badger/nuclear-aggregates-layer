@@ -1881,4 +1881,7 @@
   <data name="EnPositionSortingOrder" xml:space="preserve">
     <value>Сортировка позиций номенклатуры</value>
   </data>
+  <data name="ControlSetDocumentsDebt" xml:space="preserve">
+    <value>Disponibilidad de documentos</value>
+  </data>
 </root>

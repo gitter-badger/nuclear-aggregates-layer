@@ -394,9 +394,6 @@ Bank Name: {7}
   <data name="PositionNameFormatCategorySingle" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
-  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
-    <value>The following advertising agency works with this client:</value>
-  </data>
   <data name="PositionNameFormatAddressCategorySingle" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>

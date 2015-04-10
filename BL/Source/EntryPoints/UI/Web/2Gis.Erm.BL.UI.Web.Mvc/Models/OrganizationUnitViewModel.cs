@@ -2,6 +2,7 @@ using System;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -11,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class OrganizationUnitViewModel : EditableIdEntityViewModelBase<OrganizationUnit>
+    public sealed class OrganizationUnitViewModel : EditableIdEntityViewModelBase<OrganizationUnit>, INameAspect
     {
         [RequiredLocalized]
         [StringLengthLocalized(100)]

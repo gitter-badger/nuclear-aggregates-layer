@@ -120,49 +120,6 @@
   <data name="RutFormatError" xml:space="preserve">
     <value>The field {0} must be in the format xx.xxx.xxx-x</value>
   </data>
-  <data name="SalutationToMaleRussia" xml:space="preserve">
-    <value>Dear</value>
-  </data>
-  <data name="SalutationToFemaleRussia" xml:space="preserve">
-    <value>Dear</value>
-  </data>
-  <data name="SalutationCyprus" xml:space="preserve">
-    <value>Dear</value>
-  </data>
-  <data name="SalutationToMaleCzech" xml:space="preserve">
-    <value>Vážený</value>
-  </data>
-  <data name="SalutationToFemaleCzech" xml:space="preserve">
-    <value>Vážená</value>
-  </data>
-  <data name="SalutationToFemaleCzech2" xml:space="preserve">
-    <value>Vážená paní</value>
-  </data>
-  <data name="SalutationToMaleCzech2" xml:space="preserve">
-    <value>Vážený pane</value>
-  </data>
-  <data name="SalutationToMaleChile" xml:space="preserve">
-    <value>Estimado</value>
-  </data>
-  <data name="SalutationToFemaleChile" xml:space="preserve">
-    <value>Estimada</value>
-  </data>
-  <data name="SalutationToFemaleUkraine" xml:space="preserve">
-    <value>Dear Ms.</value>
-    <comment>Приветствие специфично для бизнес-модели Украины. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToMaleUkraine" xml:space="preserve">
-    <value>Dear Mr.</value>
-    <comment>Приветствие специфично для бизнес-модели Украины. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToFemaleEmirates" xml:space="preserve">
-    <value>Ms.</value>
-    <comment>Приветствие специфично для бизнес-модели Объединённых Арабских Эмиратов. Не должно переводиться на другие языки.</comment>
-  </data>
-  <data name="SalutationToMaleEmirates" xml:space="preserve">
-    <value>Mr.</value>
-    <comment>Приветствие специфично для бизнес-модели Объединённых Арабских Эмиратов. Не должно переводиться на другие языки.</comment>
-  </data>
   <data name="OrderLegalPersonProfileChangeNotification" xml:space="preserve">
     <value>Attention! The profile has been changed. The specified profile will be attached to the order.</value>
   </data>
@@ -198,5 +155,8 @@
   </data>
   <data name="ChangeProfilesOperationTitle" xml:space="preserve">
     <value>Select profile</value>
+  </data>
+  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
+    <value>The following advertising agency works with this client:</value>
   </data>
 </root>

@@ -44,6 +44,14 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BL\Source\EntryPoints\UI\Common\2Gis.Erm.BL.UI.Metadata\2Gis.Erm.BL.UI.Metadata.csproj">
+      <Project>{6D3EF801-AAE6-4A56-BCDB-8ED3E90C45A4}</Project>
+      <Name>2Gis.Erm.BL.UI.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
       <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
@@ -55,6 +63,18 @@
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Security\2Gis.Erm.Platform.API.Security.csproj">
+      <Project>{01DE365D-2340-4071-8701-AAF37878DDC5}</Project>
+      <Name>2Gis.Erm.Platform.API.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
+      <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
+      <Name>2Gis.Erm.Platform.Model.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
@@ -71,6 +91,10 @@
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -101,7 +125,12 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="CardMetadataValidator.cs" />
+    <Compile Include="CardMetadataValidator.MetadataCorrections.cs" />
+    <Compile Include="Chile\ChileCardMetadataSource.cs" />
     <Compile Include="Config\Old\UIConfigurationService.cs" />
+    <Compile Include="DI\BlFlexUIMetadataAssembly.cs" />
+    <Compile Include="Russia\RussiaCardMetadataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Chile.xml">
@@ -109,7 +138,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Config\Old\XmlConfigs\NavigationSettings.Chile.xml" />
+    <EmbeddedResource Include="Config\Old\XmlConfigs\NavigationSettings.Chile.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config\Old\XmlConfigs\EntitySettings.Ukraine.xml" />

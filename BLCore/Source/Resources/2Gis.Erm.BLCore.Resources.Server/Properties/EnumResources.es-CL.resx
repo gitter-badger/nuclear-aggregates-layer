@@ -456,36 +456,13 @@
   <data name="IntegrationTypeNone" xml:space="preserve">
     <value>No especificado</value>
   </data>
-  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
-    <value>Carga de empresas</value>
-  </data>
-  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
-    <value>Carga de categorías</value>
-  </data>
-  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
-    <value>Carga de territorios</value>
-  </data>
-  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
-    <value>Descarga de empresas con las órdenes activas</value>
-  </data>
-  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
-    <value>Carga de amortizaciones</value>
-  </data>
-  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
-    <value>Descarga de órdenes</value>
-  </data>
   <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
     <value>Carga de ingresos desde las cuentas personales</value>
   </data>
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Descarga las personas jurídicas de clientes</value>
   </data>
-  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
-    <value>Descarga de cuentas personales</value>
-  </data>
-  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
-    <value>Descarga de verificaciones</value>
-  </data>
+
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Promocional</value>
   </data>

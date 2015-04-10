@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.Model.Zones;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.DI
 {
-    public class BlCoreUiMetadataAssembly : IZoneAssembly<MetadataZone>,
+    public class BlCoreUIMetadataAssembly : IZoneAssembly<MetadataZone>,
                                             IZoneAnchor<MetadataZone>,
                                             IContainsType<IMetadataSource>
     {
