@@ -36,6 +36,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
         {
             var bill = _billObtainer.ObtainBusinessModelEntity(domainEntityDto);
             var order = _orderReadModel.GetOrderSecure(bill.OrderId);
+            if (order == null)
+            {
+                throw new EntityNotFoundException(typeof(Order), bill.OrderId);
+            }
+
             var otherBills = _orderReadModel.GetBillsForOrder(bill.OrderId).Where(x => x.Id != bill.Id);
             var orderBills = otherBills.Concat(new[] { bill }).ToArray();
 

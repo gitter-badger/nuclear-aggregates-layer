@@ -1370,9 +1370,6 @@ Errores de bloqueo:{2}</value>
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value>La posición seleccionada no puede ser bloqueada, ya que es la principal</value>
   </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value>Icono grande</value>
-  </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value>Imposible agregar una posición en la lista de precios publicada</value>
   </data>
@@ -5208,6 +5205,12 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="PositionAccessDenied" xml:space="preserve">
     <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
+  <data name="ManageDocumentsDebt" xml:space="preserve">
+    <value>Gestión de la existencia de los documentos</value>
+  </data>
+  <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Operación no puede llevarse a cabo, ya que se está realizando recopilación</value>
   </data>
   <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
     <value>Найдены дубли правил запрещения для следующих позиций: {0}</value>

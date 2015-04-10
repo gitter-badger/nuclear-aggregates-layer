@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
                                   .Select(bill => new
                                       {
                                           bill.OrderId,
-                                          bill.BillNumber,
+                                          BillNumber = bill.Number,
                                           bill.Order.BranchOfficeOrganizationUnitId,
                                           CurrencyISOCode = bill.Order.Currency.ISOCode,
                                           bill.Order.LegalPersonProfileId,
@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
                        {
                            Bill = new
                            {
-                               bill.BillNumber,
+                               BillNumber = bill.Number,
                                bill.BillDate,
                                bill.PayablePlan,
                                bill.PaymentDatePlan,

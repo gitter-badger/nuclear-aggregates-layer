@@ -158,7 +158,7 @@ Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Object,
             for (var i = 0; i < categoryGroupsData.length; i++) {
                 var checkColumn = new Ext.grid.MembershipCheckColumn(
                     {
-                        header: categoryGroupsData[i].CategoryGroupName,
+                        header: categoryGroupsData[i].Name,
                         dataIndex: categoryGroupsData[i].Id,
                         ColumnCategoryGroupId: categoryGroupsData[i].Id,
                         id: categoryGroupsData[i].Id,

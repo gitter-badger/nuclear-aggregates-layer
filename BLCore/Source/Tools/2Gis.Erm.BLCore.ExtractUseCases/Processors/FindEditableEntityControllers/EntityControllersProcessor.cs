@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Processors.FindEditableEntityCont
         public EntityControllersProcessor(IProcessingContext processingContext, IWorkspace workspace, ISolution solution)
             : base(processingContext, workspace, solution)
         {
-            _entityControllerBaseType = typeof(CreateOrUpdateController<,,>);
+            _entityControllerBaseType = typeof(CreateOrUpdateController<,>);
         }
 
         #region Overrides of ProcessorBase

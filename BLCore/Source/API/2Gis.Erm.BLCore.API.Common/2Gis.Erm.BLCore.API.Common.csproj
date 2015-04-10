@@ -73,6 +73,7 @@
     <Compile Include="Exceptions\InactiveEntityModificationException.cs" />
     <Compile Include="Metadata\Old\Dto\CardRelatedItemsGroupStructure.cs" />
     <Compile Include="Metadata\Old\Dto\CardRelatedItemStructure.cs" />
+    <Compile Include="Metadata\Old\Dto\CardRelatedItemStructureExtensions.cs" />
     <Compile Include="Metadata\Old\Dto\CardStructure.cs" />
     <Compile Include="Metadata\Old\Dto\DataListColumnStructure.cs" />
     <Compile Include="Metadata\Old\Dto\DataListScriptReference.cs" />

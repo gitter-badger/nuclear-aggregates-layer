@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel.DTO;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -295,5 +296,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO
         public DateTime BeginDistributionDate { get; set; }
         public DateTime EndDistributionDatePlan { get; set; }
         public DateTime EndDistributionDateFact { get; set; }
+    }
+
+    public sealed class OrderDocumentsDebtDto
+    {
+        public EntityReference Order { get; set; }
+        public DocumentsDebt HasDocumentsDebt { get; set; }
+        public string DocumentsComment { get; set; }
     }
 }

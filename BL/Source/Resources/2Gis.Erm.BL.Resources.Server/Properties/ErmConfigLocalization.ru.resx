@@ -1662,7 +1662,7 @@
   <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
     <value>Мои запланированные планы на сегодня</value>
   </data>
-  <data name ="DListMyOpenedActivities" xml:space="preserve">
+  <data name="DListMyOpenedActivities" xml:space="preserve">
     <value>Мои открытые планы</value>
   </data>
   <data name="DListMyCompletedActivities" xml:space="preserve">
@@ -1880,5 +1880,8 @@
   </data>
   <data name="EnPositionSortingOrder" xml:space="preserve">
     <value>Сортировка позиций номенклатуры</value>
+  </data>
+  <data name="ControlSetDocumentsDebt" xml:space="preserve">
+    <value>Наличие документов</value>
   </data>
 </root>
