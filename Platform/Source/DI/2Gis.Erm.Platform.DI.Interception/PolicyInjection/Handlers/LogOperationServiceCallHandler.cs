@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
                 try
                 {
                     var modifiedEntities = GetEntities(entityType, entityId);
-                    foreach (var pair in originalEntities.Zip(modifiedEntities, (o, m) => new { Original = o, Modified = m }))
+                    foreach (var pair in originalEntities.Join(modifiedEntities, o => o, m => m, (o, m) => new { Original = o, Modified = m }))
                     {
                         var differenceMap = CompareObjectsHelper.CompareObjects(_compareObjectMode,
                                                                                 pair.Original,
