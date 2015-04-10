@@ -1493,4 +1493,7 @@
   <data name="AccountingMethod" xml:space="preserve">
     <value>Modo para contabilizar la prestación de servicios</value>
   </data>
+  <data name="ApplicationCityName" xml:space="preserve">
+    <value>Ciudad de solicitud</value>
+  </data>
 </root>

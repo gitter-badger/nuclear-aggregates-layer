@@ -7,18 +7,16 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Validator;
+using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
 {
-    public abstract class ViewModelMetadata<TElement, TBuilder> : MetadataElement<TElement, TBuilder>, IViewModelMetadata
-        where TElement : MetadataElement<TElement, TBuilder> 
-        where TBuilder : MetadataElementBuilder<TBuilder, TElement>, new()
+    public abstract class ViewModelMetadata : MetadataElement, IViewModelMetadata
     {
         private readonly Lazy<IViewModelPartsFeature> _partsFeature;
         private readonly Lazy<IRelatedItemsFeature> _relatedItemsFeature;
@@ -45,7 +43,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public bool HasParts 
+        public bool HasParts
         {
             get
             {
@@ -69,7 +67,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public HierarchyMetadata[] RelatedItems 
+        public UIElementMetadata[] RelatedItems
         {
             get
             {
@@ -85,15 +83,15 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public IEnumerable<IValidatorViewModelFeature> Validators 
+        public IEnumerable<IValidatorViewModelFeature> Validators
         {
             get
             {
                 return _validatorsFeature.Value != null ? _validatorsFeature.Value.Validators : Enumerable.Empty<IValidatorViewModelFeature>();
             }
         }
-        
-        public ITitleDescriptor TitleDescriptor 
+
+        public ITitleDescriptor TitleDescriptor
         {
             get
             {
@@ -117,8 +115,8 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
                 return _operationFeature.Value != null ? _operationFeature.Value.OperationFeatures : Enumerable.Empty<OperationFeature>();
             }
         }
-        
-        public bool HasActions 
+
+        public bool HasActions
         {
             get
             {
@@ -126,11 +124,28 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public HierarchyMetadata[] ActionsDescriptors 
+        public UIElementMetadata[] ActionsDescriptors
         {
             get
             {
-                return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new HierarchyMetadata[0];
+                return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new UIElementMetadata[0];
+            }
+        }
+    }
+
+    public abstract class ViewModelMetadata<TElement, TBuilder> : ViewModelMetadata
+        where TElement : ViewModelMetadata<TElement, TBuilder>
+        where TBuilder : ViewModelMetadataBuilder<TBuilder, TElement>, new()
+    {
+        protected ViewModelMetadata(IEnumerable<IMetadataFeature> features) : base(features)
+        {
+        }
+
+        public static TBuilder Config
+        {
+            get
+            {
+                return new TBuilder();
             }
         }
     }

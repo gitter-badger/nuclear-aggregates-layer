@@ -174,7 +174,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                             Amount = orderPosition.Amount
                         });
 
-                    orderPosition.CategoryRate = calculateOrderPositionPricesResponse.CategoryRate;
+                    orderPosition.CategoryRate = categoryRate;
                     orderPosition.ShipmentPlan = calculateOrderPositionPricesResponse.ShipmentPlan;
                     orderPosition.PricePerUnit = calculateOrderPositionPricesResponse.PricePerUnit;
                     orderPosition.PayablePrice = calculateOrderPositionPricesResponse.PayablePrice;
@@ -194,6 +194,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                     }
 
                     var order = _orderReadModel.GetOrderSecure(orderPosition.OrderId);
+                    if (order == null)
+                    {
+                        throw new EntityNotFoundException(typeof(Order), orderPosition.OrderId);
+                    }
 
                     _publicService.Handle(new UpdateOrderFinancialPerformanceRequest { Order = order, ReleaseCountFact = orderInfo.ReleaseCountFact });
                     _publicService.Handle(new ActualizeOrderReleaseWithdrawalsRequest { Order = order });

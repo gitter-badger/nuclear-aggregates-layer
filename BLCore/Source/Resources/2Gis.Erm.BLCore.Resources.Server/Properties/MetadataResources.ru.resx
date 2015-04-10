@@ -1493,4 +1493,7 @@
   <data name="AccountingMethod" xml:space="preserve">
     <value>Способ учета оказания услуг</value>
   </data>
+  <data name="ApplicationCityName" xml:space="preserve">
+    <value>Город обращения</value>
+  </data>
 </root>

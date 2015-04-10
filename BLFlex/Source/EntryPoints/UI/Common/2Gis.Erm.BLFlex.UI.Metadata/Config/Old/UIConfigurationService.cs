@@ -24,7 +24,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
         private const string NavigationSettingsResourceEntryFormat = "NavigationSettings.{0}.xml";
 
         private static readonly Dictionary<BusinessModel, List<NavigationElementStructure>> NavigationSettings = ParseNavigationSettings();
-        private static readonly Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>> CardSettings = ParseCardSettings();
         private static readonly Dictionary<BusinessModel, Dictionary<EntityName, EntityDataListsContainer>> GridSettings = ParseGridSettings();
 
         private readonly IGlobalizationSettings _globalizationSettings;
@@ -306,7 +305,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             {
                 return 1;
             }
-                
+
             if (basedOnAtt2.Value == dataListElement1.Attribute("NameLocaleResourceId").Value)
             {
                 return -1;
@@ -498,23 +497,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
         #region Card
 
-        public CardStructure GetCardSettings(BusinessModel adaptation, EntityName entityName)
-        {
-            Dictionary<EntityName, CardStructure> container;
-            if (!CardSettings.TryGetValue(adaptation, out container))
-            {
-                throw new ArgumentException("Cannot find metadata for adaptation " + adaptation);
-            }
-
-            CardStructure cardJson;
-            if (!container.TryGetValue(entityName, out cardJson))
-            {
-                throw new ArgumentException("Cannot find metadata for entity");
-            }
-
-            return cardJson;
-        }
-
         public IEnumerable<NavigationElementStructure> GetNavigationSettings(CultureInfo culture)
         {
             List<NavigationElementStructure> container;
@@ -548,9 +530,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
             var localizedGridSettings = new EntityDataListsContainer
             {
-                HasCard = gridSettings.HasCard,
+                HasCard = gridSettings.HasCard,                
                 EntityName = gridSettings.EntityName,
-
+                
                 DataViews = gridSettings.DataViews.Select(x => new DataListStructure
                 {
                     NameLocaleResourceId = x.NameLocaleResourceId,
@@ -612,65 +594,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return localizedGridSettings;
         }
 
-        public CardStructure GetCardSettings(EntityName entityName, CultureInfo culture)
-        {
-            var cardSettings = GetCardSettings(_globalizationSettings.BusinessModel, entityName);
-
-            var localizedCardSettings = new CardStructure
-            {
-                Icon = cardSettings.Icon,
-                LargeIcon = cardSettings.LargeIcon,
-                CardLocalizedName = GetLocalizedName(cardSettings.CardNameLocaleResourceId, culture),
-                EntityName = cardSettings.EntityName,
-                EntityLocalizedName = GetLocalizedName(cardSettings.EntityNameLocaleResourceId, culture),
-                EntityMainAttribute = cardSettings.EntityMainAttribute,
-                HasComments = cardSettings.HasComments,
-                HasActionsHistory = cardSettings.HasActionsHistory,
-                HasAdminTab = cardSettings.HasAdminTab,
-                DecimalDigits = cardSettings.DecimalDigits,
-
-                CardToolbar = cardSettings.CardToolbar.Select(x => new ToolbarElementStructure
-                {
-                    Name = x.Name,
-                    ParentName = x.ParentName,
-                    HideInCardRelatedGrid = x.HideInCardRelatedGrid,
-                    ControlType = x.ControlType,
-                    Action = x.Action,
-                    Icon = x.Icon,
-                    Disabled = x.Disabled,
-                    DisableOnEmpty = x.DisableOnEmpty,
-                    LocalizedName = GetLocalizedName(x.NameLocaleResourceId ?? x.Name, culture),
-                    SecurityPrivelege = x.SecurityPrivelege,
-                    NameLocaleResourceId = x.NameLocaleResourceId,
-                    LockOnInactive = x.LockOnInactive,
-                    LockOnNew = x.LockOnNew,
-                }).ToArray(),
-
-                CardRelatedItems = cardSettings.CardRelatedItems.Select(x => new CardRelatedItemsGroupStructure
-                {
-                    Name = x.Name,
-                    LocalizedName = GetLocalizedName(x.NameLocaleResourceId ?? x.Name, culture),
-                    NameLocaleResourceId = x.NameLocaleResourceId,
-                    Items = x.Items.Select(y => new CardRelatedItemStructure
-                    {
-                        Name = y.Name,
-                        NameLocaleResourceId = y.NameLocaleResourceId,
-                        DisabledExpression = y.DisabledExpression,
-                        LocalizedName = GetLocalizedName(y.NameLocaleResourceId ?? y.Name, culture),
-                        Icon = y.Icon,
-                        RequestUrl = y.RequestUrl,
-                        ExtendedInfo = y.ExtendedInfo,
-                        AppendableEntity = y.AppendableEntity,
-                    }).ToArray(),
-                }).ToArray(),
-
-                CardNameLocaleResourceId = cardSettings.CardNameLocaleResourceId,
-                EntityNameLocaleResourceId = cardSettings.EntityNameLocaleResourceId,
-            };
-
-            return localizedCardSettings;
-        }
-
         private static string GetLocalizedName(string resourceId, CultureInfo culture)
         {
             if (resourceId == null)
@@ -678,213 +601,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 return null;
             }
 
-            return ErmConfigLocalization.ResourceManager.GetString(resourceId, culture) 
-                ?? MetadataResources.ResourceManager.GetString(resourceId, culture) 
+            return ErmConfigLocalization.ResourceManager.GetString(resourceId, culture)
+                ?? MetadataResources.ResourceManager.GetString(resourceId, culture)
                 ?? resourceId;
         }
 
-        private static Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>> ParseCardSettings()
-        {
-            var result = new Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>>();
-
-            foreach (BusinessModel val in Enum.GetValues(typeof(BusinessModel)))
-            {
-                var stringResourceName = string.Format(EntitySettingsResourceEntryFormat, Enum.GetName(typeof(BusinessModel), val));
-                var container = XDocument.Parse(GetResourceEntryContent(stringResourceName, EntitySettingsResourceEntry)).Root;
-                var cardSettings = ParseCardSettings(container);
-                result.Add(val, cardSettings);
-            }
-
-            return result;
-        }
-
-        private static Dictionary<EntityName, CardStructure> ParseCardSettings(XContainer container)
-        {
-            var dictionary = new Dictionary<EntityName, CardStructure>();
-
-            foreach (var entityEl in container.Elements("Entity"))
-            {
-                var entityNameNonParsed = (string)entityEl.Attribute("Name");
-
-                EntityName entityName;
-                if (!Enum.TryParse(entityNameNonParsed, out entityName))
-                {
-                    throw new ArgumentException("Unrecognized entity type");
-                }
-
-                var cardDto = ParseCardDto(entityEl, entityName);
-                if (cardDto != null)
-                {
-                    dictionary.Add(entityName, cardDto);
-                }
-            }
-
-            return dictionary;
-        }
-
-        private static CardStructure ParseCardDto(XContainer entityEl, EntityName entityName)
-        {
-            var cardEl = entityEl.Element("Card");
-            if (cardEl == null)
-            {
-                return null;
-            }
-
-            var cardJson = new CardStructure { EntityName = entityName.ToString() };
-
-            var cardNameLocaleResourceId = cardEl.Attribute("CardNameLocaleResourceId");
-            if (cardNameLocaleResourceId != null)
-            {
-                cardJson.CardNameLocaleResourceId = cardNameLocaleResourceId.Value;
-            }
-
-            var entityNameLocaleResourceId = cardEl.Attribute("EntityNameLocaleResourceId");
-            if (entityNameLocaleResourceId != null)
-            {
-                cardJson.EntityNameLocaleResourceId = entityNameLocaleResourceId.Value;
-            }
-
-            var entityMainAttribute = cardEl.Attribute("EntityMainAttribute");
-            if (entityMainAttribute != null)
-            {
-                cardJson.EntityMainAttribute = entityMainAttribute.Value;
-            }
-
-            var hasActionsHistory = cardEl.Attribute("HasActionsHistory");
-            if (hasActionsHistory != null)
-            {
-                cardJson.HasActionsHistory = (bool)hasActionsHistory;
-            }
-
-            var hasComments = cardEl.Attribute("HasComments");
-            if (hasComments != null)
-            {
-                cardJson.HasComments = (bool)hasComments;
-            }
-
-            var hasAdminTab = cardEl.Attribute("HasAdminTab");
-            if (hasAdminTab != null)
-            {
-                cardJson.HasAdminTab = (bool)hasAdminTab;
-            }
-
-            var decimalDigits = cardEl.Attribute("DecimalDigits");
-            if (decimalDigits != null)
-            {
-                cardJson.DecimalDigits = (int)decimalDigits;
-            }
-
-            var icon = cardEl.Attribute("Icon");
-            if (icon != null)
-            {
-                cardJson.Icon = icon.Value;
-            }
-
-            var largeIcon = cardEl.Attribute("LargeIcon");
-            if (largeIcon != null)
-            {
-                cardJson.LargeIcon = largeIcon.Value;
-            }
-
-            cardJson.CardToolbar = ParseToolbarItems(cardEl);
-            if (cardJson.CardToolbar == null)
-            {
-                cardJson.CardToolbar = new ToolbarElementStructure[0];
-            }
-            cardJson.CardRelatedItems = ParseCardRelatedItemAreas(cardEl);
-
-            return cardJson;
-        }
-
-        private static CardRelatedItemsGroupStructure[] ParseCardRelatedItemAreas(XContainer cardEl)
-        {
-            var cardRelatedItemsAreaJsons = new List<CardRelatedItemsGroupStructure>();
-
-            var relatedItemsEl = cardEl.Element("RelatedItems");
-            if (relatedItemsEl == null)
-            {
-                return cardRelatedItemsAreaJsons.ToArray();
-            }
-
-            foreach (var cardRelatedItemsAreaJsonEl in relatedItemsEl.Elements("RelatedItemsArea"))
-            {
-                var cardRelatedItemsAreaJson = new CardRelatedItemsGroupStructure();
-
-                var name = cardRelatedItemsAreaJsonEl.Attribute("Name");
-                if (name != null)
-                {
-                    cardRelatedItemsAreaJson.Name = name.Value;
-                }
-
-                var nameLocaleResourceId = cardRelatedItemsAreaJsonEl.Attribute("NameLocaleResourceId");
-                if (nameLocaleResourceId != null)
-                {
-                    cardRelatedItemsAreaJson.NameLocaleResourceId = nameLocaleResourceId.Value;
-                }
-
-                cardRelatedItemsAreaJson.Items = ParseCardRelatedItems(cardRelatedItemsAreaJsonEl);
-
-                cardRelatedItemsAreaJsons.Add(cardRelatedItemsAreaJson);
-            }
-
-            return cardRelatedItemsAreaJsons.ToArray();
-        }
-
-        private static IEnumerable<CardRelatedItemStructure> ParseCardRelatedItems(XContainer xContainer)
-        {
-            var cardRelatedItemsJsons = new List<CardRelatedItemStructure>();
-
-            foreach (var relatedItemEl in xContainer.Elements("RelatedItem"))
-            {
-                var cardRelatedItemsJson = new CardRelatedItemStructure();
-
-                var name = relatedItemEl.Attribute("Name");
-                if (name != null)
-                {
-                    cardRelatedItemsJson.Name = name.Value;
-                }
-
-                var nameLocaleResourceId = relatedItemEl.Attribute("NameLocaleResourceId");
-                if (nameLocaleResourceId != null)
-                {
-                    cardRelatedItemsJson.NameLocaleResourceId = nameLocaleResourceId.Value;
-                }
-
-                var disabledExpression = relatedItemEl.Attribute("DisabledExpression");
-                if (disabledExpression != null)
-                {
-                    cardRelatedItemsJson.DisabledExpression = disabledExpression.Value;
-                }
-
-                var icon = relatedItemEl.Attribute("Icon");
-                if (icon != null)
-                {
-                    cardRelatedItemsJson.Icon = icon.Value;
-                }
-
-                var requestUrl = relatedItemEl.Attribute("RequestUrl");
-                if (requestUrl != null)
-                {
-                    cardRelatedItemsJson.RequestUrl = requestUrl.Value;
-                }
-
-                var extendedInfo = relatedItemEl.Attribute("ExtendedInfo");
-                if (extendedInfo != null)
-                {
-                    cardRelatedItemsJson.ExtendedInfo = extendedInfo.Value;
-                }
-
-                var appendableEntity = relatedItemEl.Attribute("AppendableEntity");
-                if (appendableEntity != null)
-                {
-                    cardRelatedItemsJson.AppendableEntity = appendableEntity.Value;
-                }
-
-                cardRelatedItemsJsons.Add(cardRelatedItemsJson);
-            }
-
-            return cardRelatedItemsJsons.ToArray();
-        }
 
         private static ToolbarElementStructure[] ParseToolbarItems(XContainer cardEl)
         {
@@ -983,9 +704,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             if (targetResource == null)
             {
                 throw new InvalidOperationException(
-                    string.Format("Can't find in assembly {0} resource entry, which ends with substring {1}. Fallback resource {2} not found", 
-                    targetAssembly.FullName, 
-                    resourceEntryName, 
+                    string.Format("Can't find in assembly {0} resource entry, which ends with substring {1}. Fallback resource {2} not found",
+                    targetAssembly.FullName,
+                    resourceEntryName,
                     fallbackResourceEntryName));
             }
 

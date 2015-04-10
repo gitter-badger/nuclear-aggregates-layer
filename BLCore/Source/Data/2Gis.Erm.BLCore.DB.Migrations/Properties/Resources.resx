@@ -550,6 +550,18 @@
   <data name="_Billing___ReplicateBargains_24442" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2014.09.19 rev. 24442\[billing].[replicatebargains].sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
   </data>
+  <data name="ReplicateDeals_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201411261501\replicatedeals.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="ReplicateLegalPersons_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201411261501\replicatelegalpersons.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="ReplicateLimits_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201411261501\replicatelimits.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="ReplicateOrders_201411261501" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\201411261501\replicateorders.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
   <data name="Customizations_201411271239" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2014.11.27 rev. 201411271239\customizations.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -606,5 +618,8 @@
   </data>
   <data name="customizations_201502090244" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\201502090244\customizations_201502090244.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="customizations_201503040330" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\201503040330\customizations.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

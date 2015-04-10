@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -377,22 +378,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                 AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
                                 AccountSpecs.Locks.Find.ForPeriod(period.Start, period.End))
                           .Select(l => new
-                              {
-                                  Lock = l,
-                                  LockDetails = l.LockDetails
-                                                 .Where(ld => ld.IsActive && !ld.IsDeleted)
-                                                 .Join(orderPositionsQuery,
-                                                       ld => ld.OrderPositionId,
-                                                       op => op.Id,
-                                                       (ld, op) => new
-                                                           {
-                                                               LockDetail = ld,
+                                           {
+                                               Lock = l,
+                                               LockDetails = l.LockDetails
+                                                              .Where(ld => ld.IsActive && !ld.IsDeleted)
+                                                              .Join(orderPositionsQuery,
+                                                                    ld => ld.OrderPositionId,
+                                                                    op => op.Id,
+                                                                    (ld, op) => new
+                                                                                    {
+                                                                                        LockDetail = ld,
                                                                                         IsPlannedProvision =
                                                                                     SalesModelUtil.PlannedProvisionSalesModels.Contains(op.PricePosition.Position.SalesModel)
-                                                           })
-                                                 .Where(x => x.IsPlannedProvision)
-                                                 .Select(x => x.LockDetail)
-                              })
+                                                                                    })
+                                                              .Where(x => x.IsPlannedProvision)
+                                                              .Select(x => x.LockDetail)
+                                           })
                           .Where(x => x.LockDetails.Any())
                           .Select(x => new LockDto { Lock = x.Lock, Details = x.LockDetails })
                           .ToArray();
@@ -434,6 +435,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         public bool IsLimitRecalculationAvailable(long limitId)
         {
             var limit = _finder.FindOne(Specs.Find.ById<Limit>(limitId));
+            if (limit == null)
+            {
+                throw new EntityNotFoundException(typeof(Limit), limitId);
+            }
 
             // заказы, по которым считается лимит плюс заказы в состоянии "на расторжении"
             var orderOrganizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>()

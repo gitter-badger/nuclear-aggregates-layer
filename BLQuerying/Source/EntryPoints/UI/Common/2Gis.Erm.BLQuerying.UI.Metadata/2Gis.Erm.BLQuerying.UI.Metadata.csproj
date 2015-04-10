@@ -50,7 +50,7 @@
     <Compile Include="Config\Grids\GridMetadataSource.cs" />
     <Compile Include="Config\Grids\Settings\GridStructures.cs" />
     <Compile Include="Config\Grids\Settings\GridStructures.Order.cs" />
-    <Compile Include="DI\BlQueryingUiMetadataAssembly.cs" />
+    <Compile Include="DI\BlQueryingUIMetadataAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">

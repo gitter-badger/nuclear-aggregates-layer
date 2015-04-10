@@ -40,11 +40,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(bargain.CustomerLegalPersonId));
             var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(request.LegalPersonProfileId));
             var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(branchOfficeOrganizationUnit.BranchOfficeId));
-            var organizationUnit = _finder.FindOne(Specs.Find.ById<OrganizationUnit>(branchOfficeOrganizationUnit.OrganizationUnitId));
 
             var printData = new PrintData
                 {
-                    { "OrganizationUnitName", organizationUnit.Name },
                     { "CurrentDate", DateTimeOffset.UtcNow.ToOffset(_userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.BaseUtcOffset).Date },
                     { "BranchOfficeOrganizationUnit", PrintHelper.BranchOfficeOrganizationUnitFields(branchOfficeOrganizationUnit) },
                     { "BranchOffice", PrintHelper.BranchOfficeFields(branchOffice) },

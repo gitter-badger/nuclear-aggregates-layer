@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Cyprus;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -10,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 {
-    public sealed class CyprusBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, ICyprusAdapted
+    public sealed class CyprusBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IShortLegalNameAspect, ICyprusAdapted
     {
         [DisplayNameLocalized("BranchOfficeName")]
         [RequiredLocalized]
@@ -23,6 +24,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
         [RequiredLocalized]
         [StringLengthLocalized(100)]
         public string ShortLegalName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -93,6 +98,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
             IsPrimaryForRegionalSales = modelDto.IsPrimaryForRegionalSales;
             OperatesOnTheBasisInGenitive = modelDto.OperatesOnTheBasisInGenitive;
 
+            ApplicationCityName = modelDto.ApplicationCityName;
             PhoneNumber = modelDto.PhoneNumber;
             PositionInNominative = modelDto.PositionInNominative;
             ShortLegalName = modelDto.ShortLegalName;
@@ -123,6 +129,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
                     OperatesOnTheBasisInGenitive = OperatesOnTheBasisInGenitive,
 
+                    ApplicationCityName = ApplicationCityName,
                     PhoneNumber = PhoneNumber,
                     PositionInNominative = PositionInNominative,
                     ShortLegalName = ShortLegalName,

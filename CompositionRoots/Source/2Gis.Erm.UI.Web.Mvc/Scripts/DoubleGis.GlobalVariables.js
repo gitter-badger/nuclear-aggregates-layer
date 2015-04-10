@@ -220,12 +220,13 @@ Ext.DoubleGis.Global.Helpers = {
                     text: textLengthLimit && leaf.LocalizedName.length > textLengthLimit ? leaf.LocalizedName.substring(0, textLengthLimit - 2) + '...' : leaf.LocalizedName,
                     qtip: leaf.LocalizedName,
                     leaf: !(leaf.Items && leaf.Items.length),
+                    defaultDataView: leaf.DefaultDataView,
                     disabledExpression: leaf.DisabledExpression,
                     expanded: true,
                     requestUrl: leaf.RequestUrl,
                     extendedInfo: leaf.ExtendedInfo,
                     appendableEntity: leaf.AppendableEntity,
-                    disabled: eval(leaf.DisabledExpression),
+                    disabled: leaf.Disabled || eval(leaf.DisabledExpression),
                     children: window.Ext.DoubleGis.Global.Helpers.NavBarHelper.BuildTree(leaf, textLengthLimit),
                     icon: leaf.Icon ? window.Ext.DoubleGis.Global.Helpers.GetEntityIconPath(leaf.Icon) : undefined
                 }));

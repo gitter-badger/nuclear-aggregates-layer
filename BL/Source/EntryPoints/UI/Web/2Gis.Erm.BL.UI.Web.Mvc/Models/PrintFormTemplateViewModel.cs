@@ -2,6 +2,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -11,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class PrintFormTemplateViewModel : FileViewModel<PrintFormTemplate>
+    public sealed class PrintFormTemplateViewModel : FileViewModel<PrintFormTemplate>, IFileNameAspect
     {
         [RequiredLocalized]
         public TemplateCode TemplateCode { get; set; }

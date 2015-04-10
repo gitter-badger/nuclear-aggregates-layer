@@ -72,15 +72,6 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AdditionalFirmServices {
-            get {
-                return ResourceManager.GetString("AdditionalFirmServices", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string AuthorName {
             get {
                 return ResourceManager.GetString("AuthorName", resourceCulture);
@@ -111,6 +102,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string ControlAddFirmAddress {
             get {
                 return ResourceManager.GetString("ControlAddFirmAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ControlAddPositions {
+            get {
+                return ResourceManager.GetString("ControlAddPositions", resourceCulture);
             }
         }
         
@@ -567,6 +567,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ControlOpenSortingPage {
+            get {
+                return ResourceManager.GetString("ControlOpenSortingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ControlPrepareJointBillsAction {
             get {
                 return ResourceManager.GetString("ControlPrepareJointBillsAction", resourceCulture);
@@ -651,6 +660,24 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string ControlPrintBillsAction {
             get {
                 return ResourceManager.GetString("ControlPrintBillsAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ControlPrintBindingChangeAgreement {
+            get {
+                return ResourceManager.GetString("ControlPrintBindingChangeAgreement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ControlPrintFirmNameChangeAgreement {
+            get {
+                return ResourceManager.GetString("ControlPrintFirmNameChangeAgreement", resourceCulture);
             }
         }
         
@@ -828,6 +855,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ControlRemovePositions {
+            get {
+                return ResourceManager.GetString("ControlRemovePositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ControlReopenDeal {
             get {
                 return ResourceManager.GetString("ControlReopenDeal", resourceCulture);
@@ -921,6 +957,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string ControlSetDefaultTheme {
             get {
                 return ResourceManager.GetString("ControlSetDefaultTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ControlSetDocumentsDebt {
+            get {
+                return ResourceManager.GetString("ControlSetDocumentsDebt", resourceCulture);
             }
         }
         
@@ -4881,6 +4926,15 @@ namespace DoubleGis.Erm.BL.Resources.Server.Properties {
         public static string EnPositions {
             get {
                 return ResourceManager.GetString("EnPositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string EnPositionSortingOrder {
+            get {
+                return ResourceManager.GetString("EnPositionSortingOrder", resourceCulture);
             }
         }
         
