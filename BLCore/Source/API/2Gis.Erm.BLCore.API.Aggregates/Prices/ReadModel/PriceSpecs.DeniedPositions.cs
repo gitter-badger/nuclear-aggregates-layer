@@ -15,6 +15,16 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
                     return new FindSpecification<DeniedPosition>(x => x.PriceId == priceId);
                 }
 
+                public static FindSpecification<DeniedPosition> ByPosition(long positionId)
+                {
+                    return new FindSpecification<DeniedPosition>(x => x.PositionId == positionId);
+                }
+
+                public static FindSpecification<DeniedPosition> ByPositionDenied(long positionDeniedId)
+                {
+                    return new FindSpecification<DeniedPosition>(x => x.PositionDeniedId == positionDeniedId);
+                }
+
                 public static FindSpecification<DeniedPosition> ByPositions(long positionId, long positionDeniedId)
                 {
                     return new FindSpecification<DeniedPosition>(x => x.PositionId == positionId && x.PositionDeniedId == positionDeniedId);

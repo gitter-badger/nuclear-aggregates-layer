@@ -986,9 +986,6 @@ Locking errors:{2}</value>
   <data name="PricePositionsReferencesToInactivePositions" xml:space="preserve">
     <value>In the list of price items, there are objects linked to inactive items</value>
   </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>You cannot deactivate a prohibited item from a deactivated price-list</value>
-  </data>
   <data name="SpecifyMonthAndOrganizationUnit" xml:space="preserve">
     <value>Specify company division and month</value>
   </data>
@@ -2452,9 +2449,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="AmountPlan" xml:space="preserve">
     <value>Initial amount</value>
   </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>Cannot deactivate a prohibited item from a published price-list</value>
-  </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
     <value>Legal entity of the client: {0}.
 Legal entity of the contractor: {1}.
@@ -3196,7 +3190,7 @@ The operation has been executed: {6}.</value>
   <data name="ServerRuntimeError" xml:space="preserve">
     <value>Execution error {0} on the server: '{1}'</value>
   </data>
-  <data name="OperationIsDiabled" xml:space="preserve">
+  <data name="OperationIsDisabled" xml:space="preserve">
     <value>This operation has been disabled</value>
   </data>
   <data name="NoFirmsSelected" xml:space="preserve">
@@ -5220,12 +5214,6 @@ Placement period: {3}.</value>
   </data>
   <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
     <value>Не найдено симметричное правило запрещения для: {0}</value>
-  </data>
-  <data name="CantActivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>Нельзя восстанавливать запрещенную позицию в деактивированном прайс-листе</value>
-  </data>
-  <data name="CantActivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>Нельзя восстанавливать запрещенную позицию в опубликованном прайс-листе</value>
   </data>
   <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
     <value>Нельзя создавать запрещенную позицию в деактивированном прайс-листе</value>

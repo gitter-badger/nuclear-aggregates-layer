@@ -22,13 +22,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _priceReadModel = priceReadModel;
         }
 
-        public void VerifyForDuplicates(DeniedPosition deniedPosition)
+        public void VerifyForDuplicates(long positionId, long positionDeniedId, long priceId, params long[] deniedPositionToExcludeIds)
         {
             var duplicates =
-                _priceReadModel.GetDeniedPositionsOrSymmetricDuplicates(deniedPosition.Id,
-                                                                        deniedPosition.PositionId,
-                                                                        deniedPosition.PositionDeniedId,
-                                                                        deniedPosition.PriceId)
+                _priceReadModel.GetDeniedPositionsOrSymmetric(positionId,
+                                                                        positionDeniedId,
+                                                                        priceId,
+                                                                        deniedPositionToExcludeIds)
                                .ToArray();
 
             if (duplicates.Any())

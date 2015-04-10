@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Prices;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IPriceReadModel _priceReadModel;
         private readonly ICreatePricePositionAggregateService _createPricePositionAggregateService;
-        private readonly IBulkCreateDeniedPositionsAggregateService _bulkCreateDeniedPositionsAggregateService;
+        private readonly ICreateDeniedPositionsAggregateService _createDeniedPositionsAggregateService;
         private readonly IBulkCreateAssociatedPositionsGroupsAggregateService _bulkCreateAssociatedPositionsGroupsAggregateService;
         private readonly IBulkCreateAssociatedPositionsAggregateService _bulkCreateAssociatedPositionsAggregateService;
         private readonly ISymmetricDeniedPositionsVerifier _symmetricDeniedPositionsVerifier;
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                                                  IOperationScopeFactory operationScopeFactory,
                                                  IPriceReadModel priceReadModel,
                                                  ICreatePricePositionAggregateService createPricePositionAggregateService,
-                                                 IBulkCreateDeniedPositionsAggregateService bulkCreateDeniedPositionsAggregateService,
+                                                 ICreateDeniedPositionsAggregateService createDeniedPositionsAggregateService,
                                                  IBulkCreateAssociatedPositionsGroupsAggregateService bulkCreateAssociatedPositionsGroupsAggregateService,
                                                  IBulkCreateAssociatedPositionsAggregateService bulkCreateAssociatedPositionsAggregateService,
                                                  ISymmetricDeniedPositionsVerifier symmetricDeniedPositionsVerifier,
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _operationScopeFactory = operationScopeFactory;
             _priceReadModel = priceReadModel;
             _createPricePositionAggregateService = createPricePositionAggregateService;
-            _bulkCreateDeniedPositionsAggregateService = bulkCreateDeniedPositionsAggregateService;
+            _createDeniedPositionsAggregateService = createDeniedPositionsAggregateService;
             _bulkCreateAssociatedPositionsGroupsAggregateService = bulkCreateAssociatedPositionsGroupsAggregateService;
             _bulkCreateAssociatedPositionsAggregateService = bulkCreateAssociatedPositionsAggregateService;
             _symmetricDeniedPositionsVerifier = symmetricDeniedPositionsVerifier;
@@ -63,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                     throw new EntityNotFoundException(typeof(PricePosition), sourcePricePositionId);
                 }
 
-                var pricePosition = sourcePricePosition.ResetToNew();
+                var pricePosition = sourcePricePosition.CreateBasedOn();
 
                 var sourcePositionId = pricePosition.PositionId;
                 var allPricePositionDescendantsDto = _priceReadModel.GetAllPricePositionDescendantsDto(sourcePricePositionId, sourcePositionId);
@@ -71,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                 pricePosition.PositionId = positionId;
                 _createPricePositionAggregateService.Create(pricePosition);
 
-                CreateDeniedPositions(allPricePositionDescendantsDto.DeniedPositions.Where(x => x.IsActive && !x.IsDeleted), sourcePositionId, positionId);
+                CreateDeniedPositions(allPricePositionDescendantsDto.DeniedPositions.Where(x => x.IsActive && !x.IsDeleted), priceId, sourcePositionId, positionId);
 
                 var associatedPositionsToCreate = CreateAssociatedPositionsGroups(allPricePositionDescendantsDto.AssociatedPositionsGroups,
                                                                                   allPricePositionDescendantsDto.AssociatedPositionsMapping,
@@ -105,37 +106,46 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         }
 
         private void CreateDeniedPositions(IEnumerable<DeniedPosition> enumerableDeniedPositions,
+                                           long priceId,
                                            long sourcePositionId,
                                            long positionId)
         {
             var allDeniedPositions = enumerableDeniedPositions.AsArray();
 
             var positionDeniedPositions = allDeniedPositions.Where(x => x.PositionId == sourcePositionId)
-                                                            .ToArray();
+                                                            .DistinctDeniedPositions();
 
-            var symmetricDeniedPositions = allDeniedPositions.Where(x => x.PositionDeniedId == sourcePositionId)
-                                                             .ToArray();
+            var symmetricDeniedPositions = allDeniedPositions.Where(x => x.PositionDeniedId == sourcePositionId && x.PositionId != x.PositionDeniedId)
+                                                             .DistinctDeniedPositions();
 
             if (!positionDeniedPositions.Any() && !symmetricDeniedPositions.Any())
             {
                 return;
             }
 
+            // Проверим валидность копируемых данных
+            var allPositionDeniedPositions = positionDeniedPositions.Concat(symmetricDeniedPositions);
+            _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(allPositionDeniedPositions);
+            _symmetricDeniedPositionsVerifier.VerifyForSymmetryWithinCollection(allPositionDeniedPositions);
+
             foreach (var deniedPosition in positionDeniedPositions)
             {
                 deniedPosition.PositionId = positionId;
             }
 
-            foreach (var deniedPosition in symmetricDeniedPositions)
-            {
-                deniedPosition.PositionDeniedId = positionId;
-            }
+            var storedDeniedPositions = _priceReadModel.GetDeniedPositions(positionId, priceId);
+            _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(positionDeniedPositions.Concat(storedDeniedPositions).DistinctDeniedPositions());
 
-            var allPositionDeniedPositions = positionDeniedPositions.Concat(symmetricDeniedPositions).DistinctDeniedPositions();
-            _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(allPositionDeniedPositions);
-            _symmetricDeniedPositionsVerifier.VerifyForSymmetryWithinCollection(allPositionDeniedPositions);
+            var deniedPositionsToCreate = positionDeniedPositions.ExceptDeniedPositions(storedDeniedPositions);
 
-            _bulkCreateDeniedPositionsAggregateService.Create(allPositionDeniedPositions);
+            _createDeniedPositionsAggregateService.Create(priceId,
+                                                          positionId,
+                                                          deniedPositionsToCreate.Select(x =>
+                                                                                         new DeniedPositionToCreateDto
+                                                                                             {
+                                                                                                 ObjectBindingType = x.ObjectBindingType,
+                                                                                                 PositionDeniedId = x.PositionDeniedId
+                                                                                             }).ToArray());
         }
 
         private Dictionary<long, IEnumerable<AssociatedPosition>> CreateAssociatedPositionsGroups(

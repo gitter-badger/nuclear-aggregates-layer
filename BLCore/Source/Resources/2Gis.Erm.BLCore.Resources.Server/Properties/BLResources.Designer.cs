@@ -2998,24 +2998,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CantActivateDeniedPositionWhenPriceIsDeactivated {
-            get {
-                return ResourceManager.GetString("CantActivateDeniedPositionWhenPriceIsDeactivated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CantActivateDeniedPositionWhenPriceIsPublished {
-            get {
-                return ResourceManager.GetString("CantActivateDeniedPositionWhenPriceIsPublished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string CantActivatePositionRelatedToCompositeRelatedToPublishedPricePosition {
             get {
                 return ResourceManager.GetString("CantActivatePositionRelatedToCompositeRelatedToPublishedPricePosition", resourceCulture);
@@ -3199,24 +3181,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CantDeactivateAssociatedPositionWhenPriceIsPublished {
             get {
                 return ResourceManager.GetString("CantDeactivateAssociatedPositionWhenPriceIsPublished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CantDeactivateDeniedPositionWhenPriceIsDeactivated {
-            get {
-                return ResourceManager.GetString("CantDeactivateDeniedPositionWhenPriceIsDeactivated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CantDeactivateDeniedPositionWhenPriceIsPublished {
-            get {
-                return ResourceManager.GetString("CantDeactivateDeniedPositionWhenPriceIsPublished", resourceCulture);
             }
         }
         
@@ -9752,15 +9716,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string OperationCouldntCompleteMessage {
             get {
                 return ResourceManager.GetString("OperationCouldntCompleteMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string OperationIsDiabled {
-            get {
-                return ResourceManager.GetString("OperationIsDiabled", resourceCulture);
             }
         }
         

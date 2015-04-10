@@ -9,18 +9,18 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 {
-    public class DeactivateDeniedPositionAggregateService : IDeactivateDeniedPositionAggregateService
+    public class DeleteDeniedPositionAggregateService : IDeleteDeniedPositionAggregateService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecureRepository<DeniedPosition> _deniedPositionRepository;
 
-        public DeactivateDeniedPositionAggregateService(IOperationScopeFactory operationScopeFactory, ISecureRepository<DeniedPosition> deniedPositionRepository)
+        public DeleteDeniedPositionAggregateService(IOperationScopeFactory operationScopeFactory, ISecureRepository<DeniedPosition> deniedPositionRepository)
         {
             _operationScopeFactory = operationScopeFactory;
             _deniedPositionRepository = deniedPositionRepository;
         }
 
-        public void Deactivate(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition)
+        public void Delete(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition)
         {
             if (deniedPosition == null)
             {
@@ -52,21 +52,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
                 throw new InactiveEntityDeactivationException(typeof(DeniedPosition), symmetricDeniedPosition.Id);
             }
 
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, DeniedPosition>())
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, DeniedPosition>())
             {
-                deniedPosition.IsActive = false;
-                symmetricDeniedPosition.IsActive = false;
-                _deniedPositionRepository.Update(deniedPosition);
-                _deniedPositionRepository.Update(symmetricDeniedPosition);
+                _deniedPositionRepository.Delete(deniedPosition);
+                _deniedPositionRepository.Delete(symmetricDeniedPosition);
                 _deniedPositionRepository.Save();
 
-                operationScope.Updated(deniedPosition)
-                              .Updated(symmetricDeniedPosition)
+                operationScope.Deleted(deniedPosition)
+                              .Deleted(symmetricDeniedPosition)
                               .Complete();
             }
         }
 
-        public void DeactivateSelfDenied(DeniedPosition selfDeniedPosition)
+        public void DeleteSelfDenied(DeniedPosition selfDeniedPosition)
         {
             if (selfDeniedPosition == null)
             {
@@ -85,11 +83,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, DeniedPosition>())
             {
-                selfDeniedPosition.IsActive = false;
-                _deniedPositionRepository.Update(selfDeniedPosition);
+                _deniedPositionRepository.Delete(selfDeniedPosition);
                 _deniedPositionRepository.Save();
 
-                operationScope.Updated(selfDeniedPosition)
+                operationScope.Deleted(selfDeniedPosition)
                               .Complete();
             }
         }

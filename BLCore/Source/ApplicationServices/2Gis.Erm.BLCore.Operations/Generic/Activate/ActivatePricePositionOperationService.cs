@@ -74,7 +74,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
                 _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(deniedPositions);
                 _symmetricDeniedPositionsVerifier.VerifyForSymmetryWithinCollection(deniedPositions);
 
-                count += _bulkActivateDeniedPositionsAggregateService.Activate(deniedPositions);
+                var storedDeniedPositions = _priceReadModel.GetDeniedPositionsOrSymmetric(pricePosition.PositionId, pricePosition.PriceId);
+                _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(deniedPositions.Concat(storedDeniedPositions).DistinctDeniedPositions());
+
+                var deniedPositionsToActivate = deniedPositions.ExceptDeniedPositions(storedDeniedPositions);
+
+                count += _bulkActivateDeniedPositionsAggregateService.Activate(deniedPositionsToActivate);
 
                 operationScope.Complete();
                 return count;

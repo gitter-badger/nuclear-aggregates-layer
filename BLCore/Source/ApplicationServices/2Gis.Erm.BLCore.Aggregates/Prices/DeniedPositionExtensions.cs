@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices
@@ -20,9 +21,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                    deniedPosition.ObjectBindingType == symmetricDeniedPosition.ObjectBindingType;
         }
 
+        public static DeniedPosition CreateSymmetric(this DeniedPosition deniedPosition)
+        {
+            var copy = deniedPosition.CreateBasedOn();
+            copy.PositionId = deniedPosition.PositionDeniedId;
+            copy.PositionDeniedId = deniedPosition.PositionId;
+            return copy;
+        }
+
         public static IEnumerable<DeniedPosition> DistinctDeniedPositions(this IEnumerable<DeniedPosition> deniedPositions)
         {
             return deniedPositions.Distinct(new DeniedPositionComparer()).ToArray();
+        }
+
+        public static IEnumerable<DeniedPosition> ExceptDeniedPositions(this IEnumerable<DeniedPosition> deniedPositions, IEnumerable<DeniedPosition> deniedPositionsToExclude)
+        {
+            return deniedPositions.Except(deniedPositionsToExclude, new DeniedPositionComparer()).ToArray();
         }
 
         public static IEnumerable<DeniedPosition> PickDuplicates(this IEnumerable<DeniedPosition> deniedPositions)

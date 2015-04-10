@@ -29,9 +29,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         {
             using (var operationScope = _operationScopeFactory.CreateNonCoupled<ReplacePriceIdentity>())
             {
+                var targetPriceDto = _priceReadModel.GetPriceDto(targetPriceId);
                 _deletePriceService.Delete(targetPriceId);
 
-                var targetPriceDto = _priceReadModel.GetPriceDto(targetPriceId);
                 _copyPriceOperationService.Copy(sourcePriceId,
                                                 targetPriceDto.OrganizationUnitId,
                                                 targetPriceDto.CreateDate,

@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices
 {
     public interface IDeniedPositionsDuplicatesVerifier : IInvariantSafeCrosscuttingService
     {
-        void VerifyForDuplicates(DeniedPosition deniedPosition);
+        void VerifyForDuplicates(long positionId, long positionDeniedId, long priceId, params long[] deniedPositionToExcludeIds);
         void VerifyForDuplicatesWithinCollection(IEnumerable<DeniedPosition> deniedPositions);
     }
 }

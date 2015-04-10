@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.DeniedPosition;
 
@@ -26,68 +27,68 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _positionReadModel = positionReadModel;
         }
 
-        public DeniedPosition Get(DeniedPosition deniedPosition)
+        public DeniedPosition Get(long positionId, long positionDeniedId, long priceId)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
             {
                 var symmetricDeniedPositions =
-                    _priceReadModel.GetDeniedPositions(positionId: deniedPosition.PositionDeniedId,
-                                                       positionDeniedId: deniedPosition.PositionId,
-                                                       priceId: deniedPosition.PriceId)
+                    _priceReadModel.GetDeniedPositions(positionId: positionDeniedId,
+                                                       positionDeniedId: positionId,
+                                                       priceId: priceId)
                                    .ToArray();
 
                 EnsureUniqueness(symmetricDeniedPositions);
-                EnsureExistence(deniedPosition, symmetricDeniedPositions);
+                EnsureExistence(positionId, positionDeniedId, symmetricDeniedPositions);
                 scope.Complete();
 
                 return symmetricDeniedPositions.Single();
             }
         }
 
-        public DeniedPosition GetWithObjectBindingTypeConsideration(DeniedPosition deniedPosition)
+        public DeniedPosition GetWithObjectBindingTypeConsideration(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
             {
                 var symmetricDeniedPositions =
-                    _priceReadModel.GetDeniedPositions(positionId: deniedPosition.PositionDeniedId,
-                                                       positionDeniedId: deniedPosition.PositionId,
-                                                       priceId: deniedPosition.PriceId,
-                                                       objectBindingType: deniedPosition.ObjectBindingType);
+                    _priceReadModel.GetDeniedPositions(positionId: positionDeniedId,
+                                                       positionDeniedId: positionId,
+                                                       priceId: priceId,
+                                                       objectBindingType: objectBindingType);
 
                 EnsureUniqueness(symmetricDeniedPositions);
-                EnsureExistence(deniedPosition, symmetricDeniedPositions);
+                EnsureExistence(positionId, positionDeniedId, symmetricDeniedPositions);
                 scope.Complete();
 
                 return symmetricDeniedPositions.Single();
             }
         }
 
-        public DeniedPosition GetInactiveWithObjectBindingTypeConsideration(DeniedPosition deniedPosition)
+        public DeniedPosition GetInactiveWithObjectBindingTypeConsideration(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
             {
                 var symmetricDeniedPositions =
-                    _priceReadModel.GetInactiveDeniedPositions(positionId: deniedPosition.PositionDeniedId,
-                                                               positionDeniedId: deniedPosition.PositionId,
-                                                               priceId: deniedPosition.PriceId,
-                                                               objectBindingType: deniedPosition.ObjectBindingType);
+                    _priceReadModel.GetInactiveDeniedPositions(positionId: positionDeniedId,
+                                                               positionDeniedId: positionId,
+                                                               priceId: priceId,
+                                                               objectBindingType: objectBindingType);
 
-                EnsureExistence(deniedPosition, symmetricDeniedPositions);
+                EnsureExistence(positionId, positionDeniedId, symmetricDeniedPositions);
                 scope.Complete();
 
                 return symmetricDeniedPositions.First();
             }
         }
 
-        private void EnsureExistence(DeniedPosition deniedPosition, IEnumerable<DeniedPosition> symmetricDeniedPositions)
+        private void EnsureExistence(long positionId, long positionDeniedId, IEnumerable<DeniedPosition> symmetricDeniedPositions)
         {
             if (!symmetricDeniedPositions.Any())
             {
-                var positionNames = _positionReadModel.GetPositionNames(new[] { deniedPosition.PositionId, deniedPosition.PositionDeniedId });
+                var positionNames = _positionReadModel.GetPositionNames(new[] { positionId, positionDeniedId });
                 throw new SymmetricDeniedPositionIsMissingException(string.Format(BLResources.SymmetricDeniedPositionIsMissing,
                                                                                   string.Format("({0}, {1})",
-                                                                                                positionNames[deniedPosition.PositionId],
-                                                                                                positionNames[deniedPosition.PositionDeniedId])));
+                                                                                                positionNames[positionId],
+                                                                                                positionNames[positionDeniedId])));
             }
         }
 
