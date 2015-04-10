@@ -2,8 +2,13 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.BLCore.API.Common.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
@@ -12,12 +17,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
     public class DeleteDeniedPositionAggregateService : IDeleteDeniedPositionAggregateService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
-        private readonly ISecureRepository<DeniedPosition> _deniedPositionRepository;
+        private readonly IRepository<DeniedPosition> _deniedPositionRepository;
+        private readonly IUserContext _userContext;
+        private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
 
-        public DeleteDeniedPositionAggregateService(IOperationScopeFactory operationScopeFactory, ISecureRepository<DeniedPosition> deniedPositionRepository)
+        public DeleteDeniedPositionAggregateService(IOperationScopeFactory operationScopeFactory,
+                                                    IRepository<DeniedPosition> deniedPositionRepository,
+                                                    IUserContext userContext,
+                                                    ISecurityServiceEntityAccess securityServiceEntityAccess)
         {
             _operationScopeFactory = operationScopeFactory;
             _deniedPositionRepository = deniedPositionRepository;
+            _userContext = userContext;
+            _securityServiceEntityAccess = securityServiceEntityAccess;
         }
 
         public void Delete(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition)
@@ -50,6 +62,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             if (!symmetricDeniedPosition.IsActive)
             {
                 throw new InactiveEntityDeactivationException(typeof(DeniedPosition), symmetricDeniedPosition.Id);
+            }
+
+            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Delete,
+                                                              EntityName.DeniedPosition,
+                                                              _userContext.Identity.Code,
+                                                              deniedPosition.Id,
+                                                              0,
+                                                              null))
+            {
+                throw new OperationAccessDeniedException(DeleteIdentity.Instance);
             }
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, DeniedPosition>())

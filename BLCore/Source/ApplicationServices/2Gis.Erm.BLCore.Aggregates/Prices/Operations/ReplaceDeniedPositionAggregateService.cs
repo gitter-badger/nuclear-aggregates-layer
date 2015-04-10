@@ -1,8 +1,12 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -13,16 +17,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
     public class ReplaceDeniedPositionAggregateService : IReplaceDeniedPositionAggregateService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
-        private readonly ISecureRepository<DeniedPosition> _deniedPositionRepository;
+        private readonly IRepository<DeniedPosition> _deniedPositionRepository;
         private readonly IIdentityProvider _identityProvider;
+        private readonly IUserContext _userContext;
+        private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
 
         public ReplaceDeniedPositionAggregateService(IOperationScopeFactory operationScopeFactory,
-                                                     ISecureRepository<DeniedPosition> deniedPositionRepository,
-                                                     IIdentityProvider identityProvider)
+                                                     IRepository<DeniedPosition> deniedPositionRepository,
+                                                     IIdentityProvider identityProvider,
+                                                     IUserContext userContext,
+                                                     ISecurityServiceEntityAccess securityServiceEntityAccess)
         {
             _operationScopeFactory = operationScopeFactory;
             _deniedPositionRepository = deniedPositionRepository;
             _identityProvider = identityProvider;
+            _userContext = userContext;
+            _securityServiceEntityAccess = securityServiceEntityAccess;
         }
 
         public void Replace(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition, long positionDeniedId)
@@ -45,6 +55,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             if (!deniedPosition.IsSymmetricTo(symmetricDeniedPosition))
             {
                 throw new SymmetricDeniedPositionExpectedException();
+            }
+
+            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                              EntityName.DeniedPosition,
+                                                              _userContext.Identity.Code,
+                                                              deniedPosition.Id,
+                                                              0,
+                                                              null))
+            {
+                throw new OperationAccessDeniedException(ReplaceDeniedPositionIdentity.Instance);
             }
 
             using (var operationScope = _operationScopeFactory.CreateNonCoupled<ReplaceDeniedPositionIdentity>())
