@@ -51,7 +51,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
                 var task = _taskReadModel.GetTask(entityId);
                 var originalStatus = task.Status;
 
-                if (task.ScheduledOn.Date > DateTime.Now.Date)
+                var userLocale = _userContext.Profile.UserLocaleInfo;
+
+                if (userLocale.UserTimeZoneInfo.ConvertDateFromUtc(task.ScheduledOn).Date > userLocale.UserTimeZoneInfo.ConvertDateFromLocal(DateTime.Now).Date)
                 {
                     throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
                 }

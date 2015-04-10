@@ -260,12 +260,11 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             var entityName = entityNames.Single();
             switch (entityName)
             {
-                case EntityName.Appointment:
-                    return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Status", "ScheduledStart" } };
+                case EntityName.Appointment:                    
                 case EntityName.Letter:
                 case EntityName.Phonecall:
                 case EntityName.Task:
-                    return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Status", "ScheduledOn" } };
+                    return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Status" } };
                 case EntityName.Account:
                 case EntityName.Client:
                 case EntityName.Firm:
