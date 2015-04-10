@@ -33,7 +33,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             var position = _positionReadModel.GetPositionByPricePositionId(pricePositionId);
             var orderInfo = _orderReadModel.GetOrderInfoToCheckPossibilityOfOrderPositionCreation(orderId);
 
-            if (!AllRequiredAdvertisementsAreSpecified(position.IsComposite, orderPositionAdvertisements, out report))
+            if (position.IsComposite && !AllRequiredAdvertisementsAreSpecifiedForCompositePosition(orderPositionAdvertisements, out report))
+            {
+                return false;
+            }
+
+            if (!AllRequiredAdvertisementsAreSpecified(orderPositionAdvertisements, out report))
             {
                 return false;
             }
@@ -58,14 +63,28 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         }
 
         #region Проверки
-        private bool AllRequiredAdvertisementsAreSpecified(bool isCompositePosition,
-            IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
-                                              out string report)
+        // Является частным случаем проверки AllRequiredAdvertisementsAreSpecified, которая появилась в рамках фикса бага ERM-6151. Есть опасение, что новая общая проверка ломает какой-то кейс. 
+        // Если жалоб на нее не будет, то эту частную проверку (AllRequiredAdvertisementsAreSpecifiedForCompositePosition) можно будет удалить
+        private bool AllRequiredAdvertisementsAreSpecifiedForCompositePosition(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                                               out string report)
         {
             report = null;
-            if (isCompositePosition && !orderPositionAdvertisements.Any())
+            if (!orderPositionAdvertisements.Any())
             {
                 report = BLResources.NeedToPickAtLeastOneLinkingObjectForCompositePosition;
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool AllRequiredAdvertisementsAreSpecified(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                           out string report)
+        {
+            report = null;
+            if (!orderPositionAdvertisements.Any())
+            {
+                report = BLResources.NeedToPickAtLeastOneLinkingObject;
                 return false;
             }
 

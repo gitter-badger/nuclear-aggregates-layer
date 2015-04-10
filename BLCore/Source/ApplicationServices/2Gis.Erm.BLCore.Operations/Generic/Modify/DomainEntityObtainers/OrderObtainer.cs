@@ -28,6 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
                             {
                                 IsActive = true,
                                 LegalPersonProfileId = dto.LegalPersonProfileRef != null ? dto.LegalPersonProfileRef.Id : null,
+                                HasDocumentsDebt = dto.HasDocumentsDebt
                             };
 
             order.Number = dto.Number;

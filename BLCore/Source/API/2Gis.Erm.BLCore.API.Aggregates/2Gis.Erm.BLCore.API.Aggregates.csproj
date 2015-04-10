@@ -327,6 +327,7 @@
     <Compile Include="Prices\Operations\IBulkDeactivatePricePositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeleteDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeletePricePositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IUpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePricePositionAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />
