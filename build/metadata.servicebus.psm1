@@ -6,13 +6,13 @@ $ErrorActionPreference = 'Stop'
 $SharedAccessKeys = @{
 	'Production.Russia' = 'ekQp9UcnukDWwNK9ZCiHXU91ovxdXs/XMZ05fAsam+s='
 	'Load.Russia' = 'daOQn6EYUWbJPlfV1592+xCIQRTumxZzzEw2c1i1u0M='
-	'Test.01' = 'VMjlhLcjp4K3+Ur6c2c8vEbEsRZVbFXHuiv9MRW7Y34='
-	'Test.02' = 'UQcwkyrf7YrfjVVmq0Y3J7fIQIpfc4UuUHcORMeg+vA='
-	'Test.03' = 'TmElHfY7fGenC9thyWL+/P/lDrcthzzKSoF2lB8LSBs='
-	'Test.04' = 'qXjGMK2DyIySJtVL0SjQM3RcNYnN365gHtmpkb9IWKs='
-	'Test.05' =	'fJrj72O4D4JJ4dE06xDCp1eFFRDkYbqbHL1aIYAEelE='
-	'Test.06' =	'JB2JhAMShwaCCbhOxohqnNy/HpxSQUT2SWpDeUSgOM4='
-	'Test.08' =	'P+wgbmmPDO+3G3OQi/cT3e0Ym6TgMpV4BpN8zkNW9WI='
+	'Test.01' = 'dxorbZPNw1/uiwnp86NfFOgRaJqe3IMzFfMLTG3omM4='
+	'Test.02' = '2t4kdp1F87nw01Gkjgy7s7gzblYCHgt6lzn/emeNNg8='
+	'Test.03' = '68Av4IZXBAKVu2fpUntiGx8Jliz7V9N4T9aYRRW/olM='
+	'Test.04' = '+HRJRuoNqYB+UI+b36zQOFqckofYKwbhHjDLRL+zi0c='
+	'Test.05' =	'0XGFXdeOOgu2ANkrw+2cZ1AabmEIhDvNbxvNd0m5kIQ='
+	'Test.06' =	'Vx7wWYOw6QEZl579WRC/NF+x1xiZ23rzpF1SIWbc2BY='
+	'Test.08' =	'uXqO99MHiKRDNHQbpnjgOpwVfx135vq+GnoDYdzmAPc='
 }
 
 function Get-SharedAccessKeyMetadata($EnvName){
