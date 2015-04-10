@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems
             public static UIElementMetadataBuilder ClientLinksGrid()
             {
                 return UIElementMetadata.Config
-                                        .Name.Static(EntityType.Instance.ClientLink().ToString().Pluralize())
+                                        .Name.Static(EntityType.Instance.ClientLink().Description.Pluralize())
                                         .Title.Resource(() => ErmConfigLocalization.CrdRelClientLinks)
                                         .Icon.Path(Icons.Icons.Entity.Small(EntityType.Instance.ClientLink()))
                                         .LockOnNew()

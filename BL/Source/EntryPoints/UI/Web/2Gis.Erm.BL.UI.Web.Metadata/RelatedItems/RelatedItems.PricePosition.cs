@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems
             public static UIElementMetadataBuilder DeniedPositionsGrid()
             {
                 return UIElementMetadata.Config
-                                        .Name.Static(EntityType.Instance.DeniedPosition().ToString().Pluralize())
+                                        .Name.Static(EntityType.Instance.DeniedPosition().Description.Pluralize())
                                         .Title.Resource(() => ErmConfigLocalization.CrdRelDeniedPosition)
                                         .ExtendedInfo(new TemplateDescriptor(
                                                           new StaticStringResourceDescriptor("PositionId={0}&&PriceId={1}"),

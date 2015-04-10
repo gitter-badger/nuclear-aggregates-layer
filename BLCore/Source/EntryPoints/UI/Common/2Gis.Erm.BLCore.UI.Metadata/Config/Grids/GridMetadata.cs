@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Grids
             : base(features)
         {
             _entity = entity;
-            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataGridsIdentity>(_entity.ToString()).Build().AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataGridsIdentity>(_entity.Description).Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity

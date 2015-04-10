@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
         {
             _currentCulture = culture;
             CardMetadata metadata;
-            if (!_metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entity.ToString()).Build().AsIdentity().Id, out metadata))
+            if (!_metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entity.Description).Build().AsIdentity().Id, out metadata))
             {
                 throw new ArgumentException(string.Format("Cannot find metadata for entity {0}", entity), "entity");
             }
@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.Icon = card.ImageDescriptor.ToString();
             }
 
-            result.EntityName = card.Entity.ToString();
+            result.EntityName = card.Entity.Description;
 
             if (card.TitleDescriptor != null)
             {
@@ -222,7 +222,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             var appendableEntityFeature = element.Features<AppendableEntityFeature>().SingleOrDefault();
             if (appendableEntityFeature != null)
             {
-                result.AppendableEntity = appendableEntityFeature.Entity.ToString();
+                result.AppendableEntity = appendableEntityFeature.Entity.Description;
             }
 
             var filterToParentFeature = element.Features<FilterToParentFeature>().SingleOrDefault();

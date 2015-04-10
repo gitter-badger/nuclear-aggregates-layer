@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 
             var gridViewModelIdentity = new GridViewModelIdentity(entityName);
 
-            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataGridsIdentity>(EntityType.Instance.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataGridsIdentity>(entityName.Description);
 
             GridMetadata gridMetadata;
             if (!_metadataProvider.TryGetMetadata(metadataId, out gridMetadata))

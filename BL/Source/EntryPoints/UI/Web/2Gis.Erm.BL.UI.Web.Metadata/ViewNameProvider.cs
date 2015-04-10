@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata
             viewName = string.Empty;
 
             CardMetadata metadata;
-            if (_metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entityTypeName.ToString()).Build().AsIdentity().Id, out metadata))
+            if (_metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entityTypeName.Description).Build().AsIdentity().Id, out metadata))
             {
                 if (metadata.Uses<IViewModelViewMappingFeature>())
                 {
@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata
 
             if (typeof(IAdapted).IsAssignableFrom(typeof(TViewModel)))
             {
-                viewName = string.Format("{0}/{1}", _businessModelSettings.BusinessModel, entityTypeName);
+                viewName = string.Format("{0}/{1}", _businessModelSettings.BusinessModel, entityTypeName.Description);
             }
 
             return !string.IsNullOrWhiteSpace(viewName);
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata
         {
             var entityTypeName = typeof(TEntity).AsEntityName();
 
-            viewName = entityTypeName.ToString();
+            viewName = entityTypeName.Description;
 
             return !string.IsNullOrWhiteSpace(viewName);
         }

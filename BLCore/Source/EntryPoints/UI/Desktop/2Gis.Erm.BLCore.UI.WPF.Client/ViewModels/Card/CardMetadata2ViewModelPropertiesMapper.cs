@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card
 
         protected override IEnumerable<IViewModelProperty> GetViewModelProperties(IUseCase useCase, CardMetadata metadata, IViewModelIdentity targetViewModelIdentity)
         {
-            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(metadata.Entity.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(metadata.Entity.Description);
 
             IMetadataElement propertiesContainer;
             if (!_metadataProvider.TryGetMetadata(metadataId, out propertiesContainer))

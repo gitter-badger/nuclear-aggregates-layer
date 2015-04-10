@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             : base(features)
         {
             _entity = entity;
-            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(_entity.ToString()).Build().AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(_entity.Description).Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity

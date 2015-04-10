@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
     {
         private readonly HierarchyMetadata _sparseMetadataMetadata = HierarchyMetadata
                    .Config
-                   .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(EntityType.Instance.Account().ToString()))
+                   .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(EntityType.Instance.Account().Description))
                    .Childs(
                         EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(

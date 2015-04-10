@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
         {
             _entity = entity;
             _concreteListing = concreteListing;
-            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataListingsIdentity>(entity.ToString(), concreteListing).Build().AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataListingsIdentity>(entity.Description, concreteListing).Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity

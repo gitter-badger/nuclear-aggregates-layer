@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities
             HierarchyMetadata entityMetadata =
                 HierarchyMetadata
                     .Config
-                    .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(entityInfo.Key.ToString()))
+                    .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(entityInfo.Key.Description))
                     .WithFeatures(new RelatedEntityFeature(targetEntity))
                     .Childs(entityInfo.Value.Cast<IMetadataElement>().ToArray());
 

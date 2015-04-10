@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             CardMetadata metadata;
-            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(viewModel.ViewConfig.EntityName.ToString()).Build().AsIdentity();
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(viewModel.ViewConfig.EntityName.Description).Build().AsIdentity();
             if (!_metadataProvider.TryGetMetadata(metadataId.Id, out metadata))
             {
                 throw new MetadataNotFoundException(metadataId);

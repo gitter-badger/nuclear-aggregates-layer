@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
                 return null;
             }
 
-            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(cardViewModelWithIdentity.ConcreteIdentity.EntityName.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(cardViewModelWithIdentity.ConcreteIdentity.EntityName.Description);
             CardMetadata cardMetadata;
             if (!_metadataProvider.TryGetMetadata(metadataId, out cardMetadata))
             {

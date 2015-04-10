@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
             ViewModelCustomizationsMetadata customizationsMetadata;
             IEnumerable<Type> customizationTypes;
 
-            if (!_metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<ViewModelCustomizationsIdentity>(typeof(TEntity).AsEntityName().ToString()), out customizationsMetadata))
+            if (!_metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<ViewModelCustomizationsIdentity>(typeof(TEntity).AsEntityName().Description), out customizationsMetadata))
             {
                 customizationTypes = Enumerable.Empty<Type>();
             }

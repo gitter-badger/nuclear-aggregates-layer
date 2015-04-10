@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata
     {
         public static string ToRequestUrl(this ShowGridHandlerFeature showGridHandler)
         {
-            return string.Format("/Grid/View/{0}", showGridHandler.EntityName);
+            return string.Format("/Grid/View/{0}", showGridHandler.EntityName.Description);
         }
 
         // Эта штука нужна только для тестирования. Потом Удалить.

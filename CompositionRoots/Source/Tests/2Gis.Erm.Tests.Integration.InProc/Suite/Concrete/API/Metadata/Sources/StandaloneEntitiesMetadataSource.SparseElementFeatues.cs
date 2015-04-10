@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
     {
         private readonly HierarchyMetadata _sparseMetadataMetadataFeatures = HierarchyMetadata
                    .Config
-                   .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(EntityType.Instance.AccountDetail().ToString()))
+                   .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(EntityType.Instance.AccountDetail().Description))
                    .Childs(
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.AccountRef)
                                   .WithFeatures(
@@ -74,8 +74,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
                                       LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       //new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
-                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)
-                                      ),
+                                      DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.CreatedOn)
                                   .WithFeatures(

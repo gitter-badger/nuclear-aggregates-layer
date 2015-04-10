@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
         {
             var container = useCase.ResolveFactoryContext();
 
-            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(EntityType.Instance.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entityName.Description);
             CardMetadata cardMetadata;
             if (!_metadataProvider.TryGetMetadata(metadataId, out cardMetadata))
             {

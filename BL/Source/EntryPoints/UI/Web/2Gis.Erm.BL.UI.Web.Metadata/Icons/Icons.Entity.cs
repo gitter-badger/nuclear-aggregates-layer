@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Icons
                     throw new NotSupportedException(string.Format("Large icon for entity {0} is not supported. Consider using default icon instead", entity));
                 }
 
-                return string.Format("en_ico_lrg_{0}.gif", entity);
+                return string.Format("en_ico_lrg_{0}.gif", entity.Description);
             }
 
             public static string Small(IEntityType entity)
@@ -105,7 +105,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Icons
                     throw new NotSupportedException(string.Format("Small icon for entity {0} is not supported. Consider using default icon instead", entity));
                 }
 
-                return string.Format("en_ico_16_{0}.gif", entity);
+                return string.Format("en_ico_16_{0}.gif", entity.Description);
             }
         }
     }
