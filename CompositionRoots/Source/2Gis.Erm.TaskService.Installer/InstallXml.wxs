@@ -167,10 +167,10 @@
         <File Source="!(bindpath.PackagesDir)\protobuf-net.2.0.0.669\lib\net35\protobuf-net.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\2Gis.NuClear.Settings.1.0.2\lib\net451\2Gis.NuClear.Settings.dll" />
+        <File Source="!(bindpath.PackagesDir)\2Gis.NuClear.Settings.1.1.0\lib\net451\2Gis.NuClear.Settings.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\2Gis.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2Gis.NuClear.Settings.API.dll" />
+        <File Source="!(bindpath.PackagesDir)\2Gis.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2Gis.NuClear.Settings.API.dll" />
       </Component>
         <Component>
         <File Source="!(bindpath.PackagesDir)\2Gis.Nuclear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2Gis.Nuclear.Tracing.API.dll" />
@@ -185,16 +185,22 @@
         <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Metamodeling.1.1.1\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.dll" />
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Metamodeling.1.5.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Metamodeling.Basics.1.1.1\lib\portable-net451+win81+wpa81\2Gis.NuClear.Metamodeling.Domain.dll" />
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Metamodeling.Basics.1.5.2\lib\portable-net451+win81+wpa81\2Gis.NuClear.Metamodeling.Domain.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Metamodeling.Basics.1.1.1\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.UI.dll" />
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Metamodeling.Basics.1.5.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.UI.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Model.Common.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll" />
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Model.Common.1.1.1\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.ResourceUtilities.1.0.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.ResourceUtilities.dll" />
+      </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.ResourceUtilities.Legacy.1.0.0\lib\net451\2GIS.NuClear.ResourceUtilities.Legacy.dll" />
       </Component>
     </ComponentGroup>
     
