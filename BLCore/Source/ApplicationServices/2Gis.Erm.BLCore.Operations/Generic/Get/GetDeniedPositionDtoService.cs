@@ -5,7 +5,6 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
@@ -31,8 +30,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                             PositionRef = new EntityReference { Id = deniesPosition.PositionId, Name = position.Name },
                             PositionDeniedRef = new EntityReference { Id = deniesPosition.PositionDeniedId, Name = deniesPosition.PositionDenied.Name },
                             PriceRef = new EntityReference { Id = deniesPosition.PriceId, Name = null },
-                            IsPricePublished = deniesPosition.Price.IsPublished,
-                            ObjectBindingType = (ObjectBindingType)deniesPosition.ObjectBindingType,
+                            PriceIsPublished = deniesPosition.Price.IsPublished,
+                            ObjectBindingType = deniesPosition.ObjectBindingType,
                             OwnerRef = new EntityReference { Id = deniesPosition.OwnerCode, Name = null },
                             CreatedByRef = new EntityReference { Id = deniesPosition.CreatedBy, Name = null },
                             CreatedOn = deniesPosition.CreatedOn,
@@ -62,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                    {
                                        PriceRef = new EntityReference { Id = x.PriceId, Name = null },
                                        PositionRef = new EntityReference { Id = x.PositionId, Name = x.Position.Name },
-                                       IsPricePublished = x.Price.IsPublished,
+                                       PriceIsPublished = x.Price.IsPublished,
                                        OwnerRef = new EntityReference { Id = x.OwnerCode, Name = null }
                                    })
                                .Single();
