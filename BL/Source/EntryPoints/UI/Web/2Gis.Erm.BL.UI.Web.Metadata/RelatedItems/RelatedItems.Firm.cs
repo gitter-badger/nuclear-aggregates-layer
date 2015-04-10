@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-
-using DoubleGis.Erm.BL.Resources.Server.Properties;
+﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
