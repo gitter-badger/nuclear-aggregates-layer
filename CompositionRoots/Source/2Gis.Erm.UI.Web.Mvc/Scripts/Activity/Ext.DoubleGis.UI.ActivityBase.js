@@ -76,11 +76,12 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         function saveFormSuccess() {
             if (scope.changeStatusOperation) {
                 postOperation(scope.changeStatusOperation);
+                scope.changeStatusOperation = null;
             }
         }
 
         function saveFormFailure() {
-            scope.changeStatusOperation = undefined;
+            scope.changeStatusOperation = null;
         }
 
         this.getComboboxText = function (name) {
