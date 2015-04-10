@@ -44,8 +44,11 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 
         public CardMetadataBuilder<TEntity> WithAdminTab()
         {
-            AddFeatures(new ShowAdminPartFeature(),
-                        new PartFeature(ResourceTitleDescriptor.Create(() => BLResources.AdministrationTabTitle), new StaticTitleDescriptor("AdministrationTab")));
+            AddFeatures(
+                new ShowAdminPartFeature(),
+                new PartFeature(ResourceTitleDescriptor.Create(() => BLResources.AdministrationTabTitle), new StaticTitleDescriptor("AdministrationTab")));
+            return this;
+        }
 
         public CardMetadataBuilder<TEntity> WithActionHistory()
         {
