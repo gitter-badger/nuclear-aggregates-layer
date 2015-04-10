@@ -73,14 +73,14 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             }
         }
 
-        function saveFormSuccess() {
+        this.saveFormSuccess = function() {
             if (scope.changeStatusOperation) {
                 postOperation(scope.changeStatusOperation);
                 scope.changeStatusOperation = null;
             }
         }
 
-        function saveFormFailure() {
+        this.saveFormFailure= function() {
             scope.changeStatusOperation = null;
         }
 
@@ -122,8 +122,8 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         }
         this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
 
-            scope.on('postformsuccess', saveFormSuccess);
-            scope.on('postformfailure', saveFormFailure);
+            this.on('postformsuccess', this.saveFormSuccess);
+            this.on('postformfailure', this.saveFormFailure);
 
         this.autocompleteHeader();
     },
