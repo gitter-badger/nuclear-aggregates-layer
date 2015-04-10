@@ -9,12 +9,7 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-
-using NuClear.Metamodeling.Elements;
-using NuClear.Metamodeling.Elements.Identities.Builder;
-using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
-using NuClear.Metamodeling.Elements.Identities;
-using NuClear.Metamodeling.Provider;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
@@ -23,6 +18,10 @@ using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Utils;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
 
@@ -77,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
         {
             var cardViewModel = _cardViewModelFactory.Create(useCase, entityName, entityId);
 
-            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entityName.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(EntityType.Instance.ToString());
             CardMetadata cardMetadata;
             if (!_metadataProvider.TryGetMetadata(metadataId, out cardMetadata))
             {

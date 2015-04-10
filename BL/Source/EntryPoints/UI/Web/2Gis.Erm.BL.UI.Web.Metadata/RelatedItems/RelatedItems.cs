@@ -8,6 +8,9 @@ using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
 using Humanizer;
 
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler;
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems
 {
     public static partial class RelatedItem
@@ -27,27 +30,27 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems
 
         public static UIElementMetadataBuilder ActivitiesGrid()
         {
-            return EntityGrid(EntityName.Activity.ToString().Pluralize(), EntityName.Activity, () => ErmConfigLocalization.CrdRelErmActions)
-                .Icon.Path(Icons.Icons.Entity.Small(EntityName.Activity))
+            return EntityGrid(EntityType.Instance.Activity().Description.Pluralize(), EntityType.Instance.Activity(), () => ErmConfigLocalization.CrdRelErmActions)
+                .Icon.Path(Icons.Icons.Entity.Small(EntityType.Instance.Activity()))
                 .FilterToParents();
         }
 
-        public static UIElementMetadataBuilder ChildrenGrid<TKey>(EntityName entity, Expression<Func<TKey>> resourceKeyExpression)
+        public static UIElementMetadataBuilder ChildrenGrid<TKey>(IEntityType entity, Expression<Func<TKey>> resourceKeyExpression)
         {
             return EntityGrid("Children", entity, resourceKeyExpression).FilterToParent();
         }
 
-        public static UIElementMetadataBuilder EntityGrid<TKey>(EntityName entity, Expression<Func<TKey>> resourceKeyExpression)
+        public static UIElementMetadataBuilder EntityGrid<TKey>(IEntityType entity, Expression<Func<TKey>> resourceKeyExpression)
         {
-            return EntityGrid(entity.ToString().Pluralize(), entity, resourceKeyExpression).FilterToParent();
+            return EntityGrid(entity.Description.Pluralize(), entity, resourceKeyExpression).FilterToParent();
         }
 
-        public static UIElementMetadataBuilder EntityGrid<TKey>(EntityName entity, string iconPath, Expression<Func<TKey>> resourceKeyExpression)
+        public static UIElementMetadataBuilder EntityGrid<TKey>(IEntityType entity, string iconPath, Expression<Func<TKey>> resourceKeyExpression)
         {
             return EntityGrid(entity, resourceKeyExpression).Icon.Path(iconPath);
         }
 
-        private static UIElementMetadataBuilder EntityGrid<TKey>(string name, EntityName entity, Expression<Func<TKey>> resourceKeyExpression)
+        private static UIElementMetadataBuilder EntityGrid<TKey>(string name, IEntityType entity, Expression<Func<TKey>> resourceKeyExpression)
         {
             return UIElementMetadata.Config
                                     .Name.Static(name)

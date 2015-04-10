@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Validator;
@@ -11,8 +13,7 @@ using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
 using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Aspects.Features;
 using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
-using NuClear.Metamodeling.UI.Elements.Concrete.Hierarchy;
-using NuClear.Metamodeling.UI.Utils.Resources;
+using NuClear.ResourceUtilities;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
 {
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public OldUIElementMetadata[] RelatedItems 
+        public UIElementMetadata[] RelatedItems 
         {
             get
             {
@@ -124,11 +125,11 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public OldUIElementMetadata[] ActionsDescriptors 
+        public UIElementMetadata[] ActionsDescriptors 
         {
             get
             {
-                return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new OldUIElementMetadata[0];
+                return _actionsFeature.Value != null ? _actionsFeature.Value.ActionsDescriptors : new UIElementMetadata[0];
             }
         }
     }

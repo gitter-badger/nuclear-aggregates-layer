@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common
             where TBuilder : MetadataElementBuilder<TBuilder, TElement>, new() 
             where TElement : MetadataElement, IHandlerBoundElement
         {
-            builderAspect.Use(new ShowGridHandlerFeature(entityName) { FilterExpression = filterExpression, DisableExpression = disableExpression });
+            builderAspect.Use(new ShowGridHandlerFeature(entityName));
             builderAspect.AspectHostBuilder.WithFeatures(new ViewModelViewMappingFeature<GridViewModel, GridView>());
             return builderAspect.AspectHostBuilder;
         }

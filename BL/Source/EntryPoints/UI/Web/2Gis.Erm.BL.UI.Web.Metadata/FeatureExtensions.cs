@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.BL.UI.Web.Metadata.Cards;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
+
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata
 {

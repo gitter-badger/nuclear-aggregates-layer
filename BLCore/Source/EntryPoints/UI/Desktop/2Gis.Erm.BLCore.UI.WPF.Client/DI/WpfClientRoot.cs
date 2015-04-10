@@ -32,7 +32,6 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI
                                       .RequireZone<OrderValidationZone>()
                                           .UseAnchor<BlCoreApiOrderValidationAssembly>()
                                       .RequireZone<MetadataZone>()
-                                          .UseAnchor<PlatformModelMetadataAssembly>()
                                           .UseAnchor<BlQueryingUIMetadataAssembly>()
                                           .UseAnchor<MetadataZonePartAssembly>()
                                           .UseAnchor<BlCoreUIMetadataAssembly>();

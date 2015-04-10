@@ -14,14 +14,13 @@ using System.Web.Routing;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 
-using NuClear.Metamodeling.UI.Utils.Resources;
+using NuClear.ResourceUtilities;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils

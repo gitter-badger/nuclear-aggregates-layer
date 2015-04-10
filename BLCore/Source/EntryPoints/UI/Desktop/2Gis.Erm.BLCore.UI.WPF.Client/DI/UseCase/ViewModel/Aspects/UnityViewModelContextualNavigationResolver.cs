@@ -23,7 +23,6 @@ using Microsoft.Practices.Unity;
 
 using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
-using NuClear.Metamodeling.UI.Elements.Concrete.Hierarchy;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
 {
@@ -149,7 +148,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             items.AddRange(metadata.RelatedItems.Select(relatedItem => ConvertItem(relatedItem, relatedItemNavigateCommand)));
         }
 
-        private INavigationItem ConvertItem(OldUIElementMetadata metadata, DelegateCommand<INavigationItem> relatedItemNavigateCommand)
+        private INavigationItem ConvertItem(UIElementMetadata metadata, DelegateCommand<INavigationItem> relatedItemNavigateCommand)
         {
             var item = new NavigationItem(
                 metadata.Identity.Id,
@@ -160,7 +159,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             };
             if (metadata.Elements != null && metadata.Elements.Any())
             {
-                item.Items = metadata.Elements.OfType<OldUIElementMetadata>().Select(el => ConvertItem(el, relatedItemNavigateCommand)).ToArray();
+                item.Items = metadata.Elements.OfType<UIElementMetadata>().Select(el => ConvertItem(el, relatedItemNavigateCommand)).ToArray();
             }
 
             return item;

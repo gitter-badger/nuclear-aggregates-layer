@@ -9,6 +9,8 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListCategoryFirmAddressService : ListEntityDtoServiceBase<CategoryFirmAddress, ListCategoryFirmAddressDto>
@@ -64,7 +66,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     CategoryOrganizationUnitIsDeleted = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsDeleted : false,
                 });
 
-            if (querySettings.ParentEntityName == EntityName.Firm && querySettings.ParentEntityId.HasValue)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.Firm()) && querySettings.ParentEntityId.HasValue)
             {
                 long firmId = querySettings.ParentEntityId.Value;
                 data = data

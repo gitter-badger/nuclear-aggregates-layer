@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 
 using NuClear.Metamodeling.Domain.Entities;
-using NuClear.Metamodeling.UI.Utils.Resources;
+using NuClear.ResourceUtilities;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {

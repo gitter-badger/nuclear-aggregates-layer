@@ -5,17 +5,18 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel;
 using DoubleGis.Erm.Platform.Model.Aspects;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
+
+using NuClear.Metamodeling.UI.Elements.Aspects.Features;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Images;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
         where TEntity : IEntity, IEntityKey
     {
         private readonly ImageFeatureAspect<CardMetadataBuilder<TEntity>, CardMetadata> _icon;
-        private readonly EntityName _entityName;
+        private readonly IEntityType _entityName;
 
         public CardMetadataBuilder()
         {
@@ -127,7 +128,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 
         protected override CardMetadata Create()
         {
-            if (_entityName == EntityName.None)
+            if (_entityName == EntityType.Instance.None())
             {
                 throw new InvalidOperationException("Entity must be specified");    
             }

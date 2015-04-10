@@ -1,13 +1,15 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Kinds;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Kinds;
+
+using MetadataBuilder = NuClear.Metamodeling.Elements.Identities.Builder.Metadata;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {
     public class ViewModelCustomizationsIdentity : MetadataKindIdentityBase<ViewModelCustomizationsIdentity>
     {
-        private readonly Uri _id = IdBuilder.For("Web/ViewModel/Customizations");
+        private readonly Uri _id = MetadataBuilder.Id.For(MetadataBuilder.Id.DefaultRoot, "Web/ViewModel/Customizations");
 
         public override Uri Id
         {

@@ -2,10 +2,12 @@ using System;
 using System.Linq;
 using System.Text;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features;
 
-using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Elements;
 using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.Provider;
 using NuClear.Metamodeling.Validators;

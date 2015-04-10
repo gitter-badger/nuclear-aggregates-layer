@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
+
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Images;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
@@ -18,14 +20,14 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
                                        IPartsContainerElement,
                                        IImageBoundElement
     {
-        private readonly EntityName _entity;
+        private readonly IEntityType _entity;
         private readonly IMetadataElementIdentity _identity;
 
-        public CardMetadata(EntityName entity, IEnumerable<IMetadataFeature> features)
+        public CardMetadata(IEntityType entity, IEnumerable<IMetadataFeature> features)
             : base(features)
         {
             _entity = entity;
-            _identity = IdBuilder.For<MetadataCardsIdentity>(_entity.ToString()).AsIdentity();
+            _identity = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(_entity.ToString()).Build().AsIdentity();
         }
 
         public override IMetadataElementIdentity Identity
@@ -33,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             get { return _identity; }
         }
 
-        public EntityName Entity
+        public IEntityType Entity
         {
             get { return _entity; }
         }

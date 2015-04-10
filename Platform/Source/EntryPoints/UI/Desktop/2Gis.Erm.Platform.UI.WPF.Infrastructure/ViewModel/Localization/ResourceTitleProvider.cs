@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Resources;
 
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.UserInfo;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 
 using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
+using NuClear.ResourceUtilities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization
 {
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization
         private ResourceManager GetResourceManager()
         {
             ResourceManager resourceManager;
-            return ResourceUtils.TryResolveResourceManager(_descriptor.ResourceEntryKey.ResourceHostType, out resourceManager) ? resourceManager : null;
+            return _descriptor.ResourceEntryKey.ResourceHostType.TryResolveResourceManager(out resourceManager) ? resourceManager : null;
         }
     }
 }

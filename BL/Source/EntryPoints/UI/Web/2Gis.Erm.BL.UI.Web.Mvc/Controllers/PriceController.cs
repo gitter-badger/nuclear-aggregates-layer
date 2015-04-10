@@ -227,7 +227,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new CardStructure
             {
                 Icon = "en_ico_lrg_Category.gif",
-                EntityName = EntityName.PositionSortingOrder.ToString(),
+                EntityName = EntityType.Instance.PositionSortingOrder().Description,
                 EntityLocalizedName = ErmConfigLocalization.EnPositionSortingOrder,
                 Title = ErmConfigLocalization.EnPositionSortingOrder,
                 CardRelatedItems = new CardRelatedItemsGroupStructure[0],

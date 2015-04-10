@@ -26,7 +26,7 @@ using Microsoft.Practices.Unity;
 using NuClear.Metamodeling.Elements.Identities.Builder;
 using NuClear.Metamodeling.Provider;
 using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
-using NuClear.Metamodeling.UI.Utils.Resources;
+using NuClear.ResourceUtilities;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity;
 using NuClear.Model.Common.Operations.Identity.Generic;
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 
             var gridViewModelIdentity = new GridViewModelIdentity(entityName);
 
-            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataGridsIdentity>(entityName.ToString());
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataGridsIdentity>(EntityType.Instance.ToString());
 
             GridMetadata gridMetadata;
             if (!_metadataProvider.TryGetMetadata(metadataId, out gridMetadata))

@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements
 {
     public sealed class AdvertisementAccessCustomization : IViewModelCustomization<AdvertisementViewModel>
@@ -34,7 +36,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements
             var firmOwnerCode = _firmReadModel.GetFirmOwnerCodeUnsecure(firmId);
 
             viewModel.ViewConfig.ReadOnly |= !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                           EntityName.Firm,
+                                                                                           EntityType.Instance.Firm(),
                                                                                            _userContext.Identity.Code,
                                                                                            firmId,
                                                                                            firmOwnerCode,

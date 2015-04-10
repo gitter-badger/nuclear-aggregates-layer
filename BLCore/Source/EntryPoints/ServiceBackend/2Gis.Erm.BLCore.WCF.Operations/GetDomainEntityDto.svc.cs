@@ -4,11 +4,10 @@ using System.ServiceModel;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.GetDomainEntityDto;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
-
+using NuClear.ResourceUtilities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations

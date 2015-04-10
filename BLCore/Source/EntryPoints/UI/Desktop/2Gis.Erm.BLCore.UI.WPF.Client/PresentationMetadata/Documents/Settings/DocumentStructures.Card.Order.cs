@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.Views;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 
 using NuClear.Metamodeling.Domain.Elements.Identities.Builder;
 using NuClear.Metamodeling.Elements.Aspects.Conditions;

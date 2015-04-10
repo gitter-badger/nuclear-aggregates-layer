@@ -166,7 +166,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new CardStructure
                        {
                            Icon = "en_ico_lrg_Category.gif",
-                           EntityName = EntityName.CategoryGroupMembership.ToString(),
+                           EntityName = EntityType.Instance.CategoryGroupMembership().Description,
                            EntityLocalizedName = ErmConfigLocalization.EnCategoryGroups,
                            CardRelatedItems = new CardRelatedItemsGroupStructure[0],
                            CardToolbar = new[]

@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;

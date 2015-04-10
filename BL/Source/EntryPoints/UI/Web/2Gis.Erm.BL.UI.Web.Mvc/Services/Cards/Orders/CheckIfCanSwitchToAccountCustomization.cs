@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
     public sealed class CheckIfCanSwitchToAccountCustomization : IViewModelCustomization<EntityViewModelBase<Order>>
@@ -48,7 +50,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             }
 
             return _entityAccessService.HasEntityAccess(EntityAccessTypes.Read,
-                                                        EntityName.Account,
+                                                        EntityType.Instance.Account(),
                                                         _userContext.Identity.Code,
                                                         accountInfo.AccountId.Value,
                                                         accountInfo.OwnerCode.Value,

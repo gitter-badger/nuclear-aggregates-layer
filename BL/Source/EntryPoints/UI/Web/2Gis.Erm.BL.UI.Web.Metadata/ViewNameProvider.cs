@@ -3,15 +3,16 @@
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Provider;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata
 {
@@ -59,7 +60,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata
             viewName = string.Empty;
 
             CardMetadata metadata;
-            if (_metadataProvider.TryGetMetadata(IdBuilder.For<MetadataCardsIdentity>(entityTypeName.ToString()).AsIdentity().Id, out metadata))
+            if (_metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entityTypeName.ToString()).Build().AsIdentity().Id, out metadata))
             {
                 if (metadata.Uses<IViewModelViewMappingFeature>())
                 {

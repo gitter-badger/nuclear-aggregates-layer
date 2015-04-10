@@ -9,9 +9,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.CostCalculation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
+using NuClear.ResourceUtilities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.FinancialOperations
