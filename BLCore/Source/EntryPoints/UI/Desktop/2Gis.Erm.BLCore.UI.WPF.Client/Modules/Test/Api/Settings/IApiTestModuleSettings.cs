@@ -1,6 +1,4 @@
-﻿using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
-
-using NuClear.Settings.API;
+﻿using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api.Settings
 {

@@ -145,7 +145,7 @@ WriteLiteral("            ");
 
             
             #line 19 "..\..\Views\CreateOrUpdate\MultiCultureBill.cshtml"
-       Write(Html.TemplateField(m => m.BillNumber, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } }));
+       Write(Html.TemplateField(m => m.Number, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } }));
 
             
             #line default

@@ -7,15 +7,6 @@
         }
     },
 
-    setupMenuAvailability: function () {
-        var item = this.getMenuItem('Actions', 'SwitchToAccount');
-        if (Ext.getDom("CanSwitchToAccount").checked)
-            item.enable();
-        else {
-            item.disable();
-        }
-    },
-
     onLegalPersonChanged: function (cmp) {
         var legalPersonLookup = Ext.getCmp('LegalPerson');
         var legalPersonId = legalPersonLookup.item ? legalPersonLookup.item.id : null;

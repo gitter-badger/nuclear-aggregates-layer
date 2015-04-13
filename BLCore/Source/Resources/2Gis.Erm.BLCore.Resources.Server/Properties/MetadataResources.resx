@@ -259,7 +259,7 @@
     <value>Территория</value>
   </data>
   <data name="OwnerCode" xml:space="preserve">
-    <value>Владелец</value>
+    <value>Куратор</value>
   </data>
   <data name="LockId" xml:space="preserve">
     <value>Код блокировки</value>
@@ -1047,6 +1047,9 @@
   <data name="ScheduledStart" xml:space="preserve">
     <value>Дата начала</value>
   </data>
+  <data name="ScheduledOn" xml:space="preserve">
+    <value>Дата начала</value>
+  </data>
   <data name="StartPeriodDate" xml:space="preserve">
     <value>Месяц</value>
   </data>
@@ -1490,5 +1493,8 @@
   </data>
   <data name="AccountingMethod" xml:space="preserve">
     <value>Способ учета оказания услуг</value>
+  </data>
+  <data name="ApplicationCityName" xml:space="preserve">
+    <value>Город обращения</value>
   </data>
 </root>

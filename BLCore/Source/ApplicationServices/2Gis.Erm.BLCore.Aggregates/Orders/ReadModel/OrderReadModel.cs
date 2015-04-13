@@ -564,7 +564,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public Order GetOrderSecure(long orderId)
         {
-            return _secureFinder.Find(Specs.Find.ById<Order>(orderId)).Single();
+            return _secureFinder.FindOne(Specs.Find.ById<Order>(orderId));
         }
 
         public OrderLinkingObjectsDto GetOrderLinkingObjectsDto(long orderId)
@@ -1107,65 +1107,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        .Any();
         }
 
-        // TODO {all, 20.03.2014}: CalculatePricePerUnit -  полноценная операция в аггрегате Order, а не часть read модели. К тому же, скорее всего, эта операция должна быть в компоненте BLFlex
-        public OrderPositionPriceDto CalculatePricePerUnit(long orderId, decimal categoryRate, decimal pricePositionCost)
-        {
-            // в заказе "BranchOfficeOrganizationUnit" соответсвует городу источнику
-            var orderBatch = _finder.Find(Specs.Find.ById<Order>(orderId))
-                                    .Select(item => new
-                                        {
-                                            item.Id,
-                                            item.OrderType,
-                                            SourceVatRate = item.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
-                                            DestVatRate = item.DestOrganizationUnit.BranchOfficeOrganizationUnits
-                                                              .FirstOrDefault(unit => unit.IsPrimaryForRegionalSales)
-                                                              .BranchOffice
-                                                              .BargainType
-                                                              .VatRate,
-                                            item.SourceOrganizationUnitId,
-                                            item.DestOrganizationUnitId,
-                                            item.FirmId
-                                        })
-                                    .Single();
-
-            if (orderBatch.OrderType == OrderType.SelfAds || orderBatch.OrderType == OrderType.SocialAds)
-            {
-                return new OrderPositionPriceDto { CategoryRate = 1m, PricePerUnit = 0m, VatRatio = 0m };
-            }
-
-            decimal pricePerUnit,
-                    vatRatio;
-            if (orderBatch.SourceVatRate == decimal.Zero)
-            {
-                // Город источник - франчайзи
-                if (orderBatch.DestVatRate == decimal.Zero)
-                {
-                    // Город-назначение - франчайзи
-                    pricePerUnit = pricePositionCost;
-                }
-                else
-                {
-                    // Город-назначение - филиал
-                    pricePerUnit = pricePositionCost * (100 + orderBatch.DestVatRate) / 100m;
-                }
-
-                vatRatio = decimal.Zero;
-            }
-            else
-            {
-                // Город источник - филиал
-                vatRatio = orderBatch.SourceVatRate / 100m;
-                pricePerUnit = pricePositionCost;
-            }
-
-            return new OrderPositionPriceDto
-                {
-                    PricePerUnit = pricePerUnit * categoryRate,
-                    VatRatio = vatRatio,
-                    CategoryRate = categoryRate,
-                };
-        }
-
         public IEnumerable<Order> GetOrdersForDeal(long dealId)
         {
             return _finder.Find<Order>(x => x.DealId == dealId && x.IsActive && !x.IsDeleted).ToArray();
@@ -1223,8 +1164,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .ToArray();
         }
 
-        public decimal GetVatRate(long? sourceOrganizationUnitId, long destOrganizationUnitId, out bool showVat)
+        public VatRateDetailsDto GetVatRateDetails(long? sourceOrganizationUnitId, long destOrganizationUnitId)
         {
+            // TODO {all, 19.03.2015}: вынести в конфиг
             const decimal DefaultVatRate = 18M;
 
             var sourceVat = DefaultVatRate;
@@ -1239,16 +1181,58 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                   Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
                                  .Single();
 
-            if (sourceVat == decimal.Zero)
+            return DetermineVatRate(sourceVat, destVat);
+        }
+
+        public VatRateDetailsDto GetVatRateDetails(long orderId)
+        {
+            var orderVatInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
+                                    .Select(item => new
+                                                        {
+
+                                                            OrderBranchOfficeOrganizationUnitVatRate = item.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                                                            SourceVatRate = item.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                                                            DestVatRate = item.DestOrganizationUnit.BranchOfficeOrganizationUnits
+                                                                              .FirstOrDefault(unit => unit.IsPrimaryForRegionalSales)
+                                                                              .BranchOffice
+                                                                              .BargainType
+                                                                              .VatRate,
+                                                            item.SourceOrganizationUnitId,
+                                                            item.DestOrganizationUnitId,
+                                                        })
+                                    .Single();
+
+            // Для местного заказа Ндс источника и назначения определяем по юр. лицу исполнителя, указанному в заказе
+            var sourceVatRate = orderVatInfo.SourceOrganizationUnitId == orderVatInfo.DestOrganizationUnitId
+                                    ? orderVatInfo.OrderBranchOfficeOrganizationUnitVatRate
+                                    : orderVatInfo.SourceVatRate;
+
+            var destVatRate = orderVatInfo.SourceOrganizationUnitId == orderVatInfo.DestOrganizationUnitId
+                                    ? orderVatInfo.OrderBranchOfficeOrganizationUnitVatRate
+                                    : orderVatInfo.DestVatRate;
+
+
+            return DetermineVatRate(sourceVatRate, destVatRate);
+        }
+
+        private VatRateDetailsDto DetermineVatRate(decimal sourceOrgUnitVatRate, decimal destOrgUnitVatRate)
+        {
+            if (sourceOrgUnitVatRate == decimal.Zero)
             {
                 // Город источник - франчайзи
-                showVat = false;
-                return destVat;
+                return new VatRateDetailsDto
+                           {
+                               VatRate = destOrgUnitVatRate,
+                               ShowVat = false
+                           };
             }
 
             // Город источник - филиал
-            showVat = true;
-            return sourceVat;
+            return new VatRateDetailsDto
+                       {
+                           VatRate = sourceOrgUnitVatRate,
+                           ShowVat = true
+                       };
         }
 
         public long GetOrderOwnerCode(long orderId)
@@ -1365,6 +1349,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        .Select(x => x.PricePosition.Position.SalesModel)
                        .Distinct()
                        .SingleOrDefault();
+        }
+
+        public OrderDocumentsDebtDto GetOrderDocumentsDebtInfo(long orderId)
+        {
+            return _finder.Find(Specs.Find.ById<Order>(orderId))
+                          .Select(x => new OrderDocumentsDebtDto
+                                           {
+                                               Order = new EntityReference
+                                                           {
+                                                               Id = x.Id,
+                                                               Name = x.Number
+                                                           },
+                                               DocumentsComment = x.DocumentsComment,
+                                               HasDocumentsDebt = x.HasDocumentsDebt
+                                           })
+                          .Single();
         }
 
         public long? GetBargainIdByOrder(long orderId)

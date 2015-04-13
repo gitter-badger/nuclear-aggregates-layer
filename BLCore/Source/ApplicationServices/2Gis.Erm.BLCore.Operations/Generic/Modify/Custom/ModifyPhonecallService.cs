@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -24,6 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
         private readonly IBusinessModelEntityObtainer<Phonecall> _activityObtainer;
 
+        private readonly IActionLogger _actionLogger;
         private readonly IClientReadModel _clientReadModel;
 
         private readonly IFirmReadModel _firmReadModel;
@@ -35,6 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public ModifyPhonecallService(
             IPhonecallReadModel readModel,
             IBusinessModelEntityObtainer<Phonecall> obtainer,
+            IActionLogger actionLogger,
             IClientReadModel clientReadModel,
             IFirmReadModel firmReadModel,
             ICreatePhonecallAggregateService createOperationService,
@@ -42,6 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         {
             _readModel = readModel;
             _activityObtainer = obtainer;
+            _actionLogger = actionLogger;
             _clientReadModel = clientReadModel;
             _firmReadModel = firmReadModel;
             _createOperationService = createOperationService;
@@ -73,16 +77,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 IEnumerable<PhonecallRegardingObject> oldRegardingObjects;
                 PhonecallRecipient oldRecipient;
                 if (phonecall.IsNew())
-                {
+                {                    
                     _createOperationService.Create(phonecall);
                     oldRegardingObjects = null;
                     oldRecipient = null;
                 }
                 else
                 {
+                    var originalPhonecall = _readModel.GetPhonecall(phonecall.Id);
                     _updateOperationService.Update(phonecall);
                     oldRegardingObjects = _readModel.GetRegardingObjects(phonecall.Id);
                     oldRecipient = _readModel.GetRecipient(phonecall.Id);
+                    if (originalPhonecall.ScheduledOn != phonecall.ScheduledOn)
+                    {
+                        _actionLogger.LogChanges(phonecall, x => x.ScheduledOn, originalPhonecall.ScheduledOn, phonecall.ScheduledOn);
+                    }
                 }
 
                 _updateOperationService.ChangeRegardingObjects(

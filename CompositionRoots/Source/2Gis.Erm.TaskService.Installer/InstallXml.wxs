@@ -98,9 +98,6 @@
         <File Source="!(bindpath.PackagesDir)\Unity.Interception.3.5.1404.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll" />
       </Component>
       <Component>
-        <File Source="!(bindpath.PackagesDir)\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll" />
-      </Component>
-      <Component>
         <File Source="!(bindpath.PackagesDir)\NEST.1.4.2\lib\net45\Nest.dll" />
       </Component>
       <Component>

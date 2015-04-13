@@ -6,6 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
+    // Используется только для метаданных св-в
     [DataContract]
     public class BranchOfficeOrganizationUnitDomainEntityDto : IDomainEntityDto<BranchOfficeOrganizationUnit>
     {
@@ -29,6 +30,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public string ShortLegalName { get; set; }
+
+        [DataMember]
+        public string ApplicationCityName { get; set; }
 
         [DataMember]
         public string PositionInNominative { get; set; }

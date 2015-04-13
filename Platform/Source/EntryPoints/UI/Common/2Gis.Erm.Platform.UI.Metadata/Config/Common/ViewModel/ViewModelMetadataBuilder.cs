@@ -3,18 +3,18 @@
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts;
-using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Validator;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
 {
     public abstract class ViewModelMetadataBuilder<TBuilder, TElement> : MetadataElementBuilder<TBuilder, TElement>
         where TBuilder : ViewModelMetadataBuilder<TBuilder, TElement>, new()
-        where TElement : ViewModelMetadata<TElement, TBuilder> 
+        where TElement : ViewModelMetadata
     {
         private readonly TitleFeatureAspect<TBuilder, TElement> _title;
         private readonly OperationFeatureAspect<TBuilder, TElement> _operation;

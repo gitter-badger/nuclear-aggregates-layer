@@ -55,6 +55,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
         {
             return new PrintData
                        {
+                           { "ApplicationCityName", branchOfficeOrganizationUnit.ApplicationCityName },
                            { "ChiefNameInGenitive", branchOfficeOrganizationUnit.ChiefNameInGenitive },
                            { "ChiefNameInNominative", branchOfficeOrganizationUnit.ChiefNameInNominative },
                            { "PaymentEssentialElements", branchOfficeOrganizationUnit.PaymentEssentialElements },

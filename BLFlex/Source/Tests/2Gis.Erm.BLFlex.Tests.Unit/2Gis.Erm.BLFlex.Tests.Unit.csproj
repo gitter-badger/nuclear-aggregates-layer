@@ -145,7 +145,6 @@
     <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Emirates\Concrete\Integration\Import\FlowCards\Deserializers\EmiratesDeserializeCardServiceSpecs.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc.Global\Services\Russia\EditIsAdvertisingAgencyViewModelCustomizationSpecs.cs" />
-    <Compile Include="EntryPoints\UI\Web\Mvc.Global\Services\WarnLinkToAdvAgencyExistsVmCustomizationSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.Common.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Chile\ChileLegalPersonProfileViewModelSpecs.cs" />
     <Compile Include="EntryPoints\UI\Web\Mvc.Global\Models\Chile\ChileLegalPersonViewModelSpecs.cs" />
@@ -190,6 +189,10 @@
       <Project>{97992802-C651-46E9-AD0D-2C273152566B}</Project>
       <Name>2Gis.Erm.BLCore.Operations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
       <Project>{D99ED849-3585-45F0-A596-0118D0A70C28}</Project>
       <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
@@ -201,6 +204,14 @@
     <ProjectReference Include="..\..\..\..\BLFlex\Source\ApplicationServices\2Gis.Erm.BLFlex.Operations.Global\2Gis.Erm.BLFlex.Operations.Global.csproj">
       <Project>{F4FB1C82-F644-45C6-A351-8B9A994EE3DD}</Project>
       <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\EntryPoints\UI\Common\2Gis.Erm.BL.UI.Metadata\2Gis.Erm.BL.UI.Metadata.csproj">
+      <Project>{6D3EF801-AAE6-4A56-BCDB-8ED3E90C45A4}</Project>
+      <Name>2Gis.Erm.BL.UI.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
+      <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
+      <Name>2Gis.Erm.BL.UI.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
@@ -221,6 +232,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
       <Project>{D143E6AF-C2C6-44B9-B6B0-09FBFF6561E3}</Project>
