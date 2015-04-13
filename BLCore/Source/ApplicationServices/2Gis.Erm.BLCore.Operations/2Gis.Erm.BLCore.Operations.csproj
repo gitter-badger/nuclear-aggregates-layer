@@ -530,7 +530,7 @@
     <Compile Include="Generic\Modify\Old\EditPositionCategoryHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditPositionChildrenHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditPositionHandler.cs" />
-    <Compile Include="Generic\Modify\Old\EditPriceHandler.cs" />
+    <Compile Include="Generic\Modify\ModifyPriceService.cs" />
     <Compile Include="Generic\Modify\Old\EditPricePositionHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditPrintFormTemplateHandler.cs" />
     <Compile Include="Generic\Modify\Old\EditProjectHandler.cs" />
