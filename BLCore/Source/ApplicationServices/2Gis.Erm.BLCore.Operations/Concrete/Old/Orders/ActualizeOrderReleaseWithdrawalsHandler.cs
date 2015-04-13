@@ -148,7 +148,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
                 return PrepareReleaseWithdrawalPositionsForSimplePosition(orderPosition.PlatformId, orderPosition.PositionId, releaseWithdrawals);
             }
 
-            var priceConstInfos = _priceCostsForSubPositionsProvider.GetPriceCostsForSubPositions(orderPosition.Id, orderPosition.PriceId);
+            var priceConstInfos = _priceCostsForSubPositionsProvider.GetPriceCostsForSubPositions(orderPosition.PositionId, orderPosition.PriceId);
             if (priceConstInfos.Count > 0)
             {   // пакет разбивается MoDi-сервисом
                 return PrepareReleaseWithdrawalPositionsForCompositePositionWithMoDi(

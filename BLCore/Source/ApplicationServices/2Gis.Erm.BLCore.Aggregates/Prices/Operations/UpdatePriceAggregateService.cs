@@ -1,13 +1,12 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 {
-    public class UpdatePriceAggregateService : IAggregateRootRepository<Price>, IUpdateAggregateRepository<Price>
+    public class UpdatePriceAggregateService : IUpdatePriceAggregateService
     {
         private readonly IRepository<Price> _priceGenericRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;
@@ -18,17 +17,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public int Update(Price entity)
+        public void Update(Price price)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Price>())
             {
-                _priceGenericRepository.Update(entity);
-                operationScope.Updated<Price>(entity.Id);
+                _priceGenericRepository.Update(price);
+                _priceGenericRepository.Save();
 
-                var count = _priceGenericRepository.Save();
-
-                operationScope.Complete();
-                return count;
+                operationScope.Updated(price)
+                              .Complete();
             }
         }
     }
