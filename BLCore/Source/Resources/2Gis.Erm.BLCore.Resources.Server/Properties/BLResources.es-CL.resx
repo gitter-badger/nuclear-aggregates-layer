@@ -5221,4 +5221,7 @@ Periodo de la publicación: {3}.</value>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Operación no puede llevarse a cabo, ya que se está realizando recopilación</value>
   </data>
+  <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
+    <value>You can't pick more than one reference object for the following positions: {0}</value>
+  </data>
 </root>
