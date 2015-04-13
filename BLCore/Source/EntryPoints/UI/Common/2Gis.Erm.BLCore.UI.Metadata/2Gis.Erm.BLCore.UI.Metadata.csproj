@@ -54,6 +54,7 @@
     <Compile Include="Aspects\Entities\IInspectorAspect.cs" />
     <Compile Include="Config\Cards\ICardSettingsProvider.cs" />
     <Compile Include="Config\Cards\ReadOnlyFeature.cs" />
+    <Compile Include="Config\Cards\ShowActionHistoryFeature.cs" />
     <Compile Include="Config\Cards\ShowAdminPartFeature.cs" />
     <Compile Include="Config\Cards\ShowNotesFeature.cs" />
     <Compile Include="Config\Cards\CardMetadata.cs" />

@@ -5221,4 +5221,7 @@ Cумма по операции: {5}.
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Операция не может быть проведена т.к. выполняется сборка</value>
   </data>
+  <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
+    <value>Вы пытаетесь завершить действие, запланированное будущим периодом, измените срок действия или отмените, если действие не было выполнено</value>
+  </data>
 </root>

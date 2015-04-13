@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Clients;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
@@ -26,6 +27,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
         private readonly ILetterReadModel _letterReadModel;
         private readonly IPhonecallReadModel _phonecallReadModel;
         private readonly ITaskReadModel _taskReadModel;
+
+        private readonly IActionLogger _actionLogger;
+
         private readonly IAssignAppointmentAggregateService _assignAppointmentAggregateService;
         private readonly IUpdateAppointmentAggregateService _updateAppointmentAggregateService;
         private readonly IAssignLetterAggregateService _assignLetterAggregateService;
@@ -41,6 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
                                    ILetterReadModel letterReadModel,
                                    IPhonecallReadModel phonecallReadModel,
                                    ITaskReadModel taskReadModel,
+                                   IActionLogger actionLogger,
                                    IAssignAppointmentAggregateService assignAppointmentAggregateService,
                                    IUpdateAppointmentAggregateService updateAppointmentAggregateService,
                                    IAssignLetterAggregateService assignLetterAggregateService,
@@ -56,6 +61,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             _letterReadModel = letterReadModel;
             _phonecallReadModel = phonecallReadModel;
             _taskReadModel = taskReadModel;
+            _actionLogger = actionLogger;
             _assignAppointmentAggregateService = assignAppointmentAggregateService;
             _updateAppointmentAggregateService = updateAppointmentAggregateService;
             _assignLetterAggregateService = assignLetterAggregateService;
@@ -93,44 +99,59 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             {
                 if (reassign && appointment.Status == ActivityStatus.InProgress)
                 {
+                    var originalOwner = appointment.OwnerCode;
                     _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
+                    _actionLogger.LogChanges(appointment, x => x.OwnerCode, originalOwner, appointment.OwnerCode);
                 }
+
                 var regardingObjects = _appointmentReadModel.GetRegardingObjects(appointment.Id).ToList();
                 _updateAppointmentAggregateService.ChangeRegardingObjects(
                                                                           appointment,
                                                                           regardingObjects,
                                                                           ReplaceClient<Appointment, AppointmentRegardingObject>(regardingObjects, newClientId));
             }
+
             foreach (var letter in _letterReadModel.LookupLettersRegarding(EntityName.Client, appendedClientId))
             {
                 if (reassign && letter.Status == ActivityStatus.InProgress)
                 {
+                    var originalOwner = letter.OwnerCode;
                     _assignLetterAggregateService.Assign(letter, newOwnerCode);
+                    _actionLogger.LogChanges(letter, x => x.OwnerCode, originalOwner, letter.OwnerCode);
                 }
+
                 var regardingObjects = _letterReadModel.GetRegardingObjects(letter.Id).ToList();
                 _updateLetterAggregateService.ChangeRegardingObjects(
                                                                      letter,
                                                                      regardingObjects,
                                                                      ReplaceClient<Letter, LetterRegardingObject>(regardingObjects, newClientId));
             }
+
             foreach (var phonecall in _phonecallReadModel.LookupPhonecallsRegarding(EntityName.Client, appendedClientId))
             {
                 if (reassign && phonecall.Status == ActivityStatus.InProgress)
                 {
+                    var originalOwner = phonecall.OwnerCode;
                     _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
+                    _actionLogger.LogChanges(phonecall, x => x.OwnerCode, originalOwner, phonecall.OwnerCode);
                 }
+
                 var regardingObjects = _phonecallReadModel.GetRegardingObjects(phonecall.Id).ToList();
                 _updatePhonecallAggregateService.ChangeRegardingObjects(
                                                                         phonecall,
                                                                         regardingObjects,
                                                                         ReplaceClient<Phonecall, PhonecallRegardingObject>(regardingObjects, newClientId));
             }
+
             foreach (var task in _taskReadModel.LookupTasksRegarding(EntityName.Client, appendedClientId))
             {
                 if (reassign && task.Status == ActivityStatus.InProgress)
                 {
+                    var originalOwner = task.OwnerCode;
                     _assignTaskAggregateService.Assign(task, newOwnerCode);
+                    _actionLogger.LogChanges(task, x => x.OwnerCode, originalOwner, task.OwnerCode);
                 }
+
                 var regardingObjects = _taskReadModel.GetRegardingObjects(task.Id).ToList();
                 _updateTaskAggregateService.ChangeRegardingObjects(task, regardingObjects, ReplaceClient<Task, TaskRegardingObject>(regardingObjects, newClientId));
             }
