@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
 
 
             _baseSlicerSettings = SlicerSettings.Default;
-            _maxEffectiveDivisor = _baseSlicerSettings.Ratio ^ MaxSlicingAttempts;
+            _maxEffectiveDivisor = (int)Math.Pow(_baseSlicerSettings.Ratio, MaxSlicingAttempts);
         }
 
         public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
