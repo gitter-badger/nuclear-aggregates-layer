@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 
             var castExpression = (UnaryExpression)lambdaExpression.Body;
             var propertyExpression = castExpression.Operand;
-            var parentEntityIdExpression = Expression.Constant(querySettings.ParentEntityId, propertyExpression.Type);
+            var parentEntityIdExpression = ConstantWrapper<long>.CreateExpression(querySettings.ParentEntityId.Value, propertyExpression.Type);
             var equalsExpression = Expression.Equal(propertyExpression, parentEntityIdExpression);
             var parameterExpression = lambdaExpression.Parameters.Single();
             lambdaExpression = Expression.Lambda(equalsExpression, parameterExpression);
