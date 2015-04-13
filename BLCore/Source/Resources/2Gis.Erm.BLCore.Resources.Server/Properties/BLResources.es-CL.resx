@@ -5201,7 +5201,13 @@ Periodo de la publicación: {3}.</value>
     <value>Retiro del {0} - {1} mediante el modo de prestación de servicios: '{2}' finalizado con errores</value>
   </data>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
-    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
+    <value>Durante el período {0} por el modo de prestación de servicios '{1}' no fueron encontrados los bloqueos para el retiro</value>
+  </data>
+  <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
+    <value>Es necesario indicar por lo menos un enlace</value>
+  </data>
+  <data name="PublishedPriceCannotBeModified" xml:space="preserve">
+    <value>La lista de precios publicada no puede ser editada</value>
   </data>
   <data name="Support" xml:space="preserve">
     <value>Soporte técnico</value>

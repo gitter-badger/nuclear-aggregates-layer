@@ -5201,7 +5201,13 @@ Placement period: {3}.</value>
     <value>Writing-off for {0} - {1} with servicing method {2} completed with errors</value>
   </data>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
-    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
+    <value>Over period {0}, no holds for writing-off were found for method '{1}' of service provision accounting</value>
+  </data>
+  <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
+    <value>You need to pick at least one reference object</value>
+  </data>
+  <data name="PublishedPriceCannotBeModified" xml:space="preserve">
+    <value>Once published, the price cannot be modified</value>
   </data>
   <data name="Support" xml:space="preserve">
     <value>Technical support</value>

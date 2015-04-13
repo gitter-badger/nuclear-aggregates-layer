@@ -28,6 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
                             {
                                 IsActive = true,
                                 LegalPersonProfileId = dto.LegalPersonProfileRef != null ? dto.LegalPersonProfileRef.Id : null,
+                                HasDocumentsDebt = dto.HasDocumentsDebt
                             };
 
             order.Number = dto.Number;
@@ -50,18 +51,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             order.DiscountReasonEnum = dto.DiscountReasonEnum;
             order.DiscountComment = dto.DiscountComment;
             order.BargainId = dto.BargainRef.Id;
-            order.HasDocumentsDebt = dto.HasDocumentsDebt;
-            order.DocumentsComment = string.IsNullOrEmpty(dto.DocumentsComment) ? null : dto.DocumentsComment;
-            order.AmountToWithdraw = dto.AmountToWithdraw;
-            order.AmountWithdrawn = dto.AmountWithdrawn;
             order.Comment = dto.Comment;
             order.DiscountPercent = dto.DiscountPercent;
             order.DiscountSum = dto.DiscountSum;
             order.InspectorCode = dto.InspectorRef.Id;
-            order.PayableFact = dto.PayableFact;
-            order.PayablePlan = dto.PayablePlan;
-            order.PayablePrice = dto.PayablePrice;
-            order.VatPlan = dto.VatPlan;
             order.TerminationReason = dto.TerminationReason;
             order.OrderType = dto.OrderType;
             order.PlatformId = dto.PlatformRef.Id;

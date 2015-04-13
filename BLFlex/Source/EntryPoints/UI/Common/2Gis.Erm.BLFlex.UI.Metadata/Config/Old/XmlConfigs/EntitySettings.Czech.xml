@@ -2881,22 +2881,6 @@
       </DataList>
     </DataLists>
   </Entity>
-  <Entity Name="UserBranchOffice">
-    <DataLists>
-      <DataList NameLocaleResourceId="DListUserBranchOffice" DefaultSortField="UserName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="UserName" Icon="en_ico_16_User.gif">
-        <ToolbarItems>
-          <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.Append" SecurityPrivelegeFlag="16" />
-          <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
-          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
-        </ToolbarItems>
-        <Fields>
-          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="UserId" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="UserName" NameLocaleResourceId="EnUser" Width="300" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="UserId" />
-        </Fields>
-      </DataList>
-    </DataLists>
-  </Entity>
   <Entity Name="UserProfile">
     <Card EntityNameLocaleResourceId="EnUserProfile" EntityMainAttribute="TimeZoneInfoId" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_User.gif" LargeIcon="en_ico_lrg_UserAccount.gif">
       <ToolbarItems>

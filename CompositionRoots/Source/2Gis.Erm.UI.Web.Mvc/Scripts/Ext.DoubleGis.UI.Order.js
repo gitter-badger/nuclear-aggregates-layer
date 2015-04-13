@@ -326,12 +326,9 @@ window.InitPage = function () {
                 fillOrderAggregateFields: function (orderAggregate, card) {
                     //Do NOT use SetValue in this method, because the card shouldn't become dirty
 
-                    // updating EntityStateToken
-                    card.form.EntityStateToken.value = orderAggregate.EntityStateToken,
-
                     card.form.DiscountReason.value = orderAggregate.DiscountReason;
                     // prevent setting of "null"
-                    card.form.OrderNumber.value = (orderAggregate.Order.Number == null) ? "" : orderAggregate.Order.Number;;
+                    card.form.Number.value = (orderAggregate.Order.Number == null) ? "" : orderAggregate.Order.Number;;
                     card.form.RegionalNumber.value = (orderAggregate.Order.RegionalNumber == null) ? "" : orderAggregate.Order.RegionalNumber;
                     card.form.DiscountComment.value = (orderAggregate.Order.DiscountComment == null) ? "" : orderAggregate.Order.DiscountComment;
                     card.form.Platform.value = (orderAggregate.Platform == null) ? "" : orderAggregate.Platform;
@@ -360,6 +357,9 @@ window.InitPage = function () {
                         Ext.getDom('DiscountPercentChecked').click();
                     else
                         Ext.getDom('DiscountSumChecked').click();
+
+                    // updating EntityStateToken
+                    card.form.EntityStateToken.value = orderAggregate.EntityStateToken,
 
                     this.refreshDiscountRelatedAvailability();
 
