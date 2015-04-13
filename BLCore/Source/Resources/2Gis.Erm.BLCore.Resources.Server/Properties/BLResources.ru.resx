@@ -5120,7 +5120,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-</data>
+  </data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5220,6 +5220,9 @@ Cумма по операции: {5}.
   </data>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Операция не может быть проведена т.к. выполняется сборка</value>
+  </data>
+  <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
+    <value>Для следующих позиций можно указать только одну привязку: {0}</value>
   </data>
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>Вы пытаетесь завершить действие, запланированное будущим периодом, измените срок действия или отмените, если действие не было выполнено</value>

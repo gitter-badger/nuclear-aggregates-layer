@@ -5223,4 +5223,7 @@ Doba zveřejnění: {3}.</value>
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>Pokusil jste se ukončit akci, která je naplánována na budoucí období, změňte dobu provedení akce nebo stornujte to, pokud akce nebyla provedena</value>
   </data>
+  <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
+    <value>You can't pick more than one reference object for the following positions: {0}</value>
+  </data>
 </root>

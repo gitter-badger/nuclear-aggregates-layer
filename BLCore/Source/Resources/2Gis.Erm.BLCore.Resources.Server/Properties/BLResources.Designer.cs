@@ -2800,6 +2800,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CannotPickMoreThanOneLinkingObject {
+            get {
+                return ResourceManager.GetString("CannotPickMoreThanOneLinkingObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotPublishAdvertisementTemplateWithNoElements {
             get {
                 return ResourceManager.GetString("CannotPublishAdvertisementTemplateWithNoElements", resourceCulture);
