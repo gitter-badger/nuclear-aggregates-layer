@@ -24,11 +24,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             _finder = finder;
         }
 
-        public PositionBindingObjectType GetPositionBindingObjectType(long positionId)
-        {
-            return _finder.Find(Specs.Find.ById<Position>(positionId)).Select(x => x.BindingObjectTypeEnum).Single();
-        }
-
         public bool IsSupportedByExport(long positionId)
         {
             return _finder.Find(Specs.Find.ById<Position>(positionId)).Select(x => x.Platform.IsSupportedByExport).SingleOrDefault();
@@ -142,13 +137,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
         {
             return _finder.Find<Platform.Model.Entities.Erm.Platform>(x => platformDgppIds.Contains(x.DgppId))
                                 .ToDictionary(x => (PlatformEnum)x.DgppId, x => x.Id);
-        }
-
-        public string GetPositionName(long positionId)
-        {
-            return _finder.Find(Specs.Find.ById<Position>(positionId))
-                          .Select(item => item.Name)
-                          .Single();
         }
     }
 }
