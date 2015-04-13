@@ -5188,7 +5188,7 @@
     <value>Адрес сервиса телефонии указан в некорректном формате</value>
   </data>
   <data name ="TelephonyServiceInactive" xml:space="preserve">
-    <value>В данный момент сервис телефони не доступен</value>
+    <value>В данный момент сервис телефонии не доступен</value>
   </data>
   <data name ="IncorrectPhoneNumber" xml:space="preserve">
     <value>Телефон {0} имеет некорректный формат</value>

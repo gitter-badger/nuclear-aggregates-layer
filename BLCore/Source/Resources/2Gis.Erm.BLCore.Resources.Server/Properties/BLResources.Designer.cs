@@ -14076,7 +14076,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to В данный момент сервис телефони не доступен.
+        ///   Looks up a localized string similar to В данный момент сервис телефонии не доступен.
         /// </summary>
         public static string TelephonyServiceInactive {
             get {
