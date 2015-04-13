@@ -103,12 +103,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
         public IReadOnlyDictionary<long, PositionBindingObjectType> GetPositionBindingObjectTypes(IEnumerable<long> positionIds)
         {
-            return _finder.Find(Specs.Find.ByIds<Position>(positionIds)).ToDictionary(x => x.Id, y => y.BindingObjectTypeEnum);
+            return _finder.Find(Specs.Find.ByIds<Position>(positionIds))
+                          .Select(x => new { x.Id, x.BindingObjectTypeEnum })
+                          .ToDictionary(x => x.Id, y => y.BindingObjectTypeEnum);
         }
 
         public IReadOnlyDictionary<long, string> GetPositionNames(IEnumerable<long> positionIds)
         {
-            return _finder.Find(Specs.Find.ByIds<Position>(positionIds)).ToDictionary(x => x.Id, y => y.Name);
+            return _finder.Find(Specs.Find.ByIds<Position>(positionIds))
+                          .Select(x => new { x.Id, x.Name })
+                          .ToDictionary(x => x.Id, y => y.Name);
         }
 
         public IEnumerable<PositionSortingOrderDto> GetPositionsSortingOrder()
@@ -127,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
         {
             return _finder.Find(Specs.Find.ByIds<Position>(positionIds))
                           .Select(x => new
-            {
+                                           {
                                                Id = x.Id,
                                                PositionsGroup = x.PositionsGroup
                                            })
