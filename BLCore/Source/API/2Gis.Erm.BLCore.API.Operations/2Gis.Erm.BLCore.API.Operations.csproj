@@ -277,6 +277,7 @@
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainCanBeForBranchesOnlyException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainIsNotUniqueException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Deal\DealClientIsInReserveException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Price\PublishedPriceModificationException.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountRequest.cs" />
