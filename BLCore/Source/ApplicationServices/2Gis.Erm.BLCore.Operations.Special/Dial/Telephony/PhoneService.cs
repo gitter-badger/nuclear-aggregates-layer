@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Sockets;
 using System.Security;
 
@@ -46,15 +47,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial.Telephony
                 throw new ArgumentException(BLResources.TelephonyAddressIsNotSelected);
             }
 
-            SendDialCommand(number, user.Phone);
+            var serverAddressPort = user.TelephonyAddress.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            if (serverAddressPort.Count() != 2)
+            {
+                throw new ArgumentException(BLResources.TelephonyAddressInIncorrectFormat);
+            }
+
+            int serverPort;
+            if (!int.TryParse(serverAddressPort[1], out serverPort))
+            {
+                throw new ArgumentException(BLResources.TelephonyAddressInIncorrectFormat);
+            }
+
+            var serverAddress = serverAddressPort[0];
+
+            SendDialCommand(serverAddress, serverPort, number, user.Phone);
         }
 
-        private void SendDialCommand(string number, string line)
+        private void SendDialCommand(string address, int port, string number, string line)
         {
-            const string ServerAddress = "uk-erm-tapi01";
-            const int ServerPort = 1313;
             var command = number.MakeXmlCommand(line);
-            var tcpClient = new TcpClient(ServerAddress, ServerPort);
+            var tcpClient = new TcpClient(address, port);
            
             var commandData = command.MakeBytesFromCommand();
             tcpClient.Client.BeginSend(commandData, 0, commandData.Length, SocketFlags.None, SendCallback, tcpClient);

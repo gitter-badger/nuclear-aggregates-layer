@@ -14058,6 +14058,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Адрес сервиса телефонии указан в некорректном формате.
+        /// </summary>
+        public static string TelephonyAddressInIncorrectFormat {
+            get {
+                return ResourceManager.GetString("TelephonyAddressInIncorrectFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to В профиле не указан адрес сервиса телефонии.
         /// </summary>
         public static string TelephonyAddressIsNotSelected {

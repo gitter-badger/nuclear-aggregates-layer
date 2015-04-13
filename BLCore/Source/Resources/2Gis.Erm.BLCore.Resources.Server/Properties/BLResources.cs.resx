@@ -5208,4 +5208,7 @@ Doba zveřejnění: {3}.</value>
   <data name ="TelephonyServiceInactive" xml:space="preserve">
     <value>В данный момент сервис телефони не доступен</value>
   </data>
+  <data name ="TelephonyAddressInIncorrectFormat" xml:space="preserve">
+    <value>Адрес сервиса телефонии указан в некорректном формате</value>
+  </data>
 </root>
