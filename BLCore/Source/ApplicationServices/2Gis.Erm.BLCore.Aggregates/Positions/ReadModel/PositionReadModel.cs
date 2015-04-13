@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
@@ -102,6 +99,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                                                                      OrderState.OnTermination))
                           .Select(x => x.Id)
                           .ToArray();
+        }
+
+        public IReadOnlyDictionary<long, PositionBindingObjectType> GetPositionBindingObjectTypes(IEnumerable<long> positionIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<Position>(positionIds)).ToDictionary(x => x.Id, y => y.BindingObjectTypeEnum);
+        }
+
+        public IReadOnlyDictionary<long, string> GetPositionNames(IEnumerable<long> positionIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<Position>(positionIds)).ToDictionary(x => x.Id, y => y.Name);
         }
 
         public IEnumerable<PositionSortingOrderDto> GetPositionsSortingOrder()

@@ -5221,4 +5221,7 @@ Placement period: {3}.</value>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Operation cannot be performed because a build is in progress</value>
   </data>
+  <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
+    <value>You can't pick more than one reference object for the following positions: {0}</value>
+  </data>
 </root>
