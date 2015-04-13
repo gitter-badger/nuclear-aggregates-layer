@@ -29,6 +29,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         public string Address { get; set; }
         public string Company { get; set; }
         public string Position { get; set; }
+        public bool CanCall { get; set; }
+        public string TelephonyAddress { get; set; }
         public DateTime? Birthday { get; set; }
         public int Gender { get; set; }
         public string PlanetURL { get; set; }

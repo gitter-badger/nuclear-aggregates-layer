@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Security;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -35,6 +36,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial.Telephony
                 throw new ArgumentException(BLResources.WorkPhoneIsNotSelected);
             }
 
+            if (!user.CanCall)
+            {
+                throw new SecurityException(BLResources.DialingIsNotAllowed);
+            }
+
+            if (string.IsNullOrEmpty(user.TelephonyAddress))
+            {
+                throw new ArgumentException(BLResources.TelephonyAddressIsNotSelected);
+            }
+
             SendDialCommand(number, user.Phone);
         }
 
@@ -45,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial.Telephony
             var command = number.MakeXmlCommand(line);
             var tcpClient = new TcpClient(ServerAddress, ServerPort);
            
-                var commandData = command.MakeBytesFromCommand();
+            var commandData = command.MakeBytesFromCommand();
             tcpClient.Client.BeginSend(commandData, 0, commandData.Length, SocketFlags.None, SendCallback, tcpClient);
         }
 

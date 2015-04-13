@@ -5489,6 +5489,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to У Вас нет прав на совершение звонков.
+        /// </summary>
+        public static string DialingIsNotAllowed {
+            get {
+                return ResourceManager.GetString("DialingIsNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string DifferenceBetweenAccountDetailAndPlatformDistibutionsIsTooBig {
@@ -14045,6 +14054,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TabTitleInformation {
             get {
                 return ResourceManager.GetString("TabTitleInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В профиле не указан адрес сервиса телефонии.
+        /// </summary>
+        public static string TelephonyAddressIsNotSelected {
+            get {
+                return ResourceManager.GetString("TelephonyAddressIsNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В данный момент сервис телефони не доступен.
+        /// </summary>
+        public static string TelephonyServiceInactive {
+            get {
+                return ResourceManager.GetString("TelephonyServiceInactive", resourceCulture);
             }
         }
         
