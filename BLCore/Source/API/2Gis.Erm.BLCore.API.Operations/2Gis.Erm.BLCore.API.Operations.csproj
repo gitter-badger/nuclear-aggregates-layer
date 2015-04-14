@@ -211,6 +211,7 @@
     <Compile Include="Concrete\Orders\Print\IPrintBindingChangeAgreementOperationService.cs" />
     <Compile Include="Concrete\Orders\Print\PrintFormDocument.cs" />
     <Compile Include="Concrete\Positions\IChangePositionSortingOrderOperationService.cs" />
+    <Compile Include="Concrete\Positions\PositionBindingObjectTypeExtensions.cs" />
     <Compile Include="Concrete\Positions\PositionSortingOrderDto.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
@@ -277,6 +278,7 @@
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainCanBeForBranchesOnlyException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainIsNotUniqueException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Deal\DealClientIsInReserveException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Price\PublishedPriceModificationException.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountRequest.cs" />
@@ -303,9 +305,6 @@
     <Compile Include="Concrete\Old\Bargains\CloseBargainsResult.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerRequest.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\MailSendingType.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportFirmsRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ExportRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ExportResponse.cs" />
     <Compile Include="Concrete\Old\Integration\ImportRequest.cs" />
@@ -319,8 +318,6 @@
     <Compile Include="Concrete\LegalPersons\LegalPersonValidationForExportErrorDto.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\ReplicateObjectAfterCardsImportRequest.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\RabbitMq\ImportLocalMessagesFromRabbitMqRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\SerializeObjectsRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\SerializeObjectsResponse.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\WriteDataForAutoMailerToServiceBusRequest.cs" />

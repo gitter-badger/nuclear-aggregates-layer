@@ -8,20 +8,6 @@
             this.getMenuItem('PrintActions', 'PrintActionsAdditional', 'PrintNewSalesModelBargainAction').disable();
         }
     },
-
-    setupMenuAvailability: function () {
-        var item = this.getMenuItem('Actions', 'SwitchToAccount');
-        if (Ext.getDom("CanSwitchToAccount").checked)
-            item.enable();
-        else {
-            item.disable();
-        }
-
-        var canEditDocumentsDebt = this.form.HasOrderDocumentsDebtChecking.value.toLowerCase() == 'true';
-        Ext.getDom("HasDocumentsDebt").disabled = canEditDocumentsDebt ? null : "disabled";
-        Ext.getDom("DocumentsComment").disabled = canEditDocumentsDebt ? null : "disabled";
-        Ext.get("DocumentsComment").setReadOnly(!canEditDocumentsDebt);
-    },
     
     onLegalPersonChanged: function() {
         this.clearBargain();

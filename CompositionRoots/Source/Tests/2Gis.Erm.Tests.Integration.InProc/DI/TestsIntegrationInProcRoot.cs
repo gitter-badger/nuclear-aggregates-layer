@@ -38,11 +38,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 return CompositionRoot.Config
                                       .RequireZone<IntegrationTestsZone>()
                                             .UseAnchor<IntegrationTestsZonePartAssembly>()
-                                      //.RequireZone<WebMvcZone>()
-                                      //      .UseAnchor<BlCoreUiWebMvcAssembly>()
-                                      //      .UseAnchor<BlUiWebMvcAssembly>()
-                                      //      .UseAnchor<BlFlexUiWebMvcAssembly>()
-                                      //      .UseAnchor<PlatformUiWebMvcAssembly>()
                                       .RequireZone<AggregatesZone>()
                                             .UseAnchor<BlCoreAggregatesAssembly>()
                                             .UseAnchor<BlFlexAggregatesGlobalAssembly>()
@@ -54,7 +49,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                             .UseAnchor<BlFlexOperationsGlobalAssembly>()
                                       .RequireZone<MoDiZone>()
                                             .UseAnchor<BlCoreApiModiAssembly>()
-                                            //.UseAnchor<BlCoreModiAssembly>()
                                       .RequireZone<OperationsSpecialZone>()
                                             .UseAnchor<BlCoreApiOperationsSpecialAssembly>()
                                             .UseAnchor<BlCoreOperationsSpecialAssembly>()
@@ -68,19 +62,17 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                       .RequireZone<QueryingZone>()
                                             .UseAnchor<BlQueryingApiOperationsListingAssembly>()
                                             .UseAnchor<BlQueryingOperationsListingAssembly>()
-                                            //.UseAnchor<QdsOperationsAssembly>()
                                       .RequireZone<ReleasingZone>()
                                             .UseAnchor<BlCoreApiReleasingAssembly>()
-                                            //.UseAnchor<BlCoreReleasingAssembly>()
                                       .RequireZone<OrderValidationZone>()
                                             .UseAnchor<BlCoreApiOrderValidationAssembly>()
                                             .UseAnchor<BlCoreOrderValidationAssembly>()
                                       .RequireZone<MetadataZone>()
                                             .UseAnchor<PlatformModelMetadataAssembly>()
-                                            .UseAnchor<BlQueryingUiMetadataAssembly>()
+                                            .UseAnchor<BlQueryingUIMetadataAssembly>()
                                             .UseAnchor<BLCore.UI.WPF.Client.DI.MetadataZonePartAssembly>()
                                             .UseAnchor<MetadataZonePartAssembly>()
-                                            .UseAnchor<BlCoreUiMetadataAssembly>();
+                                            .UseAnchor<BlCoreUIMetadataAssembly>();
             }
         } 
     }

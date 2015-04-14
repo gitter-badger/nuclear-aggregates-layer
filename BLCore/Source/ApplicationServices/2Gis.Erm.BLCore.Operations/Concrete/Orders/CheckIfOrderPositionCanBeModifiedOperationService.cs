@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -33,7 +34,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             var position = _positionReadModel.GetPositionByPricePositionId(pricePositionId);
             var orderInfo = _orderReadModel.GetOrderInfoToCheckPossibilityOfOrderPositionCreation(orderId);
 
-            if (!AllRequiredAdvertisementsAreSpecified(position.IsComposite, orderPositionAdvertisements, out report))
+            if (position.IsComposite && !AllRequiredAdvertisementsAreSpecifiedForCompositePosition(orderPositionAdvertisements, out report))
+            {
+                return false;
+            }
+
+            if (!AllRequiredAdvertisementsAreSpecified(orderPositionAdvertisements, out report))
             {
                 return false;
             }
@@ -53,19 +59,38 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 return false;
             }
 
+            if (!BindingOfSingleTypeMustHaveNoMoreThan1BindingPerPosition(orderPositionAdvertisements, out report))
+            {
+                return false;
+            }
+
             // Соответствие рубрики фирме заказа НЕ проверяем, т.к. есть функционал "Добавить рубрику" и ответственность за некорректную рубрику лежит на менеджере
             return true;
         }
 
         #region Проверки
-        private bool AllRequiredAdvertisementsAreSpecified(bool isCompositePosition,
-            IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
-                                              out string report)
+        // Является частным случаем проверки AllRequiredAdvertisementsAreSpecified, которая появилась в рамках фикса бага ERM-6151. Есть опасение, что новая общая проверка ломает какой-то кейс. 
+        // Если жалоб на нее не будет, то эту частную проверку (AllRequiredAdvertisementsAreSpecifiedForCompositePosition) можно будет удалить
+        private bool AllRequiredAdvertisementsAreSpecifiedForCompositePosition(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                                               out string report)
         {
             report = null;
-            if (isCompositePosition && !orderPositionAdvertisements.Any())
+            if (!orderPositionAdvertisements.Any())
             {
                 report = BLResources.NeedToPickAtLeastOneLinkingObjectForCompositePosition;
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool AllRequiredAdvertisementsAreSpecified(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                           out string report)
+        {
+            report = null;
+            if (!orderPositionAdvertisements.Any())
+            {
+                report = BLResources.NeedToPickAtLeastOneLinkingObject;
                 return false;
             }
 
@@ -140,6 +165,28 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 return false;
             }
 
+            return true;
+        }
+
+        private bool BindingOfSingleTypeMustHaveNoMoreThan1BindingPerPosition(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                                              out string report)
+        {
+            var positionIdsToCheck = orderPositionAdvertisements.GroupBy(x => x.PositionId).Where(x => x.Count() > 1).Select(x => x.Key).ToArray();
+            var invalidPositionIds =
+                _positionReadModel.GetPositionBindingObjectTypes(positionIdsToCheck)
+                                  .Where(x => x.Value.IsPositionBindingOfSingleType())
+                                  .Select(x => x.Key)
+                                  .ToArray();
+
+            if (invalidPositionIds.Any())
+            {
+                var invalidPositionNames = _positionReadModel.GetPositionNames(invalidPositionIds);
+                report = string.Format(BLResources.CannotPickMoreThanOneLinkingObject, string.Join(",", invalidPositionNames.Values));
+
+                return false;
+            }
+
+            report = null;
             return true;
         }
 
