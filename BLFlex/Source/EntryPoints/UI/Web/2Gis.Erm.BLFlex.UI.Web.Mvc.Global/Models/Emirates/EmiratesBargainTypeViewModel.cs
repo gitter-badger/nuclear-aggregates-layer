@@ -1,13 +1,14 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
-    public sealed class EmiratesBargainTypeViewModel : EditableIdEntityViewModelBase<BargainType>, IEmiratesAdapted
+    public sealed class EmiratesBargainTypeViewModel : EditableIdEntityViewModelBase<BargainType>, INameAspect, IEmiratesAdapted
     {
         [RequiredLocalized]
         public string Name { get; set; }

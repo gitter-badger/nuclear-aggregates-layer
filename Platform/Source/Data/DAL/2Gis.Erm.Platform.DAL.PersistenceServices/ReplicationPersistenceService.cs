@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
 {
@@ -13,18 +14,18 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
     {
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IDatabaseCaller _databaseCaller;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
         public ReplicationPersistenceService(
             IMsCrmSettings msCrmSettings,
             IDatabaseCaller databaseCaller,
-            ICommonLog logger,
+            ITracer tracer,
             IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
             _msCrmSettings = msCrmSettings;
             _databaseCaller = databaseCaller;
-            _logger = logger;
+            _tracer = tracer;
             _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
         }
 
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
         {
             if (!_msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Database))
             {
-                _logger.WarnFormat("Replication to MsCRM disabled in config. Do nothing ...");
+                _tracer.WarnFormat("Replication to MsCRM disabled in config. Do nothing ...");
                 notReplicated = new long[0];
                 return;
             }
@@ -75,7 +76,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
                 }
                 catch (Exception ex)
                 {
-                    _logger.ErrorFormat(ex, "Can't replicate entity with id {0} using procedure {1}", id, procedureName);
+                    _tracer.ErrorFormat(ex, "Can't replicate entity with id {0} using procedure {1}", id, procedureName);
                     failed.Add(id);
                 }
             }
@@ -93,7 +94,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Can't replicate entities batch using procedure {0}", procedureName);
+                _tracer.ErrorFormat(ex, "Can't replicate entities batch using procedure {0}", procedureName);
                 notReplicated = new List<long>(ids);
             }
         }

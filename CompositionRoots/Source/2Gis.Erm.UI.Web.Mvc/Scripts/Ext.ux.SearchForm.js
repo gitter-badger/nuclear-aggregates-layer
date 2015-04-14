@@ -195,7 +195,7 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
     {
         var qstringparams = window.Ext.urlDecode(location.search.substring(1));
 
-        this.store = new window.Ext.data.Store({
+        this.store = new Ext.DoubleGis.Store({
             remoteSort: true,
             //Ставим false потому, что при загрузке страницы будет присобачен фильтр
             autoLoad: false,
@@ -217,8 +217,8 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
                 pId: qstringparams.pId,
                 pType: qstringparams.pType,
                 limit: this.currentSettings.RowsPerPage,
-                dir: this.currentSettings.DefaultSortDirection == 0 ? "ASC" : "DESC",
-                sort: this.currentSettings.DefaultSortField
+                sort: qstringparams.defaultSortFields || this.currentSettings.DefaultSortField,
+                dir: qstringparams.defaultSortFieldsDirs || (this.currentSettings.DefaultSortDirection == 0 ? "ASC" : "DESC" )
             }),
             listeners:
                             {
@@ -239,6 +239,7 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
                             }
         });
     },
+  
     onCellClick: function (cmp, rowIndex, columnIndex, evt)
     {
         if (Ext.get(evt.target).hasClass('x-entity-link'))
@@ -274,7 +275,7 @@ Ext.ux.SearchForm = Ext.extend(Ext.Panel, {
             }
             window.Ext.getCmp("btnSave").enable();
         }
-    },
+    },  
     selectSearchField: function () {
         Ext.get('searchInput').focus();
     },

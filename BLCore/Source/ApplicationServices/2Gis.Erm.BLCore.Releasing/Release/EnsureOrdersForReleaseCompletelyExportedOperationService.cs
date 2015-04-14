@@ -6,9 +6,10 @@ using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.ServiceBusBroker;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
 {
@@ -20,26 +21,26 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IIntegrationSettings _integrationSettings;
         private readonly IClientProxyFactory _clientProxyFactory;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public EnsureOrdersForReleaseCompletelyExportedOperationService(IEnsureOrderExportedStrategyContainer ensureOrderExportedStrategyContainer,
                                                                         IOperationScopeFactory scopeFactory,
                                                                         IIntegrationSettings integrationSettings,
                                                                         IClientProxyFactory clientProxyFactory,
-                                                                        ICommonLog logger)
+                                                                        ITracer tracer)
         {
             _ensureOrderExportedStrategyContainer = ensureOrderExportedStrategyContainer;
             _scopeFactory = scopeFactory;
             _integrationSettings = integrationSettings;
             _clientProxyFactory = clientProxyFactory;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public bool IsExported(long releaseId, long organizationUnitId, int organizationUnitDgppId, TimePeriod period, bool isBeta)
         {
             using (var scope = _scopeFactory.CreateNonCoupled<EnsureOrdersForReleaseCompletelyExportedIdentity>())
             {
-                _logger.InfoFormat("Starting ensure process that all orders for release are exported. " +
+                _tracer.InfoFormat("Starting ensure process that all orders for release are exported. " +
                                      "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                      releaseId,
                                      organizationUnitId,
@@ -53,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                                                                                                        isBeta));
                 if (!allRequiredOrdersExported)
                 {
-                    _logger.InfoFormat("Ensure process that all orders for release are exported finished. Not all required orders are exported. " +
+                    _tracer.InfoFormat("Ensure process that all orders for release are exported finished. Not all required orders are exported. " +
                                          "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                          releaseId,
                                          organizationUnitId,
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                     return false;
                 }
 
-                _logger.InfoFormat("Ensured that all orders for release are exported. Trying notify external listeners about that fact. " +
+                _tracer.InfoFormat("Ensured that all orders for release are exported. Trying notify external listeners about that fact. " +
                                      "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                      releaseId,
                                      organizationUnitId,
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 NotifyListenersThatAllOrdersForReleaseAreExported(releaseId, organizationUnitDgppId, period);
 
-                _logger.InfoFormat("Ensured that all orders for release are exported. Notification for external listeners was sended. " +
+                _tracer.InfoFormat("Ensured that all orders for release are exported. Notification for external listeners was sended. " +
                                      "Release detail: id = {0}, organization unit id {1}, period {2}, type - {3}",
                                      releaseId,
                                      organizationUnitId,

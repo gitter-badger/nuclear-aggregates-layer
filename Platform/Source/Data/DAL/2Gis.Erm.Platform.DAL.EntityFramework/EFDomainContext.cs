@@ -17,6 +17,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly DbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
 
+        private readonly IDictionary<object, object> _dbEntityEntriesCache = new Dictionary<object, object>();
+
         public EFDomainContext(IProcessingContext processingContext,
                                DbContext dbContext,
                                IPendingChangesHandlingStrategy pendingChangesHandlingStrategy)
@@ -47,11 +49,19 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public void Add<TEntity>(TEntity entity) where TEntity : class
         {
             _dbContext.Set<TEntity>().Add(entity);
+
+            // TODO {all, 19.03.2015}: Могут возникнуть проблемы для сущностей с автогенеренными id - возможно для них стоит по-другому реализовать Equals/GetHashCode
+            _dbEntityEntriesCache.Add(entity, _dbContext.Entry(entity));
         }
 
         public void AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
             _dbContext.Set<TEntity>().AddRange(entities);
+            foreach (var entity in entities)
+            {
+                // TODO {all, 19.03.2015}: Могут возникнуть проблемы для сущностей с автогенеренными id - возможно для них стоит по-другому реализовать Equals/GetHashCode
+                _dbEntityEntriesCache.Add(entity, _dbContext.Entry(entity));
+            }
         }
 
         public void Update<TEntity>(TEntity entity) where TEntity : class
@@ -67,13 +77,17 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public void Remove<TEntity>(TEntity entity) where TEntity : class
         {
-            // physically delete from database
             _dbContext.Set<TEntity>().Remove(GetAttachedEntity(entity));
+            _dbEntityEntriesCache.Remove(entity);
         }
 
-        public void RemoveRange<TEntity>(IEnumerable<TEntity> entitiesToDeletePhysically) where TEntity : class
+        public void RemoveRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
-            _dbContext.Set<TEntity>().RemoveRange(entitiesToDeletePhysically.Select(GetAttachedEntity).ToArray());
+            _dbContext.Set<TEntity>().RemoveRange(entities.Select(GetAttachedEntity).ToArray());
+            foreach (var entity in entities)
+            {
+                _dbEntityEntriesCache.Remove(entity);
+            }
         }
 
         public int SaveChanges()
@@ -123,9 +137,10 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         private bool AttachEntity<TEntity>(TEntity entity, out DbEntityEntry<TEntity> dbEntityEntry) where TEntity : class
         {
-            var existingEntry = _dbContext.ChangeTracker.Entries<TEntity>().SingleOrDefault(x => x.Entity.Equals(entity));
-            if (existingEntry != null)
+            object entry;
+            if (_dbEntityEntriesCache.TryGetValue(entity, out entry))
             {
+                var existingEntry = (DbEntityEntry<TEntity>)entry;
                 if (existingEntry.State != EntityState.Unchanged)
                 {
                     var entityKey = entity as IEntityKey;
@@ -143,13 +158,14 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 return false;
             }
 
-            var entry = _dbContext.Entry(entity);
-            if (entry.State == EntityState.Detached)
+            var newEntry = _dbContext.Entry(entity);
+            if (newEntry.State == EntityState.Detached)
             {
                 _dbContext.Set<TEntity>().Attach(entity);
             }
 
-            dbEntityEntry = entry;
+            _dbEntityEntriesCache.Add(entity, newEntry);
+            dbEntityEntry = newEntry;
             return true;
         }
     }

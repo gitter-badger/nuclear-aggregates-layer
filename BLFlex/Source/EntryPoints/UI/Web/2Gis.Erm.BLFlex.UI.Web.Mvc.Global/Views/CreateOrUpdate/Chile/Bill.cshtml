@@ -17,7 +17,7 @@
         @Html.HiddenFor(m => m.Id)
         @Html.HiddenFor(m => m.IsOrderActive)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.BillNumber, FieldFlex.twins)
+            @Html.TemplateField(m => m.Number, FieldFlex.twins)
             @Html.TemplateField(m => m.BillDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
         </div>
         <div class="row-wrapper">

@@ -36,6 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
         {
             var branchOfficeOrganizationUnit = new PrintData
                 {
+                    { "ApplicationCityName", boou.ApplicationCityName },
                     { "ChiefNameInGenitive", boou.ChiefNameInGenitive },
                     { "ChiefNameInNominative", boou.ChiefNameInNominative },
                     { "OperatesOnTheBasisInGenitive", boou.OperatesOnTheBasisInGenitive },
@@ -121,7 +122,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                 .Select(x => new
                     {
                         LegalPersonType = x.LegalPerson.LegalPersonTypeEnum,
-                        OrganizationUnitName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Name,
                         EndDate = x.BargainEndDate
                     })
                 .AsEnumerable()
@@ -132,7 +132,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                         { "UseNaturalPerson", x.LegalPersonType == LegalPersonType.NaturalPerson },
                         { "UseEndlessBargain", x.EndDate == null },
                         { "UseLimitedBargain", x.EndDate != null },
-                        { "OrganizationUnitName", x.OrganizationUnitName },
                     })
                 .Single();
         }

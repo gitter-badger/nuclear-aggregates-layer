@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
 
             if (billInfo.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             if (billInfo.BranchOfficeOrganizationUnitId == null)
@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
                                        {
                                            Bill = new
                                                {
-                                                   BillNumber = bill.BillNumber,
+                                                   BillNumber = bill.Number,
                                                    OrderReleaseCountPlan = billInfo.OrderReleaseCountPlan,
                                                    BeginDistributionDate = bill.BeginDistributionDate,
                                                    EndDistributionDate = bill.EndDistributionDate,

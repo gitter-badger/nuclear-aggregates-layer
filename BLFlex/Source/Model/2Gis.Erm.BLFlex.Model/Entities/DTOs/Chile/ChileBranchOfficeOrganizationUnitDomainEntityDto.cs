@@ -18,6 +18,8 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile
         [DataMember]
         public string ShortLegalName { get; set; }
         [DataMember]
+        public string ApplicationCityName { get; set; }
+        [DataMember]
         public EntityReference BranchOfficeRef { get; set; }
         [DataMember]
         public EntityReference OrganizationUnitRef { get; set; }

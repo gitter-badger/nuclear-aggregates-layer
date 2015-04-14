@@ -23,14 +23,14 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             _accessors = accessors.Cast<DocumentRelationAccessor<TDocument, TDocumentPart>>();
         }
 
-        public Func<ElasticApi.ErmMultiGetDescriptor, ElasticApi.ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers)
+        public Func<ErmMultiGetDescriptor, ErmMultiGetDescriptor> GetDocumentPartIds(IReadOnlyCollection<IIndexedDocumentWrapper> documentWrappers)
         {
             var documentPartIds = documentWrappers
                 .OfType<IDocumentWrapper<TDocument>>()
                 .SelectMany(x => _accessors.Select(y => y.GetDocumentPartId(x.Document)))
                 .Where(x => !string.IsNullOrEmpty(x));
 
-            return x => (ElasticApi.ErmMultiGetDescriptor)documentPartIds.Aggregate(x, (current, documentPartId) => current.GetDistinct<TDocumentPart>(g => g
+            return x => (ErmMultiGetDescriptor)documentPartIds.Aggregate(x, (current, documentPartId) => current.GetDistinct<TDocumentPart>(g => g
                 .Id(documentPartId)))
                 .Preference("_primary");
         }
@@ -84,6 +84,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
                     Id = hit.Id,
                     Document = hit.Document,
                     Version = hit.Version,
+                    UpdateType = UpdateType.UpdateMerge
                 };
 
                 foreach (var metadata in _accessors)

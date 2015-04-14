@@ -23,6 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify
                                             Id = x.Id,
                                             OrganizationUnitRef = new EntityReference { Id = x.OrganizationUnitId, Name = null },
                                             BranchOfficeRef = new EntityReference { Id = x.BranchOfficeId, Name = null },
+                                            ApplicationCityName = x.ApplicationCityName,
                                             FullNameInGenitive = x.ChiefNameInGenitive,
                                             FullNameInNominative = x.ChiefNameInNominative,
                                             Registered = x.Registered,
@@ -62,6 +63,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify
                                     entity.Id = dto.Id;
                                     entity.OrganizationUnitId = dto.OrganizationUnitRef.Id.Value;
                                     entity.BranchOfficeId = dto.BranchOfficeRef.Id.Value;
+                                    entity.ApplicationCityName = dto.ApplicationCityName;
                                     entity.ChiefNameInGenitive = dto.FullNameInGenitive;
                                     entity.ChiefNameInNominative = dto.FullNameInNominative;
                                     entity.PositionInGenitive = dto.PositionInGenitive;

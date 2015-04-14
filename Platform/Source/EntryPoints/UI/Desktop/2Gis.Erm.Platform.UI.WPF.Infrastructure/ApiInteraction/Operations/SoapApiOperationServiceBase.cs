@@ -1,6 +1,7 @@
-﻿using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
+﻿using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
 {
@@ -9,25 +10,25 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations
         private readonly IDesktopClientProxyFactory _clientProxyFactory;
         private readonly IStandartConfigurationSettings _configuration;
         private readonly IApiSettings _apiSettings;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         protected SoapApiOperationServiceBase(
             IDesktopClientProxyFactory clientProxyFactory,
             IStandartConfigurationSettings configuration,
             IApiSettings apiSettings,
-            ICommonLog logger)
+            ITracer tracer)
         {
             _clientProxyFactory = clientProxyFactory;
             _configuration = configuration;
             _apiSettings = apiSettings;
-            _logger = logger;
+            _tracer = tracer;
         }
 
-        protected ICommonLog Logger
+        protected ITracer Tracer
         {
             get
             {
-                return _logger;
+                return _tracer;
             }
         }
 

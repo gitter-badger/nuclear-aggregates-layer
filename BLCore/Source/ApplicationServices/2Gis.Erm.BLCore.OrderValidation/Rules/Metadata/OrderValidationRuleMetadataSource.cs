@@ -84,8 +84,10 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
                                                                               .Common,
                                                    OrderValidationRuleMetadata.Config.Rule<SelfAdvertisementOrderValidationRule>(36)
                                                                               .Common,
-                                                   OrderValidationRuleMetadata.Config.Rule<AdditionalAdvertisementsOrderValidationRule>(37)
-                                                                              .Common,
+
+                                                   // Временно отключена ERM-6155
+                                                   // OrderValidationRuleMetadata.Config.Rule<AdditionalAdvertisementsOrderValidationRule>(37)
+                                                   //                            .Common,
                                                    OrderValidationRuleMetadata.Config
                                                                               .Rule<IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule>(38)
                                                                               .Common,
@@ -113,16 +115,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
             OrderValidationRuleGroupMetadata.Config
                                             .Group(OrderValidationRuleGroup.SalesModelValidation)
                                             .UseCaching
-                                            .Rules(
-                                                    
-                                                    // Оказалось, что текущее положение вещей конфликтует с идеей, 
-                                                    // что рубрика продается только по одной модели продаж. 
-                                                    // В будущем мы будем получать ограничения и продавать рубрики по нескольким моделям продаж.
-                                                    // Сейчас же решили просто отключить проверку и дать выйти существующим заказам.
-                                                    // ERM-5916
-
-                                                    //OrderValidationRuleMetadata.Config.Rule<SalesModelRestrictionsOrderValidationRule>(45).Common
-                                                  );
+                                            .Rules(OrderValidationRuleMetadata.Config.Rule<SalesModelRestrictionsOrderValidationRule>(45).Common);
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed. Suppression is OK here.")]
         private readonly OrderValidationRuleGroupMetadata _advertisementMaterialsGroupMetadata =

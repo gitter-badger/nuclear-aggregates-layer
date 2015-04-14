@@ -32,6 +32,9 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public SalesModel SalesModel { get; set; }
 
         [DataMember]
+        public PositionsGroup PositionsGroup { get; set; }
+
+        [DataMember]
         public EntityReference PlatformRef { get; set; }
 
         [DataMember]
@@ -78,8 +81,5 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 
         [DataMember]
         public bool RestrictChildPositionPlatformsCanBeChanged { get; set; }
-
-        [DataMember]
-        public bool IsReadOnlyTemplate { get; set; }
     }
 }

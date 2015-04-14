@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Transactions;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -14,19 +13,21 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
 {
     public class QueryAllRegisteredEntitiesTest : IIntegrationTest
     {
         private readonly IEfDbModelConfigurationsProvider _dbModelConfigurationsProvider;
         private readonly IFinder _finder;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
-        public QueryAllRegisteredEntitiesTest(IEfDbModelConfigurationsProvider dbModelConfigurationsProvider, IFinder finder, ICommonLog logger)
+        public QueryAllRegisteredEntitiesTest(IEfDbModelConfigurationsProvider dbModelConfigurationsProvider, IFinder finder, ITracer tracer)
         {
             _dbModelConfigurationsProvider = dbModelConfigurationsProvider;
             _finder = finder;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public ITestResult Execute()
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
                     using (var transaction = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
                     {
                         var entity = method.Invoke(this, null);
-                        _logger.InfoFormat("Query for entity type {0, -60} succeeded with {1} value", entityType.Name, entity == null ? "null" : "not null");
+                        _tracer.InfoFormat("Query for entity type {0, -60} succeeded with {1} value", entityType.Name, entity == null ? "null" : "not null");
 
                         transaction.Complete();
                     }
@@ -58,7 +59,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
                 catch (Exception e)
                 {
                     succeeded = false;
-                    _logger.ErrorFormat(e, "Query for entity type {0, -60} failed", entityType);
+                    _tracer.ErrorFormat(e, "Query for entity type {0, -60} failed", entityType);
                 }
             }
 

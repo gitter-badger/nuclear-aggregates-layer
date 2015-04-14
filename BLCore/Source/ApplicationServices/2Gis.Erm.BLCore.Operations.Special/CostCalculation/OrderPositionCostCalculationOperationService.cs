@@ -161,8 +161,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
         {
             using (var scope = _scopeFactory.CreateNonCoupled<CalculateOrderCostIdentity>())
             {
-                bool showVat;
-                var vatRate = _orderReadModel.GetVatRate(sourceOrganizationUnitId, destOrganizationUnitId, out showVat);
+                var vatRateDetails = _orderReadModel.GetVatRateDetails(sourceOrganizationUnitId, destOrganizationUnitId);
 
                 var positionCalcs = new CalculationResult[positionInfos.Count()];
 
@@ -176,8 +175,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                                           positionInfos[i].PositionInfo.PositionId,
                                                                           priceId,
                                                                           positionInfos[i].PositionInfo.Amount,
-                                                                          vatRate,
-                                                                          showVat,
+                                                                          vatRateDetails.VatRate,
+                                                                          vatRateDetails.ShowVat,
                                                                           positionInfos[i].DiscountInfo.Sum,
                                                                           positionInfos[i].DiscountInfo.Percent,
                                                                           positionInfos[i].DiscountInfo.CalculateDiscountViaPercent);
@@ -227,8 +226,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                                     decimal discountPercent,
                                                                     bool calculateDiscountViaPercent)
         {
-            bool showVat;
-            var vatRate = _orderReadModel.GetVatRate(sourceOrganizationUnitId, destOrganizationUnitId, out showVat);
+            var vatRateDetails = _orderReadModel.GetVatRateDetails(sourceOrganizationUnitId, destOrganizationUnitId);
 
             return CalculateOrderPositionCostInternal(orderType,
                                                       orderReleaseCount,
@@ -238,8 +236,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                       positionId,
                                                       priceId,
                                                       amount,
-                                                      vatRate,
-                                                      showVat,
+                                                      vatRateDetails.VatRate,
+                                                      vatRateDetails.ShowVat,
                                                       discountSum,
                                                       discountPercent,
                                                       calculateDiscountViaPercent);

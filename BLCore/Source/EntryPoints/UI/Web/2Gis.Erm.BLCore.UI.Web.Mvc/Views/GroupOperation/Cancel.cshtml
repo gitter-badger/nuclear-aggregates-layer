@@ -1,0 +1,161 @@
+﻿@using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations
+@using DoubleGis.Erm.Platform.Common.Utils
+@using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
+@using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel
+@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel
+
+@{
+    Layout = "../Shared/_DialogLayout.cshtml";
+}
+
+@section Title { @BLResources.CancelConfirmation }
+@section TopBarTitle { @BLResources.CancelConfirmation }
+@section TopBarMessage { @string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)) }
+
+@section PageContent
+{
+    <link rel="stylesheet" type="text/css" href="/Content/Progress.css?@ThisAssembly.Build" />
+
+    <script src="/Scripts/Ext.Ajax.syncRequest.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/DoubleGis.UI.GroupOperations.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Tooltip.js?@ThisAssembly.Build" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        Ext.namespace('Ext.DoubleGis.UI.Activate');
+        Ext.DoubleGis.UI.Activate.ActivateProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
+            EntitiesToProcess: {},
+            FailedEntitiesMessages: [],
+            constructor: function (config) {
+                Ext.apply(config, {
+                    listeners: {
+                        processingfinished: function () {
+                            this.ProcessingFinished();
+                        },
+                        entityprocessingfail: function (msg) {
+                            this.EntityAssignFailed(msg);
+                        }
+                    }
+                });
+                Ext.DoubleGis.UI.Activate.ActivateProcessor.superclass.constructor.call(this, config);
+                if (config.EntitiesToProcess) {
+                    var entitiesToProcess = {};
+                    Ext.each(config.EntitiesToProcess, function (x) {
+                        entitiesToProcess[x.entityId] = x.entityName;
+                    });
+                    this.EntitiesToProcess = entitiesToProcess;
+                }
+            },
+            IsUserSettingsValid: function() {
+                return true;
+            },
+            CreateParamsForControllerCall: function(entityId) {
+                return { entityId: entityId };
+            },
+            ResolveEntityName: function (entityId) {
+                if (this.EntitiesToProcess.hasOwnProperty(entityId))
+                    return this.EntitiesToProcess[entityId];
+                else 
+                    return this.superclass().ResolveEntityName.call(this, entityId);
+            },
+            ProcessingFinished: function () {
+                // innerHTML элемента Notifications присваивается по окончании операции (см. файл GroupOperations.js),
+                // динамически засовываем туда линк.
+                if (this.SuccessProcessed < this.EntitiesCount && !this.IsSingleEntityProcessing) {
+
+                    this.FinishOperation(this.FailedEntitiesMessages.join('\r\n'));
+
+                    var notifications = Ext.getDom('Notifications');
+                    var errorsLinkNode = document.createElement("a");
+                    errorsLinkNode.id = 'ErrorsLink';
+                    errorsLinkNode.href = '#';
+                    errorsLinkNode.appendChild(document.createTextNode(Ext.LocalizedResources.DisplayErrorsList));
+                    notifications.appendChild(errorsLinkNode);
+                    Ext.getDom('ErrorsLink').onclick = function () {
+                        Ext.getDom('ErrorsForm').submit();
+                    };
+                    Ext.getDom('ErrorsLink').onclick();
+                }
+                else {
+                    this.FinishOperation();
+                }
+            },
+            EntityAssignFailed: function (msg) {
+                this.FailedEntitiesMessages[this.FailedEntitiesMessages.length] = msg;
+            },
+            FinishOperation: function (msg) {
+                var finishOperationResponse = window.Ext.Ajax.syncRequest({
+                    method: 'POST',
+                    url: '/Operation/CreateOperationWithErrorLog',
+                    params: { operationId: Ext.getDom("operationId").value, log: msg, contentType: 'text/csv', logFileName: 'Cancel_errors.csv' }
+                });
+                if ((finishOperationResponse.conn.status >= 200 && finishOperationResponse.conn.status < 300) || (Ext.isIE && finishOperationResponse.conn.status == 1223)) {
+                }
+                else {
+                    alert(finishOperationResponse.conn.responseText);
+                    return;
+                }
+            }
+        });
+        Ext.onReady(function() {
+            Ext.getDom('PageContentCell').style["vertical-align"] = "top";
+
+            var dialogArguments = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
+            var ids = dialogArguments;
+
+            var isExtendedMode = (Ext.isArray(dialogArguments) && dialogArguments.length > 0 && Ext.isObject(dialogArguments[0]) && dialogArguments[0].hasOwnProperty('entityId'));
+            if (isExtendedMode) {
+                ids = [];
+                Ext.each(dialogArguments, function (x) { ids.push(x.entityId); });
+            }
+
+            var config = {
+                EntitiesToProcess: isExtendedMode ? dialogArguments : null,
+                Entities: ids, // массив id сущностей
+                OperationName: '@Model.OperationName', // тип операции - Qualify, Assign, ChangeTerritory
+                CloseButtonText: Ext.LocalizedResources.Close, // локализованная надпись для кнопки закрыть
+                NeedToSelectOneOrMoreItemsMsg: Ext.LocalizedResources.NeedToSelectOneOrMoreItems, // локализованная надпись о том что нужно выбрать один или несколько элементов
+                ResultMessageTitle: Ext.LocalizedResources.GroupOperationResultsTitle, // локализованная надпись - заголовок для результатов операции
+                ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
+            };
+            var activateProcessor = new Ext.DoubleGis.UI.Activate.ActivateProcessor(config);
+            if (!activateProcessor.CheckProcessingPossibility()) {
+                return;
+            }
+            activateProcessor.Process();
+        });
+    </script>
+    <div style="height: 8px; padding-left: 5px;padding-top: 4px;position: fixed;" id="DivErrors">
+        @using (Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, { "id", "ErrorsForm" } }))
+        {
+            <input type="hidden" name="operationId" value="@Guid.NewGuid()" />
+        }
+
+    </div>
+    <table cellspacing="5" cellpadding="5" width="100%" height="100px">
+        <tr>
+            <td colspan="2">
+                <div style="height: 30px;" id="Notifications"
+                     onmouseover="AddTooltip(Ext.getDom('Notifications').childNodes.length > 0 ? Ext.getDom('Notifications').childNodes[0].data : '');"
+                     onmouseout=" RemoveTooltip(); ">
+                    @Model.Message
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span id="bodyMessage" style="display: none"></span><span>
+                                                                        @ConfirmationManager.GetConfirmation(new StrictOperationIdentity(CancelIdentity.Instance, new EntitySet(Model.EntityTypeName)))
+                                                                    </span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="pbDiv">
+                    <div id="pbInner">
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    @Html.HiddenFor(x => x.EntityTypeName)
+}

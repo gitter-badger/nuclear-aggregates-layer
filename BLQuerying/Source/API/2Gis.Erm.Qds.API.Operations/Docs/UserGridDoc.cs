@@ -4,13 +4,13 @@ namespace DoubleGis.Erm.Qds.API.Operations.Docs
 {
     public sealed class UserGridDoc: IOperationSpecificEntityDto, IAuthorizationDoc
     {
-        public long? Id { get; set; }
+        public long Id { get; set; }
         public string Account { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string DisplayName { get; set; }
-        public bool? IsActive { get; set; }
-        public bool? IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
 
         //public ICollection<string> TerritoryIds { get; set; }
         //public ICollection<string> OrganizationUnitIds { get; set; }

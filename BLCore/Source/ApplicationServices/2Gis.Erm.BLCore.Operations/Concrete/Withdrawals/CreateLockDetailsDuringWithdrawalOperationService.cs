@@ -50,16 +50,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             using (var scope = _scopeFactory.CreateNonCoupled<CreateLockDetailsDuringWithdrawalIdentity>())
             {
                 var actualCharges = _withdrawalReadModel.GetActualChargesByProject(period);
-
-                // TODO {all, 23.05.2014}: Проверка отключена - https://jira.2gis.ru/browse/ERM-4092
-                //var projectsWithoutCharges = actualCharges.Where(x => x.Value == null).Select(x => x.Key).ToArray();
-                //if (projectsWithoutCharges.Any())
-                //{
-                //    throw new MissingChargesForProjectException(
-                //        string.Format("Can't create lock details before withdrawing. The following projects have no charges: {0}.",
-                //                      string.Join(", ", projectsWithoutCharges)));
-                //}
-
                 var plannedOrderPositionsWithCharges = _withdrawalReadModel.GetPlannedOrderPositionsWithChargesInfo(organizationUnitId, period);
 
                 var orderPositionsWithoutCharges = plannedOrderPositionsWithCharges.Where(x => x.ChargeInfo == null).ToArray();
@@ -82,8 +72,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                 var lockDetailsToCreate = new List<CreateLockDetailDto>();
                 foreach (var orderPosition in plannedOrderPositionsWithCharges)
                 {
-                    bool showVat;
-                    var vatRate = _orderReadModel.GetVatRate(orderPosition.OrderInfo.SourceOrganizationUnitId, orderPosition.OrderInfo.DestOrganizationUnitId, out showVat);
+                    var vatRateDetails = _orderReadModel.GetVatRateDetails(orderPosition.OrderInfo.SourceOrganizationUnitId, orderPosition.OrderInfo.DestOrganizationUnitId);
 
                     // За стоимость оказанной услуги принимается стоимость позиции за первый период размещения (т.е. теоритически меньшая величина, 
                     // чем за последний период в которой добавляются копейки для защиты от ошибок округления)
@@ -96,8 +85,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
                                                           PriceCost = orderPosition.ChargeInfo.Amount,
                                                           Rate = orderPosition.OrderPositionInfo.CategoryRate,
                                                           ReleaseCount = orderPosition.OrderInfo.ReleaseCountFact,
-                                                          ShowVat = showVat,
-                                                          VatRate = vatRate,
+                                                          ShowVat = vatRateDetails.ShowVat,
+                                                          VatRate = vatRateDetails.VatRate,
                                                       });
 
                     var paymentForSingleDistributionSlot = _paymentsDistributor.DistributePayment(orderPosition.OrderInfo.ReleaseCountFact,

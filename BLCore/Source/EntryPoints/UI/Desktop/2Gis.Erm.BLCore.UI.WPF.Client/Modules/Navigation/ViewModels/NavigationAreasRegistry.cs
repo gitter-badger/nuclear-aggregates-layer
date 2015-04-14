@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.Blendability.Navigation;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;

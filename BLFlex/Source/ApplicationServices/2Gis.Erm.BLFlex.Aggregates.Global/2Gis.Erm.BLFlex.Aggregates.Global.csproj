@@ -50,8 +50,11 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Chile\Clients\ChileContactSalutationsProvider.cs" />
     <Compile Include="Chile\SimplifiedModel\BankService.cs" />
     <Compile Include="Chile\SimplifiedModel\IBankService.cs" />
+    <Compile Include="Cyprus\Clients\CyprusContactSalutationsProvider.cs" />
+    <Compile Include="Czech\Clients\CzechContactSalutationsProvider.cs" />
     <Compile Include="DI\BlFlexAggregatesGlobalAssembly.cs" />
     <Compile Include="Chile\SimplifiedModel\ReadModel\Communes\CommuneSpecs.cs" />
     <Compile Include="Chile\Bills\BillSpecifications.cs" />
@@ -61,8 +64,10 @@
     <Compile Include="Chile\LegalPersonAggregate\ReadModel\IChileLegalPersonReadModel.cs" />
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\BankReadModel.cs" />
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\IBankReadModel.cs" />
+    <Compile Include="Emirates\Clients\EmiratesContactSalutationsProvider.cs" />
     <Compile Include="Emirates\Orders\EmiratesOrderReadModel.cs" />
     <Compile Include="Emirates\SimplifiedModel\CreateAcceptanceReportsJournalRecordService.cs" />
+    <Compile Include="Kazakhstan\Clients\KazakhstanContactSalutationsProvider.cs" />
     <Compile Include="Kazakhstan\Crosscutting\KazakhstanBinInnService.cs" />
     <Compile Include="Kazakhstan\LegalPerson\ReadModel\KazakhstanLegalPersonReadModel.cs" />
     <Compile Include="MultiCulture\BranchOfficesAggregate\ReadModel\MultiCultureBranchOfficeReadModel.cs" />
@@ -78,6 +83,7 @@
     <Compile Include="MultiCulture\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
+    <Compile Include="Russia\Clients\RussiaContactSalutationsProvider.cs" />
     <Compile Include="Russia\LegalPersons\RussiaLegalPersonReadModel.cs" />
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
     <Compile Include="Russia\Crosscutting\RussiaCheckInnService.cs" />
@@ -85,6 +91,7 @@
     <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\BranchOfficeSpecs.cs" />
     <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\IUkraineBranchOfficeReadModel.cs" />
     <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\UkraineBranchOfficeReadModel.cs" />
+    <Compile Include="Ukraine\Clients\UkraineContactSalutationsProvider.cs" />
     <Compile Include="Ukraine\Crosscutting\UkraineIpnService.cs" />
     <Compile Include="Ukraine\LegalPersonAggregate\ReadModel\IUkraineLegalPersonReadModel.cs" />
     <Compile Include="Ukraine\LegalPersonAggregate\ReadModel\UkraineLegalPersonReadModel.cs" />
@@ -119,6 +126,10 @@
     <ProjectReference Include="..\..\..\..\BLQuerying\Source\ApplicationServices\2Gis.Erm.BLQuerying.Operations.Listing\2Gis.Erm.BLQuerying.Operations.Listing.csproj">
       <Project>{03A5EDFB-6E8B-4F9F-8CD9-986F18FD6B9B}</Project>
       <Name>2Gis.Erm.BLQuerying.Operations.Listing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Aggregates\2Gis.Erm.BL.API.Aggregates.csproj">
+      <Project>{EE2770E5-5EC2-4D4A-84EE-81301E6C81DF}</Project>
+      <Name>2Gis.Erm.BL.API.Aggregates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
@@ -186,6 +197,9 @@
     <Folder Include="MultiCulture\Clients\Operations\" />
     <Folder Include="MultiCulture\LegalPersonAggregate\" />
     <Folder Include="Russia\Orders\DTO\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

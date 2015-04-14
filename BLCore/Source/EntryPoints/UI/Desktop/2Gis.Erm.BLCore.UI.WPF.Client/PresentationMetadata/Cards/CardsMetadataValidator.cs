@@ -2,11 +2,13 @@ using System;
 using System.Linq;
 using System.Text;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards

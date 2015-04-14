@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
                     return new SelectSpecification<Order, OrderDomainEntityDto>(x => new OrderDomainEntityDto
                     {
                         Id = x.Id,
-                        OrderNumber = x.Number,
+                        Number = x.Number,
                         RegionalNumber = x.RegionalNumber,
                         FirmRef = new EntityReference { Id = x.FirmId, Name = x.Firm.Name },
                         ClientRef = new EntityReference

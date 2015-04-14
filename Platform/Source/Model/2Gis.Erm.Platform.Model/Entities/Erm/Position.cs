@@ -34,6 +34,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public PositionCalculationMethod CalculationMethodEnum { get; set; }
         public PositionBindingObjectType BindingObjectTypeEnum { get; set; }
         public SalesModel SalesModel { get; set; }
+        public PositionsGroup PositionsGroup { get; set; }
         public long PlatformId { get; set; }
         public long CategoryId { get; set; }
         public long? AdvertisementTemplateId { get; set; }
@@ -48,6 +49,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
         public int ExportCode { get; set; }
         public bool IsControlledByAmount { get; set; }
         public bool RestrictChildPositionPlatforms { get; set; }
+        public int? SortingIndex { get; set; }
 
         public PositionCategory PositionCategory { get; set; }
         public ICollection<PositionChildren> MasterPositions { get; set; }

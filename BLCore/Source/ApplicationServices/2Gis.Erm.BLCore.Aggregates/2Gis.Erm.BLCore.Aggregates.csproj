@@ -40,6 +40,18 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
     <Reference Include="microsoft.crm.sdk, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Microsoft.CrmSdk.4.0.13\lib\net35\microsoft.crm.sdk.dll</HintPath>
@@ -95,6 +107,18 @@
     <Compile Include="Activities\CreateLetterAggregateService.cs" />
     <Compile Include="Activities\CreateTaskAggregateService.cs" />
     <Compile Include="Activities\EntityReferenceRepositoryExtensions.cs" />
+    <Compile Include="Activities\Operations\Cancel\CancelAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\CancelLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\CancelPhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Cancel\CancelTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\CompleteAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\CompleteLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\CompletePhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Complete\CompleteTaskAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\ReopenAppointmentAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\ReopenLetterAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\ReopenPhonecallAggregateService.cs" />
+    <Compile Include="Activities\Operations\Reopen\ReopenTaskAggregateService.cs" />
     <Compile Include="Activities\ReadModel\AppointmentReadModel.cs" />
     <Compile Include="Activities\ReadModel\LetterReadModel.cs" />
     <Compile Include="Activities\ReadModel\PhonecallReadModel.cs" />
@@ -138,7 +162,7 @@
     <Compile Include="BranchOffices\ReadModel\BranchOfficeReadModel.cs" />
     <Compile Include="Clients\ClientRepository.cs" />
     <Compile Include="Common\Crosscutting\AggregateServiceIsolator.cs" />
-    <Compile Include="Common\Crosscutting\CheckOperationPeriodService.cs" />
+    <Compile Include="Common\Crosscutting\MonthPeriodValidationService.cs" />
     <Compile Include="Common\Crosscutting\AssignedEntityProvider.cs" />
     <Compile Include="Common\Crosscutting\ConcurrentPeriodCounter.cs" />
     <Compile Include="Deals\DealRepository.cs" />
@@ -187,6 +211,7 @@
     <Compile Include="Orders\Operations\Bills\BulkCreateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\BulkDeleteBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\UpdateBillAggregateService.cs" />
+    <Compile Include="Orders\Operations\SetOrderDocumentsDebtAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderCreateReleaseTotalsAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderCreateReleaseWithdrawalsAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderDeleteReleaseTotalsAggregateService.cs" />
@@ -200,11 +225,13 @@
     <Compile Include="Orders\Operations\OrderPositions\OrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderRestoreOrdersFromArchiveAggregateService.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
+    <Compile Include="Positions\Operations\ChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\SalesModelUtil.cs" />
     <Compile Include="SimplifiedModel\Categories\BulkCreateSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\SalesModelCategoryRestrictionReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\CategoryReadModel.cs" />
     <Compile Include="Roles\ReadModel\RoleReadModel.cs" />
+    <Compile Include="SimplifiedModel\Currencies\CurrencyReadModel.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\AttachValidResultToCacheAggregateService.cs" />
     <Compile Include="SimplifiedModel\OrderValidation\InvalidateCachedValidationResultAggregateService.cs" />
     <Compile Include="Orders\ReadModel\GetPositionsByOrderService.cs" />
@@ -231,7 +258,6 @@
     <Compile Include="Prices\Operations\UpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\UpdatePricePositionAggregateService.cs" />
     <Compile Include="Prices\PositionRepository.cs" />
-    <Compile Include="Prices\PositionSpecs.cs" />
     <Compile Include="Prices\PriceRepository.cs" />
     <Compile Include="Prices\ReadModel\PriceReadModel.cs" />
     <Compile Include="Common\Generics\ActivateAggregateRepository.cs" />
