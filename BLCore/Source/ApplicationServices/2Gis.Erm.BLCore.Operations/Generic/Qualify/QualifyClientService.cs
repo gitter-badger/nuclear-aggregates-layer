@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using NuClear.Security.API.UserContext;
@@ -31,6 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
         private readonly ILetterReadModel _letterReadModel;
         private readonly IPhonecallReadModel _phonecallReadModel;
         private readonly ITaskReadModel _taskReadModel;
+        private readonly IActionLogger _actionLogger;
         private readonly IAssignAppointmentAggregateService _assignAppointmentAggregateService;
         private readonly IAssignLetterAggregateService _assignLetterAggregateService;
         private readonly IAssignPhonecallAggregateService _assignPhonecallAggregateService;
@@ -45,6 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             ILetterReadModel letterReadModel,
             IPhonecallReadModel phonecallReadModel,
             ITaskReadModel taskReadModel,
+            IActionLogger actionLogger,
             IAssignAppointmentAggregateService assignAppointmentAggregateService,
             IAssignLetterAggregateService assignLetterAggregateService,
             IAssignPhonecallAggregateService assignPhonecallAggregateService,
@@ -62,6 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
             _letterReadModel = letterReadModel;
             _phonecallReadModel = phonecallReadModel;
             _taskReadModel = taskReadModel;
+            _actionLogger = actionLogger;
             _assignAppointmentAggregateService = assignAppointmentAggregateService;
             _assignLetterAggregateService = assignLetterAggregateService;
             _assignPhonecallAggregateService = assignPhonecallAggregateService;
@@ -113,19 +117,30 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
         {
             foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityName.Client, clientId))
             {
+                var originalOwner = appointment.OwnerCode;
                 _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
+                _actionLogger.LogChanges(appointment, x => x.OwnerCode, originalOwner, appointment.OwnerCode);
             }
+
             foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityName.Client, clientId))
             {
+                var originalOwner = letter.OwnerCode;
                 _assignLetterAggregateService.Assign(letter, newOwnerCode);
+                _actionLogger.LogChanges(letter, x => x.OwnerCode, originalOwner, letter.OwnerCode);
             }
+
             foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityName.Client, clientId))
             {
+                var originalOwner = phonecall.OwnerCode;
                 _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
+                _actionLogger.LogChanges(phonecall, x => x.OwnerCode, originalOwner, phonecall.OwnerCode);
             }
+
             foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityName.Client, clientId))
             {
+                var originalOwner = task.OwnerCode;
                 _assignTaskAggregateService.Assign(task, newOwnerCode);
+                _actionLogger.LogChanges(task, x => x.OwnerCode, originalOwner, task.OwnerCode);
             }
         }
     }

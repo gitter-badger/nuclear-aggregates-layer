@@ -28,6 +28,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Reopen
                 throw new ArgumentNullException("appointment");
             }
 
+            if (appointment.Status == ActivityStatus.InProgress)
+            {
+                return;
+            }
+
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<ReopenIdentity, Appointment>())
             {
                 appointment.Status = ActivityStatus.InProgress;
