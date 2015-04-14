@@ -18,7 +18,6 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using NuClear.Security.API.UserContext.Profile;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -28,6 +27,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 using Microsoft.Crm.SdkTypeProxy;
 using Microsoft.Xrm.Client.Data.Services;
+
+using NuClear.Security.API.UserContext.Profile;
 
 using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.OrganizationUnitDto;
 
