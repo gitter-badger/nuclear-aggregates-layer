@@ -1,6 +1,33 @@
-﻿
-@model Models.MultiCultureBillViewModel
+﻿@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech.CzechBillViewModel
 
 @{
-    Layout = "../MultiCultureBill.cshtml";
+    Layout = "../../Shared/_CardLayout.cshtml";
+}
+
+@section CardScripts
+{
+    <script src="/Scripts/Ext.DoubleGis.Print.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.DoubleGis.UI.Bill.js?@ThisAssembly.Build" type="text/javascript"></script>
+}
+
+@section CardBody
+{
+    <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
+        @Html.HiddenFor(m => m.Id)
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.BillNumber, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } })
+            @Html.TemplateField(m => m.BillDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.BeginDistributionDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
+            @Html.TemplateField(m => m.PaymentDatePlan, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.EndDistributionDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
+            @Html.TemplateField(m => m.PayablePlan, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } })
+        </div>
+        <div class="row-wrapper">
+            @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } })
+        </div>
+    </div>
 }

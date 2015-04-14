@@ -49,9 +49,19 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Aspects\Entities\IOrderDatesAspect.cs" />
+    <Compile Include="Aspects\Entities\IOrderDirectionAspect.cs" />
+    <Compile Include="Aspects\Entities\IInspectorAspect.cs" />
+    <Compile Include="Config\Cards\ICardSettingsProvider.cs" />
+    <Compile Include="Config\Cards\ReadOnlyFeature.cs" />
+    <Compile Include="Config\Cards\ShowActionHistoryFeature.cs" />
+    <Compile Include="Config\Cards\ShowAdminPartFeature.cs" />
+    <Compile Include="Config\Cards\ShowNotesFeature.cs" />
+    <Compile Include="Config\Cards\CardMetadata.cs" />
+    <Compile Include="Config\Cards\CardMetadataBuilder.cs" />
+    <Compile Include="Config\Cards\MainAttributeFeature.cs" />
     <Compile Include="Config\DataLists\ExtraDataFieldsFeature.cs" />
     <Compile Include="Config\DataLists\MetadataListingsIdentity.cs" />
-    <Compile Include="Config\DataLists\UISpecific\IUIMetadataFeature.cs" />
     <Compile Include="Config\DataLists\BasedOnDataListFeature.cs" />
     <Compile Include="Config\DataLists\DataFieldExpressionFeature.cs" />
     <Compile Include="Config\DataLists\DataFieldsFeature.cs" />
@@ -76,13 +86,17 @@
     <Compile Include="Config\Grids\GridMetadata.cs" />
     <Compile Include="Config\Grids\GridMetadataBuilder.cs" />
     <Compile Include="Config\Grids\MetadataGridsIdentity.cs" />
+    <Compile Include="Config\ViewModel\IMessageExpressionsFeature.cs" />
+    <Compile Include="Config\ViewModel\IMessageFeature.cs" />
+    <Compile Include="Config\ViewModel\IMessageExpressionFeature.cs" />
+    <Compile Include="Config\ViewModel\MessageExpressionsFeature.cs" />
+    <Compile Include="Config\ViewModel\MessageExpressionFeature.cs" />
     <Compile Include="Config\ViewModel\ViewModelParts.cs" />
     <Compile Include="Confirmations\ConfirmationManager.cs" />
-    <Compile Include="DI\BlCoreUiMetadataAssembly.cs" />
+    <Compile Include="DI\BlCoreUIMetadataAssembly.cs" />
     <Compile Include="Entities\EntitiesMetadataSource.cs" />
     <Compile Include="Entities\Properties\EntityProperties.Account.cs" />
     <Compile Include="Entities\Properties\EntityProperties.AccountDetails.cs" />
-    <Compile Include="Entities\Properties\EntityProperties.AdditionalFirmService.cs" />
     <Compile Include="Entities\Properties\EntityProperties.AdsTemplatesAdsElementTemplate.cs" />
     <Compile Include="Entities\Properties\EntityProperties.Advertisement.cs" />
     <Compile Include="Entities\Properties\EntityProperties.AdvertisementElement.cs" />
@@ -142,10 +156,6 @@
     <Compile Include="Operations\Generic\CloseIdentity.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
-      <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
-      <Name>2Gis.Erm.BL.Resources.Server</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -174,17 +184,12 @@
       <Project>{3B5F5E41-B438-435E-91B5-005B2A88237C}</Project>
       <Name>2Gis.Erm.BLCore.API.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\API\2Gis.Erm.BLCore.API.Operations\2Gis.Erm.BLCore.API.Operations.csproj">
-      <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
-      <Name>2Gis.Erm.BLCore.API.Operations</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Config\DataLists\Configuration\" />
     <Folder Include="Operations\Specific\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -195,4 +200,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
 </Project>

@@ -31,6 +31,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.OrganizationUnitId).HasColumnName("OrganizationUnitId");
             Property(t => t.Comment).HasColumnName("Comment");
             Property(t => t.Status).HasColumnName("Status");
+            Property(t => t.AccountingMethod).HasColumnName("AccountingMethod");
             Property(t => t.IsDeleted).HasColumnName("IsDeleted");
             Property(t => t.IsActive).HasColumnName("IsActive");
             Property(t => t.OwnerCode).HasColumnName("OwnerCode");

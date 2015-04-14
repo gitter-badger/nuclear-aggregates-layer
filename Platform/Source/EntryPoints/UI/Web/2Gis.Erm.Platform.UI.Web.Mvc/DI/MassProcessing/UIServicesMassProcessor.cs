@@ -15,7 +15,6 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing
     /// DONE {i.maslennikov 24.07.2013}
     public sealed class UIServicesMassProcessor : IMassProcessor
     {
-        private static readonly Type UiServiceType = typeof(IUIService);
         private static readonly Type EntityUIServiceType = typeof(IEntityUIService);
         private static readonly Type[] SupportedEntitySpecificUIServiceTypes = { typeof(IEntityUIService<>) };
 
@@ -33,7 +32,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing
 
         public Type[] GetAssignableTypes()
         {
-            return new[] { UiServiceType, EntityUIServiceType };
+            return new[] { EntityUIServiceType };
         }
 
         public void ProcessTypes(IEnumerable<Type> types, bool firstRun)
@@ -61,8 +60,7 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing
             {
                 var implementedInterfacesWithoutUIServiceMarker =
                     implementation.GetInterfaces()
-                                  .Where(t => UiServiceType.IsAssignableFrom(t) &&
-                                              UiServiceType != t &&
+                                  .Where(t => EntityUIServiceType.IsAssignableFrom(t) &&
                                               EntityUIServiceType != t &&
                                               (!t.IsGenericType ||
                                                (t.IsGenericType && !SupportedEntitySpecificUIServiceTypes.Contains(t.GetGenericTypeDefinition()))))

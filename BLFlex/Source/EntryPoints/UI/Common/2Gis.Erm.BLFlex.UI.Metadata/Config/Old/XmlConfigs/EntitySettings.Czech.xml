@@ -1,12 +1,13 @@
 ﻿<Entities>
   <Entity Name="Account">
-    <Card EntityNameLocaleResourceId="EnAccounts" EntityMainAttribute="Id" HasComments="false" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Account.gif" LargeIcon="en_ico_16_Account.gif">
+    <Card EntityNameLocaleResourceId="EnAccounts" EntityMainAttribute="Id" HasActionsHistory="true" HasComments="false" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Account.gif" LargeIcon="en_ico_16_Account.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
       </ToolbarItems>
       <RelatedItems>
@@ -53,7 +54,7 @@
     </DataLists>
   </Entity>
   <Entity Name="AccountDetail">
-    <Card EntityNameLocaleResourceId="EnAccountDetails" EntityMainAttribute="Id" HasComments="false" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
+    <Card EntityNameLocaleResourceId="EnAccountDetails" EntityMainAttribute="Id" HasActionsHistory="true" HasComments="false" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
@@ -93,7 +94,7 @@
   </Entity>
   <Entity Name="Activity">
     <DataLists>
-      <DataList NameLocaleResourceId="DListAllActivities" HideInCardRelatedGrid="*" DefaultSortField="ScheduledStart" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
+      <DataList NameLocaleResourceId="DListAllActivities" HideInCardRelatedGrid="" DefaultSortField="ScheduledStart" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Id" Icon="en_ico_16_Default.gif">
         <Scripts>
           <Script FileName="DataList/Activity.DataList.js" />
         </Scripts>
@@ -105,6 +106,7 @@
           <ToolbarItem ParentName="Create" Name="CreateLetter" NameLocaleResourceId="ControlCreateLetter" ControlType="TextButton" LockOnInactive="false" Action="scope.CreateLetter" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
+        <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -144,33 +146,6 @@
       <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListActivitiesForWarmClients" HideInCardRelatedGrid="*" />
       <!--Просроченные действия по теплым клиентам-->
       <DataList BasedOn="DListAllActivities" NameLocaleResourceId="DListOverdueActivitiesForWarmClients" HideInCardRelatedGrid="*"/>
-    </DataLists>
-  </Entity>
-  <Entity Name="AdditionalFirmService">
-    <Card EntityNameLocaleResourceId="AdditionalFirmServices" EntityMainAttribute="ServiceName" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
-      <ToolbarItems>
-        <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
-        <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
-      </ToolbarItems>
-    </Card>
-    <DataLists>
-      <DataList NameLocaleResourceId="AdditionalFirmServices" DefaultSortField="Id" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Description" Icon="en_ico_16_Default.gif">
-        <ToolbarItems>
-          <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
-          <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
-          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
-        </ToolbarItems>
-        <Fields>
-          <Field Name="Id" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="ServiceCode" Width="100" FieldType="String" ExtTypeName="String" />
-          <Field Name="Description" Width="250" FieldType="String" ExtTypeName="String" />
-          <Field Name="IsManaged" Width="50" FieldType="Boolean" ExtTypeName="Boolean" />
-        </Fields>
-      </DataList>
     </DataLists>
   </Entity>
   <Entity Name="AdsTemplatesAdsElementTemplate">
@@ -302,7 +277,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Advertisement">
-    <Card EntityNameLocaleResourceId="EnAdvertisement" EntityMainAttribute="Name" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Advertisement.gif" LargeIcon="en_ico_16_Advertisement.gif">
+    <Card EntityNameLocaleResourceId="EnAdvertisement" EntityMainAttribute="Name" HasActionsHistory="true" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Advertisement.gif" LargeIcon="en_ico_16_Advertisement.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -310,8 +285,6 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
-        <!--<ToolbarItem Name="Preview" NameLocaleResourceId="ControlPreviewAdvertisement" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.Preview" Icon="PreviewAd.png" />-->
-        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="false" LockOnNew="false" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
       </ToolbarItems>
     </Card>
@@ -404,7 +377,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Appointment">
-    <Card EntityNameLocaleResourceId="EnAppointment" EntityMainAttribute="Title" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Appointment.gif" LargeIcon="en_ico_lrg_Appointment.gif">
+    <Card EntityNameLocaleResourceId="EnAppointment" EntityMainAttribute="Title" HasActionsHistory="true" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Appointment.gif" LargeIcon="en_ico_lrg_Appointment.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -412,7 +385,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -430,7 +403,6 @@
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
-        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
       </ToolbarItems>
     </Card>
     <DataLists>
@@ -466,7 +438,7 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
-          <RelatedItem Name="AssociatedPosition" NameLocaleResourceId="CrdRelAssociatedPosition" RequestUrl="/Grid/View/AssociatedPosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="AssociatedPositions" NameLocaleResourceId="CrdRelAssociatedPosition" RequestUrl="/Grid/View/AssociatedPosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -491,7 +463,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Bargain">
-    <Card EntityNameLocaleResourceId="Bargain" EntityMainAttribute="Number" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Bargain.gif" LargeIcon="en_ico_lrg_Bargain.gif">
+    <Card EntityNameLocaleResourceId="Bargain" EntityMainAttribute="Number" HasActionsHistory="true" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Bargain.gif" LargeIcon="en_ico_lrg_Bargain.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -628,13 +600,14 @@
     </DataLists>
   </Entity>
   <Entity Name="Bill">
-    <Card EntityNameLocaleResourceId="EnBill" EntityMainAttribute="BillNumber" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
+    <Card EntityNameLocaleResourceId="EnBill" EntityMainAttribute="Number" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="PrintActions" NameLocaleResourceId="ControlPrintActions" ControlType="Menu" LockOnInactive="false" LockOnNew="false" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" SecurityPrivelegeFlag="0" />
@@ -642,7 +615,7 @@
       </ToolbarItems>
     </Card>
     <DataLists>
-      <DataList NameLocaleResourceId="DListBill" DefaultSortField="PaymentDatePlan" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="BillNumber" Icon="en_ico_16_Default.gif">
+      <DataList NameLocaleResourceId="DListBill" DefaultSortField="PaymentDatePlan" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="Number" Icon="en_ico_16_Default.gif">
         <Scripts>
           <Script FileName="DataList/Bill.DataList.js" />
         </Scripts>
@@ -654,7 +627,7 @@
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="FirmId" NameLocaleResourceId="DFieldFirmId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ClientId" NameLocaleResourceId="DFieldClientId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="BillNumber" Width="150" FieldType="String" ExtTypeName="String" />
+          <Field Name="Number" Width="150" FieldType="String" ExtTypeName="String" />
           <Field Name="CreatedOn" Width="100" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="PaymentDatePlan" Width="100" FieldType="Period" ExtTypeName="Date" />
           <Field Name="PayablePlan" Width="100" FieldType="Money" ExtTypeName="Float" />
@@ -680,7 +653,7 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_BranchOffice.gif" />
-          <RelatedItem Name="BOOU" NameLocaleResourceId="CrdRelBOOU" RequestUrl="/Grid/View/BranchOfficeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="BranchOfficeOrganizationUnits" NameLocaleResourceId="CrdRelBOOU" RequestUrl="/Grid/View/BranchOfficeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -763,9 +736,9 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Category.gif" />
-          <RelatedItem Name="Category" NameLocaleResourceId="CrdRelCategory" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/Category" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Categories" NameLocaleResourceId="CrdRelCategory" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/Category" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <!--<RelatedItem Name="CategoryOU" NameLocaleResourceId="CrdRelCategoryOU" RequestUrl="/Grid/View/CategoryOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />-->
-          <RelatedItem Name="CategoryOrganizationUnit" NameLocaleResourceId="CrdRelCategoryOU" RequestUrl="/Grid/View/CategoryOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="CategoryOrganizationUnits" NameLocaleResourceId="CrdRelCategoryOU" RequestUrl="/Grid/View/CategoryOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -805,7 +778,7 @@
     </DataLists>
   </Entity>
   <Entity Name="CategoryGroup">
-    <Card EntityNameLocaleResourceId="EnCategoryGroups" EntityMainAttribute="CategoryGroupName" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Category.gif" LargeIcon="en_ico_lrg_Category.gif">
+    <Card EntityNameLocaleResourceId="EnCategoryGroups" EntityMainAttribute="Name" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Category.gif" LargeIcon="en_ico_lrg_Category.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -817,14 +790,14 @@
       </ToolbarItems>
     </Card>
     <DataLists>
-      <DataList NameLocaleResourceId="DListActiveCategoryGroups" DefaultSortField="CategoryGroupName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Default.gif">
+      <DataList NameLocaleResourceId="DListActiveCategoryGroups" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Default.gif">
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="532" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="200" Hidden="true" FieldType="Int" ExtTypeName="String" />
-          <Field Name="CategoryGroupName" NameLocaleResourceId="DFieldCategoryGroupName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="Name" NameLocaleResourceId="DFieldCategoryGroupName" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="GroupRate" NameLocaleResourceId="CategoryGroupRate" Width="150" FieldType="Float" ExtTypeName="Float" />
         </Fields>
       </DataList>
@@ -860,7 +833,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Client">
-    <Card EntityNameLocaleResourceId="EnClient" EntityMainAttribute="Name" HasComments="true" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Client.gif" LargeIcon="en_ico_16_Client.gif">
+    <Card EntityNameLocaleResourceId="EnClient" EntityMainAttribute="Name" HasActionsHistory="true" HasComments="true" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Client.gif" LargeIcon="en_ico_16_Client.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -880,15 +853,15 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Client.gif" />
-          <RelatedItem Name="Firm" NameLocaleResourceId="CrdRelFirms" Icon="en_ico_16_Firm.gif" RequestUrl="/Grid/View/Firm" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="Contact" NameLocaleResourceId="CrdRelContacts" Icon="en_ico_16_Contact.gif" RequestUrl="/Grid/View/Contact" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="Deal" NameLocaleResourceId="CrdRelDeals" Icon="en_ico_16_Deal.gif" RequestUrl="/Grid/View/Deal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="LegalPerson" NameLocaleResourceId="CrdRelLegalPersons" Icon="en_ico_16_LegalPerson.gif" RequestUrl="/Grid/View/LegalPerson" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Firms" NameLocaleResourceId="CrdRelFirms" Icon="en_ico_16_Firm.gif" RequestUrl="/Grid/View/Firm" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Contacts" NameLocaleResourceId="CrdRelContacts" Icon="en_ico_16_Contact.gif" RequestUrl="/Grid/View/Contact" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Deals" NameLocaleResourceId="CrdRelDeals" Icon="en_ico_16_Deal.gif" RequestUrl="/Grid/View/Deal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="LegalPeople" NameLocaleResourceId="CrdRelLegalPersons" Icon="en_ico_16_LegalPerson.gif" RequestUrl="/Grid/View/LegalPerson" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
-          <RelatedItem Name="Links" NameLocaleResourceId="CrdRelClientLinks" Icon="en_ico_16_Links.gif" RequestUrl="/Grid/View/ClientLink" AppendableEntity="Client" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"/>
+          <RelatedItem Name="Activities" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
+          <RelatedItem Name="ClientLinks" NameLocaleResourceId="CrdRelClientLinks" Icon="en_ico_16_ClientLink.gif" RequestUrl="/Grid/View/ClientLink" AppendableEntity="Client" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"/>
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -983,7 +956,7 @@
   </Entity>
   <Entity Name="ClientLink">
     <DataLists>
-      <DataList NameLocaleResourceId="DListClientLinks" DefaultSortField="Id" SortDescending="0" RowsPerPage="40"  MainAttribute="ChildClientName" AllowMultiple="true" ReadOnly="false" Icon="en_ico_16_Links.gif">
+      <DataList NameLocaleResourceId="DListClientLinks" DefaultSortField="Id" SortDescending="0" RowsPerPage="40"  MainAttribute="ChildClientName" AllowMultiple="true" ReadOnly="false" Icon="en_ico_16_ClientLink.gif">
         <Scripts>
           <Script FileName="DataList/ClientLink.DataList.js" />
         </Scripts>
@@ -999,7 +972,7 @@
           <Field Name="ChildClientName" Hidden="false" NameLocaleResourceId="NameOfChildClient" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ChildClientId" />
         </Fields>
       </DataList>
-      <DataList NameLocaleResourceId="DListClientLinksMaster" DefaultSortField="Id" SortDescending="0" RowsPerPage="40"  MainAttribute="MasterClientName" AllowMultiple="true" ReadOnly="false" Icon="en_ico_16_Links.gif">
+      <DataList NameLocaleResourceId="DListClientLinksMaster" DefaultSortField="Id" SortDescending="0" RowsPerPage="40"  MainAttribute="MasterClientName" AllowMultiple="true" ReadOnly="false" Icon="en_ico_16_ClientLink.gif">
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="MasterClientId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -1008,7 +981,7 @@
           <Field Name="ChildClientName" Hidden="true" NameLocaleResourceId="NameOfChildClient" Width="200" FieldType="String" ExtTypeName="String" ReferenceEntityName="Client" ReferenceFieldName="ChildClientId" />
         </Fields>
       </DataList>
-      <DataList NameLocaleResourceId="DListClientLinksDeleted" DefaultSortField="Id" SortDescending="0" RowsPerPage="40"  MainAttribute="ChildClientName" AllowMultiple="true" ReadOnly="false" Icon="en_ico_16_Links.gif">
+      <DataList NameLocaleResourceId="DListClientLinksDeleted" DefaultSortField="Id" SortDescending="0" RowsPerPage="40"  MainAttribute="ChildClientName" AllowMultiple="true" ReadOnly="false" Icon="en_ico_16_ClientLink.gif">
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="MasterClientId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -1036,7 +1009,7 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Contact.gif" />
-          <RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
+          <RelatedItem Name="Activities" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -1151,8 +1124,8 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Currency.gif" />
-          <RelatedItem Name="CurrencyRate" NameLocaleResourceId="CrdRelCurrencyRate" RequestUrl="/Grid/View/CurrencyRate" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0 || Ext.getDom(&quot;IsBase&quot;).checked" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="Country" NameLocaleResourceId="CrdRelCountry" Icon="en_ico_16_Country.gif" RequestUrl="/Grid/View/Country" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="CurrencyRates" NameLocaleResourceId="CrdRelCurrencyRate" RequestUrl="/Grid/View/CurrencyRate" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0 || Ext.getDom(&quot;IsBase&quot;).checked" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Countries" NameLocaleResourceId="CrdRelCountry" Icon="en_ico_16_Country.gif" RequestUrl="/Grid/View/Country" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -1221,7 +1194,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Deal">
-    <Card EntityNameLocaleResourceId="EnDeal" EntityMainAttribute="Name" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Deal.gif" LargeIcon="en_ico_lrg_Deal.gif">
+    <Card EntityNameLocaleResourceId="EnDeal" EntityMainAttribute="Name" HasActionsHistory="true" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Deal.gif" LargeIcon="en_ico_lrg_Deal.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -1241,8 +1214,8 @@
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Deal.gif" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
-          <RelatedItem Name="Firms" NameLocaleResourceId="CrdRelFirms" RequestUrl="/Grid/View/FirmDeal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Firm" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Activities" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
+          <RelatedItem Name="FirmDeals" NameLocaleResourceId="CrdRelFirms" RequestUrl="/Grid/View/FirmDeal" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Firm" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -1318,6 +1291,7 @@
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
       </ToolbarItems>
     </Card>
@@ -1349,7 +1323,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Firm">
-    <Card EntityNameLocaleResourceId="EnFirms" EntityMainAttribute="Name" HasComments="true" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Firm.gif" LargeIcon="en_ico_16_Firm.gif">
+    <Card EntityNameLocaleResourceId="EnFirms" EntityMainAttribute="Name" HasActionsHistory="true" HasComments="true" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Firm.gif" LargeIcon="en_ico_16_Firm.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" SecurityPrivelegeFlag="0" />
@@ -1370,10 +1344,10 @@
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
           <RelatedItem Name="FirmAddresses" NameLocaleResourceId="CrdRelFirmAddresses" RequestUrl="/Grid/View/FirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="FirmCategories" NameLocaleResourceId="CrdRelCategories" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="firmId={Id}" />
-          <RelatedItem Name="FirmAdvertisements" NameLocaleResourceId="CrdRelFirmAdvertisements" Icon="en_ico_16_Advertisement.gif" RequestUrl="/Grid/View/Advertisement" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="CategoryFirmAddresses" NameLocaleResourceId="CrdRelCategories" Icon="en_ico_16_Category.gif" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="firmId={Id}" />
+          <RelatedItem Name="Advertisements" NameLocaleResourceId="CrdRelFirmAdvertisements" Icon="en_ico_16_Advertisement.gif" RequestUrl="/Grid/View/Advertisement" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="Actions" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
+          <RelatedItem Name="Activities" NameLocaleResourceId="CrdRelErmActions" Icon="en_ico_16_Action.gif" RequestUrl="/Grid/View/Activity" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0"  ExtendedInfo="filterByParents=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -1439,13 +1413,14 @@
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
       </ToolbarItems>
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
           <RelatedItem Name="FirmContacts" NameLocaleResourceId="CrdRelFirmContacts" RequestUrl="/Grid/View/FirmContact" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="CategoryFirmAddress" NameLocaleResourceId="CrdRelFirmAddressCategories" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="CategoryFirmAddresses" NameLocaleResourceId="CrdRelFirmAddressCategories" RequestUrl="/Grid/View/CategoryFirmAddress" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -1522,7 +1497,7 @@
     </DataLists>
   </Entity>
   <Entity Name="LegalPerson">
-    <Card EntityNameLocaleResourceId="EnLegalPersons" EntityMainAttribute="LegalName" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
+    <Card EntityNameLocaleResourceId="EnLegalPersons" EntityMainAttribute="LegalName" HasActionsHistory="true" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -1532,14 +1507,13 @@
         <ToolbarItem Name="Actions" NameLocaleResourceId="ControlActions" ControlType="Menu" LockOnInactive="false" LockOnNew="false" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
-        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem ParentName="Actions" Name="ChangeLegalPersonClient" NameLocaleResourceId="ControlChangeLegalPersonClient" ControlType="ImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.ChangeLegalPersonClient" SecurityPrivelegeFlag="0" />
         <ToolbarItem ParentName="Actions" Name="ChangeLPRequisites" NameLocaleResourceId="ControlChangeLPRequisites" ControlType="ImageButton" LockOnInactive="true" LockOnNew="true" Action="scope.ChangeLegalPersonRequisites" SecurityPrivelegeFlag="0" />
       </ToolbarItems>
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Default.gif" />
-          <RelatedItem Name="Account" NameLocaleResourceId="CrdRelAccounts" Icon="en_ico_16_Account.gif" RequestUrl="/Grid/View/Account" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Accounts" NameLocaleResourceId="CrdRelAccounts" Icon="en_ico_16_Account.gif" RequestUrl="/Grid/View/Account" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Limits" NameLocaleResourceId="CrdRelLimits" RequestUrl="/Grid/View/Limit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Bargains" NameLocaleResourceId="CrdRelBargains" Icon="en_ico_16_Bargain.gif" RequestUrl="/Grid/View/Bargain" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Orders" NameLocaleResourceId="CrdRelOrders" Icon="en_ico_16_Order.gif" RequestUrl="/Grid/View/Order" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
@@ -1616,7 +1590,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Letter">
-    <Card EntityNameLocaleResourceId="EnLetter" EntityMainAttribute="Title" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Letter.gif" LargeIcon="en_ico_lrg_Letter.gif">
+    <Card EntityNameLocaleResourceId="EnLetter" EntityMainAttribute="Title" HasActionsHistory="true" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Letter.gif" LargeIcon="en_ico_lrg_Letter.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -1624,7 +1598,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -1633,7 +1607,7 @@
     </Card>
   </Entity>
   <Entity Name="Limit">
-    <Card EntityNameLocaleResourceId="EnLimit" EntityMainAttribute="Id" HasComments="true" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
+    <Card EntityNameLocaleResourceId="EnLimit" EntityMainAttribute="Id" HasActionsHistory="true" HasComments="true" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Default.gif" LargeIcon="en_ico_lrg_Default.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -1949,7 +1923,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Order">
-    <Card EntityNameLocaleResourceId="EnOrders" EntityMainAttribute="OrderNumber" HasComments="true" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Order.gif" LargeIcon="en_ico_16_Order.gif">
+    <Card EntityNameLocaleResourceId="EnOrders" EntityMainAttribute="OrderNumber" HasActionsHistory="true" HasComments="true" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Order.gif" LargeIcon="en_ico_16_Order.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -2099,6 +2073,7 @@
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
       </ToolbarItems>
     </Card>
@@ -2134,7 +2109,7 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_OrganizationUnit.gif" />
-          <RelatedItem Name="OUBO" NameLocaleResourceId="CrdRelOUBO" RequestUrl="/Grid/View/BranchOfficeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="BranchOfficeOrganizationUnits" NameLocaleResourceId="CrdRelOUBO" RequestUrl="/Grid/View/BranchOfficeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Prices" NameLocaleResourceId="EnMPrices" RequestUrl="/Grid/View/Price" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="Projects" NameLocaleResourceId="EnMProjects" RequestUrl="/Grid/View/Project" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
@@ -2211,7 +2186,7 @@
     </DataLists>
   </Entity>
   <Entity Name="Phonecall">
-    <Card EntityNameLocaleResourceId="EnPhonecall" EntityMainAttribute="Title" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Phonecall.gif" LargeIcon="en_ico_lrg_Phonecall.gif">
+    <Card EntityNameLocaleResourceId="EnPhonecall" EntityMainAttribute="Title" HasActionsHistory="true" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Phonecall.gif" LargeIcon="en_ico_lrg_Phonecall.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -2219,7 +2194,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -2273,11 +2248,16 @@
     </Card>
     <DataLists>
       <DataList NameLocaleResourceId="DListPositions" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Position.gif">
+        <Scripts>
+          <Script FileName="DataList/Position.DataList.js" />
+        </Scripts>
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
           <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
           <ToolbarItem Name="Deactivate" NameLocaleResourceId="ControlDeactivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Deactivate" Icon="Deactivate.png" SecurityPrivelegeFlag="65536" />
+          <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
+          <ToolbarItem Name="OpenSortingPage" NameLocaleResourceId="ControlOpenSortingPage" ControlType="TextButton" LockOnInactive="false" Action="scope.OpenSortingPage" SecurityPrivelegeFlag="2" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -2285,6 +2265,7 @@
           <Field Name="IsComposite" NameLocaleResourceId="DFieldIsComposite" Width="100" FieldType="Boolean" ExtTypeName="Boolean" />
           <Field Name="PlatformName" NameLocaleResourceId="Platform" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="CategoryName" NameLocaleResourceId="DFieldPositionCategoryName" Width="200" FieldType="String" ExtTypeName="String" />
+          <Field Name="PositionsGroup" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="ExportCode" Width="100" FieldType="BigInt" ExtTypeName="Int" />
           <Field Name="RestrictChildPositionPlatforms" Width="100" Hidden="true" FieldType="Boolean" ExtTypeName="Boolean" />
         </Fields>
@@ -2355,6 +2336,21 @@
       </DataList>
     </DataLists>
   </Entity>
+  <Entity Name="PositionSortingOrder">
+    <Card CardNameLocaleResourceId="EnPositionSortingOrder" EntityMainAttribute="" HasComments="false" HasAdminTab="false" DecimalDigits="2" Icon="en_ico_16_Category.gif" LargeIcon="en_ico_lrg_Category.gif">
+      <ToolbarItems>
+        <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="2" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="2" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
+        <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
+        <ToolbarItem Name="AddPositions" NameLocaleResourceId="ControlAddPositions" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.AddPositions" SecurityPrivelegeFlag="2" />
+        <ToolbarItem Name="RemovePositions" NameLocaleResourceId="ControlRemovePositions" ControlType="TextButton" LockOnInactive="false" LockOnNew="false" Action="scope.RemovePositions" SecurityPrivelegeFlag="2" />
+      </ToolbarItems>
+    </Card>
+  </Entity>
   <Entity Name="PricePosition">
     <Card EntityNameLocaleResourceId="EnPricePositions" EntityMainAttribute="PositionName" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_PricePosition.gif" LargeIcon="en_ico_lrg_PricePosition.gif">
       <ToolbarItems>
@@ -2372,13 +2368,13 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_PricePosition.gif" />
-          <RelatedItem Name="AssociatedPositionsGroup" NameLocaleResourceId="CrdRelAssociatedPositionsGroup" RequestUrl="/Grid/View/AssociatedPositionsGroup" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="DeniedPosition" NameLocaleResourceId="CrdRelDeniedPosition" RequestUrl="/Grid/View/DeniedPosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="PositionId={PositionId}&amp;&amp;PriceId={PriceId}" />
+          <RelatedItem Name="AssociatedPositionsGroups" NameLocaleResourceId="CrdRelAssociatedPositionsGroup" RequestUrl="/Grid/View/AssociatedPositionsGroup" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="DeniedPositions" NameLocaleResourceId="CrdRelDeniedPosition" RequestUrl="/Grid/View/DeniedPosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="PositionId={PositionId}&amp;&amp;PriceId={PriceId}" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
     <DataLists>
-      <DataList NameLocaleResourceId="DListPricePositions" DefaultSortField="PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
+      <DataList NameLocaleResourceId="DListPricePositions" DefaultSortField="SortingIndex,PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Deactivate" NameLocaleResourceId="ControlDeactivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Deactivate" Icon="Deactivate.png" SecurityPrivelegeFlag="65536" />
@@ -2394,7 +2390,7 @@
           <Field Name="PositionId" NameLocaleResourceId="DFieldPositionId" Width="250" Hidden="true" FieldType="String" ExtTypeName="String" />
         </Fields>
       </DataList>
-      <DataList NameLocaleResourceId="DListPricePositionsInactive" DefaultSortField="PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
+      <DataList NameLocaleResourceId="DListPricePositionsInactive" DefaultSortField="SortingIndex,PositionName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="PositionName" Icon="en_ico_16_PricePosition.gif">
         <ToolbarItems>
           <ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="2" />
         </ToolbarItems>
@@ -2425,7 +2421,7 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Price.gif" />
-          <RelatedItem Name="PricePosition" NameLocaleResourceId="CrdRelPricePosition" Icon="en_ico_16_PricePosition.gif" RequestUrl="/Grid/View/PricePosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="PricePositions" NameLocaleResourceId="CrdRelPricePosition" Icon="en_ico_16_PricePosition.gif" RequestUrl="/Grid/View/PricePosition" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -2549,25 +2545,26 @@
     </DataLists>
   </Entity>
   <Entity Name="Role">
-    <Card EntityNameLocaleResourceId="EnRole" EntityMainAttribute="Name" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_UserGroup.gif" LargeIcon="en_ico_lrg_UserGroup.gif">
+    <Card EntityNameLocaleResourceId="EnRole" EntityMainAttribute="Name" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Role.gif" LargeIcon="en_ico_lrg_UserGroup.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
       </ToolbarItems>
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
-          <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_UserGroup.gif" />
+          <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_Role.gif" />
           <RelatedItem Name="RoleEntityPrivilege" NameLocaleResourceId="CrdRelRoleEntityPrivilege" RequestUrl="/Edit/EntityPrivileges" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
           <RelatedItem Name="RoleFunctionalPrivilege" NameLocaleResourceId="CrdRelRoleFunctionalPrivilege" RequestUrl="/Edit/FunctionalPrivileges" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
     <DataLists>
-      <DataList NameLocaleResourceId="DListRole" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_UserGroup.gif">
+      <DataList NameLocaleResourceId="DListRole" DefaultSortField="Name" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Role.gif">
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
@@ -2593,7 +2590,7 @@
     </Card>
   </Entity>
   <Entity Name="Task">
-    <Card EntityNameLocaleResourceId="EnTask" EntityMainAttribute="Title" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Task.gif" LargeIcon="en_ico_lrg_Task.gif">
+    <Card EntityNameLocaleResourceId="EnTask" EntityMainAttribute="Title" HasActionsHistory="true" HasComments="true" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_Task.gif" LargeIcon="en_ico_lrg_Task.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -2601,7 +2598,7 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Complete" NameLocaleResourceId="ControlComplete" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CompleteActivity" Icon="Check.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Cancel" NameLocaleResourceId="ControlCancel" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.CancelActivity" Icon="Delete.png" SecurityPrivelegeFlag="34" />
-        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.RevertActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
+        <ToolbarItem Name="Revert" NameLocaleResourceId="ControlRevert" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="true" Action="scope.ReopenActivity" Icon="Reschedule.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Assign" NameLocaleResourceId="ControlAssign" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Assign" Icon="en_ico_16_Assign.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Refresh" NameLocaleResourceId="ControlRefresh" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.refresh" Icon="Refresh.gif" />
@@ -2627,8 +2624,8 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" />
-          <RelatedItem Name="ThemeOrganizationUnit" NameLocaleResourceId="CrdRelThemeOrganizationUnit" RequestUrl="/Grid/View/ThemeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="ThemeCategory" NameLocaleResourceId="CrdRelThemeCategory" RequestUrl="/Grid/View/ThemeCategory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0||Ext.getDom(&quot;OrganizationUnitCount&quot;).value==0" AppendableEntity="Category" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="ThemeOrganizationUnits" NameLocaleResourceId="CrdRelThemeOrganizationUnit" RequestUrl="/Grid/View/ThemeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="ThemeCategories" NameLocaleResourceId="CrdRelThemeCategory" RequestUrl="/Grid/View/ThemeCategory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0||Ext.getDom(&quot;OrganizationUnitCount&quot;).value==0" AppendableEntity="Category" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -2661,11 +2658,6 @@
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" />
       </ToolbarItems>
-      <RelatedItems>
-        <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
-          <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" />
-        </RelatedItemsArea>
-      </RelatedItems>
     </Card>
     <DataLists>
       <DataList NameLocaleResourceId="DListThemeTemplateActive" DefaultSortField="TemplateCode" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="TemplateCode" Icon="en_ico_16_Default.gif">
@@ -2715,7 +2707,7 @@
   </Entity>
   <Entity Name="TimeZone">
     <DataLists>
-      <DataList NameLocaleResourceId="DListTimeZones" DefaultSortField="TimeZoneId" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="TimeZoneId" Icon="en_ico_16_UserAccount.gif">
+      <DataList NameLocaleResourceId="DListTimeZones" DefaultSortField="TimeZoneId" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="TimeZoneId" Icon="en_ico_16_User.gif">
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="TimeZoneId" NameLocaleResourceId="TimeZoneId" Width="200" FieldType="String" ExtTypeName="String" />
@@ -2738,7 +2730,7 @@
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" />
-          <RelatedItem Name="Firm" NameLocaleResourceId="CrdRelFirms" Icon="en_ico_16_Firm.gif" RequestUrl="/Grid/View/Firm" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="Firms" NameLocaleResourceId="CrdRelFirms" Icon="en_ico_16_Firm.gif" RequestUrl="/Grid/View/Firm" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -2770,7 +2762,7 @@
     </DataLists>
   </Entity>
   <Entity Name="User">
-    <Card EntityNameLocaleResourceId="EnUser" EntityMainAttribute="DisplayName" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_UserAccount.gif" LargeIcon="en_ico_lrg_UserAccount.gif">
+    <Card EntityNameLocaleResourceId="EnUser" EntityMainAttribute="DisplayName" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_User.gif" LargeIcon="en_ico_lrg_UserAccount.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="34" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
@@ -2783,15 +2775,15 @@
       </ToolbarItems>
       <RelatedItems>
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
-          <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_UserAccount.gif" />
-          <RelatedItem Name="UserRole" NameLocaleResourceId="CrdRelUserRole" RequestUrl="/Grid/View/UserRole" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Role" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="UserTerritory" NameLocaleResourceId="CrdRelUserTerritory" RequestUrl="/Grid/View/UserTerritory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Territory" ExtendedInfo="filterToParent=true" />
-          <RelatedItem Name="UserOrganizationUnit" NameLocaleResourceId="CrdRelUserOrganizationUnit" RequestUrl="/Grid/View/UserOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_User.gif" />
+          <RelatedItem Name="UserRoles" NameLocaleResourceId="CrdRelUserRole" RequestUrl="/Grid/View/UserRole" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Role" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="UserTerritories" NameLocaleResourceId="CrdRelUserTerritory" RequestUrl="/Grid/View/UserTerritory" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="Territory" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="UserOrganizationUnits" NameLocaleResourceId="CrdRelUserOrganizationUnit" RequestUrl="/Grid/View/UserOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="OrganizationUnit" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
     <DataLists>
-      <DataList NameLocaleResourceId="DListUser" DefaultSortField="LastName" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="DisplayName" Icon="en_ico_16_UserAccount.gif">
+      <DataList NameLocaleResourceId="DListUser" DefaultSortField="LastName" SortDescending="0" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="DisplayName" Icon="en_ico_16_User.gif">
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
           <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
@@ -2814,7 +2806,7 @@
           <ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="2" />
         </ToolbarItems>
       </DataList>
-      <DataList NameLocaleResourceId="DListUserWithRole" DefaultSortField="DisplayName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="DisplayName" Icon="en_ico_16_UserAccount.gif">
+      <DataList NameLocaleResourceId="DListUserWithRole" DefaultSortField="DisplayName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="DisplayName" Icon="en_ico_16_User.gif">
         <ToolbarItems>
           <ToolbarItem Name="ExcludeFromOrganizationUnit" NameLocaleResourceId="ExcludeFromOrganizationUnit" ControlType="TextButton" LockOnInactive="true" Action="scope.ExcludeFromOrganizationUnit" SecurityPrivelegeFlag="0" />
         </ToolbarItems>
@@ -2830,7 +2822,7 @@
   </Entity>
   <Entity Name="UserRole">
     <DataLists>
-      <DataList NameLocaleResourceId="DListUserRole" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_UserGroup.gif">
+      <DataList NameLocaleResourceId="DListUserRole" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Role.gif">
         <ToolbarItems>
           <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.Append" SecurityPrivelegeFlag="16" />
           <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
@@ -2873,18 +2865,13 @@
     </DataLists>
   </Entity>
   <Entity Name="UserProfile">
-    <Card EntityNameLocaleResourceId="EnUserProfile" EntityMainAttribute="TimeZoneInfoId" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_UserAccount.gif" LargeIcon="en_ico_lrg_UserAccount.gif">
+    <Card EntityNameLocaleResourceId="EnUserProfile" EntityMainAttribute="TimeZoneInfoId" HasComments="false" HasAdminTab="true" DecimalDigits="2" Icon="en_ico_16_User.gif" LargeIcon="en_ico_lrg_UserAccount.gif">
       <ToolbarItems>
         <ToolbarItem Name="Save" NameLocaleResourceId="ControlSave" ControlType="ImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.Save" Icon="Save.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" LockOnNew="false" />
         <ToolbarItem Name="SaveAndClose" NameLocaleResourceId="ControlSaveAndClose" ControlType="TextImageButton" LockOnInactive="true" LockOnNew="false" Action="scope.SaveAndClose" Icon="SaveAndClose.gif" SecurityPrivelegeFlag="0" />
         <ToolbarItem Name="Close" NameLocaleResourceId="ControlClose" ControlType="TextImageButton" LockOnInactive="false" LockOnNew="false" Action="scope.Close" Icon="Close.gif" SecurityPrivelegeFlag="0" />
       </ToolbarItems>
-      <RelatedItems>
-        <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
-          <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_UserAccount.gif" />
-        </RelatedItemsArea>
-      </RelatedItems>
     </Card>
   </Entity>
   <Entity Name="UserTerritory">
@@ -2933,6 +2920,7 @@
           <Field Name="FinishDate" NameLocaleResourceId="EndDate" Width="120" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="OrganizationUnitId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="OrganizationUnitName" NameLocaleResourceId="OrganizationUnit" Width="150" FieldType="String" ExtTypeName="String" ReferenceEntityName="OrganizationUnit" ReferenceFieldName="OrganizationUnitId" />
+          <Field Name="AccountingMethod" Width="80" FieldType="String" ExtTypeName="String" />
           <Field Name="Status" Width="80" FieldType="String" ExtTypeName="String" />
           <Field Name="OwnerCode" NameLocaleResourceId="Owner" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="Owner" NameLocaleResourceId="Owner" Width="120" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="OwnerCode" />

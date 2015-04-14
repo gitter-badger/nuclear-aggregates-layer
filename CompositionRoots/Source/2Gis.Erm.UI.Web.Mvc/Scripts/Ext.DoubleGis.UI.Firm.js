@@ -84,60 +84,7 @@
                 });
             }
         };
-
-        // saving of for additionalFirmAddressServices control
-        this.genericSave = function (submitMode) {
-            var card = this;
-            
-            var onSuccess = function () {
-                card.submitMode = submitMode;
-                if (card.normalizeForm() !== false) {
-                    card.postForm();
-                }
-            };
-
-            var onFailure = function () {
-                // TODO {all, 18.12.2013}: возможно некоректное отображение диакритики
-                // TODO {all, 18.12.2013}: alert можно заменить на ext'овый messagebox
-                // TODO {all, 18.12.2013}: ресурс можно перенести в ClientResourceStorage
-                alert('@Resources.SaveError');
-                card.Items.Toolbar.enable();
-            };
-
-            var onConfirmation = function (confirmObject) {
-                return window.Ext.MessageBox.confirm('Подтвердите действие', 'Параметры отображения доп. услуг будут проставлены во всех адресах фирмы. Продолжить?', function (btn) {
-                    if (btn === 'yes') {
-                        confirmObject.OnConfirmation();
-                    }
-                });
-            };
-
-            var additionalFirmServicesIFrame = Ext.getDom('AdditionalFirmServices_frame');
-            if (additionalFirmServicesIFrame) {
-                var contentWindow = additionalFirmServicesIFrame.contentWindow;
-                contentWindow.Ext.DoubleGis.UI.AdditionalFirmServicesControlInstance.Save(onSuccess, onFailure, onConfirmation);
-            }
-            else
-                onSuccess();
-        };
     });
     
-    window.Card.on("afterbuild", function (card) {
-        if (window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
-            this.Items.TabPanel.add(
-            {
-                xtype: "actionshistorytab",
-                pCardInfo:
-                {
-                    pTypeName: this.Settings.EntityName,
-                    pId: window.Ext.getDom("ViewConfig_Id").value
-                }
-            });
-        }
-    });
-    
-    window.Card.on('beforepost', function (card) {
-        card.genericSave(card.submitMode);
-        return false;
     });
 };

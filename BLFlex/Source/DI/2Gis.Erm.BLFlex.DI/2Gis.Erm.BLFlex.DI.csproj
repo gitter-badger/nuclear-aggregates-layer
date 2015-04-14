@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
@@ -105,6 +109,10 @@
       <Project>{F5C50F83-8C4F-42F9-AD37-03740AB78416}</Project>
       <Name>2Gis.Erm.BL.API.Operations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\BL\Source\API\2Gis.Erm.BL.API.Aggregates\2Gis.Erm.BL.API.Aggregates.csproj">
+      <Project>{EE2770E5-5EC2-4D4A-84EE-81301E6C81DF}</Project>
+      <Name>2Gis.Erm.BL.API.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
@@ -155,6 +163,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

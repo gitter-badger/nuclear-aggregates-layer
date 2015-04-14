@@ -12,6 +12,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Enumeration.Czech
         {
             return new[]
                 {
+                    FasComment.NewFasComment,
                     FasComment.AlcoholAdvertising,
                     FasComment.MedsMultiple,
                     FasComment.MedsSingle,

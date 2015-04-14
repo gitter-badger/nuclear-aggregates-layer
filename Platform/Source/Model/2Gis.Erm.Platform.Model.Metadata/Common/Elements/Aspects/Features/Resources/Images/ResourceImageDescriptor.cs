@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -28,6 +29,16 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features
             string keyName = StaticReflection.GetMemberName(resourceKeyExpression);
             Type resourceManagerType = StaticReflection.GetMemberDeclaringType(resourceKeyExpression);
             return new ResourceImageDescriptor(new ResourceEntryKey(resourceManagerType, keyName));
+        }
+
+        public object GetValue(CultureInfo culture)
+        {
+            return ResourceEntryKey.ResourceHostType.AsResourceManager().GetObject(ResourceEntryKey.ResourceEntryName, culture);
+        }
+
+        public string ResourceKeyToString()
+        {
+            return ResourceEntryKey.ResourceEntryName;
         }
     }
 }

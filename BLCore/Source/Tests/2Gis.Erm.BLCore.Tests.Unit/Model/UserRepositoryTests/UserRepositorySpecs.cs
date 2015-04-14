@@ -21,7 +21,6 @@ using It = Machine.Specifications.It;
 
 namespace DoubleGis.Erm.BLCore.Tests.Unit.Model.UserRepositoryTests
 {
-    // TODO {d.ivanov, 06.11.2013}: в 2.0 класс переедет в \BL\Source\Tests\2Gis.Erm.BLCore.Tests.Unit\Model\UserRepositoryTests
     [Category("BL")]
     [Subject(typeof(UserRepository))]
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "It'test, dude.")]

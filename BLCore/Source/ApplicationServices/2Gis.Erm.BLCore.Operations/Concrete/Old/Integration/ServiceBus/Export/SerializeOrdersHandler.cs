@@ -6,10 +6,11 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export
 {
@@ -19,8 +20,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         public SerializeOrdersHandler(ISecurityServiceUserIdentifier securityServiceUserIdentifier,
                                       IExportRepository<Order> exportOperationsRepository,
-                                      ICommonLog logger)
-            : base(exportOperationsRepository, logger)
+                                      ITracer tracer)
+            : base(exportOperationsRepository, tracer)
         {
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }

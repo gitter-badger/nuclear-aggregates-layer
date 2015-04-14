@@ -1,6 +1,7 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
@@ -8,7 +9,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
-    public sealed class EmiratesBranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, IEmiratesAdapted
+    public sealed class EmiratesBranchOfficeViewModel : EditableIdEntityViewModelBase<BranchOffice>, INameAspect, IEmiratesAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]

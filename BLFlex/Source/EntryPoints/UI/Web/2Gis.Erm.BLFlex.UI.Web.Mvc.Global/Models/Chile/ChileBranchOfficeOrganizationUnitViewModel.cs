@@ -2,6 +2,7 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -11,7 +12,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
 {
-    public sealed class ChileBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IChileAdapted
+    public sealed class ChileBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IShortLegalNameAspect, IChileAdapted
     {
         [DisplayNameLocalized("BranchOfficeName")]
         [RequiredLocalized]
@@ -24,6 +25,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
         [RequiredLocalized]
         [StringLengthLocalized(100)]
         public string ShortLegalName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -95,7 +100,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
             RepresentativeName = modelDto.RepresentativeName;
             RepresentativePosition = modelDto.RepresentativePosition;
             RepresentativeRut = modelDto.RepresentativeRut;
-            
+
+            ApplicationCityName = modelDto.ApplicationCityName;
             PhoneNumber = modelDto.PhoneNumber;
             ShortLegalName = modelDto.ShortLegalName;
             ActualAddress = modelDto.ActualAddress;
@@ -128,7 +134,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
 
                     PhoneNumber = PhoneNumber,
-                    
+
+                    ApplicationCityName = ApplicationCityName,
                     ShortLegalName = ShortLegalName,
                     ActualAddress = ActualAddress,
                     PostalAddress = PostalAddress,

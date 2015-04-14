@@ -358,7 +358,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListThemeOrganizationUnit", "ActiveAndNotDeleted=true"},
             {"DListThemeCategory", "NotDeleted=true"},
 
-            {"AdditionalFirmServices", ""},
             {"DListAdvertisementElementDenialReason", ""},
             {"DListAdvertisementElement", ""},
             {"DListCurrencyRates", ""},

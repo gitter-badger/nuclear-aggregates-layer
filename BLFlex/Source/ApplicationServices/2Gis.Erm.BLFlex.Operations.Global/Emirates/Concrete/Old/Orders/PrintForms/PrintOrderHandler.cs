@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
 
             if (orderInfo.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
                     CurrencyIsoCode = orderInfo.CurrencyIsoCode,
                     FileName = orderInfo.OrderNumber,
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId.Value,
-                    TemplateCode = TemplateCode.OrderWithoutVatWithDiscount,
+                    TemplateCode = TemplateCode.Order,
                     PrintData = GetPrintData(request, orderInfo)
                 };
 

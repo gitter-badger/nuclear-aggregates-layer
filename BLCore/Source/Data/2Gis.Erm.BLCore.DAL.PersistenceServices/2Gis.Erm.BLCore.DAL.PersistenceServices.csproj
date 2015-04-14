@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -54,8 +58,6 @@
     <Compile Include="DI\BlCoreDalPersistenceServicesAssembly.cs" />
     <Compile Include="Export\ExportMetadata.PositionChildren.cs" />
     <Compile Include="Export\ExportMetadata.Position.cs" />
-    <Compile Include="Export\ExportMetadata.Territory.cs" />
-    <Compile Include="Export\ExportMetadata.Firm.cs" />
     <Compile Include="Export\ExportMetadata.Price.cs" />
     <Compile Include="Export\ExportMetadata.PricePosition.cs" />
     <Compile Include="Export\ExportMetadata.BirthdayCongratulation.cs" />
@@ -72,7 +74,6 @@
     <Compile Include="Export\ExportMetadata.Theme.cs" />
     <Compile Include="Export\ExportMetadata.ThemeOrganizationUnit.cs" />
     <Compile Include="Export\ExportMetadata.LegalPerson.cs" />
-    <Compile Include="Export\ExportMetadata.FirmAddress.cs" />
     <Compile Include="Export\EntityOperationMapping.cs" />
     <Compile Include="Export\ExportMetadata.Advertisement.cs" />
     <Compile Include="Export\ExportMetadataProvider.cs" />
@@ -136,6 +137,9 @@
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

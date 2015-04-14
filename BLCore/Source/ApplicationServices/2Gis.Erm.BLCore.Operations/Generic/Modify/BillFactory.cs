@@ -12,11 +12,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
     {
         private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IEvaluateBillNumberService _evaluateBillNumberService;
+        private readonly IEvaluateBillDateService _evaluateBillDateService;
 
-        public BillFactory(IBusinessModelSettings businessModelSettings, IEvaluateBillNumberService evaluateBillNumberService)
+        public BillFactory(IBusinessModelSettings businessModelSettings, IEvaluateBillNumberService evaluateBillNumberService, IEvaluateBillDateService evaluateBillDateService)
         {
             _businessModelSettings = businessModelSettings;
             _evaluateBillNumberService = evaluateBillNumberService;
+            _evaluateBillDateService = evaluateBillDateService;
         }
 
         public IEnumerable<Bill> Create(Order order, CreateBillInfo[] dtos)
@@ -45,6 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
                                       Round(billDto.PayablePlan),
                                       Round((orderVatRatio * billDto.PayablePlan) / (1 + orderVatRatio)),
                                       numberEvaluation.Invoke(billDto, i));
+                bill.BillDate = _evaluateBillDateService.GetBillDate(order.CreatedOn, bill.PaymentDatePlan, i);
 
                 billsPayablePlanSum += bill.PayablePlan;
                 billsVatPlanSum += bill.VatPlan;
@@ -58,6 +61,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
                                       order.PayablePlan - billsPayablePlanSum,
                                       order.VatPlan - billsVatPlanSum,
                                       numberEvaluation.Invoke(lastBillDto, dtos.Length - 1));
+            lastBill.BillDate = _evaluateBillDateService.GetBillDate(order.CreatedOn, lastBill.PaymentDatePlan, dtos.Length - 1);
 
             bills.Add(lastBill);
 
@@ -75,9 +79,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify
                        {
                            OrderId = order.Id,
                            OwnerCode = order.OwnerCode,
-                           BillDate = order.CreatedOn,
 
-                           BillNumber = billNumber,
+                           Number = billNumber,
                            BeginDistributionDate = createBillInfo.BeginDistributionDate,
                            EndDistributionDate = createBillInfo.EndDistributionDate,
                            PaymentDatePlan = createBillInfo.PaymentDatePlan,

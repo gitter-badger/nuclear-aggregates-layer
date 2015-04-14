@@ -2,6 +2,7 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
@@ -32,6 +33,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             using (var scope = _scopeFactory.CreateNonCoupled<ChangeOrderLegalPersonProfileIdentity>())
             {
                 var order = _orderReadModel.GetOrderSecure(orderId);
+                if (order == null)
+                {
+                    throw new EntityNotFoundException(typeof(Order), orderId);
+                }
+
                 var profile = _legalPersonReadModel.GetLegalPersonProfile(profileId);
 
                 _profileAggregateService.Change(order, profile);

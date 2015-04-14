@@ -5,9 +5,10 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -21,12 +22,12 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PostIntegrationActivities
         private readonly IOperationServicesManager _servicesManager;
         private readonly IIntegrationLocalizationSettings _integrationLocalizationSettings;
 
-        public PostIntegrationActivitiesWithFirmsJob(ICommonLog logger,
+        public PostIntegrationActivitiesWithFirmsJob(ITracer tracer,
                                                      ISignInService signInService,
                                                      IUserImpersonationService userImpersonationService,
                                                      IOperationServicesManager servicesManager,
                                                      IIntegrationLocalizationSettings integrationLocalizationSettings)
-            : base(signInService, userImpersonationService, logger)
+            : base(signInService, userImpersonationService, tracer)
         {
             _servicesManager = servicesManager;
             _integrationLocalizationSettings = integrationLocalizationSettings;
