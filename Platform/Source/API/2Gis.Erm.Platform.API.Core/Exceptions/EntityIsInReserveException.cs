@@ -2,7 +2,8 @@
 using System.Runtime.Serialization;
 
 namespace DoubleGis.Erm.Platform.API.Core.Exceptions
-{
+{   
+    [Serializable]
     public class EntityIsInReserveException : BusinessLogicException
     {
         public EntityIsInReserveException()
