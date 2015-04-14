@@ -172,6 +172,9 @@
       <Component>
         <File Source="!(bindpath.PackagesDir)\2Gis.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2Gis.NuClear.Settings.API.dll" />
       </Component>
+      <Component>
+        <File Source="!(bindpath.PackagesDir)\2GIS.NuClear.Settings.Unity.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.Unity.dll" />
+      </Component>
         <Component>
         <File Source="!(bindpath.PackagesDir)\2Gis.Nuclear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2Gis.Nuclear.Tracing.API.dll" />
       </Component>
