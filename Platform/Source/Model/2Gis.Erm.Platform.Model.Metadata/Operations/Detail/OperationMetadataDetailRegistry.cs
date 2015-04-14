@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
@@ -259,6 +260,11 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             var entityName = entityNames.Single();
             switch (entityName)
             {
+                case EntityName.Appointment:                    
+                case EntityName.Letter:
+                case EntityName.Phonecall:
+                case EntityName.Task:
+                    return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Status" } };
                 case EntityName.Account:
                 case EntityName.Client:
                 case EntityName.Firm:

@@ -83,6 +83,8 @@
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\ExportFlowDeliveryData\SerializeBirthdayCongratulationHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowNomenclatures\SerializePositionChildrenHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowNomenclatures\SerializePositionHandler.cs" />
+    <Compile Include="Concrete\Orders\GetOrderDocumentsDebtOperationService.cs" />
+    <Compile Include="Concrete\Orders\SetOrderDocumentsDebtOperationService.cs" />
     <Compile Include="Concrete\Simplified\RequestBirthdayCongratulationOperationService.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\FlowOrders\SerializeDenialReasonHandler.cs" />
     <Compile Include="DI\BlOperationsAssembly.cs" />

@@ -1,10 +1,12 @@
-﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
+﻿using DoubleGis.Erm.BL.API.Aggregates.Clients;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Ukraine.Operations.Generic.List;
@@ -44,6 +46,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<ICheckInnService, UkraineIpnService>(Lifetime.Singleton)
                 .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IPartableEntityValidator<BranchOffice>, UkraineBranchOfficeValidator>(Lifetime.PerResolve, Mapping.Erm)
+                .RegisterType<IContactSalutationsProvider, UkraineContactSalutationsProvider>(Lifetime.Singleton)
                 .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
                                                                            new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(LockedOrderConsistencyRule),
                                                                                                                                                typeof(BillSummConsistencyRule),

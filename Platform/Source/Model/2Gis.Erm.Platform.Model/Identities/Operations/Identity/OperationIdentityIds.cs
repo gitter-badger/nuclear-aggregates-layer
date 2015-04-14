@@ -139,6 +139,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int PrintBindingChangeAgreementIdentity = 15121;
         public const int PrintFirmNameChangeAgreementIdentity = 15122;
         public const int PrintCancellationAgreementIdentity = 15123;
+        public const int GetOrderDocumentsDebtIdentity = 15124;
+        public const int SetOrderDocumentsDebtIdentity = 15125;
 
         // EntityName.Bill = 188
         public const int CalculateBillsIdentity = 18801;
