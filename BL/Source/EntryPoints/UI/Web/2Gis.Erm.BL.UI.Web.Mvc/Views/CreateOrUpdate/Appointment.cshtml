@@ -6,15 +6,14 @@
 } 
 
 @section CardScripts
-{
-    <script src="/Scripts/Ext.ux.TimeComboBox.js?@ThisAssembly.Build" type="text/javascript"></script>
+{    
     <script src="/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Activity/Ext.DoubleGis.UI.ContactRelationController.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Activity/Ext.DoubleGis.UI.Appointment.js?@ThisAssembly.Build" type="text/javascript"></script>
 }
 
-@section CustomInit
+@section CustomInit 
 {
     <script type="text/javascript">
     Ext.onReady(function() {
@@ -59,9 +58,9 @@
 
         @Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins, 
-                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = CalendarSettings.TimeSettings.WorkHours }),
             @Html.TemplateField(m => m.ScheduledEnd, FieldFlex.twins, 
-                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() })
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = CalendarSettings.TimeSettings.WorkHours })
             )
         @Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields }))
         @Html.SectionRow(@Html.TemplateField(m => m.Location, FieldFlex.lone))
