@@ -14,8 +14,8 @@ Ext.grid.MembershipCheckColumn = Ext.extend(Ext.grid.Column, {
             this.setRecordGroup(record, previousValue, this.dataIndex);
         } else {
             this.setRecordGroup(record, this.dataIndex, this.defaultGroupId);
-        }
-
+    }
+    
         return true;
     },
 
@@ -32,9 +32,9 @@ Ext.grid.MembershipCheckColumn = Ext.extend(Ext.grid.Column, {
         record.set('CategoryGroupId', newValue);
         record.set(oldValue, false);
         record.set(newValue, true);
-
+        
         record.endEdit();
-    }
+        }
 });
 
 Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Ext.Panel,
@@ -62,9 +62,9 @@ Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Ext.Panel,
             api: {
                 read: { url: '/CategoryGroupsMembership/CategoryGroupsMembership', method: 'GET' },
                 update: { url: '/CategoryGroupsMembership/CategoryGroupsMembership', method: 'POST' }
-            }
+        }
         });
-
+        
         this.reader = new window.Ext.data.JsonReader({
             idProperty: 'Id',
             root: "categoryGroupsMembership",
@@ -79,7 +79,7 @@ Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Ext.Panel,
         this.store = new window.Ext.data.Store({
             baseParams: { organizationUnitId: config.organizationUnitId },
             autoSave: false,
-
+        
             proxy: this.proxy,
             reader: this.reader,
             writer: this.writer,
@@ -91,8 +91,8 @@ Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Ext.Panel,
                 load: this.loadSuccess,
                 save: this.saveSuccess,
                 exception: this.saveFailure
-            }
-        });
+    }
+});
 
         this.grid = new window.Ext.grid.EditorGridPanel({
             store: this.store, 
@@ -123,11 +123,11 @@ Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Ext.Panel,
             plugins: [new window.Ext.ux.FitToParent('MainTab')],
             layout: 'fit',
             renderTo: config.renderTo
-        });
+                    });
 
         this.mask = new Ext.LoadMask('MainTab');
         this.mask.show();
-
+            
         this.store.load();
     },
 
@@ -145,24 +145,24 @@ Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Ext.Panel,
         var clickedColumn = container.getColumnModel().getColumnById(column);
 
         if (clickedColumn.columnCategoryGroupId) {
-            // Проверяем - если у всех рубрик в этой колонке поставлена галочка, то надо будет её снять.
-            var areAllItemsChecked = true;
+                    // Проверяем - если у всех рубрик в этой колонке поставлена галочка, то надо будет её снять.
+                    var areAllItemsChecked = true;
             Ext.each(container.store.data.items, function (item) {
                 if (item.get('CategoryGroupId') != clickedColumn.columnCategoryGroupId) {
-                    areAllItemsChecked = false;
-                }
+                            areAllItemsChecked = false;
+                        }
             });
 
             var valueToSet = areAllItemsChecked ? null : clickedColumn.columnCategoryGroupId;
             Ext.each(container.store.data.items, function(item) {
                 clickedColumn.setRecordGroup(item, item.get('CategoryGroupId'), valueToSet);
             });
-
-            window.Card.isDirty = true;
-            container.getView().refresh();
-        }
+                    
+                    window.Card.isDirty = true;
+                    container.getView().refresh();
+                }
     },
-
+        
     createRecord: function (groups) {
         var fields = [
             { name: 'Id', mapping: 'Id', type: 'string' },
@@ -180,7 +180,7 @@ Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Ext.Panel,
                 convert: function(v, record) { return record['CategoryGroupId'] === group.Id; }
             });
         });
-
+            
         return Ext.data.Record.create(fields);
     },
 
@@ -202,7 +202,7 @@ Ext.DoubleGis.UI.CategoryGroupsMembershipControl = Ext.extend(Ext.Panel,
                 defaultGroupId = group.Id;
             }
         });
-
+        
         Ext.each(groups, function (group) {
             columns.push(new Ext.grid.MembershipCheckColumn({
                 header: group.Name,

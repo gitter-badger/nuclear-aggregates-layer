@@ -55,6 +55,7 @@
     <Compile Include="Accounts\Operations\ICreateLimitAggregateService.cs" />
     <Compile Include="Accounts\Operations\IDeleteLimitAggregateService.cs" />
     <Compile Include="Accounts\Operations\IUpdateLimitAggregateService.cs" />
+    <Compile Include="Clients\IContactSalutationsProvider.cs" />
     <Compile Include="SimplifiedModel\DTOs\DenialReasonDto.cs" />
     <Compile Include="SimplifiedModel\ICreateBirthdayCongratulationService.cs" />
     <Compile Include="SimplifiedModel\ICreateDenialReasonService.cs" />

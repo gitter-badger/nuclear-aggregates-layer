@@ -215,8 +215,6 @@
     <Compile Include="Firms\DTO\FirmInfo\FirmAddressWithCategoriesDto.cs" />
     <Compile Include="Firms\DTO\FirmInfo\FirmWithAddressesAndProjectDto.cs" />
     <Compile Include="Firms\DTO\FirmInfo\ProjectDto.cs" />
-    <Compile Include="Firms\DTO\ImportFirmsDTOs.cs" />
-    <Compile Include="Firms\DTO\ImportTerritoriesDTOs.cs" />
     <Compile Include="Firms\DTO\RegionalTerritoryDto.cs" />
     <Compile Include="Firms\IFirmRepository.cs" />
     <Compile Include="Firms\DTO\ChangeClientTerritoryDto.cs" />
@@ -290,6 +288,7 @@
     <Compile Include="Orders\Operations\IOrderDeleteReleaseWithdrawalsAggregateService.cs" />
     <Compile Include="Orders\Operations\IChangeOrderLegalPersonProfileAggregateService.cs" />
     <Compile Include="Orders\Operations\IOrderRestoreOrdersFromArchiveAggregateService.cs" />
+    <Compile Include="Orders\Operations\ISetOrderDocumentsDebtAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderPositions\IOrderReplaceOrderPositionAdvertisementLinksAggregateService.cs" />
     <Compile Include="Orders\Operations\Validation\IAttachValidResultToCacheAggregateService.cs" />
     <Compile Include="Orders\Operations\Validation\IInvalidateCachedValidationResultAggregateService.cs" />
@@ -328,6 +327,7 @@
     <Compile Include="Prices\Operations\IBulkDeactivatePricePositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeleteDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeletePricePositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IUpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePricePositionAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />

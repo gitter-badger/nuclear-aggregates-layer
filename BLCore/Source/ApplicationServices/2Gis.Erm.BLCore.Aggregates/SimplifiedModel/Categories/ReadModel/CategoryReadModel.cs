@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
                           .Select(group => new CategoryGroupDto
                                                {
                                                    Id = group.Id,
-                                                   Name = group.CategoryGroupName,
+                                                   Name = group.Name,
                                                    IsDefault = group.Id == DefaultCategoryGroupId
                                                })
                           .ToArray();
