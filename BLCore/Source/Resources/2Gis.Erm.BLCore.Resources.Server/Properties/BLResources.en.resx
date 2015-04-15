@@ -1376,9 +1376,6 @@ Locking errors:{2}</value>
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value>The selected item cannot be prohibiting as it is a main item</value>
   </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value>Large icon</value>
-  </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value>Cannot add the item to the published price-list</value>
   </data>
@@ -5176,10 +5173,10 @@ Placement period: {3}.</value>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>Company division {0} is not linked to the project.</value>
   </data>
-  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForFirmInReserve" xml:space="preserve">
     <value>You cannot save the action to a company in reserve</value>
   </data>
-  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>You cannot save the action to a client in reserve </value>
   </data>
   <data name="CancelConfirmation" xml:space="preserve">
@@ -5211,5 +5208,11 @@ Placement period: {3}.</value>
   </data>
   <data name="PositionAccessDenied" xml:space="preserve">
     <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
+  <data name="ManageDocumentsDebt" xml:space="preserve">
+    <value>Document availability management</value>
+  </data>
+  <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Operation cannot be performed because a build is in progress</value>
   </data>
 </root>

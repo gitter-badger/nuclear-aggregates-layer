@@ -1,5 +1,5 @@
 ﻿
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 
 // ReSharper disable CheckNamespace
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels
         public bool ReadOnly { get; set; }
         public long? PId { get; set; }
         public string ExtendedInfo { get; set; }
-        public CardJson CardSettings { get; set; }
+        public CardStructure CardSettings { get; set; }
     }
 }
 

@@ -50,6 +50,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public byte[] Timestamp { get; set; }
 
         [DataMember]
-        public bool IsPricePublished { get; set; }
+        public bool PriceIsPublished { get; set; }
     }
 }
