@@ -130,7 +130,7 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
     },
     getValue: function() {
         var date = this.parseUserDate(this.editor.getValue());
-        var time = this.time ? this.parseUserTime(this.time.getValue()) : 0;
+        var time = this.time ? this.time.getValue() : 0;
         if (date) {
             date.add(time, "ms");        
         }
@@ -213,9 +213,6 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         }
 
         return date;
-    },
-
-    parseUserTime: function(value) {
-        return moment(value, this.displayFormats.time) - moment().startOf("day");
     }
+   
 });
