@@ -311,6 +311,7 @@
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
     <Compile Include="Prices\Dto\CategoryWithPositionsDto.cs" />
+    <Compile Include="Prices\Dto\DeniedPositionToCopyDto.cs" />
     <Compile Include="Prices\Dto\DeniedPositionToCreateDto.cs" />
     <Compile Include="Prices\Dto\IsPricePublishedAndActiveDto.cs" />
     <Compile Include="Prices\Dto\PriceDto.cs" />

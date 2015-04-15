@@ -11,18 +11,18 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Create
 {
     public sealed class CreateDeniedPositionOperationService : ICreateOperationService<DeniedPosition>
-    {        
-        private readonly IDeniedPositionsDuplicatesVerifier _deniedPositionsDuplicatesVerifier;
+    {
+        private readonly IVerifyDeniedPositionsForDuplicatesOperationService _verifyDeniedPositionsForDuplicatesOperationService;
         private readonly IBusinessModelEntityObtainer<DeniedPosition> _deniedPositionObtainer;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ICreateDeniedPositionsAggregateService _createDeniedPositionsAggregateService;
 
-        public CreateDeniedPositionOperationService(IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier,
+        public CreateDeniedPositionOperationService(IVerifyDeniedPositionsForDuplicatesOperationService verifyDeniedPositionsForDuplicatesOperationService,
                                                     IBusinessModelEntityObtainer<DeniedPosition> deniedPositionObtainer,
                                                     IOperationScopeFactory operationScopeFactory,
                                                     ICreateDeniedPositionsAggregateService createDeniedPositionsAggregateService)
-        {            
-            _deniedPositionsDuplicatesVerifier = deniedPositionsDuplicatesVerifier;
+        {
+            _verifyDeniedPositionsForDuplicatesOperationService = verifyDeniedPositionsForDuplicatesOperationService;
             _deniedPositionObtainer = deniedPositionObtainer;
             _operationScopeFactory = operationScopeFactory;
             _createDeniedPositionsAggregateService = createDeniedPositionsAggregateService;
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Create
             using (var scope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, DeniedPosition>())
             {
                 var deniedPosition = _deniedPositionObtainer.ObtainBusinessModelEntity(entityDto);
-                _deniedPositionsDuplicatesVerifier.VerifyForDuplicates(deniedPosition.PositionId, deniedPosition.PositionDeniedId, deniedPosition.PriceId);
+                _verifyDeniedPositionsForDuplicatesOperationService.Verify(deniedPosition.PositionId, deniedPosition.PositionDeniedId, deniedPosition.PriceId);
 
                 _createDeniedPositionsAggregateService.Create(deniedPosition.PriceId,
                                                               deniedPosition.PositionId,

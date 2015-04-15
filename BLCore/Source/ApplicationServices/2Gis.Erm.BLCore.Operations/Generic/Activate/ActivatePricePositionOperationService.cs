@@ -21,22 +21,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
         private readonly IPriceReadModel _priceReadModel;
         private readonly IBulkActivatePricePositionsAggregateService _bulkActivatePricePositionsAggregateService;
         private readonly IBulkActivateDeniedPositionsAggregateService _bulkActivateDeniedPositionsAggregateService;
-        private readonly ISymmetricDeniedPositionsVerifier _symmetricDeniedPositionsVerifier;
-        private readonly IDeniedPositionsDuplicatesVerifier _deniedPositionsDuplicatesVerifier;
+        private readonly IVerifyDeniedPositionsForSymmetryOperationService _verifyDeniedPositionsForSymmetryOperationService;
+        private readonly IVerifyDeniedPositionsForDuplicatesOperationService _verifyDeniedPositionsForDuplicatesOperationService;
 
         public ActivatePricePositionOperationService(IOperationScopeFactory operationScopeFactory,
                                                      IPriceReadModel priceReadModel,
                                                      IBulkActivatePricePositionsAggregateService bulkActivatePricePositionsAggregateService,
                                                      IBulkActivateDeniedPositionsAggregateService bulkActivateDeniedPositionsAggregateService,
-                                                     ISymmetricDeniedPositionsVerifier symmetricDeniedPositionsVerifier,
-                                                     IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier)
+                                                     IVerifyDeniedPositionsForSymmetryOperationService verifyDeniedPositionsForSymmetryOperationService,
+                                                     IVerifyDeniedPositionsForDuplicatesOperationService verifyDeniedPositionsForDuplicatesOperationService)
         {
             _operationScopeFactory = operationScopeFactory;
             _priceReadModel = priceReadModel;
             _bulkActivatePricePositionsAggregateService = bulkActivatePricePositionsAggregateService;
             _bulkActivateDeniedPositionsAggregateService = bulkActivateDeniedPositionsAggregateService;
-            _symmetricDeniedPositionsVerifier = symmetricDeniedPositionsVerifier;
-            _deniedPositionsDuplicatesVerifier = deniedPositionsDuplicatesVerifier;
+            _verifyDeniedPositionsForSymmetryOperationService = verifyDeniedPositionsForSymmetryOperationService;
+            _verifyDeniedPositionsForDuplicatesOperationService = verifyDeniedPositionsForDuplicatesOperationService;
         }
 
         public int Activate(long entityId)
@@ -66,16 +66,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
                                                            {
                                                                { pricePosition.Id, allPricePositionDescendantsDto.AssociatedPositionsGroups }
                                                            };
+
                 var count = _bulkActivatePricePositionsAggregateService.Activate(pricePositions,
                                                                                  associatedPositionsGroupsMapping,
                                                                                  allPricePositionDescendantsDto.AssociatedPositionsMapping);
 
                 var deniedPositions = allPricePositionDescendantsDto.DeniedPositions.Where(x => !x.IsActive && !x.IsDeleted).DistinctDeniedPositions();
-                _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(deniedPositions);
-                _symmetricDeniedPositionsVerifier.VerifyForSymmetryWithinCollection(deniedPositions);
+                _verifyDeniedPositionsForDuplicatesOperationService.VerifyWithinCollection(deniedPositions);
+                _verifyDeniedPositionsForSymmetryOperationService.VerifyWithinCollection(deniedPositions);
 
                 var storedDeniedPositions = _priceReadModel.GetDeniedPositionsOrSymmetric(pricePosition.PositionId, pricePosition.PriceId);
-                _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(deniedPositions.Concat(storedDeniedPositions).DistinctDeniedPositions());
+                _verifyDeniedPositionsForDuplicatesOperationService.VerifyWithinCollection(deniedPositions.Concat(storedDeniedPositions).DistinctDeniedPositions());
 
                 var deniedPositionsToActivate = deniedPositions.ExceptDeniedPositions(storedDeniedPositions);
 

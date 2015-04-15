@@ -12,19 +12,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IPriceReadModel _priceReadModel;
         private readonly IReplaceDeniedPositionAggregateService _replaceDeniedPositionAggregateService;
-        private readonly IDeniedPositionsDuplicatesVerifier _deniedPositionsDuplicatesVerifier;
+        private readonly IVerifyDeniedPositionsForDuplicatesOperationService _verifyDeniedPositionsForDuplicatesOperationService;
         private readonly IGetSymmetricDeniedPositionOperationService _getSymmetricDeniedPositionOperationService;
 
         public ReplaceDeniedPositionOperationService(IOperationScopeFactory operationScopeFactory,
                                                      IPriceReadModel priceReadModel,
                                                      IReplaceDeniedPositionAggregateService replaceDeniedPositionAggregateService,
-                                                     IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier,
+                                                     IVerifyDeniedPositionsForDuplicatesOperationService verifyDeniedPositionsForDuplicatesOperationService,
                                                      IGetSymmetricDeniedPositionOperationService getSymmetricDeniedPositionOperationService)
         {
             _operationScopeFactory = operationScopeFactory;
             _priceReadModel = priceReadModel;
             _replaceDeniedPositionAggregateService = replaceDeniedPositionAggregateService;
-            _deniedPositionsDuplicatesVerifier = deniedPositionsDuplicatesVerifier;
+            _verifyDeniedPositionsForDuplicatesOperationService = verifyDeniedPositionsForDuplicatesOperationService;
             _getSymmetricDeniedPositionOperationService = getSymmetricDeniedPositionOperationService;
         }
 
@@ -33,17 +33,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             using (var scope = _operationScopeFactory.CreateNonCoupled<ReplaceDeniedPositionIdentity>())
             {
                 var originalDeniedPosition = _priceReadModel.GetDeniedPosition(deniedPositionId);
-                _deniedPositionsDuplicatesVerifier.VerifyForDuplicates(originalDeniedPosition.PositionId, newPositionDeniedId, originalDeniedPosition.PriceId);
-                
+                _verifyDeniedPositionsForDuplicatesOperationService.Verify(originalDeniedPosition.PositionId, newPositionDeniedId, originalDeniedPosition.PriceId);
+
                 if (originalDeniedPosition.IsSelfDenied())
                 {
                     _replaceDeniedPositionAggregateService.ReplaceSelfDenied(originalDeniedPosition, newPositionDeniedId);
                 }
                 else
                 {
-                    var symmetricOriginalDeniedPosition = _getSymmetricDeniedPositionOperationService.Get(originalDeniedPosition.PositionId,
-                                                                                                          originalDeniedPosition.PositionDeniedId,
-                                                                                                          originalDeniedPosition.PriceId);
+                    var symmetricOriginalDeniedPosition =
+                        _getSymmetricDeniedPositionOperationService.GetTheOnlyOneWithObjectBindingTypeConsiderationOrDie(originalDeniedPosition.PositionId,
+                                                                                                                         originalDeniedPosition.PositionDeniedId,
+                                                                                                                         originalDeniedPosition.PriceId,
+                                                                                                                         originalDeniedPosition.ObjectBindingType);
+
                     _replaceDeniedPositionAggregateService.Replace(originalDeniedPosition, symmetricOriginalDeniedPosition, newPositionDeniedId);
                 }
 

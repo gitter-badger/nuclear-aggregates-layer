@@ -1,6 +1,4 @@
-﻿using System;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -37,35 +35,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void Replace(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition, long positionDeniedId)
         {
-            if (deniedPosition == null)
-            {
-                throw new ArgumentNullException("deniedPosition");
-            }
-
-            if (symmetricDeniedPosition == null)
-            {
-                throw new ArgumentNullException("symmetricDeniedPosition");
-            }
-
-            if (deniedPosition.IsSelfDenied())
-            {
-                throw new NonSelfDeniedPositionExpectedException();
-            }
-
-            if (!deniedPosition.IsSymmetricTo(symmetricDeniedPosition))
-            {
-                throw new SymmetricDeniedPositionExpectedException();
-            }
-
-            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                              EntityName.DeniedPosition,
-                                                              _userContext.Identity.Code,
-                                                              deniedPosition.Id,
-                                                              0,
-                                                              null))
-            {
-                throw new OperationAccessDeniedException(ReplaceDeniedPositionIdentity.Instance);
-            }
+            CheckReplacePreconditions(deniedPosition, symmetricDeniedPosition);
 
             using (var operationScope = _operationScopeFactory.CreateNonCoupled<ReplaceDeniedPositionIdentity>())
             {
@@ -92,15 +62,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void ReplaceSelfDenied(DeniedPosition originalDeniedPosition, long positionDeniedId)
         {
-            if (originalDeniedPosition == null)
-            {
-                throw new ArgumentNullException("originalDeniedPosition");
-            }
-
-            if (!originalDeniedPosition.IsSelfDenied())
-            {
-                throw new SelfDeniedPositionExpectedException();
-            }
+            CheckReplaceSelfDeniedPreconditions(originalDeniedPosition);
 
             using (var operationScope = _operationScopeFactory.CreateNonCoupled<ReplaceDeniedPositionIdentity>())
             {
@@ -120,6 +82,47 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
                 operationScope.Updated(originalDeniedPosition)
                               .Complete();
+            }
+        }
+
+        private void CheckReplacePreconditions(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition)
+        {
+            if (deniedPosition.IsSelfDenied())
+            {
+                throw new NonSelfDeniedPositionExpectedException();
+            }
+
+            if (!deniedPosition.IsSymmetricTo(symmetricDeniedPosition))
+            {
+                throw new SymmetricDeniedPositionExpectedException();
+            }
+
+            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                              EntityName.DeniedPosition,
+                                                              _userContext.Identity.Code,
+                                                              null,
+                                                              0,
+                                                              null))
+            {
+                throw new OperationAccessDeniedException(ReplaceDeniedPositionIdentity.Instance);
+            }
+        }
+
+        private void CheckReplaceSelfDeniedPreconditions(DeniedPosition deniedPosition)
+        {
+            if (!deniedPosition.IsSelfDenied())
+            {
+                throw new SelfDeniedPositionExpectedException();
+            }
+
+            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                              EntityName.DeniedPosition,
+                                                              _userContext.Identity.Code,
+                                                              null,
+                                                              0,
+                                                              null))
+            {
+                throw new OperationAccessDeniedException(ReplaceDeniedPositionIdentity.Instance);
             }
         }
     }

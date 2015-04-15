@@ -213,10 +213,10 @@
     <Compile Include="Concrete\Positions\IChangePositionSortingOrderOperationService.cs" />
     <Compile Include="Concrete\Positions\PositionSortingOrderDto.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
-    <Compile Include="Concrete\Prices\IDeniedPositionsDuplicatesVerifier.cs" />
+    <Compile Include="Concrete\Prices\IVerifyDeniedPositionsForDuplicatesOperationService.cs" />
     <Compile Include="Concrete\Prices\IChangeDeniedPositionObjectBindingTypeOperationService.cs" />
     <Compile Include="Concrete\Prices\IReplaceDeniedPositionOperationService.cs" />
-    <Compile Include="Concrete\Prices\ISymmetricDeniedPositionsVerifier.cs" />
+    <Compile Include="Concrete\Prices\IVerifyDeniedPositionsForSymmetryOperationService.cs" />
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Orders\IRepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Prices\ICopyPriceOperationService.cs" />

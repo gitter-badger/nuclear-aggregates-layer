@@ -1,6 +1,4 @@
-﻿using System;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.BLCore.API.Common.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -34,16 +32,36 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public void Delete(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition)
         {
-            if (deniedPosition == null)
-            {
-                throw new ArgumentNullException("deniedPosition");
-            }
+            CheckDeletePreconditions(deniedPosition, symmetricDeniedPosition);
 
-            if (symmetricDeniedPosition == null)
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, DeniedPosition>())
             {
-                throw new ArgumentNullException("symmetricDeniedPosition");
-            }
+                _deniedPositionRepository.Delete(deniedPosition);
+                _deniedPositionRepository.Delete(symmetricDeniedPosition);
+                _deniedPositionRepository.Save();
 
+                operationScope.Deleted(deniedPosition)
+                              .Deleted(symmetricDeniedPosition)
+                              .Complete();
+            }
+        }
+
+        public void DeleteSelfDenied(DeniedPosition selfDeniedPosition)
+        {
+            CheckDeleteSelfDeniedPreconditions(selfDeniedPosition);
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, DeniedPosition>())
+            {
+                _deniedPositionRepository.Delete(selfDeniedPosition);
+                _deniedPositionRepository.Save();
+
+                operationScope.Deleted(selfDeniedPosition)
+                              .Complete();
+            }
+        }
+
+        private void CheckDeletePreconditions(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition)
+        {
             if (deniedPosition.IsSelfDenied())
             {
                 throw new NonSelfDeniedPositionExpectedException();
@@ -67,49 +85,34 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Delete,
                                                               EntityName.DeniedPosition,
                                                               _userContext.Identity.Code,
-                                                              deniedPosition.Id,
+                                                              null,
                                                               0,
                                                               null))
             {
                 throw new OperationAccessDeniedException(DeleteIdentity.Instance);
             }
-
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, DeniedPosition>())
-            {
-                _deniedPositionRepository.Delete(deniedPosition);
-                _deniedPositionRepository.Delete(symmetricDeniedPosition);
-                _deniedPositionRepository.Save();
-
-                operationScope.Deleted(deniedPosition)
-                              .Deleted(symmetricDeniedPosition)
-                              .Complete();
-            }
         }
 
-        public void DeleteSelfDenied(DeniedPosition selfDeniedPosition)
+        private void CheckDeleteSelfDeniedPreconditions(DeniedPosition deniedPosition)
         {
-            if (selfDeniedPosition == null)
-            {
-                throw new ArgumentNullException("selfDeniedPosition");
-            }
-
-            if (!selfDeniedPosition.IsSelfDenied())
+            if (!deniedPosition.IsSelfDenied())
             {
                 throw new SelfDeniedPositionExpectedException();
             }
 
-            if (!selfDeniedPosition.IsActive)
+            if (!deniedPosition.IsActive)
             {
-                throw new InactiveEntityDeactivationException(typeof(DeniedPosition), selfDeniedPosition.Id);
+                throw new InactiveEntityDeactivationException(typeof(DeniedPosition), deniedPosition.Id);
             }
 
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeactivateIdentity, DeniedPosition>())
+            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                              EntityName.DeniedPosition,
+                                                              _userContext.Identity.Code,
+                                                              null,
+                                                              0,
+                                                              null))
             {
-                _deniedPositionRepository.Delete(selfDeniedPosition);
-                _deniedPositionRepository.Save();
-
-                operationScope.Deleted(selfDeniedPosition)
-                              .Complete();
+                throw new OperationAccessDeniedException(DeleteIdentity.Instance);
             }
         }
     }

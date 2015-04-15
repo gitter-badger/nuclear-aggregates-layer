@@ -12,19 +12,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IPriceReadModel _priceReadModel;
-        private readonly IDeniedPositionsDuplicatesVerifier _deniedPositionsDuplicatesVerifier;
+        private readonly IVerifyDeniedPositionsForDuplicatesOperationService _verifyDeniedPositionsForDuplicatesOperationService;
         private readonly IGetSymmetricDeniedPositionOperationService _getSymmetricDeniedPositionOperationService;
         private readonly IChangeDeniedPositionObjectBindingTypeAggregateService _changeDeniedPositionObjectBindingTypeAggregateService;
 
         public ChangeDeniedPositionObjectBindingTypeOperationService(IOperationScopeFactory operationScopeFactory,
                                                                      IPriceReadModel priceReadModel,
-                                                                     IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier,
+                                                                     IVerifyDeniedPositionsForDuplicatesOperationService verifyDeniedPositionsForDuplicatesOperationService,
                                                                      IGetSymmetricDeniedPositionOperationService getSymmetricDeniedPositionOperationService,
                                                                      IChangeDeniedPositionObjectBindingTypeAggregateService changeDeniedPositionObjectBindingTypeAggregateService)
         {
             _operationScopeFactory = operationScopeFactory;
             _priceReadModel = priceReadModel;
-            _deniedPositionsDuplicatesVerifier = deniedPositionsDuplicatesVerifier;
+            _verifyDeniedPositionsForDuplicatesOperationService = verifyDeniedPositionsForDuplicatesOperationService;
             _getSymmetricDeniedPositionOperationService = getSymmetricDeniedPositionOperationService;
             _changeDeniedPositionObjectBindingTypeAggregateService = changeDeniedPositionObjectBindingTypeAggregateService;
         }
@@ -37,24 +37,26 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 
                 if (originalDeniedPosition.IsSelfDenied())
                 {
-                    _deniedPositionsDuplicatesVerifier.VerifyForDuplicates(originalDeniedPosition.PositionId,
-                                                                           originalDeniedPosition.PositionDeniedId,
-                                                                           originalDeniedPosition.PriceId,
-                                                                           originalDeniedPosition.Id);
+                    _verifyDeniedPositionsForDuplicatesOperationService.Verify(originalDeniedPosition.PositionId,
+                                                                               originalDeniedPosition.PositionDeniedId,
+                                                                               originalDeniedPosition.PriceId,
+                                                                               originalDeniedPosition.Id);
 
                     _changeDeniedPositionObjectBindingTypeAggregateService.ChangeSelfDenied(originalDeniedPosition, objectBindingType);
                 }
                 else
                 {
-                    var symmetricOriginalDeniedPosition = _getSymmetricDeniedPositionOperationService.Get(originalDeniedPosition.PositionId,
-                                                                                                          originalDeniedPosition.PositionDeniedId,
-                                                                                                          originalDeniedPosition.PriceId);
+                    var symmetricOriginalDeniedPosition =
+                        _getSymmetricDeniedPositionOperationService.GetTheOnlyOneWithObjectBindingTypeConsiderationOrDie(originalDeniedPosition.PositionId,
+                                                                                                                         originalDeniedPosition.PositionDeniedId,
+                                                                                                                         originalDeniedPosition.PriceId,
+                                                                                                                         originalDeniedPosition.ObjectBindingType);
 
-                    _deniedPositionsDuplicatesVerifier.VerifyForDuplicates(originalDeniedPosition.PositionId,
-                                                                           originalDeniedPosition.PositionDeniedId,
-                                                                           originalDeniedPosition.PriceId,
-                                                                           originalDeniedPosition.Id,
-                                                                           symmetricOriginalDeniedPosition.Id);
+                    _verifyDeniedPositionsForDuplicatesOperationService.Verify(originalDeniedPosition.PositionId,
+                                                                               originalDeniedPosition.PositionDeniedId,
+                                                                               originalDeniedPosition.PriceId,
+                                                                               originalDeniedPosition.Id,
+                                                                               symmetricOriginalDeniedPosition.Id);
 
                     _changeDeniedPositionObjectBindingTypeAggregateService.Change(originalDeniedPosition, symmetricOriginalDeniedPosition, objectBindingType);
                 }

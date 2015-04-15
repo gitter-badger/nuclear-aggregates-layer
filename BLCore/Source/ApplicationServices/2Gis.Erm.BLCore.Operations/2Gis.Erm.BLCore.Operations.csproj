@@ -124,7 +124,6 @@
     <Compile Include="Concrete\Old\Integration\OneC\ImportAccountDetailsFrom1CHandler.cs" />
     <Compile Include="Concrete\Old\Integration\OneC\ValidateAccountDetailsFrom1CHandler.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesHandler.cs" />
-
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAccountDetailHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeAdvertisementHandler.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\Export\SerializeClientHandler.cs" />
@@ -229,10 +228,10 @@
     <Compile Include="Concrete\Positions\ChangePositionSortingOrderOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\CopyPricePositionOperationService.cs" />
-    <Compile Include="Concrete\Prices\DeniedPositionsDuplicatesVerifier.cs" />
+    <Compile Include="Concrete\Prices\VerifyDeniedPositionsForDuplicatesOperationService.cs" />
     <Compile Include="Concrete\Prices\ChangeDeniedPositionObjectBindingTypeOperationService.cs" />
     <Compile Include="Concrete\Prices\ReplaceDeniedPositionOperationService.cs" />
-    <Compile Include="Concrete\Prices\SymmetricDeniedPositionsVerifier.cs" />
+    <Compile Include="Concrete\Prices\VerifyDeniedPositionsForSymmetryOperationService.cs" />
     <Compile Include="Concrete\Prices\GetSymmetricDeniedPositionOperationService.cs" />
     <Compile Include="Concrete\Prices\ReplacePriceOperationService.cs" />
     <Compile Include="Concrete\Processing\Final\HotClientMessageAggregatedProcessingResultHandler.cs" />

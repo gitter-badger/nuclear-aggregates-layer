@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                 }
                 else
                 {
-                    var symmetricDeniedPosition = _getSymmetricDeniedPositionOperationService.Get(deniedPosition.PositionId, deniedPosition.PositionDeniedId, deniedPosition.PriceId);
+                    var symmetricDeniedPosition = _getSymmetricDeniedPositionOperationService.GetTheOnlyOneOrDie(deniedPosition.PositionId, deniedPosition.PositionDeniedId, deniedPosition.PriceId);
                     _deleteDeniedPositionAggregateService.Delete(deniedPosition, symmetricDeniedPosition);
                 }
 

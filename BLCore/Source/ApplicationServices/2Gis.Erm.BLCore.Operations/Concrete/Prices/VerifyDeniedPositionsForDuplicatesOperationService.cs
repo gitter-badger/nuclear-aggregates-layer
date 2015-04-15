@@ -7,42 +7,56 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.DeniedPosition;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 {
-    public sealed class DeniedPositionsDuplicatesVerifier : IDeniedPositionsDuplicatesVerifier
+    public sealed class VerifyDeniedPositionsForDuplicatesOperationService : IVerifyDeniedPositionsForDuplicatesOperationService
     {
         private readonly IPositionReadModel _positionReadModel;
         private readonly IPriceReadModel _priceReadModel;
+        private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public DeniedPositionsDuplicatesVerifier(IPositionReadModel positionReadModel, IPriceReadModel priceReadModel)
+        public VerifyDeniedPositionsForDuplicatesOperationService(IPositionReadModel positionReadModel, IPriceReadModel priceReadModel, IOperationScopeFactory operationScopeFactory)
         {
             _positionReadModel = positionReadModel;
             _priceReadModel = priceReadModel;
+            _operationScopeFactory = operationScopeFactory;
         }
 
-        public void VerifyForDuplicates(long positionId, long positionDeniedId, long priceId, params long[] deniedPositionToExcludeIds)
+        public void Verify(long positionId, long positionDeniedId, long priceId, params long[] deniedPositionToExcludeIds)
         {
-            var duplicates =
-                _priceReadModel.GetDeniedPositionsOrSymmetric(positionId,
-                                                                        positionDeniedId,
-                                                                        priceId,
-                                                                        deniedPositionToExcludeIds)
-                               .ToArray();
-
-            if (duplicates.Any())
+            using (var scope = _operationScopeFactory.CreateNonCoupled<VerifyDeniedPositionsForDuplicatesIdentity>())
             {
-                ThrowError(duplicates);
+                var duplicates =
+                  _priceReadModel.GetDeniedPositionsOrSymmetric(positionId,
+                                                                positionDeniedId,
+                                                                priceId,
+                                                                deniedPositionToExcludeIds)
+                                 .ToArray();
+
+                if (duplicates.Any())
+                {
+                    ThrowError(duplicates);
+                }
+
+                scope.Complete();
             }
         }
 
-        public void VerifyForDuplicatesWithinCollection(IEnumerable<DeniedPosition> deniedPositions)
+        public void VerifyWithinCollection(IEnumerable<DeniedPosition> deniedPositions)
         {
-            var duplicateRules = deniedPositions.PickDuplicates();
-            if (duplicateRules.Any())
+            using (var scope = _operationScopeFactory.CreateNonCoupled<VerifyDeniedPositionsForDuplicatesIdentity>())
             {
-                ThrowError(duplicateRules);
+                var duplicateRules = deniedPositions.PickDuplicates();
+                if (duplicateRules.Any())
+                {
+                    ThrowError(duplicateRules);
+                }
+
+                scope.Complete();
             }
         }
 

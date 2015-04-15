@@ -19,24 +19,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
         private readonly IBulkActivateDeniedPositionsAggregateService _bulkActivateDeniedPositionsAggregateService;
         private readonly IActivatePriceAggregateService _activatePriceAggregateService;
         private readonly IOperationScopeFactory _operationScopeFactory;
-        private readonly ISymmetricDeniedPositionsVerifier _symmetricDeniedPositionsVerifier;
-        private readonly IDeniedPositionsDuplicatesVerifier _deniedPositionsDuplicatesVerifier;
+        private readonly IVerifyDeniedPositionsForSymmetryOperationService _verifyDeniedPositionsForSymmetryOperationService;
+        private readonly IVerifyDeniedPositionsForDuplicatesOperationService _verifyDeniedPositionsForDuplicatesOperationService;
 
         public ActivatePriceOperationService(IPriceReadModel priceReadModel,
                                              IBulkActivatePricePositionsAggregateService bulkActivatePricePositionsAggregateService,
                                              IBulkActivateDeniedPositionsAggregateService bulkActivateDeniedPositionsAggregateService,
                                              IActivatePriceAggregateService activatePriceAggregateService,
                                              IOperationScopeFactory operationScopeFactory,
-                                             ISymmetricDeniedPositionsVerifier symmetricDeniedPositionsVerifier,
-                                             IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier)
+                                             IVerifyDeniedPositionsForSymmetryOperationService verifyDeniedPositionsForSymmetryOperationService,
+                                             IVerifyDeniedPositionsForDuplicatesOperationService verifyDeniedPositionsForDuplicatesOperationService)
         {
             _priceReadModel = priceReadModel;
             _bulkActivatePricePositionsAggregateService = bulkActivatePricePositionsAggregateService;
             _bulkActivateDeniedPositionsAggregateService = bulkActivateDeniedPositionsAggregateService;
             _activatePriceAggregateService = activatePriceAggregateService;
             _operationScopeFactory = operationScopeFactory;
-            _symmetricDeniedPositionsVerifier = symmetricDeniedPositionsVerifier;
-            _deniedPositionsDuplicatesVerifier = deniedPositionsDuplicatesVerifier;
+            _verifyDeniedPositionsForSymmetryOperationService = verifyDeniedPositionsForSymmetryOperationService;
+            _verifyDeniedPositionsForDuplicatesOperationService = verifyDeniedPositionsForDuplicatesOperationService;
         }
 
         public int Activate(long entityId)
@@ -56,8 +56,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Activate
                                                                                  allPriceDescendantsDto.AssociatedPositionsMapping);
 
                 var deniedPositions = allPriceDescendantsDto.DeniedPositions.Where(x => !x.IsActive && !x.IsDeleted).DistinctDeniedPositions();
-                _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(deniedPositions);
-                _symmetricDeniedPositionsVerifier.VerifyForSymmetryWithinCollection(deniedPositions);
+                _verifyDeniedPositionsForDuplicatesOperationService.VerifyWithinCollection(deniedPositions);
+                _verifyDeniedPositionsForSymmetryOperationService.VerifyWithinCollection(deniedPositions);
 
                 count += _bulkActivateDeniedPositionsAggregateService.Activate(deniedPositions);
 

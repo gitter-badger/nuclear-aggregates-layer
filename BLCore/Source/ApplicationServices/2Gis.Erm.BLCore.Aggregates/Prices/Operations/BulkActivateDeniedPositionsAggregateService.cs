@@ -26,6 +26,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 
         public int Activate(IEnumerable<DeniedPosition> deniedPositions)
         {
+            CheckActivatePreconditions(deniedPositions);
+
+            using (var operationScope = _operationScopeFactory.CreateSpecificFor<ActivateIdentity, DeniedPosition>())
+            {
+                foreach (var deniedPosition in deniedPositions)
+                {
+                    deniedPosition.IsActive = true;
+                    _deniedPositionGenericRepository.Update(deniedPosition);
+                    operationScope.Updated<DeniedPosition>(deniedPosition.Id);
+                }
+
+                var count = _deniedPositionGenericRepository.Save();
+
+                operationScope.Complete();
+                return count;
+            }
+        }
+
+        private void CheckActivatePreconditions(IEnumerable<DeniedPosition> deniedPositions)
+        {
             var activeDeniedPosition = deniedPositions.FirstOrDefault(x => x.IsActive);
             if (activeDeniedPosition != null)
             {
@@ -51,21 +71,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
                                                                                                                            string.Format("({0}, {1})",
                                                                                                                                          x.PositionId,
                                                                                                                                          x.PositionDeniedId)))));
-            }
-
-            using (var operationScope = _operationScopeFactory.CreateSpecificFor<ActivateIdentity, DeniedPosition>())
-            {
-                foreach (var deniedPosition in deniedPositions)
-                {
-                    deniedPosition.IsActive = true;
-                    _deniedPositionGenericRepository.Update(deniedPosition);
-                    operationScope.Updated<DeniedPosition>(deniedPosition.Id);
-                }
-
-                var count = _deniedPositionGenericRepository.Save();
-
-                operationScope.Complete();
-                return count;
             }
         }
     }

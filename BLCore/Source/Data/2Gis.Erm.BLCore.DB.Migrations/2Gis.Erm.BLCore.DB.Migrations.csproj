@@ -239,7 +239,7 @@
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
     <Compile Include="2.1\201504101044 - drop DeniedPosition OwnerCode.cs" />
-    <Compile Include="2.1\201504101225 - remove some ВeniedPositions Privileges.cs" />
+    <Compile Include="2.1\201504101225 - remove some DeniedPositions Privileges.cs" />
     <Compile Include="2.1\Migration201502160411 - add SortingIndex column.cs" />
     <Compile Include="2.1\2014.12.08 rev. 201412081011.cs" />
     <Compile Include="2.1\2014.12.03 rev. 201412031042.cs" />

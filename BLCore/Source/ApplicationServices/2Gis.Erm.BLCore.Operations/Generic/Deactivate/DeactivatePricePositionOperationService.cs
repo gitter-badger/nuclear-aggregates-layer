@@ -21,9 +21,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly IBulkDeactivateDeniedPositionsAggregateService _bulkDeactivateDeniedPositionsAggregateService;
 
         public DeactivatePricePositionOperationService(IOperationScopeFactory operationScopeFactory,
-                                              IPriceReadModel priceReadModel,
-                                              IBulkDeactivatePricePositionsAggregateService bulkDeactivatePricePositionsAggregateService,
-                                              IBulkDeactivateDeniedPositionsAggregateService bulkDeactivateDeniedPositionsAggregateService)
+                                                       IPriceReadModel priceReadModel,
+                                                       IBulkDeactivatePricePositionsAggregateService bulkDeactivatePricePositionsAggregateService,
+                                                       IBulkDeactivateDeniedPositionsAggregateService bulkDeactivateDeniedPositionsAggregateService)
         {
             _operationScopeFactory = operationScopeFactory;
             _priceReadModel = priceReadModel;

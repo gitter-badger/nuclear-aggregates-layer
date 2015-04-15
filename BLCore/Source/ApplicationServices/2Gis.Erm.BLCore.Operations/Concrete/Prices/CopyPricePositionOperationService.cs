@@ -9,7 +9,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
@@ -27,8 +26,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         private readonly ICreateDeniedPositionsAggregateService _createDeniedPositionsAggregateService;
         private readonly IBulkCreateAssociatedPositionsGroupsAggregateService _bulkCreateAssociatedPositionsGroupsAggregateService;
         private readonly IBulkCreateAssociatedPositionsAggregateService _bulkCreateAssociatedPositionsAggregateService;
-        private readonly ISymmetricDeniedPositionsVerifier _symmetricDeniedPositionsVerifier;
-        private readonly IDeniedPositionsDuplicatesVerifier _deniedPositionsDuplicatesVerifier;
+        private readonly IVerifyDeniedPositionsForSymmetryOperationService _verifyDeniedPositionsForSymmetryOperationService;
+        private readonly IVerifyDeniedPositionsForDuplicatesOperationService _verifyDeniedPositionsForDuplicatesOperationService;
 
         public CopyPricePositionOperationService(ITracer tracer,
                                                  IOperationScopeFactory operationScopeFactory,
@@ -37,8 +36,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                                                  ICreateDeniedPositionsAggregateService createDeniedPositionsAggregateService,
                                                  IBulkCreateAssociatedPositionsGroupsAggregateService bulkCreateAssociatedPositionsGroupsAggregateService,
                                                  IBulkCreateAssociatedPositionsAggregateService bulkCreateAssociatedPositionsAggregateService,
-                                                 ISymmetricDeniedPositionsVerifier symmetricDeniedPositionsVerifier,
-                                                 IDeniedPositionsDuplicatesVerifier deniedPositionsDuplicatesVerifier)
+                                                 IVerifyDeniedPositionsForSymmetryOperationService verifyDeniedPositionsForSymmetryOperationService,
+                                                 IVerifyDeniedPositionsForDuplicatesOperationService verifyDeniedPositionsForDuplicatesOperationService)
         {
             _tracer = tracer;
             _operationScopeFactory = operationScopeFactory;
@@ -47,8 +46,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _createDeniedPositionsAggregateService = createDeniedPositionsAggregateService;
             _bulkCreateAssociatedPositionsGroupsAggregateService = bulkCreateAssociatedPositionsGroupsAggregateService;
             _bulkCreateAssociatedPositionsAggregateService = bulkCreateAssociatedPositionsAggregateService;
-            _symmetricDeniedPositionsVerifier = symmetricDeniedPositionsVerifier;
-            _deniedPositionsDuplicatesVerifier = deniedPositionsDuplicatesVerifier;
+            _verifyDeniedPositionsForSymmetryOperationService = verifyDeniedPositionsForSymmetryOperationService;
+            _verifyDeniedPositionsForDuplicatesOperationService = verifyDeniedPositionsForDuplicatesOperationService;
         }
 
         public void Copy(long priceId, long sourcePricePositionId, long positionId)
@@ -72,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                 pricePosition.PositionId = positionId;
                 _createPricePositionAggregateService.Create(pricePosition);
 
-                CreateDeniedPositions(allPricePositionDescendantsDto.DeniedPositions.Where(x => x.IsActive && !x.IsDeleted), priceId, sourcePositionId, positionId);
+                CreateDeniedPositions(allPricePositionDescendantsDto.DeniedPositions, priceId, sourcePositionId, positionId);
 
                 var associatedPositionsToCreate = CreateAssociatedPositionsGroups(allPricePositionDescendantsDto.AssociatedPositionsGroups,
                                                                                   allPricePositionDescendantsDto.AssociatedPositionsMapping,
@@ -110,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                                            long sourcePositionId,
                                            long positionId)
         {
-            var allDeniedPositions = enumerableDeniedPositions.AsArray();
+            var allDeniedPositions = enumerableDeniedPositions.Where(x => x.IsActive && !x.IsDeleted).ToArray();
 
             var positionDeniedPositions = allDeniedPositions.Where(x => x.PositionId == sourcePositionId)
                                                             .DistinctDeniedPositions();
@@ -125,8 +124,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 
             // Проверим валидность копируемых данных
             var allPositionDeniedPositions = positionDeniedPositions.Concat(symmetricDeniedPositions);
-            _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(allPositionDeniedPositions);
-            _symmetricDeniedPositionsVerifier.VerifyForSymmetryWithinCollection(allPositionDeniedPositions);
+            _verifyDeniedPositionsForDuplicatesOperationService.VerifyWithinCollection(allPositionDeniedPositions);
+            _verifyDeniedPositionsForSymmetryOperationService.VerifyWithinCollection(allPositionDeniedPositions);
 
             foreach (var deniedPosition in positionDeniedPositions)
             {
@@ -134,7 +133,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             }
 
             var storedDeniedPositions = _priceReadModel.GetDeniedPositions(positionId, priceId);
-            _deniedPositionsDuplicatesVerifier.VerifyForDuplicatesWithinCollection(positionDeniedPositions.Concat(storedDeniedPositions).DistinctDeniedPositions());
+            _verifyDeniedPositionsForDuplicatesOperationService.VerifyWithinCollection(positionDeniedPositions.Concat(storedDeniedPositions).DistinctDeniedPositions());
 
             var deniedPositionsToCreate = positionDeniedPositions.ExceptDeniedPositions(storedDeniedPositions);
 

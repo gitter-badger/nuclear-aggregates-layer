@@ -27,16 +27,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _positionReadModel = positionReadModel;
         }
 
-        public DeniedPosition Get(long positionId, long positionDeniedId, long priceId)
+        public DeniedPosition GetTheOnlyOneOrDie(long positionId, long positionDeniedId, long priceId)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
             {
                 var symmetricDeniedPositions =
                     _priceReadModel.GetDeniedPositions(positionId: positionDeniedId,
                                                        positionDeniedId: positionId,
-                                                       priceId: priceId)
-                                   .ToArray();
-
+                                                       priceId: priceId);
+                                   
                 EnsureUniqueness(symmetricDeniedPositions);
                 EnsureExistence(positionId, positionDeniedId, symmetricDeniedPositions);
                 scope.Complete();
@@ -45,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             }
         }
 
-        public DeniedPosition GetWithObjectBindingTypeConsideration(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
+        public DeniedPosition GetTheOnlyOneWithObjectBindingTypeConsiderationOrDie(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
             {
@@ -60,23 +59,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                 scope.Complete();
 
                 return symmetricDeniedPositions.Single();
-            }
-        }
-
-        public DeniedPosition GetInactiveWithObjectBindingTypeConsideration(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
-        {
-            using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
-            {
-                var symmetricDeniedPositions =
-                    _priceReadModel.GetInactiveDeniedPositions(positionId: positionDeniedId,
-                                                               positionDeniedId: positionId,
-                                                               priceId: priceId,
-                                                               objectBindingType: objectBindingType);
-
-                EnsureExistence(positionId, positionDeniedId, symmetricDeniedPositions);
-                scope.Complete();
-
-                return symmetricDeniedPositions.First();
             }
         }
 

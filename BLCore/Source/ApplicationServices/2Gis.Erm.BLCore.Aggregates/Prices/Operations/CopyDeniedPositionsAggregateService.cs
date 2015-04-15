@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
-using DoubleGis.Erm.BLCore.API.Common.Exceptions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -28,12 +28,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public void Copy(IEnumerable<DeniedPosition> deniedPositions, long targetPriceId)
+        public void Copy(IEnumerable<DeniedPositionToCopyDto> deniedPositionsToCopy, long targetPriceId)
         {
-            if (deniedPositions.Any(x => !x.IsActive || x.IsDeleted))
-            {
-                throw new InactiveEntityCreationException();
-            }
+            var deniedPositions = deniedPositionsToCopy
+                .Select(x => new DeniedPosition
+                                 {
+                                     PositionId = x.PositionId,
+                                     IsActive = true,
+                                     PositionDeniedId = x.PositionDeniedId,
+                                     ObjectBindingType = x.ObjectBindingType
+                                 })
+                .ToArray();
 
             var duplicateRules = deniedPositions.PickDuplicates();
             if (duplicateRules.Any())

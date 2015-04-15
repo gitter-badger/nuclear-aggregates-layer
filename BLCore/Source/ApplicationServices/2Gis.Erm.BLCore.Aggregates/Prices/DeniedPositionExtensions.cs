@@ -71,9 +71,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
                 return x.PositionId == y.PositionId &&
                        x.PositionDeniedId == y.PositionDeniedId &&
-                       x.ObjectBindingType == y.ObjectBindingType &&
-                       x.IsActive == y.IsActive &&
-                       x.IsDeleted == y.IsDeleted;
+                       x.ObjectBindingType == y.ObjectBindingType;
             }
 
             public override int GetHashCode(DeniedPosition obj)
