@@ -41,7 +41,6 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
             return Expression.Field(Expression.Constant(wrappedValue), fieldInfo);
         }
 
-
         private static FieldInfo GetFieldInfo<TField>(Expression<Func<ConstantWrapper<T>, TField>> expr)
         {
             return (FieldInfo)StaticReflection.GetMemberInfo(expr);
