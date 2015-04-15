@@ -53,6 +53,7 @@
     </Compile>
     <Compile Include="DI\BlQueryingOperationsListingAssembly.cs" />
     <Compile Include="List\Infrastructure\ClientLinkedChildFilter.cs" />
+    <Compile Include="List\Infrastructure\ConstantWrapper.cs" />
     <Compile Include="List\Infrastructure\ErmEntityFunctions.cs" />
     <Compile Include="List\Infrastructure\QueryableExtension.cs" />
     <Compile Include="List\Infrastructure\FilterHelper.cs" />

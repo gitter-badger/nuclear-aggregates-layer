@@ -107,6 +107,16 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             return GetMemberType(expression.Body);
         }
 
+        public static MemberInfo GetMemberInfo<T, TProp>(Expression<Func<T, TProp>> expression)
+        {
+            if (expression == null)
+            {
+                throw new ArgumentException("The expression cannot be null.");
+            }
+
+            return GetMemberInfo(expression.Body);
+        }
+
         // Original source: http://stackoverflow.com/a/2789606/1009661
         public static string GetFullPropertyName<T, TProperty>(Expression<Func<T, TProperty>> exp)
         {
@@ -184,6 +194,11 @@ namespace DoubleGis.Erm.Platform.Common.Utils
 
         private static string GetMemberName(Expression expression)
         {
+            return GetMemberInfo(expression).Name;
+        }
+
+        private static MemberInfo GetMemberInfo(Expression expression)
+        {
             if (expression == null)
             {
                 throw new ArgumentException("The expression cannot be null.");
@@ -193,21 +208,21 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             {
                 // Reference type property or field
                 var memberExpression = (MemberExpression)expression;
-                return memberExpression.Member.Name;
+                return memberExpression.Member;
             }
 
             if (expression is MethodCallExpression)
             {
                 // Reference type method
                 var methodCallExpression = (MethodCallExpression)expression;
-                return methodCallExpression.Method.Name;
+                return methodCallExpression.Method;
             }
 
             if (expression is UnaryExpression)
             {
                 // Property, field of method returning value type
                 var unaryExpression = (UnaryExpression)expression;
-                return GetMemberName(unaryExpression);
+                return GetMemberInfo(unaryExpression);
             }
 
             throw new ArgumentException("Invalid expression");
@@ -243,15 +258,15 @@ namespace DoubleGis.Erm.Platform.Common.Utils
             throw new ArgumentException("Invalid expression");
         }
 
-        private static string GetMemberName(UnaryExpression unaryExpression)
+        private static MemberInfo GetMemberInfo(UnaryExpression unaryExpression)
         {
             if (unaryExpression.Operand is MethodCallExpression)
             {
                 var methodExpression = (MethodCallExpression)unaryExpression.Operand;
-                return methodExpression.Method.Name;
+                return methodExpression.Method;
             }
 
-            return ((MemberExpression)unaryExpression.Operand).Member.Name;
+            return ((MemberExpression)unaryExpression.Operand).Member;
         }
 
         private static Type GetMemberDeclaringType(UnaryExpression unaryExpression)
