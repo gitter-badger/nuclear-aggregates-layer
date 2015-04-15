@@ -28,6 +28,13 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
         }
         return false;
     },
+    getValue: function () {
+        if (this.valueField) {
+            return Ext.isDefined(this.value) ? moment.utc(moment.duration(this.value).asMilliseconds()).format(this.displayFormat) : '';
+        } else {
+            return Ext.ux.TimeComboBox.superclass.getValue.call(this);
+        }
+    },
     generateStore: function (initial) {
         if (this.minValue && this.maxValue && this.step) {
             var times = this.initTime(this.minValue, this.maxValue, this.step);
