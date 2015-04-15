@@ -562,7 +562,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public AssignAccountDto GetInfoForAssignAccount(long accountId)
         {
-            var account = _finder.FindOne(Specs.Find.ById<Account>(accountId));
+            var account = _finder.FindOne(Specs.Find.ById<Account>(accountId)).EnsureFound();
             var limits = _finder.FindMany(AccountSpecs.Limits.Find.ForAccount(accountId) && Specs.Find.ActiveAndNotDeleted<Limit>());
 
             return new AssignAccountDto
@@ -574,7 +574,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public AccountDetail GetAccountDetail(long accountDetailId)
         {
-            return _finder.FindOne(Specs.Find.ById<AccountDetail>(accountDetailId));
+            return _finder.FindOne(Specs.Find.ById<AccountDetail>(accountDetailId)).EnsureFound();
         }
     }
 }
