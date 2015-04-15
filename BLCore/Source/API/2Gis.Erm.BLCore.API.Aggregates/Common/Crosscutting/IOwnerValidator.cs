@@ -5,6 +5,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting
 {
     public interface IOwnerValidator : IInvariantSafeCrosscuttingService
     {
-        void CheckIsNotReserve<TEntity>(long entityId) where TEntity : class, IEntityKey, ICuratedEntity, IEntity;
+        void CheckIsNotReserve(ICuratedEntity entity);
     }
 }

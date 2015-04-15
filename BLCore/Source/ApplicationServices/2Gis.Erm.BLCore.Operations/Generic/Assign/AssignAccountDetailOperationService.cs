@@ -47,9 +47,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, AccountDetail>())
             {
-                _ownerValidator.CheckIsNotReserve<AccountDetail>(entityId);
-
                 var accountDetail = _accountReadModel.GetAccountDetail(entityId);
+
+                _ownerValidator.CheckIsNotReserve(accountDetail);
                 var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
                                                                              EntityName.AccountDetail,
                                                                              _userContext.Identity.Code,

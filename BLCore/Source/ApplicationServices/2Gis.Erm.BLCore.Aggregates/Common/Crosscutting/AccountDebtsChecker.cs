@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Security;
 
-using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

@@ -54,7 +54,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Account>())
             {
-                _ownerValidator.CheckIsNotReserve<Account>(entityId);
+                var accountToAssign = _accountReadModel.GetInfoForAssignAccount(entityId);
+                var account = accountToAssign.Account;
+
+                _ownerValidator.CheckIsNotReserve(account);
 
                 string message;
                 if (_accountDebtsChecker.HasDebts(bypassValidation, _userContext.Identity.Code, () => new[] { entityId }, out message))
@@ -73,14 +76,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                                };
                 }
 
-                var accountToAssign = _accountReadModel.GetInfoForAssignAccount(entityId);
-                var accountOwnerCode = accountToAssign.Account.OwnerCode;
                 var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
                                                                              EntityName.Account,
                                                                              _userContext.Identity.Code,
                                                                              entityId,
                                                                              ownerCode,
-                                                                             accountOwnerCode);
+                                                                             account.OwnerCode);
                 if (!ownerCanBeChanged)
                 {
                     throw new SecurityException(BLResources.AssignAccountAccessDenied);
