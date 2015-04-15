@@ -75,19 +75,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 
                 var accountToAssign = _accountReadModel.GetInfoForAssignAccount(entityId);
                 var accountOwnerCode = accountToAssign.Account.OwnerCode;
-                if (!_userContext.Identity.SkipEntityAccessCheck)
+                var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
+                                                                             EntityName.Account,
+                                                                             _userContext.Identity.Code,
+                                                                             entityId,
+                                                                             ownerCode,
+                                                                             accountOwnerCode);
+                if (!ownerCanBeChanged)
                 {
-                    var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
-                                                                                 EntityName.Account,
-                                                                                 _userContext.Identity.Code,
-                                                                                 entityId,
-                                                                                 ownerCode,
-                                                                                 accountOwnerCode);
-                    if (!ownerCanBeChanged)
-                    {
-                        throw new SecurityException(BLResources.AssignAccountAccessDenied);
-                    }
+                    throw new SecurityException(BLResources.AssignAccountAccessDenied);
                 }
+
 
                 var changes = _assignAccountAggregateService.Assign(accountToAssign, ownerCode);
                 _actionLogger.LogChanges(changes);
