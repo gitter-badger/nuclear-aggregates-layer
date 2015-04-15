@@ -622,4 +622,7 @@
   <data name="customizations_201503040330" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\201503040330\customizations.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="script_201504090414" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\201504090414\script.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>
