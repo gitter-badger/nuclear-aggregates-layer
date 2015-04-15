@@ -12,28 +12,40 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting
     {
         public static void ThrowIfAnyError(IReadOnlyCollection<AccountWithDebtInfo> accountWithDebts)
         {
+            string report;
+            if (TryGetReport(accountWithDebts, out report))
+            {
+                throw new ProcessAccountsWithDebtsException(report);
+            }
+        }
+
+        public static bool TryGetReport(IReadOnlyCollection<AccountWithDebtInfo> accountWithDebts, out string report)
+        {
             if (accountWithDebts == null || !accountWithDebts.Any())
             {
-                return;
+                report = null;
+                return false;
             }
 
-            var message = new StringBuilder();
+            var reportBuilder = new StringBuilder();
             var firstAccount = accountWithDebts.First();
 
             if (!string.IsNullOrEmpty(firstAccount.ClientName))
             {
-                message.AppendFormat(BLResources.CheckForDebtsHelper_ClientTemplate, firstAccount.ClientName);
+                reportBuilder.AppendFormat(BLResources.CheckForDebtsHelper_ClientTemplate, firstAccount.ClientName);
             }
 
             foreach (var accountWithDebt in accountWithDebts)
             {
-                message.AppendFormat(BLResources.AccountInLegalPersonHasDebts + Environment.NewLine,
-                                     accountWithDebt.LegalPersonName,
-                                     accountWithDebt.AccountNumber,
-                                     accountWithDebt.LockDetailBalance);
+                reportBuilder.AppendFormat(BLResources.AccountInLegalPersonHasDebts + Environment.NewLine,
+                                           accountWithDebt.LegalPersonName,
+                                           accountWithDebt.AccountNumber,
+                                           accountWithDebt.LockDetailBalance);
             }
 
-            throw new ProcessAccountsWithDebtsException(message.ToString());
+
+            report = reportBuilder.ToString();
+            return true;
         }
     }
 
