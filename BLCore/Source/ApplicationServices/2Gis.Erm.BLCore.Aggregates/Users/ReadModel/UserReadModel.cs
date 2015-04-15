@@ -109,7 +109,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
 
         public IReadOnlyCollection<long> GetUserBranchOffices(long userId)
         {
-            return _finder.Find(UserSpecs.UserBranchOffices.Find.ByUser(userId)).Select(x => x.BranchOfficeId).ToArray();
+            return _finder.Find(UserSpecs.UserBranchOffices.Find.ByUser(userId))
+                          .Select(x => x.BranchOfficeId)
+                          .ToArray();
+        }
+
+        public IReadOnlyCollection<UserBranchOffice> GetUserBranchOfficeLinks(long userId)
+        {
+            return _finder.Find(UserSpecs.UserBranchOffices.Find.ByUser(userId))
+                          .ToArray();
         }
     }
 }

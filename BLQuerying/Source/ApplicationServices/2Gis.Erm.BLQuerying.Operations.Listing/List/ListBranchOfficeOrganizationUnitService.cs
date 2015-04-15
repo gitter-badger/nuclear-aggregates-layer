@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<BranchOfficeOrganizationUnit>();
 
             var filter = querySettings.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long>(
-                "sourceOrganizationUnitId",
+                "OrderSourceOrganizationUnitId",
                 sourceOrganizationUnitId =>
                     {
                         var userId = _userContext.Identity.Code;

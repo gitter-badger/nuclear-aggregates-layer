@@ -373,6 +373,7 @@
     <Compile Include="Users\IActivateUserAggregateService.cs" />
     <Compile Include="Users\IDeactivateUserAggregateService.cs" />
     <Compile Include="Users\IUserRepository.cs" />
+    <Compile Include="Users\Operation\IAssignUserBranchOfficeAggregateService.cs" />
     <Compile Include="Users\Operation\IUserAppendToBranchOfficeAggregateService.cs" />
     <Compile Include="Users\Operation\IUserAppendRoleAggregateService.cs" />
     <Compile Include="Users\ReadModel\DTO\UserWithRoleRelationsDto.cs" />

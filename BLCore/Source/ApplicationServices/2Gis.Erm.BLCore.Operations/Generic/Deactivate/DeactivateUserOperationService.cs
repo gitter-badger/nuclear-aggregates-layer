@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.Users.Operation;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -37,6 +38,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly IAssignLetterAggregateService _assignLetterAggregateService;
         private readonly IAssignPhonecallAggregateService _assignPhonecallAggregateService;
         private readonly IAssignTaskAggregateService _assignTaskAggregateService;
+        private readonly IAssignUserBranchOfficeAggregateService _assignUserBranchOfficeAggregateService;
 
         public DeactivateUserOperationService(
             ISecureFinder finder,
@@ -53,13 +55,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             IAssignPhonecallAggregateService assignPhonecallAggregateService,
             IAssignTaskAggregateService assignTaskAggregateService,
             IUserContext userContext,
-            IOperationScopeFactory scopeFactory)
+            IOperationScopeFactory scopeFactory,
+            IAssignUserBranchOfficeAggregateService assignUserBranchOfficeAggregateService)
         {
             _userContext = userContext;
             _finder = finder;
             _userRepository = userRepository;
             _clientRepository = clientRepository;
             _scopeFactory = scopeFactory;
+            _assignUserBranchOfficeAggregateService = assignUserBranchOfficeAggregateService;
             _userReadModel = userReadModel;
             _deactivateUserAggregateService = deactivateUserAggregateService;
             _appointmentReadModel = appointmentReadModel;
@@ -103,6 +107,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
 
                     // FIXME {all, 23.12.2014}: два ниже следующих вызова нужно зарефакторить, например, объединив в 1 operation service 
                     _userRepository.AssignUserRelatedEntities(entityId, targetOwnerCodeForUserRelations);
+                    var userBranchOffices = _userReadModel.GetUserBranchOfficeLinks(entityId);
+                    _assignUserBranchOfficeAggregateService.Assign(userBranchOffices, entityId);
                     AssignRelatedActivities(entityId, targetOwnerCodeForUserRelations);
                     scope.Updated<User>(targetOwnerCodeForUserRelations);
 
