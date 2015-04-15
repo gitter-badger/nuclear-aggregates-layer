@@ -60,10 +60,10 @@
     <Compile Include="BlCoreOperationsSpecialAssembly.cs" />
     <Compile Include="CostCalculation\OrderCostCalculationOperationService.cs" />
     <Compile Include="CostCalculation\OrderPositionCostCalculationOperationService.cs" />
+    <Compile Include="Dial\CommandConverterExtension.cs" />
+    <Compile Include="Dial\CommandType.cs" />
     <Compile Include="Dial\DialOperationService.cs" />
-    <Compile Include="Dial\Telephony\CommandConverterExtension.cs" />
-    <Compile Include="Dial\Telephony\IPhoneService.cs" />
-    <Compile Include="Dial\Telephony\PhoneService.cs" />
+    <Compile Include="Dial\PhoneMode.cs" />
     <Compile Include="FirmInfo\GetFirmInfoService.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\BasicOrderProlongationOperationLogic.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\CancelOrderProcessingRequestOperationService.cs" />
@@ -146,6 +146,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Dial\Telephony\" />
     <Folder Include="OrderProcessingRequests\Generic\Modify\Old\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,7 +15,6 @@ using NuClear.Tracing.API;
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.Dial
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
-    [UseCase(Duration = UseCaseDuration.Long)]
     public class DialApplicationService : IDialApplicationRestService 
     {
         private readonly ITracer _tracer;

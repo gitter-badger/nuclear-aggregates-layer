@@ -2,24 +2,9 @@
 using System.Globalization;
 using System.Text;
 
-namespace DoubleGis.Erm.BLCore.Operations.Special.Dial.Telephony
+namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
 {
-    public enum PhoneMode
-    {
-        None = 0,
-        Tapi = 2,
-        Ami = 3,
-        IntegratedVoip = 4
-    }
-
-    internal enum CommandType
-    {
-        None = 0,
-        Dial = 1,
-        Drop = 2
-    }
-
-    public static class CommandConverterExtension
+    internal static class CommandConverterExtension
     {        
         public static string MakeXmlCommand(this string phone, string line)
         {
