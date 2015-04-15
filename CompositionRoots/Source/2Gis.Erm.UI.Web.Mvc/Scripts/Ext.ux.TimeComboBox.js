@@ -30,7 +30,7 @@ Ext.ux.TimeComboBox = Ext.extend(Ext.form.ComboBox, {
     },
     getValue: function () {
         if (this.valueField) {
-            return Ext.isDefined(this.value) ? moment.utc(moment.duration(this.value).asMilliseconds()).format(this.displayFormat) : '';
+            return Ext.isDefined(this.value) ? moment.duration(this.value) : 0;
         } else {
             return Ext.ux.TimeComboBox.superclass.getValue.call(this);
         }
