@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             }
             catch (Exception ex)
             {
-                const string Message = "Can't generate requested identities";
+                const string Message = "Cannot generate requested identities";
                 _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             }
             catch (Exception ex)
             {
-                const string Message = "Can't generate requested identities";
+                const string Message = "Cannot generate requested identities";
                 _tracer.Error(ex, Message);
                 throw GetExceptionDescription(Message, ex);
             }
