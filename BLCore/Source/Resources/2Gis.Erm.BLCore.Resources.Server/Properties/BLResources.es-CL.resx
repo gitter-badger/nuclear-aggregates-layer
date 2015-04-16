@@ -5221,6 +5221,12 @@ Periodo de la publicación: {3}.</value>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Operación no puede llevarse a cabo, ya que se está realizando recopilación</value>
   </data>
+  <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
+    <value>Ud. está intentando de finalizar una acción planificada para el futuro, cambie el plazo o cancele, si la acción no fue cumplidaо</value>
+  </data>
+  <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
+    <value>You can't pick more than one reference object for the following positions: {0}</value>
+  </data>
   <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
     <value>Пользователь {0} уже связан с юр. лицом {1}</value>
   </data>

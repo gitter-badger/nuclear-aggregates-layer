@@ -4,6 +4,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     contactComp: null,
     contactRelationController: null,
     reagrdingObjectController: null,
+    changeStatusOperation:undefined,
     autoHeader: {
         prefix: null,
         suffix: null,
@@ -38,7 +39,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 success: scope.refresh,
                 failure: scope.postFormFailure
             });
-         }
+        }       
         function checkDirty() {
             if (scope.form.Id.value == 0) {
                 Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
@@ -58,8 +59,8 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 scope.Items.Toolbar.disable();
                 scope.submitMode = scope.submitModes.SAVE;
                 if (scope.fireEvent('beforepost', scope) && scope.normalizeForm()) {
+                    scope.changeStatusOperation = operation;
                     scope.postForm();
-                    scope.on('postformsuccess', function () { postOperation(operation); });
                 }
                 else {
                     scope.recalcDisabling();
@@ -72,6 +73,16 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             }
         }
 
+        this.saveFormSuccess = function() {
+            if (scope.changeStatusOperation) {
+                postOperation(scope.changeStatusOperation);
+                scope.changeStatusOperation = null;
+            }
+        }
+
+        this.saveFormFailure= function() {
+            scope.changeStatusOperation = null;
+        }
 
         this.getComboboxText = function (name) {
             var element = Ext.get(name);
@@ -110,6 +121,9 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
         }
         this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
+
+            this.on('postformsuccess', this.saveFormSuccess);
+            this.on('postformfailure', this.saveFormFailure);
 
         this.autocompleteHeader();
     },

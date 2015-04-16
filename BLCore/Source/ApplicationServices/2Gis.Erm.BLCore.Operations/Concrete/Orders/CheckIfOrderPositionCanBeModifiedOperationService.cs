@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -54,6 +55,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             }
 
             if (!CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(position.SalesModel, orderPositionAdvertisements, out report))
+            {
+                return false;
+            }
+
+            if (!BindingOfSingleTypeMustHaveNoMoreThan1BindingPerPosition(orderPositionAdvertisements, out report))
             {
                 return false;
             }
@@ -159,6 +165,28 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 return false;
             }
 
+            return true;
+        }
+
+        private bool BindingOfSingleTypeMustHaveNoMoreThan1BindingPerPosition(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                                              out string report)
+        {
+            var positionIdsToCheck = orderPositionAdvertisements.GroupBy(x => x.PositionId).Where(x => x.Count() > 1).Select(x => x.Key).ToArray();
+            var invalidPositionIds =
+                _positionReadModel.GetPositionBindingObjectTypes(positionIdsToCheck)
+                                  .Where(x => x.Value.IsPositionBindingOfSingleType())
+                                  .Select(x => x.Key)
+                                  .ToArray();
+
+            if (invalidPositionIds.Any())
+            {
+                var invalidPositionNames = _positionReadModel.GetPositionNames(invalidPositionIds);
+                report = string.Format(BLResources.CannotPickMoreThanOneLinkingObject, string.Join(",", invalidPositionNames.Values));
+
+                return false;
+            }
+
+            report = null;
             return true;
         }
 

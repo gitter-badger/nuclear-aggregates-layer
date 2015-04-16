@@ -59,6 +59,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Cards\CardSettingsProvider.cs" />
+    <Compile Include="Cards\DefaultDataViewFeature.cs" />
     <Compile Include="Cards\ExtendedInfoFeature.cs" />
     <Compile Include="Cards\FilterByParentsFeature.cs" />
     <Compile Include="Cards\FilterToParentFeature.cs" />

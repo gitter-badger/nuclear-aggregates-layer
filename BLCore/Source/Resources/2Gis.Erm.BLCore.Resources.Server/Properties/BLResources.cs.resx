@@ -5220,6 +5220,12 @@ Doba zveřejnění: {3}.</value>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Operace nemůže být provedena, jelikož je uskutečňována aktualizace</value>
   </data>
+  <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
+    <value>Pokusil jste se ukončit akci, která je naplánována na budoucí období, změňte dobu provedení akce nebo stornujte to, pokud akce nebyla provedena</value>
+  </data>
+  <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
+    <value>You can't pick more than one reference object for the following positions: {0}</value>
+  </data>
   <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
     <value>Пользователь {0} уже связан с юр. лицом {1}</value>
   </data>
