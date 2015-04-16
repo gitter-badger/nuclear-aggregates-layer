@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             _positionReadModel = positionReadModel;
         }
 
-        public DeniedPosition GetTheOnlyOneOrDie(long positionId, long positionDeniedId, long priceId)
+        public DeniedPosition GetSingle(long positionId, long positionDeniedId, long priceId)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
             {
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             }
         }
 
-        public DeniedPosition GetTheOnlyOneWithObjectBindingTypeConsiderationOrDie(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
+        public DeniedPosition GetSingleWithObjectBindingTypeConsideration(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
         {
             using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
             {

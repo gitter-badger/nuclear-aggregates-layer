@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices
 {
     public interface IGetSymmetricDeniedPositionOperationService : IOperation<GetSymmetricDeniedPositionIdentity>
     {
-        DeniedPosition GetTheOnlyOneOrDie(long positionId, long positionDeniedId, long priceId);
-        DeniedPosition GetTheOnlyOneWithObjectBindingTypeConsiderationOrDie(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType);
+        DeniedPosition GetSingle(long positionId, long positionDeniedId, long priceId);
+        DeniedPosition GetSingleWithObjectBindingTypeConsideration(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType);
     }
 }

@@ -42,10 +42,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                 else
                 {
                     var symmetricOriginalDeniedPosition =
-                        _getSymmetricDeniedPositionOperationService.GetTheOnlyOneWithObjectBindingTypeConsiderationOrDie(originalDeniedPosition.PositionId,
-                                                                                                                         originalDeniedPosition.PositionDeniedId,
-                                                                                                                         originalDeniedPosition.PriceId,
-                                                                                                                         originalDeniedPosition.ObjectBindingType);
+                        _getSymmetricDeniedPositionOperationService.GetSingleWithObjectBindingTypeConsideration(originalDeniedPosition.PositionId,
+                                                                                                                originalDeniedPosition.PositionDeniedId,
+                                                                                                                originalDeniedPosition.PriceId,
+                                                                                                                originalDeniedPosition.ObjectBindingType);
 
                     _replaceDeniedPositionAggregateService.Replace(originalDeniedPosition, symmetricOriginalDeniedPosition, newPositionDeniedId);
                 }
