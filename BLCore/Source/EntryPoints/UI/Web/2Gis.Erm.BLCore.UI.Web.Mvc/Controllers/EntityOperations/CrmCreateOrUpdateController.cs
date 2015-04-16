@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
         public ActionResult Redirect(Guid? crmId)
         {
-            var routeValues = new RouteValueDictionary(new { readOnly = false, pId = (long?)null, pType = EntityType.Instance.None(), extendedInfo = (string)null });
+            var routeValues = new RouteValueDictionary(new { readOnly = false, pId = (long?)null, pType = EntityType.Instance.None().Description, extendedInfo = (string)null });
             if (crmId.HasValue)
             {
                 routeValues.Add("entityId", _replicationCodeConverter.ConvertToEntityId(typeof(TEntity).AsEntityName(), crmId.Value));
