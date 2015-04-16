@@ -14,17 +14,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
     public class AppendUserToBranchOfficeOperationService : IAppendGenericEntityService<User, BranchOffice>
     {
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IUserAppendToBranchOfficeAggregateService _userAppendToBranchOfficeAggregateService;
+        private readonly IAppendUserToBranchOfficeAggregateService _appendUserToBranchOfficeAggregateService;
         private readonly IUserReadModel _userReadModel;
         private readonly IBranchOfficeReadModel _branchOfficeReadModel;
 
         public AppendUserToBranchOfficeOperationService(IOperationScopeFactory scopeFactory,
-                                                        IUserAppendToBranchOfficeAggregateService userAppendToBranchOfficeAggregateService,
+                                                        IAppendUserToBranchOfficeAggregateService appendUserToBranchOfficeAggregateService,
                                                         IUserReadModel userReadModel,
                                                         IBranchOfficeReadModel branchOfficeReadModel)
         {
             _scopeFactory = scopeFactory;
-            _userAppendToBranchOfficeAggregateService = userAppendToBranchOfficeAggregateService;
+            _appendUserToBranchOfficeAggregateService = appendUserToBranchOfficeAggregateService;
             _userReadModel = userReadModel;
             _branchOfficeReadModel = branchOfficeReadModel;
         }
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
                     throw new EntityIsNotUniqueException(typeof(UserBranchOffice), string.Format(BLResources.UserIsAlreadyLinkedWithBranchOffice, userName, branchOfficeName));
                 }
 
-                _userAppendToBranchOfficeAggregateService.AppendUser(userId, branchOfficeId);
+                _appendUserToBranchOfficeAggregateService.AppendUser(userId, branchOfficeId);
                 scope.Complete();
             }
         }

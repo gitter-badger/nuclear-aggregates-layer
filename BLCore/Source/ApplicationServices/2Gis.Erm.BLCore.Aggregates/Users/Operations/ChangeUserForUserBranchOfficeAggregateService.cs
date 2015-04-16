@@ -8,24 +8,24 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Users.Operations
 {
-    public class AssignUserBranchOfficeAggregateService : IAssignUserBranchOfficeAggregateService
+    public class ChangeUserForUserBranchOfficeAggregateService : IChangeUserForUserBranchOfficeAggregateService
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IRepository<UserBranchOffice> _repository;
 
-        public AssignUserBranchOfficeAggregateService(IOperationScopeFactory operationScopeFactory, IRepository<UserBranchOffice> repository)
+        public ChangeUserForUserBranchOfficeAggregateService(IOperationScopeFactory operationScopeFactory, IRepository<UserBranchOffice> repository)
         {
             _operationScopeFactory = operationScopeFactory;
             _repository = repository;
         }
 
-        public void Assign(IEnumerable<UserBranchOffice> userBranchOffices, long ownerCode)
+        public void ChangeUser(IEnumerable<UserBranchOffice> userBranchOffices, long userCode)
         {
-            using (var scope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, UserBranchOffice>())
+            using (var scope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, UserBranchOffice>())
             {
                 foreach (var userBranchOffice in userBranchOffices)
                 {
-                    userBranchOffice.UserId = ownerCode;
+                    userBranchOffice.UserId = userCode;
                     _repository.Update(userBranchOffice);
                     scope.Updated(userBranchOffice);
                 }

@@ -2,7 +2,6 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates;
-using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
@@ -12,7 +11,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
@@ -30,7 +28,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly ISecureFinder _finder;
         private readonly IUserRepository _userRepository;
         private readonly IClientRepository _clientRepository;
-        private readonly IActionLogger _actionLogger;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserReadModel _userReadModel;
         private readonly IDeactivateUserAggregateService _deactivateUserAggregateService;
@@ -38,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly IAssignGenericEntityService<Letter> _assignLetterOperationService;
         private readonly IAssignGenericEntityService<Phonecall> _assignPhonecallOperationService;
         private readonly IAssignGenericEntityService<Task> _assignTaskOperationService;
-        private readonly IAssignUserBranchOfficeAggregateService _assignUserBranchOfficeAggregateService;
+        private readonly IChangeUserForUserBranchOfficeAggregateService _changeUserForUserBranchOfficeAggregateService;
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly ILetterReadModel _letterReadModel;
         private readonly IPhonecallReadModel _phonecallReadModel;
@@ -53,7 +50,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             ITaskReadModel taskReadModel,
             IUserRepository userRepository,
             IClientRepository clientRepository,
-            IActionLogger actionLogger,
             IDeactivateUserAggregateService deactivateUserAggregateService,
             IAssignGenericEntityService<Appointment> assignAppointmentOperationService,
             IAssignGenericEntityService<Letter> assignLetterOperationService,
@@ -61,15 +57,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             IAssignGenericEntityService<Task> assignTaskOperationService,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory,
-            IAssignUserBranchOfficeAggregateService assignUserBranchOfficeAggregateService)
+            IChangeUserForUserBranchOfficeAggregateService changeUserForUserBranchOfficeAggregateService)
         {
             _userContext = userContext;
             _finder = finder;
             _userRepository = userRepository;
             _clientRepository = clientRepository;
-            _actionLogger = actionLogger;
             _scopeFactory = scopeFactory;
-            _assignUserBranchOfficeAggregateService = assignUserBranchOfficeAggregateService;
+            _changeUserForUserBranchOfficeAggregateService = changeUserForUserBranchOfficeAggregateService;
             _userReadModel = userReadModel;
             _deactivateUserAggregateService = deactivateUserAggregateService;
             _assignAppointmentOperationService = assignAppointmentOperationService;
@@ -114,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                     // FIXME {all, 23.12.2014}: два ниже следующих вызова нужно зарефакторить, например, объединив в 1 operation service 
                     _userRepository.AssignUserRelatedEntities(entityId, targetOwnerCodeForUserRelations);
                     var userBranchOffices = _userReadModel.GetUserBranchOfficeLinks(entityId);
-                    _assignUserBranchOfficeAggregateService.Assign(userBranchOffices, entityId);
+                    _changeUserForUserBranchOfficeAggregateService.ChangeUser(userBranchOffices, entityId);
                     AssignRelatedActivities(entityId, targetOwnerCodeForUserRelations);
                     scope.Updated<User>(targetOwnerCodeForUserRelations);
 

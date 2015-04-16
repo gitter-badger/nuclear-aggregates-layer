@@ -6,8 +6,8 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.Operation
 {
-    public interface IAssignUserBranchOfficeAggregateService : IAggregateSpecificOperation<User, AssignIdentity>
+    public interface IChangeUserForUserBranchOfficeAggregateService : IAggregateSpecificOperation<User, UpdateIdentity>
     {
-        void Assign(IEnumerable<UserBranchOffice> userBranchOffices, long ownerCode);
+        void ChangeUser(IEnumerable<UserBranchOffice> userBranchOffices, long userCode);
     }
 }

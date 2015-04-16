@@ -8,13 +8,13 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Users.Operations
 {
-    public sealed class UserAppendToBranchOfficeAggregateService : IUserAppendToBranchOfficeAggregateService
+    public sealed class AppendUserToBranchOfficeAggregateService : IAppendUserToBranchOfficeAggregateService
     {
         private readonly IRepository<UserBranchOffice> _userBranchOfficeRelationsRepository;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public UserAppendToBranchOfficeAggregateService(
+        public AppendUserToBranchOfficeAggregateService(
             IRepository<UserBranchOffice> userBranchOfficeRelationsRepository, 
             IIdentityProvider identityProvider,
             IOperationScopeFactory scopeFactory)
