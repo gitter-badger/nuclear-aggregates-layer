@@ -75,7 +75,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
                 }
             }
 
-            throw new InvalidOperationException("Can't acquire id application lock for identity service");
+            throw new InvalidOperationException("Cannot acquire id application lock for identity service");
         }
 
         private void CheckNotDisposed()
