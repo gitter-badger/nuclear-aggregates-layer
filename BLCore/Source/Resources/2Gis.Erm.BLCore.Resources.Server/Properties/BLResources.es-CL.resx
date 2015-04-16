@@ -953,9 +953,6 @@ Errores de bloqueo:{2}</value>
   <data name="AdditionalStreet" xml:space="preserve">
     <value>Calle adicional</value>
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value>La posición bloqueada ya ha sido desactivada</value>
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value>Seleccionado para la lista blanca</value>
   </data>
@@ -988,9 +985,6 @@ Errores de bloqueo:{2}</value>
   </data>
   <data name="PricePositionsReferencesToInactivePositions" xml:space="preserve">
     <value>Entre los componentes de la lista de precios se encuentran los referentes a posiciones inactivas</value>
-  </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>No se puede desactivar la posición bloqueada de una lista de precios desactivada</value>
   </data>
   <data name="SpecifyMonthAndOrganizationUnit" xml:space="preserve">
     <value>Especifique la sucursal de la entidad y el mes</value>
@@ -2452,9 +2446,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="AmountPlan" xml:space="preserve">
     <value>Importe inicial</value>
   </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>No se puede desactivar la posición bloqueada de una lista de precios publicada</value>
-  </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
     <value>Razón social del cliente: {0}.
 Razón social del ejecutor: {1}.
@@ -3196,7 +3187,7 @@ Operación realizada con éxito: {6}.</value>
   <data name="ServerRuntimeError" xml:space="preserve">
     <value>Error de ejecución {0} en el servidor: '{1}'</value>
   </data>
-  <data name="OperationIsDiabled" xml:space="preserve">
+  <data name="OperationIsDisabled" xml:space="preserve">
     <value>Esta operación se ha desactivado</value>
   </data>
   <data name="NoFirmsSelected" xml:space="preserve">
@@ -5220,6 +5211,24 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Operación no puede llevarse a cabo, ya que se está realizando recopilación</value>
+  </data>
+  <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
+    <value>Найдены дубли правил запрещения для следующих позиций: {0}</value>
+  </data>
+  <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
+    <value>Не найдено симметричное правило запрещения для: {0}</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя создавать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя создавать запрещенную позицию в опубликованном прайс-листе</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя редактирвать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя редактирвать запрещенную позицию в опубликованном прайс-листе</value>
   </data>
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>Ud. está intentando de finalizar una acción planificada para el futuro, cambie el plazo o cancele, si la acción no fue cumplidaо</value>

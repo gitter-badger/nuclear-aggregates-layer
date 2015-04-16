@@ -1263,7 +1263,7 @@
       <DataList NameLocaleResourceId="DListDeniedPosition" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Default.gif">
         <ToolbarItems>
           <ToolbarItem Name="Create" NameLocaleResourceId="ControlCreate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Create" Icon="Create.gif" SecurityPrivelegeFlag="32" />
-          <ToolbarItem Name="Deactivate" NameLocaleResourceId="ControlDeactivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Deactivate" Icon="Deactivate.png" SecurityPrivelegeFlag="65536" />
+          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
@@ -1273,7 +1273,7 @@
       </DataList>
       <DataList NameLocaleResourceId="DListDeniedPositionInactive" DefaultSortField="Id" SortDescending="1" RowsPerPage="40" AllowMultiple="false" ReadOnly="false" MainAttribute="Name" Icon="en_ico_16_Default.gif">
         <ToolbarItems>
-          <ToolbarItem Name="Activate" NameLocaleResourceId="ControlActivate" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Activate" Icon="Activate.png" SecurityPrivelegeFlag="2" />
+          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="TextImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
         </ToolbarItems>
         <Fields>
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />

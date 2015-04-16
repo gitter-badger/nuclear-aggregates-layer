@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
@@ -13,7 +12,6 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
@@ -24,7 +22,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         private readonly IRepository<Price> _priceGenericRepository;
         private readonly IRepository<AssociatedPositionsGroup> _associatedPositionsGroupGenericRepository;
         private readonly IRepository<AssociatedPosition> _associatedPositionGenericRepository;
-        private readonly IRepository<DeniedPosition> _deniedPositionGenericRepository;
         private readonly IFinder _finder;
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _operationScopeFactory;
@@ -33,39 +30,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             IFinder finder,
             IRepository<Price> priceGenericRepository,
             IRepository<AssociatedPositionsGroup> associatedPositionsGroupGenericRepository,
-            IRepository<AssociatedPosition> associatedPositionGenericRepository,
-            IRepository<DeniedPosition> deniedPositionGenericRepository, 
+            IRepository<AssociatedPosition> associatedPositionGenericRepository,            
             IIdentityProvider identityProvider,
             IOperationScopeFactory operationScopeFactory)
         {
             _priceGenericRepository = priceGenericRepository;
             _associatedPositionsGroupGenericRepository = associatedPositionsGroupGenericRepository;
             _associatedPositionGenericRepository = associatedPositionGenericRepository;
-            _deniedPositionGenericRepository = deniedPositionGenericRepository;
             _identityProvider = identityProvider;
             _operationScopeFactory = operationScopeFactory;
             _finder = finder;
-        }
-
-        public int Activate(DeniedPosition deniedPosition)
-        {
-            deniedPosition.IsActive = true;
-            _deniedPositionGenericRepository.Update(deniedPosition);
-
-            if (deniedPosition.PositionId != deniedPosition.PositionDeniedId)
-            {
-                var symmetricDeniedPosition = _finder
-                    .Find<DeniedPosition>(x => !x.IsActive && !x.IsDeleted &&
-                               x.PriceId == deniedPosition.PriceId &&
-                               x.PositionId == deniedPosition.PositionDeniedId &&
-                               x.PositionDeniedId == deniedPosition.PositionId)
-                    .Single();
-
-                symmetricDeniedPosition.IsActive = true;
-                _deniedPositionGenericRepository.Update(symmetricDeniedPosition);
-            }
-
-            return _deniedPositionGenericRepository.Save();
         }
 
         public int Activate(AssociatedPositionsGroup associatedPositionsGroup)
@@ -155,48 +129,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             return _associatedPositionGenericRepository.Save();
         }
 
-        public int Deactivate(DeniedPosition deniedPosition)
-        {
-            if (!deniedPosition.IsActive)
-            {
-                throw new NotificationException(BLResources.DeniedPositionIsDeactivatedAlready);
-            }
-
-            var deniedPositionInfo = _finder.Find(Specs.Find.ById<DeniedPosition>(deniedPosition.Id))
-                .Select(x => new
-                    {
-                        IsPricePublished = x.Price.IsPublished,
-                        IsPriceActive = x.Price.IsActive
-                    })
-                .Single();
-
-            if (deniedPositionInfo.IsPricePublished)
-            {
-                throw new NotificationException(BLResources.CantDeactivateDeniedPositionWhenPriceIsPublished);
-            }
-
-            if (!deniedPositionInfo.IsPriceActive)
-            {
-                throw new NotificationException(BLResources.CantDeactivateDeniedPositionWhenPriceIsDeactivated);
-            }
-
-            deniedPosition.IsActive = false;
-            _deniedPositionGenericRepository.Update(deniedPosition);
-            if (deniedPosition.PositionId != deniedPosition.PositionDeniedId)
-            {
-                var symmetricDeniedPosition = _finder
-                    .Find<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
-                               x.PriceId == deniedPosition.PriceId &&
-                               x.PositionId == deniedPosition.PositionDeniedId &&
-                               x.PositionDeniedId == deniedPosition.PositionId)
-                    .Single();
-                symmetricDeniedPosition.IsActive = false;
-                _deniedPositionGenericRepository.Update(symmetricDeniedPosition);
-            }
-
-            return _deniedPositionGenericRepository.Save();
-        }
-
         public IEnumerable<PricePositionDto> GetPricePositions(IEnumerable<long> requiredPriceIds, IEnumerable<long> requiredPositionIds)
         {
             return _finder.Find<PricePosition>(x => requiredPriceIds.Contains(x.PriceId) && requiredPositionIds.Contains(x.PositionId))
@@ -220,7 +152,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                              .Select(y => new PricePositionDto.RelatedItemDto
                              {
                                  PositionId = y.PositionDeniedId,
-                                 BindingCheckMode = (ObjectBindingType)y.ObjectBindingType
+                                 BindingCheckMode = y.ObjectBindingType
                              })
                 })
                 .ToArray();
@@ -323,80 +255,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             _associatedPositionGenericRepository.Save();
         }
 
-        public void CreateOrUpdate(DeniedPosition deniedPosition)
-        {
-            var isDeniedPositionAlreadyExist = _finder.Find<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
-                                    x.Id != deniedPosition.Id &&
-                                    x.PriceId == deniedPosition.PriceId &&
-                                    x.PositionId == deniedPosition.PositionId &&
-                                    x.PositionDeniedId == deniedPosition.PositionDeniedId).Any();
-            if (isDeniedPositionAlreadyExist)
-            {
-                throw new NotificationException(BLResources.DeniedPositionAlreadyExist);
-            }
-
-            if (deniedPosition.IsNew())
-            {
-                _identityProvider.SetFor(deniedPosition);
-                _deniedPositionGenericRepository.Add(deniedPosition);
-            }
-            else
-            {
-                _deniedPositionGenericRepository.Update(deniedPosition);
-            }
-
-            var isSelfDeniedPosition = deniedPosition.PositionId == deniedPosition.PositionDeniedId;
-            if (!isSelfDeniedPosition)
-            {
-                // symmetric denied position
-                var symmetricDeniedPosition = _finder.Find<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
-                                                                    x.PriceId == deniedPosition.PriceId &&
-                                                                    x.PositionId == deniedPosition.PositionDeniedId &&
-                                                                    x.PositionDeniedId == deniedPosition.PositionId)
-                                                                    .SingleOrDefault();
-                if (symmetricDeniedPosition == null)
-                {
-                    // create-only properties
-                    symmetricDeniedPosition = new DeniedPosition
-                    {
-                        PriceId = deniedPosition.PriceId,
-                        CreatedBy = deniedPosition.CreatedBy,
-                        CreatedOn = deniedPosition.CreatedOn,
-                        OwnerCode = deniedPosition.OwnerCode,
-                            IsActive = true,
-
-                        // common properties
-                        PositionId = deniedPosition.PositionDeniedId,
-                        PositionDeniedId = deniedPosition.PositionId,
-                        ObjectBindingType = deniedPosition.ObjectBindingType
-                    };
-
-                    _identityProvider.SetFor(symmetricDeniedPosition);
-                    _deniedPositionGenericRepository.Add(symmetricDeniedPosition);
-                }
-                else
-                {
-                    // commom properties
-                    symmetricDeniedPosition.PositionId = deniedPosition.PositionDeniedId;
-                    symmetricDeniedPosition.PositionDeniedId = deniedPosition.PositionId;
-                    symmetricDeniedPosition.ObjectBindingType = deniedPosition.ObjectBindingType;
-
-                    _deniedPositionGenericRepository.Update(symmetricDeniedPosition);
-                }
-            }
-
-            _deniedPositionGenericRepository.Save();
-        }
-
         int IActivateAggregateRepository<AssociatedPositionsGroup>.Activate(long entityId)
         {
             var entity = _finder.Find(Specs.Find.ById<AssociatedPositionsGroup>(entityId)).Single();
-            return Activate(entity);
-        }
-
-        int IActivateAggregateRepository<DeniedPosition>.Activate(long entityId)
-        {
-            var entity = _finder.Find(Specs.Find.ById<DeniedPosition>(entityId)).Single();
             return Activate(entity);
         }
 
@@ -409,12 +270,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         int IDeactivateAggregateRepository<AssociatedPosition>.Deactivate(long entityId)
         {
             var entity = _finder.Find(Specs.Find.ById<AssociatedPosition>(entityId)).Single();
-            return Deactivate(entity);
-        }
-
-        int IDeactivateAggregateRepository<DeniedPosition>.Deactivate(long entityId)
-        {
-            var entity = _finder.Find(Specs.Find.ById<DeniedPosition>(entityId)).Single();
             return Deactivate(entity);
         }
     }
