@@ -530,9 +530,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
             var localizedGridSettings = new EntityDataListsContainer
             {
-                HasCard = gridSettings.HasCard,
+                HasCard = gridSettings.HasCard,                
                 EntityName = gridSettings.EntityName,
-
+                
                 DataViews = gridSettings.DataViews.Select(x => new DataListStructure
                 {
                     NameLocaleResourceId = x.NameLocaleResourceId,
@@ -605,6 +605,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 ?? MetadataResources.ResourceManager.GetString(resourceId, culture)
                 ?? resourceId;
         }
+
 
         private static ToolbarElementStructure[] ParseToolbarItems(XContainer cardEl)
         {

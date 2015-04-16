@@ -5196,6 +5196,18 @@
   <data name="PositionAccessDenied" xml:space="preserve">
     <value />
   </data>
+  <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PublishedPriceCannotBeModified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
+    <value />
+  </data>
   <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
     <value />
   </data>

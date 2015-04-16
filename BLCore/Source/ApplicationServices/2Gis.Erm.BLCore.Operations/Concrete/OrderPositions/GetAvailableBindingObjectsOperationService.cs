@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
@@ -163,32 +164,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 Name = dto.Name,
                 PositionsGroup = (int)dto.PositionsGroup,
                 LinkingObjectType = dto.BindingObjectType.ToString(),
-                IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType(dto.BindingObjectType),
+                IsLinkingObjectOfSingleType = dto.BindingObjectType.IsPositionBindingOfSingleType(),
                 AdvertisementTemplateId = dto.AdvertisementTemplateId,
                 DummyAdvertisementId = dto.DummyAdvertisementId,
             };
-        }
-
-        private static bool IsPositionBindingOfSingleType(PositionBindingObjectType type)
-        {
-            switch (type)
-            {
-                case PositionBindingObjectType.Firm:
-                case PositionBindingObjectType.AddressCategorySingle:
-                case PositionBindingObjectType.AddressSingle:
-                case PositionBindingObjectType.CategorySingle:
-                case PositionBindingObjectType.AddressFirstLevelCategorySingle:
-                    return true;
-                case PositionBindingObjectType.AddressMultiple:
-                case PositionBindingObjectType.CategoryMultiple:
-                case PositionBindingObjectType.CategoryMultipleAsterix:
-                case PositionBindingObjectType.AddressCategoryMultiple:
-                case PositionBindingObjectType.AddressFirstLevelCategoryMultiple:
-                case PositionBindingObjectType.ThemeMultiple:
-                    return false;
-                default:
-                    throw new ArgumentOutOfRangeException("type");
-            }
         }
 
         private LinkingObjectsSchemaDto.FirmAddressDto[] GetFirmAddresses(long firmId, bool includeHiddenAddresses)
