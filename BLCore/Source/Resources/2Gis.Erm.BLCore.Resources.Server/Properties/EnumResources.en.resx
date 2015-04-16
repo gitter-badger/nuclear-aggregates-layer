@@ -2023,4 +2023,7 @@
   <data name="BusinessOperationWithdrawal" xml:space="preserve">
     <value>Writing-off</value>
   </data>
+  <data name="EntityNameUserBranchOffice" xml:space="preserve">
+    <value>Связь пользователя с юр. лицом</value>
+  </data>
 </root>

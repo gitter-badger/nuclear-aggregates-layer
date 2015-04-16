@@ -462,7 +462,6 @@
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Descarga las personas jurídicas de clientes</value>
   </data>
-
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Promocional</value>
   </data>
@@ -2035,5 +2034,8 @@
   </data>
   <data name="PositionsGroupNone" xml:space="preserve">
     <value />
+  </data>
+  <data name="EntityNameUserBranchOffice" xml:space="preserve">
+    <value>Связь пользователя с юр. лицом</value>
   </data>
 </root>
