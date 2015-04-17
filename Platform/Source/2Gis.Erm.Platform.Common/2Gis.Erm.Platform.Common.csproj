@@ -39,21 +39,17 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\CompositionRoots\Source\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CompositionRoots\Source\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="RabbitMQ.Client, Version=3.2.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\RabbitMQ.Client.3.2.1\lib\net30\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="SevenZipSharp, Version=0.64.3890.29348, Culture=neutral, PublicKeyToken=20de82c62b055c88, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -87,44 +83,13 @@
     <Compile Include="Identities\IdentityProviderService.cs" />
     <Compile Include="Identities\IIdentityProviderService.cs" />
     <Compile Include="Identities\IIdentityProviderSettings.cs" />
-    <Compile Include="Logging\ILoggerContextManager.cs" />
-    <Compile Include="Logging\Log4Net\Config\Log4NetLoggerBuilder.cs" />
-    <Compile Include="Logging\Log4Net\Log4NetCommonLog.Warning.cs" />
-    <Compile Include="Logging\Log4Net\Log4NetCommonLog.Fatal.cs" />
-    <Compile Include="Logging\Log4Net\Log4NetCommonLog.Error.cs" />
-    <Compile Include="Logging\Log4Net\Log4NetCommonLog.Info.cs" />
-    <Compile Include="Logging\Log4Net\Log4NetCommonLog.Debug.cs" />
-    <Compile Include="Logging\LoggerContextSelfHostedEntryProvider.cs" />
-    <Compile Include="Logging\SystemInfo\AssemblyVersionInfo.cs" />
-    <Compile Include="Logging\SystemInfo\EnvironmentInfo.cs" />
-    <Compile Include="Logging\SystemInfo\NetworkInfo.cs" />
-    <Compile Include="Logging\SystemInfo\OS\OSInfo.cs" />
-    <Compile Include="Logging\SystemInfo\OS\OSVersionDescriptor.cs" />
-    <Compile Include="Logging\SystemInfo\ProcessInfo.cs" />
-    <Compile Include="Logging\SystemInfo\SecurityInfo.cs" />
     <Compile Include="Prerequisites\PrerequisitesAttribute.cs" />
     <Compile Include="Prerequisites\СonsideringPrerequisitesComparer.cs" />
     <Compile Include="PrintFormEngine\PrintData.cs" />
     <Compile Include="Serialization\DotNet2JavaScriptDateTimeConverter.cs" />
     <Compile Include="Serialization\Int64ToStringConverter.cs" />
-    <Compile Include="Settings\ISettings.cs" />
-    <Compile Include="Settings\ISettingsAspect.cs" />
-    <Compile Include="Settings\ISettingsContainer.cs" />
-    <Compile Include="Settings\SettingBase.cs" />
-    <Compile Include="Settings\SettingEvaluationResult.cs" />
-    <Compile Include="Settings\BoolSetting.cs" />
-    <Compile Include="Settings\DecimalSetting.cs" />
-    <Compile Include="Settings\EnumSetting.cs" />
-    <Compile Include="Settings\IntSetting.cs" />
-    <Compile Include="Settings\ConfigFileSetting.cs" />
-    <Compile Include="Settings\SettingsContainerBase.cs" />
-    <Compile Include="Settings\SettingsContainerUtils.cs" />
-    <Compile Include="Settings\SettingsIndicators.cs" />
-    <Compile Include="Settings\StringSetting.cs" />
     <Compile Include="Utils\ActivatorUtils.cs" />
     <Compile Include="Utils\CompareObjects.cs" />
-    <Compile Include="CorporateQueue\RabbitMq\IRabbitMqQueueFactory.cs" />
-    <Compile Include="CorporateQueue\RabbitMq\RabbitMqQueueFactory.cs" />
     <Compile Include="Utils\CompareObjectsHelper.cs" />
     <Compile Include="Utils\DataTableExtensions.cs" />
     <Compile Include="Utils\Data\ArrayExtensions.cs" />
@@ -137,14 +102,6 @@
     <Compile Include="Utils\ExceptionUtils.cs" />
     <Compile Include="Utils\IncreasingSequenceGenerator.cs" />
     <Compile Include="Utils\KeyEqualityComparer.cs" />
-    <Compile Include="Logging\ICommonLog.cs" />
-    <Compile Include="Logging\ILoggerContextEntryProvider.cs" />
-    <Compile Include="Logging\Log4Net\Log4NetCommonLog.cs" />
-    <Compile Include="Logging\LoggerContextEntryProvider.cs" />
-    <Compile Include="Logging\LoggerContextKeys.cs" />
-    <Compile Include="Logging\LoggerContextManager.cs" />
-    <Compile Include="Logging\LoggerContextConstEntryProvider.cs" />
-    <Compile Include="Logging\NullLogger.cs" />
     <Compile Include="PrintFormEngine\FormatType.cs" />
     <Compile Include="PrintFormEngine\IFormatter.cs" />
     <Compile Include="PrintFormEngine\IFormatterFactory.cs" />

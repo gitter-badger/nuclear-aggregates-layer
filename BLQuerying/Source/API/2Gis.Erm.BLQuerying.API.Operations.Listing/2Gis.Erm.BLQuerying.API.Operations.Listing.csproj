@@ -80,7 +80,6 @@
     <Compile Include="List\DTO\ListAccountDetailDto.cs" />
     <Compile Include="List\DTO\ListAccountDto.cs" />
     <Compile Include="List\DTO\ListActivityDto.cs" />
-    <Compile Include="List\DTO\ListAdditionalFirmServiceDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementElementDto.cs" />
     <Compile Include="List\DTO\ListAdvertisementElementTemplateDto.cs" />
@@ -157,6 +156,9 @@
       <Project>{A2EC52A5-720B-4F42-9615-006E6B5FB49A}</Project>
       <Name>2Gis.Erm.Qds.API.Operations</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

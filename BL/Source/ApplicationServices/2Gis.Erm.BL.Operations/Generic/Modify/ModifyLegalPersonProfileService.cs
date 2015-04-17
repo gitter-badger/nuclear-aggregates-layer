@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BL.Operations.Generic.Modify
         {
             var entity = _entityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            var legalPersonWithProfiles = _legalPersonReadModel.GetLegalPersonWithProfileExistanceInfo(entity.LegalPersonId);
+            var legalPersonWithProfiles = _legalPersonReadModel.GetLegalPersonWithProfileExistenceInfo(entity.LegalPersonId);
 
             if (legalPersonWithProfiles == null)
             {

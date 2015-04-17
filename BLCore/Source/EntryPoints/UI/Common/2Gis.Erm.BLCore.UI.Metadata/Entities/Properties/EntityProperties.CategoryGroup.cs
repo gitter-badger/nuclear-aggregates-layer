@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
         public static readonly IEnumerable<EntityPropertyMetadata> CategoryGroupProperties =
             new[]
                 {
-                    EntityPropertyMetadata.Create<CategoryGroupDomainEntityDto>(dto => dto.CategoryGroupName)
+                    EntityPropertyMetadata.Create<CategoryGroupDomainEntityDto>(dto => dto.Name)
                                   .WithFeatures(
                                       new RequiredPropertyFeature(),
                                       new LimitedLengthPropertyFeature(256),

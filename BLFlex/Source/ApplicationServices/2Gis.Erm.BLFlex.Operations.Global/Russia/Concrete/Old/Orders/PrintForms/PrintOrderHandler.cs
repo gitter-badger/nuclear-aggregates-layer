@@ -45,46 +45,32 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             if (orderInfo.LegalPersonProfileId == null)
             {
-                throw new LegalPersonProfileMustBeSpecifiedException();
+                throw new RequiredFieldIsEmptyException(BLCoreResources.LegalPersonProfileMustBeSpecified);
             }
 
             if (orderInfo.BranchOfficeOrganizationUnitId == null)
             {
-                throw new NotificationException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
+                throw new RequiredFieldIsEmptyException(BLCoreResources.OrderHasNoBranchOfficeOrganizationUnit);
             }
 
-            var templateCode = GetTemplateCode(request, orderInfo);
+            var templateCode = orderInfo.SalesModel == SalesModel.MultiPlannedProvision
+                                   ? TemplateCode.OrderMultiPlannedProvision
+                                   : TemplateCode.Order;
+
             var printDocumentRequest = new PrintDocumentRequest
                 {
                     CurrencyIsoCode = orderInfo.CurrencyIsoCode,
                     FileName = orderInfo.OrderNumber,
                     BranchOfficeOrganizationUnitId = orderInfo.BranchOfficeOrganizationUnitId.Value,
                     TemplateCode = templateCode,
-                    PrintData = GetPrintData(request, orderInfo, templateCode)
+                    PrintData = GetPrintData(request, orderInfo)
                 };
 
             var response = (StreamResponse)_requestProcessor.HandleSubRequest(printDocumentRequest, Context);
             return response;
         }
 
-        private TemplateCode GetTemplateCode(PrintOrderRequest request, OrderRelationsDto orderInfo)
-        {
-            var withDiscount = _orderPrintFormReadModel.GetOrderDicount(request.OrderId) > 0;
-            switch (_orderPrintFormReadModel.GetOrderContributionType(orderInfo.SourceOrganizationUnitId))
-            {
-                case ContributionTypeEnum.Branch:
-                    return withDiscount ? TemplateCode.OrderWithVatWithDiscount : TemplateCode.OrderWithVatWithoutDiscount;
-
-                case ContributionTypeEnum.Franchisees:
-                    return withDiscount ? TemplateCode.OrderWithoutVatWithDiscount : TemplateCode.OrderWithoutVatWithoutDiscount;
-
-                default:
-                    var message = string.Format(CultureInfo.CurrentCulture, BLFlexResources.ContributionTypeIsNotSet, orderInfo.SourceOrganizationUnitId);
-                    throw new NotificationException(message);
-            }
-        }
-
-        private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order, TemplateCode templateCode)
+        private PrintData GetPrintData(PrintOrderRequest request, OrderRelationsDto order)
         {
             var legalPerson = _legalPersonReadModel.GetLegalPerson(order.LegalPersonId.Value);
             var profile = _legalPersonReadModel.GetLegalPersonProfile(order.LegalPersonProfileId.Value);
@@ -97,9 +83,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
             return PrintData.Concat(_orderPrintFormDataExtractor.GetBranchOffice(branchOfficeQuery),
                                     _orderPrintFormDataExtractor.GetOrder(orderQuery),
-                                    _orderPrintFormDataExtractor.GetOrderPositions(orderQuery, orderPositionQuery),
+                                    _orderPrintFormDataExtractor.GetOrderPositions(orderQuery, orderPositionQuery, order.SalesModel),
                                     _orderPrintFormDataExtractor.GetPaymentSchedule(billQuery),
-                                    _orderPrintFormDataExtractor.GetUngrouppedFields(orderQuery, boou, legalPerson, profile, templateCode),
+                                    _orderPrintFormDataExtractor.GetUngrouppedFields(orderQuery, boou, legalPerson, profile),
                                     _orderPrintFormDataExtractor.GetBranchOfficeOrganizationUnit(boou),
                                     _orderPrintFormDataExtractor.GetLegalPersonProfile(profile));
         }

@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile
         [DataMember]
         public string EmailForAccountingDocuments { get; set; }
         [DataMember]
-        public string AdditionalEmail { get; set; }
+        public string Email { get; set; }
         [DataMember]
         public string PersonResponsibleForDocuments { get; set; }
         [DataMember]

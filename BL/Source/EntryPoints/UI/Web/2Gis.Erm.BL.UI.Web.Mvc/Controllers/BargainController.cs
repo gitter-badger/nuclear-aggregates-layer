@@ -14,8 +14,9 @@ using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -32,12 +33,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                  IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                                  IAPIIdentityServiceSettings identityServiceSettings,
                                  IUserContext userContext,
-                                 ICommonLog logger,
+                                 ITracer tracer,
                                  IGetBaseCurrencyService getBaseCurrencyService,
                                  ISecurityServiceFunctionalAccess functionalAccessService,
                                  ICloseClientBargainsOperationService closeClientBargainsOperationService,
                                  IOrderReadModel orderReadModel)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _closeClientBargainsOperationService = closeClientBargainsOperationService;

@@ -50,7 +50,7 @@
     <Compile Include="Config\Grids\GridMetadataSource.cs" />
     <Compile Include="Config\Grids\Settings\GridStructures.cs" />
     <Compile Include="Config\Grids\Settings\GridStructures.Order.cs" />
-    <Compile Include="DI\BlQueryingUiMetadataAssembly.cs" />
+    <Compile Include="DI\BlQueryingUIMetadataAssembly.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
@@ -85,6 +85,9 @@
       <Project>{CBA45CBD-C200-4F16-86E9-301D76AE6021}</Project>
       <Name>2Gis.Erm.BLQuerying.API.Operations.Listing</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

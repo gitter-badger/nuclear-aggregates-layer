@@ -10,8 +10,9 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
 
@@ -27,9 +28,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
                               IAPIIdentityServiceSettings identityServiceSettings,
                               IUserContext userContext,
-                              ICommonLog logger,
+                              ITracer tracer,
                               IGetBaseCurrencyService getBaseCurrencyService)
-            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, logger, getBaseCurrencyService)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
         }
 
@@ -53,28 +54,6 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             }
 
             return View(new EditPrivilegeViewModel { RoleId = entityId.Value });
-        }
-
-        [HttpGet]
-        public ActionResult AdditionalFirmServices(EntityName entityTypeName, long? entityId, string entityState)
-        {
-            if (!entityId.HasValue)
-            {
-                throw new NotificationException(BLResources.IdentifierNotSet);
-            }
-
-            return View(new IdModel { Id = entityId.Value });
-        }
-
-        [HttpGet]
-        public ActionResult AdditionalFirmAddressServices(EntityName entityTypeName, long? entityId, string entityState)
-        {
-            if (!entityId.HasValue)
-            {
-                throw new NotificationException(BLResources.IdentifierNotSet);
-            }
-
-            return View(new IdModel { Id = entityId.Value });
         }
     }
 }

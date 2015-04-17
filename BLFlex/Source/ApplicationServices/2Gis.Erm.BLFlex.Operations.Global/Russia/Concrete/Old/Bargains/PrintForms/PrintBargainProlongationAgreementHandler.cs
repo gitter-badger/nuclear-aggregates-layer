@@ -76,6 +76,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
 
                                       BranchOfficeOrganizationUnit = new
                                           {
+                                              x.BranchOfficeOrganizationUnit.ApplicationCityName,
                                               x.BranchOfficeOrganizationUnit.ShortLegalName,
                                               x.BranchOfficeOrganizationUnit.PositionInNominative,
                                               x.BranchOfficeOrganizationUnit.ChiefNameInNominative,
@@ -126,6 +127,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
                     {
                         "BranchOfficeOrganizationUnit", new PrintData
                             {
+                                { "ApplicationCityName", data.BranchOfficeOrganizationUnit.ApplicationCityName },
                                 { "ShortLegalName", data.BranchOfficeOrganizationUnit.ShortLegalName },
                                 { "PositionInNominative", data.BranchOfficeOrganizationUnit.PositionInNominative },
                                 { "ChiefNameInNominative", data.BranchOfficeOrganizationUnit.ChiefNameInNominative },

@@ -178,13 +178,6 @@ SWIFT {5}
   <data name="PrintOrderHandler_ElectronicMedaiParagraphPC" xml:space="preserve">
     <value>Электронное СМИ: «{0}» (версия для ПК). Свидетельство о регистрации ЭЛ {1}. Выпуски СМИ, выходящие в свет в течение срока оказания Услуг.</value>
   </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph1" xml:space="preserve">
-    <value>8.</value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph2" xml:space="preserve">
-    <value>8. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.
-8.</value>
-  </data>
   <data name="CannotPrintOrderForLegalPerson" xml:space="preserve">
     <value>Невозможно создать бланк заказа для указаного в профиле типа юридеского лица '{0}'</value>
   </data>
@@ -208,18 +201,6 @@ SWIFT {5}
   </data>
   <data name="CzechPrintOrderHandler_ClientLegalNamePrefixLegalPerson" xml:space="preserve">
     <value>Nazev pravnicke osoby:</value>
-  </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value></value>
-  </data>
-  <data name="PrintOrderHandler_EmptyTechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value></value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithDiscount" xml:space="preserve">
-    <value>9. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.</value>
-  </data>
-  <data name="PrintOrderHandler_TechnicalTerminationParagraph_WithoutDiscount" xml:space="preserve">
-    <value>8. Настоящий Бланк заказа вступает в силу с {0}г. Бланк заказа №{1} от {2}г. утрачивает силу с {3}г.</value>
   </data>
   <data name="ChileActiveBusinessmanWithSpecifiedRutAlreadyExist" xml:space="preserve">
     <value>Индивидуальный предприниматель с указанным RUT уже существует</value>
@@ -407,9 +388,6 @@ SWIFT {5}
   <data name="VerificationTitle" xml:space="preserve">
     <value>Выверка ЭРМ</value>
   </data>
-  <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
-    <value>С данным клиентом работает рекламное агентство:</value>
-  </data>
   <data name="QuotedValue" xml:space="preserve">
     <value>«{0}»</value>
   </data>
@@ -482,5 +460,26 @@ SWIFT {5}
   </data>
   <data name="OrderFieldNotSpecified" xml:space="preserve">
     <value>В заказе не заполнено поле "{0}"</value>
+  </data>
+  <data name="PositionNameFormatContextCategorySingle" xml:space="preserve">
+    <value>размещается в Контекстной рубрике: {0}</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategorySingle" xml:space="preserve">
+    <value>размещается в Контекстной рубрике: {0} в привязке к адресу {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressContextCategoryMultiple" xml:space="preserve">
+    <value>размещается в Контекстной рубрике: {0} в привязке к адресам {1}</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultiple" xml:space="preserve">
+    <value>размещается в Контекстных рубриках: {0}</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategorySingle" xml:space="preserve">
+    <value>размещается в Контекстной рубрике: {0} в привязке к адресу: {1}</value>
+  </data>
+  <data name="PositionNameFormatAddressFirstLevelContextCategoryMultiple" xml:space="preserve">
+    <value>размещается в Контекстной рубрике: {0} в привязке к адресам: {1}</value>
+  </data>
+  <data name="PositionNameFormatContextCategoryMultipleAsterix" xml:space="preserve">
+    <value>размещается в Контекстных рубриках: {0}</value>
   </data>
 </root>

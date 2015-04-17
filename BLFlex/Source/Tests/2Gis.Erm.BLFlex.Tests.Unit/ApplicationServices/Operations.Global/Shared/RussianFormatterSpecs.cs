@@ -3,11 +3,14 @@ using System.Globalization;
 using System.Threading;
 
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
+using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 
 using FluentAssertions;
 
 using Machine.Specifications;
+
+using Moq;
 
 using It = Machine.Specifications.It;
 
@@ -23,7 +26,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.Formatter
 
             Establish context = () =>
             {
-                _factory = new RussiaFormatterFactory();
+                _factory = new RussiaFormatterFactory(Mock.Of<IGlobalizationSettings>());
             };
         }
 

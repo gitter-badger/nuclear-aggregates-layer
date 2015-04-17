@@ -14,6 +14,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.Remote.FirmInfo
         [WebInvoke(Method = "POST", UriTemplate = "/", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare)]
         [FaultContract(typeof(FirmInfoOperationErrorDescription))]
-        IEnumerable<FirmInfoDto> Execute(IEnumerable<FirmGuidDto> firmIds);
+        IEnumerable<FirmInfoDto> Execute(IEnumerable<FirmIdDto> firmIds);
     }
 }

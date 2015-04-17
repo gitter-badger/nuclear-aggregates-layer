@@ -1,5 +1,5 @@
 ﻿
-@model Models.CategoryGroupViewModel
+@model CategoryGroupViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -16,7 +16,7 @@
             @Html.EditableId(m => m.Id)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.CategoryGroupName, FieldFlex.lone)
+            @Html.TemplateField(m => m.Name, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.GroupRate, FieldFlex.lone)

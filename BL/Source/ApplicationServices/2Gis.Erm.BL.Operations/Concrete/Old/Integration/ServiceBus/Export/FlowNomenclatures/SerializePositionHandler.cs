@@ -4,18 +4,19 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Shared;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export.FlowNomenclatures
 {
     public class SerializePositionHandler : SerializeObjectsHandler<Position, ExportFlowNomenclatures_NomenclatureElement>
     {
-        public SerializePositionHandler(IExportRepository<Position> exportRepository, ICommonLog logger)
-            : base(exportRepository, logger)
+        public SerializePositionHandler(IExportRepository<Position> exportRepository, ITracer tracer)
+            : base(exportRepository, tracer)
         {
         }
 
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
             return new SelectSpecification<Position, IExportableEntityDto>(x => new PositionDto
             {
                 Id = x.Id,
-                Name = x.Name,
+                Name = x.Name,                
                 PlatformCode = x.Platform.DgppId,
                 SalesModel = x.SalesModel,
                 IsHidden = !x.IsActive,

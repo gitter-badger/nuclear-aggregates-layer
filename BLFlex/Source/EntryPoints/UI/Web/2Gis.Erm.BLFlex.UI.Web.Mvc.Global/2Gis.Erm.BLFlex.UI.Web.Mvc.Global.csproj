@@ -37,6 +37,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
+    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
@@ -151,6 +159,7 @@
     <Compile Include="Areas\MultiCulture\Controllers\ChangeBindingObjectsController.cs" />
     <Compile Include="Areas\MultiCulture\Controllers\ClientsMergingController.cs" />
     <Compile Include="Areas\MultiCulture\Controllers\CreateBillController.cs" />
+    <Compile Include="Areas\MultiCulture\Controllers\PrintController.cs" />
     <Compile Include="Areas\MultiCulture\Views\ChangeBindingObjects\ChangeBindingObjects.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -167,14 +176,28 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Areas\Russia\Controllers\ClientsMergingController.cs" />
+    <Compile Include="Areas\Russia\Controllers\PrintController.cs" />
+    <Compile Include="Models\Czech\CzechBillViewModel.cs" />
     <Compile Include="Models\Kazakhstan\KazakhstanChangeLegalPersonRequisitesViewModel.cs" />
-    <Compile Include="Models\MultiCultureDealViewModel.cs" />
-    <Compile Include="Services\Cards\Kazakhstan\KazakhstanLegalPersonViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Kazakhstan\KazakhstanContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\MultiCultureDealViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Chile\ChileViewModelCustomizationsMetadataSource.cs" />
+    <Compile Include="Services\Cards\Chile\ChilePrintFormsCustomization.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusViewModelCustomizationsMetadataSource.cs" />
+    <Compile Include="Services\Cards\Czech\CzechViewModelCustomizationsMetadataSource.cs" />
+    <Compile Include="Services\Cards\Czech\CzechPrintFormsCustomization.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesViewModelCustomizationsMetadataSource.cs" />
+    <Compile Include="Services\Cards\Emirates\EmiratesPrintFormsCustomization.cs" />
+    <Compile Include="Services\Cards\Kazakhstan\KazakhstanViewModelCustomizationsMetadataSource.cs" />
+    <Compile Include="Services\Cards\MultiCulturePrintFormsCustomization.cs" />
+    <Compile Include="Services\Cards\Russia\Orders\ManageDocumentsDebtCustomization.cs" />
+    <Compile Include="Services\Cards\Russia\Orders\PrintFormsCustomization.cs" />
+    <Compile Include="Services\Cards\Russia\RussiaViewModelCustomizationsMetadataSource.cs" />
+    <Compile Include="Services\Cards\Ukraine\UkraineViewModelCustomizationsMetadataSource.cs" />
     <Compile Include="Services\Enumeration\Emirates\EmiratesFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanOrderFileKindEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureAppointmentPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaTemplateCodeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaAppointmentPurposeEnumCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Chile\Deal.generated.cs">
       <DependentUpon>Deal.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -209,7 +232,7 @@
     <Compile Include="Models\Kazakhstan\KazakhstanBranchOfficeOrganizationUnitViewModel.cs" />
     <Compile Include="Models\Kazakhstan\KazakhstanLegalPersonViewModel.cs" />
     <Compile Include="Models\Kazakhstan\KazakhstanLegalPersonProfileViewModel.cs" />
-    <Compile Include="Services\Cards\Kazakhstan\KazakhstanLegalPersonProfileViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Kazakhstan\KazakhstanLegalPersonProfileDisableDocumentsCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileFasCommentCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanTemplateCodeEnumCustomization.cs" />
@@ -217,9 +240,7 @@
     <Compile Include="Services\Enumeration\Kazakhstan\KazakhstanPaymentMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Ukraine\UkraineFasCommentCustomization.cs" />
     <Compile Include="DI\ViewModelCustomizationsMassProcessor.cs" />
-    <Compile Include="Services\Cards\Russia\EditIsAdvertisingAgencyViewModelCustomization.cs" />
-    <Compile Include="Services\Cards\ViewModelCustomizationProvider.cs" />
-    <Compile Include="Services\Cards\WarnLinkToAdvAgencyExistsVmCustomization.cs" />
+    <Compile Include="Services\Cards\Russia\Clients\EditIsAdvertisingAgencyViewModelCustomization.cs" />
     <Compile Include="Views\CreateOrUpdate\Kazakhstan\Account.generated.cs">
       <DependentUpon>Account.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -330,14 +351,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="DI\BlflexUiWebMvcAssembly.cs" />
+    <Compile Include="DI\BlflexUIWebMvcAssembly.cs" />
     <Compile Include="Models\Chile\ChileCreateBillViewModel.cs" />
     <Compile Include="Models\Chile\CommuneViewModel.cs" />
     <Compile Include="Models\Emirates\EmiratesGenerateAcceptanceReportViewModel.cs" />
     <Compile Include="Models\MultiCultureMergeClientsViewModel.cs" />
     <Compile Include="Models\MultiCultureClientViewModel.cs" />
     <Compile Include="Models\MultiCultureFirmAddressViewModel.cs" />
-    <Compile Include="Models\MultiCultureOrderPositionViewModel.cs" />
     <Compile Include="Models\Emirates\EmiratesBargainTypeViewModel.cs" />
     <Compile Include="Models\Emirates\EmiratesChangeLegalPersonRequisitesViewModel.cs" />
     <Compile Include="Models\Emirates\EmiratesMergeClientsViewModel.cs" />
@@ -389,25 +409,9 @@
     <Compile Include="Models\Ukraine\UkraineKazakhstanContactViewModel.cs" />
     <Compile Include="Models\Ukraine\UkraineLegalPersonProfileViewModel.cs" />
     <Compile Include="Models\Ukraine\UkraineLegalPersonViewModel.cs" />
-    <Compile Include="Services\Cards\MultiCultureOrderPositionViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Ukraine\UkraineContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\RussiaContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Cyprus\CyprusContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Czech\CzechContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Chile\ChileContactViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Chile\ChileLegalPersonViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Chile\ChileLegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\MultiCultureOrderViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\RussiaClientCustomizationsListViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\AccountViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\FirmViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\LegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\OrderViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Emirates\EmiratesLegalPersonViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Emirates\EmiratesContactViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Chile\ChileLegalPersonProfileDisableDocumentsCustomization.cs" />
+    <Compile Include="Services\Cards\Russia\LegalPersonProfiles\LegalPersonProfileDisableDocumentsCustomization.cs" />
+    <Compile Include="Services\Cards\Ukraine\UkraineLegalPersonProfileDisableDocumentsCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChileTemplateCodeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Chile\ChilePaymentMethodEnumCustomization.cs" />
@@ -471,21 +475,14 @@
     <Compile Include="Models\Czech\CzechLegalPersonViewModel.cs" />
     <Compile Include="Models\Russia\LegalPersonViewModel.cs" />
     <Compile Include="Models\MergeLegalPersonsViewModel.cs" />
-    <Compile Include="Services\Cards\MultiCultureClientCustomizationsListViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\MultiCultureFirmViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Cyprus\CyprusAccountViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\MultiCultureAccountViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Czech\CzechLegalPersonProfileViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Czech\CzechLegalPersonViewModelCustomizationService.cs" />
-    <Compile Include="Services\Cards\Russia\LegalPersonViewModelCustomizationService.cs" />
+    <Compile Include="Services\Cards\Cyprus\CyprusLegalPersonProfileDisableDocumentsCustomization.cs" />
+    <Compile Include="Services\Cards\Czech\CzechLegalPersonProfileDisableDocumentsCustomization.cs" />
     <Compile Include="Services\Enumeration\MultiCulture\MultiCultureFasCommentCustomization.cs" />
-    <Compile Include="Services\Enumeration\Russia\RussiaActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\Russia\RussiaPhonecallPurposeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusOperatesOnTheBasisTypesEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Cyprus\CyprusOrderFileKindEnumCustomization.cs" />
-    <Compile Include="Services\Enumeration\MultiCulture\MultiCultureActivityPurposeEnumCustomization.cs" />
+    <Compile Include="Services\Enumeration\MultiCulture\MultiCulturePhonecallPurposeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechDocumentsDeliveryMethodEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechLegalPersonTypeEnumCustomization.cs" />
     <Compile Include="Services\Enumeration\Czech\CzechOperatesOnTheBasisTypesEnumCustomization.cs" />
@@ -991,6 +988,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Areas\Chile\Views\CreateBill\Create.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Create.generated.cs</LastGenOutput>
@@ -1563,13 +1561,21 @@
       <Project>{650EA07F-6725-46E5-B996-B5882E4FCD33}</Project>
       <Name>2Gis.Erm.BLCore.API.OrderValidation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{F662D986-079C-469C-8A01-0D2CD1092EAB}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
-      <Project>{d99ed849-3585-45f0-a596-0118d0a70c28}</Project>
+      <Project>{D99ED849-3585-45F0-A596-0118D0A70C28}</Project>
       <Name>2Gis.Erm.BLCore.UI.Web.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BLCore\Source\Resources\2Gis.Erm.BLCore.Resources.Server\2Gis.Erm.BLCore.Resources.Server.csproj">
       <Project>{42389aa5-a1e5-4bfc-84e9-0e0e0cc5b6fc}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\BL\Source\EntryPoints\UI\Common\2Gis.Erm.BL.UI.Metadata\2Gis.Erm.BL.UI.Metadata.csproj">
+      <Project>{6D3EF801-AAE6-4A56-BCDB-8ED3E90C45A4}</Project>
+      <Name>2Gis.Erm.BL.UI.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\BL\Source\EntryPoints\UI\Web\2Gis.Erm.BL.UI.Web.Mvc\2Gis.Erm.BL.UI.Web.Mvc.csproj">
       <Project>{21120B29-E708-4CB7-B582-A52043BEAEC0}</Project>
@@ -1607,6 +1613,10 @@
       <Project>{6B8617E4-F688-45ED-A874-6692806DBF71}</Project>
       <Name>2Gis.Erm.Platform.DI.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{CE1F920D-ACBD-4F41-9485-D8E6E9A09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
       <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
       <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
@@ -1639,6 +1649,10 @@
       <Project>{cb20d7ae-1eaa-4a35-a667-c9bf86712896}</Project>
       <Name>2Gis.Erm.BLFlex.Resources.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\2Gis.Erm.BLFlex.UI.Metadata\2Gis.Erm.BLFlex.UI.Metadata.csproj">
+      <Project>{0AF90CF6-4337-4C75-B9E8-485F924F2FA2}</Project>
+      <Name>2Gis.Erm.BLFlex.UI.Metadata</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -1649,7 +1663,6 @@
     <Folder Include="Areas\Czech\EnumCustomization\" />
     <Folder Include="Areas\Kazakhstan\Models\" />
     <Folder Include="Areas\Russia\Views\AdvertisementElementStatus\" />
-    <Folder Include="Services\Cards\Contact\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

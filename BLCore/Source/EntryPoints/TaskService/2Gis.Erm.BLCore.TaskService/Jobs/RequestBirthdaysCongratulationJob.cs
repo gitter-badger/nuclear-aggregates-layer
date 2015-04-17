@@ -2,8 +2,9 @@
 
 using DoubleGis.Erm.BL.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.TaskService.Jobs;
+
+using NuClear.Tracing.API;
 
 using Quartz;
 
@@ -14,11 +15,11 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs
         private readonly IRequestBirthdayCongratulationOperationService _requestBirthdayCongratulationOperationService;
 
         public RequestBirthdaysCongratulationJob(
-            ICommonLog logger,
+            ITracer tracer,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
             IRequestBirthdayCongratulationOperationService requestBirthdayCongratulationOperationService)
-            : base(signInService, userImpersonationService, logger)
+            : base(signInService, userImpersonationService, tracer)
         {
             _requestBirthdayCongratulationOperationService = requestBirthdayCongratulationOperationService;
         }

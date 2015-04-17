@@ -43,6 +43,25 @@ window.InitPage = function () {
                 }
                 return Ext.DoubleGis.Global.Helpers.GridColumnHelper.RenderEntityIcon(iconFileName);
             },
+            CancelActivity: function () {
+                if (this.EnsureOneOrMoreSelected) {
+
+                    var vals = [];
+                    Ext.each(this.Items.Grid.getSelectionModel().selections.items,
+						function (val) {
+						    vals.push({ entityId: val.data.Id, entityName: val.data.ActivityTypeEnum });
+						});
+
+                    var parameters = {
+                        Values: vals
+                    };
+
+                    var result = window.showModalDialog("/GroupOperation/Cancel/" + this.EntityName, parameters, "dialogHeight:300px; dialogWidth:650px; status:yes; scroll:no; resizable:no;");
+                    if (result == true) {
+                        this.refresh();
+                    }
+                }
+            },
             Assign: function () {
             	if (this.EnsureOneOrMoreSelected) {
 

@@ -4,6 +4,8 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -14,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 {
-    public sealed class UkraineLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, IUkraineAdapted
+    public sealed class UkraineLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, IMainLegalPersonProfileAspect, INameAspect, IUkraineAdapted
     {
         public LegalPersonType LegalPersonType { get; set; }
 
@@ -152,7 +154,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
             DocumentsDeliveryMethod = modelDto.DocumentsDeliveryMethod;
             PaymentMethod = modelDto.PaymentMethod;
@@ -188,7 +190,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
             {
                 Id = Id,
                 Name = Name.EnsureСleanness(),
-                AdditionalEmail = Email.EnsureСleanness(),
+                Email = Email.EnsureСleanness(),
                 DocumentsDeliveryAddress = DocumentsDeliveryAddress.EnsureСleanness(),
                 PaymentMethod = PaymentMethod,
                 AccountNumber = AccountNumber.EnsureСleanness(),

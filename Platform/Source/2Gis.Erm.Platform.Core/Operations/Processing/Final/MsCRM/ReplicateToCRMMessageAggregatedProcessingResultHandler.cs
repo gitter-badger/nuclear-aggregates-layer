@@ -6,9 +6,10 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
 {
@@ -16,17 +17,17 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
     {
         private readonly IReplicationPersistenceService _replicationPersistenceService;
         private readonly IAsyncMsCRMReplicationSettings _asyncMsCRMReplicationSettings;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
 
         public ReplicateToCRMMessageAggregatedProcessingResultHandler(
             IAsyncMsCRMReplicationSettings asyncMsCRMReplicationSettings,
             IReplicationPersistenceService replicationPersistenceService,
-            ICommonLog logger,
+            ITracer tracer,
             IMsCrmReplicationMetadataProvider msCrmReplicationMetadataProvider)
         {
             _asyncMsCRMReplicationSettings = asyncMsCRMReplicationSettings;
-            _logger = logger;
+            _tracer = tracer;
             _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
             _replicationPersistenceService = replicationPersistenceService;
         }
@@ -71,7 +72,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
                 }
             }
 
-            foreach (var replicationType in _msCrmReplicationMetadataProvider.GetAsyncReplicationTypeSequence())
+            foreach (var replicationType in _msCrmReplicationMetadataProvider.GetReplicationTypeSequence())
             {
                 List<Tuple<Guid, long>> replicationBucket;
                 if (!replicationTargets.TryGetValue(replicationType, out replicationBucket))
@@ -127,7 +128,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Can't replicate {0} entities of type {1}", replicationTargets.Count, replicationType);
+                _tracer.ErrorFormat(ex, "Can't replicate {0} entities of type {1}", replicationTargets.Count, replicationType);
                 return false;
             }
         }

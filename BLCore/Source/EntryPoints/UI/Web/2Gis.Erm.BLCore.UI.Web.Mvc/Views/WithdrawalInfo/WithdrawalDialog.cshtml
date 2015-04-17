@@ -6,7 +6,7 @@
 
 @section Title { @BLResources.Withdrawal }
 @section TopBarTitle { @BLResources.Withdrawal }
-@section TopBarMessage { @BLResources.SpecifyPeriodAndOrganizationUnit }
+@section TopBarMessage { @BLResources.SpecifyPeriodAndAccountingMethod }
 
 @section PageContent
 {
@@ -22,33 +22,30 @@
         }
     </style>
     <script type="text/javascript">
-        Ext.onReady(function ()
-        {   
+        Ext.onReady(function() {
+            if (Ext.getDom('ErrorsLink')) {
+                Ext.getDom('ErrorsLink').onclick = function() {
+                    Ext.getDom('ErrorsForm').submit();
+                };
+            }
+
             var isSuccess = '@Model.IsSuccess';
             if (isSuccess == 'True') {
                 alert(Ext.getDom("Notifications").innerHTML.trim());
                 window.close();
                 return;
-            } else if (Ext.getDom("Notifications").innerHTML.trim() != "")
-            {
-                Ext.getDom("Notifications").style.display = "block";
             }
 
             // show error messages
-            if (Ext.getDom("Notifications").innerHTML.trim() != "")
-            {
+            if (Ext.getDom("Notifications").innerHTML.trim() != "") {
                 Ext.get("Notifications").addClass("Notifications");
-            }
-            else
-            {
+            } else {
                 Ext.get("Notifications").removeClass("Notifications");
             }
 
-            Ext.get("Cancel").on("click", function () { window.close(); });
-            Ext.get("OK").on("click", function ()
-            {
-                if (Ext.DoubleGis.FormValidator.validate(EntityForm))
-                {
+            Ext.get("Cancel").on("click", function() { window.close(); });
+            Ext.get("OK").on("click", function() {
+                if (Ext.DoubleGis.FormValidator.validate(EntityForm)) {
                     Ext.getDom("OK").disabled = "disabled";
                     Ext.getDom("Cancel").disabled = "disabled";
                     EntityForm.submit();
@@ -56,20 +53,34 @@
             });
         });
     </script>
+    @if (Model.HasErrors == true)
+    {
+        <div style="height: 8px; padding-left: 5px; padding-top: 4px; position: fixed;" id="DivErrors">
+            @using (Html.BeginForm("GetOperationLog", "Operation", FormMethod.Post, new Dictionary<string, object> { { "target", "_blank" }, { "id", "ErrorsForm" } }))
+            {
+                <input type="hidden" name="operationId" value="@Model.OperationId" />
+            }
+        </div>
+    }
+
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
-{
+    {
         <div class="Tab">
-            <div style="display: none; height: 30px;" id="Notifications" class="Notifications">
+            <div style="height: 18px;" id="Notifications" class="Notifications">
                 @Model.Message
+                @if (Model.HasErrors == true)
+                {
+                    <a href="#" id="ErrorsLink"> Просмотреть ошибки...</a>
+                }
             </div>
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"})
+                @Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, null, EnumResources.ResourceManager)
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new CalendarSettings
                                                                             {
                                                                                 Store = CalendarSettings.StoreMode.Relative,
-                                                                                Display = CalendarSettings.DisplayMode.Day,
+                                                                                Display = CalendarSettings.DisplayMode.Month,
                                                                             })
             </div>
         </div>

@@ -40,24 +40,186 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Czech
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Czech/Bill.cshtml")]
-    public partial class Bill : System.Web.Mvc.WebViewPage<Models.MultiCultureBillViewModel>
+    public partial class Bill : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech.CzechBillViewModel>
     {
         public Bill()
         {
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
+            
+            #line 3 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+  
+    Layout = "../../Shared/_CardLayout.cshtml";
 
             
-            #line 4 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
-  
-    Layout = "../MultiCultureBill.cshtml";
+            #line default
+            #line hidden
+WriteLiteral("\r\n\r\n");
+
+DefineSection("CardScripts", () => {
+
+WriteLiteral("\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 175), Tuple.Create("\"", 232)
+, Tuple.Create(Tuple.Create("", 181), Tuple.Create("/Scripts/Ext.DoubleGis.Print.js?", 181), true)
+            
+            #line 9 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+, Tuple.Create(Tuple.Create("", 213), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 213), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 279), Tuple.Create("\"", 338)
+, Tuple.Create(Tuple.Create("", 285), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Bill.js?", 285), true)
+            
+            #line 10 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+, Tuple.Create(Tuple.Create("", 319), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 319), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n");
+
+});
+
+WriteLiteral("\r\n");
+
+DefineSection("CardBody", () => {
+
+WriteLiteral("\r\n    <div");
+
+WriteLiteral(" class=\"Tab\"");
+
+WriteLiteral(" id=\"MainTab\"");
+
+WriteAttribute("title", Tuple.Create(" title=\"", 434), Tuple.Create("\"", 470)
+            
+            #line 15 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+, Tuple.Create(Tuple.Create("", 442), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            
+            #line default
+            #line hidden
+, 442), false)
+);
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("        ");
+
+            
+            #line 16 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+   Write(Html.HiddenFor(m => m.Id));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 18 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+       Write(Html.TemplateField(m => m.Number, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } }));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 19 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+       Write(Html.TemplateField(m => m.BillDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 22 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+       Write(Html.TemplateField(m => m.BeginDistributionDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 23 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+       Write(Html.TemplateField(m => m.PaymentDatePlan, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 26 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+       Write(Html.TemplateField(m => m.EndDistributionDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 27 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+       Write(Html.TemplateField(m => m.PayablePlan, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" } }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n        <div");
+
+WriteLiteral(" class=\"row-wrapper\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("            ");
+
+            
+            #line 30 "..\..\Views\CreateOrUpdate\Czech\Bill.cshtml"
+       Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", 5 } }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
+
+});
 
         }
     }

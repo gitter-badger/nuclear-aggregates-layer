@@ -11,9 +11,10 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly IPublicService _publicService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public AssignLegalPersonService(
             ILegalPersonRepository legalPersonRepository,
@@ -32,14 +33,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             IPublicService publicService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _legalPersonRepository = legalPersonRepository;
             _scopeFactory = scopeFactory;
             _publicService = publicService;
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public virtual AssignResult Assign(long entityId, long ownerCode, bool bypassValidation, bool isPartialAssign)
@@ -58,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                         .Complete();
                 }
                 
-                _logger.InfoFormat("Куратором юр.лица с id={0} назначен пользователь {1}, isPartialAssign={2}", entityId, ownerCode, isPartialAssign);
+                _tracer.InfoFormat("Куратором юр.лица с id={0} назначен пользователь {1}, isPartialAssign={2}", entityId, ownerCode, isPartialAssign);
             }
             catch (ProcessAccountsWithDebtsException ex)
             {

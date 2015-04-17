@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
 
         private void AppendRoleMsCRM(string userAccount, string roleName)
         {
-            if (!_msCrmSettings.EnableReplication)
+            if (!_msCrmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Sdk))
             {
                 return;
             }

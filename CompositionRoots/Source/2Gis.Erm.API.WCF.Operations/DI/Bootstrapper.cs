@@ -62,8 +62,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
@@ -90,14 +88,17 @@ using DoubleGis.Erm.WCF.BasicOperations.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.WCF.BasicOperations.DI
 {
     internal static class Bootstrapper
     {
         public static IUnityContainer ConfigureUnity(
             ISettingsContainer settingsContainer,
-            ICommonLog logger,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -132,8 +133,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    settingsContainer.AsSettings<INestSettings>(),
-                                                                   logger,
-                                                                   loggerContextManager))
+                                                                   tracer,
+                                                                   tracerContextManager))
                      .ConfigureInterception()
                      .ConfigureServiceClient();
 
@@ -156,7 +157,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             Func<ResolvedParameter[]> resolvedParametersCreator =
                 () => new ResolvedParameter[]
                     {
-                        new ResolvedParameter<ICommonLog>(),
+                        new ResolvedParameter<ITracer>(),
                                                new ResolvedParameter<IActionLogger>(Mapping.SimplifiedModelConsumerScope),
                         new ResolvedParameter<IDependentEntityProvider>()
                     };
@@ -197,7 +198,8 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                     {
                         disqualifyOperation, new IOperationServiceInterceptionDescriptor<IOperation>[]
                             {
-                                new OperationServiceInterceptionDescriptor<DisqualifyClientService>(CompareObjectMode.Shallow, Enumerable.Empty<string>())
+                                new OperationServiceInterceptionDescriptor<DisqualifyClientService>(CompareObjectMode.Shallow, Enumerable.Empty<string>()),
+                                new OperationServiceInterceptionDescriptor<DisqualifyFirmService>(CompareObjectMode.Shallow, Enumerable.Empty<string>())
                             }
                     },
                     {
@@ -221,11 +223,11 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
             INestSettings nestSettings,
-            ICommonLog logger,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             return container
-                .ConfigureLogging(logger, loggerContextManager)
+                .ConfigureTracing(tracer, tracerContextManager)
                 .ConfigureGlobal(globalizationSettings)
                 .CreateErmSpecific(msCrmSettings)
                 .CreateSecuritySpecific()
@@ -285,7 +287,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                      .RegisterType<ICanChangeOrderPositionBindingObjectsDetector, CanChangeOrderPositionBindingObjectsDetector>(Lifetime.Singleton)
                      .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                      .RegisterType<ILinkToEntityCardFactory, WebClientLinkToEntityCardFactory>(Lifetime.Singleton)
-                     .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
+                     .RegisterType<IMonthPeriodValidationService, MonthPeriodValidationService>(Lifetime.Singleton)
                      .RegisterType<IUploadingAdvertisementElementValidator, UploadingAdvertisementElementValidator>(Lifetime.Singleton)
                      .RegisterType<IModifyingAdvertisementElementValidator, ModifyingAdvertisementElementValidator>(Lifetime.Singleton)
                      .RegisterType<IAdvertisementElementPlainTextHarmonizer, AdvertisementElementPlainTextHarmonizer>(Lifetime.Singleton)
