@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         /// </summary>
         public static bool CanBeRegardingObject(this IEntityType entityName)
         {
-            return EntityType.Instance.Equals(EntityType.Instance.Client()) || EntityType.Instance.Equals(EntityType.Instance.Firm()) || EntityType.Instance.Equals(EntityType.Instance.Deal());
+            return entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Firm()) || entityName.Equals(EntityType.Instance.Deal());
         }
 
         /// <summary>
@@ -20,7 +20,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         /// </summary>
         public static bool CanBeContacted(this IEntityType entityName)
         {
-            return EntityType.Instance.Equals(EntityType.Instance.Contact());
+            return entityName.Equals(EntityType.Instance.Contact());
+        }
+
+        public static bool IsActivity(this IEntityType entityName)
+        {
+            return entityName.Equals(EntityType.Instance.Appointment()) ||
+                   entityName.Equals(EntityType.Instance.Letter()) ||
+                   entityName.Equals(EntityType.Instance.Phonecall()) ||
+                   entityName.Equals(EntityType.Instance.Task());
         }
     }
 }

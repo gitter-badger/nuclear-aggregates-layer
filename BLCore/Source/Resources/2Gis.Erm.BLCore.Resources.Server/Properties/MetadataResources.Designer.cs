@@ -2842,7 +2842,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Владелец.
+        ///   Looks up a localized string similar to Куратор.
         /// </summary>
         public static string OwnerCode {
             get {
@@ -3675,6 +3675,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string ScheduledEnd {
             get {
                 return ResourceManager.GetString("ScheduledEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата начала.
+        /// </summary>
+        public static string ScheduledOn {
+            get {
+                return ResourceManager.GetString("ScheduledOn", resourceCulture);
             }
         }
         

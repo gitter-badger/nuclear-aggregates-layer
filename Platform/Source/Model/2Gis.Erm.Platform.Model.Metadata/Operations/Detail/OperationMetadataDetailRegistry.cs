@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             Identities2MetadataResolverMap.Add(typeof(CancelIdentity), GetCancelMetadata);
             Identities2MetadataResolverMap.Add(typeof(CompleteIdentity), GetCompleteMetadata);
             Identities2MetadataResolverMap.Add(typeof(ReopenIdentity), GetReopenMetadata);
-        }
+        }       
 
         public static IOperationMetadata GetOperationMetadata<TOperationIdentity>(params IEntityType[] operationProcessingEntities)
             where TOperationIdentity : IOperationIdentity, new()
@@ -88,7 +89,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                 entityName.Equals(EntityType.Instance.Phonecall()) ||
                 entityName.Equals(EntityType.Instance.Task()))
             {
-                return new CancelMetadata();
+                    return new CancelMetadata();
             }
 
             return null;
@@ -102,7 +103,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                 entityName.Equals(EntityType.Instance.Phonecall()) ||
                 entityName.Equals(EntityType.Instance.Task()))
             {
-                return new CompleteMetadata();
+                    return new CompleteMetadata();
             }
 
             return null;
@@ -116,7 +117,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                 entityName.Equals(EntityType.Instance.Phonecall()) ||
                 entityName.Equals(EntityType.Instance.Task()))
             {
-                return new ReopenMetadata();
+                    return new ReopenMetadata();
             }
 
             return null;
@@ -204,7 +205,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             if (parentEntityType.Equals(EntityType.Instance.Client()) &&
                 (appendedEntityType.Equals(EntityType.Instance.Firm()) ||
                  appendedEntityType.Equals(EntityType.Instance.LegalPerson())))
-                    {
+                        {
                                 return new AppendMetadata();
                         }
 
@@ -212,7 +213,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                 (appendedEntityType.Equals(EntityType.Instance.OrganizationUnit()) ||
                  appendedEntityType.Equals(EntityType.Instance.Role()) ||
                  appendedEntityType.Equals(EntityType.Instance.Territory())))
-                    {
+                        {
                                 return new AppendMetadata();
                         }
 
@@ -229,6 +230,14 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
         private static ActionHistoryMetadata GetActionHistoryMetadata(IEntityType[] entityTypes)
         {
             var entityName = entityTypes.Single();
+            if (entityName.Equals(EntityType.Instance.Appointment()) ||
+                entityName.Equals(EntityType.Instance.Letter()) ||
+                entityName.Equals(EntityType.Instance.Phonecall()) ||
+                entityName.Equals(EntityType.Instance.Task()))
+            {
+                return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Status" } };
+            }
+
             if (entityName.Equals(EntityType.Instance.Account()) ||
                 entityName.Equals(EntityType.Instance.Client()) ||
                 entityName.Equals(EntityType.Instance.Firm()))

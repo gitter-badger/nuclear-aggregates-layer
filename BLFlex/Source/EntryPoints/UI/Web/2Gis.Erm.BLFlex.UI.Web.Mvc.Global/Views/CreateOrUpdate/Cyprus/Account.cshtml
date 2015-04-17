@@ -11,29 +11,7 @@
         {
             width: 180px !important;
         }
-    </style>
-    
-    
-    <script type="text/javascript">
-        window.InitPage = function () {
-
-            window.Card.on("afterbuild", function (card) {
-                if (window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
-                    this.Items.TabPanel.add(
-                        {
-                            xtype: "actionshistorytab",
-                            pCardInfo:
-                            {
-                                pTypeId: this.Settings.EntityId,
-                                pId: window.Ext.getDom("ViewConfig_Id").value,
-                                pTypeName: Ext.get("ViewConfig_EntityName").dom.value
-                            }
-                        });
-                }
-            });
-        };
-    </script>
-
+    </style>           
 }
 
 @section CardBody

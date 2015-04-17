@@ -8,12 +8,15 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using NuClear.Model.Common.Operations.Identity.Generic;
@@ -26,17 +29,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly ISecureFinder _finder;
         private readonly IUserRepository _userRepository;
         private readonly IClientRepository _clientRepository;
+        private readonly IActionLogger _actionLogger;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserReadModel _userReadModel;
         private readonly IDeactivateUserAggregateService _deactivateUserAggregateService;
+        private readonly IAssignGenericEntityService<Appointment> _assignAppointmentOperationService;
+        private readonly IAssignGenericEntityService<Letter> _assignLetterOperationService;
+        private readonly IAssignGenericEntityService<Phonecall> _assignPhonecallOperationService;
+        private readonly IAssignGenericEntityService<Task> _assignTaskOperationService;
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly ILetterReadModel _letterReadModel;
         private readonly IPhonecallReadModel _phonecallReadModel;
         private readonly ITaskReadModel _taskReadModel;
-        private readonly IAssignAppointmentAggregateService _assignAppointmentAggregateService;
-        private readonly IAssignLetterAggregateService _assignLetterAggregateService;
-        private readonly IAssignPhonecallAggregateService _assignPhonecallAggregateService;
-        private readonly IAssignTaskAggregateService _assignTaskAggregateService;
 
         public DeactivateUserOperationService(
             ISecureFinder finder,
@@ -47,11 +51,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             ITaskReadModel taskReadModel,
             IUserRepository userRepository,
             IClientRepository clientRepository,
+            IActionLogger actionLogger,
             IDeactivateUserAggregateService deactivateUserAggregateService,
-            IAssignAppointmentAggregateService assignAppointmentAggregateService,
-            IAssignLetterAggregateService assignLetterAggregateService,
-            IAssignPhonecallAggregateService assignPhonecallAggregateService,
-            IAssignTaskAggregateService assignTaskAggregateService,
+            IAssignGenericEntityService<Appointment> assignAppointmentOperationService,
+            IAssignGenericEntityService<Letter> assignLetterOperationService,
+            IAssignGenericEntityService<Phonecall> assignPhonecallOperationService,
+            IAssignGenericEntityService<Task> assignTaskOperationService,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory)
         {
@@ -59,17 +64,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             _finder = finder;
             _userRepository = userRepository;
             _clientRepository = clientRepository;
+            _actionLogger = actionLogger;
             _scopeFactory = scopeFactory;
             _userReadModel = userReadModel;
             _deactivateUserAggregateService = deactivateUserAggregateService;
+            _assignAppointmentOperationService = assignAppointmentOperationService;
+            _assignLetterOperationService = assignLetterOperationService;
+            _assignPhonecallOperationService = assignPhonecallOperationService;
+            _assignTaskOperationService = assignTaskOperationService;
             _appointmentReadModel = appointmentReadModel;
             _letterReadModel = letterReadModel;
             _phonecallReadModel = phonecallReadModel;
             _taskReadModel = taskReadModel;
-            _assignAppointmentAggregateService = assignAppointmentAggregateService;
-            _assignLetterAggregateService = assignLetterAggregateService;
-            _assignPhonecallAggregateService = assignPhonecallAggregateService;
-            _assignTaskAggregateService = assignTaskAggregateService;
         }
 
         public virtual DeactivateConfirmation Deactivate(long entityId, long targetOwnerCodeForUserRelations)
@@ -127,22 +133,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         {
             foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsOwnedBy(previousUserId))
             {
-                _assignAppointmentAggregateService.Assign(appointment, newUserId);
+                _assignAppointmentOperationService.Assign(appointment.Id, newUserId, false, false);
             }
 
             foreach (var letter in _letterReadModel.LookupOpenLettersOwnedBy(previousUserId))
             {
-                _assignLetterAggregateService.Assign(letter, newUserId);
+                _assignLetterOperationService.Assign(letter.Id, newUserId, false, false);
             }
 
             foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsOwnedBy(previousUserId))
             {
-                _assignPhonecallAggregateService.Assign(phonecall, newUserId);
+                _assignPhonecallOperationService.Assign(phonecall.Id, newUserId, false, false);
             }
 
             foreach (var task in _taskReadModel.LookupOpenTasksOwnedBy(previousUserId))
             {
-                _assignTaskAggregateService.Assign(task, newUserId);
+                _assignTaskOperationService.Assign(task.Id, newUserId, false, false);
             }
         }
     }

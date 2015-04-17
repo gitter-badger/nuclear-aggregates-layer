@@ -92,6 +92,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 
             result.HasComments = card.Uses<ShowNotesFeature>();
             result.HasAdminTab = card.Uses<ShowAdminPartFeature>();
+            result.HasActionsHistory = card.Uses<ShowActionHistoryFeature>();
 
             result.CardToolbar = card.ActionsDescriptors.SelectMany(x => ToToolbarStructure(x, null)).ToArray();
             result.CardRelatedItems = card.Features<RelatedItemsFeature>().Select(ToCardRelatedItemsGroupStructure).ToArray();
@@ -235,6 +236,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             if (filterToParentsFeature != null)
             {
                 result.AppendExtendedInfo(filterToParentsFeature.ToExtendedInfo());
+            }
+
+            var defaultDataViewFeature = element.Features<DefaultDataViewFeature>().SingleOrDefault();
+            if (defaultDataViewFeature != null)
+            {
+                result.DefaultDataView = defaultDataViewFeature.DataView;
             }
 
             return result;

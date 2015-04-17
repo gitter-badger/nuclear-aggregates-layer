@@ -30,8 +30,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems
 
         public static UIElementMetadataBuilder ActivitiesGrid()
         {
-            return EntityGrid(EntityType.Instance.Activity().Description.Pluralize(), EntityType.Instance.Activity(), () => ErmConfigLocalization.CrdRelErmActions)
-                .Icon.Path(Icons.Icons.Entity.Small(EntityType.Instance.Activity()))
+            return
+                EntityGrid(EntityType.Instance.Activity().Description.Pluralize(), EntityType.Instance.Activity(), () => ErmConfigLocalization.CrdRelErmActions)
+                    .Icon.Path(Icons.Icons.Entity.Small(EntityType.Instance.Activity()))
+                    .DefaultDataView(() => ErmConfigLocalization.DListActiveActivities)
                 .FilterToParents();
         }
 

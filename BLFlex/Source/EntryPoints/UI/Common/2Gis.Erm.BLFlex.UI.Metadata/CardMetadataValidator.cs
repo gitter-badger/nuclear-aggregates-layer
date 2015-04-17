@@ -96,6 +96,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                 EntityMainAttribute = cardSettings.EntityMainAttribute,
                 HasComments = cardSettings.HasComments,
                 HasAdminTab = cardSettings.HasAdminTab,
+                HasActionsHistory = cardSettings.HasActionsHistory,
                 DecimalDigits = cardSettings.DecimalDigits,
 
                 CardToolbar = cardSettings.CardToolbar.Select(x => new ToolbarElementStructure
@@ -247,6 +248,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
             if (hasAdminTab != null)
             {
                 cardJson.HasAdminTab = (bool)hasAdminTab;
+            }
+
+            var hasActionHistory = cardEl.Attribute("HasActionsHistory");
+            if (hasActionHistory != null)
+            {
+                cardJson.HasActionsHistory = (bool)hasActionHistory;
             }
 
             var decimalDigits = cardEl.Attribute("DecimalDigits");
@@ -469,6 +476,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                             x => x.HasAdminTab,
                                             x => x.HasComments,
                                             x => x.DecimalDigits,
+                                            x => x.HasActionsHistory,
                                             x => x.EntityName,
                                             x => x.EntityLocalizedName,
                                             x => x.EntityMainAttribute,

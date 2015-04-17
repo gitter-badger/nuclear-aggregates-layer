@@ -236,7 +236,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         {
             var resultMessages = new List<RepairOutdatedPositionsOperationMessage>();
 
-            var positionName = _positionReadModel.GetPositionName(pricePosition.PositionId);
+            var positionName = _positionReadModel.GetPositionNames(new[] { pricePosition.PositionId }).Single().Value;
             var actualPricePosition = _priceReadModel.GetPricePosition(actualPriceId, pricePosition.PositionId);
             if (actualPricePosition == null)
             {

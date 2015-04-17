@@ -6,25 +6,7 @@
 
 @section CardScripts
 {
-    <script type="text/javascript">
-        window.InitPage = function () {
-
-            window.Card.on("afterbuild", function (card) {
-                if (window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
-                    this.Items.TabPanel.add(
-                        {
-                            xtype: "actionshistorytab",
-                            pCardInfo:
-                            {
-                                pTypeId: this.Settings.EntityId,
-                                pId: window.Ext.getDom("ViewConfig_Id").value,
-                                pTypeName: Ext.get("ViewConfig_EntityName").dom.value
-                            }
-                        });
-                }
-            });
-        };
-    </script>
+ 
 }
 
 @section CardBody
@@ -48,7 +30,7 @@
 <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
     @Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle)
     <div class="row-wrapper">
-        @Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
+        @Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
     </div>
     <div class="row-wrapper">
         @Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true })

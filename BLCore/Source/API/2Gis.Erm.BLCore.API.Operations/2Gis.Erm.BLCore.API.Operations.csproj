@@ -219,6 +219,7 @@
     <Compile Include="Concrete\Orders\Print\IPrintBindingChangeAgreementOperationService.cs" />
     <Compile Include="Concrete\Orders\Print\PrintFormDocument.cs" />
     <Compile Include="Concrete\Positions\IChangePositionSortingOrderOperationService.cs" />
+    <Compile Include="Concrete\Positions\PositionBindingObjectTypeExtensions.cs" />
     <Compile Include="Concrete\Positions\PositionSortingOrderDto.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
