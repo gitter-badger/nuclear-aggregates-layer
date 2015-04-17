@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                     // FIXME {all, 23.12.2014}: два ниже следующих вызова нужно зарефакторить, например, объединив в 1 operation service 
                     _userRepository.AssignUserRelatedEntities(entityId, targetOwnerCodeForUserRelations);
                     var userBranchOffices = _userReadModel.GetUserBranchOfficeLinks(entityId);
-                    _changeUserForUserBranchOfficeAggregateService.ChangeUser(userBranchOffices, entityId);
+                    _changeUserForUserBranchOfficeAggregateService.ChangeUser(userBranchOffices, targetOwnerCodeForUserRelations);
                     AssignRelatedActivities(entityId, targetOwnerCodeForUserRelations);
                     scope.Updated<User>(targetOwnerCodeForUserRelations);
 
