@@ -42,6 +42,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
                      .UseConstructor = false;
             typeModel.Add(typeof(IOperationIdentity), false)
                      .SetSurrogate(typeof(OperationIdentitySurrogate));
+            typeModel.Add(typeof(IEntityType), false)
+                    .SetSurrogate(typeof(EntityTypeSurrogate));
 
             return typeModel;
         }

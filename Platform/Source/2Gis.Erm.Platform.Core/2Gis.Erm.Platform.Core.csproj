@@ -152,6 +152,7 @@
     <Compile Include="Operations\Logging\Transports\DB\TrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
     <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageReceiver.Dispose.cs" />
     <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageReceiver.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Serialization\ProtoBuf\EntityTypeSurrogate.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ServiceBusLoggingSession.cs" />
     <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageSender.Dispose.cs" />
     <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusConnectionSlotPool.cs" />
