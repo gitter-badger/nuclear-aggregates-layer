@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
@@ -16,16 +13,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
-    public class GetAppointmentDtoService : GetDomainEntityDtoServiceBase<Appointment>
+    public class GetAppointmentDtoService : GetActivityDtoService<Appointment>
     {
         private readonly IAppointmentReadModel _appointmentReadModel;
-
-        private readonly IClientReadModel _clientReadModel;
-        private readonly IDealReadModel _dealReadModel;
-        private readonly IFirmReadModel _firmReadModel;
-
-        private readonly Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>> _lookupsForRegardingObjects;
-        private readonly Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>> _lookupsForAttendees;
 
         public GetAppointmentDtoService(IUserContext userContext,
                                         IAppointmentReadModel appointmentReadModel,
@@ -35,37 +25,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                         ILetterReadModel letterReadModel,
                                         IPhonecallReadModel phonecallReadModel,
                                         ITaskReadModel taskReadModel)
-            : base(userContext)
+            : base(userContext, appointmentReadModel, clientReadModel, firmReadModel, dealReadModel, letterReadModel, phonecallReadModel, taskReadModel)
         {
             _appointmentReadModel = appointmentReadModel;
-            _clientReadModel = clientReadModel;
-            _firmReadModel = firmReadModel;
-            _dealReadModel = dealReadModel;
-
-            var service = new ActivityReferenceReader(clientReadModel, dealReadModel, firmReadModel);
-
-            _lookupsForRegardingObjects = new Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>>
-            {
-                { EntityName.Appointment, entityId => appointmentReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Letter, entityId => letterReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Phonecall, entityId => phonecallReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Task, entityId => taskReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Client, service.ResolveRegardingObjectsFromClient },
-                { EntityName.Contact, service.ResolveRegardingObjectsFromContact },
-                { EntityName.Deal, service.ResolveRegardingObjectsFromDeal },
-                { EntityName.Firm, service.ResolveRegardingObjectsFromFirm },
-            };
-
-            _lookupsForAttendees = new Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>>
-            {
-                { EntityName.Appointment, entityId => appointmentReadModel.GetAttendees(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Letter, entityId => letterReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Phonecall, entityId => phonecallReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Client, service.ResolveContactsFromClient },
-                { EntityName.Contact, service.ResolveContactsFromContact },
-                { EntityName.Deal, service.ResolveContactsFromDeal },
-                { EntityName.Firm, service.ResolveContactsFromFirm },
-            };
         }
 
         protected override IDomainEntityDto<Appointment> GetDto(long entityId)
@@ -87,8 +49,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Priority = appointment.Priority,
                     Purpose = appointment.Purpose,
                     Status = appointment.Status,
-                    RegardingObjects = _lookupsForRegardingObjects.LookupElements(EntityName.Appointment, entityId),
-                    Attendees = _lookupsForAttendees.LookupElements(EntityName.Appointment, entityId),
+                    RegardingObjects = GetRegardingObjects(EntityName.Appointment, entityId),
+                    Attendees = GetAttandees(EntityName.Appointment, entityId),
 
                     OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = appointment.CreatedBy, Name = null },
@@ -112,36 +74,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                            ScheduledEnd = now.Add(TimeSpan.FromMinutes(15)),
                            Status = ActivityStatus.InProgress,
                               
-                           RegardingObjects = _lookupsForRegardingObjects.LookupElements(parentEntityName, parentEntityId),
-                           Attendees = _lookupsForAttendees.LookupElements(parentEntityName, parentEntityId),
+                           RegardingObjects = GetRegardingObjects(parentEntityName, parentEntityId),
+                           Attendees = GetAttandees(parentEntityName, parentEntityId),
                        };
-        }
-
-        private EntityReference EmbedEntityNameIfNeeded(EntityReference reference)
-        {
-            if (reference.Id != null && reference.Name == null)
-            {
-                reference.Name = ReadEntityName(reference.EntityName, reference.Id.Value);
-            }
-
-            return reference;
-        }
-
-        private string ReadEntityName(EntityName entityName, long entityId)
-        {
-            switch (entityName)
-            {
-                case EntityName.Client:
-                    return _clientReadModel.GetClientName(entityId);
-                case EntityName.Contact:
-                    return _clientReadModel.GetContactName(entityId);
-                case EntityName.Deal:
-                    return _dealReadModel.GetDeal(entityId).Name;
-                case EntityName.Firm:
-                    return _firmReadModel.GetFirmName(entityId);
-                default:
-                    throw new ArgumentOutOfRangeException("entityName");
-            }
-        }
+        }               
     }
 }

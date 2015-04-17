@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                 return false;
             }
 
-            return references.Any(s => s.EntityName == entityName && !s.Id.HasValue);
+            return references.Any(s => s != null && s.EntityName == entityName && !s.Id.HasValue);
         }
 
         public static bool IsClientInitialization(this EntityReference reference, EntityName entityName)

@@ -31,18 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             return entityName == EntityName.Appointment || entityName == EntityName.Letter || entityName == EntityName.Phonecall || entityName == EntityName.Task;
         }
-
-        public static IEnumerable<T> LookupElements<T>(this IReadOnlyDictionary<EntityName, Func<long, IEnumerable<T>>> lookups, EntityName entityName, long? entityId)
-        {
-            Func<long, IEnumerable<T>> lookup;
-            if (entityId != null && lookups.TryGetValue(entityName, out lookup))
-            {
-                return lookup(entityId.Value);
-            }
-
-            return Enumerable.Empty<T>();
-        }
-
+        
         public static EntityReference ToEntityReference<TEntity>(this TEntity entity, Func<TEntity, string> getName = null)
             where TEntity : IEntity, IEntityKey
         {
