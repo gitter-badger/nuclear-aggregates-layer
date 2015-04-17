@@ -47,10 +47,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
                 else
                 {
                     var symmetricOriginalDeniedPosition =
-                        _getSymmetricDeniedPositionOperationService.GetSingleWithObjectBindingTypeConsideration(originalDeniedPosition.PositionId,
-                                                                                                                originalDeniedPosition.PositionDeniedId,
-                                                                                                                originalDeniedPosition.PriceId,
-                                                                                                                originalDeniedPosition.ObjectBindingType);
+                        _getSymmetricDeniedPositionOperationService.GetSingle(originalDeniedPosition.PositionId,
+                                                                              originalDeniedPosition.PositionDeniedId,
+                                                                              originalDeniedPosition.PriceId);
 
                     _verifyDeniedPositionsForDuplicatesOperationService.Verify(originalDeniedPosition.PositionId,
                                                                                originalDeniedPosition.PositionDeniedId,
