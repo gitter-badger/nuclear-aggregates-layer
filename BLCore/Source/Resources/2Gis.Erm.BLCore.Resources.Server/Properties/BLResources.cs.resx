@@ -1241,13 +1241,6 @@ Blokujících chyb:{2}</value>
   <data name="BranchOfficeOrgUnitInfo" xml:space="preserve">
     <value>Informace o oddělení pr. osoby organizace</value>
   </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph1" xml:space="preserve">
-    <value>10.</value>
-  </data>
-  <data name="PrintOrderHandler_RegionalTechnicalTerminationParagraph2" xml:space="preserve">
-    <value>10. Tato objednávka nabývá platnosti dne {0}. Objednávka č. {1} ze dne {2} pozbývá platnosti od {3}.
-11.</value>
-  </data>
   <data name="UnauthenticatedAccess" xml:space="preserve">
     <value>Neznámý uživatel</value>
   </data>
@@ -1383,9 +1376,6 @@ Blokujících chyb:{2}</value>
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value>Vybraná položka nemůže být zakázaná, protože je hlavní</value>
   </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value>Velká ikona</value>
-  </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value>Není možné přidat položku do zveřejněného ceníku</value>
   </data>
@@ -1443,9 +1433,6 @@ Blokujících chyb:{2}</value>
   <data name="ActivateUserConfirmation" xml:space="preserve">
     <value>Bude zapnuto uživatelů: {0}</value>
   </data>
-  <data name="SelectedOrganizationUnitIsNotBranchOrNotMovedToERM" xml:space="preserve">
-    <value>Vybrané oddělení organizace není pobočkou nebo není převedeno do ERM</value>
-  </data>
   <data name="AssociatedPositionsReferencesToInactivePositions" xml:space="preserve">
     <value>Ve skupinách hlavních položek jsou objekty, které odkazují na neaktivní položky</value>
   </data>
@@ -1457,9 +1444,6 @@ Blokujících chyb:{2}</value>
   </data>
   <data name="SpecifiedBillNotFound" xml:space="preserve">
     <value>Uvedená faktura nebyla nalezena</value>
-  </data>
-  <data name="ErrorWhileSavingLegalPersonProfile" xml:space="preserve">
-    <value>Při ukládání profilu pr. osoby klienta došlo k chybě</value>
   </data>
   <data name="OrganizationUnitNotSet" xml:space="preserve">
     <value>Není uvedeno oddělení organizace</value>
@@ -2749,9 +2733,6 @@ Operace se uskutečnila: {6}.</value>
   </data>
   <data name="ContinueOperationQuestion" xml:space="preserve">
     <value>Pokračovat?</value>
-  </data>
-  <data name="SpecifyPeriodAndOrganizationUnit" xml:space="preserve">
-    <value>Uveďte oddělení organizace a období odpisu</value>
   </data>
   <data name="UpdateLockFromAds_ActiveLocksNotFound" xml:space="preserve">
     <value>U firmy {0} nebyla ke dni {1} nalezena aktivní blokace</value>
@@ -4116,9 +4097,6 @@ Operace se uskutečnila: {6}.</value>
   <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
     <value>Obsah souboru obrázku neodpovídá jeho příponě</value>
   </data>
-  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
-    <value>Není možné odstranit službu '{0}', protože ji využívá {1} adres</value>
-  </data>
   <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
     <value>Nepodařilo se uložit šablonu: může existovat pouze jedna šablona mrakodrapu</value>
   </data>
@@ -4334,9 +4312,6 @@ Operace se uskutečnila: {6}.</value>
   </data>
   <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
     <value>Vytvoření, změna a odstranění objektů evidenčního systému „Území prodejů“.</value>
-  </data>
-  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
-    <value>Dop. služby pro firmy</value>
   </data>
   <data name="AdministrationPage_Project" xml:space="preserve">
     <value>Projekty</value>
@@ -4944,9 +4919,6 @@ Doba zveřejnění: {3}.</value>
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value>Nelze odstranit právnickou osobu zákazníka se spojenými osobními účty</value>
   </data>
-  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Vytvoření, změna a odstranění objektů evidenčního systému „Dod. služby pro firmy“.</value>
-  </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Byla vybrána neplatná adresa u položek: {0}</value>
   </data>
@@ -4965,8 +4937,8 @@ Doba zveřejnění: {3}.</value>
   <data name="CloseWithDenial" xml:space="preserve">
     <value>Uzavřít jako zamítnuto</value>
   </data>
-  <data name="CategoryIsNotSupportedForSpecifiedRateTypeAndOrgUnit" xml:space="preserve">
-    <value>Nový prodejní modul ještě není podporován "{0}" a/nebo v rubrice "{1}"</value>
+  <data name="CategoryIsNotSupportedForSalesModel" xml:space="preserve">
+    <value>Rubriky ({0}) nejsou podporovány pro model prodejů "{1}" ve městě "{2}"</value>
   </data>
   <data name="CategoryShouldBeSpecifiedForAllSubpositions" xml:space="preserve">
     <value>U všech podpoložek položky v objednávce zpracované jako ceníková položka s typem výpočtu koeficientu [{0}] musí být uvedena rubrika</value>
@@ -5191,10 +5163,67 @@ Doba zveřejnění: {3}.</value>
   <data name="AssignActivityAccessDenied" xml:space="preserve">
     <value>Nemáte oprávnění pro změnu kurátora u této akce {0}</value>
   </data>
+  <data name="NoRegardingObjectValidationError" xml:space="preserve">
+    <value>Pole Klient, Obchod, Firma jsou prazdne. Je treba vyplnit alespon jedno z techto poli</value>
+  </data>
   <data name="CategoryIsRestrictedForSpecifiedSalesModelError" xml:space="preserve">
-    <value>Позиция "{0}" не может быть продана в рубрику "{1}" проекта "{2}"</value>
+    <value>Pozici "{0}" nelze prodat do rubriky "{1}" v projektu "{2}"</value>
   </data>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
-    <value>Отделение организации {0} не связано с проектом.</value>
+    <value>Oddělení organizace {0} není spojeno s projektem.</value>
+  </data>
+  <data name="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+    <value>Není možné uložit akci do organizace, která je v rezervě</value>
+  </data>
+  <data name="CannotSaveActivityForClientInReserve" xml:space="preserve">
+    <value>Nelze uložit akci na klienta v rezervě</value>
+  </data>
+  <data name="CancelConfirmation" xml:space="preserve">
+    <value>Potvrdit storno akce</value>
+  </data>
+  <data name="CannotCancelFinishedOrClosedActivity" xml:space="preserve">
+    <value>Není možné stornovat akci {0} ve statusu "Splněno"/"Stornováno"</value>
+  </data>
+  <data name="CannotCompleteFinishedOrClosedActivity" xml:space="preserve">
+    <value>Není možné ukončit akci {0} ve statusu "Splněno"/"Stornováno"</value>
+  </data>
+  <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
+    <value>Operace změny klienta není určena pro zadaný typ entity</value>
+  </data>
+  <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
+    <value>Zadejte období, způsob evidence  poskytování služeb a oddělení organizace</value>
+  </data>
+  <data name="SpecifyPeriodAndAccountingMethod" xml:space="preserve">
+    <value>Zadejte období a způsob evidence poskytování služeb</value>
+  </data>
+  <data name="WithdrawalFailed" xml:space="preserve">
+    <value>Stržení prostředků za {0} - {1} s následujícím způsobem poskytování služeb: '{2}' provedeno s chybami</value>
+  </data>
+  <data name="NoLocksToWithdrawFound" xml:space="preserve">
+    <value>Za období {0} nebyly nalezeny blokace pro stržení  podle způsobu poskytování služeb '{1}' </value>
+  </data>
+  <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
+    <value>Je nutné zadat alespoň jedno spojení</value>
+  </data>
+  <data name="PublishedPriceCannotBeModified" xml:space="preserve">
+    <value>Zveřejněný ceník nemůže být editován</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Technická podpora</value>
+  </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
+  <data name="ManageDocumentsDebt" xml:space="preserve">
+    <value>Správa dokumentů</value>
+  </data>
+  <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Operace nemůže být provedena, jelikož je uskutečňována aktualizace</value>
+  </data>
+  <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
+    <value>Pokusil jste se ukončit akci, která je naplánována na budoucí období, změňte dobu provedení akce nebo stornujte to, pokud akce nebyla provedena</value>
+  </data>
+  <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
+    <value>You can't pick more than one reference object for the following positions: {0}</value>
   </data>
 </root>

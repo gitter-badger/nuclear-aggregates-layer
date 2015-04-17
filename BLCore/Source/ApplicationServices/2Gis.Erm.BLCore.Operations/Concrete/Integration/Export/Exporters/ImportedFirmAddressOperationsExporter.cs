@@ -9,11 +9,12 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.PostIntegrationActivities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
 {
@@ -24,20 +25,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
         private readonly IOperationContextParser _operationContextParser;
         private readonly IFinder _finder;
         private readonly IPublicService _publicService;
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
 
         public ImportedFirmAddressOperationsExporter(
             IOperationResolver operationResolver,
             IOperationContextParser operationContextParser,
             IFinder finder, 
             IPublicService publicService, 
-            ICommonLog logger)
+            ITracer tracer)
         {
             _operationResolver = operationResolver;
             _operationContextParser = operationContextParser;
             _finder = finder;
             _publicService = publicService;
-            _logger = logger;
+            _tracer = tracer;
         }
 
         public void ExportOperations(FlowDescription flowDescription,
@@ -50,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
             var firmAddresses = GetFirmAddressesToBeRefreshed(operations).ToArray();
             if (!firmAddresses.Any())
             {
-                _logger.Warn("No one firm addresses have to be syncronized");
+                _tracer.Warn("No one firm addresses have to be syncronized");
                 return;
             }
 
@@ -77,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
             var operationIdentity = _operationResolver.ResolveOperation(operation);
             if (!operationIdentity.OperationIdentity.Equals(ImportCardIdentity.Instance))
             {
-                _logger.WarnFormat("Specified operation {0}, can't trigger firm addresses synchronization, ignore operation and do nothing", operationIdentity);
+                _tracer.WarnFormat("Specified operation {0}, can't trigger firm addresses synchronization, ignore operation and do nothing", operationIdentity);
                 return Enumerable.Empty<long>();
             }
 

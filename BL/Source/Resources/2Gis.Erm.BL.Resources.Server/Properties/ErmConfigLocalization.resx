@@ -1185,12 +1185,6 @@
   <data name="ControlExport" xml:space="preserve">
     <value />
   </data>
-  <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value />
-  </data>
   <data name="ControlImportFromFile" xml:space="preserve">
     <value />
   </data>
@@ -1395,10 +1389,13 @@
   <data name="EnMOperation" xml:space="preserve">
     <value />
   </data>
-  <data name="AdditionalFirmServices" xml:space="preserve">
+  <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value />
   </data>
-  <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
+  <data name="ControlPrintFirmNameChangeAgreement" xml:space="preserve">
+    <value />
+  </data>  
+  <data name="ControlPrintBindingChangeAgreement" xml:space="preserve">
     <value />
   </data>
   <data name="ControlDetachFirm" xml:space="preserve">
@@ -1874,6 +1871,21 @@
     <value />
   </data>
   <data name="DListTimeZones" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlAddPositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlRemovePositions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlOpenSortingPage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EnPositionSortingOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlSetDocumentsDebt" xml:space="preserve">
     <value />
   </data>
 </root>

@@ -1047,6 +1047,9 @@
   <data name="ScheduledStart" xml:space="preserve">
     <value>Start date</value>
   </data>
+  <data name="ScheduledOn" xml:space="preserve">
+    <value>Start date</value>
+  </data>
   <data name="StartPeriodDate" xml:space="preserve">
     <value>Month</value>
   </data>
@@ -1272,9 +1275,6 @@
   <data name="Registered" xml:space="preserve">
     <value>Registered</value>
   </data>
-  <data name="CreateCsvFile" xml:space="preserve">
-    <value>Export an additional .csv file</value>
-  </data>
   <data name="OrderProcessingRequest" xml:space="preserve">
     <value>Request from PA</value>
   </data>
@@ -1480,5 +1480,14 @@
   </data>
   <data name="ChiefFullNameInNominative" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="PositionsGroup" xml:space="preserve">
+    <value>Nomenclature group</value>
+  </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Service accounting method</value>
+  </data>
+  <data name="ApplicationCityName" xml:space="preserve">
+    <value>Application city name</value>
   </data>
 </root>

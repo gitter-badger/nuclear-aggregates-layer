@@ -450,39 +450,13 @@
   <data name="IntegrationTypeNone" xml:space="preserve">
     <value>Не указан</value>
   </data>
-  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
-    <value>Загрузка фирм</value>
-  </data>
-  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
-    <value>Загрузка рубрик</value>
-  </data>
-  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
-    <value>Загрузка территорий</value>
-  </data>
-  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
-    <value>Выгрузка фирм с активными заказами</value>
-  </data>
-  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
-    <value>Загрузка списаний</value>
-  </data>
-  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
-    <value>Выгрузка заказов</value>
-  </data>
   <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
     <value>Загрузка поступлений по лицевым счетам</value>
   </data>
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Выгрузка юр. лиц клиентов</value>
   </data>
-  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
-    <value>Выгрузка лицевых счетов</value>
-  </data>
-  <data name="IntegrationTypeExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Выгрузка списаний по лицевым счетам</value>
-  </data>
-  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
-    <value>Выгрузка сверок</value>
-  </data>
+
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Акционная</value>
   </data>
@@ -792,14 +766,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Другое</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Единый счёт на оплату для ИП</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
-    <value>Единый счёт на оплату для юр. лица</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Единый счёт на оплату для физ. лица</value>
+  <data name="TemplateCodeJointBill" xml:space="preserve">
+    <value>Единый счёт на оплату</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Договор</value>
@@ -1239,9 +1207,6 @@
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Профиль юр. лица клиента</value>
   </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Доп. услуги для фирмы</value>
-  </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Удаление профиля юр. лица клиента</value>
   </data>
@@ -1320,17 +1285,11 @@
   <data name="MessageTypeWarning" xml:space="preserve">
     <value>Предупреждение</value>
   </data>
-  <data name="TemplateCodeOrderWithoutVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС со скидкой</value>
+  <data name="TemplateCodeOrder" xml:space="preserve">
+    <value>Бланк заказа</value>
   </data>
-  <data name="TemplateCodeOrderWithVatWithDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС со скидкой</value>
-  </data>
-  <data name="TemplateCodeOrderWithoutVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа без НДС без скидки</value>
-  </data>
-  <data name="TemplateCodeOrderWithVatWithoutDiscount" xml:space="preserve">
-    <value>Бланк заказа с НДС без скидки</value>
+  <data name="TemplateCodeOrderMultiPlannedProvision" xml:space="preserve">
+    <value>Бланк заказа (multi full house)</value>
   </data>
   <data name="ActivityTypePhonecall" xml:space="preserve">
     <value>Звонок</value>
@@ -1353,31 +1312,58 @@
   <data name="ActivityPriorityHigh" xml:space="preserve">
     <value>Высокий</value>
   </data>
-  <data name="ActivityPurposeFirstCall" xml:space="preserve">
+  <data name="PhonecallPurposeFirstCall" xml:space="preserve">
     <value>Первый контакт (Знакомство)</value>
   </data>
-  <data name="ActivityPurposeProductPresentation" xml:space="preserve">
+  <data name="PhonecallPurposeProductPresentation" xml:space="preserve">
     <value>Проведение презентации</value>
   </data>
-  <data name="ActivityPurposeOpportunitiesPresentation" xml:space="preserve">
+  <data name="PhonecallPurposeOpportunitiesPresentation" xml:space="preserve">
     <value>Проведение презентации рекламных возможностей</value>
   </data>
-  <data name="ActivityPurposeOfferApproval" xml:space="preserve">
+  <data name="PhonecallPurposeOfferApproval" xml:space="preserve">
     <value>Согласование и отправка КП</value>
   </data>
-  <data name="ActivityPurposeDecisionApproval" xml:space="preserve">
+  <data name="PhonecallPurposeDecisionApproval" xml:space="preserve">
     <value>Согласование сроков принятия решения</value>
   </data>
-  <data name="ActivityPurposeSale" xml:space="preserve">
+  <data name="PhonecallPurposeSale" xml:space="preserve">
     <value>Продажа</value>
   </data>
-  <data name="ActivityPurposeService" xml:space="preserve">
+  <data name="PhonecallPurposeService" xml:space="preserve">
     <value>Сервис</value>
   </data>
-  <data name="ActivityPurposeUpsale" xml:space="preserve">
+  <data name="PhonecallPurposeUpsale" xml:space="preserve">
     <value>Допродажа</value>
   </data>
-  <data name="ActivityPurposeProlongation" xml:space="preserve">
+  <data name="PhonecallPurposeProlongation" xml:space="preserve">
+    <value>Продление</value>
+  </data>
+  <data name="AppointmentPurposeFirstCall" xml:space="preserve">
+    <value>Первый контакт (Знакомство)</value>
+  </data>
+  <data name="AppointmentPurposeProductPresentation" xml:space="preserve">
+    <value>Проведение презентации</value>
+  </data>
+  <data name="AppointmentPurposeOpportunitiesPresentation" xml:space="preserve">
+    <value>Проведение презентации рекламных возможностей</value>
+  </data>
+  <data name="AppointmentPurposeOfferApproval" xml:space="preserve">
+    <value>Согласование и отправка КП</value>
+  </data>
+  <data name="AppointmentPurposeDecisionApproval" xml:space="preserve">
+    <value>Согласование сроков принятия решения</value>
+  </data>
+  <data name="AppointmentPurposeSale" xml:space="preserve">
+    <value>Продажа</value>
+  </data>
+  <data name="AppointmentPurposeService" xml:space="preserve">
+    <value>Сервис</value>
+  </data>
+  <data name="AppointmentPurposeUpsale" xml:space="preserve">
+    <value>Допродажа</value>
+  </data>
+  <data name="AppointmentPurposeProlongation" xml:space="preserve">
     <value>Продление</value>
   </data>
   <data name="ActivityStatusInProgress" xml:space="preserve">
@@ -1461,7 +1447,10 @@
   <data name="ActivityPriorityNotSet" xml:space="preserve">
     <value>Не задано</value>
   </data>
-  <data name="ActivityPurposeNotSet" xml:space="preserve">
+  <data name="PhonecallPurposeNotSet" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="AppointmentPurposeNotSet" xml:space="preserve">
     <value>Не задано</value>
   </data>
   <data name="ActivityStatusNotSet" xml:space="preserve">
@@ -1694,6 +1683,12 @@
   </data>
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Соглашение о расторжении договора для юр. лица</value>
+  </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>Доп. соглашение (смена названия фирмы)</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>Доп. соглашение (смена привязки)</value>
   </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
     <value>Выгрузка в шину списаний по лицевым счетам</value>
@@ -2010,5 +2005,23 @@
   </data>
   <data name="FasCommentDisplayTextUkraineEmploymentAssistance" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Гарантируемое оказание</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Планируемое оказание</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Списание</value>
+  </data>
+  <data name="PositionsGroupMedia" xml:space="preserve">
+    <value>Медийная реклама</value>
+  </data>
+  <data name="PositionsGroupNone" xml:space="preserve">
+    <value />
   </data>
 </root>

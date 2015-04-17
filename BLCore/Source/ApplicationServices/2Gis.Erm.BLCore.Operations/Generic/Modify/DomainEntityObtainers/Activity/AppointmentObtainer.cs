@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var dto = (AppointmentDomainEntityDto)domainEntityDto;
 
             var appointment = dto.IsNew()
-                                  ? new Appointment { IsActive = true }
+                                  ? new Appointment { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() }
                                   : _finder.FindOne(Specs.Find.ById<Appointment>(dto.Id));
 
             appointment.Header = dto.Header;
@@ -33,9 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             appointment.ScheduledEnd = dto.ScheduledEnd;
             appointment.Priority = dto.Priority;
             appointment.Purpose = dto.Purpose;
-            appointment.Status = dto.Status;
             appointment.Location = dto.Location;
-            appointment.OwnerCode = dto.OwnerRef.GetId();
             appointment.Timestamp = dto.Timestamp;
 
             return appointment;

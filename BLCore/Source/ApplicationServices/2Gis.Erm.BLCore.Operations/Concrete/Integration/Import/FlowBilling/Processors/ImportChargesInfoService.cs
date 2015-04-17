@@ -4,29 +4,25 @@ using System.Linq;
 using System.Transactions;
 using System.Xml.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Import.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Infrastructure;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Projects;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions.ServiceBus.Import;
 using DoubleGis.Erm.Platform.API.Core.Exceptions.ServiceBus.Import.FlowBilling;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Charge;
 
-using ChargeBusDto = DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing.ChargeDto;
-using ChargeDto = DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto.ChargeDto;
-
+using NuClear.Tracing.API;
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBilling.Processors
 {
     public class ImportChargesInfoService : IImportChargesInfoService
@@ -35,31 +31,31 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
         private readonly IChargeBulkCreateAggregateService _chargeBulkCreateAggregateService;
         private readonly IChargeCreateHistoryAggregateService _chargeCreateHistoryAggregateService;
         private readonly IDeleteChargesForPeriodAndProjectOperationService _deleteChargesService;
-        private readonly ICommonLog _logger;
-        private readonly IOrderReadModel _orderReadModel;
-        private readonly IPositionReadModel _positionReadModel;
+        private readonly ITracer _tracer;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IChargeReadModel _chargeReadModel;
+        private readonly IOrderReadModel _orderReadModel;
+        private readonly IProjectService _projectService;
 
         public ImportChargesInfoService(IAccountReadModel accountReadModel,
                                         IChargeBulkCreateAggregateService chargeBulkCreateAggregateService,
                                         IChargeCreateHistoryAggregateService chargeCreateHistoryAggregateService,
                                         IDeleteChargesForPeriodAndProjectOperationService deleteChargesService,
-                                        ICommonLog logger,
-                                        IOrderReadModel orderReadModel,
-                                        IPositionReadModel positionReadModel,
+                                        ITracer tracer,
                                         IOperationScopeFactory scopeFactory,
-                                        IChargeReadModel chargeReadModel)
+                                        IChargeReadModel chargeReadModel,
+                                        IOrderReadModel orderReadModel,
+                                        IProjectService projectService)
         {
             _accountReadModel = accountReadModel;
             _chargeBulkCreateAggregateService = chargeBulkCreateAggregateService;
             _chargeCreateHistoryAggregateService = chargeCreateHistoryAggregateService;
             _deleteChargesService = deleteChargesService;
-            _logger = logger;
-            _orderReadModel = orderReadModel;
-            _positionReadModel = positionReadModel;
+            _tracer = tracer;
             _scopeFactory = scopeFactory;
             _chargeReadModel = chargeReadModel;
+            _orderReadModel = orderReadModel;
+            _projectService = projectService;
         }
 
         public void Import(IEnumerable<IServiceBusDto> dtos)
@@ -86,13 +82,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                                                                                            x.WithdrawalStatus)))));
             }
 
+            var chargesWithNegativeAmount = chargesInfo.Charges.Where(x => x.Amount < 0).ToArray();
+            if (chargesWithNegativeAmount.Any())
+            {
+                throw new CannotCreateChargesException(string.Format("Can't import charges. Amount for following OrderPositions is negative: {0}",
+                                                                     string.Join(",", chargesWithNegativeAmount.Select(x => x.OrderPositionId.ToString()))));
+            }
+
             try
             {
                 ProcessInScope(chargesInfo, timePeriod);
             }
             catch (Exception e)
             {
-                _logger.Error(e, e.Message);
+                _tracer.Error(e, e.Message);
                 using (var transaction = new TransactionScope(TransactionScopeOption.Suppress, DefaultTransactionOptions.Default))
                 {
                     LogImportStatus(chargesInfo, ChargesHistoryStatus.Error, e.Message);
@@ -105,13 +108,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
 
         private void ProcessInScope(ChargesInfoServiceBusDto chargesInfo, TimePeriod timePeriod)
         {
-            var orderPositionChargesInfoToDtoMap = chargesInfo.Charges.ToDictionary(x => new OrderPositionChargeInfo
-                {
-                    CategoryId = x.RubricCode,
-                    FirmId = x.FirmCode,
-                    PositionId = x.NomenclatureElementCode
-                });
-
             using (var scope = _scopeFactory.CreateNonCoupled<ImportChargesInfoIdentity>())
             {
                 Guid lastSucceededId;
@@ -127,58 +123,42 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Import.FlowBillin
                     }
                 }
 
-                IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions;
-                string message;
-                if (!_orderReadModel.TryAcquireOrderPositions(chargesInfo.BranchCode,
-                                                              timePeriod,
-                                                              orderPositionChargesInfoToDtoMap.Keys.ToArray(),
-                                                              out acquiredOrderPositions,
-                                                              out message))
+                if (!_projectService.DoesActiveProjectExist(chargesInfo.BranchCode))
                 {
-                    // FIXME {a.tukaev, 15.05.2014}: Та же тема, есть в нескольких местах. Лучше выкидывать проблемноориентированные (о_О) исключения, а дальше их оборачивать для логирования/UI
-                    // DONE {d.ivanov, 20.05.2014}: +1
-                    throw new CannotAcquireOrderPositionsForChargesException(message);
+                    throw new CannotCreateChargesException(string.Format("Can't create charges. Project with code {0} not found",
+                                                                         chargesInfo.BranchCode));
+                }
+
+                var specifiedOrderPositionIds = chargesInfo.Charges.Select(x => x.OrderPositionId).ToArray();
+
+                var existingOrderPositions = _orderReadModel.GetExistingOrderPositionIds(specifiedOrderPositionIds);
+                var missingOrderPositions = specifiedOrderPositionIds.Except(existingOrderPositions);
+                if (missingOrderPositions.Any())
+                {
+                    throw new CannotCreateChargesException(
+                        string.Format("Can't create charges. Following OrderPositions not found: {0}",
+                                      string.Join(";", missingOrderPositions.Select(x => x.ToString()))));
+                }
+
+                var inactiveOrderPositions = _orderReadModel.PickInactiveOrDeletedOrderPositionNames(chargesInfo.Charges.Select(x => x.OrderPositionId).ToArray());
+                if (inactiveOrderPositions.Any())
+                {
+                    throw new CannotCreateChargesException(
+                        string.Format("Can't create charges. Following OrderPositions are inactive: {0}",
+                                      string.Join(";", inactiveOrderPositions.Select(x => string.Format("{0} ({1})", x.Value, x.Key)))));
                 }
 
                 _deleteChargesService.Delete(chargesInfo.BranchCode, timePeriod, chargesInfo.SessionId);
 
-                var chargesToCreate = CreateCharges(orderPositionChargesInfoToDtoMap, acquiredOrderPositions);
-
-                if (!_positionReadModel.PositionsExist(chargesToCreate.Select(x => x.PositionId).Distinct().ToArray(), out message))
-                {
-                    throw new CannotCreateChargesException(string.Format("Can't create charges. {0}", message));
-                }
-
                 _chargeBulkCreateAggregateService.Create(chargesInfo.BranchCode,
                                                           chargesInfo.StartDate,
                                                           chargesInfo.EndDate,
-                                                          chargesToCreate,
+                                                          chargesInfo.Charges,
                                                           chargesInfo.SessionId);
 
                 LogImportStatus(chargesInfo, ChargesHistoryStatus.Succeeded, null);
                 scope.Complete();
             }
-        }
-
-        private static List<ChargeDto> CreateCharges(Dictionary<OrderPositionChargeInfo, ChargeBusDto> dtoToBusObjectsMap,
-                                                     IReadOnlyDictionary<OrderPositionChargeInfo, long> acquiredOrderPositions)
-        {
-            var chargesToCreate = new List<ChargeDto>();
-            foreach (var item in dtoToBusObjectsMap)
-            {
-                var chargeInfo = item.Value;
-                var orderPositionId = acquiredOrderPositions[item.Key];
-
-                var dto = new ChargeDto
-                    {
-                        OrderPositionId = orderPositionId,
-                        PositionId = chargeInfo.NomenclatureElementToChargeCode,
-                    };
-
-                chargesToCreate.Add(dto);
-            }
-
-            return chargesToCreate;
         }
 
         private void LogImportStatus(ChargesInfoServiceBusDto chargesInfo, ChargesHistoryStatus status, string comment)

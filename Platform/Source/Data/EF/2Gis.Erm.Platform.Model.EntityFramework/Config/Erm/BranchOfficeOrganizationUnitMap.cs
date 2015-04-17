@@ -25,6 +25,9 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
                 .IsRequired()
                 .HasMaxLength(100);
 
+            Property(t => t.ApplicationCityName)
+                .HasMaxLength(256);
+
             Property(t => t.PositionInNominative)
                 .HasMaxLength(256);
 
@@ -77,6 +80,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.BranchOfficeId).HasColumnName("BranchOfficeId");
             Property(t => t.OrganizationUnitId).HasColumnName("OrganizationUnitId");
             Property(t => t.ShortLegalName).HasColumnName("ShortLegalName");
+            Property(t => t.ApplicationCityName).HasColumnName("ApplicationCityName");
             Property(t => t.PositionInNominative).HasColumnName("PositionInNominative");
             Property(t => t.PositionInGenitive).HasColumnName("PositionInGenitive");
             Property(t => t.ChiefNameInNominative).HasColumnName("ChiefNameInNominative");

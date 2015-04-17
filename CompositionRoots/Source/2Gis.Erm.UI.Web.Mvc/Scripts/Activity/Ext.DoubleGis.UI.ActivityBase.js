@@ -4,97 +4,113 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     contactComp: null,
     contactRelationController: null,
     reagrdingObjectController: null,
+    changeStatusOperation:undefined,
     autoHeader: {
         prefix: null,
         suffix: null,
         build: function () {
             return (this.suffix ? this.prefix + ' - ' + this.suffix : this.prefix) || "";
         }
-    },
-    getComboboxText: function (name) {
-        var element = Ext.get(name);
-        if (element) {
-            var dom = element.dom;
-            return dom.options[dom.selectedIndex].text;
-        }
-        return null;
-    },
-    getTitlePrefix : function() {
-        return Ext.get("ClientName").getValue();
-    },
-    getTitleSuffix : function() {
-        return null;
-    },
+    },    
 
     constructor: function (config) {
         Ext.DoubleGis.UI.ActivityBase.superclass.constructor.call(this, config);
 
         this.contactField = config.contactField;
         this.contactComp = config.contactComponent;
-    },
-    autocompleteHeader: function () {
-        var prefix = this.getTitlePrefix();
-        var suffix = this.getTitleSuffix();
 
-        var headerElement = Ext.get("Title");
-        var header = headerElement.getValue() || "";
+        var scope = this;
 
-        // Автозаполнение срабатывает если поле "Заголовок" - пустое или ранее было автоматически заполнено (т.е. после автозаполнения не редактировалось пользователем).
-        var shouldAutoCompleteHeader = prefix && (!header || header.trim() == this.autoHeader.build().trim());
-        this.autoHeader.prefix = prefix;
-        this.autoHeader.suffix = suffix;
-        if (shouldAutoCompleteHeader) {
-            headerElement.setValue(this.autoHeader.build());
+        function evaluateOperationUrlTemplate(operationName) {
+            return String.format("{0}{1}.svc/Rest/", Ext.BasicOperationsServiceRestUrl, operationName) + "{0}";
         }
-    },
-    checkDirty: function () {
-        if (this.form.Id.value == 0) {
-            Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
-            return false;
+        function evaluateOperationUrl(operationName) {
+            return String.format(evaluateOperationUrlTemplate(operationName), scope.EntityName);
         }
-        if (this.isDirty) {
-            Ext.Msg.alert('', Ext.LocalizedResources.CardIsDirtyAlert);
-            return false;
+        function postOperation(operationName) {
+            scope.Items.Toolbar.disable();
+            scope.submitMode = scope.submitModes.SAVE;
+            var operationUrl = evaluateOperationUrl(operationName) + "/" + scope.form.Id.value;
+            window.Ext.Ajax.syncRequest({
+                timeout: 1200000,
+                url: operationUrl,
+                method: 'POST',
+                scope: scope,
+                success: scope.refresh,
+                failure: scope.postFormFailure
+            });
+        }       
+        function checkDirty() {
+            if (scope.form.Id.value == 0) {
+                Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
+                return false;
+            }
+            if (scope.isDirty) {
+                Ext.Msg.alert('', Ext.LocalizedResources.CardIsDirtyAlert);
+                return false;
+            }
+            return true;
         }
-        return true;
-    },
-    changeStatus: function (newStatus) {
-        var statusEl = Ext.get("Status");
+        function сhangeStatus(operation)
+        {
+            var currentIsDirty = scope.isDirty;
+            if (currentIsDirty)
+            {
+                scope.Items.Toolbar.disable();
+                scope.submitMode = scope.submitModes.SAVE;
+                if (scope.fireEvent('beforepost', scope) && scope.normalizeForm()) {
+                    scope.changeStatusOperation = operation;
+                    scope.postForm();
+                }
+                else {
+                    scope.recalcDisabling();
+                    scope.isDirty = currentIsDirty;
+                }
+            }
+            else
+            {
+                postOperation(operation);
+            }
+        }
 
-        var currentStatus = statusEl.getValue();
-        if (currentStatus === newStatus) return;
+        this.saveFormSuccess = function() {
+            if (scope.changeStatusOperation) {
+                postOperation(scope.changeStatusOperation);
+                scope.changeStatusOperation = null;
+            }
+        }
 
-        var currentIsDirty = this.isDirty;
-        statusEl.setValue(newStatus);
+        this.saveFormFailure= function() {
+            scope.changeStatusOperation = null;
+        }
 
-        this.Items.Toolbar.disable();
-        this.submitMode = this.submitModes.SAVE;
-        if (this.fireEvent('beforepost', this) && this.normalizeForm()) {
-            this.postForm();
-            this.on('afterpost', this.refresh, this, { single: true });
+        this.getComboboxText = function (name) {
+            var element = Ext.get(name);
+            if (element) {
+                var dom = element.dom;
+                return dom.options[dom.selectedIndex].text;
+            }
+            return null;
+        }                
+        this.CompleteActivity =  function () {        
+            сhangeStatus("Complete");
         }
-        else {
-            this.recalcDisabling();
-            statusEl.setValue(currentStatus);
-            this.isDirty = currentIsDirty;
+        this.CancelActivity = function () {        
+            сhangeStatus("Cancel");
         }
-    },
-    CompleteActivity: function () {
-        this.changeStatus("Completed");
-    },
-    CancelActivity: function () {
-        this.changeStatus("Canceled");
-    },
-    RevertActivity: function() {
-        this.changeStatus("InProgress");
-    },
-    Assign: function () {
-        if (!this.checkDirty()) return;
-        var result = window.showModalDialog("/GroupOperation/Assign/" + this.EntityName, [this.form.Id.value],
-            "dialogWidth:450px; dialogHeight:300px; status:yes; scroll:no; resizable:no;");
-        if (result) {
-            this.refresh(true);
+        this.ReopenActivity = function() {        
+            сhangeStatus("Reopen");
         }
+        this.Assign = function () {
+            if (!checkDirty()) return;
+            var result = window.showModalDialog("/GroupOperation/Assign/" + this.EntityName, [this.form.Id.value],
+                "dialogWidth:450px; dialogHeight:300px; status:yes; scroll:no; resizable:no;");
+            if (result) {
+                this.refresh(true);
+            }
+        }
+       
+        
     },
     CreateTask: function () {
         this.SaveAndCreate("Task");
@@ -124,10 +140,10 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateCreateEntityUrl(entityName, queryString);
         window.open(sUrl, "_blank", params);
     },
-    Build: function () {     
+    Build : function() {
         Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
 
-        Ext.getCmp("Client").on("change", this.autocompleteHeader, this);
+        Ext.getCmp("Client").on("change",this.autocompleteHeader, this);
 
      
         this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
@@ -136,7 +152,32 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController(this);
         }
 
-        this.autocompleteHeader();
-    }
+            this.on('postformsuccess', this.saveFormSuccess);
+            this.on('postformfailure', this.saveFormFailure);
 
+        this.autocompleteHeader();
+    },
+    autocompleteHeader: function() {
+        var prefix = this.getTitlePrefix();
+        var suffix = this.getTitleSuffix();
+
+        var headerElement = Ext.get("Title");
+        var header = headerElement.getValue() || "";
+
+        // Автозаполнение срабатывает если поле "Заголовок" - пустое или ранее было автоматически заполнено (т.е. после автозаполнения не редактировалось пользователем).
+        var shouldAutoCompleteHeader = prefix && (!header || header.trim() == this.autoHeader.build().trim());
+        this.autoHeader.prefix = prefix;
+        this.autoHeader.suffix = suffix;
+        if (shouldAutoCompleteHeader) {
+            headerElement.setValue(this.autoHeader.build());
+        }
+    },
+    getTitlePrefix: function() {
+        return Ext.get("ClientName").getValue();
+    },
+    getTitleSuffix: function() {
+            return null;
+    }      
+    
+    
 });

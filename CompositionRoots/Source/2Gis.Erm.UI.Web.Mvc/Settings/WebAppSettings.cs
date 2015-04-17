@@ -17,7 +17,9 @@ using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.Common.Settings;
+
+using NuClear.Settings;
+using NuClear.Settings.API;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.Settings
 {
@@ -27,10 +29,12 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
     public sealed class WebAppSettings : 
         SettingsContainerBase,
         IReportsSettings,
-        IWebAppProcesingSettings
+        IWebAppProcesingSettings,
+        ISupportDepartmentIntegrationSettings
     {
         private readonly IntSetting _authExpirationTimeInMinutes = ConfigFileSetting.Int.Required("AuthExpirationTimeInMinutes");
         private readonly StringSetting _reportServer = ConfigFileSetting.String.Required("ReportServer");
+        private readonly StringSetting _supportUrl = ConfigFileSetting.String.Required("SupportUrl");
 
         public WebAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
@@ -62,6 +66,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.Settings
         string IReportsSettings.ReportServer
         {
             get { return _reportServer.Value; }
+        }
+
+        string ISupportDepartmentIntegrationSettings.SupportUrl
+        {
+            get { return _supportUrl.Value; }
         }
     }
 }

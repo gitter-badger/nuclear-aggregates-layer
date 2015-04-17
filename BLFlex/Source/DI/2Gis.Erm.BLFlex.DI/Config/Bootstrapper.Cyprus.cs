@@ -1,8 +1,11 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
+﻿using DoubleGis.Erm.BL.API.Aggregates.Clients;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
+using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Cyprus.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Cyprus.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Cyprus.Operations.Generic.List;
@@ -37,11 +40,14 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                         .RegisterType<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.Singleton)
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, CyprusLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
+                .RegisterType<IContactSalutationsProvider, CyprusContactSalutationsProvider>(Lifetime.Singleton)
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                         .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
-                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(LockedOrderConsistencyRule),
+                                                                                 new InjectionConstructor(
+                                                                                     new ResolvedArrayParameter<IBillConsistencyRule>(typeof(LockedOrderConsistencyRule),
                                                                                                                                                typeof(BillSummConsistencyRule),
-                                                                                                                                               typeof(BillDatesConsistencyRule))))
+                                                                                                                                               typeof(BillDatesConsistencyRule),
+                                                                                                                                               typeof(BillDistributionPeriodConsistencyRule))))
                         .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
                         .RegisterType<IPriceCostsForSubPositionsProvider, NullPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
                         .ConfigureCyprusSpecificNumberServices();
@@ -52,7 +58,8 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             return container
                         .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}", "AC_{0}-{1}-{2}"))
                         .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-bill"))
-                        .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("INV_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForCountriesWithRomanAlphabet));
+                        .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("INV_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForCountriesWithRomanAlphabet))
+                        .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 
         // TODO переделать на нормальную метадату

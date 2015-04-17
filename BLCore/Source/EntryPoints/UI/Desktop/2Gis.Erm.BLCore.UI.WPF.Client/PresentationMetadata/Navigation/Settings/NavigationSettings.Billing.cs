@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Set
                     HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.NavGroupOrders)
                         .Icon.Resource(Images.Navigation.NavGroupOrders)
-                        .Handler.ShowGrid(OrderAggregate.Order.AsEntityName(), null, null),
+                        .Handler.ShowGrid(OrderAggregate.Order.AsEntityName()),
                     //HierarchyElement.Config
                     //    .Title.Resource(() => ErmConfigLocalization.NavGroupLegalPersons)
                     //    .Icon.Resource(Images.Navigation.NavGroupLegalPersons)
@@ -25,11 +25,11 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Set
                     HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.EnMDeal)
                         .Icon.Resource(Images.Navigation.NavGroupDeals)
-                        .Handler.ShowGrid(DealAggregate.Deal.AsEntityName(), null, null),
+                        .Handler.ShowGrid(DealAggregate.Deal.AsEntityName()),
                     HierarchyMetadata.Config
                         .Title.Resource(() => ErmConfigLocalization.NavGroupAccounts)
                         .Icon.Resource(Images.Navigation.NavGroupAccounts)
-                        .Handler.ShowGrid(AccountAggregate.Account.AsEntityName(), null, null));
+                        .Handler.ShowGrid(AccountAggregate.Account.AsEntityName()));
     }
 }
 

@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.DI.Factories.HandleAdsState;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Reports;
+using DoubleGis.Erm.BL.UI.Web.Metadata;
+using DoubleGis.Erm.BL.UI.Web.Metadata.Cards;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
@@ -15,6 +18,7 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
@@ -29,6 +33,7 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.Old.Journal.Infrastructure;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AdvertisementElements;
@@ -43,6 +48,8 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.Releasing.Release;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
+using DoubleGis.Erm.BLCore.UI.Web.Metadata;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.DI;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.MetaData;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Security;
@@ -52,6 +59,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
+using DoubleGis.Erm.BLFlex.UI.Metadata;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards;
@@ -70,9 +78,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -87,6 +93,7 @@ using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing;
@@ -98,11 +105,14 @@ using DoubleGis.Erm.UI.Web.Mvc.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
+
 namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {
     internal static class Bootstrapper
     {
-        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ICommonLog logger, ILoggerContextManager loggerContextManager)
+        public static IUnityContainer ConfigureUnity(ISettingsContainer settingsContainer, ITracer tracer, ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
             container.InitializeDIInfrastructure();
@@ -136,10 +146,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                                                    settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    settingsContainer.AsSettings<IWebAppProcesingSettings>(),
-                                                                   logger,
-                                                                   loggerContextManager))
+                                                                   tracer,
+                                                                   tracerContextManager))
                      .ConfigureInterception(settingsContainer.AsSettings<IGlobalizationSettings>())
-                     .ConfigureServiceClient();
+                     .ConfigureServiceClient()
+                     .EnsureMetadataCorrectness();
                 
             /// TODO {all, 15.07.2013}: Инициализировать что-то такое совсем MVC специфичное лучше скорее в Application_Start MVCApplication внутри bootstrapper в идеале лучше не иметь вызово container resolve
             /// TODO {all, 15.07.2013}: Стоит проанализировать корректность такой статической привязки работы HTMLHelpers к кэшу, возможно стоит доступ к этому кэшу прокидывать в вызовы htmlhelpers прямо во view извлекая его из viewdata или @model и т.п.
@@ -162,7 +173,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             Func<ResolvedParameter[]> resolvedParametersCreator =
                 () => new ResolvedParameter[]
                     {
-                        new ResolvedParameter<ICommonLog>(),
+                        new ResolvedParameter<ITracer>(),
                         new ResolvedParameter<IActionLogger>(Mapping.SimplifiedModelConsumerScope),
                         new ResolvedParameter<IDependentEntityProvider>()
                     };
@@ -201,11 +212,11 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             ICachingSettings cachingSettings,
             IOperationLoggingSettings operationLoggingSettings,
             IWebAppProcesingSettings webAppProcessingSettings,
-            ICommonLog logger,
-            ILoggerContextManager loggerContextManager)
+            ITracer tracer,
+            ITracerContextManager tracerContextManager)
         {
             return container
-                     .ConfigureLogging(logger, loggerContextManager)
+                     .ConfigureTracing(tracer, tracerContextManager)
                      .ConfigureGlobal(globalizationSettings)
                      .CreateErmSpecific(connectionStringSettings, msCrmSettings)
                      .CreateErmReportsSpecific(connectionStringSettings)
@@ -218,6 +229,8 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .ConfigureIdentityInfrastructure()
                      .ConfigureReleasingInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
+                     .RegisterType<IEntityViewNameProvider, EntityViewNameProvider>(CustomLifetime.PerRequest)
+                     .RegisterType<ICardSettingsProvider, CardSettingsProvider>(CustomLifetime.PerRequest)
                      .RegisterType<IUIServicesManager, UnityUIServicesManager>(CustomLifetime.PerRequest)
                      .RegisterType<IControllerActivator, UnityControllerActivator>(Lifetime.Singleton)
                      .RegisterType<UnityDependencyResolver>(
@@ -234,16 +247,24 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
-            {
+        {
             var checkingResourceStorages = new[]
-            {
-                    typeof(BLResources),
-                    typeof(MetadataResources),
-                    typeof(EnumResources)
-                };
+                                               {
+                                                   typeof(BLResources),
+                                                   typeof(MetadataResources),
+                                                   typeof(EnumResources)
+                                               };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-            }
+        }
+
+        private static IUnityContainer ConfigureMetadata(this IUnityContainer container)
+        {
+            CommonBootstrapper.ConfigureMetadata(container);
+
+            // validators
+            return container.RegisterOne2ManyTypesPerTypeUniqueness<IMetadataValidator, CardMetadataValidator>(Lifetime.Singleton);
+        }
 
         private static IUnityContainer CreateErmReportsSpecific(this IUnityContainer container, IConnectionStringSettings connectionStringSettings)
         {
@@ -292,11 +313,13 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IReplicationCodeConverter, ReplicationCodeConverter>(CustomLifetime.PerRequest, mappingScope)
+
+                .RegisterTypeWithDependencies<IWithdrawOperationsAggregator, WithdrawOperationsAggregator>(CustomLifetime.PerRequest, mappingScope)
                 
                 // crosscutting
                 .RegisterType<ICanChangeOrderPositionBindingObjectsDetector, CanChangeOrderPositionBindingObjectsDetector>(Lifetime.Singleton)
                 .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
-                .RegisterType<ICheckOperationPeriodService, CheckOperationPeriodService>(Lifetime.Singleton)
+                .RegisterType<IMonthPeriodValidationService, MonthPeriodValidationService>(Lifetime.Singleton)
                 .RegisterType<IUploadingAdvertisementElementValidator, UploadingAdvertisementElementValidator>(Lifetime.Singleton)
                 .RegisterType<IModifyingAdvertisementElementValidator, ModifyingAdvertisementElementValidator>(Lifetime.Singleton)
                 .RegisterType<IAdvertisementElementPlainTextHarmonizer, AdvertisementElementPlainTextHarmonizer>(Lifetime.Singleton)
@@ -311,7 +334,8 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IOrderProcessingRequestEmailSender, NullOrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
                 .RegisterTypeWithDependencies<ICreatedOrderProcessingRequestEmailSender, OrderProcessingRequestEmailSender>(Mapping.Erm, CustomLifetime.PerRequest)
 
-                .RegisterTypeWithDependencies<IViewModelCustomizationProvider, ViewModelCustomizationProvider>(CustomLifetime.PerRequest, mappingScope)
+                .RegisterTypeWithDependencies<IViewModelCustomizationProvider, UnityViewModelCustomizationProvider>(Lifetime.Singleton, mappingScope)
+                .RegisterTypeWithDependencies<IViewModelCustomizationService, GenericViewModelCustomizationService>(Lifetime.Singleton, mappingScope)
 
                 .ConfigureNotificationsSender(msCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory); 
         }
@@ -343,7 +367,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterTypeWithDependencies<IGetUserInfoService, GetUserInfoFromAdService>(Lifetime.PerScope, mappingScope)
                 .RegisterType<IDefaultUserContextConfigurator, WebDefaultUserContextConfigurator>(CustomLifetime.PerRequest, 
                         new InjectionConstructor(typeof(IUserContext),
-                                                 typeof(ICommonLog)))
+                                                 typeof(ITracer)))
                 .RegisterTypeWithDependencies<IUserProfileService, UserProfileService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterType<IUserContext, UserContext>(CustomLifetime.PerRequest, new InjectionFactory(c => new UserContext(null, null)))
                 .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
@@ -351,7 +375,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<ISignInService, WebCookieSignInService>(CustomLifetime.PerRequest,
                                     new InjectionConstructor(typeof(ISecurityServiceAuthentication), 
                                                              typeof(IUserIdentityLogonService), 
-                                                             typeof(ICommonLog),
+                                                             typeof(ITracer),
                                                              webAppProcesingSettings.AuthExpirationTimeInMinutes));
         }
 

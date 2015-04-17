@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -15,7 +17,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 {
-    public sealed class CyprusLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, ICyprusAdapted
+    public sealed class CyprusLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, IMainLegalPersonProfileAspect, INameAspect, ICyprusAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -156,7 +158,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
 
             Id = modelDto.Id;
             Name = modelDto.Name;
-            Email = modelDto.AdditionalEmail;
+            Email = modelDto.Email;
             ChiefNameInGenitive = modelDto.ChiefNameInGenitive;
             ChiefNameInNominative = modelDto.ChiefNameInNominative;
             DocumentsDeliveryAddress = modelDto.DocumentsDeliveryAddress;
@@ -198,7 +200,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus
                 {
                     Id = Id,
                     Name = Name.EnsureСleanness(),
-                    AdditionalEmail = Email.EnsureСleanness(),
+                    Email = Email.EnsureСleanness(),
                     ChiefNameInGenitive = ChiefNameInGenitive.EnsureСleanness(),
                     ChiefNameInNominative = ChiefNameInNominative.EnsureСleanness(),
                     DocumentsDeliveryAddress = DocumentsDeliveryAddress.EnsureСleanness(),

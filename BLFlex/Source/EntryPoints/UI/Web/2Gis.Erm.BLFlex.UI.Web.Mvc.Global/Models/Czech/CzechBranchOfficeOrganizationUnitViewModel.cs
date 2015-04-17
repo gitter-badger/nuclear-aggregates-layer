@@ -1,6 +1,7 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Czech;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
@@ -10,7 +11,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
 {
-    public sealed class CzechBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, ICzechAdapted
+    public sealed class CzechBranchOfficeOrganizationUnitViewModel : EditableIdEntityViewModelBase<BranchOfficeOrganizationUnit>, IShortLegalNameAspect, ICzechAdapted
     {
         [DisplayNameLocalized("BranchOfficeName")]
         [RequiredLocalized]
@@ -23,6 +24,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
         [RequiredLocalized]
         [StringLengthLocalized(100)]
         public string ShortLegalName { get; set; }
+
+        [RequiredLocalized]
+        [StringLengthLocalized(256)]
+        public string ApplicationCityName { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -102,6 +107,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
             IsPrimary = modelDto.IsPrimary;
             IsPrimaryForRegionalSales = modelDto.IsPrimaryForRegionalSales;
 
+            ApplicationCityName = modelDto.ApplicationCityName;
             PhoneNumber = modelDto.PhoneNumber;
             PositionInGenitive = modelDto.PositionInGenitive;
             PositionInNominative = modelDto.PositionInNominative;
@@ -134,6 +140,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech
                     IsPrimary = IsPrimary,
                     IsPrimaryForRegionalSales = IsPrimaryForRegionalSales,
 
+                    ApplicationCityName = ApplicationCityName,
                     PhoneNumber = PhoneNumber,
                     PositionInGenitive = PositionInGenitive,
                     PositionInNominative = PositionInNominative,

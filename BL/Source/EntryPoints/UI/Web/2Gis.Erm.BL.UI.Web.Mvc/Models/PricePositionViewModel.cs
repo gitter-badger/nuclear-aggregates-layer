@@ -1,7 +1,7 @@
-﻿
-using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -12,8 +12,28 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
-    public sealed class PricePositionViewModel : EntityViewModelBase<PricePosition>
+    public sealed class PricePositionViewModel : EntityViewModelBase<PricePosition>, IPriceAspect, IPositionAspect
     {
+        public string PositionName
+        {
+            get { return Position.Value; }
+        }
+
+        public long? PositionId
+        {
+            get { return Position.Key; }
+        }
+
+        public string PriceName
+        {
+            get { return Price.Value; }
+        }
+
+        public long PriceId
+        {
+            get { return Price.Key.Value; }
+        }
+
         [RequiredLocalized]
         public LookupField Position { get; set; }
 

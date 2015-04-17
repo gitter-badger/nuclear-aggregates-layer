@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                     {
                         if (x.ProfileId == null)
                         {
-                            throw new LegalPersonProfileMustBeSpecifiedException();
+                            throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
                         }
 
                         var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(x.ProfileId.Value));
@@ -87,7 +87,6 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                                 NextReleaseDate = x.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
                                 LegalPerson = x.LegalPersonId.HasValue ? _finder.FindOne(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)) : null,
                                 Profile = profile,
-                                x.OrganizationUnitName,
                                 BranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnitId.HasValue
                                                                    ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(x.BranchOfficeOrganizationUnitId.Value))
                                                                    : null,

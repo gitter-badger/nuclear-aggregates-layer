@@ -6,6 +6,8 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -17,7 +19,7 @@ using Newtonsoft.Json.Converters;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 {
-    public sealed class AppointmentViewModel : EntityViewModelBase<Appointment>, IActivityViewModel
+    public sealed class AppointmentViewModel : EntityViewModelBase<Appointment>, ITitleAspect, IActivityStateAspect
     {
         public override byte[] Timestamp { get; set; }
 
@@ -47,7 +49,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         [RequiredLocalized]
         [ExcludeZeroValue]
-        public ActivityPurpose Purpose { get; set; }
+        public AppointmentPurpose Purpose { get; set; }
 
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -99,6 +101,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             DealClientInitialization = regardingObjects.IsClientInitialization(EntityName.Deal);
             AttendeeClientInitialization = modelDto.Attendees.IsClientInitialization(EntityName.Contact);
 
+            
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be only there?
         }
@@ -135,8 +138,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                     Location = Location,
                     RegardingObjects = regardingObjects,
                     Attendees = attendees,
-                    OwnerRef = Owner.ToReference(),
-
+                    OwnerRef = Owner.ToReference(EntityName.User),    
+                    Organizer = Owner.ToReference(EntityName.User),
                     CreatedByRef = CreatedBy.ToReference(),
                     CreatedOn = CreatedOn,
                     ModifiedByRef = ModifiedBy.ToReference(),

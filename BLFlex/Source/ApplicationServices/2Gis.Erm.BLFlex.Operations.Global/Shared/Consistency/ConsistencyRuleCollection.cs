@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency
 {
     public sealed class ConsistencyRuleCollection<TKey> : IEnumerable<IConsistencyRule>

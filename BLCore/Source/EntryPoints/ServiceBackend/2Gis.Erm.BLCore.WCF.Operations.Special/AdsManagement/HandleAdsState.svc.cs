@@ -5,21 +5,22 @@ using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.AdsManagement;
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class HandleAdsStateApplicationService : IHandleAdsStateApplicationService, IHandleAdsStateApplicationRestService
     {
-        private readonly ICommonLog _logger;
+        private readonly ITracer _tracer;
         private readonly IChangeAdvertisementElementStatusOperationService _changeAdvertisementElementStatusOperationService;
 
-        public HandleAdsStateApplicationService(ICommonLog logger,
+        public HandleAdsStateApplicationService(ITracer tracer,
                                                 IChangeAdvertisementElementStatusOperationService changeAdvertisementElementStatusOperationService)
         {
-            _logger = logger;
+            _tracer = tracer;
             _changeAdvertisementElementStatusOperationService = changeAdvertisementElementStatusOperationService;
         }
 
@@ -61,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new FaultException<HandleAdsStateErrorDescription>(new HandleAdsStateErrorDescription(adsElementId, statusValue, ex.Message));
             }
         }
@@ -80,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.AdsManagement
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
+                _tracer.ErrorFormat(ex, "Error has occured in {0}", GetType().Name);
                 throw new WebFaultException<HandleAdsStateErrorDescription>(new HandleAdsStateErrorDescription(adsElementId, statusValue, ex.Message),
                                                                             HttpStatusCode.BadRequest);
             }

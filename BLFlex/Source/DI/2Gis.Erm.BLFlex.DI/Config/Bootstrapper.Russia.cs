@@ -1,11 +1,14 @@
 ﻿using System;
 
+using DoubleGis.Erm.BL.API.Aggregates.Clients;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
@@ -44,10 +47,12 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                     .RegisterType<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.Singleton)
                     .RegisterType<ILegalPersonProfileConsistencyRuleContainer, RussiaLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                     .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
+                    .RegisterType<IContactSalutationsProvider, RussiaContactSalutationsProvider>(Lifetime.Singleton)
                     .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
                                                                            new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(LockedOrderConsistencyRule),
                                                                                                                                                typeof(BillSummConsistencyRule),
-                                                                                                                                               typeof(BillDatesConsistencyRule))))
+                                                                                                                                               typeof(BillDatesConsistencyRule),
+                                                                                                                                               typeof(BillDistributionPeriodConsistencyRule))))
                     .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
                     .RegisterType<IPriceCostsForSubPositionsProvider, MoDiPriceCostsForSubPositionsProvider>(Lifetime.Singleton)
                     .ConfigureRussiaSpecificNumberServices();
@@ -59,7 +64,8 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                     .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}", "АД_{0}-{1}-{2}"))
                     .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
                     .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                    .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "ОФ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia));
+                    .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "ОФ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia))
+                    .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 
         internal static void ConfigureRussiaListingMetadata(this IUnityContainer container)

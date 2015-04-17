@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             legalPersonProfile.RecipientName = dto.RecipientName;
             legalPersonProfile.DocumentsDeliveryMethod = dto.DocumentsDeliveryMethod;
             legalPersonProfile.EmailForAccountingDocuments = dto.EmailForAccountingDocuments;
-            legalPersonProfile.AdditionalEmail = dto.AdditionalEmail;
+            legalPersonProfile.Email = dto.Email;
             legalPersonProfile.PersonResponsibleForDocuments = dto.PersonResponsibleForDocuments;
             legalPersonProfile.Phone = dto.Phone;
             legalPersonProfile.OwnerCode = dto.OwnerRef.Id.Value;

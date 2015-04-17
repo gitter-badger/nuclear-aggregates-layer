@@ -1144,7 +1144,7 @@
     <value>Уведомление о расторжении</value>
   </data>
   <data name="ControlPrintAdditAgreementAction" xml:space="preserve">
-    <value>Дополнительное соглашение</value>
+    <value>Доп. соглашение (расторжение)</value>
   </data>
   <data name="DListDeal" xml:space="preserve">
     <value>Сделки</value>
@@ -1172,12 +1172,6 @@
   </data>
   <data name="ControlExport" xml:space="preserve">
     <value>Выгрузить</value>
-  </data>
-  <data name="ControlExportAccountDetailsTo1C" xml:space="preserve">
-    <value>Выгрузка списаний</value>
-  </data>
-  <data name="ControlExportAccountDetailsToServiceBus" xml:space="preserve">
-    <value>Выгрузка списаний в шину</value>
   </data>
   <data name="ControlImportFromFile" xml:space="preserve">
     <value>Загрузить</value>
@@ -1383,11 +1377,14 @@
   <data name="EnMOperation" xml:space="preserve">
     <value>Операции</value>
   </data>
-  <data name="AdditionalFirmServices" xml:space="preserve">
-    <value>Доп. услуги</value>
-  </data>
   <data name="ControlPrintLetterOfGuaranteeAction" xml:space="preserve">
     <value>Гарантийное письмо (изменение РМ)</value>
+  </data>
+  <data name="ControlPrintFirmNameChangeAgreement" xml:space="preserve">
+    <value>Доп. соглашение (смена названия фирмы)</value>
+  </data>  
+  <data name="ControlPrintBindingChangeAgreement" xml:space="preserve">
+    <value>Доп. соглашение (смена привязки)</value>
   </data>
   <data name="ControlDetachFirm" xml:space="preserve">
     <value>Отвязать от клиента</value>
@@ -1665,7 +1662,7 @@
   <data name="DListMyActivitiesInProgressForToday" xml:space="preserve">
     <value>Мои запланированные планы на сегодня</value>
   </data>
-  <data name ="DListMyOpenedActivities" xml:space="preserve">
+  <data name="DListMyOpenedActivities" xml:space="preserve">
     <value>Мои открытые планы</value>
   </data>
   <data name="DListMyCompletedActivities" xml:space="preserve">
@@ -1871,6 +1868,21 @@
   </data>
   <data name="ControlChangeProfiles" xml:space="preserve">
     <value>Сменить профиль</value>
+  </data>
+  <data name="ControlAddPositions" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="ControlRemovePositions" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="ControlOpenSortingPage" xml:space="preserve">
+    <value>Задать сортировку...</value>
+  </data>
+  <data name="EnPositionSortingOrder" xml:space="preserve">
+    <value>Сортировка позиций номенклатуры</value>
+  </data>
+  <data name="ControlSetDocumentsDebt" xml:space="preserve">
+    <value>Наличие документов</value>
   </data>
   <data name ="ControlSaveAndCreateOnBasis" xml:space="preserve">
     <value>Сохранить и создать</value>

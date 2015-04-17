@@ -1,10 +1,11 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Common.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DI.Factories
 {
@@ -17,8 +18,8 @@ namespace DoubleGis.Erm.Platform.DI.Factories
             IReadDomainContext readDomainContext, 
             IModifiableDomainContextFactory modifiableDomainContextFactory, 
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy,
-            ICommonLog logger)
-        : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, logger)
+            ITracer tracer)
+        : base(readDomainContext, modifiableDomainContextFactory, pendingChangesHandlingStrategy, tracer)
         {
             _unityContainer = unityContainer;
         }
@@ -77,7 +78,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
             return _unityContainer.Resolve(consumerType, dependencyOverrides);
         }
 
-        protected override object CreateCosumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
+        protected override object CreateConsumerReadModel(Type readModelType, IReadDomainContextProvider readDomainContextProvider)
         {
             var dependencyOverrides = new DependencyOverrides
                         {

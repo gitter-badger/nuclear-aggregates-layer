@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
 
         public bool Validate(IEnumerable<Bill> bills, Order order, out string report)
         {
-            var wrongBillNumbers = bills.Select(x => x.BillNumber)
+            var wrongBillNumbers = bills.Select(x => x.Number)
                                         .Where(x => !ChileBillNumberPattern.IsMatch(x))
                                         .ToArray();
             if (wrongBillNumbers.Any())

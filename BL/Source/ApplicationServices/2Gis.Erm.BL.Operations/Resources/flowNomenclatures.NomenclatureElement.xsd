@@ -23,11 +23,24 @@
       <xs:enumeration value="ThemeMultiple"/>
     </xs:restriction>
   </xs:simpleType>
-  
-  <xs:simpleType name="AccountingMethod">
+
+  <xs:simpleType name="AdvModel">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="GuaranteedProvision"/>
-      <xs:enumeration value="PlannedProvision"/>
+      <xs:enumeration value="CPS">
+        <xs:annotation>
+          <xs:documentation>GuaranteedProvision - Гарантированное оказание услуги - модель продаж предполагающая, что конечная цена услуги известна в момент её продажи;</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FH">
+        <xs:annotation>
+          <xs:documentation>PlannedProvision - Планируемое оказание услуги по одной рубрике - модель продаж предполагающая, что конечная цена услуги известна только после её оказания (продажи по кликам);</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MFH">
+        <xs:annotation>
+          <xs:documentation>MultiPlannedProvision - Планируемое оказание услуги по мультирубрикам - модель продаж предполагающая, что конечная цена услуги известна только после её оказания (продажи по кликам);</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
@@ -57,13 +70,9 @@
         <xs:documentation>Тип объекта привязки</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="AccountingMethod" type="AccountingMethod" use="required">
+    <xs:attribute name="AdvModel" type="AdvModel" use="required">
       <xs:annotation>
-        <xs:documentation>
-          Способ учета.
-          GuaranteedProvision - Гарантированное оказание услуги - модель продаж предполагающая, что конечная цена услуги известна в момент её продажи
-          PlannedProvision - Планируемое оказание услуги - модель продаж предполагающая, что конечная цена услуги известна только после её оказания (продажи по кликам)
-        </xs:documentation>
+        <xs:documentation>Модель продаж</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="IsHidden" type="xs:boolean" use="optional" default="false">

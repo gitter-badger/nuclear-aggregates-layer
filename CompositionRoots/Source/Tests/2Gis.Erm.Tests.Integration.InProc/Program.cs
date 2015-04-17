@@ -4,11 +4,15 @@ using System.Reflection;
 using System.Text;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
-using DoubleGis.Erm.Platform.Common.Logging.Log4Net.Config;
-using DoubleGis.Erm.Platform.Common.Settings;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Tests.Integration.InProc.Settings;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
+
+using NuClear.Settings.API;
+using NuClear.Tracing.API;
+using NuClear.Tracing.Environment;
+using NuClear.Tracing.Log4Net;
+using NuClear.Tracing.Log4Net.Config;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc
 {
@@ -19,13 +23,26 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
         {
             var settings = new TestAPIInProcOperationsSettings(BusinessModels.Supported);
             var environmentSettings = settings.AsSettings<IEnvironmentSettings>();
-            var logger = Log4NetLoggerBuilder.Use
+
+            var tracerContextEntryProviders =
+                new ITracerContextEntryProvider[]
+                    {
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.Environment, environmentSettings.EnvironmentName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPoint, environmentSettings.EntryPointName),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointHost, NetworkInfo.ComputerFQDN),
+                        new TracerContextConstEntryProvider(TracerContextKeys.Required.EntryPointInstanceId, Guid.NewGuid().ToString()),
+                        new TracerContextSelfHostedEntryProvider(TracerContextKeys.Required.UserAccount)
+                    };
+
+            var tracerContextManager = new TracerContextManager(tracerContextEntryProviders);
+
+            var tracer = Log4NetTracerBuilder.Use
                                              .Console
                                              .File(environmentSettings.EnvironmentName + "_" + environmentSettings.EntryPointName)
                                              .Build;
 
-            logger.Info("Configuring composition root " + Assembly.GetExecutingAssembly().GetName().Name);
-            logger.Info(new StringBuilder()
+            tracer.Info("Configuring composition root " + Assembly.GetExecutingAssembly().GetName().Name);
+            tracer.Info(new StringBuilder()
                             .AppendLine("Runtime description:")
                             .AppendLine("TargetEnvironment: " + environmentSettings.Type)
                             .AppendLine("TargetEnvironmentName: " + environmentSettings.EnvironmentName)
@@ -33,11 +50,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc
 
             TestResultsSet testResults = null;
             ITestRunner testRunner;
-            if (TestSuiteBuilder.TryBuildSuite(settings, logger, out testRunner))
+            if (TestSuiteBuilder.TryBuildSuite(settings, tracer, tracerContextManager, out testRunner))
             {
-                logger.Info("Running test suite");
+                tracer.Info("Running test suite");
                 testResults = testRunner.Run();
-                logger.Info(testResults.ToReport());
+                tracer.Info(testResults.ToReport());
             }
 
             if (!args.Any())

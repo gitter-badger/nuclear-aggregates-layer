@@ -4,6 +4,8 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Aspects;
+using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -14,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
-    public sealed class EmiratesLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, IEmiratesAdapted
+    public sealed class EmiratesLegalPersonProfileViewModel : EntityViewModelBase<LegalPersonProfile>, IMainLegalPersonProfileAspect, INameAspect, IEmiratesAdapted
     {
         [RequiredLocalized]
         [StringLengthLocalized(256)]
@@ -143,6 +145,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
                     PositionInNominative = PositionInNominative.EnsureСleanness(),
                     PostAddress = PostAddress.EnsureСleanness(),
                     OwnerRef = Owner.ToReference(),
+                    Email = Email.EnsureСleanness(),
                     EmailForAccountingDocuments = EmailForAccountingDocuments.EnsureСleanness(),
                     PersonResponsibleForDocuments = PersonResponsibleForDocuments.EnsureСleanness(),
                     Phone = PhoneNumber.EnsureСleanness(),

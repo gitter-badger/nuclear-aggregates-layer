@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                     throw new ArgumentException(BLResources.CantDeativateObjectLinkedWithActiveOrders);
                 }
 
-                var branchOfficeOrganizationUnits = _secureFinder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToBranchOffice(branchOffice.Id));
+                var branchOfficeOrganizationUnits = _secureFinder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByBranchOffice(branchOffice.Id));
                 foreach (var branchOfficeOrganizationUnit in branchOfficeOrganizationUnits)
                 {
                     branchOfficeOrganizationUnit.IsActive = false;
@@ -131,7 +131,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
             }
 
             var otherBranchOfficeOrganizationUnits =
-                _finder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
+                _finder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
                                  & Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>()
                                  & Specs.Find.ExceptById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id));
 
@@ -164,7 +164,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
             using (var scope = _scopeFactory.CreateNonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity>())
             {
                 var otherBranchOfficeOrganizationUnits =
-                    _finder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BelongsToOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
+                    _finder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
                                      & Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>()
                                      & Specs.Find.ExceptById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id));
 
@@ -263,7 +263,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
             return new PrimaryBranchOfficeOrganizationUnits
                 {
                     Primary =
-                        _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryOfOrganizationUnit(organizationUnitId)),
+                               _finder.FindOne(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
+                                               BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId) &&
+                                               BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.Primary()),
                     PrimaryForRegionalSales =
                         _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
                 };
@@ -276,9 +278,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                 branchOffice.IsActive = true;
                 _branchOfficeGenericRepository.Update(branchOffice);
 
-                var cnt =  _branchOfficeGenericRepository.Save();
-                scope.Updated(branchOffice).
-                      Complete();
+                var cnt = _branchOfficeGenericRepository.Save();
+                scope.Updated(branchOffice)
+                     .Complete();
 
                 return cnt;
             }

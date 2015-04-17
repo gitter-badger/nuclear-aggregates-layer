@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
 {
     public interface IFirmReadModel : IAggregateReadModel<Firm>
     {
-        IReadOnlyDictionary<Guid, FirmWithAddressesAndProjectDto> GetFirmInfosByCrmIds(IEnumerable<Guid> crmIds);
+        IReadOnlyDictionary<long, FirmWithAddressesAndProjectDto> GetFirmInfosByIds(IEnumerable<long> ids);
         long GetOrderFirmId(long orderId);
         IEnumerable<long> GetFirmNonArchivedOrderIds(long firmId);
         long GetOrgUnitId(long firmId);
@@ -49,6 +49,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         IReadOnlyDictionary<long, long> GetFirmTerritories(IEnumerable<long> firmIds, string regionalTerritoryWord);
         IReadOnlyDictionary<long, CardRelation> GetCardRelationsByIds(IEnumerable<long> cardRelationIds);
         bool IsFirmInReserve(long firmId);
+        long GetFirmOwnerCodeUnsecure(long firmId);
         IEnumerable<string> GetAddressesNamesWhichNotBelongToFirm(long firmId, IEnumerable<long> firmAddressIds);
     }
 }

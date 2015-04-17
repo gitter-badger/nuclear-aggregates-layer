@@ -87,6 +87,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 yield return firstOrAmbiguous.Reference;
             }
-        }
+        }      
     }
 }

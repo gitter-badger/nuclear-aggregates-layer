@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(t => t.BillNumber)
+            Property(t => t.Number)
                 .IsRequired()
                 .HasMaxLength(64);
 
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.Erm
             Property(t => t.Id).HasColumnName("Id");
             Property(t => t.DgppId).HasColumnName("DgppId");
             Property(t => t.OrderId).HasColumnName("OrderId");
-            Property(t => t.BillNumber).HasColumnName("BillNumber");
+            Property(t => t.Number).HasColumnName("Number");
             Property(t => t.BillDate).HasColumnName("BillDate");
             Property(t => t.BeginDistributionDate).HasColumnName("BeginDistributionDate");
             Property(t => t.EndDistributionDate).HasColumnName("EndDistributionDate");
