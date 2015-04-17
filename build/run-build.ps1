@@ -1,14 +1,14 @@
-param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
+﻿param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 
 if ($TaskList.Count -eq 0){
-	$TaskList = @('Run-CoreTeamUnitTests')
+	$TaskList = @('Build-TaskService', 'Deploy-TaskService')
 }
 if ($Properties.Count -eq 0){
 	$Properties = @{
 		'Revision' = '000000'
 		'Build' = 0
 		'Branch' = 'local'
-		'EnvironmentName' = 'Production.Russia'
+		'EnvironmentName' = 'Test.21'
 	}
 }
 
