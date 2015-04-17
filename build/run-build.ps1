@@ -1,4 +1,4 @@
-﻿param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
+param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 
 if ($TaskList.Count -eq 0){
 	$TaskList = @('Build-TaskService', 'Deploy-TaskService')
@@ -17,7 +17,7 @@ $ErrorActionPreference = 'Stop'
 #------------------------------
 cls
 
-$Properties.GlobalVersion = '2.83.1'
+$Properties.GlobalVersion = '2.84.0'
 
 $Properties.BuildFile = Join-Path $PSScriptRoot 'default.ps1'
 $Properties.Dir = @{
