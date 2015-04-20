@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
             try
             {
-                if (EntityType.Instance.TryParse(specifiedEntityName, out entityName))
+                if (!EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
