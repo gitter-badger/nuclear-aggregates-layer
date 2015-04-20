@@ -30,7 +30,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             typeof(decimal?),
             typeof(long),
             typeof(long?),
-            typeof(IEntityType)
+            typeof(IEntityType),
+            typeof(IEntityType[])
         };
         private readonly IModelBinder _modelBinder;
 
@@ -120,6 +121,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 if (modelType == typeof(IEntityType))
                 {
                     return BindEntityType(bindingContext);
+                }
+
+                if (modelType == typeof(IEntityType[]))
+                {
+                    return BindEntityTypeArray(bindingContext);
                 }
 
                 return base.BindModel(controllerContext, bindingContext);
@@ -408,6 +414,34 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
                 bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
                 return valueProviderResult.RawValue;
+            }
+
+            private static object BindEntityTypeArray(ModelBindingContext bindingContext)
+            {
+                var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
+                if (valueProviderResult == null || string.IsNullOrWhiteSpace(valueProviderResult.AttemptedValue))
+                {
+                    bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+                    return null;
+                }
+
+                var splittedAttemptedValue = valueProviderResult.AttemptedValue.Split(new[] { ',' });
+
+                var entityTypes = new List<IEntityType>();
+                foreach (var attemptedValue in splittedAttemptedValue)
+                {
+                    IEntityType value;
+                    if (EntityType.Instance.TryParse(attemptedValue, out value))
+                    {
+                        entityTypes.Add(value);
+                    }
+                }
+
+                var rawValue = entityTypes.ToArray();
+                valueProviderResult = new ValueProviderResult(rawValue, valueProviderResult.AttemptedValue, valueProviderResult.Culture);
+                bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+                return rawValue;
             }
 
             private static bool ValidateRequiredAttribute(MemberDescriptor memberDescriptor, ModelState modelState)
