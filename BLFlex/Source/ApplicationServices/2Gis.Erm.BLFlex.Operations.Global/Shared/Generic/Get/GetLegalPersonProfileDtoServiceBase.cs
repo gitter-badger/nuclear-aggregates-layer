@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
                 throw new ArgumentNullException("parentEntityId");
             }
 
-            if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
+            if (!parentEntityName.Equals(EntityType.Instance.LegalPerson()))
             {
                 throw new ArgumentException("parentEntityName");
             }
