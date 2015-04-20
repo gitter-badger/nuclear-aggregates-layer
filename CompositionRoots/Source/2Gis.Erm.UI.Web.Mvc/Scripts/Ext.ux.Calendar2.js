@@ -41,12 +41,11 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
 
         if (this.mode.time)
         {
-            var times = this.initTime(this.mode.time.min, this.mode.time.max, this.mode.time.step);
-            this.time = new Ext.form.ComboBox({
-                triggerAction: 'all',
-                mode: 'local',
+            this.time = new Ext.ux.TimeComboBox({              
                 renderTo: this.timeId,
-                store: times,
+                minValue: this.mode.time.min,
+                maxValue: this.mode.time.max,
+                step: this.mode.time.step,
                 width: 80, // меняешь? посмотри в DateTimeViewModel.cshtml ширину ячейки.
                 fieldClass: 'inputfields',
                 triggerClass: 'calendar-time-button'
@@ -69,22 +68,6 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         this.mon(this.button, 'click', this.onButtonClick, this);
         this.mon(this.menu, 'select', this.onDateSelect, this);
         if (this.time) this.mon(this.time, 'change', this.onEditorChange, this);
-    },
-
-    initTime: function (start, end, step) {
-        // Функция возвращает массив строк, содержащий временные отмет от start до end c шагом step
-        // start, end - строки, время в формате чч:мм:сс
-        // step - число, интервал в миллисекундах
-        start = moment(start, "HH:mm:ss", true);
-        end = moment(end, "HH:mm:ss", true);
-
-        var values = [];
-        while (start <= end) {
-            values.push(start.format(this.displayFormats.time));
-            start.add(step, "ms");
-        }
-
-        return values;
     },
 
     onButtonClick: function () {
@@ -137,16 +120,23 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
             return;
         }
 
-        var date = this.parseUserDate(this.editor.getValue());
-        var time = this.time ? this.parseUserTime(this.time.getValue()) : 0;
+        var date = this.getValue();
         if (date) {
-            this.setValue(date.add(time, "ms"));
+            this.setValue(date);
         } else {
             this.store.setValue('');
             this.validate();
         }
     },
+    getValue: function() {
+        var date = this.parseUserDate(this.editor.getValue());
+        var time = this.time ? this.time.getValue() : 0;
+        if (date) {
+            date.add(time, "ms");        
+        }
 
+        return date;
+    },
     setValue: function (date) {
         this.ignoreChangeEvent = true;
         if (date) {
@@ -223,9 +213,6 @@ Ext.ux.Calendar2 = Ext.extend(Ext.Component, {
         }
 
         return date;
-    },
-
-    parseUserTime: function(value) {
-        return moment(value, this.displayFormats.time) - moment().startOf("day");
     }
+   
 });

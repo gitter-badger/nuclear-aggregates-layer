@@ -45,18 +45,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
         {
             return _finder.Find(Specs.Find.ById<AdvertisementElement>(advertisementElementId))
                           .Select(x => new AdvertisementMailNotificationDto
-                              {
-                                  FirmRef = new EntityReference { Id = x.Advertisement.Firm.Id, Name = x.Advertisement.Firm.Name },
-                                  FirmOwnerCode = x.Advertisement.Firm.OwnerCode,
-                                  AdvertisementRef = new EntityReference { Id = x.Advertisement.Id, Name = x.Advertisement.Name },
-                                  AdvertisementTemplateName = x.Advertisement.AdvertisementTemplate.Name,
-                                  AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
-                                  OrderRefs = x.Advertisement.OrderPositionAdvertisements
-                                               .Where(opa => opa.OrderPosition.IsActive && !opa.OrderPosition.IsDeleted
-                                                             && opa.OrderPosition.Order.IsActive && !opa.OrderPosition.Order.IsDeleted)
-                                               .Select(opa => new EntityReference { Id = opa.OrderPosition.Order.Id, Name = opa.OrderPosition.Order.Number })
-                                               .Distinct()
-                              })
+                                           {
+                                               FirmRef = new EntityReference { Id = x.Advertisement.Firm.Id, Name = x.Advertisement.Firm.Name },
+                                               AdvertisementRef = new EntityReference { Id = x.Advertisement.Id, Name = x.Advertisement.Name },
+                                               AdvertisementTemplateName = x.Advertisement.AdvertisementTemplate.Name,
+                                               AdvertisementElementTemplateName = x.AdvertisementElementTemplate.Name,
+                                               OrderRefs = x.Advertisement.OrderPositionAdvertisements
+                                                            .Where(opa => opa.OrderPosition.IsActive && !opa.OrderPosition.IsDeleted
+                                                                          && opa.OrderPosition.Order.IsActive && !opa.OrderPosition.Order.IsDeleted)
+                                                            .Select(
+                                                                    opa =>
+                                                                    new AdvertisementMailNotificationDto.OrderInfo
+                                                                        {
+                                                                            Id = opa.OrderPosition.Order.Id,
+                                                                            Number = opa.OrderPosition.Order.Number,
+                                                                            OwnerCode = opa.OrderPosition.Order.OwnerCode
+                                                                        })
+                                                            .Distinct()
+                                           })
                           .Single();
         }
 
