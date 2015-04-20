@@ -75,16 +75,6 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
             return result;
         }
 
-        private DateTime Truncate(DateTime dateTime, TimeSpan timeSpan)
-        {
-            if (timeSpan == TimeSpan.Zero)
-            {
-                return dateTime; // Or could throw an ArgumentException
-            }
-
-            return dateTime.AddTicks(-(dateTime.Ticks % timeSpan.Ticks));
-        }
-
         private static IEnumerable<PerformedOperationsFinalProcessingMessage> GetTargetMessages(IQueryable<PerformedOperationFinalProcessing> sourceOperations, int batchSize)
         {
             return (from operation in sourceOperations
@@ -93,14 +83,21 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
                     let operationsGroupKey = operationsGroup.Key
                     let maxAttempt = operationsGroup.Max(processing => processing.AttemptCount)
                     orderby maxAttempt
-                    select new PerformedOperationsFinalProcessingMessage
+                    select new
                         {
-                            EntityId = operationsGroupKey.EntityId,
-                            EntityName = EntityType.Instance.Parse(operationsGroupKey.EntityTypeId),
+                            operationsGroupKey.EntityId,
+                            operationsGroupKey.EntityTypeId,
                             MaxAttemptCount = maxAttempt,
                             FinalProcessings = operationsGroup
                         })
-                .Take(batchSize);
+                .Take(batchSize)
+                .Select(x => new PerformedOperationsFinalProcessingMessage
+                    {
+                        EntityId = x.EntityId,
+                        EntityName = EntityType.Instance.Parse(x.EntityTypeId),
+                        MaxAttemptCount = x.MaxAttemptCount,
+                        FinalProcessings = x.FinalProcessings
+                    });
         }
     }
 }
