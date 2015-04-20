@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
@@ -76,6 +77,10 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
             }
 
             var result = getNext()(input, getNext);
+            if (result.Exception != null)
+            {
+                result.Exception = ExceptionDispatchInfo.Capture(result.Exception).SourceException;
+            }
 
             if (operationInterface != null && entities.Any() && originalEntities.Any() && result.Exception == null)
             {
