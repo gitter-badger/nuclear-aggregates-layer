@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata;
@@ -26,7 +28,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             _tracer = tracer;
         }
 
-        public long[] GetIdentities(int count)
+        long[] IIdentityProviderApplicationService.GetIdentities(int count)
         {
             try
             {
@@ -40,7 +42,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             }
         }
 
-        public long NewIdentity()
+        long IIdentityProviderApplicationRestService.NewIdentity()
         {
             try
             {
@@ -50,14 +52,15 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             {
                 const string Message = "Cannot generate requested identities";
                 _tracer.Error(ex, Message);
-                throw GetExceptionDescription(Message, ex);
+                throw new WebFaultException<string>(string.Format("{0}. {1}", Message, ex.Message),
+                                                    ex is ArgumentException ? HttpStatusCode.BadRequest : HttpStatusCode.InternalServerError);
             }
         }
         
         private FaultException<MetadataOperationErrorDescription> GetExceptionDescription(string operationSpecificMessage, Exception ex)
         {
             return new FaultException<MetadataOperationErrorDescription>(
-                new MetadataOperationErrorDescription(operationSpecificMessage + ". " + ex.Message, _environmentSettings.Type != EnvironmentType.Production ? ex.ToString() : string.Empty));
+                new MetadataOperationErrorDescription(string.Format("{0}. {1}", operationSpecificMessage, ex.Message), _environmentSettings.Type != EnvironmentType.Production ? ex.ToString() : string.Empty));
         }
     }
 }
