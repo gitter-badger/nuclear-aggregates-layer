@@ -2,12 +2,12 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
-using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
@@ -23,7 +23,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
-namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
+namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetOrderDtoService : GetDomainEntityDtoServiceBase<Order>
     {
@@ -38,6 +38,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
         private readonly ILegalPersonReadModel _legalPersonReadModel;
         private readonly IBusinessModelSettings _businessModelSettings;
         private readonly IClientReadModel _clientReadModel;
+        private readonly IBranchOfficeReadModel _branchOfficeReadModel;
 
         public GetOrderDtoService(IUserContext userContext,
                                   ISecureFinder finder,
@@ -48,7 +49,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                                   IUserReadModel userReadModel,
                                   ILegalPersonReadModel legalPersonReadModel,
                                   IBusinessModelSettings businessModelSettings,
-                                  IClientReadModel clientReadModel)
+                                  IClientReadModel clientReadModel,
+                                  IBranchOfficeReadModel branchOfficeReadModel)
             : base(userContext)
         {
             _finder = finder;
@@ -59,7 +61,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
             _userReadModel = userReadModel;
             _legalPersonReadModel = legalPersonReadModel;
             _businessModelSettings = businessModelSettings;
-            _clientReadModel = clientReadModel;
+            _clientReadModel = clientReadModel;            
+            _branchOfficeReadModel = branchOfficeReadModel;
         }
 
         protected override IDomainEntityDto<Order> GetDto(long entityId)
@@ -209,11 +212,29 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                 resultDto.HasDestOrganizationUnitPublishedPrice = priceWasPublished;
             }
 
-            if (resultDto.SourceOrganizationUnitRef != null && resultDto.SourceOrganizationUnitRef.Id.HasValue)
+            resultDto.BranchOfficeOrganizationUnitRef =
+                DetermineBranchOfficeOrganizationUnit(resultDto.SourceOrganizationUnitRef != null ? resultDto.SourceOrganizationUnitRef.Id : null);
+        }
+
+        private EntityReference DetermineBranchOfficeOrganizationUnit(long? sourceOrganizationUnitId)
+        {
+            var userBranchOfficeIds = _userReadModel.GetUserBranchOffices(UserContext.Identity.Code);
+            if (userBranchOfficeIds.Any())
             {
-                var branchOfficeOrganizationUnitShortInfo = _branchOfficeRepository.GetBranchOfficeOrganizationUnitShortInfo(resultDto.SourceOrganizationUnitRef.Id.Value);
-                resultDto.BranchOfficeOrganizationUnitRef = new EntityReference(branchOfficeOrganizationUnitShortInfo.Id, branchOfficeOrganizationUnitShortInfo.ShortLegalName);
+                var branchOfficeOrganizationUnits = _branchOfficeReadModel.GetBranchOfficeOrganizationUnitIdsAndNamesByBranchOfficeIds(userBranchOfficeIds);
+                if (branchOfficeOrganizationUnits.Count() == 1)
+                {
+                    var branchOfficeOrganizationUnitInfo = branchOfficeOrganizationUnits.Single().Value;
+                    return new EntityReference(branchOfficeOrganizationUnitInfo.Item1, branchOfficeOrganizationUnitInfo.Item2);
+                }
             }
+            else if (sourceOrganizationUnitId.HasValue)
+            {
+                var branchOfficeOrganizationUnitShortInfo = _branchOfficeRepository.GetBranchOfficeOrganizationUnitShortInfo(sourceOrganizationUnitId.Value);
+                return new EntityReference(branchOfficeOrganizationUnitShortInfo.Id, branchOfficeOrganizationUnitShortInfo.ShortLegalName);
+            }
+
+            return null;
         }
 
         private decimal RoundValueToSignificantDigits(decimal value)

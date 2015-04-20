@@ -32,12 +32,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
         public UserWithRoleRelationsDto GetUserWithRoleRelations(long userid)
         {
             return _finder.Find(Specs.Find.ById<User>(userid))
-                          .Select(x => new UserWithRoleRelationsDto
-                                           {
-                                               User = x,
-                                               RolesRelations = x.UserRoles
-                                           })
-                          .Single();
+                            .Select(x => new UserWithRoleRelationsDto
+                                        {
+                                            User = x,
+                                            RolesRelations = x.UserRoles
+                                        })
+                            .Single();
         }
 
         public User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelegeName)
@@ -56,8 +56,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
         public User GetNotServiceUser(long userId)
         {
             return _finder.Find(Specs.Find.ById<User>(userId)
-                                && UserSpecs.Users.Find.NotService()
-                                && Specs.Find.ActiveAndNotDeleted<User>())
+                                    && UserSpecs.Users.Find.NotService()
+                                    && Specs.Find.ActiveAndNotDeleted<User>())
                           .SingleOrDefault();
         }
 
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
             const int DirectorRoleId = 2;
 
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<User>()
-                                && UserSpecs.Users.Find.NotService())
+                                    && UserSpecs.Users.Find.NotService())
                           .FirstOrDefault(user => user.UserRoles.Any(role => role.RoleId == DirectorRoleId)
                                                   && user.UserOrganizationUnits.Any(unit => unit.OrganizationUnitId == organizationUnitId));
         }
@@ -74,10 +74,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
         public long? GetUserOrganizationUnitId(long userId)
         {
             var singleOrganizationUnitIds = _finder.Find(Specs.Find.ById<User>(userId))
-                                                   .SelectMany(x => x.UserOrganizationUnits)
-                                                   .Select(x => x.OrganizationUnitId)
-                                                   .Take(2)
-                                                   .ToArray();
+                .SelectMany(x => x.UserOrganizationUnits)
+                .Select(x => x.OrganizationUnitId)
+                .Take(2)
+                .ToArray();
 
             if (singleOrganizationUnitIds.Length == 1)
             {
@@ -118,6 +118,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
         {
             return _finder.Find(UserSpecs.UserBranchOffices.Find.ByUser(userId))
                           .ToArray();
+        }
+
+        public IEnumerable<long> PickNonServiceUsers(IEnumerable<long> userIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<User>(userIds) && UserSpecs.Users.Find.NotService()).Select(x => x.Id).ToArray();
         }
     }
 }

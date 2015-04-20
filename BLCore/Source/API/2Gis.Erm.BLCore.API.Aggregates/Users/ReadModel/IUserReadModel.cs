@@ -21,5 +21,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
         bool IsUserLinkedToBranchOffice(long userId, long branchOffice);
         IReadOnlyCollection<long> GetUserBranchOffices(long userId);
         IReadOnlyCollection<UserBranchOffice> GetUserBranchOfficeLinks(long userId);
+        IEnumerable<long> PickNonServiceUsers(IEnumerable<long> userIds);
     }
 }

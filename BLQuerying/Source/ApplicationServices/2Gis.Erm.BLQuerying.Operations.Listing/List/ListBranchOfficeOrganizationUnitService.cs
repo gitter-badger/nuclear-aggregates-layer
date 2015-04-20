@@ -45,9 +45,11 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     {
                         var userId = _userContext.Identity.Code;
 
+                        bool primaryRequired;
+                        querySettings.TryGetExtendedProperty("Primary", out primaryRequired);
                         if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection, userId))
                         {
-                            return x => x.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+                            return x => x.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId) && (!primaryRequired || x.IsPrimary);
                         }
                         else
                         {
@@ -57,7 +59,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                 return x => branchOfficeIds.Contains(x.BranchOfficeId);
                             }
 
-                            return x => x.OrganizationUnitId == sourceOrganizationUnitId;
+                            return x => x.OrganizationUnitId == sourceOrganizationUnitId && (!primaryRequired || x.IsPrimary);
                         }
                     });
 

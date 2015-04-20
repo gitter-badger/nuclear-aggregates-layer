@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.DTO;
@@ -113,6 +114,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
                 _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId))
                        .Select(x => x.BranchOffice.BargainTypeId.Value)
                        .Single();
+        }
+
+        public IReadOnlyDictionary<long, Tuple<long, string>> GetBranchOfficeOrganizationUnitIdsAndNamesByBranchOfficeIds(IEnumerable<long> branchOfficeIds)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByBranchOffice(branchOfficeIds))
+                          .Select(x => new
+                                           {
+                                               x.BranchOfficeId,
+                                               x.Id,
+                                               x.ShortLegalName
+                                           })
+                          .ToDictionary(x => x.BranchOfficeId, y => new Tuple<long, string>(y.Id, y.ShortLegalName));
         }
 
         public IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode)
