@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 Priority = ActivityPriority.Average,
                 ScheduledStart = now,
-                ScheduledEnd = now.Add(TimeSpan.FromMinutes(15)),
+                ScheduledEnd = now.Add(TimeSpan.FromHours(1)),
                 Status = ActivityStatus.InProgress,
             };
 

@@ -60,6 +60,8 @@
     <Compile Include="Concrete\AdvertisementElements\AdvertisementElementDenyingWithoutReasonsException.cs" />
     <Compile Include="Concrete\AdvertisementElements\IApproveAdvertisementElementOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\IDenyAdvertisementElementOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\IResetAdvertisementElementToDraftOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\ITransferAdvertisementElementToReadyForValidationOpeationService.cs" />
     <Compile Include="Concrete\Orders\ISetOrderDocumentsDebtOperationService.cs" />
