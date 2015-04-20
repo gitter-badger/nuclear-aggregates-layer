@@ -5208,4 +5208,7 @@
   <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
     <value />
   </data>
+  <data name="AllPositionsMustBePicked" xml:space="preserve">
+    <value />
+  </data>
 </root>

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
@@ -34,12 +34,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             var position = _positionReadModel.GetPositionByPricePositionId(pricePositionId);
             var orderInfo = _orderReadModel.GetOrderInfoToCheckPossibilityOfOrderPositionCreation(orderId);
 
-            if (position.IsComposite && !AllRequiredAdvertisementsAreSpecifiedForCompositePosition(orderPositionAdvertisements, out report))
+            if (position.IsComposite && !AtLeastOneLinkingObjectIsSpecifiedForCompositePosition(orderPositionAdvertisements, out report))
             {
                 return false;
             }
 
-            if (!AllRequiredAdvertisementsAreSpecified(orderPositionAdvertisements, out report))
+            if (!AtLeastOneLinkingObjectIsSpecified(orderPositionAdvertisements, out report))
             {
                 return false;
             }
@@ -54,7 +54,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 return false;
             }
 
-            if (!CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(position.SalesModel, orderPositionAdvertisements, out report))
+            if (position.KeepCategoriesSynced() && !CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(orderPositionAdvertisements, out report))
+            {
+                return false;
+            }
+
+            if (position.AllSubpositionsMustBePicked() && !AllSubpositionsMustBePicked(position.Id, orderPositionAdvertisements, out report))
             {
                 return false;
             }
@@ -71,8 +76,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         #region Проверки
         // Является частным случаем проверки AllRequiredAdvertisementsAreSpecified, которая появилась в рамках фикса бага ERM-6151. Есть опасение, что новая общая проверка ломает какой-то кейс. 
         // Если жалоб на нее не будет, то эту частную проверку (AllRequiredAdvertisementsAreSpecifiedForCompositePosition) можно будет удалить
-        private bool AllRequiredAdvertisementsAreSpecifiedForCompositePosition(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
-                                                                               out string report)
+        private bool AtLeastOneLinkingObjectIsSpecifiedForCompositePosition(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                                            out string report)
         {
             report = null;
             if (!orderPositionAdvertisements.Any())
@@ -84,8 +89,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             return true;
         }
 
-        private bool AllRequiredAdvertisementsAreSpecified(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
-                                                           out string report)
+        private bool AtLeastOneLinkingObjectIsSpecified(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                        out string report)
         {
             report = null;
             if (!orderPositionAdvertisements.Any())
@@ -140,16 +145,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             return true;
         }
 
-        private bool CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(SalesModel salesModelOfEditingOrderPosition,
-                                                                             IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+        private bool CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
                                                                              out string report)
         {
             report = null;
-            if (!salesModelOfEditingOrderPosition.IsPlannedProvisionSalesModel())
-            {
-                return true;
-            }
-
+            
             var positionsWithCategories =
                 orderPositionAdvertisements.GroupBy(x => x.PositionId)
                                            .ToDictionary(x => x.Key, y => y.Where(z => z.CategoryId.HasValue).Select(z => z.CategoryId.Value))
@@ -187,6 +187,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             }
 
             report = null;
+            return true;
+        }
+
+        private bool AllSubpositionsMustBePicked(long positionId,
+                                                 IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                 out string report)
+        {
+            report = null;
+
+            var childPositionIds = _positionReadModel.GetChildPositionIds(positionId);
+
+            var pickedPositions = orderPositionAdvertisements.Select(x => x.PositionId).Distinct().ToArray();
+
+            var notPickedPositions = childPositionIds.Where(x => !pickedPositions.Contains(x)).ToArray();
+
+            if (notPickedPositions.Any())
+            {
+                report = BLResources.AllPositionsMustBePicked;
+                return false; 
+            }
+
             return true;
         }
 

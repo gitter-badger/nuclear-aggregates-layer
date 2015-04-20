@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.Positions;
-using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
@@ -33,8 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             var order = _orderReadModel.GetOrderLinkingObjectsDto(orderId);
             var positionInfo = _priceReadModel.GetPricePositionDetailedInfo(pricePositionId);
             var categoryRate = _calculateCategoryRateOperationService.GetCategoryRateForOrderCalculatedOrDefault(orderId, pricePositionId, null);
-            var priceCalulations = _calculateOrderPositionPricePerUnitOperationService.CalculatePricePerUnit(orderId, categoryRate, positionInfo.PricePositionCost);
-            var isPlannedProvisionSalesModel = positionInfo.SalesModel.IsPlannedProvisionSalesModel();
+            var priceCalulations = _calculateOrderPositionPricePerUnitOperationService.CalculatePricePerUnit(orderId, categoryRate, positionInfo.PricePositionCost);            
             var linkingObjectsSchema = _formAvailableBindingObjectsOperationService.GetLinkingObjectsSchema(orderId, pricePositionId, includeHidden, orderPositionId);
 
             return new OrderPositionWithSchemaDto
@@ -46,16 +45,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 PricePositionAmount = positionInfo.Amount,
                 AmountSpecificationMode = positionInfo.AmountSpecificationMode,
                 PricePositionCost = positionInfo.PricePositionCost,
-                IsPositionComposite = positionInfo.IsComposite,
+                IsPositionComposite = positionInfo.Position.IsComposite,
                 IsPositionCategoryBound = positionInfo.RateType == PricePositionRateType.BoundCategory,
-                LinkingObjectType = positionInfo.LinkingObjectType,
+                LinkingObjectType = positionInfo.Position.BindingObjectTypeEnum,
 
                 PricePerUnit = priceCalulations.PricePerUnit,
                 PricePerUnitWithVat = priceCalulations.PricePerUnitWithVat,
 
                 LinkingObjectsSchema = linkingObjectsSchema,
-                IsPositionOfPlannedProvisionSalesModel = isPlannedProvisionSalesModel,
-                SalesModel = (int)positionInfo.SalesModel
+                KeepCategoriesSynced = positionInfo.Position.KeepCategoriesSynced(),
+                SalesModel = (int)positionInfo.Position.SalesModel
             };
         }
     }

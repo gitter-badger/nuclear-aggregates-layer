@@ -231,32 +231,25 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
         {
             var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId))
                                            .Select(item => new
-                                           {
-                                               Platform = item.Position.Platform.Name,
-                                               item.RateType,
-                                               item.Amount,
-                                               item.AmountSpecificationMode,
-                                               item.PositionId,
-                                               PricePositionCost = item.Cost,
-                                               item.Position.IsComposite,
-                                               LinkingObjectType = item.Position.BindingObjectTypeEnum,
-                                               SalesModel = item.Position.SalesModel
-                                           })
+                                                               {
+                                                                   Platform = item.Position.Platform.Name,
+                                                                   item.RateType,
+                                                                   item.Amount,
+                                                                   item.AmountSpecificationMode,
+                                                                   PricePositionCost = item.Cost,
+                                                                   Position = item.Position
+                                                               })
                                            .Single();
 
             return new PricePositionDetailedInfo
-            {
-                Amount = pricePositionInfo.Amount,
-                AmountSpecificationMode = (int)pricePositionInfo.AmountSpecificationMode,
-                IsComposite = pricePositionInfo.IsComposite,
-                Platform = pricePositionInfo.Platform ?? string.Empty,
-                PricePositionCost = pricePositionInfo.PricePositionCost,
-                RateType = pricePositionInfo.RateType,
-
-                LinkingObjectType = pricePositionInfo.LinkingObjectType,
-                SalesModel = pricePositionInfo.SalesModel,
-                PositionId = pricePositionInfo.PositionId,
-            };
+                       {
+                           Amount = pricePositionInfo.Amount,
+                           AmountSpecificationMode = (int)pricePositionInfo.AmountSpecificationMode,
+                           Platform = pricePositionInfo.Platform ?? string.Empty,
+                           PricePositionCost = pricePositionInfo.PricePositionCost,
+                           RateType = pricePositionInfo.RateType,
+                           Position = pricePositionInfo.Position
+                       };
         }
 
         private static decimal GetCategoryRateInternal(IQueryable<Category> categoryQuery, long organizationUnitId)

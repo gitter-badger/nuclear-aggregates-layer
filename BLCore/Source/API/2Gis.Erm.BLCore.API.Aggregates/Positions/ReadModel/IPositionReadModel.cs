@@ -21,5 +21,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel
         IReadOnlyDictionary<long, string> GetPositionNames(IEnumerable<long> positionIds);
         IEnumerable<PositionSortingOrderDto> GetPositionsSortingOrder();
         IEnumerable<Position> GetPositions(IEnumerable<long> ids);
+        IReadOnlyCollection<long> GetChildPositionIds(long positionId);
     }
 }

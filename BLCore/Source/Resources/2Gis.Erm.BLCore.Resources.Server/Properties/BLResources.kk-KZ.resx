@@ -5227,4 +5227,7 @@ Cумма по операции: {5}.
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>Вы пытаетесь завершить действие, запланированное будущим периодом, измените срок действия или отмените, если действие не было выполнено</value>
   </data>
+  <data name="AllPositionsMustBePicked" xml:space="preserve">
+    <value>Необходимо отметить все позиции</value>
+  </data>
 </root>

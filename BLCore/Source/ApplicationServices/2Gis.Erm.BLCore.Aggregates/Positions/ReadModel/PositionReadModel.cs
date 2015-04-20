@@ -122,6 +122,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             return _finder.FindMany(Specs.Find.ByIds<Position>(ids));
         }
 
+        public IReadOnlyCollection<long> GetChildPositionIds(long positionId)
+        {
+            return _finder.Find(Specs.Find.ById<Position>(positionId))
+                          .SelectMany(x => x.ChildPositions)
+                          .Select(x => x.ChildPositionId)
+                          .ToArray();
+        }
+
         public IDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds)
         {
             return _finder.Find(Specs.Find.ByIds<Position>(positionIds))

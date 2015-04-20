@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
@@ -65,12 +66,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 {
                     warnings = new[] { new LinkingObjectsSchemaDto.WarningDto { Text = BLResources.FirmDoesntHaveActiveAddresses } };
                 }
-                else if (pricePositionInfo.LinkingObjectType == PositionBindingObjectType.ThemeMultiple && !themeDtos.Any())
+                else if (pricePositionInfo.Position.BindingObjectTypeEnum == PositionBindingObjectType.ThemeMultiple && !themeDtos.Any())
                 {
                     warnings = new[] { new LinkingObjectsSchemaDto.WarningDto { Text = BLResources.ThereIsNoSuitableThemes } };
                 }
 
-                var firmCategoriesSupportedBySalesModel = _categoryReadModel.GetFirmCategories(firmCategoryIds, pricePositionInfo.SalesModel, orderDto.DestOrganizationUnitId);
+                var firmCategoriesSupportedBySalesModel = _categoryReadModel.GetFirmCategories(firmCategoryIds, pricePositionInfo.Position.SalesModel, orderDto.DestOrganizationUnitId);
                 var salesIntoCategories = orderPositionId.HasValue
                                               ? _categoryReadModel.GetSalesIntoCategories(orderPositionId.Value)
                                               : Enumerable.Empty<CategoryAsLinkingObjectDto>();
@@ -91,9 +92,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                        : Enumerable.Empty<long>());
                 }
 
-                var positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId)
+                var positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.Position.IsComposite, pricePositionInfo.Position.Id)
                                                   .Select(ConvertToResponsePositionDto)
                                                   .ToArray();
+
+                if (!pricePositionInfo.Position.IsComposite || pricePositionInfo.Position.AutoCheckSubpositionsWithFirmBindingType())
+                {
+                    foreach (var position in positions.Where(x => x.LinkingObjectType == PositionBindingObjectType.Firm.ToString()))
+                    {
+                        position.AlwaysChecked = true;
+                    }
+                }
 
                 var salesIntoCategoriesByPositions = salesIntoCategories.GroupBy(x => x.PositionId)
                                                                         .ToDictionary(x => x.Key, y => y);

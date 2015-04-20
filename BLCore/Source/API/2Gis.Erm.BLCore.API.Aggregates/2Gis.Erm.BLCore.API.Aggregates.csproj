@@ -307,6 +307,7 @@
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
     <Compile Include="Positions\DTO\LinkingObjectsSchemaPositionDto.cs" />
     <Compile Include="Positions\Operations\IChangePositionSortingOrderAggregateService.cs" />
+    <Compile Include="Positions\PositionTools.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />

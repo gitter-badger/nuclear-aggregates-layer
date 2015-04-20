@@ -5220,7 +5220,10 @@ Placement period: {3}.</value>
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>You are attempting to complete an action scheduled for a future period. Change the action time or cancel the action if it has not been performed</value>
   </data>
-   <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
+  <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
     <value>You can't pick more than one reference object for the following positions: {0}</value>
+  </data>
+  <data name="AllPositionsMustBePicked" xml:space="preserve">
+    <value>Необходимо отметить все позиции</value>
   </data>
 </root>

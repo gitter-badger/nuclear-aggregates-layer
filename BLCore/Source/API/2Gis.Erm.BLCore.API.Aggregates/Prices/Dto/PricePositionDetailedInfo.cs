@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto
 {
@@ -11,10 +12,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto
         public int AmountSpecificationMode { get; set; }
         public int? Amount { get; set; }
         public string Platform { get; set; }
-        public bool IsComposite { get; set; }
         public PricePositionRateType RateType { get; set; }
-        public PositionBindingObjectType LinkingObjectType { get; set; }
-        public SalesModel SalesModel { get; set; }
-        public long PositionId { get; set; }
+        public Position Position { get; set; }
     }
 }

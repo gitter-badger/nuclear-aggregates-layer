@@ -26,7 +26,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         firmId: null,
         organizationUnitId: null,
         areLinkingObjectParametersLocked: null,
-        useSingleCategoryForPackage: null,
+        keepCategoriesSynced: null,
         salesModel: null,
         linkingObjectsByKey: [],
         linkingObjects: [],
@@ -200,7 +200,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
         this.rebuildLinkingObjectsLayout();
 
        
-        var selectedLinkingObject = this.localData.useSingleCategoryForPackage
+        var selectedLinkingObject = this.localData.keepCategoriesSynced
              // get the first selected linking object 
             ? this.localData.linkingObjects.findOne(function(object) {
                 return object.isSelected();
@@ -241,7 +241,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                 object.type == Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.AddressFirstLevelCategorySingle;
         };
 
-        if (this.localData.useSingleCategoryForPackage && source) {
+        if (this.localData.keepCategoriesSynced && source) {
             this.localData.linkingObjects.forEach(function(object) {
                 if (object.categoryId == source.categoryId) {
                     object.checkbox.checked = source.checkbox.checked;
@@ -823,7 +823,7 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
                 results.push({ Level: 'CriticalError', Message: message });
             }
             // Теперь в пакетных позициях можно отключить всё что угодно (исключение - новая модель продаж)
-            else if (this.localData.useSingleCategoryForPackage) {
+            else if (this.localData.keepCategoriesSynced) {
                 badPositions.sort(function (a, b) {
                     if (a.Name < b.Name) return -1;
                     if (a.Name > b.Name) return 1;

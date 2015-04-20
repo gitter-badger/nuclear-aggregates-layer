@@ -1431,6 +1431,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AllPositionsMustBePicked {
+            get {
+                return ResourceManager.GetString("AllPositionsMustBePicked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string AlreadyExistsPricePositionWithSamePositionNotification {
             get {
                 return ResourceManager.GetString("AlreadyExistsPricePositionWithSamePositionNotification", resourceCulture);
