@@ -1,14 +1,14 @@
 param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 
 if ($TaskList.Count -eq 0){
-	$TaskList = @('Run-CoreTeamUnitTests')
+	$TaskList = @('Build-TaskService', 'Deploy-TaskService')
 }
 if ($Properties.Count -eq 0){
 	$Properties = @{
 		'Revision' = '000000'
 		'Build' = 0
 		'Branch' = 'local'
-		'EnvironmentName' = 'Production.Russia'
+		'EnvironmentName' = 'Test.21'
 	}
 }
 
@@ -17,7 +17,7 @@ $ErrorActionPreference = 'Stop'
 #------------------------------
 cls
 
-$Properties.GlobalVersion = '2.83.1'
+$Properties.GlobalVersion = '2.84.0'
 
 $Properties.BuildFile = Join-Path $PSScriptRoot 'default.ps1'
 $Properties.Dir = @{
