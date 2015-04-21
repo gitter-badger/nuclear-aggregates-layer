@@ -245,7 +245,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 }
                 else
                 {
-                    dataView = new DataListStructure { Name = entityName.ToString() };
+                    dataView = new DataListStructure { Name = entityName.Description };
                 }
 
                 // Далее получается, что в случае унаследованного дата листа перекрываем 
