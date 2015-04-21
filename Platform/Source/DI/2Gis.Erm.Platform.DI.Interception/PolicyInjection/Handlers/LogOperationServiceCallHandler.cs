@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.ExceptionServices;
 
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
@@ -73,13 +74,15 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
             }
             catch (Exception ex)
             {
-                Tracer.Fatal(ex, "Critical error occured during object copying BEFORE modification");
+                Tracer.Fatal(ex, "Critical error occured during object copying before modification");
             }
 
             var result = getNext()(input, getNext);
+            
+            // Wrapping exception to prevent track trace loose
             if (result.Exception != null)
             {
-                Tracer.FatalFormat(result.Exception, "Unexpected error occured in the inner operation while logging changes: {0}", result.Exception.Message);
+                result.Exception = new TargetInvocationException(result.Exception.Message, result.Exception);
             }
 
             if (operationInterface != null && entities.Any() && originalEntities.Any() && result.Exception == null)
