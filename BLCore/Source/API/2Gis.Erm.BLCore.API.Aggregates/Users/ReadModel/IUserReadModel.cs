@@ -17,5 +17,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
         User GetOrganizationUnitDirector(long organizationUnitId);
         Department GetUserDepartment(long userId);
         long? GetUserOrganizationUnitId(long userId);
+        IDictionary<long, string> GetUserNames(IEnumerable<long> userIds);
+        IEnumerable<long> PickNonServiceUsers(IEnumerable<long> userIds);
     }
 }

@@ -450,35 +450,11 @@
   <data name="IntegrationTypeNone" xml:space="preserve">
     <value>Not specified</value>
   </data>
-  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
-    <value>Loading companies</value>
-  </data>
-  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
-    <value>Loading categories</value>
-  </data>
-  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
-    <value>Loading territories</value>
-  </data>
-  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
-    <value>Unloading companies with active orders</value>
-  </data>
-  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
-    <value>Loading writing-offs</value>
-  </data>
-  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
-    <value>Unloading orders</value>
-  </data>
   <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
     <value>Loading account receipts</value>
   </data>
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Unloading legal entities of Clients</value>
-  </data>
-  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
-    <value>Unloading of personal accounts</value>
-  </data>
-  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
-    <value>Unloading reconciliation reports</value>
   </data>
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Promotional</value>
@@ -789,14 +765,8 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Other</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>Joint payment for SP</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>Joint payment for a legal entity</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
-    <value>Joint payment for an individual</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
     <value>Contract</value>
@@ -1232,9 +1202,6 @@
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Profile of client's legal entity</value>
-  </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Add. services for a company</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Removing the profile of Client's legal entity</value>
@@ -1710,6 +1677,12 @@
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>Contract termination notice without a reason specified for a legal entity</value>
   </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="IntegrationTypeExportAccountDetailsToServiceBus" xml:space="preserve">
     <value>Unload to bus account write-offs</value>
   </data>
@@ -2037,6 +2010,18 @@
   </data>
   <data name="PositionsGroupNone" xml:space="preserve">
     <value />
+  </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Guaranteed renderingе</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Planned rendering</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Writing-off</value>
   </data>
   <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
     <value>Телефония</value>

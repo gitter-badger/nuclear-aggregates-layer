@@ -450,36 +450,13 @@
   <data name="IntegrationTypeNone" xml:space="preserve">
     <value>Не указан</value>
   </data>
-  <data name="IntegrationTypeImportFirmsFromDgpp" xml:space="preserve">
-    <value>Загрузка фирм</value>
-  </data>
-  <data name="IntegrationTypeImportCategoriesFromDgpp" xml:space="preserve">
-    <value>Загрузка рубрик</value>
-  </data>
-  <data name="IntegrationTypeImportTerritoriesFromDgpp" xml:space="preserve">
-    <value>Загрузка территорий</value>
-  </data>
-  <data name="IntegrationTypeExportFirmsWithActiveOrdersToDgpp" xml:space="preserve">
-    <value>Выгрузка фирм с активными заказами</value>
-  </data>
-  <data name="IntegrationTypeImportWithdrawalsFromBilling" xml:space="preserve">
-    <value>Загрузка списаний</value>
-  </data>
-  <data name="IntegrationTypeExportOrdersToBilling" xml:space="preserve">
-    <value>Выгрузка заказов</value>
-  </data>
   <data name="IntegrationTypeImportAccountDetailsFrom1C" xml:space="preserve">
     <value>Загрузка поступлений по лицевым счетам</value>
   </data>
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Выгрузка юр. лиц клиентов</value>
   </data>
-  <data name="IntegrationTypeExportAccountsTo1C" xml:space="preserve">
-    <value>Выгрузка лицевых счетов</value>
-  </data>
-  <data name="IntegrationTypeExportAccountSaldosTo1C" xml:space="preserve">
-    <value>Выгрузка сверок</value>
-  </data>
+
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Акционная</value>
   </data>
@@ -798,13 +775,7 @@
   <data name="DocumentsDebtOther" xml:space="preserve">
     <value>Другое</value>
   </data>
-  <data name="TemplateCodeJointBillBusinessman" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="TemplateCodeJointBillLegalPerson" xml:space="preserve">
-    <value>[Not defined for current business model and language]</value>
-  </data>
-  <data name="TemplateCodeJointBillNaturalPerson" xml:space="preserve">
+  <data name="TemplateCodeJointBill" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
   <data name="DocumentTypeBargain" xml:space="preserve">
@@ -1179,7 +1150,7 @@
   <data name="FPrvDpthTerritory" xml:space="preserve">
     <value>Территория</value>
   </data>
-  <data name="BusinessOperationQualify" xml:space="preserve">
+  <data name="BusinessOperationTypeQualify" xml:space="preserve">
     <value>Взятие из резерва</value>
   </data>
   <data name="BusinessOperationDisqualify" xml:space="preserve">
@@ -1232,9 +1203,6 @@
   </data>
   <data name="EntityNameLegalPersonProfile" xml:space="preserve">
     <value>Профиль юр. лица клиента</value>
-  </data>
-  <data name="EntityNameAdditionalFirmService" xml:space="preserve">
-    <value>Доп. услуги для фирмы</value>
   </data>
   <data name="FunctionalPrivilegeNameDeleteLegalPersonProfile" xml:space="preserve">
     <value>Удаление профиля юр. лица клиента</value>
@@ -1674,6 +1642,12 @@
   <data name="TemplateCodeBargainAdditionalAgreementLegalPerson" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
+  <data name="TemplateCodeFirmNameChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
+  <data name="TemplateCodeBindingChangeAgreement" xml:space="preserve">
+    <value>[Not defined for current business model and language]</value>
+  </data>
   <data name="ReleaseStatusSuccess" xml:space="preserve">
     <value>Success</value>
   </data>
@@ -1956,6 +1930,9 @@
   <data name="TemplateCodeBargainProlongationAgreement" xml:space="preserve">
     <value>Соглашение о продлении договора</value>
   </data>
+  <data name="ActivityTypeLetter" xml:space="preserve">
+    <value>Письмо</value>
+  </data>
   <data name="PaymentFormatDeferredPayment" xml:space="preserve">
     <value>Отсрочка</value>
   </data>
@@ -2033,6 +2010,18 @@
   </data>
   <data name="PositionsGroupNone" xml:space="preserve">
     <value />
+  </data>
+  <data name="AccountingMethodGuaranteedProvision" xml:space="preserve">
+    <value>Гарантируемое оказание</value>
+  </data>
+  <data name="AccountingMethodPlannedProvision" xml:space="preserve">
+    <value>Планируемое оказание</value>
+  </data>
+  <data name="AccountingMethodUndefined" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BusinessOperationWithdrawal" xml:space="preserve">
+    <value>Списание</value>
   </data>
   <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
     <value>Телефония</value>

@@ -2,17 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Transactions;
 using System.Xml;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages.DTO;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Dgpp;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.OneC;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.RabbitMq;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -116,6 +113,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 {
                     messages.AddRange(response.Messages);
                 }
+
                 return;
             }
 
@@ -126,6 +124,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
                 {
                     messages.AddRange(response.Messages);
                 }
+
                 return;
             }
 
@@ -137,20 +136,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             var integrationType = (IntegrationTypeExport)localMessageDto.IntegrationType;
             switch (integrationType)
             {
-                case IntegrationTypeExport.FirmsWithActiveOrdersToDgpp:
-                    {
-                        return ProcessFirmsWithActiveOrdersToDgpp(localMessageDto);
-                    }
-
                 case IntegrationTypeExport.DataForAutoMailer:
                     {
                         return ProcessDataForAutoMailer(localMessageDto);
                     }
-
-                case IntegrationTypeExport.AccountDetailsToServiceBus:
-                {
-                    return ProcessAccountDetailsToServiceBus(localMessageDto);
-                }
 
                 case IntegrationTypeExport.LegalPersonsTo1C:
                 case IntegrationTypeExport.None:
@@ -160,108 +149,53 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LocalMessages
             }
         }
 
-        private ExportResponse ProcessAccountDetailsToServiceBus(LocalMessageDto localMessageDto)
-        {
-            var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
 
-            var stream = file.Content.UnzipStream(x => Path.GetExtension(x) == ".xml").Single().Value;
-            return (ExportResponse)_subRequestProcessor.HandleSubRequest(new WriteMessageToServiceBusRequest
-                {
-                    MessageStream = stream,
-                    FlowName = "flowFinancialData",
-                    XsdSchemaResourceExpression = () => Properties.Resources.flowFinancialData_DebitsInfoInitial
-                },
-                                                                         Context,
-                                                                         false);
-        }
-
-        private ExportResponse ProcessFirmsWithActiveOrdersToDgpp(LocalMessageDto localMessageDto)
-        {
-            if (localMessageDto.LocalMessage.OrganizationUnitId == null)
-            {
-                throw new NotificationException(
-                    string.Format("Для обработки сообщения типа '{0}' должен быть указан город", IntegrationTypeExport.FirmsWithActiveOrdersToDgpp));
-            }
-
-            var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
-            var stream = file.Content;
-
-            var response = (ExportResponse)_subRequestProcessor.HandleSubRequest(
-                new WriteFirmsWithActiveOrdersToRabbitMqRequest
-                {
-                    MessageStream = stream,
-                                                                                         OrganizationUnitId =
-                                                                                             localMessageDto.LocalMessage.OrganizationUnitId.Value,
-                },
-                Context,
-                false);
-
-            return response;
-        }
 
         private ExportResponse ProcessDataForAutoMailer(LocalMessageDto localMessageDto)
         {
             var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
             var stream = file.Content;
 
-            return (ExportResponse)_subRequestProcessor.HandleSubRequest(new WriteMessageToServiceBusRequest
+            var subrequest = new WriteMessageToServiceBusRequest
             {
                 MessageStream = stream,
                 FlowName = "flowDeliveryData",
                     XsdSchemaResourceExpression = () => Properties.Resources.flowDeliveryData_SendingGroup
-            },
-                                                             Context,
-                                                             false);
+                };
+            return (ExportResponse)_subRequestProcessor.HandleSubRequest(subrequest, Context, false);
         }
 
         private ImportResponse ProcessImportRequest(LocalMessageDto localMessageDto)
         {
-            ImportResponse response;
-
             var file = _fileService.GetFileById(localMessageDto.LocalMessage.FileId);
-            var stream = file.Content;
-
             var integrationType = (IntegrationTypeImport)localMessageDto.IntegrationType;
+            var response = GetResponse(integrationType, file.Content, localMessageDto.FileName);
+            localMessageDto.LocalMessage.OrganizationUnitId = response.OrganizationUnitId;
+            return response;
+        }
+
+        private ImportResponse GetResponse(IntegrationTypeImport integrationType, Stream stream, string fileName)
+        {
+            return (ImportResponse)_subRequestProcessor.HandleSubRequest(
+                CreateRequest(integrationType, stream, fileName),
+                Context,
+                false);
+        }
+
+        private Request CreateRequest(IntegrationTypeImport integrationType, Stream stream, string fileName)
+        {
             switch (integrationType)
             {
-                case IntegrationTypeImport.FirmsFromDgpp:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                            new DgppImportFirmsRequest { MessageStream = stream },
-                            Context,
-                            false);
-                        break;
-                    }
-
-                case IntegrationTypeImport.TerritoriesFromDgpp:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                            new DgppImportTerritoriesRequest { MessageStream = stream },
-                            Context,
-                            false);
-                        break;
-                    }
-
                 case IntegrationTypeImport.AccountDetailsFrom1C:
-                    {
-                        response = (ImportResponse)_subRequestProcessor.HandleSubRequest(
-                                                                                     new ImportAccountDetailsFrom1CRequest
+                    return new ImportAccountDetailsFrom1CRequest
                                                                                          {
                                                                                              InputStream = stream,
-                                                                                             FileName = localMessageDto.FileName
-                                                                                         },
-                            Context,
-                            false);
-                        break;
-                    }
+                                   FileName = fileName
+                               };
 
                 default:
                     throw new NotificationException("Неподдерживаемый тип интеграционного запроса на импорт");
             }
-
-            localMessageDto.LocalMessage.OrganizationUnitId = response.OrganizationUnitId;
-
-            return response;
         }
     }
 }

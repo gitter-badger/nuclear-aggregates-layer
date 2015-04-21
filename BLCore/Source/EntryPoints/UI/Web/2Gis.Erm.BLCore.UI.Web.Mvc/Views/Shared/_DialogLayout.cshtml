@@ -3,7 +3,7 @@
 @using DoubleGis.Erm.Platform.UI.Web.Mvc.Security
 
 @inherits WebViewPage
-
+ 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <base target="_self" />
@@ -27,6 +27,7 @@
         <script src="/Scripts/ext-base-debug.js?@ThisAssembly.Build" type="text/javascript"></script>
         <script src="/Scripts/ext-all-debug-w-comments.js?@ThisAssembly.Build" type="text/javascript"></script>
         <script src="/Scripts/moment-with-locales.js"></script>
+        <script src="/Scripts/moment.locale.kk-kz.js"></script>
         <script src="/Scripts/moment-timezone-with-data.js"></script>
     }
     else
@@ -34,6 +35,7 @@
         <script src="/Scripts/ext-base.js?@ThisAssembly.Build" type="text/javascript"></script>
         <script src="/Scripts/ext-all.js?@ThisAssembly.Build" type="text/javascript"></script>
         <script src="/Scripts/moment-with-locales.min.js"></script>
+        <script src="/Scripts/moment.locale.kk-kz.js"></script>
         <script src="/Scripts/moment-timezone-with-data.min.js"></script>
     }
 
@@ -46,6 +48,7 @@
         Ext.CultureInfo.NumberFormatInfo.CurrencySymbol = '@ViewData.GetErmBaseCurrencySymbol()';
         Ext.BasicOperationsServiceRestUrl = '@ViewData.GetBasicOperationsServiceRestUrl()';
         Ext.SpecialOperationsServiceRestUrl = '@ViewData.GetSpecialOperationsServiceRestUrl()';
+        moment.locale('@ViewData.GetUserLocaleInfo().CultureName');
     </script>
     
     <script src="/Scripts/DoubleGis.GlobalVariables.js?@ThisAssembly.Build" type="text/javascript"></script>
@@ -61,6 +64,7 @@
     
     <script src="/Scripts/Ext.ux.MonthPicker.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.ux.MonthMenu.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.TimeComboBox.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.ux.Calendar2.js?@ThisAssembly.Build" type="text/javascript"></script>
 
     @if (IsSectionDefined("PageScript")) { 

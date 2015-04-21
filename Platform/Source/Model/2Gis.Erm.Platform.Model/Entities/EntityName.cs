@@ -93,7 +93,6 @@
         UkraineLegalPersonProfilePart = 263,
         EmiratesLegalPersonProfilePart = 606,
         KazakhstanLegalPersonProfilePart = 614,
-        AdditionalFirmService = 220,
         Theme = 221,
         ThemeTemplate = 222,
         ThemeCategory = 223,
@@ -111,7 +110,6 @@
         Reference = 234,
         ReferenceItem = 235,
         CardRelation = 236,
-        FirmAddressService = 237,
         ReleaseValidationResult = 238, 
         UserEntity = 239,
         DepCard = 240,
@@ -121,7 +119,6 @@
         PerformedBusinessOperation = 244,
         PerformedOperationPrimaryProcessing = 269,
         PerformedOperationFinalProcessing = 270,
-        ExportFlowCardExtensionsCardCommercial = 246,
         ExportFlowFinancialDataLegalEntity = 247,
         ExportFlowOrdersAdvMaterial = 248,
         ExportFlowOrdersOrder = 249,
@@ -132,6 +129,7 @@
         ExportFailedEntity = 254,
         HotClientRequest = 257,
         ExportFlowFinancialDataClient = 255,
+        ExportFlowFinancialDataDebitsInfoInitial = 273,
         ExportFlowPriceListsPriceList = 261,
         ExportFlowPriceListsPriceListPosition = 262,
         ExportFlowOrdersInvoice = 264,
@@ -197,5 +195,8 @@
         DictionaryEntityPropertyInstance = 561,
         BusinessEntityInstance = 570,
         BusinessEntityPropertyInstance = 571,
+
+        // Не имеет смысла как сущность, сделано, чтобы обдурить механизм карточки
+        PositionSortingOrder = 10000,
     }
 }

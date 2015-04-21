@@ -259,7 +259,7 @@
     <value>Territorio</value>
   </data>
   <data name="OwnerCode" xml:space="preserve">
-    <value>Propietario</value>
+    <value>Supervisor</value>
   </data>
   <data name="LockId" xml:space="preserve">
     <value>Código de bloqueo</value>
@@ -1047,6 +1047,9 @@
   <data name="ScheduledStart" xml:space="preserve">
     <value>Fecha de inicio</value>
   </data>
+  <data name="ScheduledOn" xml:space="preserve">
+    <value>Fecha de inicio</value>
+  </data>
   <data name="StartPeriodDate" xml:space="preserve">
     <value>Mes</value>
   </data>
@@ -1486,5 +1489,11 @@
   </data>
   <data name="PositionsGroup" xml:space="preserve">
     <value>Grupo de nomenclaturas</value>
+  </data>
+  <data name="AccountingMethod" xml:space="preserve">
+    <value>Modo para contabilizar la prestación de servicios</value>
+  </data>
+  <data name="ApplicationCityName" xml:space="preserve">
+    <value>Ciudad de solicitud</value>
   </data>
 </root>

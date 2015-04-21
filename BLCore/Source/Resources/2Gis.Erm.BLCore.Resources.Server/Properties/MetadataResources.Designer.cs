@@ -88,6 +88,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Способ учета оказания услуг.
+        /// </summary>
+        public static string AccountingMethod {
+            get {
+                return ResourceManager.GetString("AccountingMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Номер счета.
         /// </summary>
         public static string AccountNumber {
@@ -309,6 +318,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string Annotation {
             get {
                 return ResourceManager.GetString("Annotation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Город обращения.
+        /// </summary>
+        public static string ApplicationCityName {
+            get {
+                return ResourceManager.GetString("ApplicationCityName", resourceCulture);
             }
         }
         
@@ -2824,7 +2842,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Владелец.
+        ///   Looks up a localized string similar to Куратор.
         /// </summary>
         public static string OwnerCode {
             get {
@@ -3657,6 +3675,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string ScheduledEnd {
             get {
                 return ResourceManager.GetString("ScheduledEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата начала.
+        /// </summary>
+        public static string ScheduledOn {
+            get {
+                return ResourceManager.GetString("ScheduledOn", resourceCulture);
             }
         }
         

@@ -90,16 +90,6 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                         }
                 },
                 {
-                    "flowcardextensions.cardcommercial",
-                    new FlowDescription
-                        {
-                            EntityName = EntityName.FirmAddress,
-                            FlowName = "flowCardExtensions",
-                            SchemaResourceName = "flowCardExtensions_CardCommercial",
-                            IntegrationEntityName = EntityName.ExportFlowCardExtensionsCardCommercial
-                        }
-                },
-                {
                     "flowfinancialdata.client",
                     new FlowDescription
                         {
@@ -107,6 +97,16 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                             FlowName = "flowFinancialData",
                             SchemaResourceName = "flowFinancialData_Client",
                             IntegrationEntityName = EntityName.ExportFlowFinancialDataClient
+                        }
+                },
+                {
+                    "flowfinancialdata.debitsinfoinitial",
+                    new FlowDescription
+                        {
+                            EntityName = EntityName.AccountDetail,
+                            FlowName = "flowFinancialData",
+                            SchemaResourceName = "flowFinancialData_DebitsInfoInitial",
+                            IntegrationEntityName = EntityName.ExportFlowFinancialDataDebitsInfoInitial
                         }
                 },
                 {

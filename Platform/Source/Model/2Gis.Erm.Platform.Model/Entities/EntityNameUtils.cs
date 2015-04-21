@@ -20,7 +20,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities
         /// <summary>
         /// Список значений EntityName, являющихся виртуальными, т.е. существующими только в виде UI-форм
         /// </summary>
-        public static readonly EntityName[] VirtualEntityNames = { EntityName.CategoryGroupMembership };
+        // TODO {all, 02.04.2015}: в случае появления времени или 3-ей записи необходимо выделить хранилище настроек карточек виртуальных сущностей
+        public static readonly EntityName[] VirtualEntityNames = { EntityName.CategoryGroupMembership, EntityName.PositionSortingOrder };
 
         /// <summary>
         /// Список значений EntityName, являющихся расширением для какой-либо инсталляции, данные fake сущности не являются элементами доменной модели ERM, 

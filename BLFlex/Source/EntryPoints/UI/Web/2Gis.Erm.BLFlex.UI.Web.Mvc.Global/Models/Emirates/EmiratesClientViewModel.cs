@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
@@ -14,7 +15,7 @@ using Newtonsoft.Json.Converters;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
-    public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, IEmiratesAdapted
+    public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, INameAspect, IEmiratesAdapted
     {
         // Наименование
         [StringLengthLocalized(250)]

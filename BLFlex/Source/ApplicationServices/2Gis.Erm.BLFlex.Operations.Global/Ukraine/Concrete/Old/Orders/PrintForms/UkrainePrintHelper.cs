@@ -35,6 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         {
             return new PrintData
                 {
+                    { "ApplicationCityName", branchOfficeOrganizationUnit.ApplicationCityName },
                     { "ChiefNameInGenitive", branchOfficeOrganizationUnit.ChiefNameInGenitive },
                     { "ChiefNameInNominative", branchOfficeOrganizationUnit.ChiefNameInNominative },
                     { "PaymentEssentialElements", branchOfficeOrganizationUnit.PaymentEssentialElements },

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
 using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
@@ -147,11 +148,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public sealed class EmailLocalizedAttribute : ValidationAttribute, IClientValidatable
     {
-        private const string RegExPattern = @"^[а-яёa-z0-9_+.-]+\@([а-яёa-z0-9-]+\.)+[а-яёa-z0-9]{2,4}$";
+        private static readonly EmailAddressAttribute BaseAttribute = new EmailAddressAttribute();
+        private static readonly Regex LatinCharsetDetector = new Regex("[a-z]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex CyrillicCharsetDetector = new Regex("[а-я]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         public override string FormatErrorMessage(string name)
         {
             return string.Format(CultureInfo.InvariantCulture, ResPlatform.InputValidationInvalidEmail, name);
         }
+
         public override bool IsValid(object value)
         {
             if (value == null || value.ToString().Length == 0)
@@ -159,7 +164,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
                 return true;
             }
 
-            return Regex.IsMatch(value.ToString(), RegExPattern, RegexOptions.IgnoreCase);
+            return BaseAttribute.IsValid(value) && ValidCharset(value.ToString());
         }
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
@@ -167,9 +172,25 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
             var rule = new ModelClientValidationRule
             {
                 ErrorMessage = FormatErrorMessage(metadata.DisplayName),
-                ValidationType = "email"
+                ValidationType = "email",
             };
+
             return new[] { rule };
+        }
+
+        private bool ValidCharset(string value)
+        {
+            var email = new MailAddress(value);
+            var userCharsetCount = CharsetCount(email.User);
+            var domainCharsetCount = CharsetCount(email.Host);
+            return userCharsetCount <= 1 && domainCharsetCount <= 1;
+        }
+
+        private int CharsetCount(string s)
+        {
+            var latinUsed = LatinCharsetDetector.IsMatch(s) ? 1 : 0;
+            var cyrillicUsed = CyrillicCharsetDetector.IsMatch(s) ? 1 : 0;
+            return latinUsed + cyrillicUsed;
         }
     }
 

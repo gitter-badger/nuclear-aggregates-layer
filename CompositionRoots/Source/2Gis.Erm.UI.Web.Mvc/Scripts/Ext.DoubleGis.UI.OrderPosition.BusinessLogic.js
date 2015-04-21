@@ -30,7 +30,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
     },
 
     ServerData: {
-        VatRatio: null,
+        PricePerUnitWithVat: null,
         PricePerUnit: null,
         PlatformName: null,
         SnapObjectType: null,
@@ -383,7 +383,7 @@ Ext.DoubleGis.UI.OrderPosition.BusinessLogic = Ext.extend(Ext.util.Observable, {
             this.UI.Divs.DiscountSumOuter.dom.disabled = false;
             this.UI.Divs.DiscountPercentOuter.dom.disabled = false;
 
-            this.UI.Texts.PricePerUnitWithVat.setValueAdv(this.formatLocalized(this.ServerData.PricePerUnit * (1 + this.ServerData.VatRatio)));
+            this.UI.Texts.PricePerUnitWithVat.setValueAdv(this.formatLocalized(this.ServerData.PricePerUnitWithVat));
             this.ComputationalData.PricePerUnit = this.ServerData.PricePerUnit;
 
             this.setupAmountFieldAvailability();

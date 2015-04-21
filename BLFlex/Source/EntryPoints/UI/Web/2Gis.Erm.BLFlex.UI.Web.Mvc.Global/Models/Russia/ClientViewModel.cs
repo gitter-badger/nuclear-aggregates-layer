@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -16,7 +17,7 @@ using Newtonsoft.Json.Converters;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class ClientViewModel : EntityViewModelBase<Client>, IRussiaAdapted
+    public sealed class ClientViewModel : EntityViewModelBase<Client>, INameAspect, IRussiaAdapted
     {
         [PresentationLayerProperty]
         public Guid? ReplicationCode { get; set; }

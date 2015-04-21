@@ -6,7 +6,6 @@
     public enum IntegrationService
     {
         Undefined = 0,
-        ExportFlowCardExtensionsCardCommercial = 2,
         ExportFlowFinancialDataLegalEntity = 3,
         ExportFlowOrdersAdvMaterial = 4,
         ExportFlowOrdersOrder = 5,
@@ -21,6 +20,7 @@
         ExportFlowNomenclaturesNomenclatureElement = 15,
         ExportFlowNomenclaturesNomenclatureElementRelation = 16,
         ExportFlowDeliveryDataLetterSendRequest = 17,
-        ExportFlowOrdersDenialReason = 18
+        ExportFlowOrdersDenialReason = 18,
+        ExportFlowFinancialDataDebitsInfoInitial = 19,
     }
 }
