@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV
             Setters[typeof(Guid)] = (x, y) => x.TextValue = ((Guid)y).ToString();
             Setters[typeof(DateTime)] = (x, y) => x.DateTimeValue = (DateTime)y;
             Setters[typeof(DateTime?)] = (x, y) => x.DateTimeValue = (DateTime?)y;
-            Setters[typeof(IEntityType)] = (x, y) => x.NumericValue = (int)y;
+            Setters[typeof(IEntityType)] = (x, y) => x.NumericValue = ((IEntityType)y).Id;
             Setters[typeof(AccountType)] = (x, y) => x.NumericValue = (int)y;
             Setters[typeof(TaxationType)] = (x, y) => x.NumericValue = (int)y;
         }
