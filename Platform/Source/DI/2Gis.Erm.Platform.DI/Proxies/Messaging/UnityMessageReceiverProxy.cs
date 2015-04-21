@@ -5,6 +5,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Proxies;
+
 namespace DoubleGis.Erm.Platform.DI.Proxies.Messaging
 {
     public sealed class UnityMessageReceiverProxy : UnityContainerScopeProxy<IMessageReceiver>, IMessageReceiver

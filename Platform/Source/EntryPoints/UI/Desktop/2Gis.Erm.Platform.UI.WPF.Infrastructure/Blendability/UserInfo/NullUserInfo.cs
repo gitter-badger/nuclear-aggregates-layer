@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
+using NuClear.Security.API.UserContext.Profile;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.UserInfo;

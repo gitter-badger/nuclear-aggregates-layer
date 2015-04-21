@@ -1,5 +1,7 @@
 ﻿using System;
 
+using NuClear.Security.API.UserContext.Profile;
+
 namespace DoubleGis.Erm.Platform.API.Security.UserContext.Profile
 {
     [Serializable]

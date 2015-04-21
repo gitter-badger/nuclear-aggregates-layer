@@ -1,8 +1,9 @@
 ﻿using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Qds.Operations.Metadata;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
 {
