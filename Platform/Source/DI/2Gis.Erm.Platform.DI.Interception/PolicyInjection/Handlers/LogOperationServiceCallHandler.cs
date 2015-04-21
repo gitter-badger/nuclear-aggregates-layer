@@ -73,13 +73,13 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
             }
             catch (Exception ex)
             {
-                Tracer.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
+                Tracer.Fatal(ex, "Critical error occured during object copying BEFORE modification");
             }
 
             var result = getNext()(input, getNext);
             if (result.Exception != null)
             {
-                result.Exception = ExceptionDispatchInfo.Capture(result.Exception).SourceException;
+                Tracer.FatalFormat(result.Exception, "Unexpected error occured in the inner operation while logging changes: {0}", result.Exception.Message);
             }
 
             if (operationInterface != null && entities.Any() && originalEntities.Any() && result.Exception == null)
@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
                 }
                 catch (Exception ex)
                 {
-                    Tracer.Fatal(ex, "Критичная ошибка журналирования операций");
+                    Tracer.Fatal(ex, "Critical error occured during object's changes evaluating and logging");
                 }
             }
 
