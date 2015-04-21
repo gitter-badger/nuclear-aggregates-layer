@@ -148,6 +148,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic
                 .Select(order => new
                 {
                     order.BeginDistributionDate,
+                    order.SignupDate,
                     order.DestOrganizationUnit.ElectronicMedia,
                     FirmName = order.Firm.Name,
                 })
@@ -155,7 +156,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic
 
             return new PrintData
                 {
-                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate) },
+                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate, stuff.SignupDate) },
                     { "ElectronicMedia", stuff.ElectronicMedia },
                     { "Firm.Name", stuff.FirmName },
                 };
