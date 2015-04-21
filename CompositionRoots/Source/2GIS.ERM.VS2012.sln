@@ -423,6 +423,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Test.408.config = Environments\Erm.Test.408.config
 		Environments\Erm.Test.508.config = Environments\Erm.Test.508.config
 		Environments\Erm.Test.608.config = Environments\Erm.Test.608.config
+		Environments\Erm.Test.88.config = Environments\Erm.Test.88.config
 		Environments\quartz.Business.Russia.config = Environments\quartz.Business.Russia.config
 		Environments\quartz.Edu.MultiCulture.config = Environments\quartz.Edu.MultiCulture.config
 		Environments\quartz.Edu.Russia.config = Environments\quartz.Edu.Russia.config
@@ -436,6 +437,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\quartz.Test.408.config = Environments\quartz.Test.408.config
 		Environments\quartz.Test.508.config = Environments\quartz.Test.508.config
 		Environments\quartz.Test.608.config = Environments\quartz.Test.608.config
+		Environments\quartz.Test.88.config = Environments\quartz.Test.88.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{449B2EF7-9FF9-4BA5-BFFD-441A1DC29817}"
@@ -518,6 +520,38 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.UI.Web.Metadata", "..\..\BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.UI.Web.Metadata\2Gis.Erm.BLFlex.UI.Web.Metadata.csproj", "{75699A90-60A2-404A-9691-041066F1B572}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.UI.Web.Metadata", "..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Metadata\2Gis.Erm.BLCore.UI.Web.Metadata.csproj", "{995BF65F-5951-40E5-A0F0-DF8DD343116A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{3F714583-007C-4159-8204-F3DAF5DE900E}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\build\check-branch-readiness.ps1 = ..\..\build\check-branch-readiness.ps1
+		..\..\build\default.ps1 = ..\..\build\default.ps1
+		..\..\build\dynamics.ps1 = ..\..\build\dynamics.ps1
+		..\..\build\fxcop.ps1 = ..\..\build\fxcop.ps1
+		..\..\build\fxcop.ruleset = ..\..\build\fxcop.ruleset
+		..\..\build\Hotfix_Letter_template.htm = ..\..\build\Hotfix_Letter_template.htm
+		..\..\build\Hotfix_Letter_With_AddInfo_template.htm = ..\..\build\Hotfix_Letter_With_AddInfo_template.htm
+		..\..\build\integrationtests.ps1 = ..\..\build\integrationtests.ps1
+		..\..\build\merge-release-branch.ps1 = ..\..\build\merge-release-branch.ps1
+		..\..\build\metadata.dynamics.psm1 = ..\..\build\metadata.dynamics.psm1
+		..\..\build\metadata.psm1 = ..\..\build\metadata.psm1
+		..\..\build\metadata.servicebus.psm1 = ..\..\build\metadata.servicebus.psm1
+		..\..\build\metadata.taskservice.psm1 = ..\..\build\metadata.taskservice.psm1
+		..\..\build\metadata.transform.psm1 = ..\..\build\metadata.transform.psm1
+		..\..\build\metadata.web.psm1 = ..\..\build\metadata.web.psm1
+		..\..\build\migrations.ps1 = ..\..\build\migrations.ps1
+		..\..\build\nuget.ps1 = ..\..\build\nuget.ps1
+		..\..\build\Release_Letter_template.htm = ..\..\build\Release_Letter_template.htm
+		..\..\build\Release_Letter_With_AddInfo_template.htm = ..\..\build\Release_Letter_With_AddInfo_template.htm
+		..\..\build\releaseLetter-sender.psm1 = ..\..\build\releaseLetter-sender.psm1
+		..\..\build\reports.ps1 = ..\..\build\reports.ps1
+		..\..\build\run-build.ps1 = ..\..\build\run-build.ps1
+		..\..\build\searchmigrations.ps1 = ..\..\build\searchmigrations.ps1
+		..\..\build\taskservice.ps1 = ..\..\build\taskservice.ps1
+		..\..\build\unittests.ps1 = ..\..\build\unittests.ps1
+		..\..\build\versioning.ps1 = ..\..\build\versioning.ps1
+		..\..\build\web.ps1 = ..\..\build\web.ps1
+		..\..\build\wpf.ps1 = ..\..\build\wpf.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

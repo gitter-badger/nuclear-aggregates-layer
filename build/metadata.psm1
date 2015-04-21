@@ -94,6 +94,7 @@ $EnvironmentMetadata = @{
 	'Test.23' = Get-EnvironmentMetadata 'Test.23' 'Test' 'Russia' '23'
 	'Test.24' = Get-EnvironmentMetadata 'Test.24' 'Test' 'Russia' '24'
 	'Test.25' = Get-EnvironmentMetadata 'Test.25' 'Test' 'Russia' '25'
+	'Test.88' = Get-EnvironmentMetadata 'Test.88' 'Test' 'Russia' '88'
 	
 	'Test.101' = Get-EnvironmentMetadata 'Test.101' 'Test' 'Cyprus' '101'
 	'Test.102' = Get-EnvironmentMetadata 'Test.102' 'Test' 'Cyprus' '102'
