@@ -71,6 +71,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
                                                   && user.UserOrganizationUnits.Any(unit => unit.OrganizationUnitId == organizationUnitId));
         }
 
+        public Department GetUserDepartment(long userId)
+        {
+            return _finder.Find(Specs.Find.ById<User>(userId))
+                           .Select(x => x.Department)
+                           .Single();
+        }
+
         public long? GetUserOrganizationUnitId(long userId)
         {
             var singleOrganizationUnitIds = _finder.Find(Specs.Find.ById<User>(userId))

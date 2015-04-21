@@ -5193,4 +5193,7 @@
   <data name ="IncorrectPhoneNumber" xml:space="preserve">
     <value>Телефон {0} имеет некорректный формат</value>
   </data>
+  <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
+    <value>Данный тип {0} телефонии не поддерживается.</value>
+  </data>
 </root>

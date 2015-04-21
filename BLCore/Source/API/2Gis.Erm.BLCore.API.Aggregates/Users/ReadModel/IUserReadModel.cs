@@ -15,6 +15,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
         User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelege);
         User GetNotServiceUser(long userId);
         User GetOrganizationUnitDirector(long organizationUnitId);
+        Department GetUserDepartment(long userId);
         long? GetUserOrganizationUnitId(long userId);
     }
 }

@@ -6,6 +6,8 @@ using System.Security;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Dial;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 using NuClear.Tracing.API;
@@ -17,57 +19,66 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
         private readonly IUserContext _userContext;
 
         private readonly ITracer _tracer;
-
+        private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserReadModel _userReadModel;
 
         public DialOperationService(
             IUserContext userContext,
             ITracer tracer,
+            ISecurityServiceFunctionalAccess functionalAccessService,
             IUserReadModel userReadModel)
         {
             this._userContext = userContext;
             this._tracer = tracer;
+            this._functionalAccessService = functionalAccessService;
             this._userReadModel = userReadModel;
         }
 
         public void Dial(string number)
         {
-            var user = this._userReadModel.GetProfileForUser(this._userContext.Identity.Code);
-            if (string.IsNullOrEmpty(user.Phone))
+            var userProfile = this._userReadModel.GetProfileForUser(this._userContext.Identity.Code);
+            var department = _userReadModel.GetUserDepartment(_userContext.Identity.Code);
+            
+            if (string.IsNullOrEmpty(userProfile.Phone))
             {
                 throw new ArgumentException(BLResources.WorkPhoneIsNotSelected);
             }
-
-            if (!user.CanCall)
+      
+            if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.TelephonyAccess, _userContext.Identity.Code))
             {
                 throw new SecurityException(BLResources.DialingIsNotAllowed);
             }
 
-            if (string.IsNullOrEmpty(user.TelephonyAddress))
+            if (string.IsNullOrEmpty(department.TelephonyAddress))
             {
                 throw new ArgumentException(BLResources.TelephonyAddressIsNotSelected);
             }
 
-            var serverAddressPort = user.TelephonyAddress.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-            if (serverAddressPort.Count() != 2)
+            var uri = new Uri(department.TelephonyAddress);
+            
+            if (string.IsNullOrEmpty(uri.Scheme) || string.IsNullOrEmpty(uri.Host) || uri.Port == 0)
             {
                 throw new ArgumentException(BLResources.TelephonyAddressInIncorrectFormat);
             }
-
-            int serverPort;
-            if (!int.TryParse(serverAddressPort[1], out serverPort))
-            {
-                throw new ArgumentException(BLResources.TelephonyAddressInIncorrectFormat);
-            }
-
-            var serverAddress = serverAddressPort[0];
-
-            this.SendDialCommand(serverAddress, serverPort, number, user.Phone);
+            
+            this.SendDialCommand(uri.Scheme,uri.Host, uri.Port, number, userProfile.Phone);
         }
 
-        private void SendDialCommand(string address, int port, string number, string line)
+        private void SendDialCommand(string scheme,string address, int port, string number, string line)
         {
-            var command = number.MakeXmlCommand(line);
+            PhoneMode mode;
+            switch (scheme)
+            {
+                case "tapi":
+                    mode = PhoneMode.Tapi; 
+                    break;
+                case "ami":
+                    mode = PhoneMode.Ami;
+                    break;
+                default:
+                    throw new NotSupportedException(string.Format(BLResources.TelephonySchemeIsNotSupported, scheme));
+            }
+            var command = number.MakeXmlCommand(line, mode);
             var tcpClient = new TcpClient(address, port);
            
             var commandData = command.MakeBytesFromCommand();            

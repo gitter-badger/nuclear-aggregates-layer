@@ -14076,6 +14076,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Данный тип {0} телефонии не поддерживается..
+        /// </summary>
+        public static string TelephonySchemeIsNotSupported {
+            get {
+                return ResourceManager.GetString("TelephonySchemeIsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to В данный момент сервис телефонии не доступен.
         /// </summary>
         public static string TelephonyServiceInactive {

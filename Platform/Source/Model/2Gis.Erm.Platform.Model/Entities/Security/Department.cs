@@ -28,6 +28,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         public bool IsActive { get; set; }
         public long CreatedBy { get; set; }
         public long? ModifiedBy { get; set; }
+        public string TelephonyAddress { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public byte[] Timestamp { get; set; }

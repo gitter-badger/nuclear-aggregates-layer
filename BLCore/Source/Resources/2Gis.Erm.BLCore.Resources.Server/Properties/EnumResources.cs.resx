@@ -2038,4 +2038,7 @@
   <data name="PositionsGroupNone" xml:space="preserve">
     <value />
   </data>
+  <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
+    <value>Телефония</value>
+  </data>
 </root>

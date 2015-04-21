@@ -5212,4 +5212,7 @@ Periodo de la publicación: {3}.</value>
   <data name ="TelephonyAddressInIncorrectFormat" xml:space="preserve">
     <value>Адрес сервиса телефонии указан в некорректном формате</value>
   </data>
+  <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
+    <value>Данный тип {0} телефонии не поддерживается.</value>
+  </data>
 </root>
