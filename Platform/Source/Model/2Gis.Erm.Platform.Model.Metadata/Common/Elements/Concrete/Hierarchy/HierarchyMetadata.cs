@@ -11,7 +11,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Res
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy
-{    
+{
+    // TODO {all, 19.12.2014}: Убрать юайные свойства, такие как Title, Image. Заиспользовать UIElementMetadata вместо HierarchyMetadata там, где это нужно.
     public sealed class HierarchyMetadata : MetadataElement<HierarchyMetadata, HierarchyMetadataBuilder>, 
         ITitledElement, 
         IImageBoundElement,

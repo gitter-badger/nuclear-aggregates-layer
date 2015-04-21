@@ -98,6 +98,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ImportCardRelationForErmIdentity = 14608;
 
         // EntityName.FirmAddress = 164
+        [Obsolete]
         public const int SpecifyFirmAddressAdditionalServicesIdentity = 16401;
         public const int ImportFirmAddressFromServiceBusIdentity = 16402;
 
@@ -135,6 +136,11 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int CheckIfOrderPositionCanBeCreatedForOrderIdentity = 15118;
         public const int CheckIfOrderPositionCanBeModifiedIdentity = 15119;
         public const int ChangeOrderLegalPersonProfileIdentity = 15120;
+        public const int PrintBindingChangeAgreementIdentity = 15121;
+        public const int PrintFirmNameChangeAgreementIdentity = 15122;
+        public const int PrintCancellationAgreementIdentity = 15123;
+        public const int GetOrderDocumentsDebtIdentity = 15124;
+        public const int SetOrderDocumentsDebtIdentity = 15125;
 
         // EntityName.Bill = 188
         public const int CalculateBillsIdentity = 18801;
@@ -147,6 +153,10 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int ReplaceOrderPositionAdvertisementLinksIdentity = 15005;
         public const int ChangeOrderPositionBindingObjectsIdentity = 15006;
         public const int GetAvailableBinfingObjectsIdentity = 15007;
+        public const int CalculateOrderPositionPricePerUnitIdentity = 15008;
+
+        // EntityName.Position = 153
+        public const int ChangeSortingOrderIdentity = 15301;
 
         // EntityName.Price = 155
         public const int CopyPriceIdentity = 15501;
@@ -200,7 +210,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int DeleteChargesForPeriodAndProjectIdentity = 22602;
 
         public const int NotifyAboutAdvertisementElementFileChangedIdentity = 19903;
-        public const int NotifyAboutAdvertisementElementValidationStatusChangedIdentity = 19904;
+        public const int NotifyAboutAdvertisementElementRejectionIdentity = 19904;
 
         // EntityName.Project = 158
         public const int ImportBranchIdentity = 15801;
@@ -242,6 +252,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         public const int ImportFirmPromising = 19905;
         public const int ImportFirmAddresses = 19907;
+
+        // NotificationEmail = 301
+        public const int SendNotificationIdentity = 30101;
 
         // EntityName.AdvertisementElementStatus = 316
         public const int ChangeAdvertisementElementStatus = 31601;

@@ -57,6 +57,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     IsActive = x.IsActive,
                     IsDeleted = x.IsDeleted,
                     PriceName = null,
+                    SortingIndex = x.Position.SortingIndex.HasValue ? x.Position.SortingIndex.Value : int.MaxValue,
                 })
                 .QuerySettings(_filterHelper, querySettings);
         }

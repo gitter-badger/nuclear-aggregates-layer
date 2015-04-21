@@ -4,6 +4,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     contactComp: null,
     contactRelationController: null,
     reagrdingObjectController: null,
+    changeStatusOperation:undefined,
     autoHeader: {
         prefix: null,
         suffix: null,
@@ -38,7 +39,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 success: scope.refresh,
                 failure: scope.postFormFailure
             });
-         }
+        }       
         function checkDirty() {
             if (scope.form.Id.value == 0) {
                 Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
@@ -58,8 +59,8 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 scope.Items.Toolbar.disable();
                 scope.submitMode = scope.submitModes.SAVE;
                 if (scope.fireEvent('beforepost', scope) && scope.normalizeForm()) {
+                    scope.changeStatusOperation = operation;
                     scope.postForm();
-                    scope.on('postformsuccess', function () { postOperation(operation); });
                 }
                 else {
                     scope.recalcDisabling();
@@ -72,6 +73,16 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             }
         }
 
+        this.saveFormSuccess = function() {
+            if (scope.changeStatusOperation) {
+                postOperation(scope.changeStatusOperation);
+                scope.changeStatusOperation = null;
+            }
+        }
+
+        this.saveFormFailure= function() {
+            scope.changeStatusOperation = null;
+        }
 
         this.getComboboxText = function (name) {
             var element = Ext.get(name);
@@ -80,13 +91,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 return dom.options[dom.selectedIndex].text;
             }
             return null;
-        }
-        this.getTitlePrefix = function() {
-            return Ext.get("ClientName").getValue();
-        }
-        this.getTitleSuffix = function() {
-            return null;
-        }               
+        }                
         this.CompleteActivity =  function () {        
             сhangeStatus("Complete");
         }
@@ -104,34 +109,45 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 this.refresh(true);
             }
         }
-        this.autocompleteHeader = function() {
-            var prefix = this.getTitlePrefix();
-            var suffix = this.getTitleSuffix();
+       
+        
+    },
+    Build : function() {
+        Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
 
-            var headerElement = Ext.get("Title");
-            var header = headerElement.getValue() || "";
+        Ext.getCmp("Client").on("change",this.autocompleteHeader, this);
 
-            // Автозаполнение срабатывает если поле "Заголовок" - пустое или ранее было автоматически заполнено (т.е. после автозаполнения не редактировалось пользователем).
-            var shouldAutoCompleteHeader = prefix && (!header || header.trim() == this.autoHeader.build().trim());
-            this.autoHeader.prefix = prefix;
-            this.autoHeader.suffix = suffix;
-            if (shouldAutoCompleteHeader) {
-                headerElement.setValue(this.autoHeader.build());
-            }
+        if (this.contactField && this.contactComp) {
+            this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
         }
-        this.Build = function() {
-            Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
+        this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
 
-            Ext.getCmp("Client").on("change",this.autocompleteHeader, this);
+            this.on('postformsuccess', this.saveFormSuccess);
+            this.on('postformfailure', this.saveFormFailure);
 
-            if (this.contactField && this.contactComp) {
-                this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
-            }
-            this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
+        this.autocompleteHeader();
+    },
+    autocompleteHeader: function() {
+        var prefix = this.getTitlePrefix();
+        var suffix = this.getTitleSuffix();
 
-            this.autocompleteHeader();
+        var headerElement = Ext.get("Title");
+        var header = headerElement.getValue() || "";
+
+        // Автозаполнение срабатывает если поле "Заголовок" - пустое или ранее было автоматически заполнено (т.е. после автозаполнения не редактировалось пользователем).
+        var shouldAutoCompleteHeader = prefix && (!header || header.trim() == this.autoHeader.build().trim());
+        this.autoHeader.prefix = prefix;
+        this.autoHeader.suffix = suffix;
+        if (shouldAutoCompleteHeader) {
+            headerElement.setValue(this.autoHeader.build());
         }
-    }
+    },
+    getTitlePrefix: function() {
+        return Ext.get("ClientName").getValue();
+    },
+    getTitleSuffix: function() {
+            return null;
+    }      
     
     
 });

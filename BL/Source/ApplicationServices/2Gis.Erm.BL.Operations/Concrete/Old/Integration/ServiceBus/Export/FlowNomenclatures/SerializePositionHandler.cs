@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
             return new SelectSpecification<Position, IExportableEntityDto>(x => new PositionDto
             {
                 Id = x.Id,
-                Name = x.Name,
+                Name = x.Name,                
                 PlatformCode = x.Platform.DgppId,
                 SalesModel = x.SalesModel,
                 IsHidden = !x.IsActive,

@@ -367,7 +367,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
     },
     openSearchHint: function() {
-        if (this.d1isabled || this.readOnly) {
+        if (this.disabled || this.readOnly) {
             return;
         }
 
@@ -381,7 +381,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
     },
     openSearchWin: function (evt, el)
     {
-        if (this.d1isabled || this.readOnly) {
+        if (this.disabled || this.readOnly) {
              return;
         }
 

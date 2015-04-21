@@ -78,8 +78,6 @@
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusStrategiesFactory.cs" />
     <Compile Include="Concrete\AdvertisementElements\IUpdateAdvertisementElementAndSetAsReadyForVerificationOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\IChangeAdvertisementElementStatusOperationService.cs" />
-    <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
-    <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\Bills\ICalculateBillsOperationService.cs" />
     <Compile Include="Concrete\HotClients\IProcessHotClientRequestOperationService.cs" />
     <Compile Include="Concrete\Integration\Dto\AdvModelsInfo\AdvModelInRubricInfoServiceBusDto.cs" />
@@ -92,6 +90,8 @@
     <Compile Include="Concrete\LegalPersons\ValidateLegalPersonDto.cs" />
     <Compile Include="Concrete\Old\Orders\PrintForms\PrintBargainProlongationAgreementRequest.cs" />
     <Compile Include="Concrete\Deals\ISetMainLegalPersonForDealOperationService.cs" />
+    <Compile Include="Concrete\OrderPositions\Dto\OrderPositionPricePerUnitDto.cs" />
+    <Compile Include="Concrete\OrderPositions\ICalculateOrderPositionPricePerUnitOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IChangeOrderPositionBindingObjectsOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IReplaceOrderPositionAdvertisementLinksOperationService.cs" />
     <Compile Include="Concrete\OrderPositions\IGetAvailableBindingObjectsOperationService.cs" />
@@ -100,11 +100,8 @@
     <Compile Include="Concrete\Clients\ICreateClientByFirmOperationService.cs" />
     <Compile Include="Concrete\Deals\IGenerateDealNameService.cs" />
     <Compile Include="Concrete\Deals\IChangeDealStageOperationService.cs" />
-    <Compile Include="Concrete\Firms\AdditionalServiceDisplay.cs" />
-    <Compile Include="Concrete\Firms\AdditionalServicesDto.cs" />
     <Compile Include="Concrete\Firms\Dto\BlankFirmDto.cs" />
     <Compile Include="Concrete\Firms\ICreateBlankFirmsOperationService.cs" />
-    <Compile Include="Concrete\Firms\IFirmAdditionalServiceOperations.cs" />
     <Compile Include="Concrete\Integration\Dto\CardsForErm\CardAddressDto.cs" />
     <Compile Include="Concrete\HotClients\HotClientTaskDto.cs" />
     <Compile Include="Concrete\HotClients\IGetHotClientRequestOperationService.cs" />
@@ -206,8 +203,14 @@
     <Compile Include="Concrete\Orders\IRegisterOrderStateChangesOperationService.cs" />
     <Compile Include="Concrete\Orders\InvalidLegalPersonProfileForOrderException.cs" />
     <Compile Include="Concrete\Orders\IChangeOrderLegalPersonProfileOperationService.cs" />
-    <Compile Include="Concrete\Orders\LegalPersonProfileMustBeSpecifiedException.cs" />
     <Compile Include="Concrete\Orders\OrderLegalPersonProfileDto.cs" />
+    <Compile Include="Concrete\Orders\Print\IPrintCancellationAgreementOperationService.cs" />
+    <Compile Include="Concrete\Orders\Print\IPrintFirmNameChangeAgreementOperationService.cs" />
+    <Compile Include="Concrete\Orders\Print\IPrintBindingChangeAgreementOperationService.cs" />
+    <Compile Include="Concrete\Orders\Print\PrintFormDocument.cs" />
+    <Compile Include="Concrete\Positions\IChangePositionSortingOrderOperationService.cs" />
+    <Compile Include="Concrete\Positions\PositionBindingObjectTypeExtensions.cs" />
+    <Compile Include="Concrete\Positions\PositionSortingOrderDto.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Orders\IRepairOutdatedPositionsOperationService.cs" />
@@ -218,6 +221,7 @@
     <Compile Include="Concrete\Processing\Final\HotClient\HotClientFinalProcessingResultsMessage.cs" />
     <Compile Include="Concrete\HotClients\HotClientRequestDto.cs" />
     <Compile Include="Concrete\HotClients\RegardingObject.cs" />
+    <Compile Include="Concrete\Simplified\ISendNotificationOperationService.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForRevertingWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />
@@ -273,6 +277,7 @@
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainCanBeForBranchesOnlyException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainIsNotUniqueException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Deal\DealClientIsInReserveException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Price\PublishedPriceModificationException.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />
     <Compile Include="Generic\Modify\Old\EditAccountRequest.cs" />
@@ -299,9 +304,6 @@
     <Compile Include="Concrete\Old\Bargains\CloseBargainsResult.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\ExportDataForAutoMailerRequest.cs" />
     <Compile Include="Concrete\Old\Integration\AutoMailer\MailSendingType.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportFirmsRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\DgppImportTerritoriesRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\Dgpp\ExportFirmsWithActiveOrdersRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ExportRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ExportResponse.cs" />
     <Compile Include="Concrete\Old\Integration\ImportRequest.cs" />
@@ -315,8 +317,6 @@
     <Compile Include="Concrete\LegalPersons\LegalPersonValidationForExportErrorDto.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\ReplicateObjectAfterCardsImportRequest.cs" />
     <Compile Include="Concrete\Old\Integration\PostIntegrationActivities\SyncFirmAddressesRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\RabbitMq\ImportLocalMessagesFromRabbitMqRequest.cs" />
-    <Compile Include="Concrete\Old\Integration\RabbitMq\WriteFirmsWithActiveOrdersToRabbitMqRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\SerializeObjectsRequest.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\SerializeObjectsResponse.cs" />
     <Compile Include="Concrete\Old\Integration\ServiceBus\WriteDataForAutoMailerToServiceBusRequest.cs" />
@@ -385,7 +385,6 @@
     <Compile Include="Concrete\Simplified\Dictionary\Currencies\CurrencyWithRelationsDto.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Currencies\ICurrencyService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Currencies\IGetBaseCurrencyService.cs" />
-    <Compile Include="Concrete\Simplified\Dictionary\Firms\IAdditionalFirmServicesService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\IContributionTypeService.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\DTO\PlatwormWithPositionsDto.cs" />
     <Compile Include="Concrete\Simplified\Dictionary\Platforms\IPlatformService.cs" />

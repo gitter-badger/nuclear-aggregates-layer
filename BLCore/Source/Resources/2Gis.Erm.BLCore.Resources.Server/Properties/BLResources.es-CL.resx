@@ -1376,9 +1376,6 @@ Errores de bloqueo:{2}</value>
   <data name="SelectedPositionCannotBeDeniedBecauseOfAssociated" xml:space="preserve">
     <value>La posición seleccionada no puede ser bloqueada, ya que es la principal</value>
   </data>
-  <data name="LargeIcon" xml:space="preserve">
-    <value>Icono grande</value>
-  </data>
   <data name="CantAddPricePositionToPublishedPrice" xml:space="preserve">
     <value>Imposible agregar una posición en la lista de precios publicada</value>
   </data>
@@ -4101,9 +4098,6 @@ Operación realizada con éxito: {6}.</value>
   <data name="AdsCheckInvalidImageFormatOrExtension" xml:space="preserve">
     <value>El contenido del archivo de imagen no coincide con su extensión</value>
   </data>
-  <data name="CannotDeleteAdditionalFirmService" xml:space="preserve">
-    <value>No se puede eliminar el servicio '{0}', ya que se usa para {1} direcciones</value>
-  </data>
   <data name="ThemeTemplateCannotBeSkyscapper" xml:space="preserve">
     <value>No se ha podido guardar la plantilla: puede haber solo una plantilla de rascacielos</value>
   </data>
@@ -4319,9 +4313,6 @@ Operación realizada con éxito: {6}.</value>
   </data>
   <data name="AdministrationPage_TerritoryDetails" xml:space="preserve">
     <value>Creación, modificación y eliminación de los objetos "Territorio de ventas" del sistema de registro.</value>
-  </data>
-  <data name="AdministrationPage_AdditionalFirmService" xml:space="preserve">
-    <value>Servicios adicionales para empresas</value>
   </data>
   <data name="AdministrationPage_Project" xml:space="preserve">
     <value>Proyectos</value>
@@ -4929,9 +4920,6 @@ Periodo de la publicación: {3}.</value>
   <data name="CannotDeleteLegalPersonWithLinkedAccounts" xml:space="preserve">
     <value>No se puede eliminar la persona jurídica del cliente que tiene cuentas personales enlazadas</value>
   </data>
-  <data name="AdministrationPage_AdditionalFirmServiceDetails" xml:space="preserve">
-    <value>Creación, modificación y eliminación de objetos "Servicios adicionales para la empresa" del sistema de gestión.</value>
-  </data>
   <data name="InvalidAddressIsPickedForSomePositions" xml:space="preserve">
     <value>Se ha seleccionado una dirección no válida para las siguientes posiciones: {0}</value>
   </data>
@@ -5185,10 +5173,10 @@ Periodo de la publicación: {3}.</value>
   <data name="DestOrganizationUnitHasNoProject" xml:space="preserve">
     <value>El departamento de la empresa {0} no está relacionado con el proyecto.</value>
   </data>
-  <data name ="CannotSaveActivityForFirmInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForFirmInReserve" xml:space="preserve">
     <value>No es posible guardar la acción sobre la empresa en reserva</value>
   </data>
-  <data name ="CannotSaveActivityForClientInReserve" xml:space="preserve">
+  <data name="CannotSaveActivityForClientInReserve" xml:space="preserve">
     <value>No es posible guardar la acción sobre el cliente en reserva</value>
   </data>
   <data name="CancelConfirmation" xml:space="preserve">
@@ -5201,7 +5189,7 @@ Periodo de la publicación: {3}.</value>
     <value>Imposible finalizar la acción {0} en el estado "Cumplido"/"Cancelado"</value>
   </data>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
-    <value >Operación de cambio de cliente no está especificada para el tipo de entidad indicado</value>
+    <value>Operación de cambio de cliente no está especificada para el tipo de entidad indicado</value>
   </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Indique el período, modo para contabilizar la prestación de servicios y departamento de la empresa</value>
@@ -5213,9 +5201,30 @@ Periodo de la publicación: {3}.</value>
     <value>Retiro del {0} - {1} mediante el modo de prestación de servicios: '{2}' finalizado con errores</value>
   </data>
   <data name="NoLocksToWithdrawFound" xml:space="preserve">
-    <value>За период {0} по способу учета оказания услуг '{1}' не найдено блокировок для списания</value>
+    <value>Durante el período {0} por el modo de prestación de servicios '{1}' no fueron encontrados los bloqueos para el retiro</value>
+  </data>
+  <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
+    <value>Es necesario indicar por lo menos un enlace</value>
+  </data>
+  <data name="PublishedPriceCannotBeModified" xml:space="preserve">
+    <value>La lista de precios publicada no puede ser editada</value>
   </data>
   <data name="Support" xml:space="preserve">
     <value>Soporte técnico</value>
+  </data>
+  <data name="PositionAccessDenied" xml:space="preserve">
+    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+  </data>
+  <data name="ManageDocumentsDebt" xml:space="preserve">
+    <value>Gestión de la existencia de los documentos</value>
+  </data>
+  <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
+    <value>Operación no puede llevarse a cabo, ya que se está realizando recopilación</value>
+  </data>
+  <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
+    <value>Ud. está intentando de finalizar una acción planificada para el futuro, cambie el plazo o cancele, si la acción no fue cumplidaо</value>
+  </data>
+  <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
+    <value>You can't pick more than one reference object for the following positions: {0}</value>
   </data>
 </root>
