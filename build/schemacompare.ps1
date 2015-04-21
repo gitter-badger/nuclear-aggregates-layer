@@ -32,6 +32,6 @@ Task SchemaCompare {
 	
 	# copy artifacts OLAP shared folder
 	$artifactSourcePath = Get-Artifacts 'Erm.SchemaChange'
-	$artifactDestPath = Join-Path $sharedFolder (Split-Path $artifactName -Leaf)
+	$artifactDestPath = Join-Path $sharedFolder (Split-Path $artifactSourcePath -Leaf)
 	Copy-Item $artifactSourcePath $artifactDestPath -Force -Recurse
 }
