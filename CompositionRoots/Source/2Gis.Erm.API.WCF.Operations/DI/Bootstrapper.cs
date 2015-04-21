@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.BL.DI.Factories.HandleAdsState;
+using DoubleGis.Erm.BL.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
@@ -35,7 +36,6 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.File;
-using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom;
 using DoubleGis.Erm.BLCore.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
