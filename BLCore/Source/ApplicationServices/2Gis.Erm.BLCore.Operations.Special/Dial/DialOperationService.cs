@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net.Sockets;
 using System.Security;
 
@@ -61,10 +60,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                 throw new ArgumentException(BLResources.TelephonyAddressInIncorrectFormat);
             }
             
-            this.SendDialCommand(uri.Scheme,uri.Host, uri.Port, number, userProfile.Phone);
+            this.SendDialCommand(uri.Scheme, uri.Host, uri.Port, number, userProfile.Phone);
         }
 
-        private void SendDialCommand(string scheme,string address, int port, string number, string line)
+        private void SendDialCommand(string scheme, string address, int port, string number, string line)
         {
             PhoneMode mode;
             switch (scheme)
@@ -78,6 +77,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                 default:
                     throw new NotSupportedException(string.Format(BLResources.TelephonySchemeIsNotSupported, scheme));
             }
+
             var command = number.MakeXmlCommand(line, mode);
             var tcpClient = new TcpClient(address, port);
            

@@ -1,7 +1,6 @@
 ﻿using System.ServiceModel;
 using System.ServiceModel.Web;
 
-using DoubleGis.Erm.BLCore.API.Operations.Special.Dial;
 using DoubleGis.Erm.Platform.API.Core;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Dial

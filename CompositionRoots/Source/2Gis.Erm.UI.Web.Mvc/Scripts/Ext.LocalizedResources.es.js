@@ -1,4 +1,4 @@
-﻿// File updated : 02.12.2014 16:13:25
+﻿// File updated : 4/22/2015 3:10:40 PM
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -291,6 +291,7 @@ SetLimitStatusDialogConfirmation : 'Desea realmente reemplazar el estado de lím
 SomeOfTheClientsHaveDebtsAlert : '¡Atención! ¡Está intentando tomar de la reserva a un Cliente con deudas!',
 SourceEditText : 'Cambiar al código inicial.',
 SourceEditTitle : 'Código inicial',
+StartCalling : 'Осуществляется звонок',
 StartSearch : 'Comenzar la búsqueda',
 StatusLabel : '<b>Estado: </b>',
 SumRemainingMustBeNull : 'El resto del importe de la orden no es igual a cero. Es necesario distribuir el resto según las facturas',

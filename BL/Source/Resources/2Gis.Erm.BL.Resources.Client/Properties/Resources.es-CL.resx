@@ -972,4 +972,7 @@
   <data name="InvalidDateTimeText" xml:space="preserve">
     <value>Valor incorrecto. Use el formato  'DD-MM-XXXX'</value>
   </data>
+  <data name = "StartCalling" xml:space="preserve">
+    <value>Осуществляется звонок</value>
+  </data>
 </root>
