@@ -185,11 +185,14 @@
                 // очищаем формат при вставке, иначе tinymce намертво повисает
                 paste_remove_styles: true,
                 paste_remove_spans: true,
-                paste_preprocess: function (pl, o) {
-                    o.content = Ext.util.Format.stripTags(o.content);
+                paste_text_sticky_default: true,
+                paste_preprocess: function (plugin, args) {
+                    if (args.content) {
+                        //args.content = args.content.replace(/\r?\n/g, '<br>');
+                    }
                 },
 
-                force_br_newlines: true,
+                //force_br_newlines: true,
                 force_p_newlines: false,
                 forced_root_block: false,
                 convert_newlines_to_brs: true
