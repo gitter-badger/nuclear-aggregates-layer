@@ -5,8 +5,8 @@ using System.IdentityModel.Policy;
 using System.IdentityModel.Tokens;
 using System.Security.Principal;
 
-using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Security;
 
 using Microsoft.Practices.Unity;

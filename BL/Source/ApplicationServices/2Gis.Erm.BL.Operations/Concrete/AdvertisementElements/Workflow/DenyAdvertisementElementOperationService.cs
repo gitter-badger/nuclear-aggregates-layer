@@ -5,14 +5,13 @@ using DoubleGis.Erm.BL.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BL.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AdvertisementElement;
@@ -32,8 +31,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
         private readonly IDenialReasonReadModel _denialReasonReadModel;
         private readonly IDeleteAggregateRepository<AdvertisementElementDenialReason> _deleteAdvertisementElementDenialReasonsAggregateRepository;
 
-        private readonly INotifyAboutAdvertisementElementValidationStatusChangedOperationService
-            _notifyAboutAdvertisementElementValidationStatusChangedOperationService;
+        private readonly INotifyAboutAdvertisementElementRejectionOperationService _notifyAboutAdvertisementElementRejectionOperationService;
 
         public DenyAdvertisementElementOperationService(
             ISecurityServiceFunctionalAccess functionalAccessService,
@@ -43,13 +41,13 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
             IUpdateAggregateRepository<AdvertisementElementStatus> updateAdvertisementElementStatusRepository,
             ICreateAggregateRepository<AdvertisementElementDenialReason> createAdvertisementDenialReasonsAggregateRepository,
             IRegisterOrderStateChangesOperationService registerOrderStateChangesOperationService,
-            INotifyAboutAdvertisementElementValidationStatusChangedOperationService notifyAboutAdvertisementElementValidationStatusChangedOperationService,
+            INotifyAboutAdvertisementElementRejectionOperationService notifyAboutAdvertisementElementRejectionOperationService,
             IDenialReasonReadModel denialReasonReadModel,
             IDeleteAggregateRepository<AdvertisementElementDenialReason> deleteAdvertisementElementDenialReasonsAggregateRepository)
         {
             _functionalAccessService = functionalAccessService;
             _userContext = userContext;
-            _notifyAboutAdvertisementElementValidationStatusChangedOperationService = notifyAboutAdvertisementElementValidationStatusChangedOperationService;
+            _notifyAboutAdvertisementElementRejectionOperationService = notifyAboutAdvertisementElementRejectionOperationService;
             _denialReasonReadModel = denialReasonReadModel;
             _deleteAdvertisementElementDenialReasonsAggregateRepository = deleteAdvertisementElementDenialReasonsAggregateRepository;
             _updateAdvertisementElementStatusRepository = updateAdvertisementElementStatusRepository;
@@ -93,7 +91,9 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                     throw new AdvertisementElementDenyingWithInactiveReasonException(BLResources.YouCannotSpecifyInactiveDenialReason);
                 }
 
-                var currentElementDenialReasons = _advertisementReadModel.GetElementDenialReasonIds(currentStatus.Id);
+                // У статуса нет самостоятельного Id. Он использует Id ЭРМ
+                var advertisementElementId = currentStatus.Id;
+                var currentElementDenialReasons = _advertisementReadModel.GetElementDenialReasonIds(advertisementElementId);
 
                 foreach (var currentElementDenialReasonId in currentElementDenialReasons)
                 {
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                     operationScope.Added(denialReason);
                 }
 
-                var orderIds = _advertisementReadModel.GetDependedOrderIdsByAdvertisementElements(new[] { currentStatus.Id });
+                var orderIds = _advertisementReadModel.GetDependedOrderIdsByAdvertisementElements(new[] { advertisementElementId });
                 if (orderIds.Count > 0)
                 {
                     _registerOrderStateChangesOperationService.Changed(orderIds.Select(x => new OrderChangesDescriptor
@@ -115,13 +115,12 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.AdvertisementElements.Workflow
                                                                                                     ChangedAspects =
                                                                                                         new[]
                                                                                                             {
-                                                                                                                OrderValidationRuleGroup
-                                                                                                                    .AdvertisementMaterialsValidation
+                                                                                                                OrderValidationRuleGroup.AdvertisementMaterialsValidation
                                                                                                             }
                                                                                                 }));
                 }
 
-                _notifyAboutAdvertisementElementValidationStatusChangedOperationService.Notify(currentStatus.Id);
+                _notifyAboutAdvertisementElementRejectionOperationService.Notify(advertisementElementId);
 
                 operationScope.Complete();
 

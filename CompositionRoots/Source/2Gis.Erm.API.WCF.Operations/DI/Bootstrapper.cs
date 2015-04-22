@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.BL.DI.Factories.HandleAdsState;
+using DoubleGis.Erm.BL.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
@@ -37,7 +38,6 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Operations.Generic.Disqualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.File;
-using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom;
 using DoubleGis.Erm.BLCore.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
@@ -62,13 +62,10 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
@@ -90,6 +87,12 @@ using DoubleGis.Erm.WCF.BasicOperations.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
+using NuClear.Security;
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 
@@ -318,7 +321,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
         private static IUnityContainer CreateSecuritySpecific(this IUnityContainer container)
         {
             const string MappingScope = Mapping.Erm;
-            container.RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(CustomLifetime.PerOperationContext, MappingScope)
+            container.RegisterTypeWithDependencies<IUserAuthenticationService, SecurityServiceAuthentication>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceUserIdentifier, SecurityServiceFacade>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccessInternal, SecurityServiceFacade>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(CustomLifetime.PerOperationContext, MappingScope)
@@ -329,10 +332,10 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterType<ISignInByIdentityService, ExplicitlyIdentitySignInService>(CustomLifetime.PerOperationContext,
-                                    new InjectionConstructor(typeof(ISecurityServiceAuthentication), 
+                                    new InjectionConstructor(typeof(IUserAuthenticationService), 
                                                              typeof(IUserIdentityLogonService)))
                 .RegisterType<IUserImpersonationService, UserImpersonationService>(CustomLifetime.PerOperationContext,
-                                    new InjectionConstructor(typeof(ISecurityServiceAuthentication),
+                                    new InjectionConstructor(typeof(IUserAuthenticationService),
                                                              typeof(IUserIdentityLogonService)))
                 .RegisterType<IAuthorizationPolicy, UnityAuthorizationPolicy>(typeof(UnityAuthorizationPolicy).ToString(), Lifetime.Singleton);
 

@@ -8,9 +8,10 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -24,7 +25,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         public ListBranchOfficeOrganizationUnitService(
             ISecurityServiceFunctionalAccess functionalAccessService,
             IFinder finder,
-            IUserContext userContext, FilterHelper filterHelper)
+            IUserContext userContext,
+            FilterHelper filterHelper)
         {
             _functionalAccessService = functionalAccessService;
             _finder = finder;

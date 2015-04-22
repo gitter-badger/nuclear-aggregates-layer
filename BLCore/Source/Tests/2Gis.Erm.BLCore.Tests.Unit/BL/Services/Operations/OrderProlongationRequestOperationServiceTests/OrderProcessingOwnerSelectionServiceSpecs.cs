@@ -10,7 +10,7 @@ using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Model.Metadata.Operations.Identity.Specific.OrderProcessingRequest;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
+using NuClear.Security.API.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 

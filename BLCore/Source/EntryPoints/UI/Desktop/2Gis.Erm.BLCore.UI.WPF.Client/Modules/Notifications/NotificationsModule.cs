@@ -2,12 +2,13 @@
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Notifications.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Notifications.Views;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Blendability;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Notifications;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Notifications
 {

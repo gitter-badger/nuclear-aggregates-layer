@@ -1,14 +1,14 @@
 param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 
 if ($TaskList.Count -eq 0){
-	$TaskList = @('Run-CoreTeamUnitTests')
+	$TaskList = @('Build-TaskService', 'Deploy-TaskService')
 }
 if ($Properties.Count -eq 0){
 	$Properties = @{
 		'Revision' = '000000'
 		'Build' = 0
 		'Branch' = 'local'
-		'EnvironmentName' = 'Production.Russia'
+		'EnvironmentName' = 'Test.21'
 	}
 }
 
@@ -17,7 +17,7 @@ $ErrorActionPreference = 'Stop'
 #------------------------------
 cls
 
-$Properties.GlobalVersion = '2.83.1'
+$Properties.GlobalVersion = '2.85.0'
 
 $Properties.BuildFile = Join-Path $PSScriptRoot 'default.ps1'
 $Properties.Dir = @{
@@ -42,5 +42,5 @@ $Properties.EnvironmentMetadata = $EnvironmentMetadata
 	& $NugetPath @('restore', $solution.FullName, '-NonInteractive', '-Verbosity', 'quiet')
 }
 
-Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.22\tools\buildtools.psm1" -DisableNameChecking
+Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.29\tools\buildtools.psm1" -DisableNameChecking
 Run-Build $TaskList $Properties
