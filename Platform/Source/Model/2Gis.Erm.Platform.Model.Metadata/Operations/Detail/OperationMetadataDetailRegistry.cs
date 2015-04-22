@@ -199,30 +199,30 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
             if (parentEntityType.Equals(EntityType.Instance.Client()) &&
                 appendedEntityType.Equals(EntityType.Instance.Client()))
             {
-                                return new AppendMetadata();
-                        }
+                return new AppendMetadata();
+            }
 
-            if (parentEntityType.Equals(EntityType.Instance.Client()) &&
+            if (parentEntityType.Equals(EntityType.Instance.Deal()) &&
                 (appendedEntityType.Equals(EntityType.Instance.Firm()) ||
                  appendedEntityType.Equals(EntityType.Instance.LegalPerson())))
-                        {
-                                return new AppendMetadata();
-                        }
+            {
+                return new AppendMetadata();
+            }
 
             if (parentEntityType.Equals(EntityType.Instance.User()) &&
                 (appendedEntityType.Equals(EntityType.Instance.OrganizationUnit()) ||
                  appendedEntityType.Equals(EntityType.Instance.Role()) ||
                  appendedEntityType.Equals(EntityType.Instance.Territory())))
-                        {
-                                return new AppendMetadata();
-                        }
+            {
+                return new AppendMetadata();
+            }
 
             if (parentEntityType.Equals(EntityType.Instance.Theme()) &&
                 (appendedEntityType.Equals(EntityType.Instance.Category()) ||
                  appendedEntityType.Equals(EntityType.Instance.OrganizationUnit())))
-                        {
-                                return new AppendMetadata();
-                        }
+            {
+                return new AppendMetadata();
+            }
 
             return null;
         }
