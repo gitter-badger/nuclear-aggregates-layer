@@ -91,6 +91,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
                             FinalProcessings = operationsGroup
                         })
                 .Take(batchSize)
+                .AsEnumerable()
                 .Select(x => new PerformedOperationsFinalProcessingMessage
                     {
                         EntityId = x.EntityId,
