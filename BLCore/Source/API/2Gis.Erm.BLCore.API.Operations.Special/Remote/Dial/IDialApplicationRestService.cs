@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Dial
     public interface IDialApplicationRestService
     {
         [OperationContract(Name = "DialRest")]
-        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "/dial/{phone}")]
+        [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, ResponseFormat = WebMessageFormat.Json, UriTemplate = "/dial/")]
         [FaultContract(typeof(DialErrorDescription))]
         void Dial(string phone);
     }

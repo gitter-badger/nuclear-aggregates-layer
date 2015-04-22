@@ -57,11 +57,12 @@ Ext.ux.PhonecallField = Ext.extend(Ext.Component, {
 	    }
 	},
 	Call: function (number) {
-	    var url = Ext.urlAppend(Ext.SpecialOperationsServiceRestUrl + "Dial.svc/Rest/dial/" + number );
+	    var url = Ext.urlAppend(Ext.SpecialOperationsServiceRestUrl + "Dial.svc/Rest/dial/" );
 	    Ext.Ajax.request(
 	    {
 	    	url: url,
 	    	method: 'POST',
+            jsonData: {phone: number},
 	    	success: this.postRequestSuccess,
 	    	failure: this.postRequestFailure,
 	    	scope: this,
