@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Ambivalent;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
 using NuClear.Assembling.TypeProcessing;
@@ -290,7 +291,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
                             Contract = t,
                             IsInherited = inheritedContracts.Contains(t),
                             AdditionalContracts = t.GetInterfaces().Where(c => !c.IsAggregateReadModel()
-                                                                                && c.IsBoundedContext()
+                                                                                && (c.IsBoundedContext() || c.IsAdaptedType())
                                                                                 && !ModelIndicators.Boundaries.Group.All.Contains(c.IsGenericType ? c.GetGenericTypeDefinition() : c))
                         })
                         .ToArray();
