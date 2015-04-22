@@ -30,9 +30,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
                                         ITaskReadModel taskReadModel)
             : base(userContext)
         {
-            this._clientReadModel = clientReadModel;
-            this._firmReadModel = firmReadModel;
-            this._dealReadModel = dealReadModel;
+            _clientReadModel = clientReadModel;
+            _firmReadModel = firmReadModel;
+            _dealReadModel = dealReadModel;
 
             _lookupsForRegardingObjects = new Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>>
             {
