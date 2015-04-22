@@ -130,6 +130,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         public DateTime? BirthDate { get; set; }
 
+        public bool HaveTelephonyAccess { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (ContactDomainEntityDto)domainEntityDto;

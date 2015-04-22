@@ -96,6 +96,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [RequiredLocalized]
         public override LookupField Owner { get; set; }
 
+        public bool HaveTelephonyAccess { get; set; }
+
         public override bool IsSecurityRoot
         {
             get
