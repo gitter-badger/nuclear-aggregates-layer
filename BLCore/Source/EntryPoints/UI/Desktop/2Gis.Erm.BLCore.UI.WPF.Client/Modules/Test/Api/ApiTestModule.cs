@@ -22,8 +22,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.GetDomainEntityDto;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api.Settings;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
-using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
@@ -32,6 +30,7 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Config;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
@@ -79,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Api
 
         public void Run()
         {
-            var extension = _container.Resolve<QueryableContainerExtension>(Mapping.QueryableExtension);
+            var extension = _container.ResolveQueryableContainerExtension();
 
             var testSequence = new List<Action>
                 {

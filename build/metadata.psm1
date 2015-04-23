@@ -30,7 +30,7 @@ function Get-EnvironmentMetadata ($EnvName, [ValidateSet('Test', 'Int', 'Load', 
 		'2Gis.Erm.API.WCF.Operations.Special' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Operations.Special' $Index
 		'2Gis.Erm.API.WCF.Releasing' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Releasing' $Index
 		'2Gis.Erm.UI.Desktop.WPF' = Get-WebMetadata $EnvType $Country '2Gis.Erm.UI.Desktop.WPF' $Index
-		'2Gis.Erm.TaskService.Installer' = Get-TaskServiceMetadata $EnvName $EnvType $Country $Index
+		'2Gis.Erm.TaskService' = Get-TaskServiceMetadata $EnvType $Country $Index
 		'Migrations' = Get-MigrationsMetadata $Country
 		'Dynamics' = Get-DynamicsMetadata $EnvType $Country $Index
 	}

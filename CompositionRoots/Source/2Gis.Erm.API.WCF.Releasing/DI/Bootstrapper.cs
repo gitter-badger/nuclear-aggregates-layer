@@ -18,13 +18,10 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
@@ -37,6 +34,12 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
+using NuClear.Security;
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 
@@ -148,7 +151,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                             new EnsureOrderExportedStrategyContainer(
                                 new[]
                                         {
-                                            unityContainer.ResolveOne2ManyTypesByType<IEnsureOrderExportedStrategy, ServiceBusEnsureOrderExportedStrategy>()
+                                            ContainerUtils.ResolveOne2ManyTypesByType<IEnsureOrderExportedStrategy, ServiceBusEnsureOrderExportedStrategy>(unityContainer)
                                         })));
             
             return container.RegisterType<IOldOperationContextParser, OldOperationContextParser>(Lifetime.Singleton)
@@ -162,7 +165,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
         {
             const string MappingScope = Mapping.Erm;
 
-            return container.RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(CustomLifetime.PerOperationContext, MappingScope)
+            return container.RegisterTypeWithDependencies<IUserAuthenticationService, SecurityServiceAuthentication>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceUserIdentifier, SecurityServiceFacade>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccessInternal, SecurityServiceFacade>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(CustomLifetime.PerOperationContext, MappingScope)
@@ -173,10 +176,10 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(CustomLifetime.PerOperationContext, MappingScope)
                 .RegisterType<ISignInByIdentityService, ExplicitlyIdentitySignInService>(CustomLifetime.PerOperationContext,
-                                    new InjectionConstructor(typeof(ISecurityServiceAuthentication), 
+                                    new InjectionConstructor(typeof(IUserAuthenticationService), 
                                                              typeof(IUserIdentityLogonService)))
                 .RegisterType<IUserImpersonationService, UserImpersonationService>(CustomLifetime.PerOperationContext,
-                                    new InjectionConstructor(typeof(ISecurityServiceAuthentication),
+                                    new InjectionConstructor(typeof(IUserAuthenticationService),
                                                              typeof(IUserIdentityLogonService)))
                 .RegisterType<IAuthorizationPolicy, UnityAuthorizationPolicy>(typeof(UnityAuthorizationPolicy).ToString(), Lifetime.Singleton);
         }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Threading;
 
-using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Finder;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
@@ -21,7 +19,9 @@ using DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Config;
 using NuClear.Settings.API;
+using NuClear.Settings.Unity;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Platform.UI.WPF.Shell.DI
@@ -68,11 +68,8 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
 
             try
             {
-                var queryableContainerExtension = new QueryableContainerExtension();
-                container.AddExtension(queryableContainerExtension);
-                container.RegisterInstance(Mapping.QueryableExtension, queryableContainerExtension);
-
-                container.RegisterTracer(tracer)
+                container.AttachQueryableContainerExtension()
+                         .RegisterTracer(tracer)
                          .RegisterModules()
                          .RegisterType<IDocumentManager, DocumentManager>(Lifetime.Singleton)
                          .RegisterType<IDocumentsStateInfo, DocumentManager>(Lifetime.Singleton)

@@ -4,6 +4,8 @@ using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProces
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Proxies;
+
 namespace DoubleGis.Erm.Platform.DI.Proxies.PerformedOperations
 {
     public sealed class UnityOperationScopeFactoryProxy : UnityContainerScopeProxy<IOperationScopeFactory>, IOperationScopeDisposableFactory

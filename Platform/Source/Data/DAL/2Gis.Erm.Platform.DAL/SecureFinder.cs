@@ -4,9 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
@@ -112,12 +114,13 @@ namespace DoubleGis.Erm.Platform.DAL
                 throw new ArgumentNullException("querySource");
             }
 
-            if (!_userContext.Identity.SkipEntityAccessCheck)
+            var securityControlAspect = _userContext.Identity as IUserIdentitySecurityControl;
+            if (securityControlAspect != null && securityControlAspect.SkipEntityAccessCheck)
             {
-                return (TQueryable)_entityAccessService.RestrictQuery(querySource, querySource.ElementType.AsEntityName(), _userContext.Identity.Code);
+                return (TQueryable)querySource;
             }
 
-            return (TQueryable)querySource;
+            return (TQueryable)_entityAccessService.RestrictQuery(querySource, querySource.ElementType.AsEntityName(), _userContext.Identity.Code);
         }
     }
 }
