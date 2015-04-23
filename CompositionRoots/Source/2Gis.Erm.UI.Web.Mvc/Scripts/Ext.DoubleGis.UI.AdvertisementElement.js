@@ -189,7 +189,6 @@
                     o.content = Ext.util.Format.stripTags(o.content);
                 },
 
-                force_p_newlines: false,
                 forced_root_block: false,
                 convert_newlines_to_brs: true
             },
