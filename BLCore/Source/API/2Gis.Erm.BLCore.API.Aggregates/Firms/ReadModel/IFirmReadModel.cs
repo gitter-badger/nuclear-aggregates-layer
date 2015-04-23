@@ -32,6 +32,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         Dictionary<long, DepCard> GetDepCards(IEnumerable<long> depCardIds);
         Dictionary<long, FirmAddress> GetFirmAddresses(IEnumerable<long> firmAddressIds);
         Dictionary<long, Firm> GetFirms(IEnumerable<long> firmIds);
+
+        IEnumerable<Firm> GetFirmsForClientAndLinkedChild(long clientId);
         IReadOnlyDictionary<int, RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase);
         FirmContact GetFirmContact(long firmContactId);
             

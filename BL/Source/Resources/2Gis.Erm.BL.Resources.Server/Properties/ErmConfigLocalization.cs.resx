@@ -1884,4 +1884,7 @@
   <data name="ControlSetDocumentsDebt" xml:space="preserve">
     <value>Dostupnost dokumentů</value>
   </data>
+  <data name ="ControlSaveAndCreateOnBasis" xml:space="preserve">
+    <value>Сохранить и создать</value>
+  </data>
 </root>

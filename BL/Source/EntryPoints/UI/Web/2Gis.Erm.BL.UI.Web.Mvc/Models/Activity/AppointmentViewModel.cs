@@ -22,8 +22,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
     public sealed class AppointmentViewModel : EntityViewModelBase<Appointment>, ITitleAspect, IActivityStateAspect
     {
         public override byte[] Timestamp { get; set; }
-        
-        public override bool IsSecurityRoot { get { return true; } }
+
+        public override bool IsSecurityRoot
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         public override string EntityStatus
         {
@@ -65,6 +71,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         [StringLengthLocalized(256)]
         public string Location { get; set; }
 
+        public bool AttendeeClientInitialization { get; set; }
+        public bool FirmClientInitialization { get; set; }
+        public bool DealClientInitialization { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (AppointmentDomainEntityDto)domainEntityDto;
@@ -84,7 +94,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Deal));
             Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Firm));
 
-            Attendee = LookupField.FromReference((modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityName == EntityName.Contact));
+            var attendeeReference = (modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityName == EntityName.Contact);
+            Attendee = LookupField.FromReference(attendeeReference);
+
+            FirmClientInitialization = regardingObjects.IsClientInitialization(EntityName.Firm);
+            DealClientInitialization = regardingObjects.IsClientInitialization(EntityName.Deal);
+            AttendeeClientInitialization = modelDto.Attendees.IsClientInitialization(EntityName.Contact);
 
             
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel

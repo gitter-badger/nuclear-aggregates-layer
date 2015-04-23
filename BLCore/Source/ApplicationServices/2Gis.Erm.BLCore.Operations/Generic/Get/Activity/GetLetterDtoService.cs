@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
@@ -17,27 +17,32 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
-    public class GetLetterDtoService : GetDomainEntityDtoServiceBase<Letter>
+    public class GetLetterDtoService : GetActivityDtoService<Letter>
     {
         private readonly ILetterReadModel _letterReadModel;
+
+        private readonly ISecurityServiceUserIdentifier _userIdentifier;
+
         private readonly IClientReadModel _clientReadModel;
         private readonly IDealReadModel _dealReadModel;
         private readonly IFirmReadModel _firmReadModel;
-        private readonly ISecurityServiceUserIdentifier _userIdentifier;
 
         public GetLetterDtoService(IUserContext userContext,
-                                 ILetterReadModel letterReadModel,
-                                 IClientReadModel clientReadModel,
-                                 IDealReadModel dealReadModel,
-                                 IFirmReadModel firmReadModel,
-                                 ISecurityServiceUserIdentifier userIdentifier)
-            : base(userContext)
+                                   IAppointmentReadModel appointmentReadModel,
+                                   IClientReadModel clientReadModel,
+                                   IFirmReadModel firmReadModel,
+                                   IDealReadModel dealReadModel,
+                                   ILetterReadModel letterReadModel,
+                                   ISecurityServiceUserIdentifier userIdentifier,
+                                   IPhonecallReadModel phonecallReadModel,
+                                   ITaskReadModel taskReadModel)
+            : base(userContext, appointmentReadModel, clientReadModel, firmReadModel, dealReadModel, letterReadModel, phonecallReadModel, taskReadModel)
         {
             _letterReadModel = letterReadModel;
-            _clientReadModel = clientReadModel;
-            _dealReadModel = dealReadModel;
-            _firmReadModel = firmReadModel;
             _userIdentifier = userIdentifier;
+            _clientReadModel = clientReadModel;
+            _firmReadModel = firmReadModel;
+            _dealReadModel = dealReadModel;
         }
 
         protected override IDomainEntityDto<Letter> GetDto(long entityId)
@@ -48,7 +53,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 throw new InvalidOperationException("The letter does not exist for the specified ID.");
             }
 
-            var regardingObjects = _letterReadModel.GetRegardingObjects(entityId);
             var sender = _letterReadModel.GetSender(entityId);
             var recipient = _letterReadModel.GetRecipient(entityId);
 
@@ -60,9 +64,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     ScheduledOn = letter.ScheduledOn,
                     Priority = letter.Priority,
                     Status = letter.Status,
-                    RegardingObjects = AdaptReferences(regardingObjects),
-                    SenderRef = ToEntityReference(sender),
-                    RecipientRef = ToEntityReference(recipient),
+                    RegardingObjects = GetRegardingObjects(EntityName.Letter, entityId),
+                    SenderRef = sender != null ? EmbedEntityNameIfNeeded(sender.ToEntityReference<Letter>()) : null,
+                    RecipientRef = recipient != null ? EmbedEntityNameIfNeeded(recipient.ToEntityReference<Letter>()) : null,
 
                     OwnerRef = new EntityReference { Id = letter.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = letter.CreatedBy, Name = null },
@@ -78,66 +82,45 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         protected override IDomainEntityDto<Letter> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
             var userInfo = UserContext.Identity as IUserInfo ?? UserInfo.Empty;
-            var dto = new LetterDomainEntityDto
-                {
-                    ScheduledOn = DateTime.Now,
-                    Priority = ActivityPriority.Average,
-                    Status = ActivityStatus.InProgress,
-                    SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityName = EntityName.User }
-                };
+            return new LetterDomainEntityDto
+                       {
+                           ScheduledOn = DateTime.Now,
+                           Priority = ActivityPriority.Average,
+                           Status = ActivityStatus.InProgress,
+                           SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityName = EntityName.User },
 
-            var regardingObject = parentEntityName.CanBeRegardingObject() ? ToEntityReference(parentEntityName, parentEntityId) : null;
-            if (regardingObject != null)
+                           RegardingObjects = GetRegardingObjects(parentEntityName, parentEntityId),
+                           RecipientRef = GetAttandees(parentEntityName, parentEntityId).FirstOrDefault(),
+                       };
+        }
+        
+        private EntityReference EmbedEntityNameIfNeeded(EntityReference reference)
+        {
+            if (reference.Id != null && reference.Name == null)
             {
-                dto.RegardingObjects = new[] { regardingObject };
+                reference.Name = ReadEntityName(reference.EntityName, reference.Id.Value);
             }
 
-            var recipient = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;
-            if (recipient != null)
-            {
-                dto.RecipientRef = recipient;
-            }
-
-            return dto;
+            return reference;
         }
 
-        private IEnumerable<EntityReference> AdaptReferences(IEnumerable<EntityReference<Letter>> references)
+        private string ReadEntityName(EntityName entityName, long entityId)
         {
-            return references.Select(x => ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
-        }
-
-        private EntityReference ToEntityReference(EntityReference<Letter> reference)
-        {
-            return reference != null ? ToEntityReference(reference.TargetEntityName, reference.TargetEntityId) : null;
-        }
-
-        private EntityReference ToEntityReference(EntityName entityName, long? entityId)
-        {
-            if (!entityId.HasValue) return null;
-
-            string name;
             switch (entityName)
             {
                 case EntityName.Client:
-                    name = _clientReadModel.GetClientName(entityId.Value);
-                    break;
+                    return _clientReadModel.GetClientName(entityId);
                 case EntityName.Contact:
-                    name = _clientReadModel.GetContactName(entityId.Value);
-                    break;
+                    return _clientReadModel.GetContactName(entityId);
                 case EntityName.Deal:
-                    name = _dealReadModel.GetDeal(entityId.Value).Name;
-                    break;
+                    return _dealReadModel.GetDeal(entityId).Name;
                 case EntityName.Firm:
-                    name = _firmReadModel.GetFirmName(entityId.Value);
-                    break;
+                    return _firmReadModel.GetFirmName(entityId);
                 case EntityName.User:
-                    name = (_userIdentifier.GetUserInfo(entityId) ?? UserInfo.Empty).DisplayName;
-                    break;
+                    return (_userIdentifier.GetUserInfo(entityId) ?? UserInfo.Empty).DisplayName;                    
                 default:
-                    return null;
+                    throw new ArgumentOutOfRangeException("entityName");
             }
-
-            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
         }
     }
 }

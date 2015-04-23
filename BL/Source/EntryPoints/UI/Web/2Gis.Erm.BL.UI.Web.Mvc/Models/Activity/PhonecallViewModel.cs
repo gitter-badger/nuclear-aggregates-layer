@@ -65,6 +65,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         public LookupField Firm { get; set; }
         public LookupField Contact { get; set; }
 
+        public bool FirmClientInitialization { get; set; }
+        public bool DealClientInitialization { get; set; }
+        public bool RecipientClientInitialization { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (PhonecallDomainEntityDto)domainEntityDto;
@@ -82,6 +86,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Deal));
             Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Firm));
             Contact = LookupField.FromReference(modelDto.RecipientRef);
+
+            FirmClientInitialization = regardingObjects.IsClientInitialization(EntityName.Firm);
+            DealClientInitialization = regardingObjects.IsClientInitialization(EntityName.Deal);
+            RecipientClientInitialization = modelDto.RecipientRef.IsClientInitialization(EntityName.Contact);        
 
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be it there anyway?

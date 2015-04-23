@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -15,36 +15,39 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
-    public class GetPhonecallDtoService : GetDomainEntityDtoServiceBase<Phonecall>
+    public class GetPhonecallDtoService : GetActivityDtoService<Phonecall>
     {
-        private readonly IPhonecallReadModel _activityReadModel;
+        private readonly IPhonecallReadModel _phonecallReadModel;
+
         private readonly IClientReadModel _clientReadModel;
         private readonly IDealReadModel _dealReadModel;
         private readonly IFirmReadModel _firmReadModel;
 
         public GetPhonecallDtoService(IUserContext userContext,
-                                      IPhonecallReadModel activityReadModel,
+                                      IAppointmentReadModel appointmentReadModel,
                                       IClientReadModel clientReadModel,
+                                      IFirmReadModel firmReadModel,
                                       IDealReadModel dealReadModel,
-                                      IFirmReadModel firmReadModel)
-            : base(userContext)
+                                      ILetterReadModel letterReadModel,
+                                      IPhonecallReadModel phonecallReadModel,
+                                      ITaskReadModel taskReadModel)
+            : base(userContext, appointmentReadModel, clientReadModel, firmReadModel, dealReadModel, letterReadModel, phonecallReadModel, taskReadModel)
         {
-            _activityReadModel = activityReadModel;
+            _phonecallReadModel = phonecallReadModel;
             _clientReadModel = clientReadModel;
-            _dealReadModel = dealReadModel;
             _firmReadModel = firmReadModel;
+            _dealReadModel = dealReadModel;
         }
 
         protected override IDomainEntityDto<Phonecall> GetDto(long entityId)
         {
-            var phonecall = _activityReadModel.GetPhonecall(entityId);
+            var phonecall = _phonecallReadModel.GetPhonecall(entityId);
             if (phonecall == null)
             {
                 throw new InvalidOperationException("The phonecall does not exist for the specified ID.");
             }
 
-            var regardingObjects = _activityReadModel.GetRegardingObjects(entityId);
-            var recipient = _activityReadModel.GetRecipient(entityId);
+            var recipient = _phonecallReadModel.GetRecipient(entityId);
 
             return new PhonecallDomainEntityDto
                 {
@@ -55,9 +58,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Priority = phonecall.Priority,
                     Purpose = phonecall.Purpose,
                     Status = phonecall.Status,
-                    RegardingObjects = AdaptReferences(regardingObjects),
-                    RecipientRef = recipient != null ? ToEntityReference(recipient.TargetEntityName, recipient.TargetEntityId) : null,
-
+                    RegardingObjects = GetRegardingObjects(EntityName.Phonecall, entityId),
+                    RecipientRef = recipient != null ? EmbedEntityNameIfNeeded(recipient.ToEntityReference<Phonecall>()) : null,
                     OwnerRef = new EntityReference { Id = phonecall.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = phonecall.CreatedBy, Name = null },
                     CreatedOn = phonecall.CreatedOn,
@@ -71,57 +73,42 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Phonecall> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            var dto = new PhonecallDomainEntityDto
-                {
-                    ScheduledOn = DateTime.Now,
-                    Priority = ActivityPriority.Average,
-                    Status = ActivityStatus.InProgress,
-                };
+            return new PhonecallDomainEntityDto
+                       {
+                           ScheduledOn = DateTime.Now,
+                           Priority = ActivityPriority.Average,
+                           Status = ActivityStatus.InProgress,
 
-            var regardingObject = parentEntityName.CanBeRegardingObject() ? ToEntityReference(parentEntityName, parentEntityId) : null;
-            if (regardingObject != null)
-            {
-                dto.RegardingObjects = new[] { regardingObject };
-            }
-
-            var recipient = parentEntityName.CanBeContacted() ? ToEntityReference(parentEntityName, parentEntityId) : null;
-            if (recipient != null)
-            {
-                dto.RecipientRef = recipient;
-            }
-
-            return dto;
+                           RegardingObjects = GetRegardingObjects(parentEntityName, parentEntityId),
+                           RecipientRef = GetAttandees(parentEntityName, parentEntityId).FirstOrDefault(),
+                       };
         }
 
-        private IEnumerable<EntityReference> AdaptReferences(IEnumerable<EntityReference<Phonecall>> references)
+        private EntityReference EmbedEntityNameIfNeeded(EntityReference reference)
         {
-            return references.Select(x => ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
+            if (reference.Id != null && reference.Name == null)
+            {
+                reference.Name = ReadEntityName(reference.EntityName, reference.Id.Value);
+            }
+
+            return reference;
         }
 
-        private EntityReference ToEntityReference(EntityName entityName, long? entityId)
+        private string ReadEntityName(EntityName entityName, long entityId)
         {
-            if (!entityId.HasValue) return null;
-
-            string name;
             switch (entityName)
             {
                 case EntityName.Client:
-                    name = _clientReadModel.GetClientName(entityId.Value);
-                    break;
+                    return _clientReadModel.GetClientName(entityId);
                 case EntityName.Contact:
-                    name = _clientReadModel.GetContactName(entityId.Value);
-                    break;
+                    return _clientReadModel.GetContactName(entityId);
                 case EntityName.Deal:
-                    name = _dealReadModel.GetDeal(entityId.Value).Name;
-                    break;
+                    return _dealReadModel.GetDeal(entityId).Name;
                 case EntityName.Firm:
-                    name = _firmReadModel.GetFirmName(entityId.Value);
-                    break;
+                    return _firmReadModel.GetFirmName(entityId);
                 default:
-                    return null;
+                    throw new ArgumentOutOfRangeException("entityName");
             }
-
-            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
         }
     }
 }

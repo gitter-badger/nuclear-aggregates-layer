@@ -162,6 +162,7 @@
     <Compile Include="Models\Activity\AppointmentViewModel.cs" />
     <Compile Include="Models\Activity\LetterViewModel.cs" />
     <Compile Include="Models\Activity\PhonecallViewModel.cs" />
+    <Compile Include="Models\Activity\LookupAutoUpdateExtension.cs" />
     <Compile Include="Models\Activity\TaskViewModel.cs" />
     <Compile Include="Models\AdsTemplatesAdsElementTemplateViewModel.cs" />
     <Compile Include="Models\AdvertisementElementPreviewModel.cs" />
