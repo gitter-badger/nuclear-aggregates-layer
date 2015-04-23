@@ -189,5 +189,10 @@ namespace DoubleGis.Erm.TaskService.Settings
                 return new ConnectionStringSettings("SchedulerData", jobStoreConnectionStringBuilder.ConnectionString, "SqlServer-20");
             }
         }
+
+        string IPersistentStoreSettings.TablePrefix
+        {
+            get { return "Quartz."; }
+        }
     }
 }
