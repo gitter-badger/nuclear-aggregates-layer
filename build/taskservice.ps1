@@ -7,6 +7,8 @@ Import-Module "$BuildToolsRoot\modules\msbuild.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\msdeploy.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\metadata.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\versioning.psm1" -DisableNameChecking
+Import-Module "$BuildToolsRoot\modules\winrm.psm1" -DisableNameChecking
+Import-Module "$BuildToolsRoot\modules\winservice.psm1" -DisableNameChecking
 
 Properties { $OptionTaskService = $true }
 
@@ -109,67 +111,8 @@ function Get-QuartzConfigs {
 	return $quartzConfigs
 }
 
-Task Remove-TaskService -Precondition { $OptionTaskService } {
-	$remoteScriptBlock = {
-		param($environmentName)
-		
-		Set-StrictMode -Version Latest
-		$ErrorActionPreference = 'Stop'
-		#------------------------------
+Task Deploy-TaskService -Depends Import-WinServiceModule, Take-TaskServiceOffline, Remove-TaskService -Precondition { $OptionTaskService } {
 
-		$service = Get-WmiObject Win32_Service -Filter "name like '%$environmentName[-_]%' and startmode!='disabled'"
-		if ($service -is [System.Array] -and $service.Length -ne 1){
-			throw "Found more than one service with name similar to $environmentName"
-		}
-		if ($service -eq $null){
-			# fresh install, nothing to remove
-			return
-		}
-
-		if ($service.state -ne 'stopped'){
-			throw "Can't delete service $($service.name), service is running"
-		}
-
-		$serviceResult = $service.delete()
-		if ($serviceResult.returnvalue -ne 0){
-			throw "Can't delete service $($service.Name), error code $($serviceResult.returnvalue)"
-		}
-
-		$serviceDir = Split-Path $service.pathname.Trim('"')
-		rd $serviceDir -Recurse -Force
-	}
-	
-	$environmentName = $global:Context.EnvironmentName
-	
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
-	foreach($targetHost in $entryPointMetadata.TargetHosts){
-		Invoke-Command `
-		-ComputerName $targetHost `
-		-Args $environmentName `
-		-ScriptBlock $remoteScriptBlock
-	}
-}
-
-Task Deploy-TaskService -Depends Take-TaskServiceOffline, Remove-TaskService -Precondition { $OptionTaskService } {
-
-	$remoteScriptBlock = {
-		param($name, $displayName, $servicePath)
-		
-		Set-StrictMode -Version Latest
-		$ErrorActionPreference = 'Stop'
-		#------------------------------
-
-		$emptyPassword = New-Object System.Security.SecureString
-		$credential = New-Object System.Management.Automation.PSCredential('NT AUTHORITY\NETWORK SERVICE', $emptyPassword)
-
-		$service = New-Service `
-			-Name $name `
-			-DisplayName $displayName `
-			-BinaryPathName (Invoke-Expression $servicePath) `
-			-StartupType 'Automatic' `
-			-Credential $credential
-	}
-	
 	$sourceDirPath = Get-Artifacts '2GIS ERM Task Service'
 	$serviceExeName = Get-ChildItem $sourceDirPath -Filter '*.exe'
 	
@@ -191,109 +134,55 @@ Task Deploy-TaskService -Depends Take-TaskServiceOffline, Remove-TaskService -Pr
 		-Source "dirPath=""$sourceDirPath""" `
 		-Dest "dirPath=""$destDirPath""" `
 		-HostName $targetHost
-		
-		# install on remote host
-		Invoke-Command `
-		-ComputerName $targetHost `
-		-Args $serviceName, $serviceDisplayName, $destServicePath `
-		-ScriptBlock $remoteScriptBlock
+
+		$session = Get-CachedSession $targetHost
+		Invoke-Command $session { Create-WindowsService $using:serviceName $using:serviceDisplayName $using:destServicePath }
 	}
 }
 
-Task Take-TaskServiceOffline -Precondition { $OptionTaskService } {
+Task Remove-TaskService -Depends Import-WinServiceModule -Precondition { $OptionTaskService } {
 
-	$remoteScriptBlock = {
-		param($EnvironmentName)
-		
-		Set-StrictMode -Version Latest
-		$ErrorActionPreference = 'Stop'
-		#------------------------------
-
-		$service = Get-WmiObject Win32_Service -Filter "name like '%$EnvironmentName[-_]%' and startmode!='disabled'"
-		if ($service -is [System.Array] -and $service.Length -ne 1){
-			throw "Found more than one service with name similar to $EnvironmentName"
-		}
-		if ($service -eq $null){
-			# fresh install, nothing to stop
-			return
-		}
-
-		if ($service.state -eq 'stopped'){
-			# already stopped
-			return
-		}
-
-		$serviceController = Get-Service $service.name
-		$timeout = New-TimeSpan -Seconds 30
-		try{
-			$serviceController.Stop()
-        	$serviceController.WaitForStatus('Stopped', $timeout)
-		}
-		catch [System.ServiceProcess.TimeoutException] {
-
-			Write-Host "Can't stop service $($service.name), timeout $timeout, killing process by pid $($service.ProcessId)"
-			Stop-Process -Id $service.ProcessId -Force
-		}
-	}
-
-	$environmentName = $global:Context.EnvironmentName
+	$serviceName = $global:Context.EnvironmentName
 
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
 	foreach($targetHost in $entryPointMetadata.TargetHosts){
-
-		# stop service on remote host
-		Invoke-Command `
-		-ComputerName $targetHost `
-		-Args $environmentName `
-		-ScriptBlock $remoteScriptBlock
+		
+		$session = Get-CachedSession $targetHost
+		Invoke-Command $session { Delete-WindowsService $using:serviceName }
 	}
 }
 
-Task Take-TaskServiceOnline -Precondition { $OptionTaskService } {
+Task Take-TaskServiceOffline -Depends Import-WinServiceModule -Precondition { $OptionTaskService } {
 
-	$remoteScriptBlock = {
-		param($EnvironmentName)
+	$serviceName = $global:Context.EnvironmentName
 
-		Set-StrictMode -Version Latest
-		$ErrorActionPreference = 'Stop'
-		#------------------------------
-
-		$WaitAttempts = 5
-		for ($i = 0; $i -lt $WaitAttempts; $i++){
-		
-			$service = Get-WmiObject Win32_Service -Filter "name like '%$EnvironmentName[-_]%' and startmode!='disabled'"
-			if ($service -is [System.Array] -and $service.Length -ne 1){
-				throw "Found more than one service $EnvironmentName"
-			}
-
-			if ($service -ne $null){
-				break
-			} else {
-				Write-Host "Cannot found just installed service with name similar to $EnvironmentName (attempt $($i + 1))"
-				Start-Sleep -Second 5
-			}
-		}
-		
-		if ($i -eq $WaitAttempts){
-			throw "Cannot found just installed service with name similar to $EnvironmentName after $WaitAttempts attempts"
-		}
-
-		if ($service.state -eq 'stopped'){
-			$serviceResult = $service.startService()
-			if ($serviceResult.returnvalue -ne 0){
-				throw "Can't start service $($service.name), error code $($serviceResult.returnvalue)"
-	        }
-		}
-	}
-	
-	$environmentName = $global:Context.EnvironmentName
 	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
 	foreach($targetHost in $entryPointMetadata.TargetHosts){
 		
-		# start service on remote host
-		Invoke-Command `
-		-ComputerName $targetHost `
-		-Args $environmentName `
-		-ScriptBlock $remoteScriptBlock
+		$session = Get-CachedSession $targetHost
+		Invoke-Command $session { Stop-WindowsService $using:serviceName }
+	}
+}
+
+Task Take-TaskServiceOnline -Depends Import-WinServiceModule -Precondition { $OptionTaskService } {
+
+	$serviceName = $global:Context.EnvironmentName
+
+	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
+	foreach($targetHost in $entryPointMetadata.TargetHosts){
+		
+		$session = Get-CachedSession $targetHost
+		Invoke-Command $session { Start-WindowsService $using:serviceName }
+	}
+}
+
+Task Import-WinServiceModule {
+
+	$module = Get-Module 'winservice'
+
+	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
+	foreach($targetHost in $entryPointMetadata.TargetHosts){
+		$session = Get-CachedSession $targetHost
+		Import-ModuleToSession $session $module
 	}
 }
