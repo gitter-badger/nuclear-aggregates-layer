@@ -4,11 +4,12 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Security.API.UserContext;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -51,8 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Status = appointment.Status,
                     RegardingObjects = GetRegardingObjects(EntityName.Appointment, entityId),
                     Attendees = GetAttandees(EntityName.Appointment, entityId),
-
-                    OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name =null},
+                    OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = appointment.CreatedBy, Name = null },
                     CreatedOn = appointment.CreatedOn,
                     ModifiedByRef = new EntityReference { Id = appointment.ModifiedBy, Name = null },
@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                        {
                            Priority = ActivityPriority.Average,
                            ScheduledStart = now,
-                           ScheduledEnd = now.Add(TimeSpan.FromMinutes(15)),
+                           ScheduledEnd = now.Add(TimeSpan.FromHours(1)),
                            Status = ActivityStatus.InProgress,
                               
                            RegardingObjects = GetRegardingObjects(parentEntityName, parentEntityId),

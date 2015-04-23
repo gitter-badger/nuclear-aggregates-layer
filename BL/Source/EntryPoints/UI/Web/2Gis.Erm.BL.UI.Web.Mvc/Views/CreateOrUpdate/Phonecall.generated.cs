@@ -66,77 +66,62 @@ WriteLiteral("\r\n\r\n");
 
 DefineSection("CardScripts", () => {
 
-WriteLiteral("\r\n    <script");
+WriteLiteral("    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 194), Tuple.Create("\"", 251)
-, Tuple.Create(Tuple.Create("", 200), Tuple.Create("/Scripts/Ext.ux.TimeComboBox.js?", 200), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 198), Tuple.Create("\"", 287)
+, Tuple.Create(Tuple.Create("", 204), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?", 204), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-, Tuple.Create(Tuple.Create("", 232), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+  , Tuple.Create(Tuple.Create("", 268), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 232), false)
+, 268), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 298), Tuple.Create("\"", 387)
-, Tuple.Create(Tuple.Create("", 304), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?", 304), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 334), Tuple.Create("\"", 423)
+, Tuple.Create(Tuple.Create("", 340), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ContactRelationController.js?", 340), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-  , Tuple.Create(Tuple.Create("", 368), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+  , Tuple.Create(Tuple.Create("", 404), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 368), false)
+, 404), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 434), Tuple.Create("\"", 523)
-, Tuple.Create(Tuple.Create("", 440), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ContactRelationController.js?", 440), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 470), Tuple.Create("\"", 546)
+, Tuple.Create(Tuple.Create("", 476), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?", 476), true)
             
             #line 12 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-  , Tuple.Create(Tuple.Create("", 504), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 527), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 504), false)
+, 527), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 570), Tuple.Create("\"", 646)
-, Tuple.Create(Tuple.Create("", 576), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?", 576), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 593), Tuple.Create("\"", 666)
+, Tuple.Create(Tuple.Create("", 599), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.Phonecall.js?", 599), true)
             
             #line 13 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-, Tuple.Create(Tuple.Create("", 627), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 647), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 627), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 693), Tuple.Create("\"", 766)
-, Tuple.Create(Tuple.Create("", 699), Tuple.Create("/Scripts/Activity/Ext.DoubleGis.UI.Phonecall.js?", 699), true)
-            
-            #line 14 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-, Tuple.Create(Tuple.Create("", 747), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 747), false)
+, 647), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -156,7 +141,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n        Ext.onReady(function() {\r\n            var cardSettings = ");
 
             
-            #line 21 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 20 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
                           Write(Html.WriteJson(Model.ViewConfig.CardSettings));
 
             
@@ -179,14 +164,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1294), Tuple.Create("\"", 1330)
+WriteAttribute("title", Tuple.Create(" title=\"", 1195), Tuple.Create("\"", 1231)
             
-            #line 31 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-, Tuple.Create(Tuple.Create("", 1302), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 30 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+, Tuple.Create(Tuple.Create("", 1203), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1302), false)
+, 1203), false)
 );
 
 WriteLiteral(">\r\n");
@@ -194,7 +179,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 32 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 31 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.HiddenFor(m => m.Id));
 
             
@@ -205,7 +190,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 33 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 32 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.HiddenFor(m => m.Status));
 
             
@@ -214,13 +199,13 @@ WriteLiteral("        ");
 WriteLiteral("\r\n        \r\n");
 
             
-            #line 35 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 34 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 34 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
           
             var isOwnerAndNameSortFields = new[] { new LookupSortInfo { Direction = ListSortDirection.Descending, Field = "IsOwner" }, new LookupSortInfo { Direction = ListSortDirection.Ascending, Field = "Name" } };
             var isOwnerAndFullNameSortFields = new[] { new LookupSortInfo { Direction = ListSortDirection.Descending, Field = "IsOwner" }, new LookupSortInfo { Direction = ListSortDirection.Ascending, Field = "FullName" } };
@@ -233,7 +218,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 40 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 39 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionHead("regardingObjectHeader", BLResources.TitleRegarding));
 
             
@@ -242,13 +227,13 @@ WriteLiteral("        ");
 WriteLiteral("\r\n");
 
             
-            #line 41 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 40 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 41 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 40 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
           
             var firmDataFields = new[]
                                      {
@@ -266,7 +251,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 50 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 49 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(
           @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ExcludeReserve=true", DefaultSortFields = isOwnerAndNameSortFields }),
           @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.FirmClientInitialization,  ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields, DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
@@ -279,7 +264,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 53 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 52 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.DealClientInitialization, ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields })));
 
             
@@ -290,7 +275,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 55 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 54 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionHead("planHeader", BLResources.TitlePlan));
 
             
@@ -301,7 +286,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 56 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 55 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Purpose, FieldFlex.lone, null, EnumResources.ResourceManager)));
 
             
@@ -312,7 +297,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 57 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 56 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone)));
 
             
@@ -323,10 +308,10 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 58 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 57 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
-                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = CalendarSettings.TimeSettings.WorkHours }),
             @Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager)
             ));
 
@@ -338,7 +323,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 63 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 62 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Contact, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.RecipientClientInitialization, ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields })));
 
             
@@ -349,7 +334,7 @@ WriteLiteral("\r\n\r\n");
 WriteLiteral("        ");
 
             
-            #line 65 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 64 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionHead("resultHeader", BLResources.TitleResult));
 
             
@@ -360,7 +345,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 66 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+            #line 65 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } })));
 
             
