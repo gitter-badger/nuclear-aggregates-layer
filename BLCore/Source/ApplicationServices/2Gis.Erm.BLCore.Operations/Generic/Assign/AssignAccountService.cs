@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 
                     var accountOwnerCode = _finder.Find(Specs.Find.ById<Account>(entityId)).Select(x => x.OwnerCode).Single();
                     var securityControlAspect = _userContext.Identity as IUserIdentitySecurityControl;
-                    if (securityControlAspect == null || securityControlAspect.SkipEntityAccessCheck)
+                    if (securityControlAspect == null || !securityControlAspect.SkipEntityAccessCheck)
                     {
                         var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
                                                                                      EntityName.Account,
