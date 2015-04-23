@@ -15,21 +15,35 @@ Task Build-TaskService -Precondition { $OptionTaskService } -Depends Update-Asse
 
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.TaskService'
 
-	$projectDir = Split-Path $ProjectFileName
+	$configXmls = Get-ConfigXmls $projectFileName
 
-	$configFileName1 = Join-Path $projectDir 'log4net.config'
-	$customXml1 = Transform-Config $configFileName1
-	$configFileName2 = Join-Path $projectDir 'app.config'
-	$customXml2 = Transform-Config $configFileName2
-	$configFileName3 = Join-Path $projectDir 'quartz.config'
-	$customXml3 = Transform-QuartzConfig $configFileName3
-	$configXmls = @($customXml1, $customXml2, $customXml3)
-	
 	$buildFileName = Create-BuildFile $ProjectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXmls
 	Invoke-MSBuild $buildFileName
 	
 	$convensionalArtifactName = Join-Path (Split-Path $projectFileName) 'bin\Release'
 	Publish-Artifacts $convensionalArtifactName '2GIS ERM Task Service'
+}
+
+function Get-ConfigXmls ($ProjectFileName){
+	$projectDir = Split-Path $ProjectFileName
+
+	$configXmls = @()
+	$configFileName1 = Join-Path $projectDir 'log4net.config'
+	if (Test-Path $configFileName1){
+		$configXmls += Transform-Config $configFileName1
+	}
+
+	$configFileName2 = Join-Path $projectDir 'app.config'
+	if (Test-Path $configFileName2){
+		$configXmls += Transform-Config $configFileName2
+	}
+
+	$configFileName3 = Join-Path $projectDir 'quartz.config'
+	if (Test-Path $configFileName3){
+		$configXmls += Transform-QuartzConfig $configFileName3
+	}
+
+	return $configXmls
 }
 
 # TODO: обобщить с Transform-Config в модуле transform.ps1
