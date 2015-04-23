@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
 {
     internal static class CommandConverterExtension
-    {        
+    {
+        private static readonly Regex RegStatusNumberPattern = new Regex(@"Status=""(\d)""", RegexOptions.Compiled);
+
         public static string MakeXmlCommand(this string phone, string line, PhoneMode mode)
         {
             var xmlCommand = string.Format(
@@ -33,6 +36,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
             commandBytes.CopyTo(bytes, SizePrefixLength);
 
             return bytes;
+        }
+
+        public static PhoneSessionStatus GetStatusFromResponse(this string messageText)
+        {
+            var result = RegStatusNumberPattern.Match(messageText);
+            return (PhoneSessionStatus)int.Parse(result.Groups[1].Value);
         }
     }
 }

@@ -60,6 +60,7 @@
     <Compile Include="BlCoreOperationsSpecialAssembly.cs" />
     <Compile Include="CostCalculation\OrderCostCalculationOperationService.cs" />
     <Compile Include="CostCalculation\OrderPositionCostCalculationOperationService.cs" />
+    <Compile Include="Dial\PhoneSessionStatus.cs" />
     <Compile Include="FirmInfo\GetFirmInfoOperationService.cs" />
     <Compile Include="Dial\CommandConverterExtension.cs" />
     <Compile Include="Dial\CommandType.cs" />
