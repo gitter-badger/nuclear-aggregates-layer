@@ -42,5 +42,5 @@ $Properties.EnvironmentMetadata = $EnvironmentMetadata
 	& $NugetPath @('restore', $solution.FullName, '-NonInteractive', '-Verbosity', 'quiet')
 }
 
-Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.34-ERM-5715-b97ad5-49\tools\buildtools.psm1" -DisableNameChecking
+Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.36\tools\buildtools.psm1" -DisableNameChecking
 Run-Build $TaskList $Properties
