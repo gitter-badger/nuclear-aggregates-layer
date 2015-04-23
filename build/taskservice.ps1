@@ -6,7 +6,6 @@ Import-Module "$BuildToolsRoot\modules\transform.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\msbuild.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\msdeploy.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\metadata.psm1" -DisableNameChecking
-Import-Module "$BuildToolsRoot\modules\versioning.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\winrm.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\winservice.psm1" -DisableNameChecking
 
@@ -81,8 +80,10 @@ function Get-QuartzConfigs {
 
 	$quartzConfigs = @()
 
-	$baseDir = Join-Path $global:Context.Dir.Solution 'Environments'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
+	$commonMetadata = Get-Metadata 'Common'
+
+	$baseDir = Join-Path $commonMetadata.Dir.Solution 'Environments'
+	$entryPointMetadata = Get-Metadata '2Gis.Erm.TaskService'
 	foreach($quartzConfig in $entryPointMetadata.QuartzConfigs){
 		
 		$quartzConfigFileName = Join-Path $baseDir $quartzConfig
@@ -100,7 +101,7 @@ function Get-QuartzConfigs {
 	}
 	
 	# если нашли именной quartz.config файл то плюём на всё и используем только его
-	$environmentName = $global:Context.EnvironmentName
+	$environmentName = $commonMetadata.EnvironmentName
 	$environmentQuartzConfig = Join-Path $baseDir "quartz.$environmentName.config"
 	if (Test-Path $environmentQuartzConfig){
 		if ($quartzConfigs -notcontains $environmentQuartzConfig){
@@ -116,17 +117,19 @@ Task Deploy-TaskService -Depends Import-WinServiceModule, Take-TaskServiceOfflin
 	$sourceDirPath = Get-Artifacts '2GIS ERM Task Service'
 	$serviceExeName = Get-ChildItem $sourceDirPath -Filter '*.exe'
 	
-	$environmentName = $global:Context.EnvironmentName
+	$commonMetadata = Get-Metadata 'Common'
+
+	$environmentName = $commonMetadata.EnvironmentName
 	
 	$destDirName = "2GIS ERM Task Service-$environmentName"
 	$destDirPath = "%ProgramFiles%\$destDirName"
 	$destServicePath = "`"`${Env:ProgramFiles}\$destDirName\$serviceExeName`""
 	
-	$semanticVersion = (Get-Version).SemanticVersion
+	$semanticVersion = $commonMetadata.Version.SemanticVersion
 	$serviceName = "ERM-$environmentName-$semanticVersion"
 	$serviceDisplayName = "2GIS ERM Task Service-$environmentName-$semanticVersion"
 
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
+	$entryPointMetadata = Get-Metadata '2Gis.Erm.TaskService'
 	foreach($targetHost in $entryPointMetadata.TargetHosts){
 
 		# copy to remote host
@@ -142,9 +145,9 @@ Task Deploy-TaskService -Depends Import-WinServiceModule, Take-TaskServiceOfflin
 
 Task Remove-TaskService -Depends Import-WinServiceModule -Precondition { $OptionTaskService } {
 
-	$serviceName = $global:Context.EnvironmentName
+	$serviceName = (Get-Metadata 'Common').EnvironmentName
 
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
+	$entryPointMetadata = Get-Metadata '2Gis.Erm.TaskService'
 	foreach($targetHost in $entryPointMetadata.TargetHosts){
 		
 		$session = Get-CachedSession $targetHost
@@ -154,9 +157,9 @@ Task Remove-TaskService -Depends Import-WinServiceModule -Precondition { $Option
 
 Task Take-TaskServiceOffline -Depends Import-WinServiceModule -Precondition { $OptionTaskService } {
 
-	$serviceName = $global:Context.EnvironmentName
+	$serviceName = (Get-Metadata 'Common').EnvironmentName
 
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
+	$entryPointMetadata = Get-Metadata '2Gis.Erm.TaskService'
 	foreach($targetHost in $entryPointMetadata.TargetHosts){
 		
 		$session = Get-CachedSession $targetHost
@@ -166,9 +169,9 @@ Task Take-TaskServiceOffline -Depends Import-WinServiceModule -Precondition { $O
 
 Task Take-TaskServiceOnline -Depends Import-WinServiceModule -Precondition { $OptionTaskService } {
 
-	$serviceName = $global:Context.EnvironmentName
+	$serviceName = (Get-Metadata 'Common').EnvironmentName
 
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
+	$entryPointMetadata = Get-Metadata '2Gis.Erm.TaskService'
 	foreach($targetHost in $entryPointMetadata.TargetHosts){
 		
 		$session = Get-CachedSession $targetHost
@@ -180,7 +183,7 @@ Task Import-WinServiceModule {
 
 	$module = Get-Module 'winservice'
 
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.TaskService'
+	$entryPointMetadata = Get-Metadata '2Gis.Erm.TaskService'
 	foreach($targetHost in $entryPointMetadata.TargetHosts){
 		$session = Get-CachedSession $targetHost
 		Import-ModuleToSession $session $module

@@ -2,6 +2,7 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
+Import-Module "$BuildToolsRoot\modules\metadata.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\nuget.psm1" -DisableNameChecking
 
 Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
@@ -20,7 +21,9 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 		'2Gis.Erm.Qds.API.Operations.csproj'
 	)
 
-	$tempDir = Join-Path $global:Context.Dir.Temp 'NuGet'
+	$commonMetadata = Get-Metadata 'Common'
+
+	$tempDir = Join-Path $commonMetadata.Dir.Temp 'NuGet'
 	if (!(Test-Path $tempDir)){
 		md $tempDir | Out-Null
 	}
