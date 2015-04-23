@@ -48,9 +48,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.Identities;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
@@ -58,7 +55,6 @@ using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -82,6 +78,12 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.B
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
+using NuClear.Security;
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 
@@ -136,14 +138,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
             container.ConfigureUnityTwoPhase(TestsIntegrationInProcRoot.Instance,
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                             settingsContainer,
+                                             massProcessors,
+                                             // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
                                              c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                settingsContainer.AsSettings<IGlobalizationSettings>(),
-                                settingsContainer.AsSettings<IMsCrmSettings>(),
-                                settingsContainer.AsSettings<ICachingSettings>(),
+                                                                   settingsContainer.AsSettings<IConnectionStringSettings>(),
+                                                                   settingsContainer.AsSettings<IGlobalizationSettings>(),
+                                                                   settingsContainer.AsSettings<IMsCrmSettings>(),
+                                                                   settingsContainer.AsSettings<ICachingSettings>(),
                                                                    settingsContainer.AsSettings<IOperationLoggingSettings>(),
                                                                    tracer,
                                                                    tracerContextManager))
@@ -171,22 +173,22 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
         {
             return container
                     .ConfigureTracing(tracer, tracerContextManager)
-                .ConfigureGlobal(globalizationSettings)
-                .CreateErmSpecific(msCrmSettings)
-                .CreateSecuritySpecific()
-                .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
+                    .ConfigureGlobal(globalizationSettings)
+                    .CreateErmSpecific(msCrmSettings)
+                    .CreateSecuritySpecific()
+                    .ConfigureOperationLogging(EntryPointSpecificLifetimeManagerFactory, environmentSettings, operationLoggingSettings)
                     .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
-                .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
+                    .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureReplicationMetadata(msCrmSettings)
-                .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
-                .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
+                    .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
+                    .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
+                    .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
                 .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.None)
-                .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                .ConfigureExportMetadata()
-                .ConfigureMetadata()
-                .ConfigureTestInfrastructure(environmentSettings)
-                .ConfigureTestsDependenciesExplicitly();
+                    .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
+                    .ConfigureExportMetadata()
+                    .ConfigureMetadata()
+                    .ConfigureTestInfrastructure(environmentSettings)
+                    .ConfigureTestsDependenciesExplicitly();
         }
 
         private static void CheckConventionsComplianceExplicitly(ILocalizationSettings localizationSettings)
@@ -255,7 +257,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
         {
             const string MappingScope = Mapping.Erm;
 
-            return container.RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(Lifetime.PerScope, MappingScope)
+            return container.RegisterTypeWithDependencies<IUserAuthenticationService, SecurityServiceAuthentication>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceUserIdentifier, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccessInternal, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)

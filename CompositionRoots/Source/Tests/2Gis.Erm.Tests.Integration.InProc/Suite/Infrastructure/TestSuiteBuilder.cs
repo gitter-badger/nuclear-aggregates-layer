@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Reflection;
 
-using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Tests.Integration.InProc.DI;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 

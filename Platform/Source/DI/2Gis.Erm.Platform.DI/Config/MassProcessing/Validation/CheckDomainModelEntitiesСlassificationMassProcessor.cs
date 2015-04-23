@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Ambivalent;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -11,6 +10,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.Simplified;
+
+using NuClear.Assembling.TypeProcessing;
 
 namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation
 {

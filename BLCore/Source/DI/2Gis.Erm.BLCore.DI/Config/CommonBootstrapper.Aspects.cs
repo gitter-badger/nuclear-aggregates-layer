@@ -61,6 +61,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Config;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
@@ -252,7 +253,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterTypeWithDependencies(
                                     typeof(IOperationLoggingStrategy), 
                                     typeOfDirectDBLoggingStrategy, 
-                                    typeOfDirectDBLoggingStrategy.GetPerTypeUniqueMarker(), 
+                                    ContainerUtils.GetPerTypeUniqueMarker(typeOfDirectDBLoggingStrategy), 
                                     entryPointSpecificLifetimeManagerFactory(), 
                                     (string)null, 
                                     InjectionFactories.SimplifiedModelConsumer)
@@ -264,7 +265,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterTypeWithDependencies(
                                     typeof(IOperationLoggingStrategy), 
                                     typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy, 
-                                    typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy.GetPerTypeUniqueMarker(), 
+                                    ContainerUtils.GetPerTypeUniqueMarker(typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy), 
                                     entryPointSpecificLifetimeManagerFactory(), 
                                     (string)null)
                          .RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton);
@@ -302,12 +303,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                     var strategies = crmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Sdk)
                                         ? new[]
                                             {
-                                                container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(),
-                                                container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, MsCrmEmployeeEmailResolveStrategy>()
+                                                ContainerUtils.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(container),
+                                                ContainerUtils.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, MsCrmEmployeeEmailResolveStrategy>(container)
                                             }
                                         : new[]
                                             {
-                                                container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>()
+                                                ContainerUtils.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(container)
                                             };
 
                                     return new EmployeeEmailResolver(strategies);
