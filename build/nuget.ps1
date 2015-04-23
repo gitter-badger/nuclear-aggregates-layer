@@ -38,16 +38,5 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 
 Task Deploy-NuGet {
 	$artifactName = Get-Artifacts 'NuGet'
-
-	$source = 'http://nuget.2gis.local'
-	$apiKey = ':enrbq rjl'
-
-	$packges = Get-ChildItem $artifactName -Include '*.nupkg' -Exclude '*.symbols.nupkg' -Recurse
-	Deploy-Packages $packges $source $apiKey
-
-	$symbolSource = 'http://nuget.2gis.local/SymbolServer/NuGet'
-	$symbolApiKey = ':enrbq rjl'
-
-	$symbolPackges = Get-ChildItem $artifactName -Include '*.symbols.nupkg' -Recurse
-	Deploy-Packages $symbolPackges $symbolSource $symbolApiKey
+	Deploy-Packages $artifactName
 }
