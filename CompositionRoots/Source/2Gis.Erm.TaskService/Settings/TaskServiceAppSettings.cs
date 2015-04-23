@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Common;
+using System.Data.SqlClient;
 
 using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
@@ -173,7 +175,19 @@ namespace DoubleGis.Erm.TaskService.Settings
 
         ConnectionStringSettings IPersistentStoreSettings.ConnectionStringSettings
         {
-            get { return this.AsSettings<IConnectionStringSettings>().GetConnectionStringSettings(ConnectionStringName.QuartzJobStore); }
+            get
+            {
+                var settings = this.AsSettings<IConnectionStringSettings>().GetConnectionStringSettings(ConnectionStringName.ErmInfrastructure);
+                var ermInfrastructureConnectionStringBuilder = new SqlConnectionStringBuilder(settings.ConnectionString);
+                var jobStoreConnectionStringBuilder = new DbConnectionStringBuilder
+                                                              {
+                                                                  { "Server", ermInfrastructureConnectionStringBuilder.DataSource },
+                                                                  { "Database", ermInfrastructureConnectionStringBuilder.InitialCatalog },
+                                                                  { "Trusted_Connection", ermInfrastructureConnectionStringBuilder.IntegratedSecurity }
+                                                              };
+
+                return new ConnectionStringSettings("SchedulerData", jobStoreConnectionStringBuilder.ConnectionString, "SqlServer-20");
+            }
         }
     }
 }
