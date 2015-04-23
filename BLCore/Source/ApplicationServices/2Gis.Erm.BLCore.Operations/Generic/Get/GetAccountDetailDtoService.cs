@@ -73,14 +73,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 // Проверка: может ли текущий пользователь сменить текущего куратора.
                 var securityControlAspect = _userContext.Identity as IUserIdentitySecurityControl;
-                dto.OwnerCanBeChanged = securityControlAspect != null
-                                            ? securityControlAspect.SkipEntityAccessCheck
-                                            : _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
-                                                                                   EntityName.AccountDetail,
-                                                                                   _userContext.Identity.Code,
-                                                                                   dto.Id,
-                                                                                   _userContext.Identity.Code,
-                                                                                   dto.OwnerRef.Id);
+                dto.OwnerCanBeChanged = (securityControlAspect != null && securityControlAspect.SkipEntityAccessCheck) ||
+                                        _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
+                                                                             EntityName.AccountDetail,
+                                                                             _userContext.Identity.Code,
+                                                                             dto.Id,
+                                                                             _userContext.Identity.Code,
+                                                                             dto.OwnerRef.Id);
             }
 
             return dto;

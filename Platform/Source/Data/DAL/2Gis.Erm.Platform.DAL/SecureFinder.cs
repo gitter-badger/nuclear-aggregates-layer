@@ -117,10 +117,10 @@ namespace DoubleGis.Erm.Platform.DAL
             var securityControlAspect = _userContext.Identity as IUserIdentitySecurityControl;
             if (securityControlAspect != null && securityControlAspect.SkipEntityAccessCheck)
             {
-                return (TQueryable)_entityAccessService.RestrictQuery(querySource, querySource.ElementType.AsEntityName(), _userContext.Identity.Code);
+                return (TQueryable)querySource;
             }
 
-            return (TQueryable)querySource;
+            return (TQueryable)_entityAccessService.RestrictQuery(querySource, querySource.ElementType.AsEntityName(), _userContext.Identity.Code);
         }
     }
 }
