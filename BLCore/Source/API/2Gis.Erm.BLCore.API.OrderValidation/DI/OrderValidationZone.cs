@@ -1,4 +1,4 @@
-using DoubleGis.Erm.Platform.Model.Zones;
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation.DI
 {

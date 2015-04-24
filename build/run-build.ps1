@@ -5,14 +5,14 @@ if ($TaskList.Count -eq 0){
 }
 if ($Properties.Count -eq 0){
 	$Properties.EnvironmentName = 'Test.21'
-}
+	}
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 #------------------------------
 cls
 
-$Properties.SemanticVersion = '2.84.0'
+$Properties.SemanticVersion = '2.86.0'
 $Properties.SolutionDir = Join-Path $PSScriptRoot '..\CompositionRoots\Source'
 $Properties.BuildFile = Join-Path $PSScriptRoot 'default.ps1'
 

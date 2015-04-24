@@ -19,6 +19,7 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 		'2Gis.Erm.BLCore.API.Operations.Special.csproj'
 
 		'2Gis.Erm.Qds.API.Operations.csproj'
+		'2Gis.Erm.Platform.API.Metadata.csproj'
 	)
 
 	$commonMetadata = Get-Metadata 'Common'

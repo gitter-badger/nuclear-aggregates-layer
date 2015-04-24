@@ -2,13 +2,14 @@
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.CreateOrUpdate.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.CreateOrUpdate.Views;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.CreateOrUpdate
 {

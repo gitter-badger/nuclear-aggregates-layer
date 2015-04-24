@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings
             { ConnectionStringName.ErmReports, "ErmReports" },
             { ConnectionStringName.ErmSearch, "ErmSearch" },
             { ConnectionStringName.ErmPerformedOperationsServiceBus, "ErmPerformedOperationsServiceBus" },
-            { ConnectionStringName.QuartzJobStore, "QuartzJobStore" },
+            { ConnectionStringName.ErmInfrastructure, "ErmInfrastructure" },
         };
 
         internal static string ToDefaultConnectionStringName(this ConnectionStringName connectionStringName)

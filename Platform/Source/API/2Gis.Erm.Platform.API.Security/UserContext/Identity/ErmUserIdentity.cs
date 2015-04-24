@@ -1,6 +1,8 @@
-﻿namespace DoubleGis.Erm.Platform.API.Security.UserContext.Identity
+﻿using NuClear.Security.API.UserContext.Identity;
+
+namespace DoubleGis.Erm.Platform.API.Security.UserContext.Identity
 {
-    public sealed class ErmUserIdentity : IUserIdentity
+    public sealed class ErmUserIdentity : IUserIdentity, IUserIdentitySecurityControl
     {
         private readonly UserInfo _userInfo;
 

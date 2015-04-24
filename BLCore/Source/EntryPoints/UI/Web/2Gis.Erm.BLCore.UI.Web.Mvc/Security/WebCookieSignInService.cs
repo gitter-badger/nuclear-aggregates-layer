@@ -5,25 +5,26 @@ using System.Web;
 using System.Web.Security;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 
 using Newtonsoft.Json;
 
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext.Identity;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Security
 {
     public sealed class WebCookieSignInService : ISignInService
     {
-        private readonly ISecurityServiceAuthentication _securityServiceAuthentication;
+        private readonly IUserAuthenticationService _securityServiceAuthentication;
         private readonly IUserIdentityLogonService _userIdentityLogonService;
         private readonly ITracer _tracer;
         
         private readonly int _expirationInMinutes;
         private const string CookieName = "ErmTmp";
 
-        public WebCookieSignInService(  ISecurityServiceAuthentication securityServiceAuthentication,
+        public WebCookieSignInService(  IUserAuthenticationService securityServiceAuthentication,
                                         IUserIdentityLogonService userIdentityLogonService,
                                         ITracer tracer, 
                                         int expirationInMinutes)    

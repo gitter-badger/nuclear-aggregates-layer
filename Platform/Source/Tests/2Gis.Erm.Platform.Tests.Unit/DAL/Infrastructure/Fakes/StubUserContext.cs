@@ -1,8 +1,10 @@
-﻿using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
+﻿using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 
 using Moq;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
+using NuClear.Security.API.UserContext.Profile;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 {
@@ -29,7 +31,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
             {
                 var userIdentity = new Mock<IUserIdentity>();
                 userIdentity.Setup(x => x.Code).Returns(FakeCurrentUserCode);
-                userIdentity.Setup(x => x.SkipEntityAccessCheck).Returns(_skipSecureCheck);
+
+                var identitySecurityControl = userIdentity.As<IUserIdentitySecurityControl>();
+                identitySecurityControl.Setup(x => x.SkipEntityAccessCheck).Returns(_skipSecureCheck);
                 return userIdentity.Object;
             }
         }
