@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
+using NuClear.Security.API.UserContext.Profile;
 using DoubleGis.Erm.Platform.Common.Utils;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles

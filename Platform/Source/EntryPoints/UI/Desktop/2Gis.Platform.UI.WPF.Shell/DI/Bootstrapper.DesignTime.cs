@@ -2,8 +2,6 @@
 using System.IO;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Extensions;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Blendability;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
@@ -15,6 +13,7 @@ using DoubleGis.Platform.UI.WPF.Shell.Presentation.Shell;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Config;
 using NuClear.Tracing.API;
 using NuClear.Tracing.Log4Net.Config;
 
@@ -54,11 +53,8 @@ namespace DoubleGis.Platform.UI.WPF.Shell.DI
                 var container = new UnityContainer();
                 LocalPath = DesignTimePaths.LocalPath;
 
-                var queryableContainerExtension = new QueryableContainerExtension();
-                container.AddExtension(queryableContainerExtension);
-                container.RegisterInstance(Mapping.QueryableExtension, queryableContainerExtension);
-
-                container.RegisterInstance<ITracer>(tracer, Lifetime.Singleton)
+                container.AttachQueryableContainerExtension()
+                         .RegisterInstance(tracer, Lifetime.Singleton)
                          ////.RegisterModules(DesignTimeAssemblyLoader.AssemblyLoaderToNoLoadContext)
                          .RegisterModules()
                          .DesignTimeConfigureModules()

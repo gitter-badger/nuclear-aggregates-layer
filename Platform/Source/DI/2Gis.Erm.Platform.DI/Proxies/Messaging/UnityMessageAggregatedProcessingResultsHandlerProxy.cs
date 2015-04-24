@@ -7,6 +7,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Stages;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Proxies;
+
 namespace DoubleGis.Erm.Platform.DI.Proxies.Messaging
 {
     public sealed class UnityMessageAggregatedProcessingResultsHandlerProxy : UnityContainerScopeProxy<IMessageAggregatedProcessingResultsHandler>, IMessageAggregatedProcessingResultsHandler
