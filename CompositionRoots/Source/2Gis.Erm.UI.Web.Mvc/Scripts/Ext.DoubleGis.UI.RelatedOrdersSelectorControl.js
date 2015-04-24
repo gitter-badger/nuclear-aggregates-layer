@@ -6,43 +6,38 @@ Ext.DoubleGis.UI.RelatedOrdersSelectorControl = Ext.extend(Ext.util.Observable, 
         GridWidth: -1
     },
     RelatedOrderFields: [
-    { name: 'Id', type: 'string' },
-    { name: 'IsOrderSelected', type: 'bool' },
-    { name: 'Number', type: 'string' },
-    { name: 'SourceOrganizationUnit', type: 'string'},
-    { name: 'DestinationOrganizationUnit', type: 'string' },
-    { name: 'BeginDistributionDate', type: 'date' },
-    { name: 'EndDistributionDate', type: 'date' } ],
+        { name: 'Id', type: 'string' },
+        { name: 'Number', type: 'string' },
+        { name: 'SourceOrganizationUnit', type: 'string' },
+        { name: 'DestinationOrganizationUnit', type: 'string' },
+        { name: 'BeginDistributionDate', type: 'date' },
+        { name: 'EndDistributionDate', type: 'date' }
+    ],
     RelatedOrderRecord: null,
     GridColumnModel: null,
     RelatedOrderGrid: null,
-    
-    constructor: function (config) {
+
+    constructor: function(config) {
         Ext.apply(this.Config, config);
-        
+
         this.RelatedOrderRecord = Ext.data.Record.create(this.RelatedOrderFields);
         this.RelatedOrdersStore = new Ext.data.ArrayStore({
-            idProperty: 'Id',  
+            idProperty: 'Id',
             autoDestroy: true,
             storeId: 'relatedOrdersStore',
             fields: this.RelatedOrderFields
         });
-        var checkColumn = new Ext.grid.CheckColumn({
-            header: Ext.LocalizedResources.RelatedOrdersIsSelected,
-            dataIndex: 'IsOrderSelected',
-            id: 'check',
-            readOnly: false,
-            fixed: true,
-            width: 55
-        });
+
+        var sm = new Ext.grid.CheckboxSelectionModel();
+
         this.GridColumnModel = new Ext.grid.ColumnModel({
             columns: [
+                sm,
                 {
                     header: 'Id',
                     dataIndex: 'Id',
-                    hidden: true 
+                    hidden: true
                 },
-                checkColumn,
                 {
                     header: Ext.LocalizedResources.RelatedOrdersNumber,
                     dataIndex: 'Number',
@@ -69,7 +64,8 @@ Ext.DoubleGis.UI.RelatedOrdersSelectorControl = Ext.extend(Ext.util.Observable, 
                     dataIndex: 'EndDistributionDate',
                     xtype: 'datecolumn',
                     format: Ext.CultureInfo.DateTimeFormatInfo.PhpShortDatePattern
-                }],
+                }
+            ],
             defaults: {
                 sortable: false,
                 menuDisabled: true,
@@ -82,42 +78,38 @@ Ext.DoubleGis.UI.RelatedOrdersSelectorControl = Ext.extend(Ext.util.Observable, 
             renderTo: this.Config.RelatedOrderControlElement,
             height: this.Config.GridHeight,
             width: this.Config.GridWidth,
-            plugins: [checkColumn],
             colModel: this.GridColumnModel,
             enableColumnHide: false,
+            sm: sm,
             viewConfig: {
                 markDirty: false,
-                //headersDisabled: true,
                 autoHeight: false,
                 emptyText: Ext.LocalizedResources.RelatedOrdersNoOrders,
                 deferEmptyText: false,
                 forceFit: true
             }
         });
-    }, 
-    GetOrders: function () {
+    },
+    GetOrders: function() {
         var orders = [];
-        this.RelatedOrdersStore.each(function (record)
-        {
+        var selections = this.RelatedOrderGrid.getSelectionModel().getSelections();
+        selections.forEach(function(record) {
             var order = record.data;
-            if (order.IsOrderSelected)
-            {
-                orders.push(order.Id);
-            }
-        }, this);
+            orders.push(order.Id);
+        });
         return orders;
     },
-    SetRelatedOrders: function (relatedOrders) {
+    SetRelatedOrders: function(relatedOrders) {
         this.RelatedOrdersStore.removeAll();
-        Ext.each(relatedOrders, function (item, index) {
+        Ext.each(relatedOrders, function(item, index) {
             var record = new this.RelatedOrderRecord({
                 Id: item.Id,
-                IsOrderSelected: false,
                 Number: item.Number,
                 SourceOrganizationUnit: item.SourceOrganizationUnit,
                 DestinationOrganizationUnit: item.DestinationOrganizationUnit,
                 BeginDistributionDate: item.BeginDistributionDate,
-                EndDistributionDate: item.EndDistributionDate});
+                EndDistributionDate: item.EndDistributionDate
+            });
             this.RelatedOrdersStore.add(record);
         }, this);
     }
