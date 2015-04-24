@@ -46,31 +46,31 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             EntitySet operationEntities = null;
             if (!string.IsNullOrWhiteSpace(operation.OperationEntities))
             {
-                var rawOperationEntities = operation.OperationEntities.Split(';').ToArray();
-                var entities = new IEntityType[rawOperationEntities.Length];
+                var rawOperationEntityTypes = operation.OperationEntities.Split(';').ToArray();
+                var entities = new IEntityType[rawOperationEntityTypes.Length];
                 int processedIndex;
-                for (processedIndex = 0; processedIndex < rawOperationEntities.Length; processedIndex++)
+                for (processedIndex = 0; processedIndex < rawOperationEntityTypes.Length; processedIndex++)
                 {
-                    var rawOperationEntity = rawOperationEntities[processedIndex];
+                    var rawOperationEntityType = rawOperationEntityTypes[processedIndex];
                     IEntityType entityName;
-                    if (!EntityType.Instance.TryParse(rawOperationEntity, out entityName))
+                    if (!EntityType.Instance.TryParse(int.Parse(rawOperationEntityType), out entityName))
                     {
                         _tracer.ErrorFormat("Can't parse value {0} from operation entities {1} as {2}",
-                                              rawOperationEntity,
-                                              operation.OperationEntities,
-                                              typeof(IEntityType).Name);
+                                            rawOperationEntityType,
+                                            operation.OperationEntities,
+                                            typeof(IEntityType).Name);
                         break;
                     }
 
                     entities[processedIndex] = entityName;
                 }
 
-                if (processedIndex != rawOperationEntities.Length)
+                if (processedIndex != rawOperationEntityTypes.Length)
                 {
                     _tracer.ErrorFormat("Can't parse some of the value with index {0} from operation entities {1} as {2}",
-                                          processedIndex,
-                                          operation.OperationEntities,
-                                          typeof(IEntityType).Name);
+                                        processedIndex,
+                                        operation.OperationEntities,
+                                        typeof(IEntityType).Name);
                 }
                 else
                 {
