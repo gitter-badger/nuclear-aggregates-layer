@@ -173,21 +173,9 @@ namespace DoubleGis.Erm.TaskService.Settings
             }
         }
 
-        ConnectionStringSettings IPersistentStoreSettings.ConnectionStringSettings
+        string IPersistentStoreSettings.ConnectionString
         {
-            get
-            {
-                var settings = this.AsSettings<IConnectionStringSettings>().GetConnectionStringSettings(ConnectionStringName.ErmInfrastructure);
-                var ermInfrastructureConnectionStringBuilder = new SqlConnectionStringBuilder(settings.ConnectionString);
-                var jobStoreConnectionStringBuilder = new DbConnectionStringBuilder
-                                                              {
-                                                                  { "Server", ermInfrastructureConnectionStringBuilder.DataSource },
-                                                                  { "Database", ermInfrastructureConnectionStringBuilder.InitialCatalog },
-                                                                  { "Trusted_Connection", ermInfrastructureConnectionStringBuilder.IntegratedSecurity }
-                                                              };
-
-                return new ConnectionStringSettings("SchedulerData", jobStoreConnectionStringBuilder.ConnectionString, "SqlServer-20");
-            }
+            get { return this.AsSettings<IConnectionStringSettings>().GetConnectionStringSettings(ConnectionStringName.ErmInfrastructure).ConnectionString; }
         }
 
         string IPersistentStoreSettings.TablePrefix
