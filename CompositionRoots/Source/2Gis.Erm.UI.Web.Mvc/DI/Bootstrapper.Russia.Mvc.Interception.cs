@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.DI.Common.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.DI.Unity.Config;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.DI

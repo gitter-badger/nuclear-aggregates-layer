@@ -15,8 +15,6 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Validators;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
-using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
@@ -25,6 +23,8 @@ using DoubleGis.Erm.UI.Web.Mvc.Settings;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 using NuClear.Tracing.Environment;

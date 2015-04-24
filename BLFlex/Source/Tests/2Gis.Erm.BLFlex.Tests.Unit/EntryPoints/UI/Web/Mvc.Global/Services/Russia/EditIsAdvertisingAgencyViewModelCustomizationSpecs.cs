@@ -3,7 +3,6 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Clients;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 
 using FluentAssertions;
@@ -11,6 +10,9 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 
 using It = Machine.Specifications.It;
 

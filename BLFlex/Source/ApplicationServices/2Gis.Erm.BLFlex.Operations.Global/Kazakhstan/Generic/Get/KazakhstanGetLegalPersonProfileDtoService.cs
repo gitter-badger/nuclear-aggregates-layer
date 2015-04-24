@@ -2,7 +2,7 @@
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Kazakhstan;
 using DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

@@ -1,11 +1,12 @@
-﻿using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Qds.API.Operations.Docs.Metadata;
+﻿using DoubleGis.Erm.Qds.API.Operations.Docs.Metadata;
 using DoubleGis.Erm.Qds.Common;
 using DoubleGis.Erm.Qds.Common.Settings;
 
 using Microsoft.Practices.Unity;
 
 using Nest;
+
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLQuerying.DI.Config
 {

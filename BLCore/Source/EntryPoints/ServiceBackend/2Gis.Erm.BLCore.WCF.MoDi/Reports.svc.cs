@@ -5,7 +5,7 @@ using DoubleGis.Erm.BLCore.API.MoDi;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Reports;
 using DoubleGis.Erm.BLCore.API.MoDi.Reports;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 
 using NuClear.Tracing.API;
 
