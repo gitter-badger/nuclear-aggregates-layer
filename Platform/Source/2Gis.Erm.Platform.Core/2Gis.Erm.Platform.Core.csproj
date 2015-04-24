@@ -76,6 +76,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Discovery" />
@@ -95,12 +96,17 @@
     <Compile Include="EntityProjection\IAssignSpecification.cs" />
     <Compile Include="EntityProjection\IProjectSpecification.cs" />
     <Compile Include="EntityProjection\ProjectSpecification.cs" />
+    <Compile Include="Identities\AppLockIdentityServiceUniqueIdProvider.cs" />
     <Compile Include="Identities\BufferedIdentityRequestStrategy.cs" />
     <Compile Include="Identities\IdentityProviderBase.cs" />
     <Compile Include="Identities\IdentityRequestChecker.cs" />
     <Compile Include="Identities\IdentityServiceIdentityProvider.cs" />
     <Compile Include="Identities\NullIdentityRequestChecker.cs" />
     <Compile Include="Identities\NullIdentityRequestStrategy.cs" />
+    <Compile Include="Locking\ApplicationLocksManager.cs" />
+    <Compile Include="Locking\ApplicationLocksService.cs" />
+    <Compile Include="Locking\LockAcquirementResult.cs" />
+    <Compile Include="Locking\LockReleasingResult.cs" />
     <Compile Include="Messaging\Processing\Handlers\NullMessageAggregatedProcessingResultsHandler.cs" />
     <Compile Include="Messaging\Processing\Processors\Topologies\SequentialMessageFlowProcessingTopology.cs" />
     <Compile Include="Messaging\Processing\Processors\MessageFlowProcessorBase.Dispose.cs" />
@@ -198,6 +204,10 @@
     <ProjectReference Include="..\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
       <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
       <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\DAL\2Gis.Erm.Platform.DAL.AdoNet\2Gis.Erm.Platform.DAL.AdoNet.csproj">
+      <Project>{BCFC76BF-D41B-4CFA-A8AF-5EC82EC4A9CF}</Project>
+      <Name>2Gis.Erm.Platform.DAL.AdoNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\DAL\2Gis.Erm.Platform.DAL.PersistenceServices\2Gis.Erm.Platform.DAL.PersistenceServices.csproj">
       <Project>{5CA902E2-894D-48AB-9F1F-4B80D3E69A27}</Project>

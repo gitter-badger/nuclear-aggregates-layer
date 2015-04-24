@@ -17,7 +17,7 @@ $ErrorActionPreference = 'Stop'
 #------------------------------
 cls
 
-$Properties.GlobalVersion = '2.85.2'
+$Properties.GlobalVersion = '2.86.0'
 
 $Properties.BuildFile = Join-Path $PSScriptRoot 'default.ps1'
 $Properties.Dir = @{
@@ -42,5 +42,5 @@ $Properties.EnvironmentMetadata = $EnvironmentMetadata
 	& $NugetPath @('restore', $solution.FullName, '-NonInteractive', '-Verbosity', 'quiet')
 }
 
-Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.29\tools\buildtools.psm1" -DisableNameChecking
+Import-Module "$($Properties.Dir.Solution)\packages\2GIS.NuClear.BuildTools.0.0.35\tools\buildtools.psm1" -DisableNameChecking
 Run-Build $TaskList $Properties

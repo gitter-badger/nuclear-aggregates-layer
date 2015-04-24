@@ -452,8 +452,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
         ///--   20.05.2014, i.maslennikov: поддержка асинхронной репликации
         ///ALTER PROCEDURE [Integration].[ImportFirmFromXml]
-        ///	@Xml [xml] = NULL,
-        /// [rest of string was truncated]&quot;;.
+        ///	@Xml [xml] = NULL,        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _20434_ImportFirmFromXml {
             get {
@@ -3810,8 +3809,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
         ///          &lt;HasRelatedActivities&gt;False&lt;/HasRelatedActivities&gt;
         ///          &lt;ObjectTypeCode&gt;4201&lt;/ObjectTypeCode&gt;
-        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;
-        /// [rest of string was truncated]&quot;;.
+        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration6642 {
             get {
@@ -3994,8 +3992,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
         ///          &lt;HasRelatedActivities&gt;False&lt;/HasRelatedActivities&gt;
         ///          &lt;ObjectTypeCode&gt;4201&lt;/ObjectTypeCode&gt;
-        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;
-        /// [rest of string was truncated]&quot;;.
+        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration8145 {
             get {
