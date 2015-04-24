@@ -55,14 +55,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             {
                 var orderDto = _orderReadModel.GetOrderLinkingObjectsDto(orderId);
                 var pricePositionInfo = _priceReadModel.GetPricePositionDetailedInfo(pricePositionId);
-                var firmAddresses = GetFirmAddresses(orderDto.FirmId, includeHiddenAddresses);
-                var firmAddressesCategories = _categoryReadModel.GetFirmAddressesCategories(orderDto.DestOrganizationUnitId, firmAddresses.Select(x => x.Id));
+                var firmAddressDtos = GetFirmAddresses(orderDto.FirmId, includeHiddenAddresses);
+                var firmAddressesCategories = _categoryReadModel.GetFirmAddressesCategories(orderDto.DestOrganizationUnitId, firmAddressDtos.Select(x => x.Id));
 
                 var firmCategoryIds = firmAddressesCategories.SelectMany(x => x.Value).Select(x => x.Id).Distinct().ToArray();
                 var themeDtos = _themeReadModel.FindThemesCanBeUsedWithOrder(orderDto.DestOrganizationUnitId, orderDto.BeginDistributionDate, orderDto.EndDistributionDatePlan);
 
                 IEnumerable<LinkingObjectsSchemaDto.WarningDto> warnings = null;
-                if (firmAddresses.Length == 0)
+                if (firmAddressDtos.Length == 0)
                 {
                     warnings = new[] { new LinkingObjectsSchemaDto.WarningDto { Text = BLResources.FirmDoesntHaveActiveAddresses } };
                 }
@@ -81,35 +81,34 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                                                           .ToDictionary(x => x.Key, y => y);
 
                 // Оставим в качестве допустимых рубрик в адрес только те рубрики, что остались в качестве допустимых рубрик по фирме, либо те, в которые уже были продажи.
-                foreach (var firmAddress in firmAddresses)
+                foreach (var firmAddressDto in firmAddressDtos)
                 {
-                    firmAddress.Categories =
-                        (firmAddressesCategories.ContainsKey(firmAddress.Id)
-                             ? firmAddressesCategories[firmAddress.Id].Select(x => x.Id).Where(x => firmCategoriesSupportedBySalesModel.Any(y => y.Id == x))
+                    firmAddressDto.Categories =
+                        (firmAddressesCategories.ContainsKey(firmAddressDto.Id)
+                             ? firmAddressesCategories[firmAddressDto.Id].Select(x => x.Id).Where(x => firmCategoriesSupportedBySalesModel.Any(y => y.Id == x))
                              : Enumerable.Empty<long>())
-                            .Union(salesIntoCategoriesByFirmAddress.ContainsKey(firmAddress.Id)
-                                       ? salesIntoCategoriesByFirmAddress[firmAddress.Id].Select(x => x.CategoryId)
+                            .Union(salesIntoCategoriesByFirmAddress.ContainsKey(firmAddressDto.Id)
+                                       ? salesIntoCategoriesByFirmAddress[firmAddressDto.Id].Select(x => x.CategoryId)
                                        : Enumerable.Empty<long>());
                 }
 
-                var positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.Position.IsComposite, pricePositionInfo.Position.Id)
+                var positionDtos = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.Position.IsComposite, pricePositionInfo.Position.Id)
                                                   .Select(ConvertToResponsePositionDto)
                                                   .ToArray();
 
                 if (!pricePositionInfo.Position.IsComposite || pricePositionInfo.Position.AutoCheckSubpositionsWithFirmBindingType())
                 {
-                    foreach (var position in positions.Where(x => x.LinkingObjectType == PositionBindingObjectType.Firm.ToString()))
+                    foreach (var positionDto in positionDtos.Where(x => x.LinkingObjectType == PositionBindingObjectType.Firm.ToString()))
                     {
-                        position.AlwaysChecked = true;
+                        positionDto.AlwaysChecked = true;
                     }
                 }
 
                 var salesIntoCategoriesByPositions = salesIntoCategories.GroupBy(x => x.PositionId)
                                                                         .ToDictionary(x => x.Key, y => y);
 
-
                 var allFirmCategories = firmAddressesCategories.SelectMany(x => x.Value).DistinctBy(x => x.Id).ToArray();
-                foreach (var position in positions)
+                foreach (var position in positionDtos)
                 {
                     var salesIntoCategoriesByPosition = salesIntoCategoriesByPositions.ContainsKey(position.Id)
                                                             ? salesIntoCategoriesByPositions[position.Id]
@@ -131,8 +130,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                                                                                        .Select(LinkingObjectCategoryDto()))
                                                                                                        .ToArray(),
                                      Themes = themeDtos,
-                                     Positions = positions,
-                                     FirmAddresses = firmAddresses
+                                     Positions = positionDtos,
+                                     FirmAddresses = firmAddressDtos
                                  };
 
                 operationScope.Complete();
