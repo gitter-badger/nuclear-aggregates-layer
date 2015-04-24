@@ -3,11 +3,11 @@ using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.CreateOrUpdate;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.ResourceUtilities;
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations

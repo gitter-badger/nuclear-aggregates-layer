@@ -5,9 +5,11 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.DI.Factories.OrderValidation;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using NuClear.Assembling.TypeProcessing;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
 {

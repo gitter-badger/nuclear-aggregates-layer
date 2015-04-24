@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Advertisement> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
-            var dto = new AdvertisementDomainEntityDto();            
+            var dto = new AdvertisementDomainEntityDto();
 
             if (parentEntityName.Equals(EntityType.Instance.Firm()))
             {

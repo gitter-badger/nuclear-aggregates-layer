@@ -4,10 +4,9 @@ using System.Runtime.CompilerServices;
 
 using AutoMapper;
 
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Entities.Aspects.Integration;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -132,7 +131,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             if (entityKey != null)
             {
                 _changesRegistryProvider.ChangesRegistry.Deleted<TDomainEntity>(entityKey.Id);
-        }
+            }
         }
 
         public void DeleteRange(IEnumerable<TDomainEntity> entities)
@@ -159,7 +158,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                 {
                     entityIds.Add(entityKey.Id);
                 }
-                }
+            }
 
             _domainContext.Value.RemoveRange(entitiesToDeletePhysically);
 
@@ -195,22 +194,22 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             // deactivate before deleting
             var deactivatableEntity = entity as IDeactivatableEntity;
             if (deactivatableEntity != null)
-        {
+            {
                 deactivatableEntity.IsActive = false;
-        }
+            }
 
             var deletableEntity = entity as IDeletableEntity;
             if (deletableEntity == null)
-        {
+            {
                 return;
-        }
+            }
 
             // logically delete from database
             deletableEntity.IsDeleted = true;
-                }
+        }
 
         private static void SetEntityReplicableInfo(IEntity entity)
-            {
+        {
             var replicableEntity = entity as IReplicableEntity;
             if (replicableEntity == null || replicableEntity.ReplicationCode != Guid.Empty)
             {
@@ -249,7 +248,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             }
 
             return context;
-            }
+        }
 
         private TPersistentEntity ConvertToPersistent(TDomainEntity entity)
         {

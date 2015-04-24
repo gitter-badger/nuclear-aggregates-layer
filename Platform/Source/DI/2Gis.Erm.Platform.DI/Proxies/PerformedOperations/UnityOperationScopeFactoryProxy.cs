@@ -3,6 +3,7 @@ using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProces
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Proxies;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.DI.Proxies.PerformedOperations

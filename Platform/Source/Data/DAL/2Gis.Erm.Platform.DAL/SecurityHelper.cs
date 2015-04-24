@@ -3,11 +3,12 @@ using System.ServiceModel.Security;
 
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using NuClear.Model.Common.Entities.Aspects;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Resources.Server;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
@@ -34,7 +35,8 @@ namespace DoubleGis.Erm.Platform.DAL
 
         public void CheckRequest<TEntity>(EntityAccessTypes operationType, TEntity entity) where TEntity : class, ICuratedEntity, IEntityKey
         {
-            if (_userContext.Identity.SkipEntityAccessCheck)
+            var securityControlAspect = _userContext.Identity as IUserIdentitySecurityControl;
+            if (securityControlAspect != null && securityControlAspect.SkipEntityAccessCheck)
             {
                 return;
             }

@@ -6,13 +6,13 @@ using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail;
 
 using NuClear.Metamodeling.Domain.Operations.Detail;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.Platform.Core.Metadata
 {

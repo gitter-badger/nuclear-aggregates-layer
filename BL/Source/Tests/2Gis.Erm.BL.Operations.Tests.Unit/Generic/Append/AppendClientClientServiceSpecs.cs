@@ -8,8 +8,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
@@ -23,6 +21,8 @@ using Moq;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 
 using It = Machine.Specifications.It;
 

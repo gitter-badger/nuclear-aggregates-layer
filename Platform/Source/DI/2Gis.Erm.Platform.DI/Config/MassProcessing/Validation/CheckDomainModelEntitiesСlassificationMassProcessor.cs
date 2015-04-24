@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Ambivalent;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -11,6 +10,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
+using NuClear.Assembling.TypeProcessing;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 

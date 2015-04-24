@@ -5,10 +5,10 @@ using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Cancel;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 using NuClear.Model.Common.Entities;
 using NuClear.ResourceUtilities;
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations

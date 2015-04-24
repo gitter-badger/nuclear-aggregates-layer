@@ -8,12 +8,12 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Activate;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.CheckForDebts;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 using Newtonsoft.Json;
 
 using NuClear.Model.Common.Entities;
 using NuClear.ResourceUtilities;
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations

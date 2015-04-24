@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing
 {

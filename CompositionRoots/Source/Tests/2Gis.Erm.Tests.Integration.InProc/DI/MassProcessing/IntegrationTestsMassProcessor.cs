@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DI.Common.Config;
-using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.DI.MassProcessing
 {

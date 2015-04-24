@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -73,38 +74,38 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             {
                 if (entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Deal()) || entityName.Equals(EntityType.Instance.Firm()))
                 {
-                    filter = FilterByReference<Appointment, AppointmentRegardingObject>(entityName, entityId.Value);
+                        filter = FilterByReference<Appointment, AppointmentRegardingObject>(entityName, entityId.Value);
                 }
                 else if (entityName.Equals(EntityType.Instance.Contact()))
                 {
-                    filter = FilterByReference<Appointment, AppointmentAttendee>(entityName, entityId.Value);
+                        filter = FilterByReference<Appointment, AppointmentAttendee>(entityName, entityId.Value);
                 }
                 else
                 {
-                    throw new NotSupportedException();
+                        throw new NotSupportedException();
                 }
             }
 
             var appointments = _compositeEntityDecorator.Find(Specs.Find.Active<Appointment>());
 
             return from appointment in appointments.Where(filter)
-                   select new ListActivityDto
-                       {
-                           ActivityTypeEnum = ActivityType.Appointment,
-                           Id = appointment.Id,
-                           OwnerCode = appointment.OwnerCode,
-                           Header = appointment.Header,
-                           ScheduledStart = appointment.ScheduledStart,
-                           ScheduledEnd = appointment.ScheduledEnd,
-                           ActualEnd = appointment.Status == ActivityStatus.Completed || appointment.Status == ActivityStatus.Canceled ? appointment.ModifiedOn : null,
-                           StatusEnum = appointment.Status,
-                           IsDeleted = appointment.IsDeleted,
-                           IsActive = appointment.IsActive,
-                           TaskType = TaskType.NotSet,
-                           ActivityType = ActivityType.Appointment.ToStringLocalizedExpression(),
-                           Priority = appointment.Priority.ToStringLocalizedExpression(),
-                           Status = appointment.Status.ToStringLocalizedExpression(),
-                       };
+                select new ListActivityDto
+                    {
+                        ActivityTypeEnum = ActivityType.Appointment,
+                        Id = appointment.Id,
+                        OwnerCode = appointment.OwnerCode,
+                        Header = appointment.Header,
+                        ScheduledStart = appointment.ScheduledStart,
+                        ScheduledEnd = appointment.ScheduledEnd,
+                        ActualEnd = appointment.Status == ActivityStatus.Completed || appointment.Status == ActivityStatus.Canceled ? appointment.ModifiedOn : null,
+                        StatusEnum = appointment.Status,
+                        IsDeleted = appointment.IsDeleted,
+                        IsActive = appointment.IsActive,
+                        TaskType = TaskType.NotSet,
+                        ActivityType = ActivityType.Appointment.ToStringLocalizedExpression(),
+                        Priority = appointment.Priority.ToStringLocalizedExpression(),
+                        Status = appointment.Status.ToStringLocalizedExpression(),
+                    };
         }
 
         private IEnumerable<ListActivityDto> ListLetters(bool filterByParent, IEntityType entityName, long? entityId)
@@ -114,38 +115,38 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             {
                 if (entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Deal()) || entityName.Equals(EntityType.Instance.Firm()))
                 {
-                    filter = FilterByReference<Letter, LetterRegardingObject>(entityName, entityId.Value);
+                        filter = FilterByReference<Letter, LetterRegardingObject>(entityName, entityId.Value);
                 }
                 else if (entityName.Equals(EntityType.Instance.Contact()))
                 {
-                    filter = FilterByReference<Letter, LetterRecipient>(entityName, entityId.Value);
+                        filter = FilterByReference<Letter, LetterRecipient>(entityName, entityId.Value);
                 }
                 else
                 {
-                    throw new NotSupportedException();
+                        throw new NotSupportedException();
                 }
             }
 
             var letters = _compositeEntityDecorator.Find(Specs.Find.Active<Letter>());
 
             return from letter in letters.Where(filter)
-                   select new ListActivityDto
-                       {
-                           ActivityTypeEnum = ActivityType.Letter,
-                           Id = letter.Id,
-                           OwnerCode = letter.OwnerCode,
-                           Header = letter.Header,
-                           ScheduledStart = letter.ScheduledOn,
-                           ScheduledEnd = null,
-                           ActualEnd = letter.Status == ActivityStatus.Completed || letter.Status == ActivityStatus.Canceled ? letter.ModifiedOn : null,
-                           StatusEnum = letter.Status,
-                           IsDeleted = letter.IsDeleted,
-                           IsActive = letter.IsActive,
-                           TaskType = TaskType.NotSet,
-                           ActivityType = ActivityType.Letter.ToStringLocalizedExpression(),
-                           Priority = letter.Priority.ToStringLocalizedExpression(),
-                           Status = letter.Status.ToStringLocalizedExpression(),
-                       };
+                select new ListActivityDto
+                    {
+                        ActivityTypeEnum = ActivityType.Letter,
+                        Id = letter.Id,
+                        OwnerCode = letter.OwnerCode,
+                        Header = letter.Header,
+                        ScheduledStart = letter.ScheduledOn,
+                        ScheduledEnd = null,
+                        ActualEnd = letter.Status == ActivityStatus.Completed || letter.Status == ActivityStatus.Canceled ? letter.ModifiedOn : null,
+                        StatusEnum = letter.Status,
+                        IsDeleted = letter.IsDeleted,
+                        IsActive = letter.IsActive,
+                        TaskType = TaskType.NotSet,
+                        ActivityType = ActivityType.Letter.ToStringLocalizedExpression(),
+                        Priority = letter.Priority.ToStringLocalizedExpression(),
+                        Status = letter.Status.ToStringLocalizedExpression(),
+                    };
         }
 
         private IEnumerable<ListActivityDto> ListPhonecalls(bool filterByParent, IEntityType entityName, long? entityId)
@@ -155,38 +156,38 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             {
                 if (entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Deal()) || entityName.Equals(EntityType.Instance.Firm()))
                 {
-                    filter = FilterByReference<Phonecall, PhonecallRegardingObject>(entityName, entityId.Value);
+                        filter = FilterByReference<Phonecall, PhonecallRegardingObject>(entityName, entityId.Value);
                 }
                 else if (entityName.Equals(EntityType.Instance.Contact()))
                 {
-                    filter = FilterByReference<Phonecall, PhonecallRecipient>(entityName, entityId.Value);
+                        filter = FilterByReference<Phonecall, PhonecallRecipient>(entityName, entityId.Value);
                 }
                 else
                 {
-                    throw new NotSupportedException();
+                        throw new NotSupportedException();
                 }
             }
 
             var phonecalls = _compositeEntityDecorator.Find(Specs.Find.Active<Phonecall>());
 
             return from phonecall in phonecalls.Where(filter)
-                   select new ListActivityDto
-                       {
-                           ActivityTypeEnum = ActivityType.Phonecall,
-                           Id = phonecall.Id,
-                           OwnerCode = phonecall.OwnerCode,
-                           Header = phonecall.Header,
-                           ScheduledStart = phonecall.ScheduledOn,
-                           ScheduledEnd = null,
-                           ActualEnd = phonecall.Status == ActivityStatus.Completed || phonecall.Status == ActivityStatus.Canceled ? phonecall.ModifiedOn : null,
-                           StatusEnum = phonecall.Status,
-                           IsDeleted = phonecall.IsDeleted,
-                           IsActive = phonecall.IsActive,
-                           TaskType = TaskType.NotSet,
-                           ActivityType = ActivityType.Phonecall.ToStringLocalizedExpression(),
-                           Priority = phonecall.Priority.ToStringLocalizedExpression(),
-                           Status = phonecall.Status.ToStringLocalizedExpression(),
-                       };
+                select new ListActivityDto
+                    {
+                        ActivityTypeEnum = ActivityType.Phonecall,
+                        Id = phonecall.Id,
+                        OwnerCode = phonecall.OwnerCode,
+                        Header = phonecall.Header,
+                        ScheduledStart = phonecall.ScheduledOn,
+                        ScheduledEnd = null,
+                        ActualEnd = phonecall.Status == ActivityStatus.Completed || phonecall.Status == ActivityStatus.Canceled ? phonecall.ModifiedOn : null,
+                        StatusEnum = phonecall.Status,
+                        IsDeleted = phonecall.IsDeleted,
+                        IsActive = phonecall.IsActive,
+                        TaskType = TaskType.NotSet,
+                        ActivityType = ActivityType.Phonecall.ToStringLocalizedExpression(),
+                        Priority = phonecall.Priority.ToStringLocalizedExpression(),
+                        Status = phonecall.Status.ToStringLocalizedExpression(),
+                    };
         }
 
         private IEnumerable<ListActivityDto> ListTasks(bool filterByParent, IEntityType entityName, long? entityId)
@@ -196,38 +197,38 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             {
                 if (entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Deal()) || entityName.Equals(EntityType.Instance.Firm()))
                 {
-                    filter = FilterByReference<Task, TaskRegardingObject>(entityName, entityId.Value);
+                        filter = FilterByReference<Task, TaskRegardingObject>(entityName, entityId.Value);
                 }
                 else if (entityName.Equals(EntityType.Instance.Contact()))
                 {
-                    filter = _ => false;
+                        filter = _ => false;
                 }
                 else
                 {
-                    throw new NotSupportedException();
+                        throw new NotSupportedException();
                 }
             }
 
             var tasks = _compositeEntityDecorator.Find(Specs.Find.Active<Task>());
 
             return from task in tasks.Where(filter)
-                   select new ListActivityDto
-                       {
-                           ActivityTypeEnum = ActivityType.Task,
-                           Id = task.Id,
-                           OwnerCode = task.OwnerCode,
-                           Header = task.Header,
-                           ScheduledStart = task.ScheduledOn,
-                           ScheduledEnd = null,
-                           ActualEnd = task.Status == ActivityStatus.Completed || task.Status == ActivityStatus.Canceled ? task.ModifiedOn : null,
-                           StatusEnum = task.Status,
-                           IsDeleted = task.IsDeleted,
-                           IsActive = task.IsActive,
-                           TaskType = task.TaskType,
-                           ActivityType = ActivityType.Task.ToStringLocalizedExpression(),
-                           Priority = task.Priority.ToStringLocalizedExpression(),
-                           Status = task.Status.ToStringLocalizedExpression(),
-                       };
+                select new ListActivityDto
+                    {
+                        ActivityTypeEnum = ActivityType.Task,
+                        Id = task.Id,
+                        OwnerCode = task.OwnerCode,
+                        Header = task.Header,
+                        ScheduledStart = task.ScheduledOn,
+                        ScheduledEnd = null,
+                        ActualEnd = task.Status == ActivityStatus.Completed || task.Status == ActivityStatus.Canceled ? task.ModifiedOn : null,
+                        StatusEnum = task.Status,
+                        IsDeleted = task.IsDeleted,
+                        IsActive = task.IsActive,
+                        TaskType = task.TaskType,
+                        ActivityType = ActivityType.Task.ToStringLocalizedExpression(),
+                        Priority = task.Priority.ToStringLocalizedExpression(),
+                        Status = task.Status.ToStringLocalizedExpression(),
+                    };
         }
 
         private Expression<Func<TActivity, bool>> FilterByReference<TActivity, TEntityReference>(IEntityType entityName, long entityId)

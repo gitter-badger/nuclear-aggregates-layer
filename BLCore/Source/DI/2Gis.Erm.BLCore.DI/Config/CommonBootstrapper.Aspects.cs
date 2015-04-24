@@ -59,6 +59,7 @@ using NuClear.Metamodeling.Processors;
 using NuClear.Metamodeling.Processors.Concrete;
 using NuClear.Metamodeling.Provider;
 using NuClear.Metamodeling.Validators;
+using NuClear.DI.Unity.Config;
 using NuClear.ResourceUtilities;
 using NuClear.Tracing.API;
 
@@ -250,7 +251,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterTypeWithDependencies(
                                     typeof(IOperationLoggingStrategy), 
                                     typeOfDirectDBLoggingStrategy, 
-                                    typeOfDirectDBLoggingStrategy.GetPerTypeUniqueMarker(), 
+                                    ContainerUtils.GetPerTypeUniqueMarker(typeOfDirectDBLoggingStrategy), 
                                     entryPointSpecificLifetimeManagerFactory(), 
                                     (string)null, 
                                     InjectionFactories.SimplifiedModelConsumer)
@@ -262,7 +263,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterTypeWithDependencies(
                                     typeof(IOperationLoggingStrategy), 
                                     typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy, 
-                                    typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy.GetPerTypeUniqueMarker(), 
+                                    ContainerUtils.GetPerTypeUniqueMarker(typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy), 
                                     entryPointSpecificLifetimeManagerFactory(), 
                                     (string)null)
                          .RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton);
@@ -300,12 +301,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                     var strategies = crmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Sdk)
                                         ? new[]
                                             {
-                                                container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(),
-                                                container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, MsCrmEmployeeEmailResolveStrategy>()
+                                                ContainerUtils.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(container),
+                                                ContainerUtils.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, MsCrmEmployeeEmailResolveStrategy>(container)
                                             }
                                         : new[]
                                             {
-                                                container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>()
+                                                ContainerUtils.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(container)
                                             };
 
                                     return new EmployeeEmailResolver(strategies);
@@ -328,7 +329,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         }
 
         private static IUnityContainer RegisterDalMappings(this IUnityContainer container)
-        {
+                {
             // FIXME {all, 28.01.2015}: Выпилить При дальнейшем рефакторинге DAL
             MappingRegistry.RegisterMappingFromDal();
             MappingRegistry.RegisterMappingToDal();

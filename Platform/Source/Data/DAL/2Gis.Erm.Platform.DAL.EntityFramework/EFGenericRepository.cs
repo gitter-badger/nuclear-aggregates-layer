@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {

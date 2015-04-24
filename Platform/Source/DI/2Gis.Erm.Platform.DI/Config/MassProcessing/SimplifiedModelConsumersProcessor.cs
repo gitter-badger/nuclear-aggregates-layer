@@ -4,10 +4,12 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Platform.Model;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 {

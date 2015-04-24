@@ -74,8 +74,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.Identities;
@@ -102,6 +100,10 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
 using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 using NuClear.Metamodeling.Validators;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Settings.API;
@@ -247,16 +249,16 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         }
 
         private static void CheckConventionsСomplianceExplicitly(ILocalizationSettings localizationSettings)
-            {
+        {
             var checkingResourceStorages = new[]
-            {
-                    typeof(BLResources),
-                    typeof(MetadataResources),
-                    typeof(EnumResources)
-                };
+                                               {
+                                                   typeof(BLResources),
+                                                   typeof(MetadataResources),
+                                                   typeof(EnumResources)
+                                               };
 
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
-            }
+        }
 
         private static IUnityContainer ConfigureMetadata(this IUnityContainer container)
         {
@@ -358,7 +360,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         {
             const string mappingScope = Mapping.Erm;
 
-            return container.RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(CustomLifetime.PerRequest, mappingScope)
+            return container.RegisterTypeWithDependencies<IUserAuthenticationService, SecurityServiceAuthentication>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceUserIdentifier, SecurityServiceFacade>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccessInternal, SecurityServiceFacade>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(CustomLifetime.PerRequest, mappingScope)
@@ -373,7 +375,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterType<ISignInService, WebCookieSignInService>(CustomLifetime.PerRequest,
-                                    new InjectionConstructor(typeof(ISecurityServiceAuthentication), 
+                                    new InjectionConstructor(typeof(IUserAuthenticationService), 
                                                              typeof(IUserIdentityLogonService), 
                                                              typeof(ITracer),
                                                              webAppProcesingSettings.AuthExpirationTimeInMinutes));

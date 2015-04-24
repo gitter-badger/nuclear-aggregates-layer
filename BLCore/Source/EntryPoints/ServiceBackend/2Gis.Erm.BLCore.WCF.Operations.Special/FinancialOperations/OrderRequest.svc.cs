@@ -5,8 +5,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.OrderProcessing;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 
+using NuClear.Security.API.UserContext;
 using NuClear.ResourceUtilities;
 using NuClear.Tracing.API;
 

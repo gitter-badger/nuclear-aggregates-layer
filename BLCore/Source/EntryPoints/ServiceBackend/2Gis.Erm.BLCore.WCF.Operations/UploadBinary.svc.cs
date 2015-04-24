@@ -7,7 +7,7 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.UploadBinary;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.WCF.Infrastructure;
 
 using NuClear.Model.Common.Entities;

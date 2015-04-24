@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DI.Common.Config;
-using NuClear.Assembling.TypeProcessing;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 using NuClear.Metamodeling.Provider.Sources;
 

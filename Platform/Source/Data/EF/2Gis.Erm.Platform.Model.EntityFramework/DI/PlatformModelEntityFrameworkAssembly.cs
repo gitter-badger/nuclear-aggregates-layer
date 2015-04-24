@@ -1,4 +1,5 @@
 ﻿using DoubleGis.Erm.Platform.Model.DI;
+
 using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.DI

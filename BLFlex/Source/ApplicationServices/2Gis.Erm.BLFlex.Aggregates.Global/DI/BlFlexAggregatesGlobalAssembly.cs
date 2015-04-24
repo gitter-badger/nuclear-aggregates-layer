@@ -2,6 +2,7 @@
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Simplified;
+
 using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.DI

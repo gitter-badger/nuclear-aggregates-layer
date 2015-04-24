@@ -2,11 +2,10 @@ using System.Collections.Generic;
 using System.Threading;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
-using DoubleGis.Erm.Platform.TaskService.Jobs;
-
+using NuClear.Jobs;
+using NuClear.Security.API;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Tracing.API;
 

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.Crosscutting;
+
+using NuClear.Security.API.UserContext.Identity;
 
 namespace DoubleGis.Erm.Platform.API.Security
 {

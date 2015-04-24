@@ -1,9 +1,9 @@
 ﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext.Profile;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid
 {

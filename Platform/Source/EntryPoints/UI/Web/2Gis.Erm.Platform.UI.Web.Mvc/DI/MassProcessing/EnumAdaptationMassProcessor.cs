@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DI.Common.Config;
-using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing
 {

@@ -5,8 +5,7 @@ using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Reopen;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-
+using NuClear.Security.API.UserContext;
 using NuClear.Model.Common.Entities;
 using NuClear.ResourceUtilities;
 using NuClear.Tracing.API;

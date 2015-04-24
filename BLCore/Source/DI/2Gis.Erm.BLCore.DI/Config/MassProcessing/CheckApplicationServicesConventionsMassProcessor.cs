@@ -6,14 +6,15 @@ using System.Text;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
-using DoubleGis.Erm.Platform.DI.Common.Config;
-using NuClear.Assembling.TypeProcessing;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Ambivalent;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
@@ -81,7 +82,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
                 return;
             }
 
-            
             AggregateReadModels.Validator.Validate(_aggregateReadModels);
 
             // TODO {all, 26.05.2014}: видимо нужно отказаться от использования использования подхода с singleton validator, вместо этого сделать также как с AggregateReadModels.Validator.Validate
@@ -292,7 +292,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
                             Contract = t,
                             IsInherited = inheritedContracts.Contains(t),
                             AdditionalContracts = t.GetInterfaces().Where(c => !c.IsAggregateReadModel()
-                                                                                && c.IsBoundedContext()
+                                                                                && (c.IsBoundedContext() || c.IsAdaptedType())
                                                                                 && !ModelIndicators.Boundaries.Group.All.Contains(c.IsGenericType ? c.GetGenericTypeDefinition() : c))
                         })
                         .ToArray();

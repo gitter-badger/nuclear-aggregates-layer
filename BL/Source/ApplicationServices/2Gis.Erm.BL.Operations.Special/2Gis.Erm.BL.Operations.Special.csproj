@@ -63,9 +63,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\BLCore\Source\API\2Gis.Erm.BLCore.API.Operations.Special\2Gis.Erm.BLCore.API.Operations.Special.csproj">
       <Project>{dd4d387b-5ed9-482d-a704-d664ee16e9ef}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations.Special</Name>
