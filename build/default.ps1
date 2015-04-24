@@ -47,7 +47,6 @@ Deploy-WebApp, `
 Deploy-BasicOperations, `
 Take-WebAppOnline, `
 Deploy-TaskService, `
-Take-TaskServiceOnline, `
 Deploy-Modi, `
 Deploy-Metadata, `
 Deploy-OrderValidation, `
