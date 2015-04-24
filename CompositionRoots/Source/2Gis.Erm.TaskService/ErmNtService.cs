@@ -1,6 +1,6 @@
 ﻿using System.ServiceProcess;
 
-using DoubleGis.Erm.Platform.TaskService.Schedulers;
+using NuClear.Jobs.Schedulers;
 
 namespace DoubleGis.Erm.TaskService
 {
