@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Users.Operation;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.Operation;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;

@@ -112,6 +112,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName BranchOfficeOrganizationUnits = new SchemaQualifiedObjectName(ErmSchemas.Billing,
                                                                                                                        "BranchOfficeOrganizationUnits");
 
+        public static readonly SchemaQualifiedObjectName UserBranchOffices = new SchemaQualifiedObjectName(ErmSchemas.Billing, "UserBranchOffices");
+
         public static readonly SchemaQualifiedObjectName UserProfiles = new SchemaQualifiedObjectName(ErmSchemas.Security, "UserProfiles");
 
         public static readonly SchemaQualifiedObjectName Users = new SchemaQualifiedObjectName(ErmSchemas.Security, "Users");
@@ -279,8 +281,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName UserOrganizationUnits = new SchemaQualifiedObjectName(ErmSchemas.Security, "UserOrganizationUnits");
 
         public static readonly SchemaQualifiedObjectName UserTerritories = new SchemaQualifiedObjectName(ErmSchemas.Security, "UserTerritories");
-
-        public static readonly SchemaQualifiedObjectName UserBranchOffices = new SchemaQualifiedObjectName(ErmSchemas.Security, "UserBranchOffices");
 
         [Obsolete("Таблица была удалена")]
         public static readonly SchemaQualifiedObjectName AdditionalFirmServices = new SchemaQualifiedObjectName(ErmSchemas.Integration, "AdditionalFirmServices");

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
@@ -30,7 +29,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     {
         private const int DefaultReleaseCount = 4;
 
-        private readonly IBranchOfficeRepository _branchOfficeRepository;
         private readonly ISecureFinder _finder;
         private readonly IFirmReadModel _firmReadModel;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -46,7 +44,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                   ISecurityServiceFunctionalAccess functionalAccessService,
                                   IOrderReadModel orderReadModel,
                                   IFirmReadModel firmReadModel,
-                                  IBranchOfficeRepository branchOfficeRepository,
                                   IUserReadModel userReadModel,
                                   ILegalPersonReadModel legalPersonReadModel,
                                   IBusinessModelSettings businessModelSettings,
@@ -58,7 +55,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             _functionalAccessService = functionalAccessService;
             _orderReadModel = orderReadModel;
             _firmReadModel = firmReadModel;
-            _branchOfficeRepository = branchOfficeRepository;
             _userReadModel = userReadModel;
             _legalPersonReadModel = legalPersonReadModel;
             _businessModelSettings = businessModelSettings;
@@ -222,16 +218,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var userBranchOfficeIds = _userReadModel.GetUserBranchOffices(UserContext.Identity.Code);
             if (userBranchOfficeIds.Any())
             {
-                var branchOfficeOrganizationUnits = _branchOfficeReadModel.GetBranchOfficeOrganizationUnitIdsAndNamesByBranchOfficeIds(userBranchOfficeIds);
+                var branchOfficeOrganizationUnits = _branchOfficeReadModel.GetBranchOfficeOrganizationUnitNamesByOrganizationUnitAndBranchOffices(sourceOrganizationUnitId, userBranchOfficeIds);
                 if (branchOfficeOrganizationUnits.Count() == 1)
                 {
-                    var branchOfficeOrganizationUnitInfo = branchOfficeOrganizationUnits.Single().Value;
-                    return new EntityReference(branchOfficeOrganizationUnitInfo.Item1, branchOfficeOrganizationUnitInfo.Item2);
+                    var branchOfficeOrganizationUnitInfo = branchOfficeOrganizationUnits.Single();
+                    return new EntityReference(branchOfficeOrganizationUnitInfo.Id, branchOfficeOrganizationUnitInfo.ShortLegalName);
                 }
             }
             else if (sourceOrganizationUnitId.HasValue)
             {
-                var branchOfficeOrganizationUnitShortInfo = _branchOfficeRepository.GetBranchOfficeOrganizationUnitShortInfo(sourceOrganizationUnitId.Value);
+                var branchOfficeOrganizationUnitShortInfo = _branchOfficeReadModel.GetPrimaryBranchOfficeOrganizationUnitNameByOrganizationUnit(sourceOrganizationUnitId.Value);
                 return new EntityReference(branchOfficeOrganizationUnitShortInfo.Id, branchOfficeOrganizationUnitShortInfo.ShortLegalName);
             }
 

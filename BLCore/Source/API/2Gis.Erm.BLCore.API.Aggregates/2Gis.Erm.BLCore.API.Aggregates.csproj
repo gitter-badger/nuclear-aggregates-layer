@@ -142,10 +142,11 @@
     <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.AdvertisementElementStatus.cs" />
     <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.AdvertisementElement.cs" />
     <Compile Include="Advertisements\ReadModel\IAdvertisementReadModel.cs" />
-    <Compile Include="BranchOffices\DTO\BranchOfficeOrganizationShortInformationDto.cs" />
+    <Compile Include="BranchOffices\DTO\BranchOfficeOrganizationShortLegalNameDto.cs" />
     <Compile Include="BranchOffices\DTO\BranchOfficeOrganizationUnitNamesDto.cs" />
     <Compile Include="BranchOffices\DTO\PrimaryBranchOfficeOrganizationUnits.cs" />
     <Compile Include="BranchOffices\IBranchOfficeRepository.cs" />
+    <Compile Include="BranchOffices\Operation\IDeleteUserBranchOfficesAggregateService.cs" />
     <Compile Include="BranchOffices\ReadModel\BranchOfficeSpecs.BranchOffice.cs" />
     <Compile Include="BranchOffices\ReadModel\IBranchOfficeReadModel.cs" />
     <Compile Include="Charges\Dto\ChargeInfoDto.cs" />
@@ -381,8 +382,7 @@
     <Compile Include="Users\IActivateUserAggregateService.cs" />
     <Compile Include="Users\IDeactivateUserAggregateService.cs" />
     <Compile Include="Users\IUserRepository.cs" />
-    <Compile Include="Users\Operation\IChangeUserForUserBranchOfficeAggregateService.cs" />
-    <Compile Include="Users\Operation\IAppendUserToBranchOfficeAggregateService.cs" />
+    <Compile Include="BranchOffices\Operation\IAppendUserToBranchOfficeAggregateService.cs" />
     <Compile Include="Users\Operation\IUserAppendRoleAggregateService.cs" />
     <Compile Include="Users\ReadModel\DTO\UserWithRoleRelationsDto.cs" />
     <Compile Include="Users\ReadModel\IUserReadModel.cs" />

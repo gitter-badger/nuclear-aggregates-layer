@@ -43,6 +43,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId);
                 }
 
+                public static FindSpecification<BranchOfficeOrganizationUnit> ByOrganizationUnitIfSpecified(long? organizationUnitId)
+                {
+                    return new FindSpecification<BranchOfficeOrganizationUnit>(x => !organizationUnitId.HasValue || x.OrganizationUnitId == organizationUnitId);
+                }
+
                 public static IFindSpecification<BranchOfficeOrganizationUnit> ByBranchOffice(long branchOfficeId)
                 {
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.BranchOfficeId == branchOfficeId);

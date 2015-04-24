@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.DTO;
@@ -116,17 +115,32 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
                        .Single();
         }
 
-        public IReadOnlyDictionary<long, Tuple<long, string>> GetBranchOfficeOrganizationUnitIdsAndNamesByBranchOfficeIds(IEnumerable<long> branchOfficeIds)
+        public BranchOfficeOrganizationShortLegalNameDto GetPrimaryBranchOfficeOrganizationUnitNameByOrganizationUnit(long organizationUnitId)
+        {
+            return _finder.Find<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId)
+                          .Where(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
+                          .Where(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
+                          .Select(x => new BranchOfficeOrganizationShortLegalNameDto
+                          {
+                              Id = x.Id,
+                              ShortLegalName = x.ShortLegalName,
+                          })
+                          .SingleOrDefault() ?? new BranchOfficeOrganizationShortLegalNameDto();
+            // null не возвращаем, логика была рассчитана на работу с пустыми значениями.
+        }
+
+        public IReadOnlyCollection<BranchOfficeOrganizationShortLegalNameDto>
+            GetBranchOfficeOrganizationUnitNamesByOrganizationUnitAndBranchOffices(long? organizationUnitId, IEnumerable<long> branchOfficeIds)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnitIfSpecified(organizationUnitId) &&
                                 BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByBranchOffice(branchOfficeIds))
-                          .Select(x => new
+                          .Select(x => new BranchOfficeOrganizationShortLegalNameDto
                                            {
-                                               x.BranchOfficeId,
-                                               x.Id,
-                                               x.ShortLegalName
+                                               Id = x.Id,
+                                               ShortLegalName = x.ShortLegalName
                                            })
-                          .ToDictionary(x => x.BranchOfficeId, y => new Tuple<long, string>(y.Id, y.ShortLegalName));
+                          .ToArray();
         }
 
         public IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode)

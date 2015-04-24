@@ -3,22 +3,23 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.Operation;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
-using DoubleGis.Erm.BLCore.API.Aggregates.Users.Operation;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
 {
@@ -35,11 +36,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly IAssignGenericEntityService<Letter> _assignLetterOperationService;
         private readonly IAssignGenericEntityService<Phonecall> _assignPhonecallOperationService;
         private readonly IAssignGenericEntityService<Task> _assignTaskOperationService;
-        private readonly IChangeUserForUserBranchOfficeAggregateService _changeUserForUserBranchOfficeAggregateService;
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly ILetterReadModel _letterReadModel;
         private readonly IPhonecallReadModel _phonecallReadModel;
         private readonly ITaskReadModel _taskReadModel;
+        private readonly IDeleteUserBranchOfficesAggregateService _deleteUserBranchOfficesAggregateService;
 
         public DeactivateUserOperationService(
             ISecureFinder finder,
@@ -56,15 +57,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             IAssignGenericEntityService<Phonecall> assignPhonecallOperationService,
             IAssignGenericEntityService<Task> assignTaskOperationService,
             IUserContext userContext,
-            IOperationScopeFactory scopeFactory,
-            IChangeUserForUserBranchOfficeAggregateService changeUserForUserBranchOfficeAggregateService)
+            IOperationScopeFactory scopeFactory, 
+            IDeleteUserBranchOfficesAggregateService deleteUserBranchOfficesAggregateService)
         {
             _userContext = userContext;
             _finder = finder;
             _userRepository = userRepository;
             _clientRepository = clientRepository;
             _scopeFactory = scopeFactory;
-            _changeUserForUserBranchOfficeAggregateService = changeUserForUserBranchOfficeAggregateService;
+            _deleteUserBranchOfficesAggregateService = deleteUserBranchOfficesAggregateService;
             _userReadModel = userReadModel;
             _deactivateUserAggregateService = deactivateUserAggregateService;
             _assignAppointmentOperationService = assignAppointmentOperationService;
@@ -108,9 +109,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
 
                     // FIXME {all, 23.12.2014}: два ниже следующих вызова нужно зарефакторить, например, объединив в 1 operation service 
                     _userRepository.AssignUserRelatedEntities(entityId, targetOwnerCodeForUserRelations);
-                    var userBranchOffices = _userReadModel.GetUserBranchOfficeLinks(entityId);
-                    _changeUserForUserBranchOfficeAggregateService.ChangeUser(userBranchOffices, targetOwnerCodeForUserRelations);
                     AssignRelatedActivities(entityId, targetOwnerCodeForUserRelations);
+                    
+                    var userBranchOffices = _userReadModel.GetUserBranchOfficeLinks(entityId);
+                    _deleteUserBranchOfficesAggregateService.Delete(userBranchOffices);
+
                     scope.Updated<User>(targetOwnerCodeForUserRelations);
 
                     var userInfo = _userReadModel.GetUserWithRoleRelations(entityId);

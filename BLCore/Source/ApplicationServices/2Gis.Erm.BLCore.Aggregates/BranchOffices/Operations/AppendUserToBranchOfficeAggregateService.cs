@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.BLCore.API.Aggregates.Users.Operation;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.Operation;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
-namespace DoubleGis.Erm.BLCore.Aggregates.Users.Operations
+namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.Operations
 {
     public sealed class AppendUserToBranchOfficeAggregateService : IAppendUserToBranchOfficeAggregateService
     {

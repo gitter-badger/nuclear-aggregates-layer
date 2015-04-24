@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
@@ -7,9 +9,11 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Security.API.UserContext;
+using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -46,20 +50,26 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         var userId = _userContext.Identity.Code;
 
                         bool primaryRequired;
-                        querySettings.TryGetExtendedProperty("Primary", out primaryRequired);
+                        if (!querySettings.TryGetExtendedProperty("Primary", out primaryRequired))
+                        {
+                            primaryRequired = false;
+                        }
+
+                        Expression<Func<BranchOfficeOrganizationUnit, bool>> primaryFilter = x => !primaryRequired || x.IsPrimary;
                         if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection, userId))
                         {
-                            return x => x.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId) && (!primaryRequired || x.IsPrimary);
+                            return primaryFilter.And(x => x.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId));
                         }
                         else
                         {
+                            Expression<Func<BranchOfficeOrganizationUnit, bool>> sourceOrganizationUnitFilter = x => x.OrganizationUnitId == sourceOrganizationUnitId;
                             var branchOfficeIds = _userReadModel.GetUserBranchOffices(userId);
                             if (branchOfficeIds.Any())
                             {
-                                return x => branchOfficeIds.Contains(x.BranchOfficeId);
+                                return sourceOrganizationUnitFilter.And(x => branchOfficeIds.Contains(x.BranchOfficeId));
                             }
 
-                            return x => x.OrganizationUnitId == sourceOrganizationUnitId && (!primaryRequired || x.IsPrimary);
+                            return sourceOrganizationUnitFilter.And(primaryFilter);
                         }
                     });
 

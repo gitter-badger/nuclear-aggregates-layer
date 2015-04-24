@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.DTO;
@@ -33,6 +32,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
         string GetBranchOfficeOrganizationName(long branchOfficeOrganizationUnitId);
         int? GetBranchOfficeOrganizationDgppid(long branchOfficeOrganizationUnitId);
         long GetBargainTypeId(long branchOfficeOrganizationUnitId);
-        IReadOnlyDictionary<long, Tuple<long, string>> GetBranchOfficeOrganizationUnitIdsAndNamesByBranchOfficeIds(IEnumerable<long> branchOfficeIds);
+        BranchOfficeOrganizationShortLegalNameDto GetPrimaryBranchOfficeOrganizationUnitNameByOrganizationUnit(long organizationUnitId);
+        IReadOnlyCollection<BranchOfficeOrganizationShortLegalNameDto> GetBranchOfficeOrganizationUnitNamesByOrganizationUnitAndBranchOffices(long? organizationUnitId, IEnumerable<long> branchOfficeIds);
     }
 }
