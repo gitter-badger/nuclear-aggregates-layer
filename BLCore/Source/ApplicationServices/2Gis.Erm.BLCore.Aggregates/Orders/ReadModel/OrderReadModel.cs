@@ -21,7 +21,6 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -29,6 +28,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 {
@@ -1172,13 +1173,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var sourceVat = DefaultVatRate;
             if (sourceOrganizationUnitId.HasValue)
             {
-                sourceVat = _finder.Find(OrganizationUnitSpecs.Select.VatRate(),
-                                                                    Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
+                sourceVat = _finder.Find(OrganizationUnitSpecs.OrganizationUnits.Select.VatRate(),
+                                         Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
                                    .Single();
             }
 
-            var destVat = _finder.Find(OrganizationUnitSpecs.Select.VatRate(),
-                                                                  Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
+            var destVat = _finder.Find(OrganizationUnitSpecs.OrganizationUnits.Select.VatRate(),
+                                       Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
                                  .Single();
 
             return DetermineVatRate(sourceVat, destVat);

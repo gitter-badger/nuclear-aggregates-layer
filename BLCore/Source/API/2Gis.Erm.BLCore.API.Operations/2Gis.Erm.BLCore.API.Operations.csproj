@@ -257,6 +257,7 @@
     <Compile Include="Generic\Complete\ICompleteGenericOperationService.cs" />
     <Compile Include="Generic\Create\ICreateOperationService.cs" />
     <Compile Include="Generic\Deactivate\LegalPersonWithOrdersDeactivationException.cs" />
+    <Compile Include="Generic\Exceptions\UserIsNotLinkedWithOrganizationUnitException.cs" />
     <Compile Include="Generic\File\DownloadFileParams.cs" />
     <Compile Include="Generic\File\IValidateFileSettings.cs" />
     <Compile Include="Generic\File\UploadFileParams.cs" />

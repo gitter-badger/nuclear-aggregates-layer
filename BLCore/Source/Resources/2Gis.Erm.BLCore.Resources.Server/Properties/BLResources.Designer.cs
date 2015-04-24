@@ -14924,6 +14924,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string UserIsNotLinkedWithSuitableOrganizationUnit {
+            get {
+                return ResourceManager.GetString("UserIsNotLinkedWithSuitableOrganizationUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string UserLocaleInfoNotFound {
             get {
                 return ResourceManager.GetString("UserLocaleInfoNotFound", resourceCulture);

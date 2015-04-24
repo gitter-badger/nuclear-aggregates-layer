@@ -2,6 +2,7 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
+using DoubleGis.Erm.BLCore.API.Operations.Generic.Exceptions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -36,6 +37,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
 
             using (var scope = _scopeFactory.CreateSpecificFor<AppendIdentity, User, BranchOffice>())
             {
+                if (!_userReadModel.CheckIfUserAndBranchOfficeHaveCommonOrganizationUnit(userId, branchOfficeId))
+                {
+                    throw new UserIsNotLinkedWithOrganizationUnitException(BLResources.UserIsNotLinkedWithSuitableOrganizationUnit);
+                }
+
                 if (_userReadModel.IsUserLinkedToBranchOffice(userId, branchOfficeId))
                 {
                     var userName = _userReadModel.GetUserName(userId);

@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
                 .IsRowVersion();
 
             // Table & Column Mappings
-            ToTable("UserBranchOffices", "Security");
+            ToTable("UserBranchOffices", "Billing");
             Property(t => t.Id).HasColumnName("Id");
             Property(t => t.UserId).HasColumnName("UserId");
             Property(t => t.BranchOfficeId).HasColumnName("BranchOfficeId");

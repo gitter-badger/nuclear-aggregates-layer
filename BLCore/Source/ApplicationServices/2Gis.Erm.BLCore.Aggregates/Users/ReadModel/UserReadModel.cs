@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel.DTO;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -123,6 +125,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
         public IEnumerable<long> PickNonServiceUsers(IEnumerable<long> userIds)
         {
             return _finder.Find(Specs.Find.ByIds<User>(userIds) && UserSpecs.Users.Find.NotService()).Select(x => x.Id).ToArray();
+        }
+
+        public bool CheckIfUserAndBranchOfficeHaveCommonOrganizationUnit(long userId, long branchOfficeId)
+        {
+            var userOrganizationUnits = _finder.Find(OrganizationUnitSpecs.UserOrganizationUnits.Find.ByUser(userId))
+                                               .Select(x => x.OrganizationUnitId)
+                                               .ToArray();
+            return
+                _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByBranchOffice(branchOfficeId))
+                       .Any(x => userOrganizationUnits.Contains(x.OrganizationUnitId));
         }
     }
 }

@@ -5230,4 +5230,7 @@ Placement period: {3}.</value>
   <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
     <value>Пользователь {0} уже связан с юр. лицом {1}</value>
   </data>
+  <data name="UserIsNotLinkedWithSuitableOrganizationUnit" xml:space="preserve">
+    <value>У пользователя нет подходящей связи с городом</value>
+  </data>
 </root>

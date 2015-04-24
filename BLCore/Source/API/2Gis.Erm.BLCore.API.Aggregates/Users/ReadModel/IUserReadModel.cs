@@ -22,5 +22,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
         IReadOnlyCollection<long> GetUserBranchOffices(long userId);
         IReadOnlyCollection<UserBranchOffice> GetUserBranchOfficeLinks(long userId);
         IEnumerable<long> PickNonServiceUsers(IEnumerable<long> userIds);
+        bool CheckIfUserAndBranchOfficeHaveCommonOrganizationUnit(long userId, long branchOfficeId);
     }
 }
