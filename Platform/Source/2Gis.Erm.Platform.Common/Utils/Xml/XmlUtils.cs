@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Xml
 
             try
             {
-                if (typeof(IEntityType).IsAssignableFrom(targetType))
+                if (targetType == typeof(IEntityType))
                 {
                     attributeValue = (TValue)EntityType.Instance.Parse(int.Parse(attribute.Value));
                 }
