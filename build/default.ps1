@@ -18,6 +18,7 @@ Include reports.ps1
 Include unittests.ps1
 Include integrationtests.ps1
 Include fxcop.ps1
+Include schemacompare.ps1
 
 Task Default -depends Hello
 Task Hello { "Билдскрипт запущен без цели, укажите цель" }
