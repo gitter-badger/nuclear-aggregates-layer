@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common
     {
         TEntity Get(IFindSpecification<TEntity> findSpecification);
         TDto Get<TDto>(IFindSpecification<TEntity> findSpecification, ISelectSpecification<TEntity, TDto> selectSpecification);
-        IReadOnlyCollection<TEntity> Get(IFindSpecification<TEntity> findSpecification, int maxCount);
+        IReadOnlyCollection<T> Get<T>(IFindSpecification<T> findSpecification, int maxCount) where T : class, TEntity, IEntityKey;
         IReadOnlyCollection<TDto> Get<TDto>(IFindSpecification<TEntity> findSpecification, ISelectSpecification<TEntity, TDto> selectSpecification, int maxCount);
     }
 }
