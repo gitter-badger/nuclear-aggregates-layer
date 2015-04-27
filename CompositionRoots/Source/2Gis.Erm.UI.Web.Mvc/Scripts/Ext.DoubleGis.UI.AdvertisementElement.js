@@ -180,7 +180,7 @@
                 theme_advanced_toolbar_align: "left",
                 theme_advanced_statusbar_location: "bottom",
                 theme_advanced_resizing: false,
-                valid_elements: "p,br,strong/b,em/i,ul,ol,li",
+                valid_elements: "p,br,strong/b,em/i,ul,li",
 
                 // очищаем формат при вставке, иначе tinymce намертво повисает
                 paste_remove_styles: true,
