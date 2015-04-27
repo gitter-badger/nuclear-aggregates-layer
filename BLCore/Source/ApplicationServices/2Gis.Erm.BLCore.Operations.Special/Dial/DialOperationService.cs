@@ -83,22 +83,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                 {
                     await writer.WriteAsync(Command.Dial(endpointUri, line, phone));
 
-                    bool continueListening;
-                    do
-                    {
-                        var response = await reader.ReadAsync();
-                        continueListening = false;
-                        _tracer.DebugFormat("Telephony service: {0}", response);
-                        switch (response.Status)
-                        {
-                            case Response.ResponseStatus.Connecting:
-                            case Response.ResponseStatus.ReadyToConnect:                                                           
-                                continueListening = true;
-                                break;
-                        }
-                    }
-                    while (continueListening);
-                }
+                    var response = await reader.ReadAsync();
+                    _tracer.DebugFormat("Telephony service: {0}", response);                       
+                 }
             }
             catch (SocketException ex)
             {
@@ -230,6 +217,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                 Text = ResolveField(RegTextNumberPattern, message);
             }
 
+            // ReSharper disable once MemberCanBePrivate.Local
             public ResponseStatus Status { get; private set; }
             // ReSharper disable once MemberCanBePrivate.Local
             public string Line { get; private set; }
