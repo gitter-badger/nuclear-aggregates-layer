@@ -5209,13 +5209,13 @@
     <value />
   </data>
   <data name ="WorkPhoneIsNotSelected" xml:space="preserve">
-    <value>В вашем профиле не указан внутренний телефон, на который должны приходить звонки</value>
+    <value>В вашем профиле не указан внутренний телефон, на который должны приходить звонки.</value>
   </data>
   <data name ="DialingIsNotAllowed" xml:space="preserve">
-    <value>У Вас нет прав на совершение звонков</value>
+    <value>У Вас нет прав на совершение звонков.</value>
   </data>
   <data name ="TelephonyAddressIsNotSelected" xml:space="preserve">
-    <value>В профиле не указан адрес сервиса телефонии</value>
+    <value>В профиле не указан адрес сервиса телефонии.</value>
   </data>
   <data name ="TelephonyAddressInIncorrectFormat" xml:space="preserve">
     <value>Адрес сервиса телефонии указан в некорректном формате</value>
@@ -5224,7 +5224,7 @@
     <value>В данный момент сервис телефонии не доступен</value>
   </data>
   <data name ="IncorrectPhoneNumber" xml:space="preserve">
-    <value>Телефон {0} имеет некорректный формат</value>
+    <value>Телефон {0} имеет некорректный формат.</value>
   </data>
   <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
     <value>Данный тип {0} телефонии не поддерживается.</value>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
@@ -71,11 +72,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
                                                   && user.UserOrganizationUnits.Any(unit => unit.OrganizationUnitId == organizationUnitId));
         }
 
-        public Department GetUserDepartment(long userId)
+        public Uri GetTelephonyServerAddress(long userId)
         {
-            return _finder.Find(Specs.Find.ById<User>(userId))
-                           .Select(x => x.Department)
-                           .Single();
+            var uri = _finder.Find(Specs.Find.ById<User>(userId)).Select(x => x.Department.TelephonyAddress).Single();
+            return !String.IsNullOrEmpty(uri) ? new Uri(uri) : null;
         }
 
         public long? GetUserOrganizationUnitId(long userId)

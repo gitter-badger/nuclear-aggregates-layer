@@ -16,13 +16,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
 
         public TelephonyAccessCustomization(IUserContext userContext, ISecurityServiceFunctionalAccess functionalAccessService)
         {
-            this._userContext = userContext;
-            this._functionalAccessService = functionalAccessService;            
+            _userContext = userContext;
+            _functionalAccessService = functionalAccessService;            
         }
 
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
-            var privilege = this._functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.TelephonyAccess, this._userContext.Identity.Code);
+            var privilege = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.TelephonyAccess, _userContext.Identity.Code);
             viewModel.SetPropertyValue("HaveTelephonyAccess", privilege);
         }
     }

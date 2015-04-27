@@ -8,7 +8,7 @@ using Microsoft.SqlServer.Management.Common;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
 {
-    [Migration(201521041051, "", "a.pashkin")]
+    [Migration(201521041051, "Добавление функциональной привилегии Телефония", "a.pashkin")]
     public class Migration201521041051 : TransactedMigration
     {
         private const int TelephonyAccess = 651;

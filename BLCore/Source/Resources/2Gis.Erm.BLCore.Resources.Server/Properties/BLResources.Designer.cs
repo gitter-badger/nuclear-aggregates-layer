@@ -5516,7 +5516,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to У Вас нет прав на совершение звонков.
+        ///   Looks up a localized string similar to У Вас нет прав на совершение звонков..
         /// </summary>
         public static string DialingIsNotAllowed {
             get {
@@ -7532,7 +7532,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Телефон {0} имеет некорректный формат.
+        ///   Looks up a localized string similar to Телефон {0} имеет некорректный формат..
         /// </summary>
         public static string IncorrectPhoneNumber {
             get {
@@ -14157,7 +14157,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to В профиле не указан адрес сервиса телефонии.
+        ///   Looks up a localized string similar to В профиле не указан адрес сервиса телефонии..
         /// </summary>
         public static string TelephonyAddressIsNotSelected {
             get {
@@ -15219,7 +15219,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to В вашем профиле не указан внутренний телефон, на который должны приходить звонки.
+        ///   Looks up a localized string similar to В вашем профиле не указан внутренний телефон, на который должны приходить звонки..
         /// </summary>
         public static string WorkPhoneIsNotSelected {
             get {

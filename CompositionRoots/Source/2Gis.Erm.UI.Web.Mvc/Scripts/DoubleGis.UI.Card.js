@@ -764,6 +764,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
                 new Ext.ux.PhonecallField(
                 {
                     applyTo: el,
+                    form: this,
                     readOnly: this.ReadOnly                               
                 });
         }

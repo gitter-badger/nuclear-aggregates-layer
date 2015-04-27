@@ -2,6 +2,7 @@
 Ext.ux.PhonecallField = Ext.extend(Ext.Component, {
 	tabIndex: -1,
 	readOnly: false,
+    form: undefined,
 	initComponent: function () {
 		window.Ext.ux.LinkField.superclass.initComponent.call(this);
 		this.addEvents("change", "invalid", "valid");
@@ -47,17 +48,16 @@ Ext.ux.PhonecallField = Ext.extend(Ext.Component, {
 	postRequestFailure : function(response, opts) {
 	    if (response.responseText) {
 	        try {
-	            var frm = Ext.decode(response.responseText);
-	            // this.AddNotification(frm.Message, "CriticalError", "ServerError");
-	            alert(frm.Message);
+	            var frm = Ext.decode(response.responseText);	            	            
+	            this.form.AddNotification(frm.Message, "CriticalError", "ServerError");
 	        }
-	        catch (e) {
-	            alert(response.responseText);
+	        catch (e) {	            
+	            this.form.AddNotification(response.responseText, "CriticalError", "ServerError");
 	        }
 	    }
 	},
 	Call: function (number) {
-	    alert(Ext.LocalizedResources.StartCalling);
+	    Ext.Msg.alert('', Ext.LocalizedResources.StartCalling);
 	    var url = Ext.urlAppend(Ext.SpecialOperationsServiceRestUrl + "Dial.svc/Rest/dial/" );
 	    Ext.Ajax.request(
 	    {
@@ -73,8 +73,7 @@ Ext.ux.PhonecallField = Ext.extend(Ext.Component, {
 	},
 	renderValue: function () {
 		this.el.dom.style.display = this.el.dom.value ? "none" : "";
-		this.content.dom.style.display = this.el.dom.value ? "" : "none";
-		//this.link.dom.href = this.contactTypeCfg.protocolRegex.test(this.el.dom.value) ? this.el.dom.value : this.contactTypeCfg.protocolPrefix + this.el.dom.value;
+		this.content.dom.style.display = this.el.dom.value ? "" : "none";		
 		this.text.dom.value = this.el.dom.value;
 	    this.text.dom.innerHTML = this.el.dom.value;
 	},

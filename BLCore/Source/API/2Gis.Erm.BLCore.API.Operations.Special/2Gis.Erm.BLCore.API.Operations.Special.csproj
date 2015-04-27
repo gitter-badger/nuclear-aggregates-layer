@@ -122,7 +122,6 @@
     <Compile Include="OrderProcessingRequests\IOrderProcessingRequestService.cs" />
     <Compile Include="Remote\Dial\DialErrorDescription.cs" />
     <Compile Include="Remote\Dial\IDialApplicationRestService.cs" />
-    <Compile Include="Remote\Dial\IDialApplicationService.cs" />
     <Compile Include="Remote\FirmInfo\FirmInfoOperationErrorDescription.cs" />
     <Compile Include="Remote\FirmInfo\IFirmInfoApplicationRestService.cs" />
     <Compile Include="Remote\OrderProcessing\IOrderProcessingApplicationService.cs" />

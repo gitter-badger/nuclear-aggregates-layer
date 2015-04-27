@@ -50,25 +50,22 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                 throw new Exception(BLResources.WorkPhoneIsNotSelected);
             }
 
-            var department = _userReadModel.GetUserDepartment(_userContext.Identity.Code);
-            if (string.IsNullOrEmpty(department.TelephonyAddress))
+            var department = _userReadModel.GetTelephonyServerAddress(_userContext.Identity.Code);
+            if (department == null)
             {
                 throw new Exception(BLResources.TelephonyAddressIsNotSelected);
             }
 
-            // FIXME {a.pashkin, 24.04.2015}: думаю лучше получить Nullable<Uri> сразу, долой строки
-            var endpointUri = new Uri(department.TelephonyAddress);
-
-            InvokeDialing(endpointUri, userProfile.Phone, number);
-        }
-
-        private async void InvokeDialing(Uri endpointUri, string line, string phone)
-        {
-            if (string.IsNullOrEmpty(endpointUri.Scheme) || string.IsNullOrEmpty(endpointUri.Host) || endpointUri.Port == 0)
+            if (string.IsNullOrEmpty(department.Scheme) || string.IsNullOrEmpty(department.Host) || department.Port == 0)
             {
                 throw new ArgumentException(BLResources.TelephonyAddressInIncorrectFormat);
             }
 
+            InvokeDialing(department, userProfile.Phone, number);
+        }
+
+        private async void InvokeDialing(Uri endpointUri, string line, string phone)
+        {            
             try
             {
                 using (var tcpClient = await ConnectAsync(endpointUri))
@@ -258,7 +255,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                 }
 
                 var commandText = command.ToString();
-                var commandSize = (ushort)(SizePrefixLength + commandText.Length);
+                var commandSize = (ushort)(SizePrefixLength + _encoding.GetByteCount(commandText));
 
                 await WriteAsync(commandSize);
                 await WriteAsync(commandText);
