@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (TaskDomainEntityDto)domainEntityDto;
 
-            var task = dto.IsNew() 
+            var task = dto.IsNew()
                 ? new Task { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() } 
                 : _finder.FindOne(Specs.Find.ById<Task>(dto.Id));
 

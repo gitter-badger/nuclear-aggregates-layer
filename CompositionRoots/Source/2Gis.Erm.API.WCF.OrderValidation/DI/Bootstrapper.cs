@@ -15,7 +15,6 @@ using DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.Feedback;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
@@ -24,7 +23,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.Core.Identities;
+
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
@@ -119,7 +118,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                         .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure()
+                .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.None)
                 .ConfigureReadWriteModels()
                 .ConfigureMetadata()
                 .ConfigureLocalization(typeof(Resources),
@@ -172,13 +171,6 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 
             return container.RegisterInstance<IConnectionStringNameResolver>(new ConnectionStringNameResolver(readConnectionStringNameMap,
                                                                                                               writeConnectionStringNameMap));
-        }
-
-        private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
-        {
-            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(CustomLifetime.PerOperationContext)
-                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerOperationContext);
         }
 
         private static IUnityContainer CreateErmSpecific(this IUnityContainer container)

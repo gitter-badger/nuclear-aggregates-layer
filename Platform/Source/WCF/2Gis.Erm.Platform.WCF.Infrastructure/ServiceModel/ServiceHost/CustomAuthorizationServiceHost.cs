@@ -6,7 +6,7 @@ using System.ServiceModel.Description;
 
 namespace DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceHost
 {
-    public sealed class CustomAuthorizationServiceHost : System.ServiceModel.ServiceHost
+    public class CustomAuthorizationServiceHost : System.ServiceModel.ServiceHost
     {
         private readonly IEnumerable<IAuthorizationPolicy> _authorizationPolicies;
         private readonly IServiceBehavior _serviceBehavior;

@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
         public ActivityReadService(
             IAppointmentReadModel appointmentReadModel, 
-            ILetterReadModel letterReadModel,
+            ILetterReadModel letterReadModel, 
             IPhonecallReadModel phonecallReadModel, 
             ITaskReadModel taskReadModel)
         {

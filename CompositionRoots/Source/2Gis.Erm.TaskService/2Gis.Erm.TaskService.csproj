@@ -56,11 +56,11 @@
     </Reference>
     <Reference Include="2GIS.NuClear.Jobs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\2GIS.NuClear.Jobs.1.2.0\lib\net451\2GIS.NuClear.Jobs.dll</HintPath>
+      <HintPath>..\packages\2GIS.NuClear.Jobs.1.2.2\lib\net451\2GIS.NuClear.Jobs.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Jobs.Unity, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\2GIS.NuClear.Jobs.Unity.1.2.0\lib\net451\2GIS.NuClear.Jobs.Unity.dll</HintPath>
+      <HintPath>..\packages\2GIS.NuClear.Jobs.Unity.1.2.2\lib\net451\2GIS.NuClear.Jobs.Unity.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -137,6 +137,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xaml" />

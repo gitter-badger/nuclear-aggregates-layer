@@ -115,6 +115,7 @@
     <Compile Include="Config\CommonBootstrapper.Initialize.cs" />
     <Compile Include="Config\CommonBootstrapper.Aspects.cs" />
     <Compile Include="Config\CommonBootstrapper.Workflow.cs" />
+    <Compile Include="Config\IdentityRequestOverrideOptions.cs" />
     <Compile Include="Config\MassProcessing\IntegrationServicesMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\CheckApplicationServicesConventionsMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\OrderValidationRuleMassProcessor.cs" />
@@ -134,6 +135,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\ApplicationServices\2Gis.Erm.Platform.Aggregates\2Gis.Erm.Platform.Aggregates.csproj">
       <Project>{10122143-5187-44B7-99EA-C91F739CF3F1}</Project>
       <Name>2Gis.Erm.Platform.Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.PersistenceServices\2Gis.Erm.Platform.DAL.PersistenceServices.csproj">
+      <Project>{5CA902E2-894D-48AB-9F1F-4B80D3E69A27}</Project>
+      <Name>2Gis.Erm.Platform.DAL.PersistenceServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\EF\2Gis.Erm.Platform.Model.EntityFramework\2Gis.Erm.Platform.Model.EntityFramework.csproj">
       <Project>{dae94b56-59e8-4907-a2bb-6372707c0b3b}</Project>
