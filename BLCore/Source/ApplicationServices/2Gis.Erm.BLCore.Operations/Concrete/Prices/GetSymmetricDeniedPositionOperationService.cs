@@ -62,6 +62,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             }
         }
 
+        public DeniedPosition GetFirstInactiveWithObjectBindingTypeConsideration(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
+        {
+            using (var scope = _operationScopeFactory.CreateNonCoupled<GetSymmetricDeniedPositionIdentity>())
+            {
+                var symmetricDeniedPositions =
+                    _priceReadModel.GetInactiveDeniedPositions(positionId: positionDeniedId,
+                                                               positionDeniedId: positionId,
+                                                               priceId: priceId,
+                                                               objectBindingType: objectBindingType);
+
+                EnsureExistence(positionId, positionDeniedId, symmetricDeniedPositions);
+                scope.Complete();
+
+                return symmetricDeniedPositions.First();
+            }
+        }
+
         private void EnsureExistence(long positionId, long positionDeniedId, IEnumerable<DeniedPosition> symmetricDeniedPositions)
         {
             if (!symmetricDeniedPositions.Any())
