@@ -14861,6 +14861,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string UserDontHaveSharedWithBranchOfficeOrganizationUnits {
+            get {
+                return ResourceManager.GetString("UserDontHaveSharedWithBranchOfficeOrganizationUnits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string UserHasNoCreatePermission {
             get {
                 return ResourceManager.GetString("UserHasNoCreatePermission", resourceCulture);
@@ -14918,15 +14927,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string UserIsNotAllowedToRecalculateLimit {
             get {
                 return ResourceManager.GetString("UserIsNotAllowedToRecalculateLimit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string UserIsNotLinkedWithSuitableOrganizationUnit {
-            get {
-                return ResourceManager.GetString("UserIsNotLinkedWithSuitableOrganizationUnit", resourceCulture);
             }
         }
         

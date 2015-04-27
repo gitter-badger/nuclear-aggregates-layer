@@ -5211,7 +5211,7 @@
   <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
     <value />
   </data>
-  <data name="UserIsNotLinkedWithSuitableOrganizationUnit" xml:space="preserve">
+  <data name="UserDontHaveSharedWithBranchOfficeOrganizationUnits" xml:space="preserve">
     <value />
   </data>
 </root>
