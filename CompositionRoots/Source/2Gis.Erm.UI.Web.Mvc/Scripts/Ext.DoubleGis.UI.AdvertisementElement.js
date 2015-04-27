@@ -154,6 +154,15 @@
             Ext.DoubleGis.FormValidator.updateValidationMessage(fInfo, messages.join('<br/>'));
         };
 
+        var getValue = function(oldStr) {
+            var elements = oldStr.split(new RegExp('<br />', 'gim'));
+            var result = "";
+            elements.forEach(function(element) {
+                result += "<p>" + element + "</p>";
+            });
+            return result;
+        };
+
         Ext.ux.TinyMCE.initTinyMCE();
         this.RTE = new Ext.ux.TinyMCE({
             renderTo: "TxtContainer",
@@ -192,7 +201,7 @@
                 forced_root_block: false,
                 convert_newlines_to_brs: true
             },
-            value: Ext.getDom(fieldWithPrefix("FormattedText")).value
+            value: getValue(Ext.getDom(fieldWithPrefix("FormattedText")).value)
         });
 
         var readOnlyField = Ext.getDom("ViewConfig_ReadOnly");
