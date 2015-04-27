@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Net.Sockets;
@@ -64,6 +65,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
             InvokeDialing(department, userProfile.Phone, number);
         }
 
+        private static async Task<TcpClient> ConnectAsync(Uri endpointUri)
+        {
+            var tcpClient = new TcpClient();
+            await tcpClient.ConnectAsync(endpointUri.Host, endpointUri.Port);
+            return tcpClient;
+        }
+
         private async void InvokeDialing(Uri endpointUri, string line, string phone)
         {            
             try
@@ -75,13 +83,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                 {
                     await writer.WriteAsync(Command.Dial(endpointUri, line, phone));
 
-                    Response response;
+                    bool continueListening;
                     do
                     {
-                        response = await reader.ReadAsync();
+                        var response = await reader.ReadAsync();
+                        continueListening = false;
                         _tracer.DebugFormat("Telephony service: {0}", response);
+                        switch (response.Status)
+                        {
+                            case Response.ResponseStatus.Connecting:
+                            case Response.ResponseStatus.ReadyToConnect:                                                           
+                                continueListening = true;
+                                break;
+                        }
                     }
-                    while (response.Status != Response.ResponseStatus.Disconnected);
+                    while (continueListening);
                 }
             }
             catch (SocketException ex)
@@ -101,14 +117,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                 _tracer.ErrorFormat(ex, "Error occured in {0}", GetType().Name);
             }
         }
-
-        private static async Task<TcpClient> ConnectAsync(Uri endpointUri)
-        {
-            var tcpClient = new TcpClient();
-            await tcpClient.ConnectAsync(endpointUri.Host, endpointUri.Port);
-            return tcpClient;
-        }
-
+        
         #region Command
 
         private class Command
@@ -118,14 +127,44 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
             private Command()
             {
             }
+            #region ServerType
 
+            public enum ServerType
+            {
+                // ReSharper disable UnusedMember.Local
+                None = 0,
+                Tapi = 2,
+                Ami = 3,
+                IntegratedVoip = 4
+                // ReSharper restore UnusedMember.Local
+            }
+
+            #endregion
+
+            #region CommandType
+
+            public enum CommandType
+            {
+                // ReSharper disable UnusedMember.Local
+                None = 0,
+                Dial = 1,
+                Drop = 2
+                // ReSharper restore UnusedMember.Local
+            }
+
+            #endregion            
+
+            // ReSharper disable once MemberCanBePrivate.Local
             public CommandType Type { get; private set; }
 
+            // ReSharper disable once MemberCanBePrivate.Local
             public ServerType Mode { get; private set; }
 
+            // ReSharper disable once MemberCanBePrivate.Local
             public string Line { get; private set; }
 
-            public string Number { get; private set; }
+            // ReSharper disable once MemberCanBePrivate.Local
+            public string Number { get; private set; }            
 
             public static Command Dial(Uri endpointUri, string line, string number)
             {
@@ -152,33 +191,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
 
                 throw new NotSupportedException(string.Format(BLResources.TelephonySchemeIsNotSupported, endpointUri.Scheme));
             }
-
-            #region CommandType
-
-            public enum CommandType
-            {
-                // ReSharper disable UnusedMember.Local
-                None = 0,
-                Dial = 1,
-                Drop = 2
-                // ReSharper restore UnusedMember.Local
-            }
-
-            #endregion
-
-            #region ServerType
-
-            public enum ServerType
-            {
-                // ReSharper disable UnusedMember.Local
-                None = 0,
-                Tapi = 2,
-                Ami = 3,
-                IntegratedVoip = 4
-                // ReSharper restore UnusedMember.Local
-            }
-
-            #endregion
         }
 
         #endregion
@@ -187,33 +199,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
 
         private class Response
         {
-            private static readonly Regex RegStatusNumberPattern = new Regex(@"Status=""(\d)""", RegexOptions.Compiled);
-
-            public Response(string message)
-            {
-                // FIXME {a.pashkin, 24.04.2015}: надо разобрать сообщение полностью
-                Message = message;
-                Status = ResolveStatus(message);
-            }
-
-            public string Message { get; private set; }
-
-            public ResponseStatus Status { get; private set; }
-
-            public override string ToString()
-            {
-                // FIXME {a.pashkin, 24.04.2015}: отформатировать согласно полям
-                return Message;
-            }
-
-            private static ResponseStatus ResolveStatus(string message)
-            {
-                var result = RegStatusNumberPattern.Match(message);
-                return (ResponseStatus)int.Parse(result.Groups[1].Value);
-            }
-
             #region ResponseStatus
 
+            [SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1201:ElementsMustAppearInTheCorrectOrder", Justification = "Reviewed. Suppression is OK here.")]
             public enum ResponseStatus
             {
                 // ReSharper disable UnusedMember.Local
@@ -228,6 +216,48 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
             }
 
             #endregion
+
+            private static readonly Regex RegStatusNumberPattern = new Regex(@"Status=""(\d)""", RegexOptions.Compiled);
+            private static readonly Regex RegLineNumberPattern = new Regex(@"Line=""(\d+)""", RegexOptions.Compiled);
+            private static readonly Regex RegAddressNumberPattern = new Regex(@"Address=""(\w+)""", RegexOptions.Compiled);
+            private static readonly Regex RegTextNumberPattern = new Regex(@"Text=""(\w+)""", RegexOptions.Compiled);
+
+            public Response(string message)
+            {                
+                Status = ResolveStatus(message);
+                Line = ResolveField(RegLineNumberPattern, message);
+                Address = ResolveField(RegAddressNumberPattern, message);
+                Text = ResolveField(RegTextNumberPattern, message);
+            }
+
+            public ResponseStatus Status { get; private set; }
+            // ReSharper disable once MemberCanBePrivate.Local
+            public string Line { get; private set; }
+            // ReSharper disable once MemberCanBePrivate.Local
+            public string Address { get; private set; }
+            // ReSharper disable once MemberCanBePrivate.Local
+            public string Text { get; private set; }
+
+            public override string ToString()
+            {                
+                return string.Format("Status = {0}, Line = {1}, Address = {2}, Text = {3}.", Status, Line, Address, Text);
+            }
+
+            private static ResponseStatus ResolveStatus(string message)
+            {
+                var result = RegStatusNumberPattern.Match(message);
+                return (ResponseStatus)int.Parse(result.Groups[1].Value);
+            }
+
+            private static string ResolveField(Regex regex, string message)
+            {
+                if (regex.IsMatch(message))
+                {
+                    return regex.Match(message).Groups[1].Value;
+                }
+
+                return string.Empty;
+            }
         }
 
         #endregion
@@ -261,6 +291,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                 await WriteAsync(commandText);
             }
 
+            public void Dispose()
+            {
+            }
+
             private Task WriteAsync(ushort value)
             {
                 return WriteAsync(BitConverter.GetBytes(value));
@@ -274,10 +308,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
             private Task WriteAsync(byte[] data)
             {
                 return _stream.WriteAsync(data, 0, data.Length);
-            }
-
-            public void Dispose()
-            {
             }
         }
 
@@ -301,6 +331,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
             public async Task<Response> ReadAsync()
             {
                 return new Response(await ReadMessageAsync());
+            }
+
+            public void Dispose()
+            {
             }
 
             private async Task<string> ReadMessageAsync()
@@ -327,10 +361,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                     size -= count;
                 }
                 while (size > 0);
-            }
-
-            public void Dispose()
-            {
             }
         }
 
