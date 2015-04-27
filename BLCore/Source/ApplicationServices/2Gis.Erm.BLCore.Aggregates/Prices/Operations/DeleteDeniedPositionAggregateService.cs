@@ -1,5 +1,4 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
-using DoubleGis.Erm.BLCore.API.Common.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
@@ -73,16 +72,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
                 throw new SymmetricDeniedPositionExpectedException();
             }
 
-            if (!deniedPosition.IsActive)
-            {
-                throw new InactiveEntityDeactivationException(typeof(DeniedPosition), deniedPosition.Id);
-            }
-
-            if (!symmetricDeniedPosition.IsActive)
-            {
-                throw new InactiveEntityDeactivationException(typeof(DeniedPosition), symmetricDeniedPosition.Id);
-            }
-
             if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Delete,
                                                               EntityName.DeniedPosition,
                                                               _userContext.Identity.Code,
@@ -99,11 +88,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             if (!deniedPosition.IsSelfDenied())
             {
                 throw new SelfDeniedPositionExpectedException();
-            }
-
-            if (!deniedPosition.IsActive)
-            {
-                throw new InactiveEntityDeactivationException(typeof(DeniedPosition), deniedPosition.Id);
             }
 
             if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
