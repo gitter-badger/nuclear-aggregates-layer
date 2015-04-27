@@ -126,6 +126,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
         {
             return _finder.Find(Specs.Find.ById<Position>(positionId))
                           .SelectMany(x => x.ChildPositions)
+                          .Where(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
                           .Select(x => x.ChildPositionId)
                           .ToArray();
         }

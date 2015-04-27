@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
@@ -92,17 +92,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                        : Enumerable.Empty<long>());
                 }
 
-                var positionDtos = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.Position.IsComposite, pricePositionInfo.Position.Id)
-                                                  .Select(ConvertToResponsePositionDto)
-                                                  .ToArray();
+                var autoCheckForFirmBindingObjectType = pricePositionInfo.Position.AutoCheckSubpositionsWithFirmBindingType();
 
-                if (!pricePositionInfo.Position.IsComposite || pricePositionInfo.Position.AutoCheckSubpositionsWithFirmBindingType())
-                {
-                    foreach (var positionDto in positionDtos.Where(x => x.LinkingObjectType == PositionBindingObjectType.Firm.ToString()))
-                    {
-                        positionDto.AlwaysChecked = true;
-                    }
-                }
+                var positionDtos = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.Position.IsComposite, pricePositionInfo.Position.Id)
+                                                     .Select(x => ConvertToResponsePositionDto(x, autoCheckForFirmBindingObjectType))
+                                                     .ToArray();
 
                 var salesIntoCategoriesByPositions = salesIntoCategories.GroupBy(x => x.PositionId)
                                                                         .ToDictionary(x => x.Key, y => y);
@@ -164,18 +158,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             };
         }
 
-        private static LinkingObjectsSchemaDto.PositionDto ConvertToResponsePositionDto(LinkingObjectsSchemaPositionDto dto)
+        private static LinkingObjectsSchemaDto.PositionDto ConvertToResponsePositionDto(LinkingObjectsSchemaPositionDto dto, bool autoCheckForFirmBindingObjectType)
         {
             return new LinkingObjectsSchemaDto.PositionDto
-            {
-                Id = dto.Id,
-                Name = dto.Name,
-                PositionsGroup = (int)dto.PositionsGroup,
-                LinkingObjectType = dto.BindingObjectType.ToString(),
-                IsLinkingObjectOfSingleType = dto.BindingObjectType.IsPositionBindingOfSingleType(),
-                AdvertisementTemplateId = dto.AdvertisementTemplateId,
-                DummyAdvertisementId = dto.DummyAdvertisementId,
-            };
+                       {
+                           Id = dto.Id,
+                           Name = dto.Name,
+                           PositionsGroup = (int)dto.PositionsGroup,
+                           LinkingObjectType = dto.BindingObjectType.ToString(),
+                           IsLinkingObjectOfSingleType = dto.BindingObjectType.IsPositionBindingOfSingleType(),
+                           AdvertisementTemplateId = dto.AdvertisementTemplateId,
+                           DummyAdvertisementId = dto.DummyAdvertisementId,
+                           AlwaysChecked = autoCheckForFirmBindingObjectType && dto.BindingObjectType == PositionBindingObjectType.Firm
+                       };
         }
 
         private LinkingObjectsSchemaDto.FirmAddressDto[] GetFirmAddresses(long firmId, bool includeHiddenAddresses)

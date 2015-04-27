@@ -1,6 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions
+namespace DoubleGis.Erm.BLCore.Aggregates.Positions
 {
     public static class PositionTools
     {
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions
 
         public static bool AutoCheckSubpositionsWithFirmBindingType(this Position position)
         {
-            return position.IsComposite && position.DgppId != AdditionalPackageDgppId;
+            return position.DgppId != AdditionalPackageDgppId;
         }
     }
 }

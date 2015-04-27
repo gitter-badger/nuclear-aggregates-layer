@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;

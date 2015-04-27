@@ -224,6 +224,10 @@
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\2Gis.Erm.BLCore.Aggregates\2Gis.Erm.BLCore.Aggregates.csproj">
+      <Project>{B558AEFD-8C80-4F81-98BC-DD3ABE3E519E}</Project>
+      <Name>2Gis.Erm.BLCore.Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.BLCore.Common\2Gis.Erm.BLCore.Common.csproj">
       <Project>{133C0A52-2556-4B09-A046-1BEDA9AA3AE4}</Project>
       <Name>2Gis.Erm.BLCore.Common</Name>

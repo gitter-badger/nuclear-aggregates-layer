@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Positions;
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
