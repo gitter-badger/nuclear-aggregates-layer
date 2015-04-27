@@ -127,7 +127,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
             return _finder.Find(Specs.Find.ByIds<User>(userIds) && UserSpecs.Users.Find.NotService()).Select(x => x.Id).ToArray();
         }
 
-        public bool CheckIfUserAndBranchOfficeHaveCommonOrganizationUnit(long userId, long branchOfficeId)
+        public bool DoesUserAndBranchOfficeHaveCommonOrganizationUnit(long userId, long branchOfficeId)
         {
             var userOrganizationUnits = _finder.Find(OrganizationUnitSpecs.UserOrganizationUnits.Find.ByUser(userId))
                                                .Select(x => x.OrganizationUnitId)

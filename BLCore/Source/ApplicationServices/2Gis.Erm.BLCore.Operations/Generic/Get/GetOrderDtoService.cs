@@ -218,7 +218,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var userBranchOfficeIds = _userReadModel.GetUserBranchOffices(UserContext.Identity.Code);
             if (userBranchOfficeIds.Any())
             {
-                var branchOfficeOrganizationUnits = _branchOfficeReadModel.GetBranchOfficeOrganizationUnitNamesByOrganizationUnitAndBranchOffices(sourceOrganizationUnitId, userBranchOfficeIds);
+                var branchOfficeOrganizationUnits = _branchOfficeReadModel.GetBranchOfficeOrganizationUnitNames(sourceOrganizationUnitId,
+                                                                                                                                                  userBranchOfficeIds);
                 if (branchOfficeOrganizationUnits.Count() == 1)
                 {
                     var branchOfficeOrganizationUnitInfo = branchOfficeOrganizationUnits.Single();
@@ -227,8 +228,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             }
             else if (sourceOrganizationUnitId.HasValue)
             {
-                var branchOfficeOrganizationUnitShortInfo = _branchOfficeReadModel.GetPrimaryBranchOfficeOrganizationUnitNameByOrganizationUnit(sourceOrganizationUnitId.Value);
-                return new EntityReference(branchOfficeOrganizationUnitShortInfo.Id, branchOfficeOrganizationUnitShortInfo.ShortLegalName);
+                var branchOfficeOrganizationUnitShortInfo = _branchOfficeReadModel.GetPrimaryBranchOfficeOrganizationUnitName(sourceOrganizationUnitId.Value);
+                return branchOfficeOrganizationUnitShortInfo != null
+                           ? new EntityReference(branchOfficeOrganizationUnitShortInfo.Id, branchOfficeOrganizationUnitShortInfo.ShortLegalName)
+                           : null;
             }
 
             return null;

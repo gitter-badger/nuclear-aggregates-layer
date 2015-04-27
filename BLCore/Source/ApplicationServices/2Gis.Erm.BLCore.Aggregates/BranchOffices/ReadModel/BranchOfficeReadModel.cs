@@ -115,22 +115,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
                        .Single();
         }
 
-        public BranchOfficeOrganizationShortLegalNameDto GetPrimaryBranchOfficeOrganizationUnitNameByOrganizationUnit(long organizationUnitId)
+        public BranchOfficeOrganizationShortLegalNameDto GetPrimaryBranchOfficeOrganizationUnitName(long organizationUnitId)
         {
             return _finder.Find<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId)
                           .Where(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
                           .Where(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
                           .Select(x => new BranchOfficeOrganizationShortLegalNameDto
-                          {
-                              Id = x.Id,
-                              ShortLegalName = x.ShortLegalName,
-                          })
-                          .SingleOrDefault() ?? new BranchOfficeOrganizationShortLegalNameDto();
-            // null не возвращаем, логика была рассчитана на работу с пустыми значениями.
+                                           {
+                                               Id = x.Id,
+                                               ShortLegalName = x.ShortLegalName,
+                                           })
+                          .SingleOrDefault();
         }
 
         public IReadOnlyCollection<BranchOfficeOrganizationShortLegalNameDto>
-            GetBranchOfficeOrganizationUnitNamesByOrganizationUnitAndBranchOffices(long? organizationUnitId, IEnumerable<long> branchOfficeIds)
+            GetBranchOfficeOrganizationUnitNames(long? organizationUnitId, IEnumerable<long> branchOfficeIds)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
                                 BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnitIfSpecified(organizationUnitId) &&

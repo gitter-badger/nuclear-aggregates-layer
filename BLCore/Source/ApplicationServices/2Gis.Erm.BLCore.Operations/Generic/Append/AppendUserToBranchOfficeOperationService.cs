@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
 
             using (var scope = _scopeFactory.CreateSpecificFor<AppendIdentity, User, BranchOffice>())
             {
-                if (!_userReadModel.CheckIfUserAndBranchOfficeHaveCommonOrganizationUnit(userId, branchOfficeId))
+                if (!_userReadModel.DoesUserAndBranchOfficeHaveCommonOrganizationUnit(userId, branchOfficeId))
                 {
                     throw new UserIsNotLinkedWithOrganizationUnitException(BLResources.UserIsNotLinkedWithSuitableOrganizationUnit);
                 }
