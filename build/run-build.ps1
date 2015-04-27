@@ -1,4 +1,4 @@
-﻿param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
+param([string[]]$TaskList = @(), [hashtable]$Properties = @{})
 
 if ($TaskList.Count -eq 0){
 	$TaskList = @('Build-TaskService', 'Deploy-TaskService')
@@ -12,7 +12,7 @@ $ErrorActionPreference = 'Stop'
 #------------------------------
 cls
 
-$Properties.SemanticVersion = '2.86.0'
+$Properties.SemanticVersion = '2.86.1'
 $Properties.SolutionDir = Join-Path $PSScriptRoot '..\CompositionRoots\Source'
 $Properties.BuildFile = Join-Path $PSScriptRoot 'default.ps1'
 
