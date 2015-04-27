@@ -668,7 +668,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                         LockDetailBalance = lockDetailBalance
                                     })
                     .ToArray();
-            DebtsAuditor.ThrowIfAnyError(accountWithDebts);
+            AccountsWithDebtsReportGenerator.TryGenerateAndThrow(accountWithDebts);
         }
         
         int IChangeAggregateTerritoryRepository<Client>.ChangeTerritory(long entityId, long territoryId)

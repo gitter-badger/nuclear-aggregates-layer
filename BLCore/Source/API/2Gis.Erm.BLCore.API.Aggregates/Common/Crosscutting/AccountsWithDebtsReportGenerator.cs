@@ -8,18 +8,18 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting
 {
     [Obsolete("При дальнейшем рефакторинге агрегирующих репозиториев весь функционал переедет в AccountDebtsChecker")]
-    public static class DebtsAuditor
+    public static class AccountsWithDebtsReportGenerator
     {
-        public static void ThrowIfAnyError(IReadOnlyCollection<AccountWithDebtInfo> accountWithDebts)
+        public static void TryGenerateAndThrow(IReadOnlyCollection<AccountWithDebtInfo> accountWithDebts)
         {
             string report;
-            if (TryGetReport(accountWithDebts, out report))
+            if (TryGenerate(accountWithDebts, out report))
             {
                 throw new ProcessAccountsWithDebtsException(report);
             }
         }
 
-        public static bool TryGetReport(IReadOnlyCollection<AccountWithDebtInfo> accountWithDebts, out string report)
+        public static bool TryGenerate(IReadOnlyCollection<AccountWithDebtInfo> accountWithDebts, out string report)
         {
             if (accountWithDebts == null || !accountWithDebts.Any())
             {

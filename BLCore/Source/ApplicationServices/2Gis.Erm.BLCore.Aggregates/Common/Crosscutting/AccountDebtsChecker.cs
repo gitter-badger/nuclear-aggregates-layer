@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
                 var accountsWithDebts = _accountReadModel.GetAccountsWithDebts(getTargetAccountsFunc());
                 processErrorsAction(accountsWithDebts);
 
-                return DebtsAuditor.TryGetReport(accountsWithDebts, out message);
+                return AccountsWithDebtsReportGenerator.TryGenerate(accountsWithDebts, out message);
             }
 
             message = null;

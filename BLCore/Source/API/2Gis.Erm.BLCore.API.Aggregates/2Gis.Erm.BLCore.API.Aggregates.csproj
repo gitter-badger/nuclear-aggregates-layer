@@ -162,7 +162,7 @@
     <Compile Include="Clients\ReadModel\ClientSpecs.Clients.cs" />
     <Compile Include="Clients\ReadModel\IClientReadModel.cs" />
     <Compile Include="CommonService\MessageHelper.cs" />
-    <Compile Include="Common\Crosscutting\DebtsAuditor.cs" />
+    <Compile Include="Common\Crosscutting\AccountsWithDebtsReportGenerator.cs" />
     <Compile Include="Common\Crosscutting\IAccountDebtsChecker.cs" />
     <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
     <Compile Include="Common\Crosscutting\ICheckInnService.cs" />
