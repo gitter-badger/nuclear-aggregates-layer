@@ -38,10 +38,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
                 }
                 else
                 {
-                    var symmetricDeniedPosition = _getSymmetricDeniedPositionOperationService.GetSingleWithObjectBindingTypeConsideration(deniedPosition.PositionId,
-                                                                                                                                          deniedPosition.PositionDeniedId,
-                                                                                                                                          deniedPosition.PriceId,
-                                                                                                                                          deniedPosition.ObjectBindingType);
+                    var symmetricDeniedPosition = deniedPosition.IsActive
+                                                      ? _getSymmetricDeniedPositionOperationService.GetSingleWithObjectBindingTypeConsideration(deniedPosition.PositionId,
+                                                                                                                                                deniedPosition.PositionDeniedId,
+                                                                                                                                                deniedPosition.PriceId,
+                                                                                                                                                deniedPosition.ObjectBindingType)
+                                                      : _getSymmetricDeniedPositionOperationService.GetFirstInactiveWithObjectBindingTypeConsideration(deniedPosition.PositionId,
+                                                                                                                                                       deniedPosition.PositionDeniedId,
+                                                                                                                                                       deniedPosition.PriceId,
+                                                                                                                                                       deniedPosition.ObjectBindingType);
                     _deleteDeniedPositionAggregateService.Delete(deniedPosition, symmetricDeniedPosition);
                 }
 
