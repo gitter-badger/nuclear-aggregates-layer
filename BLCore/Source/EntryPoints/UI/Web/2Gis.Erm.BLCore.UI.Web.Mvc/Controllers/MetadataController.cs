@@ -6,8 +6,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.Security.API.UserContext;
 using NuClear.IdentityService.Client.Settings;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 using NuClear.Tracing.API;
 

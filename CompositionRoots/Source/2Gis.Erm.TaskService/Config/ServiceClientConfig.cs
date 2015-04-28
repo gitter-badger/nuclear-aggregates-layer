@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.MoDi.Remote.WithdrawalInfo;
+
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Config;
 
 using Microsoft.Practices.Unity;

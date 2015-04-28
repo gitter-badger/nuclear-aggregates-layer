@@ -5,12 +5,13 @@ using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels.Contextual;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.Views;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.Views.Contextual;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Blendability;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents
 {

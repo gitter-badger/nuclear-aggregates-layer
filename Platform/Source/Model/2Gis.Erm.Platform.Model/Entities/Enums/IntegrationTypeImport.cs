@@ -10,12 +10,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Enums
         None = 0,
 
         // ERM <-> DGPP (range 1 - 10)
-        [EnumMember]
-        FirmsFromDgpp = 1,
 
+        // FirmsFromDgpp = 1, - устарело, больше не обрабатывается
         // CategoriesFromDgpp = 2, - устарело, больше не обрабатывается
-        [EnumMember]
-        TerritoriesFromDgpp = 3,
+        // TerritoriesFromDgpp = 3, - устарело, больше не обрабатывается
 
         // ERM <-> Billing (range 11 - 20)
         // WithdrawalsFromBilling = 11, - устарело, больше не обрабатывается

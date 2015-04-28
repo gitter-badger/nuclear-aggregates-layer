@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                           {
                               Id = entity.Id,
                               CategoryRef = new EntityReference { Id = entity.CategoryId, Name = entity.Category.Name },
-                              CategoryGroupRef = new EntityReference { Id = entity.CategoryGroupId, Name = entity.CategoryGroup.CategoryGroupName },
+                              CategoryGroupRef = new EntityReference { Id = entity.CategoryGroupId, Name = entity.CategoryGroup.Name },
                               OrganizationUnitRef = new EntityReference { Id = entity.OrganizationUnitId, Name = entity.OrganizationUnit.Name },
                               OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
                               CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },

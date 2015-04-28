@@ -3,7 +3,7 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             var orderOwnerCode = _orderReadModel.GetOrderOwnerCode(dto.OrderId);
 
-            dto.UserDoesntHaveRightsToEditOrder = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+            dto.SetReadonly = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                                 EntityName.Order,
                                                                                                 _userContext.Identity.Code,
                                                                                                 dto.OrderId,

@@ -39,11 +39,11 @@
   <ItemGroup>
     <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.1.0\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -72,6 +72,7 @@
     <Compile Include="Exceptions\InactiveEntityModificationException.cs" />
     <Compile Include="Metadata\Old\Dto\CardRelatedItemsGroupStructure.cs" />
     <Compile Include="Metadata\Old\Dto\CardRelatedItemStructure.cs" />
+    <Compile Include="Metadata\Old\Dto\CardRelatedItemStructureExtensions.cs" />
     <Compile Include="Metadata\Old\Dto\CardStructure.cs" />
     <Compile Include="Metadata\Old\Dto\DataListColumnStructure.cs" />
     <Compile Include="Metadata\Old\Dto\DataListScriptReference.cs" />

@@ -11,7 +11,7 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using NuClear.IdentityService.Client.Settings;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 
 using NuClear.Tracing.API;

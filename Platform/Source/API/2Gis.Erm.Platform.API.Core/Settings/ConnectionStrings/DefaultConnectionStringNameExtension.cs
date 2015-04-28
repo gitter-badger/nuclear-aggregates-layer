@@ -13,11 +13,10 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings
             { ConnectionStringName.Erm, "Erm" },
             { ConnectionStringName.ErmValidation, "ErmValidation" },
             { ConnectionStringName.CrmConnection, "CrmConnection" },
-            { ConnectionStringName.ErmRabbitMq, "ErmRabbitMq" },
             { ConnectionStringName.ErmReports, "ErmReports" },
             { ConnectionStringName.ErmSearch, "ErmSearch" },
             { ConnectionStringName.ErmPerformedOperationsServiceBus, "ErmPerformedOperationsServiceBus" },
-            { ConnectionStringName.QuartzJobStore, "QuartzJobStore" },
+            { ConnectionStringName.ErmInfrastructure, "ErmInfrastructure" },
         };
 
         internal static string ToDefaultConnectionStringName(this ConnectionStringName connectionStringName)

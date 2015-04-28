@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -22,19 +22,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             return _finder.Find<CategoryGroup>(x => x.Id == entityId)
                           .Select(entity => new CategoryGroupDomainEntityDto
-                                                {
-                                                    Id = entity.Id,
-                                                    CategoryGroupName = entity.CategoryGroupName,
-                                                    GroupRate = entity.GroupRate,
-                                                    OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
-                                                    CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
-                                                    CreatedOn = entity.CreatedOn,
-                                                    IsActive = entity.IsActive,
-                                                    IsDeleted = entity.IsDeleted,
-                                                    ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
-                                                    ModifiedOn = entity.ModifiedOn,
-                                                    Timestamp = entity.Timestamp
-                                                })
+                              {
+                                  Id = entity.Id,
+                                  Name = entity.Name,
+                                  GroupRate = entity.GroupRate,
+                                  OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null },
+                                  CreatedByRef = new EntityReference { Id = entity.CreatedBy, Name = null },
+                                  CreatedOn = entity.CreatedOn,
+                                  IsActive = entity.IsActive,
+                                  IsDeleted = entity.IsDeleted,
+                                  ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
+                                  ModifiedOn = entity.ModifiedOn,
+                                  Timestamp = entity.Timestamp
+                              })
                           .Single();
         }
 

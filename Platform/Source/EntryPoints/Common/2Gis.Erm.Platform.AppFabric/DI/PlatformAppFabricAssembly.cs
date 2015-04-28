@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Model.Zones;
+
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.Platform.AppFabric.DI
 {

@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         private readonly IAppointmentReadModel _readModel;
 
         private readonly IBusinessModelEntityObtainer<Appointment> _activityObtainer;
-
+        private readonly IActionLogger _actionLogger;
         private readonly IClientReadModel _clientReadModel;
 
         private readonly IFirmReadModel _firmReadModel;
@@ -35,6 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public ModifyAppointmentService(
             IAppointmentReadModel readModel,
             IBusinessModelEntityObtainer<Appointment> obtainer,
+            IActionLogger actionLogger,
             IClientReadModel clientReadModel,
             IFirmReadModel firmReadModel,
             ICreateAppointmentAggregateService createOperationService,
@@ -42,6 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         {
             _readModel = readModel;
             _activityObtainer = obtainer;
+            _actionLogger = actionLogger;
             _clientReadModel = clientReadModel;
             _firmReadModel = firmReadModel;
             _createOperationService = createOperationService;
@@ -86,18 +89,23 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 }
                 else
                 {
+                    var originalAppointment = _readModel.GetAppointment(appointment.Id);
                     _updateOperationService.Update(appointment);
                     oldRegardingObjects = _readModel.GetRegardingObjects(appointment.Id);
                     oldAttendees = _readModel.GetAttendees(appointment.Id);
                     oldOrganizer = _readModel.GetOrganizer(appointment.Id);
+                    if (originalAppointment.ScheduledStart != appointment.ScheduledStart)
+                    {
+                        _actionLogger.LogChanges(appointment, x => x.ScheduledStart, originalAppointment.ScheduledStart, appointment.ScheduledStart);
+                    }
                 }
 
                 _updateOperationService.UpdateAttendees(appointment, oldAttendees, appointment.ReferencesIfAny<Appointment, AppointmentAttendee>(appointmentDto.Attendees));
 
                 _updateOperationService.ChangeRegardingObjects(
                     appointment,
-                    oldRegardingObjects,
-                    appointment.ReferencesIfAny<Appointment, AppointmentRegardingObject>(appointmentDto.RegardingObjects));
+                                                               oldRegardingObjects,
+                                                               appointment.ReferencesIfAny<Appointment, AppointmentRegardingObject>(appointmentDto.RegardingObjects));
                 _updateOperationService.ChangeOrganizer(appointment, oldOrganizer, appointment.ReferencesIfAny<Appointment, AppointmentOrganizer>(appointmentDto.Organizer));
 
                 transaction.Complete();

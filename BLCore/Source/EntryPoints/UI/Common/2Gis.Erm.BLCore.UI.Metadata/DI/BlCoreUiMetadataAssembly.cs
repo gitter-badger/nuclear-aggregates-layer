@@ -1,10 +1,11 @@
 ﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
+
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.DI
 {
-    public class BlCoreUiMetadataAssembly : IZoneAssembly<MetadataZone>,
+    public class BlCoreUIMetadataAssembly : IZoneAssembly<MetadataZone>,
                                             IZoneAnchor<MetadataZone>,
                                             IContainsType<IMetadataSource>
     {

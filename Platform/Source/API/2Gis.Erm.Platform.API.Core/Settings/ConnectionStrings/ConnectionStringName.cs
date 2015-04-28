@@ -10,10 +10,9 @@
         Erm,
         ErmReports,
         CrmConnection,
-        ErmRabbitMq,
         ErmValidation,
         ErmSearch,
         ErmPerformedOperationsServiceBus,
-        QuartzJobStore
+        ErmInfrastructure
     }
 }

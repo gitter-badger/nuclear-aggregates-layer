@@ -3,7 +3,7 @@
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -95,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 .SingleOrDefault();
 
             // для заглушек вместо прав на фирму проверяем функциональную привилегию
-            dtoInfo.Dto.DisableEdit = firmInfo != null
+            dtoInfo.Dto.SetReadonly = firmInfo != null
                                           ? !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                           EntityName.Firm,
                                                                                           UserContext.Identity.Code,

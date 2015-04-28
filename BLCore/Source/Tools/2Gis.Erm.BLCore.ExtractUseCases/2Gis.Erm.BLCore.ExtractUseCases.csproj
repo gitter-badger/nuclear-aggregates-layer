@@ -167,6 +167,10 @@
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\EntryPoints\UI\Common\2Gis.Erm.Platform.UI.Metadata\2Gis.Erm.Platform.UI.Metadata.csproj">
+      <Project>{ce1f920d-acbd-4f41-9485-d8e6e9a09560}</Project>
+      <Name>2Gis.Erm.Platform.UI.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\EntryPoints\UI\Web\2Gis.Erm.Platform.UI.Web.Mvc\2Gis.Erm.Platform.UI.Web.Mvc.csproj">
       <Project>{d143e6af-c2c6-44b9-b6b0-09fbff6561e3}</Project>
       <Name>2Gis.Erm.Platform.UI.Web.Mvc</Name>
@@ -210,6 +214,10 @@
     <ProjectReference Include="..\..\ApplicationServices\2Gis.Erm.BLCore.Releasing\2Gis.Erm.BLCore.Releasing.csproj">
       <Project>{F2833A2E-0E6F-4A3E-B8D3-35B7165085A1}</Project>
       <Name>2Gis.Erm.BLCore.Releasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EntryPoints\UI\Common\2Gis.Erm.BLCore.UI.Metadata\2Gis.Erm.BLCore.UI.Metadata.csproj">
+      <Project>{f662d986-079c-469c-8a01-0d2cd1092eab}</Project>
+      <Name>2Gis.Erm.BLCore.UI.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Mvc\2Gis.Erm.BLCore.UI.Web.Mvc.csproj">
       <Project>{d99ed849-3585-45f0-a596-0118d0a70c28}</Project>

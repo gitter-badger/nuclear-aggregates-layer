@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
+using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Documents.ViewModels;
-using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             long entityId,
             IMetadataElement elementMetadata,
             ICollection<IViewModel> viewModels,
-            ICollection<IViewModelViewMapping> viewModelsModelViewMappings);
+            ICollection<IViewModelViewTypeMapping> viewModelsModelViewMappings);
 
         private readonly IMetadataProvider _metadataProvider;
         private readonly ICardViewModelFactory _cardViewModelFactory;
@@ -110,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 
             resolvedDependencies.Add(new DependencyOverride(typeof(ICardViewModelIdentity), viewModelIdentity));
             resolvedDependencies.Add(new DependencyOverride(typeof(IEnumerable<IViewModel>),  new IViewModel[] { cardViewModel }));
-            resolvedDependencies.Add(new DependencyOverride(typeof(DataTemplateSelector), new ViewModel2ViewMappingsSelector(new[] { cardMetadata.ViewModelViewMapping })));
+            resolvedDependencies.Add(new DependencyOverride(typeof(DataTemplateSelector), new ViewModel2ViewMappingsSelector(new[] { (IViewModelViewTypeMapping)cardMetadata.ViewModelViewMapping })));
 
             return container.Resolve<CompositeDocumentViewModel>(resolvedDependencies.ToArray());
         }
@@ -139,7 +140,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
                 }
                 
                 var resolvedElements = new List<IViewModel>();
-                var viewModelViewMappings = new List<IViewModelViewMapping>();
+                var viewModelViewMappings = new List<IViewModelViewTypeMapping>();
                 foreach (var element in documentMetadata.Elements)
                 {
                     ResolveDocumentElement(useCase, entityName, entityId, element, resolvedElements, viewModelViewMappings);
@@ -183,7 +184,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             long entityId,
             IMetadataElement elementStructure,
             ICollection<IViewModel> viewModels,
-            ICollection<IViewModelViewMapping> viewModelsModelViewMappings)
+            ICollection<IViewModelViewTypeMapping> viewModelsModelViewMappings)
         {
             if (_elementsResolvers.Any(
                 documentElementResolver => documentElementResolver(useCase, entityName, entityId, elementStructure, viewModels, viewModelsModelViewMappings)))
@@ -200,7 +201,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             long entityId,
             IMetadataElement elementMetadata,
             ICollection<IViewModel> viewModels,
-            ICollection<IViewModelViewMapping> viewModelsModelViewMappings)
+            ICollection<IViewModelViewTypeMapping> viewModelsModelViewMappings)
         {
             var cardMetadata = elementMetadata as CardMetadata;
             if (cardMetadata == null)
@@ -209,7 +210,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             }
 
             viewModels.Add(_cardViewModelFactory.Create(useCase, entityName, entityId));
-            viewModelsModelViewMappings.Add(cardMetadata.ViewModelViewMapping);
+            viewModelsModelViewMappings.Add((IViewModelViewTypeMapping)cardMetadata.ViewModelViewMapping);
 
             return true;
         }
@@ -220,7 +221,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             long entityId,
             IMetadataElement elementMetadata,
             ICollection<IViewModel> viewModels,
-            ICollection<IViewModelViewMapping> viewModelsModelViewMappings)
+            ICollection<IViewModelViewTypeMapping> viewModelsModelViewMappings)
         {
             var attachedElement = elementMetadata as AttachedMetadata;
             if (attachedElement == null || !attachedElement.HasHandler)
@@ -236,7 +237,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 
             var gridViewModel = _gridViewModelFactory.Create(useCase, showGridHandlerFeature.EntityName);
             viewModels.Add(gridViewModel);
-            viewModelsModelViewMappings.Add(attachedElement.ViewModelViewMapping);
+            viewModelsModelViewMappings.Add((IViewModelViewTypeMapping)attachedElement.ViewModelViewMapping);
 
             return true;
         }

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                               {
                                   Id = x.Id,
                                   OrderId = x.OrderId,
-                                  BillNumber = x.BillNumber,
+                                  Number = x.Number,
                                   BillDate = x.BillDate,
                                   BeginDistributionDate = x.BeginDistributionDate,
                                   EndDistributionDate = x.EndDistributionDate,

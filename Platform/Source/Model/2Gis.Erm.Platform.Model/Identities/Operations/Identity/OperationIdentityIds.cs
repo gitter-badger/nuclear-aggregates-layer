@@ -139,6 +139,8 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int PrintBindingChangeAgreementIdentity = 15121;
         public const int PrintFirmNameChangeAgreementIdentity = 15122;
         public const int PrintCancellationAgreementIdentity = 15123;
+        public const int GetOrderDocumentsDebtIdentity = 15124;
+        public const int SetOrderDocumentsDebtIdentity = 15125;
 
         // EntityName.Bill = 188
         public const int CalculateBillsIdentity = 18801;
@@ -208,7 +210,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int DeleteChargesForPeriodAndProjectIdentity = 22602;
 
         public const int NotifyAboutAdvertisementElementFileChangedIdentity = 19903;
-        public const int NotifyAboutAdvertisementElementValidationStatusChangedIdentity = 19904;
+        public const int NotifyAboutAdvertisementElementRejectionIdentity = 19904;
 
         // EntityName.Project = 158
         public const int ImportBranchIdentity = 15801;
@@ -250,6 +252,9 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
 
         public const int ImportFirmPromising = 19905;
         public const int ImportFirmAddresses = 19907;
+
+        // NotificationEmail = 301
+        public const int SendNotificationIdentity = 30101;
 
         // EntityName.AdvertisementElementStatus = 316
         public const int ChangeAdvertisementElementStatus = 31601;

@@ -1,9 +1,11 @@
-﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
+﻿using DoubleGis.Erm.BL.API.Aggregates.Clients;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
@@ -17,15 +19,16 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLFlex.DI.Config
 {
@@ -34,20 +37,33 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         internal static IUnityContainer ConfigureChileSpecific(this IUnityContainer container, IGlobalizationSettings globalizationSettings)
         {
             return container
-                        .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BusinessEntityPropertiesConverter<ChileLegalPersonPart>>(Lifetime.Singleton)
-                        .RegisterType<IDynamicEntityPropertiesConverter<ChileLegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
-                        .RegisterType<IDynamicEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance>, BusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>>(Lifetime.Singleton)
-                        .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, DictionaryEntityEntityPropertiesConverter<Bank>>(Lifetime.Singleton)
-                        .RegisterType<IDynamicEntityPropertiesConverter<Commune, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, DictionaryEntityEntityPropertiesConverter<Commune>>(Lifetime.Singleton)
+                .RegisterType
+                <IDynamicEntityPropertiesConverter<ChileLegalPersonPart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
+                    BusinessEntityPropertiesConverter<ChileLegalPersonPart>>(Lifetime.Singleton)
+                .RegisterType
+                <IDynamicEntityPropertiesConverter<ChileLegalPersonProfilePart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
+                    BusinessEntityPropertiesConverter<ChileLegalPersonProfilePart>>(Lifetime.Singleton)
+                .RegisterType
+                <IDynamicEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart, BusinessEntityInstance, BusinessEntityPropertyInstance>,
+                    BusinessEntityPropertiesConverter<ChileBranchOfficeOrganizationUnitPart>>(Lifetime.Singleton)
+                .RegisterType<IDynamicEntityPropertiesConverter<Bank, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, DictionaryEntityEntityPropertiesConverter<Bank>>(
+                                                                                                                                                                                    Lifetime
+                                                                                                                                                                                        .Singleton)
+                .RegisterType
+                <IDynamicEntityPropertiesConverter<Commune, DictionaryEntityInstance, DictionaryEntityPropertyInstance>, DictionaryEntityEntityPropertiesConverter<Commune>>(
+                                                                                                                                                                             Lifetime
+                                                                                                                                                                                 .Singleton)
 
                         .RegisterType<IFormatterFactory, ChileFormatterFactory>(Lifetime.Singleton)
                         .RegisterType<ICheckInnService, ChileRutService>(Lifetime.Singleton)
+                .RegisterType<IContactSalutationsProvider, ChileContactSalutationsProvider>(Lifetime.Singleton)
                         .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, ChileBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                         .RegisterType<IPartableEntityValidator<BranchOffice>, ChileBranchOfficeValidator>(Lifetime.Singleton)
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, ChileLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
                         .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
-                                                                           new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(ChileBillNumberFormatConsistencyRule),
+                                                                                 new InjectionConstructor(
+                                                                                     new ResolvedArrayParameter<IBillConsistencyRule>(typeof(ChileBillNumberFormatConsistencyRule),
                                                                                                                                                typeof(BillSummConsistencyRule),
                                                                                                                                                typeof(BillDublicateNumbersConsistencyRule),
                                                                                                                                                typeof(BillDatesConsistencyRule),

@@ -8,7 +8,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing.Workflow;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders
 
         protected override AvailableTransitionsResponse Handle(AvailableTransitionsRequest request)
         {
-            var transitions = OrderStateBehaviourFactory.GetTransitionsForUi(request.CurrentState);
+            var transitions = OrderStateBehaviourFactory.GetTransitionsForUI(request.CurrentState);
             transitions = FilterStates(request.OrderId, request.SourceOrganizationUnitId, request.CurrentState, transitions.ToList());            
             return new AvailableTransitionsResponse(transitions);
         }

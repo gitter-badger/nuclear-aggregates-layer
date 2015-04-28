@@ -1,9 +1,11 @@
-﻿using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
+﻿using DoubleGis.Erm.BL.API.Aggregates.Clients;
+using DoubleGis.Erm.BL.API.Operations.Concrete.Shared.Consistency;
 using DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders;
+using DoubleGis.Erm.BLFlex.Aggregates.Global.Kazakhstan.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Kazakhstan.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Kazakhstan.Operations.Generic.List;
@@ -17,7 +19,6 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -26,6 +27,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Kazakhstan;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLFlex.DI.Config
 {
@@ -40,6 +44,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 .RegisterType<ILegalPersonProfileConsistencyRuleContainer, KazakhstanLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                 .RegisterType<IFormatterFactory, KazakhstanFormatterFactory>(Lifetime.Singleton)
                 .RegisterType<ICheckInnService, KazakhstanBinInnService>(Lifetime.Singleton)
+                .RegisterType<IContactSalutationsProvider, KazakhstanContactSalutationsProvider>(Lifetime.Singleton)
                 .RegisterType<IPartableEntityValidator<BranchOfficeOrganizationUnit>, NullBranchOfficeOrganizationUnitValidator>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IPartableEntityValidator<BranchOffice>, NullBranchOfficeValidator>(Lifetime.PerResolve, Mapping.Erm)
                 .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,

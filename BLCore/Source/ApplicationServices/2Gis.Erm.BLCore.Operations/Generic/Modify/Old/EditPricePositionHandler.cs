@@ -97,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                         PositionBindingObjectType.AddressFirstLevelCategoryMultiple,
                     };
 
-                var positionBindingObjectType = _positionReadModel.GetPositionBindingObjectType(positionId);
+                var positionBindingObjectType = _positionReadModel.GetPositionBindingObjectTypes(new[] { positionId }).Single().Value;
                 if (!allowedBindingTypesForBoundCategoryRateTypes.Contains(positionBindingObjectType))
                 {
                     throw new NotificationException(string.Format(BLResources.CannotUseRateTypeForBindingObjectType,

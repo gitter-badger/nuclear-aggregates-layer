@@ -84,8 +84,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 if (currentOrderInfo.OrderPositions.All(orderPosition => orderPosition.PricePosition.PriceId == actualPriceId))
                 {   // все позиции заказа актуальны => актуализация не требуется
                     scope.Complete();
-                    return resultMessages;
-                }
+                return resultMessages;
+            }
 
                 // 1: удаление всего.
                 RemoveOutdated(currentOrderInfo);
@@ -94,6 +94,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 ActualizeOrderPositions(currentOrderInfo.OrderPositions, actualPriceId, resultMessages, saveDiscounts);
                 
                 var order = _orderReadModel.GetOrderSecure(orderId);
+                if (order == null)
+                {
+                    throw new EntityNotFoundException(typeof(Order), orderId);
+                }
+
                 _publicService.Handle(new UpdateOrderFinancialPerformanceRequest
                     {
                         Order = order,
@@ -105,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 _orderRepository.Update(order);
 
                 scope.Updated<Order>(orderId)
-                     .Complete();
+                    .Complete();
             }
 
             return resultMessages;
@@ -147,9 +152,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
         private bool CheckOrderPositionAdvertisementCorrectness(
             long orderPositionId,
-            string positionName,
-            IEnumerable<AdvertisementDescriptor> advertisements,
-            IList<RepairOutdatedPositionsOperationMessage> resultMessages)
+                                                       string positionName,
+                                                       IEnumerable<AdvertisementDescriptor> advertisements,
+                                                       IList<RepairOutdatedPositionsOperationMessage> resultMessages)
         {
             var validationErrors = _validateOrderPositionAdvertisementsOperationService.Validate(orderPositionId, advertisements);
 
@@ -186,34 +191,34 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                                              List<RepairOutdatedPositionsOperationMessage> resultMessages,
                                              bool saveDiscounts)
         {
-            foreach (var orderPosition in currentOrderPositions)
-            {
-                var advertisements = orderPosition.ClonedAdvertisements.ToList();
-
-                if (CheckOrderPositionAdvertisementCorrectness(orderPosition.OrderPosition.Id, orderPosition.PositionName, advertisements, resultMessages))
+                foreach (var orderPosition in currentOrderPositions)
                 {
-                    if (orderPosition.PricePosition.PriceId == actualPriceId)
+                    var advertisements = orderPosition.ClonedAdvertisements.ToList();
+
+                    if (CheckOrderPositionAdvertisementCorrectness(orderPosition.OrderPosition.Id, orderPosition.PositionName, advertisements, resultMessages))
                     {
-                        RestoreClonedOrderPosition(orderPosition.OrderPosition,
-                                                    orderPosition.ClonedAdvertisements.ToList(),
-                                                    orderPosition.PricePosition,
-                                                    saveDiscounts);
+                        if (orderPosition.PricePosition.PriceId == actualPriceId)
+                        {
+                            RestoreClonedOrderPosition(orderPosition.OrderPosition,
+                                                       orderPosition.ClonedAdvertisements.ToList(),
+                                                       orderPosition.PricePosition,
+                                                       saveDiscounts);
                         continue;
-                    }
+                        }
                     
-                    resultMessages.AddRange(UpgradeAndRestoreOrderPosition(orderPosition.OrderPosition,
-                                                                                advertisements,
-                                                                                orderPosition.PricePosition,
-                                                                                actualPriceId,
-                                                                                saveDiscounts));
-                }
+                            resultMessages.AddRange(UpgradeAndRestoreOrderPosition(orderPosition.OrderPosition,
+                                                                                   advertisements,
+                                                                                   orderPosition.PricePosition,
+                                                                                   actualPriceId,
+                                                                                   saveDiscounts));
+                        }
+                    }
             }
-        }
 
         private void RemoveOutdated(OrderRepairOutdatedOrderPositionDto currenOrderInfo)
-        {
+                {
             foreach (var orderPosition in currenOrderInfo.OrderPositions)
-            {
+        {
                 _deleteReleaseWithdrawalsAggregateService.Delete(orderPosition.ReleaseWithdrawals);
 
                 _orderRepository.Delete(orderPosition.Advertisements);
@@ -231,7 +236,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         {
             var resultMessages = new List<RepairOutdatedPositionsOperationMessage>();
 
-            var positionName = _positionReadModel.GetPositionName(pricePosition.PositionId);
+            var positionName = _positionReadModel.GetPositionNames(new[] { pricePosition.PositionId }).Single().Value;
             var actualPricePosition = _priceReadModel.GetPricePosition(actualPriceId, pricePosition.PositionId);
             if (actualPricePosition == null)
             {

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 
+using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
@@ -8,7 +9,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using NuClear.IdentityService.Client.Settings;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
             var domainEntityDto = service.GetDomainEntityDto(positionId, true, null, EntityName.None, null);
 
             // TODO {all, 05.05.2014}: Поменять модель и перенести в BL
-            var model = new MultiCultureOrderPositionViewModel();
+            var model = new OrderPositionViewModel();
             model.LoadDomainEntityDto(domainEntityDto);
             model.IsLocked = false;
 

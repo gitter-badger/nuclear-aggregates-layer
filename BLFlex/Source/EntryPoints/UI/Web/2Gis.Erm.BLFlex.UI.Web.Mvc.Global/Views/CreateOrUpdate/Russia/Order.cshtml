@@ -1,6 +1,6 @@
 ﻿@using System.Globalization
 @using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
-@using DoubleGis.Erm.Platform.API.Security.FunctionalAccess
+@using NuClear.Security.API.FunctionalAccess
 
 
 @model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia.OrderViewModel
@@ -63,8 +63,6 @@
         @Html.HiddenFor(m => m.CurrenctUserCode)
         @Html.HiddenFor(m => m.CanEditOrderType)
         @Html.CheckBoxFor(m => m.ShowRegionalAttributes)
-        @Html.CheckBoxFor(m => m.CanSwitchToAccount)
-        @Html.HiddenFor(m => m.HasOrderDocumentsDebtChecking)
         @Html.HiddenFor(m => m.AccountId)
         @Html.HiddenFor(m => m.IsActive)
         @Html.HiddenFor(m => m.PlatformId)
@@ -75,7 +73,7 @@
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <br />
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrderNumber, FieldFlex.twins)
+            @Html.TemplateField(m => m.Number, FieldFlex.twins)
             @Html.TemplateField(m => m.Platform, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } })
         </div>
         <div class="row-wrapper">
@@ -266,10 +264,10 @@
             @Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}" })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.HasDocumentsDebt, FieldFlex.twins, null, EnumResources.ResourceManager)
+            @Html.TemplateField(m => m.HasDocumentsDebt, FieldFlex.twins, new Dictionary<string, object> { { "disabled", "disabled" } }, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.DocumentsComment, FieldFlex.lone)
+            @Html.TemplateField(m => m.DocumentsComment, FieldFlex.lone, new Dictionary<string, object> { { "readonly", "true" } })
         </div>
         @Html.SectionHead("print", BLResources.TitlePrinting)
         <div class="row-wrapper">

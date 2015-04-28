@@ -1,10 +1,11 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
             {
                 foreach (var dataView in gridViewSettings.DataViews)
                 {
-                    dataView.ToolbarItems = Enumerable.Empty<ToolbarJson>();
+                    dataView.ToolbarItems = Enumerable.Empty<ToolbarElementStructure>();
                 }
             }
 

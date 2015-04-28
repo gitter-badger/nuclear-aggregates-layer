@@ -39,11 +39,11 @@
   <ItemGroup>
     <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.1.0\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -76,12 +76,13 @@
     </Compile>
     <Compile Include="ActionLogging\ActionType.cs" />
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\RequiredFieldIsEmptyException.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\EntityIsNotUniqueException.cs" />
     <Compile Include="Exceptions\OperationAccessDeniedException.cs" />
     <Compile Include="Exceptions\EntityNotLinkedException.cs" />
-    <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\MetadataNotFoundException.cs" />
     <Compile Include="Exceptions\IntegrationException.cs" />
     <Compile Include="Exceptions\MsCrm\MsCrmIntegrationException.cs" />
     <Compile Include="Exceptions\MsCrm\ReplicationDisabledException.cs" />
@@ -96,6 +97,14 @@
     <Compile Include="Exceptions\Withdrawal\Operations\MissingChargesForProjectException.cs" />
     <Compile Include="Exceptions\Withdrawal\Operations\MultipleChargesSessionsFoundException.cs" />
     <Compile Include="Exceptions\Withdrawal\WithdrawalException.cs" />
+    <Compile Include="Locking\IApplicationLocksManager.cs" />
+    <Compile Include="Locking\IApplicationLocksReleaser.cs" />
+    <Compile Include="Locking\IApplicationLocksService.cs" />
+    <Compile Include="Locking\ILockingScope.cs" />
+    <Compile Include="Locking\LockingScope.cs" />
+    <Compile Include="Locking\LockName.cs" />
+    <Compile Include="Locking\LockOwner.cs" />
+    <Compile Include="Locking\LockScope.cs" />
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\Flows\IMessageFlow.cs" />
     <Compile Include="Messaging\MessageBase.cs" />

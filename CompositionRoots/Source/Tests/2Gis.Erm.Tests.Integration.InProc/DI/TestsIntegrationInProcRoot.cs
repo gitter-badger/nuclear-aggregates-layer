@@ -19,13 +19,14 @@ using DoubleGis.Erm.BLQuerying.UI.Metadata.DI;
 using DoubleGis.Erm.Platform.Aggregates.DI;
 using DoubleGis.Erm.Platform.API.Aggregates.DI;
 using DoubleGis.Erm.Platform.Core;
-using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
+using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Zones;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Zones.Parts;
+
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {
@@ -38,11 +39,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 return CompositionRoot.Config
                                       .RequireZone<IntegrationTestsZone>()
                                             .UseAnchor<IntegrationTestsZonePartAssembly>()
-                                      //.RequireZone<WebMvcZone>()
-                                      //      .UseAnchor<BlCoreUiWebMvcAssembly>()
-                                      //      .UseAnchor<BlUiWebMvcAssembly>()
-                                      //      .UseAnchor<BlFlexUiWebMvcAssembly>()
-                                      //      .UseAnchor<PlatformUiWebMvcAssembly>()
                                       .RequireZone<AggregatesZone>()
                                             .UseAnchor<BlCoreAggregatesAssembly>()
                                             .UseAnchor<BlFlexAggregatesGlobalAssembly>()
@@ -54,33 +50,30 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                             .UseAnchor<BlFlexOperationsGlobalAssembly>()
                                       .RequireZone<MoDiZone>()
                                             .UseAnchor<BlCoreApiModiAssembly>()
-                                            //.UseAnchor<BlCoreModiAssembly>()
                                       .RequireZone<OperationsSpecialZone>()
                                             .UseAnchor<BlCoreApiOperationsSpecialAssembly>()
                                             .UseAnchor<BlCoreOperationsSpecialAssembly>()
                                             .UseAnchor<BlOperationsSpecialAssembly>()
                                       .RequireZone<PlatformZone>()
                                             .UseAnchor<BlCoreDalPersistenceServicesAssembly>()
-                                            //.UseAnchor<PlatformDalPersistenceServicesAssembly>()
+                                            .UseAnchor<PlatformDalPersistenceServicesAssembly>()
                                             .UseAnchor<PlatformModelAssembly>()
                                             .UseAnchor<PlatformCoreAssembly>()
                                             .UseAnchor<PlatformModelEntityFrameworkAssembly>()
                                       .RequireZone<QueryingZone>()
                                             .UseAnchor<BlQueryingApiOperationsListingAssembly>()
                                             .UseAnchor<BlQueryingOperationsListingAssembly>()
-                                            //.UseAnchor<QdsOperationsAssembly>()
                                       .RequireZone<ReleasingZone>()
                                             .UseAnchor<BlCoreApiReleasingAssembly>()
-                                            //.UseAnchor<BlCoreReleasingAssembly>()
                                       .RequireZone<OrderValidationZone>()
                                             .UseAnchor<BlCoreApiOrderValidationAssembly>()
                                             .UseAnchor<BlCoreOrderValidationAssembly>()
                                       .RequireZone<MetadataZone>()
                                             .UseAnchor<PlatformModelMetadataAssembly>()
-                                            .UseAnchor<BlQueryingUiMetadataAssembly>()
+                                            .UseAnchor<BlQueryingUIMetadataAssembly>()
                                             .UseAnchor<BLCore.UI.WPF.Client.DI.MetadataZonePartAssembly>()
                                             .UseAnchor<MetadataZonePartAssembly>()
-                                            .UseAnchor<BlCoreUiMetadataAssembly>();
+                                            .UseAnchor<BlCoreUIMetadataAssembly>();
             }
         } 
     }

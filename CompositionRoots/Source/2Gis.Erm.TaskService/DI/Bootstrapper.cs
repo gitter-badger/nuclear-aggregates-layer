@@ -20,7 +20,6 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLQuerying.DI.Config;
 using DoubleGis.Erm.BLQuerying.TaskService.DI;
-using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
@@ -42,10 +41,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Common.CorporateQueue.RabbitMq;
-using DoubleGis.Erm.Platform.Core.Identities;
+
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -58,17 +54,14 @@ using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Factories.Messaging;
 using DoubleGis.Erm.Platform.DI.Factories.PerformedOperationsAnalysis;
 using DoubleGis.Erm.Platform.DI.Proxies.PerformedOperations;
 using DoubleGis.Erm.Platform.Security;
-using DoubleGis.Erm.Platform.TaskService.DI;
 using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Consumer;
 using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Producer;
-using DoubleGis.Erm.Platform.TaskService.Schedulers;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Qds.Common.Settings;
 using DoubleGis.Erm.Qds.Operations.Indexing;
@@ -77,6 +70,14 @@ using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
+using NuClear.Jobs.Schedulers;
+using NuClear.Jobs.Unity;
+using NuClear.Security;
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 
@@ -157,12 +158,11 @@ namespace DoubleGis.Erm.TaskService.DI
                     .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                     .ConfigureReplicationMetadata(msCrmSettings)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                    .ConfigureIdentityInfrastructure()
+                    .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.UseNullRequestChecker)
                     .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureMetadata()
                     .ConfigureExportMetadata()
                     .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
-                    .RegisterCorporateQueues(connectionStringSettings)
                     .ConfigureQuartz()
                     .ConfigureEAV()
                     .ConfigurePerformedOperationsProcessing();
@@ -218,7 +218,7 @@ namespace DoubleGis.Erm.TaskService.DI
             const string MappingScope = Mapping.Erm;
 
             return container
-                .RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(Lifetime.PerScope, MappingScope)
+                .RegisterTypeWithDependencies<IUserAuthenticationService, SecurityServiceAuthentication>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceUserIdentifier, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccessInternal, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
@@ -315,14 +315,9 @@ namespace DoubleGis.Erm.TaskService.DI
         private static IUnityContainer ConfigureQuartz(this IUnityContainer container)
         {
             return container
-                .RegisterType<IJobFactory, JobFactory>(Lifetime.Singleton)
+                .RegisterType<IJobFactory, JobFactory>(Lifetime.Singleton, new InjectionConstructor(container.Resolve<UnityJobFactory>(), container.Resolve<ITracer>()))
+                .RegisterType<IJobStoreFactory, JobStoreFactory>(Lifetime.Singleton)
                 .RegisterType<ISchedulerManager, SchedulerManager>(Lifetime.Singleton);
-        }
-
-        private static IUnityContainer RegisterCorporateQueues(this IUnityContainer container, IConnectionStringSettings connectionStringSettings)
-        {
-            return container.RegisterType<IRabbitMqQueueFactory, RabbitMqQueueFactory>(Lifetime.Singleton,
-                        new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmRabbitMq)));
         }
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)

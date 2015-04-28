@@ -36,19 +36,19 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
         {
             var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
                                   .Select(bill => new
-                                                      {
-                                                          Bill = bill,
-                                                          bill.OrderId,
-                                                          OrderReleaseCountPlan = bill.Order.ReleaseCountPlan,
-                                                          LegalPersonType = bill.Order.LegalPerson.LegalPersonTypeEnum,
-                                                          bill.Order.BranchOfficeOrganizationUnitId,
-                                                          bill.Order.LegalPersonProfileId,
+                                      {
+                                          Bill = bill,
+                                          bill.OrderId,
+                                          OrderReleaseCountPlan = bill.Order.ReleaseCountPlan,
+                                          LegalPersonType = bill.Order.LegalPerson.LegalPersonTypeEnum,
+                                          bill.Order.BranchOfficeOrganizationUnitId,
+                                          bill.Order.LegalPersonProfileId,
                                                           CurrencyISOCode = bill.Order.Currency.ISOCode,
                                                           bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                                           bill.Order.LegalPersonId,
                                                           bill.Order.SourceOrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(x => x.IsPrimary)
                                                               .BranchOffice.ContributionTypeId
-                                                      })
+                                      })
                                   .SingleOrDefault();
 
             if (billInfo == null)
@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                        {
                                            Bill = new
                                                {
-                                                   bill.BillNumber,
+                                                   bill.Number,
                                                    bill.BeginDistributionDate,
                                                    bill.EndDistributionDate,
                                                    bill.PayablePlan,
@@ -93,12 +93,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                        {
                                            x.Bill,
                                            x.Order,
-                                           OrderVatRate = (x.Order.VatRate == default(decimal))
-                                               ? (decimal?)null
-                                               : x.Order.VatRate,
+                                           OrderVatRate = (x.Order.VatRate == default(decimal)) 
+                                                ? (decimal?)null 
+                                                : x.Order.VatRate,
                                            RelatedBargainInfo = (x.Bargain != null)
-                                            ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
-                                            : null,
+                                                ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
+                                                : null,
                                        })
                                    .Single();
 
@@ -109,7 +109,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
 
             var billPrintData = new PrintData
                                     {
-                                        { "BillNumber", printDataInfo.Bill.BillNumber },
+                                        { "BillNumber", printDataInfo.Bill.Number },
                                         { "PaymentDatePlan", printDataInfo.Bill.PaymentDatePlan },
                                         { "BeginDistributionDate", printDataInfo.Bill.BeginDistributionDate },
                                         { "EndDistributionDate", printDataInfo.Bill.EndDistributionDate },
@@ -120,15 +120,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                     };
 
             var orderPrintData = new PrintData
-                                     {
+                {
                                          { "SignupDate", printDataInfo.Order.SignupDate },
                                          { "Number", printDataInfo.Order.Number }
-                                     };
+                };
 
 
             var printData =
                 new PrintData
-                    {
+        {
                         { "Bill", billPrintData },
                         { "Order", orderPrintData },
                         { "OrderVatRate", printDataInfo.OrderVatRate },
@@ -138,7 +138,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
             var printRequest = new PrintDocumentRequest
                                    {
                                        CurrencyIsoCode = billInfo.CurrencyISOCode,
-                                       FileName = printDataInfo.Bill.BillNumber,
+                                       FileName = printDataInfo.Bill.Number,
                                        BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
                                        PrintData = PrintData.Concat(printData,
                                                                     PrintHelper.DetermineBilletType((ContributionTypeEnum)billInfo.ContributionTypeId),
