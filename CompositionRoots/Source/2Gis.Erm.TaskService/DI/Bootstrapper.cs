@@ -184,7 +184,7 @@ namespace DoubleGis.Erm.TaskService.DI
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {
             return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
-                     .RegisterType<IIdentityRequestStrategy, RangedIdentityRequestStrategy>(Lifetime.Singleton)
+                     .RegisterType<IIdentityServiceClient, IdentityServiceClient>(Lifetime.Singleton)
                      .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
         }
 

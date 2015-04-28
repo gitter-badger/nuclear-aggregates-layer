@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Integrati
         private readonly IIntegrationLocalizationSettings _integrationLocalizationSettings;
         private readonly IMsCrmSettings _msCrmSettings;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IIdentityRequestStrategy _identityRequestStrategy;
+        private readonly IIdentityServiceClient _identityRequestStrategy;
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
         private readonly IUserContext _userContext;
 
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Integrati
                                              IMsCrmSettings msCrmSettings,
                                              IClientProxyFactory clientProxyFactory,
                                              IOperationScopeFactory scopeFactory,
-                                             IIdentityRequestStrategy identityRequestStrategy,
+                                             IIdentityServiceClient identityRequestStrategy,
                                              IImportCardAggregateService importCardAggregateService)
         {
             _userContext = userContext;
@@ -56,7 +56,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Integrati
         {
             var cardServiceBusDtos = dtos.Cast<MultiCultureCardServiceBusDto>();
 
-            var ids = _identityRequestStrategy.Request(PregeneratedIdsAmount);
+            var ids = _identityRequestStrategy.GetIdentities(PregeneratedIdsAmount);
 
             using (var scope = _scopeFactory.CreateNonCoupled<ImportCardIdentity>())
             {

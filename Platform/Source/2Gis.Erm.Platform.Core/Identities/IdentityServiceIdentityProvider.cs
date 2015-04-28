@@ -9,12 +9,12 @@ namespace DoubleGis.Erm.Platform.Core.Identities
     {
         // Максимальное количество идентификаторов, которое можно запросить у сервиса генерации идентификаторов
         private const int MaxRequestedCount = 32767;
-        private readonly IIdentityRequestStrategy _requestStrategy;
+        private readonly IIdentityServiceClient _identityServiceClient;
 
-        public IdentityServiceIdentityProvider(IIdentityRequestStrategy requestStrategy, IIdentityRequestChecker identityRequestChecker)
+        public IdentityServiceIdentityProvider(IIdentityServiceClient identityServiceClient, IIdentityRequestChecker identityRequestChecker)
             : base(identityRequestChecker)
         {
-            _requestStrategy = requestStrategy;
+            _identityServiceClient = identityServiceClient;
         }
 
         protected override long[] New(int count)
@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.Platform.Core.Identities
                 throw new ArgumentException(string.Format("Cannot generate more than {0} ids at once", MaxRequestedCount), "count");
             }
 
-            return _requestStrategy.Request(count);
+            return _identityServiceClient.GetIdentities(count);
         }
     }
 }

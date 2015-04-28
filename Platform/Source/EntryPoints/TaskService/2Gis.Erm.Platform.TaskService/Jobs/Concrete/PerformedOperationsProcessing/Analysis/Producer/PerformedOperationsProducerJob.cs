@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
     public sealed class PerformedOperationsProducerJob : TaskServiceJobBase, IInterruptableJob
     {
         private readonly IOperationScopeDisposableFactoryAccessor _operationScopeFactoryAccessor;
-        private readonly IIdentityRequestStrategy _identityRequestStrategy;
+        private readonly IIdentityServiceClient _identityServiceClient;
         private readonly IReadOnlyList<PerformedOperationsWorkItem> _operationsProfiles;
         
         private readonly CancellationTokenSource _cancellationTokenSource;
@@ -26,14 +26,14 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
 
         public PerformedOperationsProducerJob(
             IOperationScopeDisposableFactoryAccessor operationScopeFactoryAccessor,
-            IIdentityRequestStrategy identityRequestStrategy,
+            IIdentityServiceClient identityServiceClient,
             ISignInService signInService,
             IUserImpersonationService userImpersonationService,
             ITracer tracer)
             : base(signInService, userImpersonationService, tracer)
         {
             _operationScopeFactoryAccessor = operationScopeFactoryAccessor;
-            _identityRequestStrategy = identityRequestStrategy;
+            _identityServiceClient = identityServiceClient;
 
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
             var workItemsProcessors = new Task[MaxParallelism];
             for (int i = 0; i < workItemsProcessors.Length; i++)
             {
-                var processor = new PerformedOperationsWorkItemProcessor(i, _workItemsSource, _operationScopeFactoryAccessor, _identityRequestStrategy, _cancellationTokenSource.Token, Tracer);
+                var processor = new PerformedOperationsWorkItemProcessor(i, _workItemsSource, _operationScopeFactoryAccessor, _identityServiceClient, _cancellationTokenSource.Token, Tracer);
                 workItemsProcessors[i] = processor.Process();
             }
 

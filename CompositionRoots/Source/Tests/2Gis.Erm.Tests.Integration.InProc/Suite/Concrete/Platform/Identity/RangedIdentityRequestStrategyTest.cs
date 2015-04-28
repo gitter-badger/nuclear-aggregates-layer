@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
@@ -11,36 +10,35 @@ using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Identity
 {
-    public class RangedIdentityRequestStrategyTest : IIntegrationTest
+    public class IdentityServiceClientTest : IIntegrationTest
     {
         private const int NumOfTasks = 10;
         private const int RequestedIdentitiesCount = 1000;
         private const int RequestCount = 1000;
 
-        private readonly RangedIdentityRequestStrategy _rangedIdentityRequestStrategy;
+        private readonly IdentityServiceClient _identityServiceClient;
         private readonly ITracer _logger;
 
-        public RangedIdentityRequestStrategyTest(RangedIdentityRequestStrategy rangedIdentityRequestStrategy,
-                                                 ITracer logger)
+        public IdentityServiceClientTest(IdentityServiceClient identityServiceClient, ITracer logger)
         {
-            _rangedIdentityRequestStrategy = rangedIdentityRequestStrategy;
+            _identityServiceClient = identityServiceClient;
             _logger = logger;
         }
 
         public ITestResult Execute()
         {
-            var rangedStrategyTasks = new Task<IEnumerable<long>>[NumOfTasks];
-            for (int i = 0; i < rangedStrategyTasks.Length; i++)
+            var tasks = new Task<IEnumerable<long>>[NumOfTasks];
+            for (int i = 0; i < tasks.Length; i++)
             {
-                rangedStrategyTasks[i] = Task<IEnumerable<long>>.Factory.StartNew(() => GetIdentities(_rangedIdentityRequestStrategy));
+                tasks[i] = Task<IEnumerable<long>>.Factory.StartNew(() => GetIdentities(_identityServiceClient));
             }
 
             var rangedSw = Stopwatch.StartNew();
-            Task.WaitAll(rangedStrategyTasks);
+            Task.WaitAll(tasks);
             rangedSw.Stop();
 
             var ids = new HashSet<long>();
-            foreach (var task in rangedStrategyTasks)
+            foreach (var task in tasks)
             {
                 foreach (var id in task.Result)
                 {
@@ -48,17 +46,17 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Identit
                 }
             }
 
-            _logger.InfoFormat("Ranged strategy: {0, 10} ids/sec", rangedStrategyTasks.Length * RequestedIdentitiesCount * RequestCount * 1000d / rangedSw.ElapsedMilliseconds);
-            
+            _logger.InfoFormat("Identity service client: {0, 10} ids/sec", tasks.Length * RequestedIdentitiesCount * RequestCount * 1000d / rangedSw.ElapsedMilliseconds);
+
             return ids.Count == (NumOfTasks * RequestedIdentitiesCount * RequestCount) ? OrdinaryTestResult.As.Succeeded : OrdinaryTestResult.As.Failed;
         }
 
-        private IEnumerable<long> GetIdentities(IIdentityRequestStrategy strategy)
+        private IEnumerable<long> GetIdentities(IIdentityServiceClient client)
         {
             var ids = new List<long>();
             for (int i = 0; i < RequestCount; i++)
             {
-                ids.AddRange(strategy.Request(RequestedIdentitiesCount));
+                ids.AddRange(client.GetIdentities(RequestedIdentitiesCount));
             }
 
             return ids;
