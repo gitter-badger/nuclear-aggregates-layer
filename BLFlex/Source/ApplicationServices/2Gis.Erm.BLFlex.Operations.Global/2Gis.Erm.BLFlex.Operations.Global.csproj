@@ -53,7 +53,7 @@
     </Reference>
     <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.1.0\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -202,7 +202,7 @@
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintNewSalesModelBargainHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintBargainProlongationAgreementHandler.cs" />
     <Compile Include="MultiCulture\Generic\BargainPrintFormDataExtractor.cs" />
-	<Compile Include="Russia\Concrete\Old\Bills\PrintJointBillHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Bills\PrintJointBillHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintHelper.cs" />
     <Compile Include="Russia\Concrete\Orders\Print\PrintBindingChangeAgreementOperationService.cs" />
     <Compile Include="Russia\Concrete\Orders\Print\PrintCancellationAgreementOperationService.cs" />
