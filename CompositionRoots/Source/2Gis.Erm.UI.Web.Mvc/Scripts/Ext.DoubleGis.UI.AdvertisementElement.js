@@ -43,6 +43,21 @@
         return text.match(controlChars);
     };
 
+    function textContainsControlList(element) {
+        var elementIsList = element.tagName.toLowerCase() == "li";
+        var result = false;
+
+        Ext.each(element.children, function (child) {
+            if (elementIsList && child.tagName.toLowerCase() == "ul") {
+                result = true;
+                // The iteration can be stopped by returning false in the function callback.
+                return false;
+            }
+            result = result || textContainsControlList(child);
+        });
+        return result;
+    };
+
     function characterCountValidationMessage(plainText, maxLength) {
         var diff = maxLength - plainText.replace(plainTextNewLineRegexp, '').length;
         if (diff < 0) {
@@ -220,7 +235,7 @@
             // Если в тексте РМ есть управляющие символы, пользователю предлагается их удалить автоматически.
             // Как правило, это неотображаемые символы и они могут быть безболезненно удалены, 
             // однако ползьзователь может отказаться и отредактировать текст РМ вручную.
-            if (textContainsControlChars(plainText) || textContainsControlChars(formattedText)) {
+            if (textContainsControlChars(plainText) || textContainsControlChars(formattedText) || textContainsControlList(body)) {
                 var userAgreedToRemoveSymbols = confirm(Ext.LocalizedResources.AdvertisementElementTextContainsControlCharacters);
                 if (userAgreedToRemoveSymbols) {
                     formattedText = removeControlChars(formattedText);
