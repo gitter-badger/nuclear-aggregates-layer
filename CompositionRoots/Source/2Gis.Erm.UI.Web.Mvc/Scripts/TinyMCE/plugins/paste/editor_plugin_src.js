@@ -724,8 +724,12 @@
 
 					lastMargin = margin;
 					lastType = type;
-				} else
-					listElm = lastMargin = 0; // End list element
+			    } else {
+			        listElm = 0;
+			        lastMargin = -1;
+			        levels = []; // End list element
+			    }
+			        
 			});
 
 			// Remove any left over makers
