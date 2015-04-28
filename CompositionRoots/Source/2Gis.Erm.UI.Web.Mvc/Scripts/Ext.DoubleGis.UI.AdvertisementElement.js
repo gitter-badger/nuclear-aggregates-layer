@@ -154,13 +154,18 @@
             Ext.DoubleGis.FormValidator.updateValidationMessage(fInfo, messages.join('<br/>'));
         };
 
-        var getValue = function(oldStr) {
+        var replaceBrToP = function (oldStr) {
             var elements = oldStr.split(new RegExp('<br />', 'gim'));
             var result = "";
-            elements.forEach(function(element) {
+            elements.forEach(function (element) {
                 result += "<p>" + element + "</p>";
             });
             return result;
+        };
+
+        var getValue = function () {
+            var str = Ext.getDom(fieldWithPrefix("FormattedText")).value;
+            return replaceBrToP(str);
         };
 
         Ext.ux.TinyMCE.initTinyMCE();
@@ -189,6 +194,10 @@
                 theme_advanced_toolbar_align: "left",
                 theme_advanced_statusbar_location: "bottom",
                 theme_advanced_resizing: false,
+                content_css: "/Content/TinyMCEcontent.css",
+                formats : {
+                custom_format : {block : 'p', styles : {margin: 0, padding: 0}}
+                },
                 valid_elements: "p,br,strong/b,em/i,ul,ol,li",
 
                 // очищаем формат при вставке, иначе tinymce намертво повисает
@@ -201,7 +210,7 @@
                 forced_root_block: false,
                 convert_newlines_to_brs: true
             },
-            value: getValue(Ext.getDom(fieldWithPrefix("FormattedText")).value)
+            value: getValue()
         });
 
         var readOnlyField = Ext.getDom("ViewConfig_ReadOnly");
