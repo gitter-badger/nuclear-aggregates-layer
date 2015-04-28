@@ -62,6 +62,7 @@ using DoubleGis.Erm.BLFlex.UI.Metadata;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
+using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -75,6 +76,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
@@ -225,7 +227,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                      .ConfigureReplicationMetadata(msCrmSettings)
                      .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                     .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.None)
+                     .ConfigureIdentityInfrastructure()
                      .ConfigureReleasingInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IEntityViewNameProvider, EntityViewNameProvider>(CustomLifetime.PerRequest)

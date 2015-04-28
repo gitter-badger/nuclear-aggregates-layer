@@ -22,7 +22,7 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Update.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
-
+using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
@@ -31,7 +31,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-
+using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -124,7 +124,7 @@ namespace DoubleGis.Erm.API.WCF.Operations.Special.DI
                 .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.None)
+                .ConfigureIdentityInfrastructure()
                 .ConfigureMetadata()
                 .ConfigureLocalization(typeof(Resources),
                                        typeof(ResPlatform),

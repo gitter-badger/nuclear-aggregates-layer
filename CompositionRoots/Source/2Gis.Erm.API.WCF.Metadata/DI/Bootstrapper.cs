@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.Platform.API.Core.Identities;
-using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
@@ -14,11 +13,8 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.Common.Identities;
 using DoubleGis.Erm.Platform.Core.Identities;
-using DoubleGis.Erm.Platform.Core.Locking;
 using DoubleGis.Erm.Platform.Core.Metadata;
-using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -101,7 +97,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureMetadata()
-                .ConfigureIdentityInfrastructure(connectionStringSettings)
+                .ConfigureIdentityInfrastructure()
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)

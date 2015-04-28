@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.API.WCF.MoDi.DI
                 .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.UseNullRequestStrategy | IdentityRequestOverrideOptions.UseNullRequestChecker) 
+                .ConfigureIdentityInfrastructure() 
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
                 .RegisterType<IInstanceProviderFactory, UnityInstanceProviderFactory>(Lifetime.Singleton)
                 .RegisterType<IDispatchMessageInspectorFactory, ErmDispatchMessageInspectorFactory>(Lifetime.Singleton)

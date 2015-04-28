@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Common;
-using System.Data.SqlClient;
 
 using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
@@ -20,7 +17,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using NuClear.IdentityService.Client.Settings;
-using DoubleGis.Erm.Platform.TaskService.Settings;
+
 using DoubleGis.Erm.Qds.Common.Settings;
 
 using NuClear.Jobs.Settings;

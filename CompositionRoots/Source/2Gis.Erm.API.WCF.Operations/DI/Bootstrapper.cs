@@ -48,6 +48,7 @@ using DoubleGis.Erm.BLQuerying.WCF.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
+using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -60,6 +61,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
@@ -238,7 +240,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.None)
+                .ConfigureIdentityInfrastructure()
                 .ConfigureEAV()
                 .ConfigureLocalization(typeof(Resources),
                                        typeof(ResPlatform),

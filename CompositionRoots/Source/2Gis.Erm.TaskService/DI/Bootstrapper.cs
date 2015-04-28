@@ -20,6 +20,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.DI.Config;
 using DoubleGis.Erm.BLQuerying.DI.Config;
 using DoubleGis.Erm.BLQuerying.TaskService.DI;
+using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Handlers;
@@ -41,7 +42,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-
+using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
@@ -158,7 +159,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                     .ConfigureReplicationMetadata(msCrmSettings)
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                    .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.UseNullRequestChecker)
+                    .ConfigureIdentityInfrastructure()
                     .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                     .ConfigureMetadata()
                     .ConfigureExportMetadata()
