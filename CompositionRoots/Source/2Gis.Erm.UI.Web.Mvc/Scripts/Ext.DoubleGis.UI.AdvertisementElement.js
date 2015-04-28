@@ -195,9 +195,6 @@
                 theme_advanced_statusbar_location: "bottom",
                 theme_advanced_resizing: false,
                 content_css: "/Content/TinyMCEcontent.css",
-                formats : {
-                custom_format : {block : 'p', styles : {margin: 0, padding: 0}}
-                },
                 valid_elements: "p,br,strong/b,em/i,ul,ol,li",
 
                 // очищаем формат при вставке, иначе tinymce намертво повисает
