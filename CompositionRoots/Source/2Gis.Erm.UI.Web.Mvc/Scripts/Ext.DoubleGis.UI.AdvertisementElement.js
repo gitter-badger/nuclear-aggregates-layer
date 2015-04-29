@@ -43,19 +43,6 @@
         return text.match(controlChars);
     };
 
-    function isNodeContainsList(element) {
-        var result = false;
-        Ext.each(element.children, function (child) {
-            if (child.tagName.toLowerCase() == "ul") {
-                result = true;
-            } else {
-                result = result || isNodeContainsList(child);
-            }
-            return !result;
-        });
-        return result;
-    };
-
     function textContainsControlList(element, isParentList) {
         isParentList = isParentList || false;
         var result = false;
