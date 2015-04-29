@@ -38,20 +38,20 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [RequiredLocalized]
         public string Salutation { get; set; }
 
-        [PhoneLocalized]
+        [Phone]
         [StringLengthLocalized(64)]
         [DisplayNameLocalized("WorkPhoneNumber")]
         public string MainPhoneNumber { get; set; }
 
-        [PhoneLocalized]
+        [Phone]
         [StringLengthLocalized(64)]
         public string AdditionalPhoneNumber { get; set; }
 
-        [PhoneLocalized]
+        [Phone]
         [StringLengthLocalized(64)]
         public string MobilePhoneNumber { get; set; }
 
-        [PhoneLocalized]
+        [Phone]
         [StringLengthLocalized(64)]
         public string HomePhoneNumber { get; set; }
 

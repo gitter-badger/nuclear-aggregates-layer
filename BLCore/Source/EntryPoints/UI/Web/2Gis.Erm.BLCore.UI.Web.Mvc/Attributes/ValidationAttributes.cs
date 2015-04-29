@@ -126,13 +126,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
     }
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
-    public sealed class PhoneLocalizedAttribute : ValidationAttribute, IClientValidatable
+    public sealed class PhoneAttribute : ValidationAttribute, IClientValidatable
     {
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
         {
             var rule = new ModelClientValidationRule
             {
-                ErrorMessage = FormatErrorMessage(metadata.DisplayName),
                 ValidationType = "phone"
             };
 
