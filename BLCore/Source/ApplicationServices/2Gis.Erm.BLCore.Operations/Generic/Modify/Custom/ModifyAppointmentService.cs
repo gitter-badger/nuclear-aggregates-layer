@@ -104,8 +104,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
                 _updateOperationService.ChangeRegardingObjects(
                     appointment,
-                    oldRegardingObjects,
-                    appointment.ReferencesIfAny<Appointment, AppointmentRegardingObject>(appointmentDto.RegardingObjects));
+                                                               oldRegardingObjects,
+                                                               appointment.ReferencesIfAny<Appointment, AppointmentRegardingObject>(appointmentDto.RegardingObjects));
                 _updateOperationService.ChangeOrganizer(appointment, oldOrganizer, appointment.ReferencesIfAny<Appointment, AppointmentOrganizer>(appointmentDto.Organizer));
 
                 transaction.Complete();
