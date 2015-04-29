@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 02.12.2014 16:13:25
+// File updated : 29.04.2015 11:12:07
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -31,6 +31,7 @@ AddressIsNotLocatedOnTheMap : 'Адрес не привязан к карте',
 AdsCheckTooLongWord : 'В слове "{0}" превышено максимально допустимое количество символов: {1} из {2} возможных.',
 AdvertisementElements : 'Элементы рекламного материала',
 AdvertisementElementTextContainsControlCharacters : 'Текст содержит управляющие символы, удалить их перед сохранением?',
+AdvertisementElementTextContainsControlList : 'Текст содержит вложенные списки,текст не может быть сохранен.',
 AdvertisementElementTextContainsHtmlTags : 'Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён.',
 AdvertisementElementWasNotSaved : 'Элемент РМ не был сохранён.',
 Advertisements : 'Рекламные материалы',
@@ -151,7 +152,7 @@ InsertOrderedListTitle : 'Нумерация',
 InsertUnorderedListText : 'Начать маркированный список.',
 InsertUnorderedListTitle : 'Маркеры',
 InvalidDateText : '{0} не является правильной датой - дата должна быть указана в формате {1}',
-InvalidDateTimeText : 'Некорректное значение. Используйте формат "ДД.MM.ГГГГ"',
+InvalidDateTimeText : 'Incorrect value. Please use the "DD/MM/YYYY" format',
 InvalidSelectedPositionsCount : 'Должно быть выбрано позиций: {0}',
 IsNecessaryChooseLimitForStatusChange : 'Перед выполнением операции смены статуса необходимо выбрать лимит в списке',
 IsWarmClientWarningFormat : 'Выставлена причина сделки "Горячий клиент", т.к. для данного клиента существует задача "{0}", закрытая {1} с типом "Горячий клиент"',

@@ -217,6 +217,12 @@
         this.on('beforepost', function () {
             // set plaintext
             var body = this.RTE.getEd().getBody();
+            
+            if (textContainsControlList(body)) {
+                alert(Ext.LocalizedResources.AdvertisementElementTextContainsControlList);
+                return false;
+            };
+
             var plainText = body.innerText || body.textContent || "";
 
             if (plainText) {
@@ -235,7 +241,7 @@
             // Если в тексте РМ есть управляющие символы, пользователю предлагается их удалить автоматически.
             // Как правило, это неотображаемые символы и они могут быть безболезненно удалены, 
             // однако ползьзователь может отказаться и отредактировать текст РМ вручную.
-            if (textContainsControlChars(plainText) || textContainsControlChars(formattedText) || textContainsControlList(body)) {
+            if (textContainsControlChars(plainText) || textContainsControlChars(formattedText)) {
                 var userAgreedToRemoveSymbols = confirm(Ext.LocalizedResources.AdvertisementElementTextContainsControlCharacters);
                 if (userAgreedToRemoveSymbols) {
                     formattedText = removeControlChars(formattedText);
