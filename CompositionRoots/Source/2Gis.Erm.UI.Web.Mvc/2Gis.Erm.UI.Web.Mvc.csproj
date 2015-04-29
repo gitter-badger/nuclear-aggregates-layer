@@ -703,7 +703,7 @@
     <Content Include="Content\images\Configuration\Entity\Reschedule.gif" />
     <Content Include="Content\slider.css" />
     <Content Include="Content\Spinner.css" />
-    <Content Include="Content\TinyMCEcontent.css" />
+    <Content Include="Scripts\tinymce\css\content.css" />
     <Content Include="favicon.ico" />
     <Content Include="Scripts\Activity\Ext.DoubleGis.UI.Phonecall.js" />
     <Content Include="Scripts\Activity\Ext.DoubleGis.UI.Letter.js" />

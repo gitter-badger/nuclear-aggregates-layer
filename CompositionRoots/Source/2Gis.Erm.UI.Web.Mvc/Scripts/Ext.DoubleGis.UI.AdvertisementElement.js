@@ -154,8 +154,8 @@
             Ext.DoubleGis.FormValidator.updateValidationMessage(fInfo, messages.join('<br/>'));
         };
 
-        var replaceBrToP = function (oldStr) {
-            var elements = oldStr.split(new RegExp('<br />', 'gim'));
+        function wrapInParagraph (oldStr) {
+            var elements = oldStr.split(/<br \/>/gim);
             var result = "";
             elements.forEach(function (element) {
                 result += "<p>" + element + "</p>";
@@ -163,9 +163,9 @@
             return result;
         };
 
-        var getValue = function () {
-            var str = Ext.getDom(fieldWithPrefix("FormattedText")).value;
-            return replaceBrToP(str);
+        function getValue() {
+            var control = Ext.getDom(fieldWithPrefix("FormattedText"));
+            return control ? wrapInParagraph(control.value) : null;
         };
 
         Ext.ux.TinyMCE.initTinyMCE();
@@ -194,7 +194,7 @@
                 theme_advanced_toolbar_align: "left",
                 theme_advanced_statusbar_location: "bottom",
                 theme_advanced_resizing: false,
-                content_css: "/Content/TinyMCEcontent.css",
+                content_css: "/Scripts/tinymce/css/content.css",
                 valid_elements: "p,br,strong/b,em/i,ul,ol,li",
 
                 // очищаем формат при вставке, иначе tinymce намертво повисает
