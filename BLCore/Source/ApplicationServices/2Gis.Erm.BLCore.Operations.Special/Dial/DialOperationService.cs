@@ -84,8 +84,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                     await writer.WriteAsync(Command.Dial(endpointUri, line, phone));
 
                     var response = await reader.ReadAsync();
-                    _tracer.DebugFormat("Telephony service: {0}", response);                       
-                 }
+                    if (response.Status == Response.ResponseStatus.Error)
+                    {
+                        _tracer.ErrorFormat("Telephony service error: {0}", response);
+                    }
+                    else
+                    {
+                        _tracer.InfoFormat("Telephony service: {0}", response);    
+                    }
+                }
             }
             catch (SocketException ex)
             {
