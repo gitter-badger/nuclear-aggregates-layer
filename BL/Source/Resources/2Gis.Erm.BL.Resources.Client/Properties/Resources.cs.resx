@@ -972,4 +972,7 @@
   <data name="InvalidDateTimeText" xml:space="preserve">
     <value>Chybná hodnota. Použijte formát "DD. MM. RRRR"</value>
   </data>
+  <data name="AdvertisementElementTextContainsControlList" xml:space="preserve">
+    <value>Текст содержит вложенные списки,текст не может быть сохранен.</value>
+  </data>
 </root>
