@@ -118,7 +118,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             const int StubOffsetValue = 0;
             const string StubTimeZoneId = "";
 
-            var supportedTimeZones = _finder.FindAll<TimeZone>().AsEnumerable().Select(tz => new
+            var supportedTimeZones = _finder.For<TimeZone>().AsEnumerable().Select(tz => new
             {
                 TimeZone = tz,
                 TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(tz.TimeZoneId)

@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<CategoryGroup>();
+            var query = _finder.For<CategoryGroup>();
 
             return query
                 .Select(x => new ListCategoryGroupDto

@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel.DTO;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.Model.Aggregates;
+using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel

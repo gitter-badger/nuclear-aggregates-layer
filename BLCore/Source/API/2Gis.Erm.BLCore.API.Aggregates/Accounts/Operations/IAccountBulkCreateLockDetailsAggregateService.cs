@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
-using DoubleGis.Erm.Platform.Model.Aggregates;
+using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
 

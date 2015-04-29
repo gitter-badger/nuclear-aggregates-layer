@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.Platform.DAL
 {
     public interface ICompositeEntityDecorator

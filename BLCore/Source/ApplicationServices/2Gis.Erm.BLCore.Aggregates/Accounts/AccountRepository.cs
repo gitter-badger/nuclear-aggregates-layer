@@ -528,7 +528,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public IEnumerable<AccountFor1CExportDto> GetAccountsForExortTo1C(long organizationUnitId)
         {
-            return (from account in _finder.FindAll<Account>()
+            return (from account in _finder.For<Account>()
                     let lpSyncCode1C = account.LegalPesonSyncCode1C
                     from order in account.LegalPerson.Orders
                     where !order.IsDeleted &&

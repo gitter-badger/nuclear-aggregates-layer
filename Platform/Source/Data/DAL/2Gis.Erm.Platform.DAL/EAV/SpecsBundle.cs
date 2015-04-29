@@ -1,4 +1,5 @@
 ﻿using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {

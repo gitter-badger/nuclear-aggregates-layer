@@ -145,7 +145,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                     return contact;
                 });
 
-            var firmAddressContacts = _secureFinder.FindAll<FirmContact>()
+            var firmAddressContacts = _secureFinder.For<FirmContact>()
                                                    .Where(contact => contact.FirmAddressId == firmAddressId)
                                                    .OrderBy(contact => contact.SortingPosition)
                                                    .AsEnumerable();

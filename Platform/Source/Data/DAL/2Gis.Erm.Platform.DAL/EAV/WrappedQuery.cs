@@ -11,9 +11,9 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
     internal class WrappedQuery : IQueryable, IOrderedQueryable
     {
         private readonly IQueryable _queryable;
-        private readonly IQueryProvider _provider;
+        private readonly System.Linq.IQueryProvider _provider;
 
-        public WrappedQuery(IQueryable queryable, IQueryProvider provider)
+        public WrappedQuery(IQueryable queryable, System.Linq.IQueryProvider provider)
         {
             _queryable = queryable;
             _provider = provider;
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             get { return _queryable.ElementType; }
         }
 
-        public IQueryProvider Provider
+        public System.Linq.IQueryProvider Provider
         {
             get { return _provider; }
         }
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
     {
         private readonly IQueryable<T> _queryable;
 
-        public WrappedQuery(IQueryable<T> queryable, IQueryProvider provider)
+        public WrappedQuery(IQueryable<T> queryable, System.Linq.IQueryProvider provider)
             : base(queryable, provider)
         {
             _queryable = queryable;

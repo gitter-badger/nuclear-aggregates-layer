@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             return entity.Id;
         }
 
-        private static IReplicableEntity LookupEntity(IFinderBase finder, IEntityType entityName, Guid replicationCode)
+        private static IReplicableEntity LookupEntity(IQuery finder, IEntityType entityName, Guid replicationCode)
         {
             var findOneMethodInfo = finder.GetType().GetMethods().First(x => x.Name == "FindOne");
             if (findOneMethodInfo == null)
@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             return queryLambda();
         }
 
-        private static IEnumerable<IReplicableEntity> LookupEntities(IFinderBase finder, IEntityType entityName, IEnumerable<Guid> replicationCodes)
+        private static IEnumerable<IReplicableEntity> LookupEntities(IQuery finder, IEntityType entityName, IEnumerable<Guid> replicationCodes)
         {
             var findManyMethodInfo = finder.GetType().GetMethods().First(x => x.Name == "FindMany");
             if (findManyMethodInfo == null)

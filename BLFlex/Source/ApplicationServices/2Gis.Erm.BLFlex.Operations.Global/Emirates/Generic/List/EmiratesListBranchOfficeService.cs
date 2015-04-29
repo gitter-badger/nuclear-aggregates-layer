@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<BranchOffice>();
+            var query = _finder.For<BranchOffice>();
 
             return
                 query.Select(x =>

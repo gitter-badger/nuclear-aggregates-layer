@@ -29,19 +29,19 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<Category>();
+            var query = _finder.For<Category>();
 
             // Фильтр рубрик, которые можно добавить в тематику (рубрики есть во всех подразделениях тематики)
             if (querySettings.ParentEntityName.Equals(EntityType.Instance.Theme()))
             {
                 var themeId = querySettings.ParentEntityId;
 
-                var unitCount = _finder.FindAll<OrganizationUnit>()
+                var unitCount = _finder.For<OrganizationUnit>()
                                   .Count(unit => unit.ThemeOrganizationUnits.Any(link => link.IsActive
                                                                                          && !link.IsDeleted
                                                                                          && link.Theme.Id == themeId));
 
-                query = _finder.FindAll<OrganizationUnit>()
+                query = _finder.For<OrganizationUnit>()
 
                     // Только те подразделения, в которых есть рубрика
                        .Where(unit => unit.ThemeOrganizationUnits.Any(link => link.IsActive

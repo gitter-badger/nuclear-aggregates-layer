@@ -19,7 +19,6 @@ using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Locking;
 using DoubleGis.Erm.Platform.Core.Metadata;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
-using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;

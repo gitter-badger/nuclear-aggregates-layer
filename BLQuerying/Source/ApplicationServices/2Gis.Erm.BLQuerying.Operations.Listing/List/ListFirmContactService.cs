@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             }
             else
             {
-                query = _finder.FindAll<FirmContact>();
+                query = _finder.For<FirmContact>();
             }
 
             var data = query

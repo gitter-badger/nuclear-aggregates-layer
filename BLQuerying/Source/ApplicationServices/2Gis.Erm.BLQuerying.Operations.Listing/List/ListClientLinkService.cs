@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<ClientLink>();
+            var query = _finder.For<ClientLink>();
 
             var myChildLinks = querySettings
                 .CreateForExtendedProperty<ClientLink, bool>("ClientLinks", info => e => e.MasterClientId == querySettings.ParentEntityId);

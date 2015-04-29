@@ -313,7 +313,7 @@ namespace DoubleGis.Erm.Platform.Security
         }
 
             var entityToCheckTypeId = entityToCheck.Id;
-            var result = _finder.FindAll<Privilege>().Any(x => x.EntityType == entityToCheckTypeId);
+            var result = _finder.For<Privilege>().Any(x => x.EntityType == entityToCheckTypeId);
             _cacheAdapter.Add(key, result, CacheAbsoluteSpan);
             return result;
         }
@@ -376,7 +376,7 @@ namespace DoubleGis.Erm.Platform.Security
                                 .Select(x => new { x.Department.LeftBorder, x.Department.RightBorder })
                                 .First();
 
-                            hasAccess = _finder.FindAll<Department>()
+                            hasAccess = _finder.For<Department>()
                                 .Where(x => x.LeftBorder >= departmentBounds.LeftBorder && x.RightBorder <= departmentBounds.RightBorder)
                                 .SelectMany(x => x.Users)
                                 .Distinct()
@@ -560,7 +560,7 @@ namespace DoubleGis.Erm.Platform.Security
         private IEnumerable<SharingDescriptor> GetAccessSharingsForEntity(IEntityType entityName, long entityId)
         {
             var entityTypeId = entityName.Id;
-            var entityPrivileges = _finder.FindAll<Privilege>()
+            var entityPrivileges = _finder.For<Privilege>()
                     .Where(x => x.EntityType == entityTypeId)
                     .Select(x => x.Id)
                     .ToArray();
@@ -711,7 +711,7 @@ namespace DoubleGis.Erm.Platform.Security
             switch (maxAccess)
             {
                 case OrderChangeDocumentsDebtAccess.OrganizationUnit:
-                    return _finder.FindAll<UserOrganizationUnit>()
+                    return _finder.For<UserOrganizationUnit>()
                         .Any(x => x.UserId == userCode && x.OrganizationUnitId == organizationUnitId);
 
                 case OrderChangeDocumentsDebtAccess.Full:

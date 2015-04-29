@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Transactions;
 
-using DoubleGis.Erm.Platform.Model.Aggregates;
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting
 {

@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<OperationType>();
+            var query = _finder.For<OperationType>();
 
             return query
                 .Select(x => new ListOperationTypeDto

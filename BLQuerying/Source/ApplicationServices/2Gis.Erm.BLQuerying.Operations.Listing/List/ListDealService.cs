@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<Deal>();           
+            var query = _finder.For<Deal>();           
 
             bool excludeReserve;
             Expression<Func<Deal, bool>> excludeReserveFilter = null;
@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 orderId =>
                     {
                         var orderInfo =
-                            _finder.FindAll<Order>()
+                            _finder.For<Order>()
                                    .Where(x => x.Id == orderId)
                                    .Select(
                                        x =>

@@ -18,12 +18,12 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
 
         public List<object> Storage { get; private set; }
 
-        public IQueryable FindAll(Type entityType)
+        public IQueryable For(Type entityType)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<TEntity> FindAll<TEntity>() where TEntity : class, IEntity
+        public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
         {
             throw new NotImplementedException();
         }

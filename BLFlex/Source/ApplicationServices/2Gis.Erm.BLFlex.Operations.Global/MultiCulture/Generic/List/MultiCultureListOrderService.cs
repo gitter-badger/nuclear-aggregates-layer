@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<Order>();
+            var query = _finder.For<Order>();
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))

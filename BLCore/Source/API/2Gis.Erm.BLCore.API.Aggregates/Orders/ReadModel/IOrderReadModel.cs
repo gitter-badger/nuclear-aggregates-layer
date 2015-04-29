@@ -9,7 +9,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Aggregates;
+using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 

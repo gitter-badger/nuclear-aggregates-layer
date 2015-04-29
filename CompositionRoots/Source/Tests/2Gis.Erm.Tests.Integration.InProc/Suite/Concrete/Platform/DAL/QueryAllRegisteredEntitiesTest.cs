@@ -74,13 +74,13 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
         // ReSharper disable once UnusedMember.Local
         private TEntity CallFind<TEntity>() where TEntity : class, IEntity
         {
-            return _finder.FindAll<TEntity>().FirstOrDefault();
+            return _finder.For<TEntity>().FirstOrDefault();
         }
 
         // ReSharper disable once UnusedMember.Local
         private TEntity CallFindOne<TEntity>() where TEntity : class, IEntity, IEntityKey
         {
-            var id = _finder.FindAll<TEntity>().Select(x => x.Id).FirstOrDefault();
+            var id = _finder.For<TEntity>().Select(x => x.Id).FirstOrDefault();
             return _finder.FindOne(new FindSpecification<TEntity>(x => x.Id == id));
         }
     }

@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<UserTerritory>();
+            var query = _finder.For<UserTerritory>();
 
             var data = query
             .Select(x => new ListUserTerritoryDto

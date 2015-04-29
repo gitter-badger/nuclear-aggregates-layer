@@ -4,6 +4,7 @@ using System.Transactions;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {

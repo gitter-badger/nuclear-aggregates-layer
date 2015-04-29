@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<LegalPersonProfile>();
+            var query = _finder.For<LegalPersonProfile>();
 
             return query
                 .Select(x => new ListLegalPersonProfileDto

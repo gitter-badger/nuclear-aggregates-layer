@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.LegalPersons;
-using DoubleGis.Erm.Platform.Model.Aggregates;
+using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 

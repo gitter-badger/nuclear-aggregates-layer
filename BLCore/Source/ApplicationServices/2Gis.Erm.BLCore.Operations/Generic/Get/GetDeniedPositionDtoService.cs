@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<DeniedPosition> GetDto(long entityId)
         {
-            var positionQuery = _finder.FindAll<Position>();
+            var positionQuery = _finder.For<Position>();
             return (from deniesPosition in _finder.Find<DeniedPosition>(x => x.Id == entityId)
                     join position in positionQuery on deniesPosition.PositionId equals position.Id
                     select new DeniedPositionDomainEntityDto

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Entities.Aspects.Integration;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.Specifications
 {

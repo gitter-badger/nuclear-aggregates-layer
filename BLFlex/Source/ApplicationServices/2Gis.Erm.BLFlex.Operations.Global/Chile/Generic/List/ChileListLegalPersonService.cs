@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<LegalPerson>();
+            var query = _finder.For<LegalPerson>();
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))

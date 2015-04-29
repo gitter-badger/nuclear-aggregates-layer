@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 OrderValidationPredicate validationPredicate;
                 if (massOrdersValidationParams.OwnerId.HasValue)
                 {
-                    var userDescendantsQuery = _finder.FindAll<UsersDescendant>();
+                    var userDescendantsQuery = _finder.For<UsersDescendant>();
 
                     // необходимо уточнить условия фильтрации для заказов уходящих в выпуск
                     validationPredicate = new OrderValidationPredicate(

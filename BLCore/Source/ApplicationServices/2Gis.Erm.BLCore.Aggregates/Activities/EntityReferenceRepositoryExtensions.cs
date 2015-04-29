@@ -6,10 +6,12 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using NuClear.Model.Common.Entities.Aspects;
 
+using Storage;
+
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
     /// <summary>
-    /// Contains the extensions for <see cref="IRepository{TEntity}"/> repository of <see cref="EntityReference{TAggregate}"/>.
+    /// Contains the extensions for <see cref="NuClear.Storage.IRepository{TEntity}"/> repository of <see cref="EntityReference{TAggregate}"/>.
     /// </summary>
     internal static class EntityToEntityRepositoryExtensions
     {

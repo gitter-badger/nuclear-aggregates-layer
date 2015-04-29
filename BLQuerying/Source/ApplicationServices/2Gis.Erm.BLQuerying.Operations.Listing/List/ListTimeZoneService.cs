@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<TimeZone>();
+            var query = _finder.For<TimeZone>();
 
             return query
                 .Select(x => new ListTimeZoneDto

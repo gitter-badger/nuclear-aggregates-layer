@@ -1,5 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using DoubleGis.Erm.Platform.Model.Aggregates;
+using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders

@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<LegalPersonDeal>();
+            var query = _finder.For<LegalPersonDeal>();
 
             return query
                 .Filter(_filterHelper)

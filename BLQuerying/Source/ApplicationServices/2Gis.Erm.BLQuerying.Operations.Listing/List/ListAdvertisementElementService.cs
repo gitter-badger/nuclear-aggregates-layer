@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<AdvertisementElement>();
+            var query = _finder.For<AdvertisementElement>();
 
             return query
                 .Select(x => new ListAdvertisementElementDto

@@ -420,7 +420,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
                 return;
             }
 
-            var accountWithDebts = (from legalPerson in _finder.FindAll<LegalPerson>()
+            var accountWithDebts = (from legalPerson in _finder.For<LegalPerson>()
                                     where legalPerson.Id == entityId
                                     from account in legalPerson.Accounts
                                     let lockDetailBalance = account.Balance - (account.Locks                                    // скобки и проверки на null тут НУЖНЫ,

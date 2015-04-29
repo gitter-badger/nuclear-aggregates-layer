@@ -25,7 +25,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Core.Identities;
@@ -37,12 +36,10 @@ using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB;
 using DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.UseCases;
-using DoubleGis.Erm.Platform.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.EAV;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
-using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
 using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config;
@@ -136,7 +133,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType(typeof(IModifiableDomainContextProviderForHost), entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>()))
                         .RegisterType<IReadDomainContextProvider, ReadDomainContextProviderProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IModifiableDomainContextProvider, ModifiableDomainContextProviderProxy>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterType<IFinderBaseProvider, FinderBaseProvider>(Lifetime.PerResolve)
+                        .RegisterType<IQueryProvider, QueryProvider>(Lifetime.PerResolve)
 
                         .RegisterType<IDynamicPropertiesConverterFactory, UnityDynamicPropertiesConverterFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IDynamicEntityMetadataProvider, DynamicEntityMetadataProvider>(Lifetime.Singleton)

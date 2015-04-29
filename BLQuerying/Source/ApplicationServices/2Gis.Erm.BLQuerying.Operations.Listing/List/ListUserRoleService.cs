@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<UserRole>();
+            var query = _finder.For<UserRole>();
 
             var data = query
             .Select(x => new ListUserRoleDto

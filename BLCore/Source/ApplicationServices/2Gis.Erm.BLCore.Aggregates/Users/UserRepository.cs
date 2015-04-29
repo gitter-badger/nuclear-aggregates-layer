@@ -1089,7 +1089,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         {
             var organizationUnits = _finder.Find<OrganizationUnit>(x => x.IsActive && !x.IsDeleted).Select(x => new { x.Name, x.TimeZoneId }).ToArray();
 
-            var timezones = _finder.FindAll<DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone>().ToArray();
+            var timezones = _finder.For<DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone>().ToArray();
             var organizationUnitimeZones = organizationUnits.Join(
                 timezones,
                 x => x.TimeZoneId,

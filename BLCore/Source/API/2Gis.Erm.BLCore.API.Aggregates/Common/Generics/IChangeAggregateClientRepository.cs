@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Aggregates;
+using NuClear.Aggregates;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity.Generic;
 

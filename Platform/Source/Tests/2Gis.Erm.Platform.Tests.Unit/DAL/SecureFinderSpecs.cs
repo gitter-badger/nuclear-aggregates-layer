@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Establish context = () =>
                 {
                     ExpectedType = typeof(Deal);
-                    Finder.Setup(f => f.FindAll(ExpectedType)).Returns(_finderEntities);
+                    Finder.Setup(f => f.For(ExpectedType)).Returns(_finderEntities);
                 };
 
             protected static Type ExpectedType { get; set; }
@@ -150,7 +150,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SetUpRestrictQuery();
 
-            Because of = () => _result = Target.FindAll(ExpectedType);
+            Because of = () => _result = Target.For(ExpectedType);
 
             Behaves_like<RestrictAccessBehavior> restrict_query;
         }
@@ -164,7 +164,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SkipEntityAccess(true);
 
-            Because of = () => _result = Target.FindAll(ExpectedType);
+            Because of = () => _result = Target.For(ExpectedType);
 
             Behaves_like<SkipEntityAccessCheckBehavior> skip_entity_access;
         }

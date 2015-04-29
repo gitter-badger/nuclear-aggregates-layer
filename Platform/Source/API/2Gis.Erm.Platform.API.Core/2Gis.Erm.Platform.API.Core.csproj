@@ -307,13 +307,9 @@
     <Compile Include="Settings\SettingsUtils.cs" />
     <Compile Include="StableContractAttribute.cs" />
     <Compile Include="TimePeriod.cs" />
-    <Compile Include="UseCases\Context\IContextKey.cs" />
-    <Compile Include="UseCases\Context\IProcessingContext.cs" />
     <Compile Include="UseCases\IUseCaseResumeContext.cs" />
     <Compile Include="UseCases\IUseCaseTuner.cs" />
-    <Compile Include="UseCases\Context\Keys\UseCaseDurationKey.cs" />
     <Compile Include="UseCases\UseCaseAttribute.cs" />
-    <Compile Include="UseCases\UseCaseDuration.cs" />
     <Compile Include="UseCases\UseCaseUtils.cs" />
   </ItemGroup>
   <ItemGroup>

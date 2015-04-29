@@ -4,7 +4,6 @@ using System.Data.Entity;
 
 using AutoMapper;
 
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;

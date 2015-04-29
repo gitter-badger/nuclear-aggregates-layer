@@ -206,7 +206,6 @@
     <Compile Include="Metadata\Security\OperationSecurityRegistry2.cs" />
     <Compile Include="Metadata\Security\OperationSecurityRegistryReader.cs" />
     <Compile Include="Metadata\OperationAcceptabilityRegistrar.cs" />
-    <Compile Include="UseCases\Context\ProcessingContext.cs" />
     <Compile Include="Operations\OperationsRegistry.cs" />
     <Compile Include="UseCases\UseCaseTuner.cs" />
     <Compile Include="Notifications\NotificationsProcessor.cs" />
@@ -270,7 +269,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UseCases\Context\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

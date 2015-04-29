@@ -4,6 +4,7 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             where TEntityInstance : class, IDynamicEntityInstance
             where TPropertyInstance : class, IDynamicEntityPropertyInstance
         {
-            return _finder.FindAll<TEntityInstance>()
+            return _finder.For<TEntityInstance>()
                           .Where(specs.FindSpec.Predicate)
                           .Select(specs.SelectSpec.Selector)
                           .AsEnumerable()

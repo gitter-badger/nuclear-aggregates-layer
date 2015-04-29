@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<PricePosition>();
+            var query = _finder.For<PricePosition>();
 
             var restrictByOrderSalesModelFilter = querySettings.CreateForExtendedProperty<PricePosition, long>(
                 "orderId",

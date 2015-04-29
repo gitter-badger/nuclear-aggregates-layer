@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
-using DoubleGis.Erm.Platform.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
 

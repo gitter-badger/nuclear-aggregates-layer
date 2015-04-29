@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<BranchOffice>();
+            var query = _finder.For<BranchOffice>();
 
             return query
                 .Where(x => !x.IsDeleted)

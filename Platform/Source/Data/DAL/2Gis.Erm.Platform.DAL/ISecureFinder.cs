@@ -4,10 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
-    public interface ISecureFinder : IFinderBase
+    public interface ISecureFinder : IQuery
     {
         /// <summary>
         /// Find the Entity object(s) based on findSpecification.

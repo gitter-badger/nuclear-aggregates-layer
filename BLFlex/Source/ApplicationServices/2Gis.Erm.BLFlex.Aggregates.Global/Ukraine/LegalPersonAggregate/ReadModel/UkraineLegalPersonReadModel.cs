@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.LegalPersonAggregate.Re
                                          .Where(x => x.EntityId != legalPersonId)
                                          .Select(x => x.EntityId);
 
-            return _finder.FindAll<LegalPerson>().Join(duplicatesQuery, x => x.Id, y => y.Value, (x, y) => x).Any(x => x.IsActive && !x.IsDeleted);
+            return _finder.For<LegalPerson>().Join(duplicatesQuery, x => x.Id, y => y.Value, (x, y) => x).Any(x => x.IsActive && !x.IsDeleted);
         }
     }
 }

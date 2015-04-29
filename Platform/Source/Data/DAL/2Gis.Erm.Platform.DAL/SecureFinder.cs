@@ -9,6 +9,8 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
@@ -91,19 +93,19 @@ namespace DoubleGis.Erm.Platform.DAL
             throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");
         }
 
-        public IQueryable FindAll(Type entityType)
+        public IQueryable For(Type entityType)
         {
             if (entityType == null)
             {
                 throw new ArgumentNullException("entityType");
             }
 
-            return RestrictQueryWhenAccessCheck<IQueryable>(_finder.FindAll(entityType));
+            return RestrictQueryWhenAccessCheck<IQueryable>(_finder.For(entityType));
         }
 
-        public IQueryable<TEntity> FindAll<TEntity>() where TEntity : class, IEntity
+        public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
         {
-            return (IQueryable<TEntity>)FindAll(typeof(TEntity));
+            return (IQueryable<TEntity>)For(typeof(TEntity));
         }
 
         private TQueryable RestrictQueryWhenAccessCheck<TQueryable>(IQueryable querySource)

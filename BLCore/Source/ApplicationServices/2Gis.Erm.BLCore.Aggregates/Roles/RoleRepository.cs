@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 
         public IEnumerable<EntityPrivilegeInfo> GetEntityPrivileges(long roleId)
         {
-            var entityPrivilegeInfos = _finder.FindAll<Privilege>()
+            var entityPrivilegeInfos = _finder.For<Privilege>()
                                               .Where(x => x.EntityType != null)
                                               .GroupBy(x => x.EntityType)
                                               .Select(x => new
@@ -120,7 +120,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 
         public IEnumerable<FunctionalPrivilegeInfo> GetFunctionalPrivileges(long roleId)
         {
-            return _finder.FindAll<Privilege>()
+            return _finder.For<Privilege>()
                     .Where(x => x.EntityType == null)
                     .Select(x => new
                     {
@@ -253,7 +253,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 
         public IEnumerable<FunctionalPrivilegeInfo> FindAllFunctionalPriveleges()
         {
-            return _finder.FindAll<FunctionalPrivilegeDepth>()
+            return _finder.For<FunctionalPrivilegeDepth>()
                           .Select(x => new FunctionalPrivilegeInfo
                                            {
                                                PrivilegeId = x.PrivilegeId,

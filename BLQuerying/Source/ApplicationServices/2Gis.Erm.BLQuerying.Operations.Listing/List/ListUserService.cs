@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<User>();
+            var query = _finder.For<User>();
 
             // hide service users
             Expression<Func<User, bool>> hideServiceUsersFilter = null;

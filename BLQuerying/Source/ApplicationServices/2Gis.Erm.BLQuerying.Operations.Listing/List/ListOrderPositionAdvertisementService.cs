@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<OrderPositionAdvertisement>();
+            var query = _finder.For<OrderPositionAdvertisement>();
 
             return query
                 .Select(x => new ListOrderPositionAdvertisementDto

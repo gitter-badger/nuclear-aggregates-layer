@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 
 using NuClear.Tracing.API;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
-using DoubleGis.Erm.Platform.Model.Aggregates;
+using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
 

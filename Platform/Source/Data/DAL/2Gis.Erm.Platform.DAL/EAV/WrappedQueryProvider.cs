@@ -6,11 +6,11 @@ using System.Linq.Expressions;
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    internal sealed class WrappedQueryProvider : IQueryProvider
+    internal sealed class WrappedQueryProvider : System.Linq.IQueryProvider
     {
-        private readonly IQueryProvider _provider;
+        private readonly System.Linq.IQueryProvider _provider;
 
-        public WrappedQueryProvider(IQueryProvider provider)
+        public WrappedQueryProvider(System.Linq.IQueryProvider provider)
         {
             _provider = provider;
         }

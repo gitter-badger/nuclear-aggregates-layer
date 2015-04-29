@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
                 case ADPCheckMode.Massive:
                     // Находим заказы, для фирм которых оформлено больше одного заказа,
                     // т.к. если для фирмы оформлен всего один заказ, то ошибки в нем будут учтены при единичной проверке
-                    var moreThanOneOrderForFirmQuery = from order in _finder.FindAll<Order>()
+                    var moreThanOneOrderForFirmQuery = from order in _finder.For<Order>()
                                                        where !order.IsDeleted
                                                        group order.Id by order.FirmId
                                                        into orderIdsByFirm
@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
 
         public IQueryable<DoubleGis.Erm.Platform.Model.Entities.Erm.Category> GetCategoryQuery()
         {
-            return _finder.FindAll<DoubleGis.Erm.Platform.Model.Entities.Erm.Category>();
+            return _finder.For<DoubleGis.Erm.Platform.Model.Entities.Erm.Category>();
         }
     }
 }

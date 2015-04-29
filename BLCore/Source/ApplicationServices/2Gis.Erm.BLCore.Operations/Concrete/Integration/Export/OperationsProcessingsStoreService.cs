@@ -150,7 +150,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 
         public DateTime GetLastProcessedOperationPerformDate(ISelectSpecification<TProcessedOperationEntity, DateTime> selectSortFieldSpecification)
         {
-            var lastMessageId = _finder.FindAll<TProcessedOperationEntity>()
+            var lastMessageId = _finder.For<TProcessedOperationEntity>()
                                        .OrderByDescending(selectSortFieldSpecification.Selector)
                                        .Select(x => x.Id)
                                        .Take(1);
@@ -170,8 +170,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             // comment {a.rechkalov, 2013-11-11}: Нужно в таблице Shared.BusinessOperationServices в колонке Service проставить значения EntityName (например, ExportFlowOrdersOrder вместо "5")
             var integrationService = integrationEntityName.AsIntegrationService();
 
-            var performedBusinessOperations = _finder.FindAll<PerformedBusinessOperation>();
-            var processedBusinessOperations = _finder.FindAll<TProcessedOperationEntity>();
+            var performedBusinessOperations = _finder.For<PerformedBusinessOperation>();
+            var processedBusinessOperations = _finder.For<TProcessedOperationEntity>();
             var operationTypesToProcess = _finder.Find<BusinessOperationService>(service => service.Service == (int)integrationService);
 
             var notExportedOperations = from performedOperation in performedBusinessOperations

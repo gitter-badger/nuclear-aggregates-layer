@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Processors.FindAllRequests;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 
 using Roslyn.Compilers;
 using Roslyn.Compilers.Common;

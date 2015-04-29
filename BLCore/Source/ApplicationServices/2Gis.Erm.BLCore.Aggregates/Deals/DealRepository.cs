@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         public bool CheckIfDealHasOpenOrders(long dealId)
         {
-            var releaseInfoQuery = _secureFinder.FindAll<ReleaseInfo>();
+            var releaseInfoQuery = _secureFinder.For<ReleaseInfo>();
 
             return _secureFinder.Find<Order>(x => x.DealId == dealId && !x.IsDeleted && x.IsActive)
                 .Any(o => o.WorkflowStepId != OrderState.Rejected

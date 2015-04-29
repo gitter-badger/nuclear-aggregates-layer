@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<DenialReason>();
+            var query = _finder.For<DenialReason>();
 
             return query
                 .Select(x => new ListDenialReasonDto

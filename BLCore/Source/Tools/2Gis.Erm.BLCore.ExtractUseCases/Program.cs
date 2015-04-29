@@ -15,8 +15,6 @@ using DoubleGis.Erm.BLCore.ExtractUseCases.Processors.FindEditableEntityControll
 using DoubleGis.Erm.BLCore.ExtractUseCases.Processors.FindPublicServiceUseCases;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Processors.GenerateUseCases;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
-using DoubleGis.Erm.Platform.Core.UseCases.Context;
 
 using Microsoft.Win32;
 

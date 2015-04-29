@@ -774,8 +774,6 @@
     <Compile Include="ModelIndicators.Boundaries.cs" />
     <Compile Include="ModelIndicators.Simplified.cs" />
     <Compile Include="DI\PlatformModelAssembly.cs" />
-    <Compile Include="ModelIndicators.AggregateOperationSpecific.cs" />
-    <Compile Include="Aggregates\AggregateDescriptor.cs" />
     <Compile Include="Aggregates\AggregatesList.cs" />
     <Compile Include="Aggregates\Aliases\AccountAggregate.cs" />
     <Compile Include="Aggregates\Aliases\ActivityAggregate.cs" />
@@ -794,17 +792,9 @@
     <Compile Include="Aggregates\Aliases\RoleAggregate.cs" />
     <Compile Include="Aggregates\Aliases\ThemeAggregate.cs" />
     <Compile Include="Aggregates\Aliases\UserAggregate.cs" />
-    <Compile Include="Aggregates\IAggregateSpecificOperation.cs" />
-    <Compile Include="Aggregates\IUnknownAggregateSpecificOperation.cs" />
     <Compile Include="Ambivalent\AmbivalentEntities.cs" />
     <Compile Include="Identities\Properties\EntityPropertyIdentityBase.cs" />
     <Compile Include="Identities\Properties\IEntityPropertyIdentity.cs" />
-    <Compile Include="ModelIndicators.Aggregates.cs" />
-    <Compile Include="Aggregates\IAggregatePartRepository.cs" />
-    <Compile Include="Aggregates\IAggregateReadModel.cs" />
-    <Compile Include="Aggregates\IAggregateRepository.cs" />
-    <Compile Include="Aggregates\IAggregateRootRepository.cs" />
-    <Compile Include="Aggregates\IUnknownAggregatePartRepository.cs" />
     <Compile Include="Simplified\ISimplifiedModelConsumer.cs" />
     <Compile Include="Simplified\ISimplifiedModelConsumerReadModel.cs" />
     <Compile Include="Simplified\SimplifiedEntities.cs" />
@@ -847,6 +837,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NuClear\Aggregates\Aggregates.csproj">
+      <Project>{0ea26ab2-9054-4843-b98e-bd239898bf45}</Project>
+      <Name>Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

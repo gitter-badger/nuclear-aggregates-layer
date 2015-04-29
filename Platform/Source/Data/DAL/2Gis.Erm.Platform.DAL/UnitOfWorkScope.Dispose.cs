@@ -37,7 +37,7 @@
 
                 _pendingChangesHandlingStrategy.HandlePendingChanges(this);
 
-                var modifiableDomainContexts = _unitOfWork.DeattachModifiableDomainContexts(this);
+                var modifiableDomainContexts = _scopedDomainContextsStore.DropModifiable(this);
                 if (modifiableDomainContexts != null)
                 {
                     foreach (var domainContext in modifiableDomainContexts)

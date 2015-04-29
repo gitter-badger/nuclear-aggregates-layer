@@ -651,7 +651,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 return;
             }
 
-            var accountWithDebts = (from client in _finder.FindAll<Client>()
+            var accountWithDebts = (from client in _finder.For<Client>()
                                     where client.Id == entityId
                                     from legalPerson in client.LegalPersons
                                     from account in legalPerson.Accounts

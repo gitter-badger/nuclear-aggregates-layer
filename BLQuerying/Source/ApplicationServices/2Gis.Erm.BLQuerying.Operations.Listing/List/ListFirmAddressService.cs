@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<FirmAddress>();
+            var query = _finder.For<FirmAddress>();
 
             return query
                 .Where(x => !x.Firm.IsDeleted)

@@ -2,9 +2,6 @@
 using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
-
 namespace DoubleGis.Erm.Platform.API.Core.UseCases
 {
     public static class UseCaseUtils

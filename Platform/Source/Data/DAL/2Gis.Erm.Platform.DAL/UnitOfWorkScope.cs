@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
+using NuClear.Aggregates.Storage;
+using NuClear.Storage.Core;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
@@ -14,29 +14,29 @@ namespace DoubleGis.Erm.Platform.DAL
     {
         private readonly Guid _id = Guid.NewGuid();
 
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IAggregateRepositoryForHostFactory _aggregateRepositoryForHostFactory;
+        private readonly ScopedDomainContextsStore _scopedDomainContextsStore;
+        private readonly ScopedAggregateRepositoryFactory _scopedAggregateRepositoryFactory;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
         
         private bool _anyPendingChanges = true;
 
         internal UnitOfWorkScope(
-            IUnitOfWork unitOfWork, 
-            IAggregateRepositoryForHostFactory aggregateRepositoryForHostFactory,
+            ScopedDomainContextsStore scopedDomainContextsStore,
+            ScopedAggregateRepositoryFactory scopedAggregateRepositoryFactory,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy)
         {
-            if (unitOfWork == null)
+            if (scopedDomainContextsStore == null)
             {
-                throw new ArgumentNullException("unitOfWork");
+                throw new ArgumentNullException("scopedDomainContextsStore");
             }
 
-            if (aggregateRepositoryForHostFactory == null)
+            if (scopedAggregateRepositoryFactory == null)
             {
-                throw new ArgumentNullException("aggregateRepositoryForHostFactory");
+                throw new ArgumentNullException("scopedAggregateRepositoryFactory");
             }
 
-            _unitOfWork = unitOfWork;
-            _aggregateRepositoryForHostFactory = aggregateRepositoryForHostFactory;
+            _scopedDomainContextsStore = scopedDomainContextsStore;
+            _scopedAggregateRepositoryFactory = scopedAggregateRepositoryFactory;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
         }
 
@@ -57,9 +57,7 @@ namespace DoubleGis.Erm.Platform.DAL
                 throw new ObjectDisposedException("Object was already disposed");
             }
 
-            var contexts = _unitOfWork.GetModifiableDomainContexts(this);
-            if (contexts == null 
-                || contexts.All(c => !c.AnyPendingChanges))
+            if (_scopedDomainContextsStore.AnyPendingChanges(this))
             { 
                 _anyPendingChanges = false;
                 return;
@@ -76,7 +74,7 @@ namespace DoubleGis.Erm.Platform.DAL
                 throw new InvalidOperationException("Can't create aggregate repository as concrete type " + targetType + " you must use it through interface");
             }
 
-            return _aggregateRepositoryForHostFactory.CreateRepository<TAggregateRepository>(this);
+            return _scopedAggregateRepositoryFactory.CreateRepository<TAggregateRepository>(this);
         }
     }
 }

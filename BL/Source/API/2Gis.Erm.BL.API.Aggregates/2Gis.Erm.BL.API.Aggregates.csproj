@@ -70,6 +70,10 @@
     <Compile Include="SimplifiedModel\ReadModel\IDenialReasonReadModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NuClear\Aggregates\Aggregates.csproj">
+      <Project>{0ea26ab2-9054-4843-b98e-bd239898bf45}</Project>
+      <Name>Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>

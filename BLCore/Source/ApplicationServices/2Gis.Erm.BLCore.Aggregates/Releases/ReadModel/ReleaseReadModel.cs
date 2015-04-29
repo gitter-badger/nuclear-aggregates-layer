@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
 
         public Dictionary<long, ValidationReportLine> GetOrderValidationLines(IEnumerable<long> orderIds)
         {
-            var userInfos = _finder.FindAll<User>().Select(user => new { user.Id, user.DisplayName }).ToArray();
+            var userInfos = _finder.For<User>().Select(user => new { user.Id, user.DisplayName }).ToArray();
             var orderInfos = _finder.Find<Order>(o => orderIds.Contains(o.Id))
                 .Select(o => new
                 {
@@ -119,7 +119,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             IQueryable<OrganizationUnit> organizationUnitQuery;
             if (organizationUnitId == UkOrganizationUnitId)
             {
-                organizationUnitQuery = _finder.FindAll<OrganizationUnit>()
+                organizationUnitQuery = _finder.For<OrganizationUnit>()
                                                .Select(x => new
                 {
                     OrganizationUnit = x,

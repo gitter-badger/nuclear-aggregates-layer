@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {

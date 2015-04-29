@@ -1,6 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.DAL.Model.Aggregates;
+using NuClear.Aggregates.Storage;
+using NuClear.Storage.Core;
 
 namespace DoubleGis.Erm.Platform.DAL
 {

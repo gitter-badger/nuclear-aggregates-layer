@@ -1,7 +1,5 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Simplified;
-
 namespace DoubleGis.Erm.Platform.Model
 {
     public static partial class ModelIndicators

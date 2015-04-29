@@ -4,7 +4,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations;
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 
 using Roslyn.Compilers;
 using Roslyn.Compilers.Common;

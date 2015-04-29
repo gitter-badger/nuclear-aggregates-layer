@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var organizationUnitsQuery = _finder.FindAll<OrganizationUnit>();
+            var organizationUnitsQuery = _finder.For<OrganizationUnit>();
 
             return _finder.Find(AcceptanceReportsJournalSpecs.Select.AcceptanceReportsJournalRecords,
                                 AcceptanceReportsJournalSpecs.Find.OnlyAcceptanceReportsJournalRecords)

@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             static readonly Type ExpectedType = typeof(object);
 
-            Because of = () => ((IFinderBase)Target).FindAll(ExpectedType);
+            Because of = () => ((IQuery)Target).For(ExpectedType);
 
             It should_call_GetQueryableSource_with_expectedType =
                 () => ReadDomainContext.Verify(r => r.GetQueryableSource(ExpectedType), Times.Once(), "Ожидался запрос к GetQueryableSource по типу.");
@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         [Subject(typeof(Finder))]
         class When_FindAll_by_Type_as_generic : FinderSpecBase
         {
-            Because of = () => ((IFinderBase)Target).FindAll<IEntity>();
+            Because of = () => ((IQuery)Target).For<IEntity>();
 
             It should_call_GetQueryableSource_with_expectedType =
                 () =>

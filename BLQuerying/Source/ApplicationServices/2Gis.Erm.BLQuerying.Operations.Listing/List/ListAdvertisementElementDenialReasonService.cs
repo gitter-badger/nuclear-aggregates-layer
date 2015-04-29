@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         private IRemoteCollection ListCheckedReasons(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<AdvertisementElementDenialReason>();
+            var query = _finder.For<AdvertisementElementDenialReason>();
 
             var result = query
                 .Select(x => new ListAdvertisementElementDenialReasonsDto
@@ -72,8 +72,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             var advertisementElementId = querySettings.ParentEntityId.Value;
 
-            var checkedReasons = _finder.FindAll<AdvertisementElementDenialReason>().Where(x => x.AdvertisementElementId == advertisementElementId);
-            return _finder.FindAll<DenialReason>()
+            var checkedReasons = _finder.For<AdvertisementElementDenialReason>().Where(x => x.AdvertisementElementId == advertisementElementId);
+            return _finder.For<DenialReason>()
                           .GroupJoin(checkedReasons, dr => dr.Id, aedr => aedr.DenialReasonId, (dr, aedr) => new { dr, aedr = aedr.FirstOrDefault() })
                           .Select(x => new ListAdvertisementElementDenialReasonsDto
                               {

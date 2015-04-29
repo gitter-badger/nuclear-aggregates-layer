@@ -25,8 +25,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<Theme>();
-            var themeOrganizationUnits = _finder.FindAll<ThemeOrganizationUnit>();
+            var query = _finder.For<Theme>();
+            var themeOrganizationUnits = _finder.For<ThemeOrganizationUnit>();
 
             // dto от тематик
             var dtosQuery = query

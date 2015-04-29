@@ -2,7 +2,6 @@
 
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 
 using Microsoft.Practices.Unity;
 

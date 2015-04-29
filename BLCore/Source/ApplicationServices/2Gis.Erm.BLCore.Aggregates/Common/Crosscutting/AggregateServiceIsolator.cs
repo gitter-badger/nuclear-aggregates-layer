@@ -4,8 +4,8 @@ using System.Transactions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Transactions;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 
+using NuClear.Aggregates;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
@@ -39,7 +39,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
                 // FIXME {all, 15.01.2014}: добавить поддержку поведения без использования deferred save - т.е. uowScope будет использоваться только для управления временем жизни domaincontext
                 using (var uowScope = _unitOfWork.CreateScope())
                 {
-                    var aggregateService = uowScope.CreateRepository<TAggregateService>();
+                    var aggregateRepositoryType = typeof(TAggregateService);
+                    var aggregateService = uowScope.CreateRepository(aggregateRepositoryType);
                     var result = func(aggregateService);
 
                     uowScope.Complete();

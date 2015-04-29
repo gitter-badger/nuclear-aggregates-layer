@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+using NuClear.Storage.Core;
+
 namespace DoubleGis.Erm.Platform.DAL
 {
     public class PendingChangesNotHandledException : Exception

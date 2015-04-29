@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Aggregates.Aliases;
 
+using NuClear.Aggregates;
 using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates

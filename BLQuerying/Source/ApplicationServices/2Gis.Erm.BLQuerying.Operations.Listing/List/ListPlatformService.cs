@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<Platform.Model.Entities.Erm.Platform>();
+            var query = _finder.For<Platform.Model.Entities.Erm.Platform>();
 
             return query
                 .Select(x => new ListPlatformDto

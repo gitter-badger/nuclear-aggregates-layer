@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages.DTO;
-using DoubleGis.Erm.Platform.Model.Aggregates;
+using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 

@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            return _finder.FindAll<BranchOffice>()
+            return _finder.For<BranchOffice>()
                           .Select(x => new KazakhstanListBranchOfficeDto
                                            {
                                                Id = x.Id,

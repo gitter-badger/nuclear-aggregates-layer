@@ -2,7 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.DTO;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
-using DoubleGis.Erm.Platform.Model.Aggregates;
+using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
 

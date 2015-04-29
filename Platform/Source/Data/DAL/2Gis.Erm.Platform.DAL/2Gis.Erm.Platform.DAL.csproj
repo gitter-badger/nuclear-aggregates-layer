@@ -49,10 +49,6 @@
     <Compile Include="..\..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
-    <Compile Include="ConnectionStringNameResolver.cs" />
-    <Compile Include="DefaultConnectionStringNameResolver.cs" />
-    <Compile Include="DomainContextMetadata.cs" />
-    <Compile Include="DomainContextMetadataProvider.cs" />
     <Compile Include="EAV\DynamicStorageRepository.cs" />
     <Compile Include="EAV\ConsistentRepositoryDecorator.cs" />
     <Compile Include="EAV\ConsistentSecureFinderDecorator.cs" />
@@ -66,61 +62,24 @@
     <Compile Include="EAV\ConsistentFinderDecorator.cs" />
     <Compile Include="EAV\IDynamicStorageFinder.cs" />
     <Compile Include="EAV\DynamicStorageFinder.cs" />
+    <Compile Include="ForcePendingChangesHandlingStrategy.cs" />
     <Compile Include="ICompositeEntityDecorator.cs" />
     <Compile Include="EAV\SpecsBundle.cs" />
-    <Compile Include="IConnectionStringNameResolver.cs" />
-    <Compile Include="IEntityContainerNameResolver.cs" />
     <Compile Include="IFileContentFinder.cs" />
     <Compile Include="IDynamicEntityRepository.cs" />
-    <Compile Include="IPersistenceChangesRegistry.cs" />
-    <Compile Include="IPersistenceChangesRegistryProvider.cs" />
     <Compile Include="IPersistenceService.cs" />
     <Compile Include="IPersistenceServiceRuntimeFactory.cs" />
-    <Compile Include="IProducedQueryLogAccessor.cs" />
-    <Compile Include="Model\Aggregates\IAggregateRepositoryFactory.cs" />
-    <Compile Include="Model\Aggregates\IAggregateRepositoryForHostFactory.cs" />
-    <Compile Include="Model\Aggregates\IAggregatesLayerRuntimeFactory.cs" />
+    <Compile Include="IQueryProvider.cs" />
     <Compile Include="Model\SimplifiedModel\ISimplifiedModelConsumerFactory.cs" />
-    <Compile Include="NullPersistenceChangesRegistry.cs" />
-    <Compile Include="NullPersistenceChangesRegistryProvider.cs" />
-    <Compile Include="FinderBaseProvider.cs" />
-    <Compile Include="IFinderBaseProvider.cs" />
-    <Compile Include="IReadDomainContextProviderForHost.cs" />
-    <Compile Include="DomainContextProviderProxy.cs" />
-    <Compile Include="ForcePendingChangesHandlingStrategy.cs" />
-    <Compile Include="IFinderBase.cs" />
-    <Compile Include="IPendingChangesHandlingStrategy.cs" />
-    <Compile Include="IPendingChangesMonitorable.cs" />
-    <Compile Include="NullPendingChangesHandlingStrategy.cs" />
+    <Compile Include="QueryProvider.cs" />
     <Compile Include="EAV\WrappedQueryProvider.cs" />
     <Compile Include="EAV\QueryableExtensions.cs" />
-    <Compile Include="NullProducedQueryLogAccessor.cs" />
-    <Compile Include="ReadDomainContextCachingProxy.cs" />
-    <Compile Include="Finder.cs" />
-    <Compile Include="IDomainContext.cs" />
-    <Compile Include="IDomainContextFactory.cs" />
-    <Compile Include="IModifiableDomainContextProviderForHost.cs" />
-    <Compile Include="IDomainContextHost.cs" />
-    <Compile Include="IFinder.cs" />
-    <Compile Include="IDomainContextMetadataProvider.cs" />
-    <Compile Include="IModifiableDomainContext.cs" />
-    <Compile Include="IModifiableDomainContextFactory.cs" />
-    <Compile Include="IModifiableDomainContextProvider.cs" />
-    <Compile Include="IReadDomainContext.cs" />
-    <Compile Include="IReadDomainContextFactory.cs" />
-    <Compile Include="IReadDomainContextProvider.cs" />
-    <Compile Include="IRepository.cs" />
     <Compile Include="ISecureFinder.cs" />
     <Compile Include="ISecureRepository.cs" />
-    <Compile Include="ISelectSpecification.cs" />
-    <Compile Include="IFindSpecification.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkScope.cs" />
     <Compile Include="SecureFinder.cs" />
     <Compile Include="SecurityHelper.cs" />
-    <Compile Include="Specifications\FindSpecification.cs" />
-    <Compile Include="Specifications\SelectSpecification.cs" />
-    <Compile Include="Specifications\SpecificationExtensions.cs" />
     <Compile Include="Specifications\Specs.cs" />
     <Compile Include="Transactions\DefaultTransactionOptions.cs" />
     <Compile Include="UnitOfWork.Dispose.cs" />
@@ -149,6 +108,14 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\NuClear\Aggregates\Aggregates.csproj">
+      <Project>{0ea26ab2-9054-4843-b98e-bd239898bf45}</Project>
+      <Name>Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6e35864b-bba8-4cf2-8c76-620ff1e4bfc2}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>
@@ -173,6 +140,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

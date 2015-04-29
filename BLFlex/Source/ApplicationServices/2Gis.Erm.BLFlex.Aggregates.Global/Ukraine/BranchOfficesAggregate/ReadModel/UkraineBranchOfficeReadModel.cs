@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.BranchOfficesAggregate.
             var duplicatesQuery = _finder.Find(BusinessEntitySpecs.BusinessEntity.Find.ByProperty(IpnIdentity.Instance.Id, ipn))
                              .Where(x => x.EntityId != branchOfficeId).Select(x => x.EntityId);
 
-            return _finder.FindAll<BranchOffice>().Join(duplicatesQuery, x => x.Id, y => y.Value, (x, y) => x).Any(x => x.IsActive && !x.IsDeleted);
+            return _finder.For<BranchOffice>().Join(duplicatesQuery, x => x.Id, y => y.Value, (x, y) => x).Any(x => x.IsActive && !x.IsDeleted);
         }
     }
 }

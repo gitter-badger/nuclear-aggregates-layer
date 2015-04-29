@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {
@@ -61,14 +63,14 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return _finder.Find(expression).ValidateQueryCorrectness();
         }
 
-        public IQueryable FindAll(Type entityType)
+        public IQueryable For(Type entityType)
         {
-            return _finder.FindAll(entityType).ValidateQueryCorrectness();
+            return _finder.For(entityType).ValidateQueryCorrectness();
         }
 
-        public IQueryable<TEntity> FindAll<TEntity>() where TEntity : class, IEntity
+        public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
         {
-            return _finder.FindAll<TEntity>().ValidateQueryCorrectness();
+            return _finder.For<TEntity>().ValidateQueryCorrectness();
         }
 
         public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)

@@ -1,6 +1,5 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging

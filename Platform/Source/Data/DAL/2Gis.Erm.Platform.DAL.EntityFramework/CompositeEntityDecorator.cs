@@ -107,7 +107,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 		{
 			CheckRegistration<TPersistentEntity, TEntity>();
 			
-			var persistentEntities = _finder.FindAll<TPersistentEntity>();
+			var persistentEntities = _finder.For<TPersistentEntity>();
 			if (prePredicate != null)
 			{
 				persistentEntities = persistentEntities.Where(prePredicate);

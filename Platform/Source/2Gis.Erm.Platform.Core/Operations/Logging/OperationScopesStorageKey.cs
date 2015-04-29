@@ -1,7 +1,5 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
-
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {
     public sealed class OperationScopesStorageKey : IContextKey<OperationScopesStorage>

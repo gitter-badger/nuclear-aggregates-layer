@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<CurrencyRate>();
+            var query = _finder.For<CurrencyRate>();
 
             var utcNow = DateTime.UtcNow;
 

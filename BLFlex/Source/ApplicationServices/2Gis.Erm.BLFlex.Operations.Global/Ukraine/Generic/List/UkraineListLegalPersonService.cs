@@ -43,9 +43,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<LegalPerson>();
+            var query = _finder.For<LegalPerson>();
 
-            var dynamicObjectsQuery = _finder.FindAll<BusinessEntityInstance>().Select(x => new
+            var dynamicObjectsQuery = _finder.For<BusinessEntityInstance>().Select(x => new
                 {
                     Instance = x,
                     x.BusinessEntityPropertyInstances

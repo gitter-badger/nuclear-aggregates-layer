@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<ThemeTemplate>();
+            var query = _finder.For<ThemeTemplate>();
 
             return query
                 .Where(Specs.Find.ActiveAndNotDeleted<ThemeTemplate>())

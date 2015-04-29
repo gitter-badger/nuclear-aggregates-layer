@@ -4,6 +4,8 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.Platform.DAL
 {
     public interface IFileContentFinder

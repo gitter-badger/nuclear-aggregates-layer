@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<ReleaseInfo>();
+            var query = _finder.For<ReleaseInfo>();
 
             return query
                 .Where(x => !x.IsDeleted)

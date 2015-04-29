@@ -99,7 +99,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\InjectionFactories.cs" />
-    <Compile Include="Config\MassProcessing\AggregatesLayerMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\OperationsServicesMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\MetadataSourcesMassProcessor.cs" />
     <Compile Include="Config\MassProcessing\PersistenceServicesMassProcessor.cs" />

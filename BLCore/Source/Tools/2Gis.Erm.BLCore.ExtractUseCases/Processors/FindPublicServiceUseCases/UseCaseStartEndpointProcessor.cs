@@ -5,7 +5,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 
 using Roslyn.Compilers;
 using Roslyn.Compilers.Common;

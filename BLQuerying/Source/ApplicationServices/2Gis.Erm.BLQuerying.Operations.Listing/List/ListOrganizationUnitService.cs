@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<OrganizationUnit>();
+            var query = _finder.For<OrganizationUnit>();
 
             var orgUnitFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long>(
                  "userId", userId => x => x.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId));

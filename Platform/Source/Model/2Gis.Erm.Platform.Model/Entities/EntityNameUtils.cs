@@ -112,15 +112,15 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 typeof(UsersDescendant),
                 typeof(BusinessOperationService),
                 typeof(SecurityAccelerator),
-                
-				typeof(AppointmentBase),
-				typeof(AppointmentReference),
-				typeof(PhonecallBase),
-				typeof(PhonecallReference),
-				typeof(TaskBase),
-				typeof(TaskReference),
-				typeof(LetterBase),
-				typeof(LetterReference),
+
+                typeof(AppointmentBase),
+                typeof(AppointmentReference),
+                typeof(PhonecallBase),
+                typeof(PhonecallReference),
+                typeof(TaskBase),
+                typeof(TaskReference),
+                typeof(LetterBase),
+                typeof(LetterReference),
             };
 
         /// <summary>

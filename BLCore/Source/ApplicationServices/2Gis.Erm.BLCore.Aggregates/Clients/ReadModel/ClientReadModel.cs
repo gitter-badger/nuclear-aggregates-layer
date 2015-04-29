@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
 
         public bool IsClientLinksExists(long? masterClientId, long? childClientId, bool? isDeleted)
         {
-            var query = _finder.FindAll<ClientLink>();
+            var query = _finder.For<ClientLink>();
 
             if (masterClientId.HasValue)
                 query = query.Where(c => c.MasterClientId == masterClientId);

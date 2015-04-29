@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public IReadOnlyDictionary<long, byte[]> GetOrdersCurrentVersions(Expression<Func<Order, bool>> ordersPredicate)
         {
-            return _finder.FindAll<Order>().Where(ordersPredicate).ToDictionary(x => x.Id, x => x.Timestamp);
+            return _finder.For<Order>().Where(ordersPredicate).ToDictionary(x => x.Id, x => x.Timestamp);
         }
 
         public IReadOnlyDictionary<long, IEnumerable<long>> GetRelatedOrdersByFirm(IEnumerable<long> orderIds)
@@ -157,7 +157,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var dummyAdvertisements =
                 _finder.Find<AdvertisementTemplate>(x => !x.IsDeleted).Select(x => x.DummyAdvertisementId).Where(x => x.HasValue).ToArray();
 
-            var userDescendantsQuery = _finder.FindAll<UsersDescendant>();
+            var userDescendantsQuery = _finder.For<UsersDescendant>();
 
             var orderInfos = _finder.Find<Order>(
                                                  x =>
@@ -667,9 +667,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public IEnumerable<RelatedOrderDescriptor> GetRelatedOrdersToCreateBill(long orderId)
         {
             var modelOrder = _finder.Find<Order>(o => o.Id == orderId && o.IsActive && !o.IsDeleted).Single();
-            var relatedOrders = (from order in _finder.FindAll<Order>()
-                                 join sou in _finder.FindAll<OrganizationUnit>() on order.SourceOrganizationUnitId equals sou.Id
-                                 join dou in _finder.FindAll<OrganizationUnit>() on order.DestOrganizationUnitId equals dou.Id
+            var relatedOrders = (from order in _finder.For<Order>()
+                                 join sou in _finder.For<OrganizationUnit>() on order.SourceOrganizationUnitId equals sou.Id
+                                 join dou in _finder.For<OrganizationUnit>() on order.DestOrganizationUnitId equals dou.Id
                                  join bill in _finder.Find<Bill>(b => b.IsActive && !b.IsDeleted) on order.Id equals bill.OrderId into
                                      orderBills
                                  from orderBill in orderBills.DefaultIfEmpty()
@@ -695,7 +695,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public IEnumerable<RelatedOrderDescriptor> GetRelatedOrdersForPrintJointBill(long orderId)
         {
             RelatedOrderDescriptor[] relatedOrders = null;
-            var modelOrderEntries = (from order in _finder.FindAll<Order>()
+            var modelOrderEntries = (from order in _finder.For<Order>()
                                      join bill in _finder.Find<Bill>(b => b.IsActive && !b.IsDeleted) on order.Id equals bill.OrderId into orderBills
                                      where order.Id == orderId && order.IsActive && !order.IsDeleted
                                      select order).ToArray();
@@ -705,9 +705,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 var modelOrder = modelOrderEntries[0];
                 var modelOrderBillsCount = modelOrderEntries.Length;
 
-                relatedOrders = (from order in _finder.FindAll<Order>()
-                                 join sou in _finder.FindAll<OrganizationUnit>() on order.SourceOrganizationUnitId equals sou.Id
-                                 join dou in _finder.FindAll<OrganizationUnit>() on order.DestOrganizationUnitId equals dou.Id
+                relatedOrders = (from order in _finder.For<Order>()
+                                 join sou in _finder.For<OrganizationUnit>() on order.SourceOrganizationUnitId equals sou.Id
+                                 join dou in _finder.For<OrganizationUnit>() on order.DestOrganizationUnitId equals dou.Id
                                  join bill in _finder.Find<Bill>(b => b.IsActive && !b.IsDeleted) on order.Id equals bill.OrderId
                                  join modelBill in _finder.Find<Bill>(b => b.IsActive && !b.IsDeleted && b.OrderId == orderId) on
                                      new { bill.BeginDistributionDate, bill.EndDistributionDate } equals

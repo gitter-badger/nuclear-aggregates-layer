@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
-using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 
 using NuClear.Model.Common.Entities.Aspects;
 

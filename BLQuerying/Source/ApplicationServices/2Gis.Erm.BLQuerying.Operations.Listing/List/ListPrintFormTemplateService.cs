@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.FindAll<PrintFormTemplate>();
+            var query = _finder.For<PrintFormTemplate>();
 
             var data = query
             .Select(x => new ListPrintFormTemplateDto
