@@ -43,17 +43,29 @@
         return text.match(controlChars);
     };
 
-    function textContainsControlList(element) {
-        var elementIsList = element.tagName.toLowerCase() == "li";
+    function isNodeContainsList(element) {
         var result = false;
-
         Ext.each(element.children, function (child) {
-            if (elementIsList && child.tagName.toLowerCase() == "ul") {
+            if (child.tagName.toLowerCase() == "ul") {
                 result = true;
-                // The iteration can be stopped by returning false in the function callback.
-                return false;
+            } else {
+                result = result || isNodeContainsList(child);
             }
-            result = result || textContainsControlList(child);
+            return !result;
+        });
+        return result;
+    };
+
+    function textContainsControlList(element, isParentList) {
+        isParentList = isParentList || false;
+        var result = false;
+        Ext.each(element.children, function (child) {
+            if (child.tagName.toLowerCase() == "ul") {
+                result = isParentList ? true : textContainsControlList(child, true);
+            } else {
+                result = textContainsControlList(child, isParentList);
+            }
+            return !result;
         });
         return result;
     };
