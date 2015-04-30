@@ -218,7 +218,7 @@
             var body = this.RTE.getEd().getBody();
             
             if (textContainsControlList(body)) {
-                alert(Ext.LocalizedResources.AdvertisementElementTextContainsControlList);
+                Ext.Msg.alert('',Ext.LocalizedResources.AdvertisementElementTextContainsControlList);
                 return false;
             };
 
