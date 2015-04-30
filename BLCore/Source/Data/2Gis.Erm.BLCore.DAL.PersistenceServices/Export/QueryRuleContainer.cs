@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL;
-
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {

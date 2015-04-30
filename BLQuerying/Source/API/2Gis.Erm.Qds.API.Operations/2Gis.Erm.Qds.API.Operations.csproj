@@ -98,6 +98,10 @@
     <Compile Include="Replication\Metadata\EntityToDocumentProjectionMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6e35864b-bba8-4cf2-8c76-620ff1e4bfc2}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
       <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
       <Name>2Gis.Erm.Platform.Core</Name>

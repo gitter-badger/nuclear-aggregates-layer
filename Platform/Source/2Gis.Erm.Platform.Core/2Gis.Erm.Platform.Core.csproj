@@ -213,6 +213,10 @@
     <Compile Include="Notifications\EmployeeEmailResolver.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6e35864b-bba8-4cf2-8c76-620ff1e4bfc2}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
       <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
       <Name>2Gis.Erm.Platform.API.Aggregates</Name>

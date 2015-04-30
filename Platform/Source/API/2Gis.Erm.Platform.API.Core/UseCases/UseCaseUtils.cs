@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Reflection;
 
+using NuClear.Storage.UseCases;
+
 namespace DoubleGis.Erm.Platform.API.Core.UseCases
 {
     public static class UseCaseUtils

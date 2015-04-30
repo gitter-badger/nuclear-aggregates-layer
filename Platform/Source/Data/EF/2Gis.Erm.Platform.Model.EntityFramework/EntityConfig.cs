@@ -5,27 +5,28 @@ using System.Data.Entity.ModelConfiguration;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.EntityFramework;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework
 {
     public abstract class EntityConfig<TEntity, TEntityContainer> : EntityTypeConfiguration<TEntity>,
-                                                                    IEfDbModelConfiguration
+                                                                    IEFDbModelConfiguration
         where TEntity : class, IEntity
         where TEntityContainer : class, IEntityContainer, new()
     {
         private static readonly Lazy<TEntityContainer> LazyContainer = new Lazy<TEntityContainer>(() => new TEntityContainer());
 
-        void IEfDbModelConfiguration.Apply(DbModelBuilder builder)
+        void IEFDbModelConfiguration.Apply(DbModelBuilder builder)
         {
             builder.Configurations.Add(this);
         }
 
-        string IEfDbModelConfiguration.ContainerName
+        string IEFDbModelConfiguration.ContainerName
         {
             get { return LazyContainer.Value.Name; }
         }
 
-        Type IEfDbModelConfiguration.EntityType
+        Type IEFDbModelConfiguration.EntityType
         {
             get { return typeof(TEntity); }
         }

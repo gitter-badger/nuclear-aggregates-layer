@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using NuClear.Model.Common.Entities.Aspects;
 
-using Storage;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities
 {
     /// <summary>
-    /// Contains the extensions for <see cref="NuClear.Storage.IRepository{TEntity}"/> repository of <see cref="EntityReference{TAggregate}"/>.
+    /// Contains the extensions for <see cref="NuClear.Storage.IRepository{TEntity}"/> repository of <see cref="EntityReference{TEntity}"/>.
     /// </summary>
     internal static class EntityToEntityRepositoryExtensions
     {

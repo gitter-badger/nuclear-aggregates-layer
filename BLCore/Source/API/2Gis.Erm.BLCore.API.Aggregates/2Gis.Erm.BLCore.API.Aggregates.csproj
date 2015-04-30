@@ -58,7 +58,6 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -171,7 +170,6 @@
     <Compile Include="Clients\ReadModel\ClientSpecs.Clients.cs" />
     <Compile Include="Clients\ReadModel\IClientReadModel.cs" />
     <Compile Include="CommonService\MessageHelper.cs" />
-    <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
     <Compile Include="Common\Crosscutting\ICheckInnService.cs" />
     <Compile Include="Common\Crosscutting\IMonthPeriodValidationService.cs" />
     <Compile Include="Common\Crosscutting\IConcurrentPeriodCounter.cs" />
@@ -406,6 +404,10 @@
     <ProjectReference Include="..\..\..\..\NuClear\Aggregates\Aggregates.csproj">
       <Project>{0ea26ab2-9054-4843-b98e-bd239898bf45}</Project>
       <Name>Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6e35864b-bba8-4cf2-8c76-620ff1e4bfc2}</Project>
+      <Name>Storage</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>

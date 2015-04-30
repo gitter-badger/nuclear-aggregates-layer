@@ -1,5 +1,7 @@
 ﻿using System;
 
+using NuClear.Storage.UseCases;
+
 namespace DoubleGis.Erm.Platform.API.Core.UseCases
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]

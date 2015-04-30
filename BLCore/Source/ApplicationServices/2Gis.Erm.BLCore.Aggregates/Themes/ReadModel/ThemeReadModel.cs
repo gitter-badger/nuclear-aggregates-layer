@@ -4,9 +4,11 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage.Specifications;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Themes.ReadModel
 {

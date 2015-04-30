@@ -49,6 +49,7 @@
     <Compile Include="..\..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="EAV\ConsistentQueryDecorator.cs" />
     <Compile Include="EAV\DynamicStorageRepository.cs" />
     <Compile Include="EAV\ConsistentRepositoryDecorator.cs" />
     <Compile Include="EAV\ConsistentSecureFinderDecorator.cs" />
@@ -68,25 +69,18 @@
     <Compile Include="IFileContentFinder.cs" />
     <Compile Include="IDynamicEntityRepository.cs" />
     <Compile Include="IPersistenceService.cs" />
-    <Compile Include="IPersistenceServiceRuntimeFactory.cs" />
     <Compile Include="IQueryProvider.cs" />
-    <Compile Include="Model\SimplifiedModel\ISimplifiedModelConsumerFactory.cs" />
+    <Compile Include="ISecureQuery.cs" />
     <Compile Include="QueryProvider.cs" />
     <Compile Include="EAV\WrappedQueryProvider.cs" />
     <Compile Include="EAV\QueryableExtensions.cs" />
     <Compile Include="ISecureFinder.cs" />
     <Compile Include="ISecureRepository.cs" />
-    <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="IUnitOfWorkScope.cs" />
     <Compile Include="SecureFinder.cs" />
+    <Compile Include="SecureQuery.cs" />
     <Compile Include="SecurityHelper.cs" />
     <Compile Include="Specifications\Specs.cs" />
     <Compile Include="Transactions\DefaultTransactionOptions.cs" />
-    <Compile Include="UnitOfWork.Dispose.cs" />
-    <Compile Include="UnitOfWork.cs" />
-    <Compile Include="UnitOfWorkException.cs" />
-    <Compile Include="UnitOfWorkScope.Dispose.cs" />
-    <Compile Include="UnitOfWorkScope.cs" />
     <Compile Include="EAV\WrappedQuery.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -108,10 +102,6 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\NuClear\Aggregates\Aggregates.csproj">
-      <Project>{0ea26ab2-9054-4843-b98e-bd239898bf45}</Project>
-      <Name>Aggregates</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\NuClear\Storage\Storage.csproj">
       <Project>{6e35864b-bba8-4cf2-8c76-620ff1e4bfc2}</Project>
       <Name>Storage</Name>

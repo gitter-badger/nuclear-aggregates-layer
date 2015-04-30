@@ -5,11 +5,10 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
-
+using NuClear.Storage;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Notifications

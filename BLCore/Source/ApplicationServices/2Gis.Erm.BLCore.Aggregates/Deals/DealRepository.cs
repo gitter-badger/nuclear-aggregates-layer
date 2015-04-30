@@ -27,29 +27,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 {
     public class DealRepository : IDealRepository
     {
+        private readonly ISecureQuery _secureQuery;
         private readonly ISecureFinder _secureFinder;
         private readonly ISecureRepository<Deal> _dealGenericSecureRepository;
         private readonly ISecureRepository<Order> _orderGenericRepository;
         private readonly ISecureRepository<OrderPosition> _orderPositionGenericRepository;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
-        private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
         public DealRepository(
+            ISecureQuery secureQuery,
             ISecureFinder finder,
             ISecureRepository<Deal> dealGenericSecureRepository,
             ISecureRepository<Order> orderGenericRepository,
             ISecureRepository<OrderPosition> orderPositionGenericRepository,
             ISecurityServiceEntityAccess entityAccessService,
-            IIdentityProvider identityProvider, 
             IOperationScopeFactory operationScopeFactory)
         {
+            _secureQuery = secureQuery;
             _secureFinder = finder;
             _dealGenericSecureRepository = dealGenericSecureRepository;
             _orderGenericRepository = orderGenericRepository;
             _orderPositionGenericRepository = orderPositionGenericRepository;
             _entityAccessService = entityAccessService;
-            _identityProvider = identityProvider;
             _operationScopeFactory = operationScopeFactory;
         }
 
@@ -111,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         public bool CheckIfDealHasOpenOrders(long dealId)
         {
-            var releaseInfoQuery = _secureFinder.For<ReleaseInfo>();
+            var releaseInfoQuery = _secureQuery.For<ReleaseInfo>();
 
             return _secureFinder.Find<Order>(x => x.DealId == dealId && !x.IsDeleted && x.IsActive)
                 .Any(o => o.WorkflowStepId != OrderState.Rejected

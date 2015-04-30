@@ -19,10 +19,11 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 {
@@ -32,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         private const string OperationTypeDebitForOrderPayment = "11";
 
         private readonly IDebtProcessingSettings _debtProcessingSettings;
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
         private readonly IRepository<Account> _accountGenericRepository;
@@ -47,6 +49,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         private readonly IOperationScopeFactory _scopeFactory;
 
         public AccountRepository(IDebtProcessingSettings debtProcessingSettings,
+                                 IQuery query,
                                  IFinder finder,
                                  ISecureFinder secureFinder,
                                  IRepository<Account> accountGenericRepository,
@@ -62,6 +65,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                                  IOperationScopeFactory scopeFactory)
         {
             _debtProcessingSettings = debtProcessingSettings;
+            _query = query;
             _finder = finder;
             _secureFinder = secureFinder;
             _accountGenericRepository = accountGenericRepository;
@@ -528,7 +532,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public IEnumerable<AccountFor1CExportDto> GetAccountsForExortTo1C(long organizationUnitId)
         {
-            return (from account in _finder.For<Account>()
+            return (from account in _query.For<Account>()
                     let lpSyncCode1C = account.LegalPesonSyncCode1C
                     from order in account.LegalPerson.Orders
                     where !order.IsDeleted &&

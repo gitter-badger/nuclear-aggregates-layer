@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 using NuClear.Model.Common.Entities;
@@ -61,16 +60,6 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             }
 
             return _finder.Find(expression).ValidateQueryCorrectness();
-        }
-
-        public IQueryable For(Type entityType)
-        {
-            return _finder.For(entityType).ValidateQueryCorrectness();
-        }
-
-        public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
-        {
-            return _finder.For<TEntity>().ValidateQueryCorrectness();
         }
 
         public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)

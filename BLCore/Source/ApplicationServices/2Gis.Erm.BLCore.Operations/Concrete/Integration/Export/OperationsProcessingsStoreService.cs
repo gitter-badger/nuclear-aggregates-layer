@@ -5,13 +5,15 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Entities.Aspects.Integration;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
+using NuClear.Storage.UseCases;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 {
@@ -29,6 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         private readonly IEntityType _entityName = typeof(TEntity).AsEntityName();
         private readonly IEntityType _integrationProcessorStateEntityName = typeof(TProcessedOperationEntity).AsEntityName();
 
+        private readonly IQuery _query;
         private readonly IIdentityProvider _identityProvider;
         private readonly IUseCaseTuner _useCaseTuner;
         private readonly IFinder _finder;
@@ -36,12 +39,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         private readonly IRepository<ExportFailedEntity> _exportFailedRepository;
 
         public OperationsProcessingsStoreService(
+            IQuery query,
             IFinder finder,
             IRepository<TProcessedOperationEntity> processedOperationEntity,
             IRepository<ExportFailedEntity> exportFailedRepository,
             IIdentityProvider identityProvider,
             IUseCaseTuner useCaseTuner)
         {
+            _query = query;
             _identityProvider = identityProvider;
             _useCaseTuner = useCaseTuner;
             _finder = finder;
@@ -150,10 +155,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 
         public DateTime GetLastProcessedOperationPerformDate(ISelectSpecification<TProcessedOperationEntity, DateTime> selectSortFieldSpecification)
         {
-            var lastMessageId = _finder.For<TProcessedOperationEntity>()
-                                       .OrderByDescending(selectSortFieldSpecification.Selector)
-                                       .Select(x => x.Id)
-                                       .Take(1);
+            var lastMessageId = _query.For<TProcessedOperationEntity>()
+                                      .OrderByDescending(selectSortFieldSpecification.Selector)
+                                      .Select(x => x.Id)
+                                      .Take(1);
 
             var lastDate = _finder.Find<PerformedBusinessOperation>(operation => lastMessageId.Contains(operation.Id))
                                   .Select(operation => operation.Date)
@@ -170,8 +175,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             // comment {a.rechkalov, 2013-11-11}: Нужно в таблице Shared.BusinessOperationServices в колонке Service проставить значения EntityName (например, ExportFlowOrdersOrder вместо "5")
             var integrationService = integrationEntityName.AsIntegrationService();
 
-            var performedBusinessOperations = _finder.For<PerformedBusinessOperation>();
-            var processedBusinessOperations = _finder.For<TProcessedOperationEntity>();
+            var performedBusinessOperations = _query.For<PerformedBusinessOperation>();
+            var processedBusinessOperations = _query.For<TProcessedOperationEntity>();
             var operationTypesToProcess = _finder.Find<BusinessOperationService>(service => service.Service == (int)integrationService);
 
             var notExportedOperations = from performedOperation in performedBusinessOperations

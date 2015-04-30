@@ -3,6 +3,7 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 {

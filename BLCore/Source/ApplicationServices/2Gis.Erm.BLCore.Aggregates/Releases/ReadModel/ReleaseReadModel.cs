@@ -8,7 +8,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -18,10 +18,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
 {
     public sealed class ReleaseReadModel : IReleaseReadModel
     {
+        private readonly IQuery _query;
         private readonly IFinder _finder;
 
-        public ReleaseReadModel(IFinder finder)
+        public ReleaseReadModel(IQuery query, IFinder finder)
         {
+            _query = query;
             _finder = finder;
         }
 
@@ -42,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
 
         public Dictionary<long, ValidationReportLine> GetOrderValidationLines(IEnumerable<long> orderIds)
         {
-            var userInfos = _finder.For<User>().Select(user => new { user.Id, user.DisplayName }).ToArray();
+            var userInfos = _query.For<User>().Select(user => new { user.Id, user.DisplayName }).ToArray();
             var orderInfos = _finder.Find<Order>(o => orderIds.Contains(o.Id))
                 .Select(o => new
                 {
@@ -119,19 +121,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             IQueryable<OrganizationUnit> organizationUnitQuery;
             if (organizationUnitId == UkOrganizationUnitId)
             {
-                organizationUnitQuery = _finder.For<OrganizationUnit>()
-                                               .Select(x => new
-                {
-                    OrganizationUnit = x,
-                                                                    ContributionType = x.BranchOfficeOrganizationUnits
-                                                                                        .Where(y => y.IsActive && !y.IsDeleted &&
-                                                                                                    y.IsPrimaryForRegionalSales)
-                                        .Select(y => y.BranchOffice)
-                                        .Select(y => (ContributionTypeEnum?)y.ContributionTypeId)
-                                        .FirstOrDefault(),
-                })
-                .Where(x => x.ContributionType == ContributionTypeEnum.Branch)
-                .Select(x => x.OrganizationUnit);
+                organizationUnitQuery = _query.For<OrganizationUnit>()
+                                              .Select(x => new
+                                                  {
+                                                      OrganizationUnit = x,
+                                                      ContributionType = x.BranchOfficeOrganizationUnits
+                                                                          .Where(y => y.IsActive && !y.IsDeleted &&
+                                                                                      y.IsPrimaryForRegionalSales)
+                                                                          .Select(y => y.BranchOffice)
+                                                                          .Select(y => (ContributionTypeEnum?)y.ContributionTypeId)
+                                                                          .FirstOrDefault(),
+                                                  })
+                                              .Where(x => x.ContributionType == ContributionTypeEnum.Branch)
+                                              .Select(x => x.OrganizationUnit);
             }
             else
             {

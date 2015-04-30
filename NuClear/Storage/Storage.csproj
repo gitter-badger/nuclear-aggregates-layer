@@ -43,6 +43,9 @@
     <Compile Include="ConnectionStrings\IConnectionStringNameResolver.cs" />
     <Compile Include="ConnectionStrings\IConnectionStringSettings.cs" />
     <Compile Include="Core\DomainContextHost.cs" />
+    <Compile Include="Core\DomainContextsScope.cs" />
+    <Compile Include="Core\IDomainContextsScopeFactory.cs" />
+    <Compile Include="Core\IDomainContextsScope.cs" />
     <Compile Include="Core\IPendingChangesHandlingStrategy.cs" />
     <Compile Include="Core\IPersistenceChangesRegistry.cs" />
     <Compile Include="Core\IPersistenceChangesRegistryProvider.cs" />

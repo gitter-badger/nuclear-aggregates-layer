@@ -4,9 +4,11 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Deals.ReadModel
 {

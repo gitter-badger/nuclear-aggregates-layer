@@ -13,9 +13,11 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
+using NuClear.Aggregates;
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
 {
@@ -36,8 +38,8 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
         {
             return new[]
                 {
-                    ModelIndicators.Aggregates.Repository,
-                    ModelIndicators.Aggregates.ReadModel,
+                    Indicators.Aggregates.Repository,
+                    Indicators.Aggregates.ReadModel,
                     ModelIndicators.Simplified.SimplifiedModelConsumer,
                     ModelIndicators.Simplified.SimplifiedModelConsumerReadModel
                 };
@@ -280,7 +282,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
                     t => t
                         .GetInterfaces()
                         .Where(c => c.IsAggregateReadModel()
-                                    && !ModelIndicators.Aggregates.Group.ReadOnly.Contains(c.IsGenericType ? c.GetGenericTypeDefinition() : c));
+                                    && !Indicators.Aggregates.Group.ReadOnly.Contains(c.IsGenericType ? c.GetGenericTypeDefinition() : c));
 
                 var inheritedContracts = checkingType.BaseType != null && checkingType.BaseType != typeof(object)
                                              ? readContractsEvaluator(checkingType.BaseType)
@@ -353,15 +355,15 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
             /// </summary>
             private static void SRPandNonSRPPatternsCantMixed(Type checkingType)
             {
-                var aggregateRootNonSRP = ModelIndicators.AggregateForRepositoryRoot(checkingType);
-                var aggregateRootSRP = ModelIndicators.AggregateForRepositoryPart(checkingType);
+                var aggregateRootNonSRP = checkingType.AggregateForRepositoryRoot();
+                var aggregateRootSRP = checkingType.AggregateForRepositoryPart();
 
                 if (aggregateRootNonSRP != null && aggregateRootSRP != null)
                 {
                     throw new InvalidOperationException(
                         string.Format("SRP (implement {0}) and nonSRP (implement {1}) patterns are mixed in type {2}",
-                                      ModelIndicators.Aggregates.RepositoryPart,
-                                      ModelIndicators.Aggregates.RepositoryRoot,
+                                      Indicators.Aggregates.RepositoryPart,
+                                      Indicators.Aggregates.RepositoryRoot,
                                       checkingType.Name));
                 }
             }
@@ -371,7 +373,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
             /// </summary>
             private static void SingleAggregateRootSpecified(Type checkingType)
             {
-                var aggregateRoot = ModelIndicators.AggregateForRepositoryRoot(checkingType);
+                var aggregateRoot = Indicators.AggregateForRepositoryRoot(checkingType);
                 if (aggregateRoot == null)
                 {   // видимо, данный тип, не является агегирующим репозиторием старого образца (до рефакторинга на SRP)
                     return;
@@ -413,7 +415,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
             /// </summary>
             private static void EntitiesRepositoriesOnlyForAggregateEntities(Type checkingType)
             {
-                var aggregateRoot = ModelIndicators.ResolveAggregateRoot(checkingType).AsEntityName();
+                var aggregateRoot = Indicators.ResolveAggregateRoot(checkingType).AsEntityName();
 
                 AggregateDescriptor aggregateDescriptor;
                 if (!AggregatesList.Aggregates.TryGetValue(aggregateRoot, out aggregateDescriptor) || aggregateDescriptor == null)
@@ -454,7 +456,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
             /// </summary>
             private static void PersistenceServiceShouldOnlyWorkWithAggregateParts(Type checkingType)
             {
-                var aggregateRoot = ModelIndicators.ResolveAggregateRoot(checkingType).AsEntityName();
+                var aggregateRoot = checkingType.ResolveAggregateRoot().AsEntityName();
 
                 AggregateDescriptor aggregateDescriptor;
                 if (!AggregatesList.Aggregates.TryGetValue(aggregateRoot, out aggregateDescriptor) || aggregateDescriptor == null)
@@ -522,7 +524,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
             /// </summary>
             private void AggregateRootIsUniqueAmongAggregates(Type checkingType)
             {
-                var aggregateRoot = ModelIndicators.AggregateForRepositoryRoot(checkingType);
+                var aggregateRoot = checkingType.AggregateForRepositoryRoot();
                 if (aggregateRoot == null)
                 {   // видимо, данный тип, не является агегирующим репозиторием старого образца (до рефакторинга на SRP)
                     return;

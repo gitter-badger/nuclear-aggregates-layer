@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.DI.Factories.Operations.Withdrawals;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
+using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
@@ -25,7 +26,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
@@ -40,8 +40,6 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.EAV;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
-using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config;
 using DoubleGis.Erm.Platform.DI.EAV;
 using DoubleGis.Erm.Platform.DI.Factories;
@@ -53,14 +51,24 @@ using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Aggregates;
+using NuClear.Aggregates.Storage.DI.Unity;
+using NuClear.DI.Unity.Config;
 using NuClear.Metamodeling.Domain.Processors.Concrete;
 using NuClear.Metamodeling.Processors;
 using NuClear.Metamodeling.Processors.Concrete;
 using NuClear.Metamodeling.Provider;
 using NuClear.Metamodeling.Validators;
-using NuClear.DI.Unity.Config;
 using NuClear.ResourceUtilities;
+using NuClear.Storage;
+using NuClear.Storage.ConnectionStrings;
+using NuClear.Storage.Core;
+using NuClear.Storage.EntityFramework;
+using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
+
+using IConnectionStringSettings = DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings.IConnectionStringSettings;
+using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {
@@ -105,32 +113,26 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
             if (!container.IsRegistered<IConnectionStringNameResolver>())
             {
-                container.RegisterInstance<IConnectionStringNameResolver>(new DefaultConnectionStringNameResolver(ConnectionStringName.Erm));
+                container.RegisterInstance<IConnectionStringNameResolver>(new DefaultConnectionStringNameResolver(ErmConnectionStringIdentity.Instance));
             }
 
             return container
-                        .RegisterType<IEfDbModelFactory, EfDbModelFactory>(Lifetime.Singleton)
+                        .RegisterType<IEFDbModelFactory, EFDbModelFactory>(Lifetime.Singleton)
                         .RegisterType<IDomainContextMetadataProvider, DomainContextMetadataProvider>(Lifetime.Singleton)
                         .RegisterType<IReadDomainContextFactory, EFDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IModifiableDomainContextFactory, EFDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterType<IReadDomainContext, ReadDomainContextCachingProxy>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterType<IUnitOfWork, UnityUnitOfWork>(entryPointSpecificLifetimeManagerFactory())
+                        .RegisterType<IReadDomainContext, CachingReadDomainContext>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
-                        .RegisterType<IAggregatesLayerRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as IAggregatesLayerRuntimeFactory))
-                        .RegisterType<ISimplifiedModelConsumerRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as ISimplifiedModelConsumerRuntimeFactory))
-                        .RegisterType<IPersistenceServiceRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as IPersistenceServiceRuntimeFactory))
                         .RegisterType<IProcessingContext, ProcessingContext>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IUseCaseTuner, UseCaseTuner>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IConcurrentPeriodCounter, ConcurrentPeriodCounter>()
-                        .RegisterType<IAggregateServiceIsolator, AggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
+                        .RegisterType<IAggregateServiceIsolator, UnityAggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
                         
 
                         // TODO нужно удалить все явные регистрации всяких проксей и т.п. - всем этим должен заниматься только UoW внутри себя
                         // пока без них не смогут работать нарпимер handler в которые напрямую, инжектиться finder
-                        .RegisterType<IDomainContextHost>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>()))
-                        .RegisterType(typeof(IReadDomainContextProviderForHost), entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>()))
-                        .RegisterType(typeof(IModifiableDomainContextProviderForHost), entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>()))
+                        .RegisterType<IDomainContextHost, DomainContextHost>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IReadDomainContextProvider, ReadDomainContextProviderProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IModifiableDomainContextProvider, ModifiableDomainContextProviderProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IQueryProvider, QueryProvider>(Lifetime.PerResolve)
@@ -251,7 +253,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterTypeWithDependencies(
                                     typeof(IOperationLoggingStrategy), 
                                     typeOfDirectDBLoggingStrategy, 
-                                    ContainerUtils.GetPerTypeUniqueMarker(typeOfDirectDBLoggingStrategy), 
+                                    typeOfDirectDBLoggingStrategy.GetPerTypeUniqueMarker(), 
                                     entryPointSpecificLifetimeManagerFactory(), 
                                     (string)null, 
                                     InjectionFactories.SimplifiedModelConsumer)
@@ -263,7 +265,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterTypeWithDependencies(
                                     typeof(IOperationLoggingStrategy), 
                                     typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy, 
-                                    ContainerUtils.GetPerTypeUniqueMarker(typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy), 
+                                    typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy.GetPerTypeUniqueMarker(), 
                                     entryPointSpecificLifetimeManagerFactory(), 
                                     (string)null)
                          .RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton);

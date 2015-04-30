@@ -3,8 +3,10 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
+
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.Operations
 {

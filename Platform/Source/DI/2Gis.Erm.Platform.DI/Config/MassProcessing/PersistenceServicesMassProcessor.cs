@@ -70,23 +70,17 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                                                 implementation,
                                                 Mapping.PersistenceServiceScope,
                                                 _lifetimeManagerFactoryMethod(),
-                                                new InjectionFactory(PersistenceServiceInjectionFactory));
+                                                InjectionFactories.PersistenceService);
                     }
 
                     // closed generic
                     _container.RegisterType(serviceInterface,
                                             implementation,
                                             Mapping.PersistenceServiceScope,
-                                            _lifetimeManagerFactoryMethod(), 
-                                            new InjectionFactory(PersistenceServiceInjectionFactory));
+                                            _lifetimeManagerFactoryMethod(),
+                                            InjectionFactories.PersistenceService);
                 }
             }
-        }
-
-        private static object PersistenceServiceInjectionFactory(IUnityContainer container, Type persistenceServiceType, string registrationName)
-        {
-            var factory = container.Resolve<IPersistenceServiceRuntimeFactory>();
-            return factory.CreatePersistenceService(persistenceServiceType);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
 

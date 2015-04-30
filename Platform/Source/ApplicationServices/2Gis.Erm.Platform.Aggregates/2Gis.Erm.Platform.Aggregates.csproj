@@ -74,6 +74,10 @@
     <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\PerformedOperationsProcessingReadModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6e35864b-bba8-4cf2-8c76-620ff1e4bfc2}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

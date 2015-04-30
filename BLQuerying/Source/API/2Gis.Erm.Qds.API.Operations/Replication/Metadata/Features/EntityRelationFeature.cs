@@ -1,10 +1,11 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Core.EntityProjection;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 
 using FastMember;
+
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features
 {

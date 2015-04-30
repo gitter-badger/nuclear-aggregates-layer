@@ -3,10 +3,9 @@ using System.Reflection;
 
 using Microsoft.Practices.Unity;
 
-using NuClear.Aggregates;
 using NuClear.Storage.Core;
 
-namespace Aggregates.Storage.DI.Unity
+namespace NuClear.Aggregates.Storage.DI.Unity
 {
     internal class UnityScopedAggregateRepositoryFactory 
     {

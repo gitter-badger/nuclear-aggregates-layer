@@ -3,11 +3,13 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
 {

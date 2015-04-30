@@ -4,10 +4,9 @@ using System.Xml.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Export

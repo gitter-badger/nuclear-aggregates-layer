@@ -7,11 +7,12 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currency
 {

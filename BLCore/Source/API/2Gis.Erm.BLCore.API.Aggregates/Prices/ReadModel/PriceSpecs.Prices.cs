@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
 {

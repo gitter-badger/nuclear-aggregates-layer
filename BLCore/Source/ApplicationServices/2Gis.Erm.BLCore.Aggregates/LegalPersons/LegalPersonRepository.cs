@@ -17,10 +17,14 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
+
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using Microsoft.Crm.SdkTypeProxy;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
@@ -32,6 +36,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
     public class LegalPersonRepository : ILegalPersonRepository
     {
         private readonly IDebtProcessingSettings _debtProcessingSettings;
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
         
@@ -47,6 +52,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         public LegalPersonRepository(
             IDebtProcessingSettings debtProcessingSettings,
+            IQuery query,
             IFinder finder,
             ISecureRepository<LegalPerson> legalPersonGenericRepository,
             ISecurityServiceEntityAccess entityAccessService,
@@ -60,6 +66,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             IOperationScopeFactory scopeFactory)
         {
             _debtProcessingSettings = debtProcessingSettings;
+            _query = query;
             _finder = finder;
             _legalPersonGenericRepository = legalPersonGenericRepository;
             _entityAccessService = entityAccessService;
@@ -420,7 +427,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
                 return;
             }
 
-            var accountWithDebts = (from legalPerson in _finder.For<LegalPerson>()
+            var accountWithDebts = (from legalPerson in _query.For<LegalPerson>()
                                     where legalPerson.Id == entityId
                                     from account in legalPerson.Accounts
                                     let lockDetailBalance = account.Balance - (account.Locks                                    // скобки и проверки на null тут НУЖНЫ,

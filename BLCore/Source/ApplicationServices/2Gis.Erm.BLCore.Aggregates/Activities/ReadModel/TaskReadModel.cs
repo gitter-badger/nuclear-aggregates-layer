@@ -2,7 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 

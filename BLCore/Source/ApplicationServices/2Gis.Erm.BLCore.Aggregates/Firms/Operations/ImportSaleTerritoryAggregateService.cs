@@ -5,7 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Georgaphy;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;

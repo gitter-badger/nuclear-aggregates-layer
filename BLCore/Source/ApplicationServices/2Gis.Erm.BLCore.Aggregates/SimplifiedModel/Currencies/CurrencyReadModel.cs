@@ -1,5 +1,5 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Currencies;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 

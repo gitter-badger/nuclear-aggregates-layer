@@ -4,7 +4,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Complete;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 using NuClear.Model.Common.Operations.Identity.Generic;

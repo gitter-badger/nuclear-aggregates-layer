@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 
+using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB

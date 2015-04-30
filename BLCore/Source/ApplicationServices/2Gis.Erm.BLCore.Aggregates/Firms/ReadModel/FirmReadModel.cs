@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
@@ -12,7 +11,9 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 {
@@ -22,12 +23,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         private const long DefaultCategoryRate = 1;
 
         private readonly IFinder _finder;
+        private readonly ISecureQuery _secureQuery;
         private readonly ISecureFinder _secureFinder;
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
 
-        public FirmReadModel(IFinder finder, ISecureFinder secureFinder, ISecurityServiceUserIdentifier securityServiceUserIdentifier)
+        public FirmReadModel(IFinder finder, ISecureQuery secureQuery, ISecureFinder secureFinder, ISecurityServiceUserIdentifier securityServiceUserIdentifier)
         {
             _finder = finder;
+            _secureQuery = secureQuery;
             _secureFinder = secureFinder;
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }
@@ -145,10 +148,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                     return contact;
                 });
 
-            var firmAddressContacts = _secureFinder.For<FirmContact>()
-                                                   .Where(contact => contact.FirmAddressId == firmAddressId)
-                                                   .OrderBy(contact => contact.SortingPosition)
-                                                   .AsEnumerable();
+            var firmAddressContacts = _secureQuery.For<FirmContact>()
+                                                  .Where(contact => contact.FirmAddressId == firmAddressId)
+                                                  .OrderBy(contact => contact.SortingPosition)
+                                                  .AsEnumerable();
 
             return firmAddressContacts.Union(depCardContacts).ToArray();
         }

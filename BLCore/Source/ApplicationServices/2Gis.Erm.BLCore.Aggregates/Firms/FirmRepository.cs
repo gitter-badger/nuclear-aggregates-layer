@@ -10,7 +10,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -19,10 +18,11 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 {
@@ -31,50 +31,38 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         // timeout should be increased due to long sql updates
         private readonly TimeSpan _importFirmPromisingCommandTimeout = TimeSpan.FromHours(1);
 
-        private readonly IRepository<CategoryFirmAddress> _categoryFirmAddressGenericRepository;
         private readonly IRepository<Client> _clientGenericRepository;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
         private readonly IFinder _finder;
         private readonly IRepository<FirmAddress> _firmAddressGenericRepository;
-        private readonly IRepository<FirmContact> _firmContactGenericRepository;
         private readonly IRepository<Firm> _firmGenericRepository;
         private readonly ISecureRepository<Firm> _firmGenericSecureRepository;
         private readonly IFirmPersistenceService _firmPersistanceService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly ISecureFinder _secureFinder;
-        private readonly IRepository<Territory> _territoryGenericRepository;
 
         public FirmRepository(IFinder finder,
                               IRepository<Client> clientGenericRepository,
                               IRepository<Firm> firmGenericRepository,
                               IRepository<FirmAddress> firmAddressGenericRepository,
-                              IRepository<FirmContact> firmContactGenericRepository,
-                              IRepository<CategoryFirmAddress> categoryFirmAddressGenericRepository,
-                              IRepository<Territory> territoryGenericRepository,
                               ISecureRepository<Firm> firmGenericSecureRepository,
                               ISecurityServiceEntityAccess entityAccessService,
                               ISecurityServiceFunctionalAccess functionalAccessService,
                               ISecureFinder secureFinder,
                               IFirmPersistenceService firmPersistanceService,
-                              IIdentityProvider identityProvider,
                               IOperationScopeFactory scopeFactory)
         {
             _finder = finder;
             _clientGenericRepository = clientGenericRepository;
             _firmGenericRepository = firmGenericRepository;
             _firmAddressGenericRepository = firmAddressGenericRepository;
-            _firmContactGenericRepository = firmContactGenericRepository;
-            _categoryFirmAddressGenericRepository = categoryFirmAddressGenericRepository;
             _firmGenericSecureRepository = firmGenericSecureRepository;
             _entityAccessService = entityAccessService;
             _functionalAccessService = functionalAccessService;
             _secureFinder = secureFinder;
             _firmPersistanceService = firmPersistanceService;
-            _identityProvider = identityProvider;
             _scopeFactory = scopeFactory;
-            _territoryGenericRepository = territoryGenericRepository;
         }
 
         public int Assign(Firm firm, long ownerCode)

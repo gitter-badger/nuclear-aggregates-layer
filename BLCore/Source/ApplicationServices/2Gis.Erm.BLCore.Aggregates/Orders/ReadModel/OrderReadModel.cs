@@ -24,6 +24,8 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -31,18 +33,26 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 {
     public sealed class OrderReadModel : IOrderReadModel
     {
         private readonly ISecurityServiceEntityAccess _entityAccessService;
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly ISecureFinder _secureFinder;
         private readonly IUserContext _userContext;
 
-        public OrderReadModel(IFinder finder, ISecureFinder secureFinder, ISecurityServiceEntityAccess entityAccessService, IUserContext userContext)
+        public OrderReadModel(
+            IQuery query,
+            IFinder finder,
+            ISecureFinder secureFinder,
+            ISecurityServiceEntityAccess entityAccessService,
+            IUserContext userContext)
         {
+            _query = query;
             _finder = finder;
             _secureFinder = secureFinder;
             _entityAccessService = entityAccessService;
@@ -51,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public IReadOnlyDictionary<long, byte[]> GetOrdersCurrentVersions(Expression<Func<Order, bool>> ordersPredicate)
         {
-            return _finder.For<Order>().Where(ordersPredicate).ToDictionary(x => x.Id, x => x.Timestamp);
+            return _query.For<Order>().Where(ordersPredicate).ToDictionary(x => x.Id, x => x.Timestamp);
         }
 
         public IReadOnlyDictionary<long, IEnumerable<long>> GetRelatedOrdersByFirm(IEnumerable<long> orderIds)
@@ -157,7 +167,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var dummyAdvertisements =
                 _finder.Find<AdvertisementTemplate>(x => !x.IsDeleted).Select(x => x.DummyAdvertisementId).Where(x => x.HasValue).ToArray();
 
-            var userDescendantsQuery = _finder.For<UsersDescendant>();
+            var userDescendantsQuery = _query.For<UsersDescendant>();
 
             var orderInfos = _finder.Find<Order>(
                                                  x =>
@@ -667,9 +677,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public IEnumerable<RelatedOrderDescriptor> GetRelatedOrdersToCreateBill(long orderId)
         {
             var modelOrder = _finder.Find<Order>(o => o.Id == orderId && o.IsActive && !o.IsDeleted).Single();
-            var relatedOrders = (from order in _finder.For<Order>()
-                                 join sou in _finder.For<OrganizationUnit>() on order.SourceOrganizationUnitId equals sou.Id
-                                 join dou in _finder.For<OrganizationUnit>() on order.DestOrganizationUnitId equals dou.Id
+            var relatedOrders = (from order in _query.For<Order>()
+                                 join sou in _query.For<OrganizationUnit>() on order.SourceOrganizationUnitId equals sou.Id
+                                 join dou in _query.For<OrganizationUnit>() on order.DestOrganizationUnitId equals dou.Id
                                  join bill in _finder.Find<Bill>(b => b.IsActive && !b.IsDeleted) on order.Id equals bill.OrderId into
                                      orderBills
                                  from orderBill in orderBills.DefaultIfEmpty()
@@ -695,7 +705,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public IEnumerable<RelatedOrderDescriptor> GetRelatedOrdersForPrintJointBill(long orderId)
         {
             RelatedOrderDescriptor[] relatedOrders = null;
-            var modelOrderEntries = (from order in _finder.For<Order>()
+            var modelOrderEntries = (from order in _query.For<Order>()
                                      join bill in _finder.Find<Bill>(b => b.IsActive && !b.IsDeleted) on order.Id equals bill.OrderId into orderBills
                                      where order.Id == orderId && order.IsActive && !order.IsDeleted
                                      select order).ToArray();
@@ -705,9 +715,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 var modelOrder = modelOrderEntries[0];
                 var modelOrderBillsCount = modelOrderEntries.Length;
 
-                relatedOrders = (from order in _finder.For<Order>()
-                                 join sou in _finder.For<OrganizationUnit>() on order.SourceOrganizationUnitId equals sou.Id
-                                 join dou in _finder.For<OrganizationUnit>() on order.DestOrganizationUnitId equals dou.Id
+                relatedOrders = (from order in _query.For<Order>()
+                                 join sou in _query.For<OrganizationUnit>() on order.SourceOrganizationUnitId equals sou.Id
+                                 join dou in _query.For<OrganizationUnit>() on order.DestOrganizationUnitId equals dou.Id
                                  join bill in _finder.Find<Bill>(b => b.IsActive && !b.IsDeleted) on order.Id equals bill.OrderId
                                  join modelBill in _finder.Find<Bill>(b => b.IsActive && !b.IsDeleted && b.OrderId == orderId) on
                                      new { bill.BeginDistributionDate, bill.EndDistributionDate } equals

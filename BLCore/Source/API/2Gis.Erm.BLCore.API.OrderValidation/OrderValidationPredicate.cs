@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation
 {

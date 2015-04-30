@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL.Model.SimplifiedModel;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model;
 
@@ -67,7 +66,7 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                                                 consumerImplementation,
                                                 Mapping.SimplifiedModelConsumerReadModelScope,
                                                 Lifetime.PerResolve,
-                                                new InjectionFactory(SimplifiedModelConsumerReadModelInjectionFactory));
+                                                InjectionFactories.SimplifiedModelConsumerReadModel);
                     }
                     else
                     {
@@ -103,12 +102,6 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
             }
 
             return true;
-        }
-
-        private static object SimplifiedModelConsumerReadModelInjectionFactory(IUnityContainer container, Type consumerType, string registrationName)
-        {
-            var factory = container.Resolve<ISimplifiedModelConsumerRuntimeFactory>();
-            return factory.CreateAggregateReadModel(consumerType);
         }
     }
 }

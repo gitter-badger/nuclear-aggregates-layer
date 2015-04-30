@@ -76,6 +76,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6e35864b-bba8-4cf2-8c76-620ff1e4bfc2}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>
       <Name>2Gis.Erm.Platform.DAL</Name>

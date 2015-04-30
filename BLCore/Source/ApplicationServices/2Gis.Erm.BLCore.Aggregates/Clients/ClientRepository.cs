@@ -22,16 +22,18 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Client;
+
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Client;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 {
@@ -41,6 +43,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         private static readonly DateTime MaxMssqlDatetime = new DateTime(9999, 12, 31, 23, 59, 59, 997);
 
         private readonly IDebtProcessingSettings _debtProcessingSettings;
+        private readonly IQuery _query;
         private readonly IUserContext _userContext;
         private readonly IFinder _finder;
         private readonly ISecureRepository<Client> _clientGenericSecureRepository;
@@ -65,6 +68,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         public ClientRepository(
             IDebtProcessingSettings debtProcessingSettings,
+            IQuery query,
             IFinder finder,
             ISecureRepository<Client> clientGenericSecureRepository,
             IRepository<Firm> firmGenericRepository,
@@ -88,6 +92,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
             IOperationScopeFactory scopeFactory)
         {
             _debtProcessingSettings = debtProcessingSettings;
+            _query = query;
             _finder = finder;
             _clientGenericSecureRepository = clientGenericSecureRepository;
             _firmGenericRepository = firmGenericRepository;
@@ -651,7 +656,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                 return;
             }
 
-            var accountWithDebts = (from client in _finder.For<Client>()
+            var accountWithDebts = (from client in _query.For<Client>()
                                     where client.Id == entityId
                                     from legalPerson in client.LegalPersons
                                     from account in legalPerson.Accounts

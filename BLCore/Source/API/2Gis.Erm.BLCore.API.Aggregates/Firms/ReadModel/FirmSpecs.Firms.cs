@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO.FirmInfo;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
 {
@@ -56,27 +56,27 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
                             Name = firm.Name,
                             OwnerCode = firm.OwnerCode,
                             FirmAddresses = firm.FirmAddresses
-                                .Where(fa => fa.IsActive && !fa.IsDeleted && !fa.ClosedForAscertainment)
-                                .Select(fa => new FirmAddressWithCategoriesDto
-                                    {
-                                        Id = fa.Id,
-                                        Address = fa.Address,
-                                        Categories = fa.CategoryFirmAddresses
-                                            .Where(cfa => cfa.IsActive && !cfa.IsDeleted)
-                                            .Select(cfa => new CategoryDto
-                                                {
-                                                    Id = cfa.CategoryId,
-                                                    Name = cfa.Category.Name
-                                                })
-                                    }),
+                                                .Where(fa => fa.IsActive && !fa.IsDeleted && !fa.ClosedForAscertainment)
+                                                .Select(fa => new FirmAddressWithCategoriesDto
+                                                    {
+                                                        Id = fa.Id,
+                                                        Address = fa.Address,
+                                                        Categories = fa.CategoryFirmAddresses
+                                                                       .Where(cfa => cfa.IsActive && !cfa.IsDeleted)
+                                                                       .Select(cfa => new CategoryDto
+                                                                           {
+                                                                               Id = cfa.CategoryId,
+                                                                               Name = cfa.Category.Name
+                                                                           })
+                                                    }),
                             Project = firm.OrganizationUnit.Projects
-                                .Where(p => p.IsActive)
-                                .Select(p => new ProjectDto
-                                    {
-                                        Code = p.Id,
-                                        Name = p.DisplayName
-                                    })
-                                .FirstOrDefault()
+                                          .Where(p => p.IsActive)
+                                          .Select(p => new ProjectDto
+                                              {
+                                                  Code = p.Id,
+                                                  Name = p.DisplayName
+                                              })
+                                          .FirstOrDefault()
                         });
                 }
             }

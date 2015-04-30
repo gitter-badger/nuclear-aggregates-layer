@@ -1,7 +1,8 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Bargains;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Bargains
 {

@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage;
+
 namespace DoubleGis.Erm.BLCore.Operations.Generic.File
 {
     public class FileService : IFileService

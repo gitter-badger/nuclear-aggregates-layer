@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.Platform.Model.Aggregates;
+﻿using NuClear.Aggregates;
 using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers

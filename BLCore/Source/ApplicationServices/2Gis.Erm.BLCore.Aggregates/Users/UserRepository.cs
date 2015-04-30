@@ -18,7 +18,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -29,6 +29,7 @@ using Microsoft.Crm.SdkTypeProxy;
 using Microsoft.Xrm.Client.Data.Services;
 
 using NuClear.Security.API.UserContext.Profile;
+using NuClear.Storage.Specifications;
 
 using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.OrganizationUnitDto;
 
@@ -41,6 +42,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         private readonly IFinder _finder;
 
+        private readonly IQuery _query;
         private readonly IRepository<User> _userGenericRepository;
         private readonly IRepository<UserRole> _userRoleGenericRepository;
         private readonly IRepository<UserOrganizationUnit> _userOrganizationUnitGenericRepository;
@@ -66,6 +68,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         private readonly IOperationScopeFactory _operationScopeFactory;
 
         public UserRepository(
+            IQuery query,
             IRepository<User> userGenericRepository,
             IRepository<UserRole> userRoleGenericRepository,
             IRepository<OrganizationUnit> organizationUnitGenericRepository,
@@ -91,6 +94,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             IIdentityProvider identityProvider,
             IOperationScopeFactory operationScopeFactory)
         {
+            _query = query;
             _userGenericRepository = userGenericRepository;
             _userRoleGenericRepository = userRoleGenericRepository;
             _organizationUnitGenericRepository = organizationUnitGenericRepository;
@@ -1089,7 +1093,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         {
             var organizationUnits = _finder.Find<OrganizationUnit>(x => x.IsActive && !x.IsDeleted).Select(x => new { x.Name, x.TimeZoneId }).ToArray();
 
-            var timezones = _finder.For<DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone>().ToArray();
+            var timezones = _query.For<DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone>().ToArray();
             var organizationUnitimeZones = organizationUnits.Join(
                 timezones,
                 x => x.TimeZoneId,

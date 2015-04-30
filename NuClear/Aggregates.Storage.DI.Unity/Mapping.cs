@@ -1,4 +1,4 @@
-﻿namespace Aggregates.Storage.DI.Unity
+﻿namespace NuClear.Aggregates.Storage.DI.Unity
 {
     public static class Mapping
     {

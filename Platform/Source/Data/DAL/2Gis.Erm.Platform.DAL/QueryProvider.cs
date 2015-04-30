@@ -8,17 +8,17 @@ namespace DoubleGis.Erm.Platform.DAL
     public class QueryProvider : IQueryProvider
     {
         private readonly IQuery _query;
-        private readonly ISecureFinder _secureFinder;
+        private readonly ISecureQuery _secureQuery;
 
-        public QueryProvider(IQuery query, ISecureFinder secureFinder)
+        public QueryProvider(IQuery query, ISecureQuery secureQuery)
         {
             _query = query;
-            _secureFinder = secureFinder;
+            _secureQuery = secureQuery;
         }
 
         public IQuery Get(IEntityType entityName)
         {
-            return entityName.IsSecurableAccessRequired() ? _secureFinder : _query;
+            return entityName.IsSecurableAccessRequired() ? _secureQuery : _query;
         } 
     }
 }

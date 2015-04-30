@@ -82,30 +82,15 @@ namespace DoubleGis.Erm.Platform.DAL
         }
 
         public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey
+            where TEntity : class, IEntity
         {
             throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");
         }
 
         public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey
+            where TEntity : class, IEntity
         {
             throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");
-        }
-
-        public IQueryable For(Type entityType)
-        {
-            if (entityType == null)
-            {
-                throw new ArgumentNullException("entityType");
-            }
-
-            return RestrictQueryWhenAccessCheck<IQueryable>(_finder.For(entityType));
-        }
-
-        public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
-        {
-            return (IQueryable<TEntity>)For(typeof(TEntity));
         }
 
         private TQueryable RestrictQueryWhenAccessCheck<TQueryable>(IQueryable querySource)

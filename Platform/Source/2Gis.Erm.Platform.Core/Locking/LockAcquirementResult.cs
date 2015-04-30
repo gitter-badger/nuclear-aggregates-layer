@@ -1,4 +1,4 @@
-﻿namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking
+﻿namespace DoubleGis.Erm.Platform.Core.Locking
 {
     public enum LockAcquirementResult
     {

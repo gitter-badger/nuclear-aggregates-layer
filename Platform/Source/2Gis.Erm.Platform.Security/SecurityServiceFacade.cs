@@ -12,7 +12,6 @@ using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -21,6 +20,7 @@ using DoubleGis.Erm.Platform.Resources.Server;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext.Identity;
+using NuClear.Storage;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Security
@@ -48,18 +48,19 @@ namespace DoubleGis.Erm.Platform.Security
                     { EntityType.Instance.Letter(), EntityType.Instance.Activity() },
                 };
 
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly IUserEntityService _userEntityService;
         private readonly ITracer _tracer;
         private readonly ICacheAdapter _cacheAdapter;
         private readonly TimeSpan _cacheSlidingSpan = TimeSpan.FromSeconds(60);
 
-        public SecurityServiceFacade(IFinder finder,
+        public SecurityServiceFacade(
+            IQuery query,
             IUserEntityService userEntityService,
             ICacheAdapter cacheAdapter,
             ITracer tracer)
         {
-            _finder = finder;
+            _query = query;
             _userEntityService = userEntityService;
             _cacheAdapter = cacheAdapter;
             _tracer = tracer;
@@ -85,14 +86,15 @@ namespace DoubleGis.Erm.Platform.Security
                 return result;
             }
 
-            var userInfo = _finder.Find<User>(x => !x.IsDeleted && x.Account == ReserveUserAccount)
-                .Select(x => new
-                {
-                    UserCode = x.Id,
-                    x.Account,
-                    x.DisplayName
-                })
-                .SingleOrDefault();
+            var userInfo = _query.For<User>()
+                                 .Where(x => !x.IsDeleted && x.Account == ReserveUserAccount)
+                                 .Select(x => new
+                                     {
+                                         UserCode = x.Id,
+                                         x.Account,
+                                         x.DisplayName
+                                     })
+                                 .SingleOrDefault();
 
             if (userInfo == null)
             {
@@ -129,9 +131,10 @@ namespace DoubleGis.Erm.Platform.Security
                 return result;
             }
 
-            var userInfo = _finder.Find<User>(x => x.Id == userCode.Value)
-                                .Select(x => new { UserCode = x.Id, x.Account, x.DisplayName })
-                                .FirstOrDefault();
+            var userInfo = _query.For<User>()
+                                 .Where(x => x.Id == userCode.Value)
+                                 .Select(x => new { UserCode = x.Id, x.Account, x.DisplayName })
+                                 .FirstOrDefault();
 
             result = userInfo != null ? new UserInfo(userInfo.UserCode, userInfo.Account, userInfo.DisplayName) : UserInfo.Empty;
 
@@ -159,9 +162,10 @@ namespace DoubleGis.Erm.Platform.Security
                 return result;
             }
 
-            var userInfo = _finder.Find<User>(x => !x.IsDeleted && (x.Account == userAccount))
-                                .Select(x => new { UserCode = x.Id, x.Account, x.DisplayName })
-                                .FirstOrDefault();
+            var userInfo = _query.For<User>()
+                                 .Where(x => !x.IsDeleted && (x.Account == userAccount))
+                                 .Select(x => new { UserCode = x.Id, x.Account, x.DisplayName })
+                                 .FirstOrDefault();
 
             result = userInfo != null ? new UserInfo(userInfo.UserCode, userInfo.Account, userInfo.DisplayName) : UserInfo.Empty;
 
@@ -176,18 +180,20 @@ namespace DoubleGis.Erm.Platform.Security
             List<long> result;
             if (withChild)
             {
-                var userDepartment = _finder.Find<User>(x => !x.IsDeleted && x.IsActive && x.Id == userCode)
-                    .Select(x => new { x.Department.LeftBorder, x.Department.RightBorder })
-                    .First();
-                result = _finder.Find<User>(u => !u.IsDeleted && u.IsActive)
-                    .Select(u => u.Department)
-                    .Where(d => d.LeftBorder >= userDepartment.LeftBorder && d.RightBorder <= userDepartment.RightBorder)
-                    .Select(d => d.Id)
-                    .ToList();
+                var userDepartment = _query.For<User>()
+                                           .Where(x => !x.IsDeleted && x.IsActive && x.Id == userCode)
+                                           .Select(x => new { x.Department.LeftBorder, x.Department.RightBorder })
+                                           .First();
+                result = _query.For<User>()
+                               .Where(u => !u.IsDeleted && u.IsActive)
+                               .Select(u => u.Department)
+                               .Where(d => d.LeftBorder >= userDepartment.LeftBorder && d.RightBorder <= userDepartment.RightBorder)
+                               .Select(d => d.Id)
+                               .ToList();
             }
             else
             {
-                result = _finder.Find<User>(u => u.Id == userCode && !u.IsDeleted && u.IsActive).Select(d => d.Department.Id).ToList();
+                result = _query.For<User>().Where(u => u.Id == userCode && !u.IsDeleted && u.IsActive).Select(d => d.Department.Id).ToList();
             }
 
             return result;
@@ -195,10 +201,11 @@ namespace DoubleGis.Erm.Platform.Security
 
         bool ISecurityServiceUserIdentifier.UsersInSameDepartment(long firstUserCode, long secondUserCode)
         {
-            return (firstUserCode == secondUserCode) || _finder.Find<User>(x => x.Id == firstUserCode && !x.IsDeleted && x.IsActive)
-                                                                    .Select(x => x.Department)
-                                                                    .SelectMany(x => x.Users)
-                                                                    .Any(x => x.Id == secondUserCode && !x.IsDeleted && x.IsActive);
+            return (firstUserCode == secondUserCode) || _query.For<User>()
+                                                              .Where(x => x.Id == firstUserCode && !x.IsDeleted && x.IsActive)
+                                                              .Select(x => x.Department)
+                                                              .SelectMany(x => x.Users)
+                                                              .Any(x => x.Id == secondUserCode && !x.IsDeleted && x.IsActive);
         }
 
         bool ISecurityServiceUserIdentifier.UsersInSameDepartmentTree(long firstUserCode, long secondUserCode)
@@ -208,12 +215,13 @@ namespace DoubleGis.Erm.Platform.Security
                 return true;
             }
 
-            var firstUserDepartment = _finder.Find<User>(x => x.Id == firstUserCode && !x.IsDeleted && x.IsActive)
-                    .Select(x => new { x.Department.LeftBorder, x.Department.RightBorder })
-                    .Single();
-            return _finder.Find<User>(x => x.Id == secondUserCode && !x.IsDeleted && x.IsActive)
-                    .Select(x => x.Department)
-                    .Any(x => x.LeftBorder >= firstUserDepartment.LeftBorder && x.RightBorder <= firstUserDepartment.RightBorder);
+            var firstUserDepartment = _query.For<User>()
+                                            .Where(x => x.Id == firstUserCode && !x.IsDeleted && x.IsActive)
+                                            .Select(x => new { x.Department.LeftBorder, x.Department.RightBorder })
+                                            .Single();
+            return _query.For<User>().Where(x => x.Id == secondUserCode && !x.IsDeleted && x.IsActive)
+                         .Select(x => x.Department)
+                         .Any(x => x.LeftBorder >= firstUserDepartment.LeftBorder && x.RightBorder <= firstUserDepartment.RightBorder);
         }
 
         #endregion
@@ -233,11 +241,12 @@ namespace DoubleGis.Erm.Platform.Security
 
             // shared entities
             var entityTypeId = entityName.Id;
-            IEnumerable<int> sharedEntityIds = _finder.Find<User>(x => x.Id == userCode)
-                    .SelectMany(x => x.UserEntities)
-                    .Where(x => x.Privilege.EntityType == entityTypeId && x.Privilege.Operation == (int)EntityAccessTypes.Read)
-                    .Select(x => x.EntityId)
-                    .ToArray();
+            IEnumerable<int> sharedEntityIds = _query.For<User>()
+                                                     .Where(x => x.Id == userCode)
+                                                     .SelectMany(x => x.UserEntities)
+                                                     .Where(x => x.Privilege.EntityType == entityTypeId && x.Privilege.Operation == (int)EntityAccessTypes.Read)
+                                                     .Select(x => x.EntityId)
+                                                     .ToArray();
 
             return QueryableHelper.CreateRestrictedQuery(query, entityName.AsEntityType(), restrictUserCodes, sharedEntityIds);
         }
@@ -250,21 +259,25 @@ namespace DoubleGis.Erm.Platform.Security
                     throw new SecurityAccessDeniedException(string.Format(ResPlatform.UserIdDoesNotHaveTheRightToOperationOnEntity, userCode, EntityAccessTypes.Read, entityName));
 
                 case EntityPrivilegeDepthState.User:
-                    return _finder.Find<SecurityAccelerator>(accelerator => accelerator.UserId == userCode).Select(accelerator => accelerator.UserId);
+                    return _query.For<SecurityAccelerator>().Where(accelerator => accelerator.UserId == userCode).Select(accelerator => accelerator.UserId);
 
                 case EntityPrivilegeDepthState.Department:
-                    var department = _finder.Find(Specs.Find.ById<User>(userCode)).Select(user => user.DepartmentId).SingleOrDefault();
-                    return _finder.Find<SecurityAccelerator>(accelerator => accelerator.DepartmentId == department).Select(accelerator => accelerator.UserId);
+                    var department = _query.For<User>().Where(Specs.Find.ById<User>(userCode).Predicate).Select(user => user.DepartmentId).SingleOrDefault();
+                    return _query.For<SecurityAccelerator>().Where(accelerator => accelerator.DepartmentId == department).Select(accelerator => accelerator.UserId);
 
                 case EntityPrivilegeDepthState.DepartmentAndChilds:
-                        var departmentBounds = _finder.Find<User>(x => x.Id == userCode)
-                                                .Select(x => new
-                                                {
-                                                    x.Department.LeftBorder,
-                                                    x.Department.RightBorder,
-                                                  })
-                                                  .Single();
-                    return _finder.Find<SecurityAccelerator>(accelerator => departmentBounds.LeftBorder <= accelerator.DepartmentLeftBorder && accelerator.DepartmentRightBorder <= departmentBounds.RightBorder).Select(accelerator => accelerator.UserId);
+                    var departmentBounds = _query.For<User>()
+                                                 .Where(x => x.Id == userCode)
+                                                 .Select(x => new
+                                                     {
+                                                         x.Department.LeftBorder,
+                                                         x.Department.RightBorder,
+                                                     })
+                                                 .Single();
+                    return _query.For<SecurityAccelerator>()
+                                 .Where(accelerator => departmentBounds.LeftBorder <= accelerator.DepartmentLeftBorder &&
+                                                       accelerator.DepartmentRightBorder <= departmentBounds.RightBorder)
+                                 .Select(accelerator => accelerator.UserId);
 
                 case EntityPrivilegeDepthState.Organization:
                     return Enumerable.Empty<long>().AsQueryable();
@@ -313,7 +326,7 @@ namespace DoubleGis.Erm.Platform.Security
         }
 
             var entityToCheckTypeId = entityToCheck.Id;
-            var result = _finder.For<Privilege>().Any(x => x.EntityType == entityToCheckTypeId);
+            var result = _query.For<Privilege>().Any(x => x.EntityType == entityToCheckTypeId);
             _cacheAdapter.Add(key, result, CacheAbsoluteSpan);
             return result;
         }
@@ -361,22 +374,24 @@ namespace DoubleGis.Erm.Platform.Security
                         break;
 
                     case EntityPrivilegeDepthState.Department:
-                        {
-                            hasAccess = _finder.Find<User>(x => x.Id == userCode)
-                                                    .Select(x => x.Department)
-                                                    .SelectMany(x => x.Users)
-                                                    .Any(x => x.Id == compareCode);
-                        }
+                    {
+                        hasAccess = _query.For<User>()
+                                          .Where(x => x.Id == userCode)
+                                          .Select(x => x.Department)
+                                          .SelectMany(x => x.Users)
+                                          .Any(x => x.Id == compareCode);
+                    }
 
                         break;
 
                     case EntityPrivilegeDepthState.DepartmentAndChilds:
                         {
-                            var departmentBounds = _finder.Find<User>(x => x.Id == userCode)
+                            var departmentBounds = _query.For<User>()
+                                .Where(x => x.Id == userCode)
                                 .Select(x => new { x.Department.LeftBorder, x.Department.RightBorder })
                                 .First();
 
-                            hasAccess = _finder.For<Department>()
+                            hasAccess = _query.For<Department>()
                                 .Where(x => x.LeftBorder >= departmentBounds.LeftBorder && x.RightBorder <= departmentBounds.RightBorder)
                                 .SelectMany(x => x.Users)
                                 .Distinct()
@@ -399,10 +414,11 @@ namespace DoubleGis.Erm.Platform.Security
                 // check access sharing
                 if (!hasAccess && entityId != null)
                 {
-                    hasAccess = _finder.Find<User>(x => x.Id == userCode)
-                                    .SelectMany(x => x.UserEntities)
-                                    .Where(x => x.Privilege.EntityType == entityTypeId && x.Privilege.Operation == (int)atomicAccessType)
-                                    .Any(x => x.EntityId == entityId);
+                    hasAccess = _query.For<User>()
+                                      .Where(x => x.Id == userCode)
+                                      .SelectMany(x => x.UserEntities)
+                                      .Where(x => x.Privilege.EntityType == entityTypeId && x.Privilege.Operation == (int)atomicAccessType)
+                                      .Any(x => x.EntityId == entityId);
                 }
 
                 if (hasAccess)
@@ -459,17 +475,18 @@ namespace DoubleGis.Erm.Platform.Security
             var entityPrivileges = _cacheAdapter.Get<Dictionary<EntityAccessTypes, EntityPrivilegeDepthState>>(key);
             if (entityPrivileges == null)
             {
-                entityPrivileges = _finder.Find<User>(x => x.Id == userCode)
-                .SelectMany(x => x.UserRoles).Select(x => x.Role)
-                .SelectMany(x => x.RolePrivileges)
-                                          .Where(x => x.Privilege.EntityType == entityToCheckTypeId)
-                .Select(x => new
-                {
-                    AccessType = (EntityAccessTypes)x.Privilege.Operation,
-                    PrivilegeDepth = x.Mask,
-                })
-                .GroupBy(x => x.AccessType, x => x.PrivilegeDepth)
-                .ToDictionary(x => x.Key, x => (EntityPrivilegeDepthState)x.Max());
+                entityPrivileges = _query.For<User>()
+                                         .Where(x => x.Id == userCode)
+                                         .SelectMany(x => x.UserRoles).Select(x => x.Role)
+                                         .SelectMany(x => x.RolePrivileges)
+                                         .Where(x => x.Privilege.EntityType == entityToCheckTypeId)
+                                         .Select(x => new
+                                             {
+                                                 AccessType = (EntityAccessTypes)x.Privilege.Operation,
+                                                 PrivilegeDepth = x.Mask,
+                                             })
+                                         .GroupBy(x => x.AccessType, x => x.PrivilegeDepth)
+                                         .ToDictionary(x => x.Key, x => (EntityPrivilegeDepthState)x.Max());
 
                 _cacheAdapter.Add(key, entityPrivileges, CacheAbsoluteSpan);
             }
@@ -522,7 +539,7 @@ namespace DoubleGis.Erm.Platform.Security
                         // get entity prvilege by entityAccessType
                         var entityAccessTypeClosure = entityAccessType;
 
-                        var entityPrivilege = _finder.Find<Privilege>(x => x.EntityType == entityTypeId && x.Operation == (int)entityAccessTypeClosure).Single();
+                        var entityPrivilege = _query.For<Privilege>().Single(x => x.EntityType == entityTypeId && x.Operation == (int)entityAccessTypeClosure);
 
                         var userEntity = new UserEntity
                         {
@@ -560,7 +577,7 @@ namespace DoubleGis.Erm.Platform.Security
         private IEnumerable<SharingDescriptor> GetAccessSharingsForEntity(IEntityType entityName, long entityId)
         {
             var entityTypeId = entityName.Id;
-            var entityPrivileges = _finder.For<Privilege>()
+            var entityPrivileges = _query.For<Privilege>()
                     .Where(x => x.EntityType == entityTypeId)
                     .Select(x => x.Id)
                     .ToArray();
@@ -570,24 +587,25 @@ namespace DoubleGis.Erm.Platform.Security
                 throw new Exception("Не найдены привилегии на сущность: " + entityName);
             }
 
-            var accessSharings = _finder.Find<User>(x => !x.IsDeleted && x.IsActive)
-                .Select(x => new
-            {
-                x.Id,
-                x.Account,
-                x.FirstName,
-                x.LastName,
-                AccessRightsMasks = x.UserEntities
-                         .Where(y => y.EntityId == entityId && entityPrivileges.Contains(y.PrivilegeId))
-                         .Select(y => (int?)y.Privilege.Operation)
-            })
-            .Where(x => x.AccessRightsMasks.Any(y => y != null))
-            .AsEnumerable()
-            .Select(x => new SharingDescriptor
-            {
-                UserInfo = new UserInfo(x.Id, x.Account, x.LastName + ' ' + x.FirstName),
-                AccessTypes = ToEntityAccessTypes(x.AccessRightsMasks),
-            });
+            var accessSharings = _query.For<User>()
+                                       .Where(x => !x.IsDeleted && x.IsActive)
+                                       .Select(x => new
+                                           {
+                                               x.Id,
+                                               x.Account,
+                                               x.FirstName,
+                                               x.LastName,
+                                               AccessRightsMasks = x.UserEntities
+                                                                    .Where(y => y.EntityId == entityId && entityPrivileges.Contains(y.PrivilegeId))
+                                                                    .Select(y => (int?)y.Privilege.Operation)
+                                           })
+                                       .Where(x => x.AccessRightsMasks.Any(y => y != null))
+                                       .AsEnumerable()
+                                       .Select(x => new SharingDescriptor
+                                           {
+                                               UserInfo = new UserInfo(x.Id, x.Account, x.LastName + ' ' + x.FirstName),
+                                               AccessTypes = ToEntityAccessTypes(x.AccessRightsMasks),
+                                           });
 
             return accessSharings;
         }
@@ -677,18 +695,18 @@ namespace DoubleGis.Erm.Platform.Security
 
         private PriorityMaskDto[] GetUserFunctionalPrivilegeMasks(FunctionalPrivilegeName privilege, long userCode)
         {
-            var result = _finder.Find<User>(x => x.Id == userCode)
-            .SelectMany(x => x.UserRoles).Select(x => x.Role)
-            .SelectMany(x => x.RolePrivileges)
-            .Where(x => x.Privilege.Operation == (int)privilege)
-            .Distinct()
-            .Select(x => new PriorityMaskDto
-            {
-                Priority = x.Priority,
-                Mask = x.Mask,
-            })
-            .ToArray();
-
+            var result = _query.For<User>()
+                               .Where(x => x.Id == userCode)
+                               .SelectMany(x => x.UserRoles).Select(x => x.Role)
+                               .SelectMany(x => x.RolePrivileges)
+                               .Where(x => x.Privilege.Operation == (int)privilege)
+                               .Distinct()
+                               .Select(x => new PriorityMaskDto
+                                   {
+                                       Priority = x.Priority,
+                                       Mask = x.Mask,
+                                   })
+                               .ToArray();
             return result;
         }
 
@@ -711,7 +729,7 @@ namespace DoubleGis.Erm.Platform.Security
             switch (maxAccess)
             {
                 case OrderChangeDocumentsDebtAccess.OrganizationUnit:
-                    return _finder.For<UserOrganizationUnit>()
+                    return _query.For<UserOrganizationUnit>()
                         .Any(x => x.UserId == userCode && x.OrganizationUnitId == organizationUnitId);
 
                 case OrderChangeDocumentsDebtAccess.Full:

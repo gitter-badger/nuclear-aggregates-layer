@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL.Specifications;
+using NuClear.Storage.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel

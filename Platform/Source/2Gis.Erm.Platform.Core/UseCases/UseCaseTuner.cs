@@ -2,6 +2,8 @@
 
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 
+using NuClear.Storage.UseCases;
+
 namespace DoubleGis.Erm.Platform.Core.UseCases
 {
     public sealed class UseCaseTuner : IUseCaseTuner

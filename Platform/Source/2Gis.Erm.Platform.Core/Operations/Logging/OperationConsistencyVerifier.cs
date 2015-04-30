@@ -6,8 +6,8 @@ using System.Text;
 
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.DAL;
 
+using NuClear.Storage.Core;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging

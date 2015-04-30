@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NuClear.Storage.Core
 {
-    public class ScopedDomainContextsStore : IDisposable
+    public sealed class ScopedDomainContextsStore : IDisposable
     {
         private readonly object _sync = new object();
 
@@ -70,7 +70,7 @@ namespace NuClear.Storage.Core
                 if (_domainContextRegistrar.TryGetValue(host.ScopeId, out hostDomainContextsStorage))
                 {
                     _domainContextRegistrar.Remove(host.ScopeId);
-                    return hostDomainContextsStorage.ModifiableDomainContexts.Values;
+                    return hostDomainContextsStorage.ModifiableDomainContexts.Values.ToArray();
                 }
 
                 return Enumerable.Empty<IModifiableDomainContext>();

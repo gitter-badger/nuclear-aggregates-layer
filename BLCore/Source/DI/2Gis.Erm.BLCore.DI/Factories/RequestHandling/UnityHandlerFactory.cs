@@ -5,6 +5,8 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Storage.UseCases;
+
 namespace DoubleGis.Erm.BLCore.DI.Factories.RequestHandling
 {
     public sealed class UnityHandlerFactory : AbstractRequestHandlerFactory

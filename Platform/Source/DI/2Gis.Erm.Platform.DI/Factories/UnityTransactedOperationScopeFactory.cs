@@ -3,13 +3,14 @@
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.DAL;
 
 using Microsoft.Practices.Unity;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity;
+using NuClear.Storage.Core;
+using NuClear.Storage.UseCases;
 
 namespace DoubleGis.Erm.Platform.DI.Factories
 {

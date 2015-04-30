@@ -2,10 +2,10 @@
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Users
 {

@@ -7,17 +7,20 @@ using AutoMapper.QueryableExtensions;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
 	public class CompositeEntityDecorator : ICompositeEntityDecorator
 	{
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-		public CompositeEntityDecorator(IFinder finder)
+		public CompositeEntityDecorator(IQuery query)
 		{
-			_finder = finder;
+            _query = query;
 		}
 
         public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression)
@@ -107,7 +110,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 		{
 			CheckRegistration<TPersistentEntity, TEntity>();
 			
-			var persistentEntities = _finder.For<TPersistentEntity>();
+			var persistentEntities = _query.For<TPersistentEntity>();
 			if (prePredicate != null)
 			{
 				persistentEntities = persistentEntities.Where(prePredicate);

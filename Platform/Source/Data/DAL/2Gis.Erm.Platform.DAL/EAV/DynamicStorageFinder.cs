@@ -10,15 +10,15 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 {
     public sealed class DynamicStorageFinder : IDynamicStorageFinder
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly IDynamicPropertiesConverterFactory _converterFactory;
         private readonly IDynamicEntityMetadataProvider _dynamicEntityMetadataProvider;
 
-        public DynamicStorageFinder(IFinder finder,
+        public DynamicStorageFinder(IQuery query,
                                     IDynamicPropertiesConverterFactory converterFactory,
                                     IDynamicEntityMetadataProvider dynamicEntityMetadataProvider)
         {
-            _finder = finder;
+            _query = query;
             _converterFactory = converterFactory;
             _dynamicEntityMetadataProvider = dynamicEntityMetadataProvider;
         }
@@ -27,12 +27,12 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             where TEntityInstance : class, IDynamicEntityInstance
             where TPropertyInstance : class, IDynamicEntityPropertyInstance
         {
-            return _finder.For<TEntityInstance>()
-                          .Where(specs.FindSpec.Predicate)
-                          .Select(specs.SelectSpec.Selector)
-                          .AsEnumerable()
-                          .Select(arg => ConvertToObject(arg.EntityInstance, arg.PropertyInstances))
-                          .ToArray();
+            return _query.For<TEntityInstance>()
+                         .Where(specs.FindSpec.Predicate)
+                         .Select(specs.SelectSpec.Selector)
+                         .AsEnumerable()
+                         .Select(arg => ConvertToObject(arg.EntityInstance, arg.PropertyInstances))
+                         .ToArray();
         }
 
         private IEntity ConvertToObject<TEntityInstance, TPropertyInstance>(TEntityInstance entityInstance, ICollection<TPropertyInstance> propertyInstances)

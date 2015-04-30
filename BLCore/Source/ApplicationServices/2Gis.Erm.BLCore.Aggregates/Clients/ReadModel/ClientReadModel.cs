@@ -4,7 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -12,11 +12,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
 {
     public class ClientReadModel : IClientReadModel
     {
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly ISecurityServiceUserIdentifier _securityServiceUserIdentifier;
 
-        public ClientReadModel(IFinder finder, ISecurityServiceUserIdentifier securityServiceUserIdentifier)
+        public ClientReadModel(IQuery query, IFinder finder, ISecurityServiceUserIdentifier securityServiceUserIdentifier)
         {
+            _query = query;
             _finder = finder;
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }
@@ -52,16 +54,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
 
         public bool IsClientLinksExists(long? masterClientId, long? childClientId, bool? isDeleted)
         {
-            var query = _finder.For<ClientLink>();
+            var query = _query.For<ClientLink>();
 
             if (masterClientId.HasValue)
+            {
                 query = query.Where(c => c.MasterClientId == masterClientId);
+            }
 
             if (childClientId.HasValue)
+            {
                 query = query.Where(c => c.ChildClientId == childClientId);
+            }
 
             if (isDeleted.HasValue)
+            {
                 query = query.Where(c => c.IsDeleted == isDeleted);
+            }
 
             return query.Any();
         }

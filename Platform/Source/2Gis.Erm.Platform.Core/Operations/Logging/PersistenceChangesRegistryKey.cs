@@ -1,6 +1,7 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage.Core;
+using NuClear.Storage.UseCases;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {

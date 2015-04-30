@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL.Specifications;
+using NuClear.Storage.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel

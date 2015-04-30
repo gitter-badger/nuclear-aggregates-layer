@@ -1,11 +1,11 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel
 {

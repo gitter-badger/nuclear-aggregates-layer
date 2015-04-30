@@ -5,11 +5,10 @@ using System.Reflection;
 
 using Microsoft.Practices.Unity;
 
-using NuClear.Aggregates;
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
 
-namespace Aggregates.Storage.DI.Unity
+namespace NuClear.Aggregates.Storage.DI.Unity
 {
     public sealed class AggregatesLayerMassProcessor : IMassProcessor
     {

@@ -8,11 +8,11 @@ using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Notifications

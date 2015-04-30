@@ -9,10 +9,13 @@ using System.Linq.Expressions;
 using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
+using NuClear.Storage.Core;
+using NuClear.Storage.Specifications;
 
 using File = DoubleGis.Erm.Platform.Model.Entities.Erm.File;
 

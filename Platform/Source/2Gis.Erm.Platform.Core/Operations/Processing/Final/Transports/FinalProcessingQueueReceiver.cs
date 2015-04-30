@@ -12,6 +12,8 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage.UseCases;
+
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports
 {
     [UseCase(Duration = UseCaseDuration.AboveNormal)]

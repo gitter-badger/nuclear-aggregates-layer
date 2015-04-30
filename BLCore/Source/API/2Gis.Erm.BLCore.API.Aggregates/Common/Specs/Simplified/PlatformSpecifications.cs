@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.Platform.DAL.Specifications;
+﻿using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Simplified
 {
@@ -6,9 +6,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Simplified
     {
         public static class Find
         {
-            public static FindSpecification<DoubleGis.Erm.Platform.Model.Entities.Erm.Platform> ById(long id)
+            public static FindSpecification<Platform.Model.Entities.Erm.Platform> ById(long id)
             {
-                return new FindSpecification<DoubleGis.Erm.Platform.Model.Entities.Erm.Platform>(x => x.Id == id);
+                return new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => x.Id == id);
             }
         }
     }

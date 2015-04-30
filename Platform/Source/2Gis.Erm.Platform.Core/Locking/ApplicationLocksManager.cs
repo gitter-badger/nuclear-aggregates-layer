@@ -7,7 +7,6 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
-using DoubleGis.Erm.Platform.DAL.PersistenceServices.Locking;
 
 namespace DoubleGis.Erm.Platform.Core.Locking
 {

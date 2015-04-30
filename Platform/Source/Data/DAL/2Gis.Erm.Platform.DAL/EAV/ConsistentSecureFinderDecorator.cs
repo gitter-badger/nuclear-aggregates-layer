@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
-using NuClear.Model.Common.Entities.Aspects;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
@@ -44,18 +43,8 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return _secureFinder.Find(expression).ValidateQueryCorrectness();
         }
 
-        public IQueryable For(Type entityType)
-        {
-            return _secureFinder.For(entityType).ValidateQueryCorrectness();
-        }
-
-        public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
-        {
-            return _secureFinder.For<TEntity>().ValidateQueryCorrectness();
-        }
-
         public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey
+            where TEntity : class, IEntity
         {
             if (typeof(IPartable).IsAssignableFrom(typeof(TEntity)))
             {
@@ -78,7 +67,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         }
 
         public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
-            where TEntity : class, IEntity, IEntityKey
+            where TEntity : class, IEntity
         {
             if (typeof(IPartable).IsAssignableFrom(typeof(TEntity)))
             {

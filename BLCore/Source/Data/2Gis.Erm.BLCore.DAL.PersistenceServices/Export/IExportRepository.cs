@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Simplified;
+
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {

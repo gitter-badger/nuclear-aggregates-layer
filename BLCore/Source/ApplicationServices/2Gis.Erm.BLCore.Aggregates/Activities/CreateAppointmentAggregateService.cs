@@ -3,7 +3,7 @@ using System;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using NuClear.Model.Common.Operations.Identity.Generic;
