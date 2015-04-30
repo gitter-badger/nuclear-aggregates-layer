@@ -126,6 +126,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     		typeof(SecurityAccelerator),
     		typeof(TaskBase),
     		typeof(TaskReference),
+            typeof(TelephonyAddress),
     		typeof(Territory),
     		typeof(Theme),
     		typeof(ThemeCategory),

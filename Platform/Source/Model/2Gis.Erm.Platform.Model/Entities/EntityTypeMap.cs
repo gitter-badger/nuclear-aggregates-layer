@@ -145,6 +145,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityName.Territory, typeof(Territory) },
                 { EntityName.RolePrivilege, typeof(RolePrivilege) },
                 { EntityName.UserProfile, typeof(UserProfile) },
+                { EntityName.TelephonyAddress, typeof(TelephonyAddress) },
 
                 // Simplified
                 { EntityName.NotificationProcessing, typeof(NotificationProcessings) },

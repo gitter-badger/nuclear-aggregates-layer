@@ -57,6 +57,7 @@
     <Compile Include="Config\Erm\LetterBaseMap.cs" />
     <Compile Include="Config\Erm\LetterReferenceMap.cs" />
     <Compile Include="Config\Erm\SalesModelCategoryRestrictionMap.cs" />
+    <Compile Include="Config\ErmSecurity\TelephonyAddressMap.cs" />
     <Compile Include="DI\PlatformModelEntityFrameworkAssembly.cs" />
     <Compile Include="EntityConfig.cs" />
     <Compile Include="EntityConvention.cs" />
