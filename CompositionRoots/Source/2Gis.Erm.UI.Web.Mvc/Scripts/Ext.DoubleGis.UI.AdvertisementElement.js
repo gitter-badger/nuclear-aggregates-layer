@@ -42,7 +42,7 @@
     function removeSpaces(text) {
         return text
             .replace(/&nbsp;/g, ' ')
-            .replace(/(\s)\1+/g,' ');
+            .replace(/(\s){2,}/g,' ');
     };
 
     function textContainsControlChars(text) {
@@ -50,7 +50,7 @@
     };
 
     function textContainsControlSpace(text) {
-        return text.match(/(&nbsp;)|(\s)\1+/g);
+        return text.match(/(&nbsp;)|(\s){2,}/g);
     }
 
     function characterCountValidationMessage(plainText, maxLength) {
