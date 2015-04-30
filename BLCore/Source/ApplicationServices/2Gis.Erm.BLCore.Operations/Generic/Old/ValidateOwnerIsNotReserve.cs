@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Old
 {
-    // TODO {all, 14.03.2013}: Реализовать crosscutting service проверки сущности на нахождение в резерве
+    [Obsolete("Use IOwnerValidator")]
     public sealed class ValidateOwnerIsNotReserve<TEntity> : RequestHandler<ValidateOwnerIsNotReserveRequest<TEntity>, EmptyResponse>
         where TEntity : class,   IEntity, IEntityKey, ICuratedEntity
     {

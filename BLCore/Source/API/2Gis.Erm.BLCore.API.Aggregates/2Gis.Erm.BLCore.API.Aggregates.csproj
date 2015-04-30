@@ -64,6 +64,7 @@
     <Compile Include="Accounts\DTO\AccountIdAndOwnerCodeDto.cs" />
     <Compile Include="Accounts\DTO\AccountInfoForImportFrom1C.cs" />
     <Compile Include="Accounts\DTO\ActivateLockDto.cs" />
+    <Compile Include="Accounts\DTO\AssignAccountDto.cs" />
     <Compile Include="Accounts\DTO\DeactivateLockDto.cs" />
     <Compile Include="Accounts\DTO\LockDto.cs" />
     <Compile Include="Accounts\DTO\AccountDetailInfoToSendNotificationDto.cs" />
@@ -83,6 +84,8 @@
     <Compile Include="Accounts\Operations\IAccountWithdrawalChangeStatusAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountWithdrawalStartAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountWithdrawFromAccountsAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAssignAccountAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAssignAccountDetailAggregateService.cs" />
     <Compile Include="Accounts\Operations\IImportOperationsInfoAggregateService.cs" />
     <Compile Include="Accounts\ReadModel\AccountSpecs.Accounts.cs" />
     <Compile Include="Accounts\ReadModel\AccountSpecs.Limits.cs" />
@@ -159,10 +162,13 @@
     <Compile Include="Clients\ReadModel\ClientSpecs.Clients.cs" />
     <Compile Include="Clients\ReadModel\IClientReadModel.cs" />
     <Compile Include="CommonService\MessageHelper.cs" />
+    <Compile Include="Common\Crosscutting\AccountsWithDebtsReportGenerator.cs" />
+    <Compile Include="Common\Crosscutting\IAccountDebtsChecker.cs" />
     <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
     <Compile Include="Common\Crosscutting\ICheckInnService.cs" />
     <Compile Include="Common\Crosscutting\IMonthPeriodValidationService.cs" />
     <Compile Include="Common\Crosscutting\IConcurrentPeriodCounter.cs" />
+    <Compile Include="Common\Crosscutting\IOwnerValidator.cs" />
     <Compile Include="Common\DTO\BusinessEntityInstanceDto.cs" />
     <Compile Include="Common\Generics\IActivateAggregateRepository.cs" />
     <Compile Include="Common\Generics\IAssignAggregateRepository.cs" />

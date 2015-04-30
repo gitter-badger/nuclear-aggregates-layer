@@ -35,21 +35,6 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Import
             throw new NotImplementedException();
         }
 
-        int IAssignAggregateRepository<Account>.Assign(long entityId, long ownerCode)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAssignAggregateRepository<AccountDetail>.Assign(long entityId, long ownerCode)
-        {
-            throw new NotImplementedException();
-        }
-
-        int IAssignAggregateRepository<Limit>.Assign(long entityId, long ownerCode)
-        {
-            throw new NotImplementedException();
-        }
-
         public int Deactivate(long entityId)
         {
             throw new NotImplementedException();

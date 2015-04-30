@@ -97,6 +97,8 @@
     <Compile Include="Accounts\Operations\AccountWithdrawalStartAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountWithdrawFromAccountsAggregateService.cs" />
     <Compile Include="Accounts\Operations\AccountBulkCreateLocksAggregateService.cs" />
+    <Compile Include="Accounts\Operations\AssignAccountAggregateService.cs" />
+    <Compile Include="Accounts\Operations\AssignAccountDetailAggregateService.cs" />
     <Compile Include="Accounts\ReadModel\AccountReadModel.cs" />
     <Compile Include="Activities\AssignAppointmentAggregateService.cs" />
     <Compile Include="Activities\AssignLetterAggregateService.cs" />
@@ -141,6 +143,8 @@
     <Compile Include="Clients\Operations\GraphDenormalizationExtensions.cs" />
     <Compile Include="Clients\Operations\UpdateClientAggregateService.cs" />
     <Compile Include="Clients\ReadModel\ClientReadModel.cs" />
+    <Compile Include="Common\Crosscutting\AccountDebtsChecker.cs" />
+    <Compile Include="Common\Crosscutting\OwnerValidator.cs" />
     <Compile Include="Deals\Operations\CreateDealAggregateService.cs" />
     <Compile Include="Deals\Operations\DeleteClientLinkAggregateService.cs" />
     <Compile Include="Deals\Operations\DetachDealFromFirmAggregateService.cs" />
@@ -265,7 +269,6 @@
     <Compile Include="Common\Generics\DeactivateAggregateRepository.cs" />
     <Compile Include="Common\Generics\DeleteAggregateRepository.cs" />
     <Compile Include="Accounts\AccountRepository.cs" />
-    <Compile Include="Common\Crosscutting\CheckForDebtsHelper.cs" />
     <Compile Include="Releases\Operations\ReleaseAttachProcessingMessagesAggregateService.cs" />
     <Compile Include="Releases\Operations\ReleaseChangeStatusAggregateService.cs" />
     <Compile Include="Releases\Operations\ReleaseStartAggregateService.cs" />
