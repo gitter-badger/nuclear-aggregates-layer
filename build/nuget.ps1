@@ -2,6 +2,7 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
+Import-Module "$BuildToolsRoot\modules\metadata.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\nuget.psm1" -DisableNameChecking
 
 Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
@@ -18,9 +19,12 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 		'2Gis.Erm.BLCore.API.Operations.Special.csproj'
 
 		'2Gis.Erm.Qds.API.Operations.csproj'
+		'2Gis.Erm.Platform.API.Metadata.csproj'
 	)
 
-	$tempDir = Join-Path $global:Context.Dir.Temp 'NuGet'
+	$commonMetadata = Get-Metadata 'Common'
+
+	$tempDir = Join-Path $commonMetadata.Dir.Temp 'NuGet'
 	if (!(Test-Path $tempDir)){
 		md $tempDir | Out-Null
 	}
@@ -35,16 +39,5 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 
 Task Deploy-NuGet {
 	$artifactName = Get-Artifacts 'NuGet'
-
-	$source = 'http://nuget.2gis.local'
-	$apiKey = ':enrbq rjl'
-
-	$packges = Get-ChildItem $artifactName -Include '*.nupkg' -Exclude '*.symbols.nupkg' -Recurse
-	Deploy-Packages $packges $source $apiKey
-
-	$symbolSource = 'http://nuget.2gis.local/SymbolServer/NuGet'
-	$symbolApiKey = ':enrbq rjl'
-
-	$symbolPackges = Get-ChildItem $artifactName -Include '*.symbols.nupkg' -Recurse
-	Deploy-Packages $symbolPackges $symbolSource $symbolApiKey
+	Deploy-Packages $artifactName
 }
