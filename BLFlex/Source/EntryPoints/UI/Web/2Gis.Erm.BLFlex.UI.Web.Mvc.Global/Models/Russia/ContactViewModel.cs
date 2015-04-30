@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class ContactViewModel : EntityViewModelBase<Contact>, IFullNameAspect, IContactSalutationsAspect, IBusinessModelAreaAspect, IRussiaAdapted
+    public sealed class ContactViewModel : EntityViewModelBase<Contact>, IFullNameAspect, IContactSalutationsAspect, IHaveTelephonyAccessAspect, IBusinessModelAreaAspect, IRussiaAdapted
     {
         [PresentationLayerProperty]
         public Guid? ReplicationCode { get; set; }

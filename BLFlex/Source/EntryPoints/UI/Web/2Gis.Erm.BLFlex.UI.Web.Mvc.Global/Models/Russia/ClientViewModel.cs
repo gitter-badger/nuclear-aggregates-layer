@@ -17,7 +17,7 @@ using Newtonsoft.Json.Converters;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class ClientViewModel : EntityViewModelBase<Client>, INameAspect, IRussiaAdapted
+    public sealed class ClientViewModel : EntityViewModelBase<Client>, INameAspect, IRussiaAdapted, IHaveTelephonyAccessAspect
     {
         [PresentationLayerProperty]
         public Guid? ReplicationCode { get; set; }

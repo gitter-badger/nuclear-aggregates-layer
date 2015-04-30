@@ -79,6 +79,7 @@
     <Compile Include="Aspects\Entities\IPublishablePriceAspect.cs" />
     <Compile Include="Aspects\Entities\ISelectableToWhiteListAspect.cs" />
     <Compile Include="Aspects\Entities\IThemeTemplateCodeAspect.cs" />
+    <Compile Include="Aspects\IHaveTelephonyAccessAspect.cs" />
     <Compile Include="Aspects\IAspect.cs" />
     <Compile Include="Aspects\Entities\IBaseCurrencyAspect.cs" />
     <Compile Include="Aspects\IBusinessOperationTypeAspect.cs" />

@@ -5,7 +5,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Aspects;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
 {
@@ -23,7 +23,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             var privilege = _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.TelephonyAccess, _userContext.Identity.Code);
-            viewModel.SetPropertyValue("HaveTelephonyAccess", privilege);
+            var haveTelephonyAspet = (IHaveTelephonyAccessAspect)viewModel;
+            if (haveTelephonyAspet != null)
+            {
+                haveTelephonyAspet.HaveTelephonyAccess = privilege;
+            }
         }
     }
 }
