@@ -7,9 +7,9 @@ Import-Module "$BuildToolsRoot\modules\sqlserver.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\transform.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\reports.psm1" -DisableNameChecking
 
-Properties { $OptionReports = $true }
+Properties { $OptionReports = $false }
 
-Task Deploy-Reports -Precondition { $OptionReports -and (Get-Metadata 'Reports').OptionReports } -Depends `
+Task Deploy-Reports -Precondition { $OptionReports } -Depends `
 Deploy-ReportsDir, `
 Replace-ReportsStoredProcs
 
