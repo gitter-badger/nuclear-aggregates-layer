@@ -1,4 +1,4 @@
-﻿// File updated : 02.12.2014 16:13:25
+﻿// File updated : 30.04.2015 13:18:38
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -29,6 +29,7 @@ AddressIsNotLocatedOnTheMap : 'Adresa nemá vazbu na mapu',
 AdsCheckTooLongWord : 'Ve slove "{0}" byl prekrocen maximalni pocet symbolu: {1} z moznych {2}.',
 AdvertisementElements : 'Prvky reklamního materiálu',
 AdvertisementElementTextContainsControlCharacters : 'Text obsahuje řídicí znaky, přejete si je před uložením odstranit?',
+AdvertisementElementTextContainsControlSpaces : 'Текст содержит повторяющиеся пробелы, удалить их перед сохранением?',
 AdvertisementElementTextContainsHtmlTags : 'Text obsahuje potenciálně nebezpečné prvky (HTML tagy), text nelze uložit.',
 AdvertisementElementWasNotSaved : 'Element reklamního materiálu nebyl uložen.',
 Advertisements : 'Reklamní materiály',

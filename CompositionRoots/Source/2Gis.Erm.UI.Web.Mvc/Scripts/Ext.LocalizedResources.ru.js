@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 02.12.2014 16:13:25
+// File updated : 30.04.2015 13:18:38
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -31,6 +31,7 @@ AddressIsNotLocatedOnTheMap : 'Адрес не привязан к карте',
 AdsCheckTooLongWord : 'В слове "{0}" превышено максимально допустимое количество символов: {1} из {2} возможных.',
 AdvertisementElements : 'Элементы рекламного материала',
 AdvertisementElementTextContainsControlCharacters : 'Текст содержит управляющие символы, удалить их перед сохранением?',
+AdvertisementElementTextContainsControlSpaces : 'Текст содержит повторяющиеся пробелы, удалить их перед сохранением?',
 AdvertisementElementTextContainsHtmlTags : 'Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён.',
 AdvertisementElementWasNotSaved : 'Элемент РМ не был сохранён.',
 Advertisements : 'Рекламные материалы',

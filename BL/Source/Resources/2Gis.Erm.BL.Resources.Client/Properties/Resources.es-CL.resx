@@ -972,4 +972,7 @@
   <data name="InvalidDateTimeText" xml:space="preserve">
     <value>Valor incorrecto. Use el formato  'DD-MM-XXXX'</value>
   </data>
+  <data name="AdvertisementElementTextContainsControlSpaces" xml:space="preserve">
+    <value>Текст содержит повторяющиеся пробелы, удалить их перед сохранением?</value>
+  </data>
 </root>

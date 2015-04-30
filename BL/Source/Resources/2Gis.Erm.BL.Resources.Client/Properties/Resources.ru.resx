@@ -969,4 +969,7 @@
   <data name="ErrorOnServiceAccess" xml:space="preserve">
     <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
   </data>
+  <data name="AdvertisementElementTextContainsControlSpaces" xml:space="preserve">
+    <value>Текст содержит повторяющиеся пробелы, удалить их перед сохранением?</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿// File updated : 02.12.2014 16:13:26
+﻿// File updated : 30.04.2015 13:18:38
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -29,6 +29,7 @@ AddressIsNotLocatedOnTheMap : 'Address is not linked to map',
 AdsCheckTooLongWord : 'Maximum permitted number of symbols in the word {0} is exceeded: {1} of {2} possible.',
 AdvertisementElements : 'Components of advertising material',
 AdvertisementElementTextContainsControlCharacters : 'The text contains control symbols. Delete them before saving?',
+AdvertisementElementTextContainsControlSpaces : 'Текст содержит повторяющиеся пробелы, удалить их перед сохранением?',
 AdvertisementElementTextContainsHtmlTags : 'The text contains potentially dangerous elements (HTML tags) and cannot be saved.',
 AdvertisementElementWasNotSaved : 'AM element was not saved.',
 Advertisements : 'Advertising materials',
