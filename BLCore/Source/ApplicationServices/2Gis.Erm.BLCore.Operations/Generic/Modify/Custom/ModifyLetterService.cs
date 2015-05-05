@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                                                                oldRegardingObjects,
                                                                letter.ReferencesIfAny<Letter, LetterRegardingObject>(letterDto.RegardingObjects));
                 _updateOperationService.ChangeSender(letter, oldSender, letter.ReferencesIfAny<Letter, LetterSender>(letterDto.SenderRef));
-                _updateOperationService.ChangeRecipient(letter, oldRecipient, letter.ReferencesIfAny<Letter, LetterRecipient>(letterDto.RecipientRef));                
+                _updateOperationService.ChangeRecipient(letter, oldRecipient, letter.ReferencesIfAny<Letter, LetterRecipient>(letterDto.RecipientRef));
 
                 transaction.Complete();
 

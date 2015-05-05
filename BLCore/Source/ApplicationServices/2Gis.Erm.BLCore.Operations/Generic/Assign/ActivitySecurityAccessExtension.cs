@@ -3,13 +3,17 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Security.API.UserContext.Identity;
+
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
     public static class ActivitySecurityAccessExtenstion
     {
         public static bool HasActivityUpdateAccess<T>(this ISecurityServiceEntityAccess entityAccessService, IUserIdentity identity, long entityId, long ownerCode)
         {
-            return identity.SkipEntityAccessCheck || entityAccessService.HasEntityAccess(EntityAccessTypes.Update, typeof(T).AsEntityName(), identity.Code, entityId, ownerCode, null);
+            var securityControlAspect = identity as IUserIdentitySecurityControl;
+            return (securityControlAspect != null && securityControlAspect.SkipEntityAccessCheck) ||
+                   entityAccessService.HasEntityAccess(EntityAccessTypes.Update, typeof(T).AsEntityName(), identity.Code, entityId, ownerCode, null);
         }
     }
 }

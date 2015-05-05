@@ -11,10 +11,11 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 
 using Microsoft.Crm.Sdk;
 using Microsoft.Crm.SdkTypeProxy;
+
+using NuClear.Security.API.UserContext;
 
 using Response = DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse.Response;
 

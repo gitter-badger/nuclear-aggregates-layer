@@ -8,7 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
 using NuClear.Tracing.API;

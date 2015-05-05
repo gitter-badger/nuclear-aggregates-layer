@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,7 +68,9 @@
     <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\OperationSpecs.FinalProcessings.cs" />
     <Compile Include="SimplifiedModel\PerformedOperations\ReadModel\OperationSpecs.Performed.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>

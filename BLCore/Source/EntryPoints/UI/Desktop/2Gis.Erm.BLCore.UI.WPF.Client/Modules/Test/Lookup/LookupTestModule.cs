@@ -2,11 +2,12 @@
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Lookup.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Lookup.Views;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.Lookup
 {

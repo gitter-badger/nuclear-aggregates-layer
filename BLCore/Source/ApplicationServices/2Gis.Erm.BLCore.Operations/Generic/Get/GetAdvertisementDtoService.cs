@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         private readonly IFirmReadModel _firmReadModel;
 
         public GetAdvertisementDtoService(IUserContext userContext,
-                                          ISecureFinder secureFinder,                                          
+                                          ISecureFinder secureFinder,
                                           IFirmReadModel firmReadModel)
             : base(userContext)
         {
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Advertisement> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
         {
-            var dto = new AdvertisementDomainEntityDto();            
+            var dto = new AdvertisementDomainEntityDto();
 
             switch (parentEntityName)
             {

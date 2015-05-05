@@ -92,5 +92,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
             return _finder.Find(Specs.Find.ByIds<User>(userIds))
                           .ToDictionary(user => user.Id, user => user.DisplayName);
         }
+
+        public IEnumerable<long> PickNonServiceUsers(IEnumerable<long> userIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<User>(userIds) && UserSpecs.Users.Find.NotService()).Select(x => x.Id).ToArray();
+        }
     }
 }

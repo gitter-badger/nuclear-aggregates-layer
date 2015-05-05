@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
