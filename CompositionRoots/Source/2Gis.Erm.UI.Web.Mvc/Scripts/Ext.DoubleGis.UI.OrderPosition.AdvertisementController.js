@@ -243,10 +243,12 @@ Ext.DoubleGis.UI.OrderPosition.Advertisements = Ext.extend(Ext.util.Observable, 
 
         if (this.localData.keepCategoriesSynced && source) {
             this.localData.linkingObjects.forEach(function(object) {
-                if (object.categoryId == source.categoryId) {
-                    object.checkbox.checked = source.checkbox.checked;
-                } else if (isSingleCategoryType(object)) {
-                    object.checkbox.checked = false;
+                if (object.type == source.type) {
+                    if (object.categoryId == source.categoryId) {
+                        object.checkbox.checked = source.checkbox.checked;
+                    } else if (isSingleCategoryType(object)) {
+                        object.checkbox.checked = false;
+                    }
                 }
             });
         }

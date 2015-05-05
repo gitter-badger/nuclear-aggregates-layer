@@ -3700,9 +3700,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CategoriesSetForAllPositionsMustBeTheSame {
+        public static string CategoriesSetForPositionsMustBeTheSame {
             get {
-                return ResourceManager.GetString("CategoriesSetForAllPositionsMustBeTheSame", resourceCulture);
+                return ResourceManager.GetString("CategoriesSetForPositionsMustBeTheSame", resourceCulture);
             }
         }
         

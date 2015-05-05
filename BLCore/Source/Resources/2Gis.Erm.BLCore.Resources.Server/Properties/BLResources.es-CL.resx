@@ -5152,9 +5152,6 @@ Periodo de la publicación: {3}.</value>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>En la orden pueden estar las posiciones de un modelo de ventas solamente</value>
   </data>
-  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
-    <value>En conjunto de categorías para todas las posiciones debe coincidir</value>
-  </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>El intento de guardar la posición de la orden con el modelo de ventas '{0}' con la cantidad no igual a 1</value>
   </data>
@@ -5228,6 +5225,9 @@ Periodo de la publicación: {3}.</value>
     <value>You can't pick more than one reference object for the following positions: {0}</value>
   </data>
   <data name="AllPositionsMustBePicked" xml:space="preserve">
-    <value>Необходимо отметить все позиции</value>
+    <value>Es necesario destacar todas las posiciones</value>
+  </data>
+  <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
+    <value>Набор рубрик для позиций {0} должен быть одинаков</value>
   </data>
 </root>

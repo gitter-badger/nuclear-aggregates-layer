@@ -5152,9 +5152,6 @@ Placement period: {3}.</value>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>Only items of the same sales model can be presented in an order</value>
   </data>
-  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
-    <value>Set of categories should be the same for all subitems</value>
-  </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>Attempt to save an order item with sales model '{0}' where quantity is not 1</value>
   </data>
@@ -5228,6 +5225,9 @@ Placement period: {3}.</value>
     <value>You can't pick more than one reference object for the following positions: {0}</value>
   </data>
   <data name="AllPositionsMustBePicked" xml:space="preserve">
-    <value>Необходимо отметить все позиции</value>
+    <value>You need to select all items</value>
+  </data>
+  <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
+    <value>Набор рубрик для позиций {0} должен быть одинаков</value>
   </data>
 </root>

@@ -5130,9 +5130,6 @@
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value />
   </data>
-  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
-    <value />
-  </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value />
   </data>
@@ -5209,6 +5206,9 @@
     <value />
   </data>
   <data name="AllPositionsMustBePicked" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
     <value />
   </data>
 </root>

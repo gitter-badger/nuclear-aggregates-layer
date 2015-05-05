@@ -148,20 +148,30 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                                                                              out string report)
         {
             report = null;
-            
+
             var positionsWithCategories =
                 orderPositionAdvertisements.GroupBy(x => x.PositionId)
                                            .ToDictionary(x => x.Key, y => y.Where(z => z.CategoryId.HasValue).Select(z => z.CategoryId.Value))
                                            .Where(x => x.Value.Any());
 
-            if (positionsWithCategories.Any(positionWithCategories =>
-                                            positionWithCategories.Value
-                                                                  .Any(category =>
-                                                                       positionsWithCategories
-                                                                           .Any(x => x.Key != positionWithCategories.Key && !x.Value.Contains(category)))))
+            var bindingTypes = _positionReadModel.GetPositionBindingObjectTypes(positionsWithCategories.Select(x => x.Key))
+                                                 .GroupBy(x => x.Value)
+                                                 .ToDictionary(x => x.Key, y => y.Select(z => z.Key));
+
+            foreach (var bindingType in bindingTypes)
             {
-                report = BLResources.CategoriesSetForAllPositionsMustBeTheSame;
-                return false;
+                var positionsWithCategoriesToCheck = positionsWithCategories.Where(x => bindingType.Value.Contains(x.Key));
+
+                if (positionsWithCategoriesToCheck.Any(positionWithCategories =>
+                                                       positionWithCategories.Value
+                                                                             .Any(category =>
+                                                                                  positionsWithCategoriesToCheck
+                                                                                      .Any(x => x.Key != positionWithCategories.Key && !x.Value.Contains(category)))))
+                {
+                    var positionNames = _positionReadModel.GetPositionNames(positionsWithCategoriesToCheck.Select(x => x.Key));
+                    report = string.Format(BLResources.CategoriesSetForPositionsMustBeTheSame, string.Join(",", positionNames.Select(x => string.Format(@"'{0}'", x.Value))));
+                    return false;
+                }
             }
 
             return true;
