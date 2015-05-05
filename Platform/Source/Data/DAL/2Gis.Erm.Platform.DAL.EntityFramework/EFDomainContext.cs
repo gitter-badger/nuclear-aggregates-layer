@@ -48,21 +48,21 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public void Add<TEntity>(TEntity entity) where TEntity : class
         {
             Attach(entity, EntityState.Added);
-                }
+        }
 
         public void AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
-                {
+        {
             foreach (var entity in entities)
             {
                 Attach(entity, EntityState.Added);
             }
-                    }
         }
+
 
         public void Update<TEntity>(TEntity entity) where TEntity : class
         {
             Attach(entity, EntityState.Modified);
-            }
+        }
 
         public void Remove<TEntity>(TEntity entity) where TEntity : class
         {
@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         public void RemoveRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
             foreach (var entity in entities)
-        {
+            {
                 Attach(entity, EntityState.Deleted);
             }
         }
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             foreach (var entry in _dbContext.ChangeTracker.Entries())
             {
                 entry.State = EntityState.Detached;
-        }
+            }
 
             _attachedEntitiesRegistrar.Clear();
 
@@ -128,20 +128,20 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             where TEntity : class
         {
             if (!_attachedEntitiesRegistrar.Add(entity))
-        {
-                    var entityKey = entity as IEntityKey;
+            {
+                var entityKey = entity as IEntityKey;
 
                 // т.е. для экземпяра выполнили CUD, не сохранили и опять пытаемся менять экземпляр с тем же identity
-                    throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
-                                                                      "with unsaved changes => trying to update not saved entity. " +
-                                                                      "Possible entity repository save method not called before next update. " +
-                                                                      "Save mode is immediately, not deferred",
-                                                                      typeof(TEntity).Name,
-                                                                      entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
+                throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
+                                                                  "with unsaved changes => trying to update not saved entity. " +
+                                                                  "Possible entity repository save method not called before next update. " +
+                                                                  "Save mode is immediately, not deferred",
+                                                                  typeof(TEntity).Name,
+                                                                  entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
             }
 
             var entry = _dbContext.Entry(entity);
-                _dbContext.Set<TEntity>().Attach(entity);
+            _dbContext.Set<TEntity>().Attach(entity);
             entry.State = entityState;
         }
     }
