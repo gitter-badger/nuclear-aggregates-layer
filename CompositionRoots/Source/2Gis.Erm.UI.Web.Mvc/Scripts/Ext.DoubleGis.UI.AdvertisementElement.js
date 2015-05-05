@@ -43,18 +43,40 @@
         return text.match(controlChars);
     };
 
-    function textContainsControlList(element, isParentList) {
-        isParentList = isParentList || false;
-        var result = false;
-        Ext.each(element.children, function (child) {
-            if (child.tagName.toLowerCase() == "ul") {
-                result = isParentList ? true : textContainsControlList(child, true);
-            } else {
-                result = textContainsControlList(child, isParentList);
+    function textContainsControlList(element) {
+
+        function isMatch(el) {
+            return el.tagName.toLowerCase() == "ul";
+        }
+
+        function hasNestedMatch(el) {
+            var queue = [];
+            queue.push.apply(queue, el.children);
+
+            do {
+                var child = queue.shift();
+                if (isMatch(child))
+                    return true;
+                queue.push.apply(queue, child.children);
+            } while (queue.length > 0);
+
+            return false;
+        }
+
+        var queue = [element];
+        do {
+            var child = queue.shift();
+
+            if (isMatch(child)) {
+                if (hasNestedMatch(child))
+                    return true;
             }
-            return !result;
-        });
-        return result;
+            else {
+                queue.push.apply(queue, child.children);
+            }
+        } while (queue.length > 0);
+
+        return false;
     };
 
     function characterCountValidationMessage(plainText, maxLength) {
