@@ -314,6 +314,7 @@
     <Compile Include="OrganizationUnits\Exceptions\OrganizationUnitHasNoProjectsException.cs" />
     <Compile Include="OrganizationUnits\ReadModel\IOrganizationUnitReadModel.cs" />
     <Compile Include="Positions\DTO\LinkingObjectsSchemaPositionDto.cs" />
+    <Compile Include="Positions\DTO\PositionSalesModelAndCompositenessDto.cs" />
     <Compile Include="Positions\Operations\IChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\ReadModel\IPositionReadModel.cs" />
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />

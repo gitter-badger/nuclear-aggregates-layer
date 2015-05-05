@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
@@ -31,10 +30,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
         public bool Check(long orderId, long orderPositionId, long pricePositionId, IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements, out string report)
         {
-            var position = _positionReadModel.GetPositionByPricePositionId(pricePositionId);
+            var positionDto = _positionReadModel.GetPositionSalesModelAndCompositenessByPricePosition(pricePositionId);
             var orderInfo = _orderReadModel.GetOrderInfoToCheckPossibilityOfOrderPositionCreation(orderId);
 
-            if (position.IsComposite && !AtLeastOneLinkingObjectIsSpecifiedForCompositePosition(orderPositionAdvertisements, out report))
+            if (positionDto.IsComposite && !AtLeastOneLinkingObjectIsSpecifiedForCompositePosition(orderPositionAdvertisements, out report))
             {
                 return false;
             }
@@ -49,17 +48,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 return false;
             }
 
-            if (!AllPositionsOfTheSameSalesModel(orderPositionId, position.SalesModel, orderInfo.OrderPositions.ToDictionary(x => x.OrderPositionId, x => x.SalesModel), out report))
+            if (!AllPositionsOfTheSameSalesModel(orderPositionId, positionDto.SalesModel, orderInfo.OrderPositions.ToDictionary(x => x.OrderPositionId, x => x.SalesModel), out report))
             {
                 return false;
             }
 
-            if (position.KeepCategoriesSynced() && !CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(orderPositionAdvertisements, out report))
+            if (_positionReadModel.KeepCategoriesSynced(positionDto.PositionId) && !CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(orderPositionAdvertisements, out report))
             {
                 return false;
             }
 
-            if (position.AllSubpositionsMustBePicked() && !AllSubpositionsMustBePicked(position.Id, orderPositionAdvertisements, out report))
+            if (_positionReadModel.AllSubpositionsMustBePicked(positionDto.PositionId) && !AllSubpositionsMustBePicked(positionDto.PositionId, orderPositionAdvertisements, out report))
             {
                 return false;
             }

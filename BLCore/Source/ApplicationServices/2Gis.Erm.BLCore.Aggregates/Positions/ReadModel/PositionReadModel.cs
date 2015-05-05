@@ -47,11 +47,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
             return true;
         }
 
-        public Position GetPositionByPricePositionId(long pricePositionId)
-        {
-            return _finder.FindOne(PriceSpecs.Positions.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>());
-        }
-
         public IEnumerable<LinkingObjectsSchemaPositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId)
         {
             var positions = _finder.Find(Specs.Find.ById<Position>(positionId));
@@ -129,6 +124,34 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                           .Where(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
                           .Select(x => x.ChildPositionId)
                           .ToArray();
+        }
+
+        public bool KeepCategoriesSynced(long positionId)
+        {
+            return _finder.Find(Specs.Find.ById<Position>(positionId)).Any(x => x.IsComposite && x.DgppId != PositionTools.AdditionalPackageDgppId);
+        }
+
+        public bool AllSubpositionsMustBePicked(long positionId)
+        {
+            return _finder.Find(Specs.Find.ById<Position>(positionId)).Any(x => x.IsComposite && x.DgppId != PositionTools.AdditionalPackageDgppId);
+        }
+
+        public bool AutoCheckPositionsWithFirmBindingType(long positionId)
+        {
+            return _finder.Find(Specs.Find.ById<Position>(positionId)).Any(x => x.DgppId != PositionTools.AdditionalPackageDgppId);
+        }
+
+        public PositionSalesModelAndCompositenessDto GetPositionSalesModelAndCompositenessByPricePosition(long pricePositionId)
+        {
+            return
+                _finder.Find(PriceSpecs.Positions.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>())
+                       .Select(x => new PositionSalesModelAndCompositenessDto
+                                        {
+                                            PositionId = x.Id,
+                                            IsComposite = x.IsComposite,
+                                            SalesModel = x.SalesModel
+                                        })
+                       .SingleOrDefault();
         }
 
         public IDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds)

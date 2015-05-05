@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
 
         public PriceValidationDto GetPriceValidationDto(long priceId)
         {
-            return _finder.Find<Price, PriceValidationDto>(PriceSpecs.Prices.Select.PriceValidationDto(), Specs.Find.ById<Price>(priceId)).Single();
+            return _finder.Find(PriceSpecs.Prices.Select.PriceValidationDto(), Specs.Find.ById<Price>(priceId)).Single();
         }
 
         public long GetActualPriceId(long organizationUnitId)
@@ -232,23 +232,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId))
                                            .Select(item => new
                                                                {
+                                                                   item.PositionId,
                                                                    Platform = item.Position.Platform.Name,
                                                                    item.RateType,
                                                                    item.Amount,
                                                                    item.AmountSpecificationMode,
                                                                    PricePositionCost = item.Cost,
-                                                                   Position = item.Position
+                                                                   item.Position.SalesModel,
+                                                                   item.Position.IsComposite,
+                                                                   BindingObjectType = item.Position.BindingObjectTypeEnum
                                                                })
                                            .Single();
 
             return new PricePositionDetailedInfo
                        {
+                           PositionId = pricePositionInfo.PositionId,
                            Amount = pricePositionInfo.Amount,
                            AmountSpecificationMode = (int)pricePositionInfo.AmountSpecificationMode,
                            Platform = pricePositionInfo.Platform ?? string.Empty,
                            PricePositionCost = pricePositionInfo.PricePositionCost,
                            RateType = pricePositionInfo.RateType,
-                           Position = pricePositionInfo.Position
+                           SalesModel = pricePositionInfo.SalesModel,
+                           BindingObjectType = pricePositionInfo.BindingObjectType,
+                           IsComposite = pricePositionInfo.IsComposite
                        };
         }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.DTO;
@@ -66,12 +65,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                 {
                     warnings = new[] { new LinkingObjectsSchemaDto.WarningDto { Text = BLResources.FirmDoesntHaveActiveAddresses } };
                 }
-                else if (pricePositionInfo.Position.BindingObjectTypeEnum == PositionBindingObjectType.ThemeMultiple && !themeDtos.Any())
+                else if (pricePositionInfo.BindingObjectType == PositionBindingObjectType.ThemeMultiple && !themeDtos.Any())
                 {
                     warnings = new[] { new LinkingObjectsSchemaDto.WarningDto { Text = BLResources.ThereIsNoSuitableThemes } };
                 }
 
-                var firmCategoriesSupportedBySalesModel = _categoryReadModel.GetFirmCategories(firmCategoryIds, pricePositionInfo.Position.SalesModel, orderDto.DestOrganizationUnitId);
+                var firmCategoriesSupportedBySalesModel = _categoryReadModel.GetFirmCategories(firmCategoryIds, pricePositionInfo.SalesModel, orderDto.DestOrganizationUnitId);
                 var salesIntoCategories = orderPositionId.HasValue
                                               ? _categoryReadModel.GetSalesIntoCategories(orderPositionId.Value)
                                               : Enumerable.Empty<CategoryAsLinkingObjectDto>();
@@ -92,9 +91,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                        : Enumerable.Empty<long>());
                 }
 
-                var autoCheckForFirmBindingObjectType = pricePositionInfo.Position.AutoCheckSubpositionsWithFirmBindingType();
+                var autoCheckForFirmBindingObjectType = _positionReadModel.AutoCheckPositionsWithFirmBindingType(pricePositionInfo.PositionId);
 
-                var positionDtos = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.Position.IsComposite, pricePositionInfo.Position.Id)
+                var positionDtos = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId)
                                                      .Select(x => ConvertToResponsePositionDto(x, autoCheckForFirmBindingObjectType))
                                                      .ToArray();
 
