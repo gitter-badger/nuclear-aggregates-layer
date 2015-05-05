@@ -2,18 +2,21 @@
 $ErrorActionPreference = 'Stop'
 #------------------------------
 
+Import-Module "$BuildToolsRoot\modules\metadata.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\versioning.psm1" -DisableNameChecking
 
 Task Set-BuildNumber {
-	$version = Get-Version
+	$commonMetadata = Get-Metadata 'Common'
 	
 	if (Test-Path 'Env:\TEAMCITY_VERSION') {
-		Write-Host "##teamcity[buildNumber '$($version.SemanticVersion)']"
+		Write-Host "##teamcity[buildNumber '$($commonMetadata.Version.SemanticVersion)']"
 	}
 }
 
 Task Update-AssemblyInfo {
-	$globalDir = Join-Path $global:Context.Dir.Solution '..\..'
-	$assemblyInfos = Get-ChildItem $globalDir -Filter 'AssemblyInfo.Version.cs' -Recurse
+	$commonMetadata = Get-Metadata 'Common'
+
+	$rootDir = Join-Path $commonMetadata.Dir.Solution '..\..'
+	$assemblyInfos = Get-ChildItem $rootDir -Filter 'AssemblyInfo.Version.cs' -Recurse
 	Update-AssemblyInfo $assemblyInfos
 }

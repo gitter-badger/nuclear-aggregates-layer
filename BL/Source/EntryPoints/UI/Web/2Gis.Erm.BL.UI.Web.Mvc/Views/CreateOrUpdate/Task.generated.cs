@@ -224,7 +224,7 @@ WriteLiteral("\r\n");
                                          new LookupDataField { Name = "city", Mapping = "OrganizationUnitName" }
                                      };
             const string HeaderTextTemplate = "'<span class=\"x-lookup-thumb\">{name}</span>&nbsp;<span class=\"x-lookup-thumb\" style=\"color:gray\">{city}</span>&nbsp;'";
-        
+            
             
             #line default
             #line hidden

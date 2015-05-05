@@ -11,7 +11,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         build: function () {
             return (this.suffix ? this.prefix + ' - ' + this.suffix : this.prefix) || "";
         }
-    },    
+    },
 
     constructor: function (config) {
         Ext.DoubleGis.UI.ActivityBase.superclass.constructor.call(this, config);
@@ -42,14 +42,14 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         }       
         function checkDirty() {
             if (scope.form.Id.value == 0) {
-                Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
-                return false;
-            }
+            Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
+            return false;
+        }
             if (scope.isDirty) {
-                Ext.Msg.alert('', Ext.LocalizedResources.CardIsDirtyAlert);
-                return false;
-            }
-            return true;
+            Ext.Msg.alert('', Ext.LocalizedResources.CardIsDirtyAlert);
+            return false;
+        }
+        return true;
         }
         function сhangeStatus(operation)
         {
@@ -103,11 +103,11 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         }
         this.Assign = function () {
             if (!checkDirty()) return;
-            var result = window.showModalDialog("/GroupOperation/Assign/" + this.EntityName, [this.form.Id.value],
-                "dialogWidth:450px; dialogHeight:300px; status:yes; scroll:no; resizable:no;");
-            if (result) {
-                this.refresh(true);
-            }
+        var result = window.showModalDialog("/GroupOperation/Assign/" + this.EntityName, [this.form.Id.value],
+            "dialogWidth:450px; dialogHeight:300px; status:yes; scroll:no; resizable:no;");
+        if (result) {
+            this.refresh(true);
+        }
         }
        
         
@@ -177,7 +177,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     },
     getTitleSuffix: function() {
             return null;
-    }      
+    }
     
     
 });

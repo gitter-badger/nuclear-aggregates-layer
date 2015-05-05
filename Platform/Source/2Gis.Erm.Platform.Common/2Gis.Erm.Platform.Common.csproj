@@ -82,7 +82,7 @@
     <Compile Include="Crosscutting\IInvariantSafeCrosscuttingService.cs" />
     <Compile Include="Identities\IdentityProviderService.cs" />
     <Compile Include="Identities\IIdentityProviderService.cs" />
-    <Compile Include="Identities\IIdentityProviderSettings.cs" />
+    <Compile Include="Identities\IIdentityServiceUniqueIdProvider.cs" />
     <Compile Include="Prerequisites\PrerequisitesAttribute.cs" />
     <Compile Include="Prerequisites\СonsideringPrerequisitesComparer.cs" />
     <Compile Include="PrintFormEngine\PrintData.cs" />
