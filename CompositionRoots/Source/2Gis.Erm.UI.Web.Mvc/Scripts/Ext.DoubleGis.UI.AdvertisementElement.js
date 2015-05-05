@@ -39,7 +39,7 @@
         return text.replace(controlChars, '');
     };
 
-    function removeSpaces(text) {
+    function ensureHasSingleSpaces(text) {
         return text
             .replace(/&nbsp;/g, '\x20')
             .replace(/(\x20){2,}/g, '\x20');
@@ -49,7 +49,7 @@
         return text.match(controlChars);
     };
 
-    function textContainsControlSpace(text) {
+    function textContainsSpace(text) {
         return text.match(/(&nbsp;)|(\x20){2,}/g);
     }
 
@@ -230,14 +230,13 @@
                 .replace(new RegExp('&nbsp;</p>', 'gim'), '<br />')
                 .replace(new RegExp('</p>', 'gim'), '<br />');
 
-            if (textContainsControlSpace(plainText) || textContainsControlSpace(formattedText)) {
-                // Ext.Msg.Confirm не используется, т.к. он выполняется асинхронно
+            if (textContainsSpace(plainText) || textContainsSpace(formattedText)) {
                 var userAgreedToRemoveSpaces = confirm(Ext.LocalizedResources.AdvertisementElementTextContainsControlSpaces);
                 if (userAgreedToRemoveSpaces) {
-                    formattedText = removeSpaces(formattedText);
-                    plainText = removeSpaces(plainText);
+                    formattedText = ensureHasSingleSpaces(formattedText);
+                    plainText = ensureHasSingleSpaces(plainText);
                 } else {
-                    Ext.Msg.alert("",Ext.LocalizedResources.AdvertisementElementWasNotSaved);
+                    alert(Ext.LocalizedResources.AdvertisementElementWasNotSaved);
                     return false;
                 }
             }
