@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Common;
+using System.Data.SqlClient;
 
 using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
@@ -171,9 +173,14 @@ namespace DoubleGis.Erm.TaskService.Settings
             }
         }
 
-        ConnectionStringSettings IPersistentStoreSettings.ConnectionStringSettings
+        string IPersistentStoreSettings.ConnectionString
         {
-            get { return this.AsSettings<IConnectionStringSettings>().GetConnectionStringSettings(ConnectionStringName.QuartzJobStore); }
+            get { return this.AsSettings<IConnectionStringSettings>().GetConnectionStringSettings(ConnectionStringName.ErmInfrastructure).ConnectionString; }
+        }
+
+        string IPersistentStoreSettings.TablePrefix
+        {
+            get { return "Quartz."; }
         }
     }
 }
