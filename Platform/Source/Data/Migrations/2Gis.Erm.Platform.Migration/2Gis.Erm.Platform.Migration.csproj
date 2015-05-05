@@ -123,6 +123,10 @@
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
       <Project>{2ee6dcd3-218d-4eea-8902-8cf501c7e034}</Project>
       <Name>2Gis.Erm.Platform.Migration.Core</Name>
