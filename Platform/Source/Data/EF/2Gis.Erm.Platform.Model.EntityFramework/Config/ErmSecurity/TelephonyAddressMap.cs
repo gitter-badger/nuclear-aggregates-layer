@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             // Table & Column Mappings
-            ToTable("TelephonyAddresses", "Security");
+            ToTable("TelephonyAddresses", "Shared");
             Property(t => t.Name).HasColumnName("Name");
             Property(t => t.Address).HasColumnName("Address");
         }

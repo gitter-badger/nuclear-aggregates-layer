@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Security
@@ -20,6 +21,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         }
 
         public long Id { get; set; }
+        public long? TelephonyAddressId { get; set; }
         public string Name { get; set; }
         public long? ParentId { get; set; }
         public int? LeftBorder { get; set; }
@@ -35,6 +37,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         public ICollection<Department> Children { get; set; }
         public Department Parent { get; set; }
         public ICollection<User> Users { get; set; }
+        public TelephonyAddress TelephonyAddress { get; set; }
 
         public override bool Equals(object obj)
         {

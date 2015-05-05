@@ -363,6 +363,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
 
         public static readonly SchemaQualifiedObjectName ExportFlowFinancialDataDebitsInfoInitial = new SchemaQualifiedObjectName(ErmSchemas.Integration, "ExportFlowFinancialData_DebitsInfoInitial");
 
-        public static readonly SchemaQualifiedObjectName TelephonyAddresses = new SchemaQualifiedObjectName(ErmSchemas.Security, "TelephonyAddresses");
+        public static readonly SchemaQualifiedObjectName TelephonyAddresses = new SchemaQualifiedObjectName(ErmSchemas.Shared, "TelephonyAddresses");
     }
 }
