@@ -29,7 +29,7 @@
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         @Html.HiddenFor(m => m.Id)
         @Html.HiddenFor(m => m.Status)
-        
+
         @{
             var isOwnerAndNameSortFields = new[] { new LookupSortInfo { Direction = ListSortDirection.Descending, Field = "IsOwner" }, new LookupSortInfo { Direction = ListSortDirection.Ascending, Field = "Name" } };            
         }
