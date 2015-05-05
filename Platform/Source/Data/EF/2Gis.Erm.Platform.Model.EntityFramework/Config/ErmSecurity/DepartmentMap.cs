@@ -28,7 +28,6 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
             // Table & Column Mappings
             ToTable("Departments", "Security");
             Property(t => t.Id).HasColumnName("Id");
-            Property(t => t.TelephonyAddressId).HasColumnName("TelephonyAddressId");
             Property(t => t.Name).HasColumnName("Name");
             Property(t => t.ParentId).HasColumnName("ParentId");
             Property(t => t.LeftBorder).HasColumnName("LeftBorder");
@@ -45,9 +44,6 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
             HasOptional(t => t.Parent)
                 .WithMany(t => t.Children)
                 .HasForeignKey(d => d.ParentId);
-            HasRequired(t => t.TelephonyAddress)
-                .WithMany(t => t.Departments)
-                .HasForeignKey(t => t.TelephonyAddressId);
 
             // CUD mappings
             MapToStoredProcedures(map => map.Insert(i => i.HasName("DepartmentInsert", "Security")

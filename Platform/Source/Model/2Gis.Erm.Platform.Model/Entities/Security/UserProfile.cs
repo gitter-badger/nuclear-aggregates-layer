@@ -1,5 +1,6 @@
 using System;
 
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Security
@@ -13,7 +14,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         IStateTrackingEntity
     {
         public long Id { get; set; }
-        public long UserId { get; set; }        
+        public long UserId { get; set; }
+        public long? TelephonyAddressId { get; set; }
         public long TimeZoneId { get; set; }
         public int CultureInfoLCID { get; set; }
         public bool IsDeleted { get; set; }
@@ -34,7 +36,8 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         public string PlanetURL { get; set; }
 
         public TimeZone TimeZone { get; set; }
-        public User User { get; set; }       
+        public User User { get; set; }
+        public TelephonyAddress TelephonyAddress { get; set; }
 
         public override bool Equals(object obj)
         {

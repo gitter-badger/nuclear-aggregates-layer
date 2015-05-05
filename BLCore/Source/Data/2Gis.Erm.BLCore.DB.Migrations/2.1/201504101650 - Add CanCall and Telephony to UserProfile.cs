@@ -7,8 +7,8 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
 {
-    [Migration(201504101650, "ERM-6103. Добавляем таблицу Shared.TelephonyAddresses, связываем с Security.Departments и заполняем начальными данными", "a.pashkin")]
-    public class Mirgation201504101650 : TransactedMigration
+    [Migration(201504101656, "ERM-6103. Добавляем таблицу Security.TelephonyAddresses, связываем с Security.UserProfiles и заполняем начальными данными", "a.pashkin")]
+    public class Mirgation201504101656 : TransactedMigration
     {
         protected override void ApplyOverride(IMigrationContext context)
         {            
@@ -32,11 +32,11 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
             table.Create();
             table.CreatePrimaryKey("Id");            
 
-            var departments = context.Database.GetTable(ErmTableNames.Departments);
+            var userProfiles = context.Database.GetTable(ErmTableNames.UserProfiles);
 
-            departments.Columns.Add(new Column(departments, "TelephonyAddressId", DataType.BigInt) { Nullable = true });
-            departments.Alter();
-            departments.CreateForeignKey("TelephonyAddressId", ErmTableNames.TelephonyAddresses, "Id");
+            userProfiles.Columns.Add(new Column(userProfiles, "TelephonyAddressId", DataType.BigInt) { Nullable = true });
+            userProfiles.Alter();
+            userProfiles.CreateForeignKey("TelephonyAddressId", ErmTableNames.TelephonyAddresses, "Id");
 
             var telephonyAddresses = context.Database.GetTable(ErmTableNames.TelephonyAddresses);
 
@@ -49,13 +49,19 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
                 NovosibirskTelephonyAddress);
             context.Connection.ExecuteNonQuery(insterQuery);
 
-            var updateQuery = string.Format(
-                "UPDATE [{0}].[{1}] SET TelephonyAddressId = {2} WHERE Name LIKE '{3}' OR Name = '{4}'",
-                departments.Schema,
-                departments.Name,
-                NovosibirskTelephonyId,
-                MatchNskPattern,
-                Match2GisName);
+            var updateQuery =
+                string.Format(
+                    "UPDATE [Security].[UserProfiles] " + 
+                    "SET TelephonyAddressId = {0} " + 
+                    "FROM [Security].[UserProfiles] profiles " + 
+                    "JOIN [Security].[Users] users " + 
+                    "ON (profiles.UserId = users.Id) " + 
+                    "JOIN [Security].[Departments] departments " + 
+                    "ON (users.DepartmentId = departments.Id) "
+                    + "WHERE departments.Name LIKE '{1}' OR departments.Name = '{2}'",
+                    NovosibirskTelephonyId,
+                    Match2GisName,
+                    MatchNskPattern);
             context.Connection.ExecuteNonQuery(updateQuery);
         }
     }

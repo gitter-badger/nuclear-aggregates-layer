@@ -9,13 +9,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Erm
     {
        public TelephonyAddress()
        {
-           Departments = new HashSet<Department>();
+           UserProfiles = new HashSet<UserProfile>();
        }
 
        public long Id { get; set; }
        public string Name { get; set; }
        public string Address { get; set; }
 
-       public ICollection<Department> Departments { get; set; }
+       public ICollection<UserProfile> UserProfiles { get; set; }
     }
 }
