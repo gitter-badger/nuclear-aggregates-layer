@@ -5,9 +5,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
 {
-    public class TelephonyAddressMap : EntityConfig<TelephonyAddress, ErmSecurityContainer>
+    public class TelephonyUnitMap : EntityConfig<TelephonyUnit, ErmSecurityContainer>
     {
-        public TelephonyAddressMap()
+        public TelephonyUnitMap()
         {
             // Primary Key
             HasKey(t => t.Id);
@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             // Table & Column Mappings
-            ToTable("TelephonyAddresses", "Security");
+            ToTable("TelephonyUnits", "Shared");
             Property(t => t.Name).HasColumnName("Name");
             Property(t => t.Address).HasColumnName("Address");
         }

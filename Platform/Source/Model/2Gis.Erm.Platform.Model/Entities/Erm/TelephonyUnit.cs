@@ -5,9 +5,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
-   public class TelephonyAddress : IEntity, IEntityKey
+   public class TelephonyUnit : IEntity, IEntityKey
     {
-       public TelephonyAddress()
+       public TelephonyUnit()
        {
            UserProfiles = new HashSet<UserProfile>();
        }

@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
     {
         public long Id { get; set; }
         public long UserId { get; set; }
-        public long? TelephonyAddressId { get; set; }
+        public long? TelephonyUnitId { get; set; }
         public long TimeZoneId { get; set; }
         public int CultureInfoLCID { get; set; }
         public bool IsDeleted { get; set; }
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
 
         public TimeZone TimeZone { get; set; }
         public User User { get; set; }
-        public TelephonyAddress TelephonyAddress { get; set; }
+        public TelephonyUnit TelephonyUnit { get; set; }
 
         public override bool Equals(object obj)
         {

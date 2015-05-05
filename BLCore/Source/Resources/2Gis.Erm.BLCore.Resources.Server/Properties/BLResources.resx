@@ -5214,10 +5214,10 @@
   <data name ="DialingIsNotAllowed" xml:space="preserve">
     <value>У Вас нет прав на совершение звонков.</value>
   </data>
-  <data name ="TelephonyAddressIsNotSelected" xml:space="preserve">
+  <data name ="TelephonyUnitIsNotSelected" xml:space="preserve">
     <value>В профиле не указан адрес сервиса телефонии.</value>
   </data>
-  <data name ="TelephonyAddressInIncorrectFormat" xml:space="preserve">
+  <data name ="TelephonyUnitInIncorrectFormat" xml:space="preserve">
     <value>Адрес сервиса телефонии указан в некорректном формате</value>
   </data>
   <data name ="TelephonyServiceInactive" xml:space="preserve">

@@ -14148,24 +14148,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Адрес сервиса телефонии указан в некорректном формате.
-        /// </summary>
-        public static string TelephonyAddressInIncorrectFormat {
-            get {
-                return ResourceManager.GetString("TelephonyAddressInIncorrectFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to В профиле не указан адрес сервиса телефонии..
-        /// </summary>
-        public static string TelephonyAddressIsNotSelected {
-            get {
-                return ResourceManager.GetString("TelephonyAddressIsNotSelected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Данный тип {0} телефонии не поддерживается..
         /// </summary>
         public static string TelephonySchemeIsNotSupported {
@@ -14180,6 +14162,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TelephonyServiceInactive {
             get {
                 return ResourceManager.GetString("TelephonyServiceInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Адрес сервиса телефонии указан в некорректном формате.
+        /// </summary>
+        public static string TelephonyUnitInIncorrectFormat {
+            get {
+                return ResourceManager.GetString("TelephonyUnitInIncorrectFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В профиле не указан адрес сервиса телефонии..
+        /// </summary>
+        public static string TelephonyUnitIsNotSelected {
+            get {
+                return ResourceManager.GetString("TelephonyUnitIsNotSelected", resourceCulture);
             }
         }
         

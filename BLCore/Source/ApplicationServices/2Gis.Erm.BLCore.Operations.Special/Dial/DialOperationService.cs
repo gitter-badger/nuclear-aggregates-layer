@@ -54,12 +54,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
             var department = _userReadModel.GetTelephonyServerAddress(_userContext.Identity.Code);
             if (department == null)
             {
-                throw new Exception(BLResources.TelephonyAddressIsNotSelected);
+                throw new Exception(BLResources.TelephonyUnitIsNotSelected);
             }
 
             if (string.IsNullOrEmpty(department.Scheme) || string.IsNullOrEmpty(department.Host) || department.Port == 0)
             {
-                throw new ArgumentException(BLResources.TelephonyAddressInIncorrectFormat);
+                throw new ArgumentException(BLResources.TelephonyUnitInIncorrectFormat);
             }
 
             InvokeDialing(department, userProfile.Phone, number);
