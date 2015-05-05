@@ -12,6 +12,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
         private const string Id = "Id";
         private const string UserId = "UserId";
         private const string BranchOfficeId = "BranchOfficeId";
+        private const string IsDeleted = "IsDeleted";
 
         protected override void ApplyOverride(IMigrationContext context)
         {
@@ -27,7 +28,9 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
             table.CreateField(Id, DataType.BigInt, false);
             table.CreateField(UserId, DataType.BigInt, false);
             table.CreateField(BranchOfficeId, DataType.BigInt, false);
+            table.CreateField(IsDeleted, DataType.Bit, false);
             table.CreateAuditableEntityColumns();
+            
             table.CreateTimestampColumn();
 
             table.Create();

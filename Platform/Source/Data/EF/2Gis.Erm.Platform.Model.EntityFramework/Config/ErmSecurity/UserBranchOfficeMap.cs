@@ -30,6 +30,8 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
             Property(t => t.ModifiedBy).HasColumnName("ModifiedBy");
             Property(t => t.CreatedOn).HasColumnName("CreatedOn");
             Property(t => t.ModifiedOn).HasColumnName("ModifiedOn");
+            Property(t => t.ModifiedOn).HasColumnName("ModifiedOn");
+            Property(t => t.IsDeleted).HasColumnName("IsDeleted");
             Property(t => t.Timestamp).HasColumnName("Timestamp");
 
             HasRequired(t => t.User)

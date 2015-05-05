@@ -8,6 +8,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         IEntity,
         IEntityKey,
         IAuditableEntity,
+        IDeletableEntity,
         IStateTrackingEntity
     {
         public long Id { get; set; }
@@ -17,6 +18,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         public long? ModifiedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public bool IsDeleted { get; set; }
         public byte[] Timestamp { get; set; }
 
         public User User { get; set; }
