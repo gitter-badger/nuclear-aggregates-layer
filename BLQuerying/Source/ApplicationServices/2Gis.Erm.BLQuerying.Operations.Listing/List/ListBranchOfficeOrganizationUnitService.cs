@@ -55,10 +55,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                             primaryRequired = false;
                         }
 
-                        Expression<Func<BranchOfficeOrganizationUnit, bool>> primaryFilter = x => !primaryRequired || x.IsPrimary;
+                        Expression<Func<BranchOfficeOrganizationUnit, bool>> primaryFilter = x => x.IsPrimary;
                         if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection, userId))
                         {
-                            return primaryFilter.And(x => x.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId));
+                            Expression<Func<BranchOfficeOrganizationUnit, bool>> functionalPrivilegeFilter = x => x.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+                            return primaryRequired
+                                       ? primaryFilter.And(functionalPrivilegeFilter)
+                                       : functionalPrivilegeFilter;
                         }
                         else
                         {
@@ -69,7 +72,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                 return sourceOrganizationUnitFilter.And(x => branchOfficeIds.Contains(x.BranchOfficeId));
                             }
 
-                            return sourceOrganizationUnitFilter.And(primaryFilter);
+                            return primaryRequired
+                                       ? sourceOrganizationUnitFilter.And(primaryFilter)
+                                       : sourceOrganizationUnitFilter;
                         }
                     });
 
