@@ -9,7 +9,8 @@ Import-Module "$BuildToolsRoot\modules\reports.psm1" -DisableNameChecking
 
 Properties { $OptionReports = $true }
 
-Task Deploy-Reports -Precondition { $OptionReports } -Depends `
+# стоит -or, пользователь может на свой страх и риск попробовать сбилдить отчёты
+Task Deploy-Reports -Precondition { $OptionReports -or (Get-Metadata 'Reports').OptionReports } -Depends `
 Deploy-ReportsDir, `
 Replace-ReportsStoredProcs
 
@@ -17,7 +18,7 @@ Task Deploy-ReportsDir {
 
 	$commonMetadata = Get-Metadata 'Common'
 
-	$reportsDir = Join-Path $commonMetadata.Dir.Solution '..\..\ErmReports'
+	$reportsDir = Join-Path $commonMetadata.Dir.Solution '..\..\..\ErmReports'
 	# если отчёт начинается с '_', то он не развёртывается
 	$exclude = '_*.rdl'
 	Process-Rds $reportsDir
