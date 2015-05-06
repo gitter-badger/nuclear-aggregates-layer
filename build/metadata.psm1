@@ -7,15 +7,26 @@ Import-Module "$PSScriptRoot\metadata.web.psm1" -DisableNameChecking
 Import-Module "$PSScriptRoot\metadata.taskservice.psm1" -DisableNameChecking
 Import-Module "$PSScriptRoot\metadata.transform.psm1" -DisableNameChecking
 
-function Get-MigrationsMetadata ($Country){
+function Get-MigrationsMetadata ($Country) {
 	switch ($Country){
 		'Russia' {
 			return @{ 'RunElasticsearchMigrations' = $true }
 		}
 		default {
 			return @{ 'RunElasticsearchMigrations' = $false }
+		}
 	}
 }
+
+function Get-ReportsMetadata ($EnvType) {
+	switch ($EnvType){
+		{ @('Production', 'Edu', 'Business') -contains $_ } {
+			return @{ 'OptionReports' = $true }
+		}
+		default {
+			return @{ 'OptionReports' = $false }
+		}
+	}
 }
 
 function Get-EnvironmentMetadata ($EnvName, [ValidateSet('Test', 'Int', 'Load', 'Production', 'Edu', 'Business')]$EnvType, $Country, $Index) {
@@ -32,6 +43,7 @@ function Get-EnvironmentMetadata ($EnvName, [ValidateSet('Test', 'Int', 'Load', 
 		'2Gis.Erm.UI.Desktop.WPF' = Get-WebMetadata $EnvType $Country '2Gis.Erm.UI.Desktop.WPF' $Index
 		'2Gis.Erm.TaskService' = Get-TaskServiceMetadata $EnvType $Country $Index
 		'Migrations' = Get-MigrationsMetadata $Country
+		'Reports' = Get-ReportsMetadata $EnvType
 		'Dynamics' = Get-DynamicsMetadata $EnvType $Country $Index
 	}
 }
