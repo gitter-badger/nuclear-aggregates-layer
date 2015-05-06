@@ -5516,6 +5516,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to У Вас нет прав на совершение звонков..
+        /// </summary>
+        public static string DialingIsNotAllowed {
+            get {
+                return ResourceManager.GetString("DialingIsNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string DifferenceBetweenAccountDetailAndPlatformDistibutionsIsTooBig {
@@ -7519,6 +7528,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string IncorrectDBVersion {
             get {
                 return ResourceManager.GetString("IncorrectDBVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Телефон {0} имеет некорректный формат..
+        /// </summary>
+        public static string IncorrectPhoneNumber {
+            get {
+                return ResourceManager.GetString("IncorrectPhoneNumber", resourceCulture);
             }
         }
         
@@ -14130,6 +14148,42 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Данный тип {0} телефонии не поддерживается..
+        /// </summary>
+        public static string TelephonySchemeIsNotSupported {
+            get {
+                return ResourceManager.GetString("TelephonySchemeIsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В данный момент сервис телефонии не доступен.
+        /// </summary>
+        public static string TelephonyServiceInactive {
+            get {
+                return ResourceManager.GetString("TelephonyServiceInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Адрес сервиса телефонии указан в некорректном формате.
+        /// </summary>
+        public static string TelephonyUnitInIncorrectFormat {
+            get {
+                return ResourceManager.GetString("TelephonyUnitInIncorrectFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В профиле не указан адрес сервиса телефонии..
+        /// </summary>
+        public static string TelephonyUnitIsNotSelected {
+            get {
+                return ResourceManager.GetString("TelephonyUnitIsNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string TemplateIsUsedInThemes {
@@ -15161,6 +15215,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string WorkInProgressPleaseStandBy {
             get {
                 return ResourceManager.GetString("WorkInProgressPleaseStandBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В вашем профиле не указан внутренний телефон, на который должны приходить звонки..
+        /// </summary>
+        public static string WorkPhoneIsNotSelected {
+            get {
+                return ResourceManager.GetString("WorkPhoneIsNotSelected", resourceCulture);
             }
         }
         

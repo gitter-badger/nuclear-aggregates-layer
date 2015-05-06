@@ -4,6 +4,12 @@
     border: 0px!important;
 }
 
+DIV.x-phonecall-wrapper
+{
+    width: 100%!important;
+    border: 0px!important;
+}
+
 DIV.x-contact
 {
     padding-top: 1px;
@@ -24,6 +30,23 @@ DIV.x-contact
     scrollbar-track-color: rgb(220, 234, 254);
 }
 
+DIV.x-phonecall
+{
+    padding-top: 1px;
+    padding-left: 3px;  
+    word-wrap:			break-word;
+    background:			window;
+    border:				1px solid #6699cc;
+    width: 100%;    
+}
+
+img.x-phonecall-image {
+    height: 19px;
+   
+
+    vertical-align: top;
+    background: url("images/Configuration/CommonUI/Phone.gif") no-repeat 0px 0px;
+}
 
 A.x-contact-link-href
 {

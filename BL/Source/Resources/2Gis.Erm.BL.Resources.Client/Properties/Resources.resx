@@ -975,4 +975,7 @@
   <data name="InvalidDateTimeText" xml:space="preserve">
     <value />
   </data>
+  <data name = "StartCalling" xml:space="preserve">
+    <value>Осуществляется звонок</value>
+  </data>
 </root>

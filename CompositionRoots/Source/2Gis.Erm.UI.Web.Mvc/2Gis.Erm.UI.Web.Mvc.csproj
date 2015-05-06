@@ -755,6 +755,7 @@
     <Compile Include="DI\Bootstrapper.Russia.Mvc.Interception.cs" />
     <Content Include="Scripts\Ext.DoubleGis.Print.js" />
     <Content Include="Scripts\Ext.ux.MonthMenu.js" />
+    <Content Include="Scripts\Ext.ux.PhonecallField.js" />
     <None Include="Scripts\JsResourcesGeneration.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>JsResourcesGeneration.log</LastGenOutput>

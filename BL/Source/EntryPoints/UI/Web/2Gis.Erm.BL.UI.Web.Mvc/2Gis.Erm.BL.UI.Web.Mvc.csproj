@@ -247,6 +247,7 @@
     <Compile Include="Services\Cards\AssociatedPositionGroups\AssociatedPositionGroupIsDeletedCustomization.cs" />
     <Compile Include="Services\Cards\AssociatedPositionGroups\AssociatedPositionGroupsPriceIsDeletedCustomization.cs" />
     <Compile Include="Services\Cards\AssociatedPositionGroups\AssociatedPositionGroupsPriceIsPublishedCustomization.cs" />
+    <Compile Include="Services\Cards\Shared\TelephonyAccessCustomization.cs" />
     <Compile Include="Services\Cards\Contacts\BusinessModelAreaCustomization.cs" />
     <Compile Include="Services\Cards\Contacts\ContactSalutationsCustomization.cs" />
     <Compile Include="Services\Cards\DeniedPositions\InactiveDeniedPositionsCustomization.cs" />

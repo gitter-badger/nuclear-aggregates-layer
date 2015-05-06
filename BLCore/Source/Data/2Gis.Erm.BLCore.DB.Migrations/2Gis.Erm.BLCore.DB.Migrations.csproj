@@ -828,6 +828,8 @@
     <Compile Include="2.1\201502050722- Create index for SalesModelCategoryRestrictions table.cs" />
     <Compile Include="2.1\201503040626 - Add PositionsGroup.cs" />
     <Compile Include="2.1\201502190640 - Rename AdditionalEmail to Email.cs" />
+    <Compile Include="2.1\201504101650 - Add CanCall and Telephony to UserProfile.cs" />
+    <Compile Include="2.1\201521041051 - Add Telephony functional privilegy.cs" />
     <Compile Include="2.1\201503040330 - add support button to MS CRM.cs" />
     <Compile Include="2.1\201502111010 - remove Timestamp from SalesModelCategoryRestrictions.cs" />
     <Compile Include="2.1\201502240101 - Add new Integration.ExportFlowFinancialData_DebitsInfoInitial table.cs" />

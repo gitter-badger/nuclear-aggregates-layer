@@ -67,6 +67,7 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int GetFirmInfoIdentity = 1022;
         public const int ValidateOrdersIdentity = 1023;
         public const int RegisterOrderStateChangesIdentity = 1024;
+        public const int DialIndentity = 1025;
 
         public const int CancelIdentity = 1042;
         public const int CompleteIdentity = 1043;

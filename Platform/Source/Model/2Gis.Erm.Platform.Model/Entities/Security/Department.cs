@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public long CreatedBy { get; set; }
-        public long? ModifiedBy { get; set; }
+        public long? ModifiedBy { get; set; }        
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public byte[] Timestamp { get; set; }

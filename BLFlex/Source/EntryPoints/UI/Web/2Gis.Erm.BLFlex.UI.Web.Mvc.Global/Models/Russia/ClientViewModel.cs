@@ -17,7 +17,7 @@ using Newtonsoft.Json.Converters;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class ClientViewModel : EntityViewModelBase<Client>, INameAspect, IRussiaAdapted
+    public sealed class ClientViewModel : EntityViewModelBase<Client>, INameAspect, IRussiaAdapted, IHaveTelephonyAccessAspect
     {
         [PresentationLayerProperty]
         public Guid? ReplicationCode { get; set; }
@@ -35,14 +35,17 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public string Comment { get; set; }
 
         // Основной телефон
+        [Phone]
         [StringLengthLocalized(64)]
         public string MainPhoneNumber { get; set; }
 
         // Дополнительный телефон 1
+        [Phone]
         [StringLengthLocalized(64)]
         public string AdditionalPhoneNumber1 { get; set; }
 
         // Дополнительный телефон 2
+        [Phone]
         [StringLengthLocalized(64)]
         public string AdditionalPhoneNumber2 { get; set; }
 
@@ -92,6 +95,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 
         [RequiredLocalized]
         public override LookupField Owner { get; set; }
+
+        public bool HaveTelephonyAccess { get; set; }
 
         public override bool IsSecurityRoot
         {

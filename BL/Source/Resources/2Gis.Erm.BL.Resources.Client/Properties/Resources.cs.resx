@@ -972,4 +972,7 @@
   <data name="InvalidDateTimeText" xml:space="preserve">
     <value>Chybná hodnota. Použijte formát "DD. MM. RRRR"</value>
   </data>
+  <data name = "StartCalling" xml:space="preserve">
+    <value>Осуществляется звонок</value>
+  </data>
 </root>

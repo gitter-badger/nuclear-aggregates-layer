@@ -2023,4 +2023,7 @@
   <data name="BusinessOperationWithdrawal" xml:space="preserve">
     <value>Writing-off</value>
   </data>
+  <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
+    <value>Телефония</value>
+  </data>
 </root>

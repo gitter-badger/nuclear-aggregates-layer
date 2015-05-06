@@ -126,6 +126,25 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes
     }
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    public sealed class PhoneAttribute : ValidationAttribute, IClientValidatable
+    {
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            var rule = new ModelClientValidationRule
+            {
+                ValidationType = "phone"
+            };
+
+            return new[] { rule };
+        }
+
+        public override bool IsValid(object value)
+        {
+            return true;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public sealed class EmailLocalizedAttribute : ValidationAttribute, IClientValidatable
     {
         private static readonly EmailAddressAttribute BaseAttribute = new EmailAddressAttribute();
