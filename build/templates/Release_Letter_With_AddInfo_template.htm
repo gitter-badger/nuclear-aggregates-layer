@@ -8,14 +8,14 @@
  @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;
-	mso-font-charset:1;
+	mso-font-charset:204;
 	mso-generic-font-family:roman;
-	mso-font-format:other;
 	mso-font-pitch:variable;
-	mso-font-signature:0 0 0 0 0 0;}
+	mso-font-signature:-536870145 1107305727 0 0 415 0;}
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;
+	mso-font-alt:Calibri;
 	mso-font-charset:204;
 	mso-generic-font-family:swiss;
 	mso-font-pitch:variable;
@@ -68,7 +68,7 @@ p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
 	mso-fareast-font-family:Calibri;
 	mso-fareast-theme-font:minor-latin;
 	mso-bidi-font-family:"Times New Roman";}
-span.EmailStyle17
+span.EmailStyle18
 	{mso-style-type:personal-compose;
 	mso-style-noshow:yes;
 	mso-style-unhide:no;
@@ -87,6 +87,9 @@ span.EmailStyle17
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;
 	font-family:"Calibri",sans-serif;
 	mso-ascii-font-family:Calibri;
 	mso-ascii-theme-font:minor-latin;
@@ -170,10 +173,9 @@ style='color:black;mso-fareast-language:RU'></span></p>
 <p class=MsoNormal><span style='color:black'>&nbsp;</span></p>
 
 <p class=MsoNormal><span style='color:black'>Выпускаем релиз </span><span
-lang=EN-US style='color:black;mso-ansi-language:EN-US'>ERM</span><span
-lang=EN-US style='color:black'> </span><b><span style='color:black'>{{RELEASE_NAME}}
-</span></b><span style='color:black'>для России, Кипра, Чехии, Чили, Украины,
-ОАЭ и Казахстана.</span></p>
+lang=EN-US style='color:black;mso-ansi-language:EN-US'>ERM </span><b><span
+style='color:black'>{{RELEASE_NAME}} </span></b><span style='color:black'>для
+России, Кипра, Чехии, Чили, Украины, ОАЭ и Казахстана.</span></p>
 
 <p class=MsoNormal><span style='color:black'><o:p>&nbsp;</o:p></span></p>
 
@@ -182,7 +184,7 @@ EN-US'>Release notes:</span></b><span lang=EN-US style='color:black;mso-ansi-lan
 EN-US'></span></p>
 
 <p class=MsoNormal><b><span lang=EN-US style='color:#1F497D;mso-ansi-language:
-EN-US'><a href="RELEASE_NOTES_LINK">RELEASE_NOTES_LINK</a></span></b></p>
+EN-US'><a href="{{RELEASE_NOTES_LINK}}">{{RELEASE_NOTES_LINK}}</a></span></b></p>
 
 <p class=MsoNormal><b><span lang=EN-US style='color:#1F497D;mso-ansi-language:
 EN-US'>&nbsp;</span></b><span lang=EN-US style='color:black;mso-ansi-language:
@@ -215,11 +217,17 @@ style='color:black'></span></p>
 <p class=MsoNormal><b><span style='color:#1F497D'>Администратору БД:</span></b></p>
 
 <p class=MsoListParagraph style='margin-left:36.75pt;text-indent:-18.75pt;
-mso-list:l0 level1 lfo1'><![if !supportLists]><span style='mso-fareast-font-family:
+mso-list:l0 level1 lfo2'><![if !supportLists]><span style='mso-fareast-font-family:
 Calibri;mso-bidi-font-family:Calibri;color:black'><span style='mso-list:Ignore'>1.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><span
 style='color:black'>Собрать версию на Production серверах России, Кипра, Чехии,
 Чили, Украины, ОАЭ и Казахстана</span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><a
+href="{{ADDITIONAL_INSTRUCTIONS}}">Дополнительные
+инструкции для админов и саппорта</a><span style='color:black'></span></b></p>
 
 <p class=MsoNormal><span style='color:black'><o:p>&nbsp;</o:p></span></p>
 
