@@ -2,11 +2,12 @@
 
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Simplified;
-using DoubleGis.Erm.Platform.Model.Zones;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
+
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.DI
 {

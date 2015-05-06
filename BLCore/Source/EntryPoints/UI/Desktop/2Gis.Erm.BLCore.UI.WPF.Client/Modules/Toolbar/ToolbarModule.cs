@@ -1,12 +1,13 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Toolbar;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Blendability;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Toolbar;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Toolbar
 {

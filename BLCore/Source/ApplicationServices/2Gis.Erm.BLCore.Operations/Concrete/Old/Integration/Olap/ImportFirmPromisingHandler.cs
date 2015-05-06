@@ -2,7 +2,7 @@
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.Olap;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.Olap
 {

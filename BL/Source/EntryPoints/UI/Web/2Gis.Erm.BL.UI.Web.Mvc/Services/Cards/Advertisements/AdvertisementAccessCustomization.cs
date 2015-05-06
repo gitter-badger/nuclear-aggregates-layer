@@ -5,8 +5,9 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements
 {

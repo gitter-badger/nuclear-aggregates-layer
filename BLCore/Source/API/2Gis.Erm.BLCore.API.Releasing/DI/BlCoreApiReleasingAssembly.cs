@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Zones;
+
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.BLCore.API.Releasing.DI
 {

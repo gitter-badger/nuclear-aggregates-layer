@@ -13,5 +13,5 @@ $content = Get-Content $buildFile
 $newContent = $content -replace "Version.=.'(.*)'", "Version = '$version'"
 if ($newContent -ne $content) {
 	Set-Content $buildFile $newContent
-	Write-Host "GlobalVersion changed to $version"
+	Write-Host "SemanticVersion changed to $version"
 }

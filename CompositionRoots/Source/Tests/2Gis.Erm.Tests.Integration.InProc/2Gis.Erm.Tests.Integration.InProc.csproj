@@ -41,13 +41,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling">
+      <HintPath>..\..\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.DI.Unity">
+      <HintPath>..\..\packages\2GIS.NuClear.DI.Unity.1.1.1\lib\portable-net451+win81+wpa81\2GIS.NuClear.DI.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\2GIS.NuClear.Security.1.1.0\lib\net451\2GIS.NuClear.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\2GIS.NuClear.Settings.1.0.2\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
+      <HintPath>..\..\packages\2GIS.NuClear.Settings.1.1.0\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+      <HintPath>..\..\packages\2GIS.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -130,7 +144,7 @@
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Deals\ReplicateDealStageOperationServiceTest.cs" />
     <Compile Include="Suite\Base\UseModelEntityHandlerTestBase.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\Export\PerfomedOperationsProcessorOperationsTest.cs" />
-	<Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowBillingTest.cs" />
+    <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowBillingTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsForErmTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowCardsTest.cs" />
     <Compile Include="Suite\Concrete\API\Operations\Concrete\Integration\ServiceBus\Import\ImportFlowFinancialData1CTest.cs" />
@@ -526,6 +540,10 @@
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.EntityFramework\2Gis.Erm.Platform.DAL.EntityFramework.csproj">
       <Project>{1DAF0763-543A-49D3-93D2-04F43A79D538}</Project>
       <Name>2Gis.Erm.Platform.DAL.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL.PersistenceServices\2Gis.Erm.Platform.DAL.PersistenceServices.csproj">
+      <Project>{5CA902E2-894D-48AB-9F1F-4B80D3E69A27}</Project>
+      <Name>2Gis.Erm.Platform.DAL.PersistenceServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\Data\DAL\2Gis.Erm.Platform.DAL\2Gis.Erm.Platform.DAL.csproj">
       <Project>{63CF3872-B242-45BF-9B90-A724FD1C96D9}</Project>

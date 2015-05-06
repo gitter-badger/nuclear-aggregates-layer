@@ -13,6 +13,6 @@
         ErmValidation,
         ErmSearch,
         ErmPerformedOperationsServiceBus,
-        QuartzJobStore
+        ErmInfrastructure
     }
 }
