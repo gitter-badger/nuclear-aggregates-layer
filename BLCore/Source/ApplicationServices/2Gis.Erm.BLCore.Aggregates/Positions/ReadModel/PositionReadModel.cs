@@ -151,7 +151,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                                             IsComposite = x.IsComposite,
                                             SalesModel = x.SalesModel
                                         })
-                       .SingleOrDefault();
+                       .Single();
         }
 
         public IDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds)
