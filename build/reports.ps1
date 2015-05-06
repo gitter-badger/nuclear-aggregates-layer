@@ -18,7 +18,7 @@ Task Deploy-ReportsDir {
 
 	$commonMetadata = Get-Metadata 'Common'
 
-	$reportsDir = Join-Path $commonMetadata.Dir.Solution '..\..\..\ErmReports'
+	$reportsDir = Join-Path $commonMetadata.Dir.Solution '..\..\..\ErmReports\ErmReports'
 	# если отчёт начинается с '_', то он не развёртывается
 	$exclude = '_*.rdl'
 	Process-Rds $reportsDir
