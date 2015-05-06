@@ -149,7 +149,6 @@
         Territory = 191,
         UserProfile = 211,
         RolePrivilege = 170,
-        TelephonyUnit = 171,
         
         // shared
         File = 194,

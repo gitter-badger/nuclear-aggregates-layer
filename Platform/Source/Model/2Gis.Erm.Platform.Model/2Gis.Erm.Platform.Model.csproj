@@ -469,7 +469,6 @@
     <Compile Include="Entities\Erm\SecurityAccelerator.cs" />
     <Compile Include="Entities\Erm\TaskBase.cs" />
     <Compile Include="Entities\Erm\TaskReference.cs" />
-    <Compile Include="Entities\Erm\TelephonyUnit.cs" />
     <Compile Include="Entities\Erm\Territory.cs" />
     <Compile Include="Entities\Erm\Theme.cs" />
     <Compile Include="Entities\Erm\ThemeCategory.cs" />

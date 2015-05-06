@@ -7,59 +7,31 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
 {
-    [Migration(201504101667, "ERM-6103. Добавляем таблицу Shared.TelephonyUnits, связываем с Security.UserProfiles и заполняем начальными данными", "a.pashkin")]
-    public class Mirgation201504101667 : TransactedMigration
+    [Migration(201504101668, "ERM-6103. Добавляем столбец TelephonyAddress в Security.UserProfiles и заполняем начальными данными", "a.pashkin")]
+    public class Mirgation201504101668 : TransactedMigration
     {
         protected override void ApplyOverride(IMigrationContext context)
         {            
             const string NovosibirskTelephonyUnit = "tapi://uk-erm-tapi01:1313";
             const string MatchNskPattern = "%Новосибирск%";
             const string Match2GisName = "2ГИС";
-            const long NovosibirskTelephonyId = 615616117641052232;
-            if (context.Database.Tables.Contains(ErmTableNames.TelephonyUnits.Name, ErmTableNames.TelephonyUnits.Schema))
-            {
-                return;
-            }
-
-            var table = new Table(context.Database, ErmTableNames.TelephonyUnits.Name, ErmTableNames.TelephonyUnits.Schema);
-            table.Columns.Add(new Column(table, "Id", DataType.BigInt)
-            {
-                Nullable = false              
-            });
-            table.Columns.Add(new Column(table, "Name", DataType.NVarChar(50)) { Nullable = false });
-            table.Columns.Add(new Column(table, "Address", DataType.NVarChar(50)) { Nullable = false });
-
-            table.Create();
-            table.CreatePrimaryKey("Id");            
 
             var userProfiles = context.Database.GetTable(ErmTableNames.UserProfiles);
 
-            userProfiles.Columns.Add(new Column(userProfiles, "TelephonyUnitId", DataType.BigInt) { Nullable = true });
-            userProfiles.Alter();
-            userProfiles.CreateForeignKey("TelephonyUnitId", ErmTableNames.TelephonyUnits, "Id");
-
-            var telephonyUnits = context.Database.GetTable(ErmTableNames.TelephonyUnits);
-
-            var insterQuery = string.Format(
-                "INSERT INTO [{0}].[{1}] (Id, Name, Address) Values ({2}, '{3}', '{4}')",
-                telephonyUnits.Schema,
-                telephonyUnits.Name,
-                NovosibirskTelephonyId,
-                "Новосибирск",
-                NovosibirskTelephonyUnit);
-            context.Connection.ExecuteNonQuery(insterQuery);
+            userProfiles.Columns.Add(new Column(userProfiles, "TelephonyAddress", DataType.NVarChar(50)) { Nullable = true });
+            userProfiles.Alter();          
 
             var updateQuery =
                 string.Format(
                     "UPDATE [Security].[UserProfiles] " + 
-                    "SET TelephonyUnitId = {0} " + 
+                    "SET TelephonyAddress = '{0}' " + 
                     "FROM [Security].[UserProfiles] profiles " + 
                     "JOIN [Security].[Users] users " + 
                     "ON (profiles.UserId = users.Id) " + 
                     "JOIN [Security].[Departments] departments " + 
-                    "ON (users.DepartmentId = departments.Id) "
-                    + "WHERE departments.Name LIKE '{1}' OR departments.Name = '{2}'",
-                    NovosibirskTelephonyId,
+                    "ON (users.DepartmentId = departments.Id) " + 
+                    "WHERE departments.Name LIKE '{1}' OR departments.Name = '{2}'",
+                    NovosibirskTelephonyUnit,
                     Match2GisName,
                     MatchNskPattern);
             context.Connection.ExecuteNonQuery(updateQuery);

@@ -1,6 +1,5 @@
 using System;
 
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Security
@@ -15,7 +14,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
     {
         public long Id { get; set; }
         public long UserId { get; set; }
-        public long? TelephonyUnitId { get; set; }
         public long TimeZoneId { get; set; }
         public int CultureInfoLCID { get; set; }
         public bool IsDeleted { get; set; }
@@ -34,10 +32,10 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         public DateTime? Birthday { get; set; }
         public int Gender { get; set; }
         public string PlanetURL { get; set; }
+        public string TelephonyAddress { get; set; }
 
         public TimeZone TimeZone { get; set; }
         public User User { get; set; }
-        public TelephonyUnit TelephonyUnit { get; set; }
 
         public override bool Equals(object obj)
         {

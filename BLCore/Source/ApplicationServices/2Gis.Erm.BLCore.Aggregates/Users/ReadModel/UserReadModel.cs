@@ -74,8 +74,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
 
         public Uri GetTelephonyServerAddress(long userId)
         {
-            var uri = _finder.Find(UserSpecs.UserProfiles.Find.ForUser(userId)).Select(s => s.TelephonyUnit.Address).SingleOrDefault();
-            //var uri = _finder.Find(Specs.Find.ById<User>(userId)).Select(x => x.Department.TelephonyUnit).Single();
+            var uri = _finder.Find(UserSpecs.UserProfiles.Find.ForUser(userId)).Select(s => s.TelephonyAddress).SingleOrDefault();
             return !string.IsNullOrEmpty(uri) ? new Uri(uri) : null;
         }
 
