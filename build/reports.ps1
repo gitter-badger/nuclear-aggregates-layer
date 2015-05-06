@@ -9,13 +9,16 @@ Import-Module "$BuildToolsRoot\modules\reports.psm1" -DisableNameChecking
 
 Properties { $OptionReports = $true }
 
-Task Deploy-Reports -Precondition { $OptionReports } -Depends `
+# стоит -or, пользователь может на свой страх и риск попробовать сбилдить отчёты
+Task Deploy-Reports -Precondition { $OptionReports -or (Get-Metadata 'Reports').OptionReports } -Depends `
 Deploy-ReportsDir, `
 Replace-ReportsStoredProcs
 
 Task Deploy-ReportsDir {
 
-	$reportsDir = Join-Path $global:Context.Dir.Solution '..\..\ErmReports'
+	$commonMetadata = Get-Metadata 'Common'
+
+	$reportsDir = Join-Path $commonMetadata.Dir.Solution '..\..\..\ErmReports\ErmReports'
 	# если отчёт начинается с '_', то он не развёртывается
 	$exclude = '_*.rdl'
 	Process-Rds $reportsDir
@@ -44,7 +47,7 @@ Task Replace-ReportsStoredProcs {
 	$ermBuilder.set_ConnectionString($erm)
 	Replace-StoredProcs $ermReports "\bErm[a-zA-Z]{0,2}[0-9]*\b" $ermBuilder['Initial Catalog']
 	
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Web.Mvc'
+	$entryPointMetadata = Get-Metadata '2Gis.Erm.UI.Web.Mvc'
 	$uriBuilder = New-Object System.UriBuilder('https', $entryPointMetadata.IisAppPath)
 
 	Replace-StoredProcs $ermReports '(http|https)://((?!(www.w3.org)|(schemas.microsoft.com)|(schemas.xmlsoap.org))).*?/' $uriBuilder.ToString()

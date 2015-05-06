@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Strategies;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Proxies.Messaging;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
 {
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories.Messaging
         {
             var resolvedType = ResolveType(messageFlow, message);
 
-            var scopedContainer = _unityContainer.CreateChildContainerWithParentDependencies(typeof(IUserContext));
+            var scopedContainer = _unityContainer.CreateChildContainerWithParentDependencies(new[] { typeof(IUserContext) });
 
             var messageProcessingStrategy = (IMessageProcessingStrategy)scopedContainer.Resolve(resolvedType);
             return new UnityMessageProcessingStrategyProxy(scopedContainer, messageProcessingStrategy);

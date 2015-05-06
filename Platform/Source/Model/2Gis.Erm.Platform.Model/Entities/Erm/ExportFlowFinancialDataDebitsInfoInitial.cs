@@ -6,8 +6,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 namespace DoubleGis.Erm.Platform.Model.Entities.Erm
 {
     public sealed class ExportFlowFinancialDataDebitsInfoInitial : IEntity,
-                                                        IEntityKey,
-                                                        IIntegrationProcessorState
+                                                                 IEntityKey,
+                                                                 IIntegrationProcessorState
     {
         public long Id { get; set; }
         public DateTime Date { get; set; }
