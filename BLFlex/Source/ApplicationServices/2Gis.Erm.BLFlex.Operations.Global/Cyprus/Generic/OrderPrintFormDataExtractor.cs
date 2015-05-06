@@ -117,6 +117,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
                 .Select(order => new
                 {
                     order.BeginDistributionDate,
+                    order.SignupDate,
                     order.DestOrganizationUnit.ElectronicMedia,
                     SourceElectronicMedia = order.SourceOrganizationUnit.ElectronicMedia,
                     FirmName = order.Firm.Name,
@@ -127,7 +128,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
 
             var parintData = new PrintData
                 {
-                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate) },
+                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate, stuff.SignupDate) },
                     { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, profile) },
                     { "ElectronicMedia", stuff.ElectronicMedia },
                     { "Firm.Name", stuff.FirmName },
