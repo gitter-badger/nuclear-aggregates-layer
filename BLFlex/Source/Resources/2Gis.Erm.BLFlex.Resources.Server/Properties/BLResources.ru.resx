@@ -127,13 +127,15 @@
     <value>{0}
 ИНН: {1}
 Юридический адрес: {2}
-Платежные реквизиты: {3}</value>
+Почтовый адрес: {3}
+Платежные реквизиты: {4}</value>
   </data>
   <data name="PrintOrderHandler_ClientRequisitesParagraph3" xml:space="preserve">
     <value>{0}
 ИНН: {1} КПП: {2}
 Юридический адрес: {3}
-Платежные реквизиты: {4}</value>
+Почтовый адрес: {4}
+Платежные реквизиты: {5}</value>
   </data>
   <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
     <value>{0}
