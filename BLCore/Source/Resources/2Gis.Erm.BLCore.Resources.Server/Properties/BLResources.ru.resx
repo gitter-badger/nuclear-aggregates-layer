@@ -5120,7 +5120,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-  </data>
+</data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5226,5 +5226,11 @@ Cумма по операции: {5}.
   </data>
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>Вы пытаетесь завершить действие, запланированное будущим периодом, измените срок действия или отмените, если действие не было выполнено</value>
+  </data>
+  <data name="CanNotChangeGroupForUpperLevelsCategory" xml:space="preserve">
+    <value>Ценовая группа рубрики первого или второго уровня не может быть задана</value>
+  </data>
+  <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
+    <value>Нельзя удалить ценовую группу по умолчанию</value>
   </data>
 </root>
