@@ -53,6 +53,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                                              { "PaymentEssentialElements", legalPersonProfile.PaymentEssentialElements },
                                                              { "PositionInNominative", legalPersonProfile.PositionInNominative },
                                                              { "ChiefNameInNominative", legalPersonProfile.ChiefNameInNominative },
+                                                             { "PostAddress", legalPersonProfile.PostAddress },
                                                          }
                            },
                        };
