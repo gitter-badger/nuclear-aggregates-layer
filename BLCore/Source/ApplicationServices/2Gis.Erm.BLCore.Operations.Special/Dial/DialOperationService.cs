@@ -13,8 +13,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Dial;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.Dial

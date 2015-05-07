@@ -6,9 +6,9 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Dial;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Dial;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils.Resources;
 
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations.Special.Dial
