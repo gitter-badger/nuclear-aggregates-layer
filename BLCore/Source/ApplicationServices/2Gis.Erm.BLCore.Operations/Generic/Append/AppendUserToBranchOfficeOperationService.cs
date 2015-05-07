@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
                 {
                     var userName = _userReadModel.GetUserName(userId);
                     var branchOfficeName = _branchOfficeReadModel.GetBranchOfficeName(branchOfficeId);                    
-                    throw new UserIsNotLinkedWithOrganizationUnitException(string.Format(BLResources.UserDontHaveSharedWithBranchOfficeOrganizationUnits, userName, branchOfficeName));
+                    throw new UserIsNotLinkedWithOrganizationUnitException(string.Format(BLResources.UserDoesntHaveSharedWithBranchOfficeOrganizationUnits, userName, branchOfficeName));
                 }
 
                 if (_userReadModel.IsUserLinkedToBranchOffice(userId, branchOfficeId))

@@ -5227,9 +5227,9 @@ Doba zveřejnění: {3}.</value>
     <value>You can't pick more than one reference object for the following positions: {0}</value>
   </data>
   <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
-    <value>Пользователь {0} уже связан с юр. лицом {1}</value>
+    <value>Uživatel {0} již je spojení s právnickou osobou {1}</value>
   </data>
-  <data name="UserDontHaveSharedWithBranchOfficeOrganizationUnits" xml:space="preserve">
+  <data name="UserDoesntHaveSharedWithBranchOfficeOrganizationUnits" xml:space="preserve">
     <value>У пользователя {0} нет общих отделений организации с юр. лицом {1}</value>
   </data>
 </root>

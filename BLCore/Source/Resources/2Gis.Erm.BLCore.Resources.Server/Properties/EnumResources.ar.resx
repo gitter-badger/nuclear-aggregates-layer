@@ -2033,6 +2033,6 @@
     <value>Writing-off</value>
   </data>
   <data name="EntityNameUserBranchOffice" xml:space="preserve">
-    <value>Связь пользователя с юр. лицом</value>
+    <value>User's link to a legal entity</value>
   </data>
 </root>

@@ -1885,9 +1885,9 @@
     <value>Availability of documents</value>
   </data>
   <data name="CrdRelUsers" xml:space="preserve">
-    <value>Пользователи</value>
+    <value>Users</value>
   </data>
   <data name="DListUserBranchOffice" xml:space="preserve">
-    <value>Пользователи</value>
+    <value>Users</value>
   </data>
 </root>

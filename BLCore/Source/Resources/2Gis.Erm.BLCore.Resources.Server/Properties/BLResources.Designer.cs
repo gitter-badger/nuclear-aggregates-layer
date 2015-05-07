@@ -14861,9 +14861,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string UserDontHaveSharedWithBranchOfficeOrganizationUnits {
+        public static string UserDoesntHaveSharedWithBranchOfficeOrganizationUnits {
             get {
-                return ResourceManager.GetString("UserDontHaveSharedWithBranchOfficeOrganizationUnits", resourceCulture);
+                return ResourceManager.GetString("UserDoesntHaveSharedWithBranchOfficeOrganizationUnits", resourceCulture);
             }
         }
         
