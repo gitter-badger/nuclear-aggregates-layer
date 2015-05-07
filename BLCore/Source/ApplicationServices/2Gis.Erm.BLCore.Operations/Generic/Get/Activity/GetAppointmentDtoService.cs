@@ -6,7 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 Priority = ActivityPriority.Average,
                 ScheduledStart = now,
-                ScheduledEnd = now.Add(TimeSpan.FromMinutes(15)),
+                ScheduledEnd = now.Add(TimeSpan.FromHours(1)),
                 Status = ActivityStatus.InProgress,
             };
 

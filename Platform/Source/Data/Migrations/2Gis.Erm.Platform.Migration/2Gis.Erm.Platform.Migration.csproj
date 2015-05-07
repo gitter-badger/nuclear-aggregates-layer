@@ -46,7 +46,7 @@
   <ItemGroup>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+      <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
     </Reference>
     <Reference Include="microsoft.crm.sdk">
       <HintPath>..\..\..\..\..\CompositionRoots\Source\packages\Microsoft.CrmSdk.4.0.13\lib\net35\microsoft.crm.sdk.dll</HintPath>
@@ -122,6 +122,10 @@
     <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\2Gis.Erm.Platform.Core\2Gis.Erm.Platform.Core.csproj">
+      <Project>{05A884DA-8F0B-41CD-BE78-85FD04ACC782}</Project>
+      <Name>2Gis.Erm.Platform.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
       <Project>{2ee6dcd3-218d-4eea-8902-8cf501c7e034}</Project>

@@ -1,4 +1,8 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System;
+using System.Linq.Expressions;
+
+using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
@@ -21,6 +25,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
         public static UIElementMetadataBuilder FilterToParents(this UIElementMetadataBuilder builder)
         {
             return builder.WithFeatures(new FilterByParentsFeature());
+        }
+
+        public static UIElementMetadataBuilder DefaultDataView<TKey>(this UIElementMetadataBuilder builder, Expression<Func<TKey>> resourceKeyExpression)
+        {
+            return builder.WithFeatures(new DefaultDataViewFeature(StaticReflection.GetMemberName(resourceKeyExpression)));
         }
 
         public static UIElementMetadataBuilder ExtendedInfo(this UIElementMetadataBuilder builder, IResourceDescriptor extendedInfo)

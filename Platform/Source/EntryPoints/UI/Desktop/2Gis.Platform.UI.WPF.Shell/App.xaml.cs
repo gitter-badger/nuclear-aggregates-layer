@@ -5,13 +5,13 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
 using DoubleGis.Platform.UI.WPF.Shell.DI;
 using DoubleGis.Platform.UI.WPF.Shell.Settings;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Config;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Platform.UI.WPF.Shell

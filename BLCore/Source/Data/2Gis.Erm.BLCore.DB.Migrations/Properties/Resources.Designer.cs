@@ -452,7 +452,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
         ///--   20.05.2014, i.maslennikov: поддержка асинхронной репликации
         ///ALTER PROCEDURE [Integration].[ImportFirmFromXml]
-        ///	@Xml [xml] = NULL,        /// [rest of string was truncated]&quot;;.
+        ///	@Xml [xml] = NULL,
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _20434_ImportFirmFromXml {
             get {
@@ -2699,7 +2700,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///          &lt;Button Icon=&quot;/_imgs/support/helpme.png&quot; JavaScript=&quot;openStdWin(&apos;https://web-app04.test.erm.2gis.ru/Support&apos;, &apos;HelpMe&apos;, 1000, 600)&quot; Client=&quot;Web&quot;&gt;
         ///            &lt;Titles&gt;
         ///              &lt;Title LCID=&quot;1049&quot; Text=&quot;Техподдержка&quot; /&gt;
-        ///            &lt;/Titles&gt;        /// [rest of string was truncated]&quot;;.
+        ///            &lt;/Titles&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string customizations_201503040330 {
             get {
@@ -3814,7 +3816,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
         ///          &lt;HasRelatedActivities&gt;False&lt;/HasRelatedActivities&gt;
         ///          &lt;ObjectTypeCode&gt;4201&lt;/ObjectTypeCode&gt;
-        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;        /// [rest of string was truncated]&quot;;.
+        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration6642 {
             get {
@@ -3997,7 +4000,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
         ///          &lt;HasRelatedActivities&gt;False&lt;/HasRelatedActivities&gt;
         ///          &lt;ObjectTypeCode&gt;4201&lt;/ObjectTypeCode&gt;
-        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;        /// [rest of string was truncated]&quot;;.
+        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration8145 {
             get {

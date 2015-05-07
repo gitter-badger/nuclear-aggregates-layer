@@ -3,6 +3,8 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Validators;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.DI.Unity.Proxies;
+
 namespace DoubleGis.Erm.Platform.DI.Proxies.Messaging
 {
     public sealed class UnityMessageValidatorProxy : UnityContainerScopeProxy<IMessageValidator>, IMessageValidator

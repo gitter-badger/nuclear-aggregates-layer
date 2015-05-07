@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.DI.Factories.HandleAdsState;
+using DoubleGis.Erm.BL.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Reports;
 using DoubleGis.Erm.BL.UI.Web.Metadata;
@@ -39,7 +40,6 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.Operations.Generic.File;
-using DoubleGis.Erm.BLCore.Operations.Generic.File.AdvertisementElements;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler;
@@ -61,9 +61,7 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.UI.Metadata;
 using DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI;
-using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
-using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -75,16 +73,12 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
@@ -104,6 +98,11 @@ using DoubleGis.Erm.UI.Web.Mvc.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 
@@ -225,7 +224,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                      .ConfigureCacheAdapter(EntryPointSpecificLifetimeManagerFactory, cachingSettings)
                      .ConfigureReplicationMetadata(msCrmSettings)
                      .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                     .ConfigureIdentityInfrastructure()
+                     .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.None)
                      .ConfigureReleasingInfrastructure()
                      .RegisterType<IUIConfigurationService, UIConfigurationService>(Lifetime.Singleton)
                      .RegisterType<IEntityViewNameProvider, EntityViewNameProvider>(CustomLifetime.PerRequest)
@@ -339,13 +338,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .ConfigureNotificationsSender(msCrmSettings, mappingScope, EntryPointSpecificLifetimeManagerFactory); 
         }
 
-        private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
-        {
-            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(CustomLifetime.PerRequest)
-                     .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(CustomLifetime.PerRequest)
-                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerRequest);
-        }
-
         private static IUnityContainer ConfigureReleasingInfrastructure(this IUnityContainer container)
         {
             return container.RegisterOne2ManyTypesPerTypeUniqueness<IReleaseStartingOptionConditionSet, ReleaseStartingDeniedConditionSet>(EntryPointSpecificLifetimeManagerFactory())
@@ -357,7 +349,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
         {
             const string mappingScope = Mapping.Erm;
 
-            return container.RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(CustomLifetime.PerRequest, mappingScope)
+            return container.RegisterTypeWithDependencies<IUserAuthenticationService, SecurityServiceAuthentication>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceUserIdentifier, SecurityServiceFacade>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccessInternal, SecurityServiceFacade>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(CustomLifetime.PerRequest, mappingScope)
@@ -372,7 +364,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterType<ISignInService, WebCookieSignInService>(CustomLifetime.PerRequest,
-                                    new InjectionConstructor(typeof(ISecurityServiceAuthentication), 
+                                    new InjectionConstructor(typeof(IUserAuthenticationService), 
                                                              typeof(IUserIdentityLogonService), 
                                                              typeof(ITracer),
                                                              webAppProcesingSettings.AuthExpirationTimeInMinutes));

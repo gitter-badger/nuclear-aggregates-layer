@@ -1,8 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.DI.Common.Config;
-
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure
 {
