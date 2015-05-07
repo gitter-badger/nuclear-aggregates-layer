@@ -46,7 +46,6 @@ Deploy-Migrations, `
 Deploy-SearchMigrations, `
 Deploy-WebApp, `
 Deploy-BasicOperations, `
-Take-WebAppOnline, `
 Deploy-TaskService, `
 Deploy-Modi, `
 Deploy-Metadata, `
