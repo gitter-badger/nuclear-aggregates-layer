@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 
         private string[] GetOrderTypesToDisable()
         {
-            if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement, _userContext.Identity.Code))
+            if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.EditAdvertisementAgencyOrderType, _userContext.Identity.Code))
             {
                 return new[]
                            {

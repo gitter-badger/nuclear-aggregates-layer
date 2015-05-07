@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
 
         protected override void ValidateOrderStateInternal(Order order, long currentUserCode)
         {
-            if (order.OrderType == OrderType.AdvertisementAgency && !_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement, currentUserCode))
+            if (order.OrderType == OrderType.AdvertisementAgency && !_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.EditAdvertisementAgencyOrderType, currentUserCode))
             {
                 throw new OperationAccessDeniedException(BLResources.UserIsNotAllowedToCreateAdvAgencyOrder);
             }

@@ -2842,6 +2842,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Смена типа заказа РА.
+        /// </summary>
+        public static string FunctionalPrivilegeNameEditAdvertisementAgencyOrderType {
+            get {
+                return ResourceManager.GetString("FunctionalPrivilegeNameEditAdvertisementAgencyOrderType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Редактирование заглушки РМ.
         /// </summary>
         public static string FunctionalPrivilegeNameEditDummyAdvertisement {

@@ -2035,4 +2035,7 @@
   <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
     <value>Advertising agency</value>
   </data>
+  <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
+    <value>Смена типа заказа РА</value>
+  </data>
 </root>

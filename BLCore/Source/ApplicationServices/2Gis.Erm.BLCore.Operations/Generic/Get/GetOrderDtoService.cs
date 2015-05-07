@@ -158,7 +158,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 resultDto.SourceOrganizationUnitRef = refs.OrganizationUnit;
             }
 
-            if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementAgencyManagement, userId))
+            if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.EditAdvertisementAgencyOrderType, userId))
             {
                 resultDto.OrderType = OrderType.AdvertisementAgency;
             }
