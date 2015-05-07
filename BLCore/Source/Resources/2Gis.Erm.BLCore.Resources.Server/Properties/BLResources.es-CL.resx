@@ -5213,22 +5213,22 @@ Periodo de la publicación: {3}.</value>
     <value>Operación no puede llevarse a cabo, ya que se está realizando recopilación</value>
   </data>
   <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
-    <value>Найдены дубли правил запрещения для следующих позиций: {0}</value>
+    <value>Fueron encontrados los dobles de reglas de prohibición para las siguientes posiciones: {0}</value>
   </data>
   <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
-    <value>Не найдено симметричное правило запрещения для: {0}</value>
+    <value>No fue encontrada la regla simétrica de prohibición para: {0}</value>
   </data>
   <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>Нельзя создавать запрещенную позицию в деактивированном прайс-листе</value>
+    <value>No se permite crear la posición prohibida en la lista de precios desactivada</value>
   </data>
   <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>Нельзя создавать запрещенную позицию в опубликованном прайс-листе</value>
+    <value>No se permite crear la posición prohibida en la lista de precios publicada</value>
   </data>
   <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>Нельзя редактирвать запрещенную позицию в деактивированном прайс-листе</value>
+    <value>No se permite editar la posición prohibida en la lista de precios desactivada</value>
   </data>
   <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>Нельзя редактирвать запрещенную позицию в опубликованном прайс-листе</value>
+    <value>No se permite editar la posición prohibida en la lista de precios publicada</value>
   </data>
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>Ud. está intentando de finalizar una acción planificada para el futuro, cambie el plazo o cancele, si la acción no fue cumplidaо</value>

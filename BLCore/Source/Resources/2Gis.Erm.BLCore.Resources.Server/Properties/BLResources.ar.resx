@@ -5209,22 +5209,22 @@ Placement period: {3}.</value>
     <value>Operation cannot be performed because a build is in progress</value>
   </data>
   <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
-    <value>Найдены дубли правил запрещения для следующих позиций: {0}</value>
+    <value>Duplicate rules of prohibition found for the following items: {0}</value>
   </data>
   <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
-    <value>Не найдено симметричное правило запрещения для: {0}</value>
+    <value>Cannot find a symmetrical rule of prohibition for: {0}</value>
   </data>
   <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>Нельзя создавать запрещенную позицию в деактивированном прайс-листе</value>
+    <value>You cannot create a prohibited item in a deactivated price-list</value>
   </data>
   <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>Нельзя создавать запрещенную позицию в опубликованном прайс-листе</value>
+    <value>You cannot create a prohibited item in a published price-list</value>
   </data>
   <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>Нельзя редактирвать запрещенную позицию в деактивированном прайс-листе</value>
+    <value>You cannot edit a prohibited item in a deactivated price-list</value>
   </data>
   <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>Нельзя редактирвать запрещенную позицию в опубликованном прайс-листе</value>
+    <value>You cannot edit a prohibited item in a published price-list</value>
   </data>
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>You are attempting to complete an action scheduled for a future period. Change the action time or cancel the action if it has not been performed</value>
