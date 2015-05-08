@@ -82,17 +82,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
                 var currentOrderInfo = _orderReadModel.GetOrderInfoForRepairOutdatedPositions(orderId);
                 if (currentOrderInfo.OrderPositions.All(orderPosition => orderPosition.PricePosition.PriceId == actualPriceId))
-                {   // все позиции заказа актуальны => актуализация не требуется
+                {
+                    // все позиции заказа актуальны => актуализация не требуется
                     scope.Complete();
-                return resultMessages;
-            }
+                    return resultMessages;
+                }
 
                 // 1: удаление всего.
                 RemoveOutdated(currentOrderInfo);
 
                 // 2: сохранение актуализированных данных.
                 ActualizeOrderPositions(currentOrderInfo.OrderPositions, actualPriceId, resultMessages, saveDiscounts);
-                
+
                 var order = _orderReadModel.GetOrderSecure(orderId);
                 if (order == null)
                 {
@@ -100,17 +101,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 }
 
                 _publicService.Handle(new UpdateOrderFinancialPerformanceRequest
-                    {
-                        Order = order,
-                        OrderDiscountInPercents = true,
-                        RecalculateFromOrder = false,
-                        ReleaseCountFact = order.ReleaseCountFact
-                    });
+                                          {
+                                              Order = order,
+                                              OrderDiscountInPercents = true,
+                                              RecalculateFromOrder = false,
+                                              ReleaseCountFact = order.ReleaseCountFact
+                                          });
 
                 _orderRepository.Update(order);
 
                 scope.Updated<Order>(orderId)
-                    .Complete();
+                     .Complete();
             }
 
             return resultMessages;
@@ -152,15 +153,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
         private bool CheckOrderPositionAdvertisementCorrectness(
             long orderPositionId,
-                                                       string positionName,
-                                                       IEnumerable<AdvertisementDescriptor> advertisements,
-                                                       IList<RepairOutdatedPositionsOperationMessage> resultMessages)
+            string positionName,
+            IEnumerable<AdvertisementDescriptor> advertisements,
+            IList<RepairOutdatedPositionsOperationMessage> resultMessages)
         {
             var validationErrors = _validateOrderPositionAdvertisementsOperationService.Validate(orderPositionId, advertisements);
 
             if (validationErrors.Any(x =>
-                                      x.Rule != OrderPositionAdvertisementValidationRule.RequiredAdvertisement &&
-                                      x.Rule != OrderPositionAdvertisementValidationRule.AdvertisementTemplateMatchesPositionTemplate))
+                                     x.Rule != OrderPositionAdvertisementValidationRule.RequiredAdvertisement &&
+                                     x.Rule != OrderPositionAdvertisementValidationRule.AdvertisementTemplateMatchesPositionTemplate))
             {
                 AddWarningMessage(string.Format(BLResources.OutdatedPositionHasInvalidAdvertisement, positionName), resultMessages);
                 return false;
@@ -191,34 +192,34 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                                              List<RepairOutdatedPositionsOperationMessage> resultMessages,
                                              bool saveDiscounts)
         {
-                foreach (var orderPosition in currentOrderPositions)
-                {
-                    var advertisements = orderPosition.ClonedAdvertisements.ToList();
+            foreach (var orderPosition in currentOrderPositions)
+            {
+                var advertisements = orderPosition.ClonedAdvertisements.ToList();
 
-                    if (CheckOrderPositionAdvertisementCorrectness(orderPosition.OrderPosition.Id, orderPosition.PositionName, advertisements, resultMessages))
+                if (CheckOrderPositionAdvertisementCorrectness(orderPosition.OrderPosition.Id, orderPosition.PositionName, advertisements, resultMessages))
+                {
+                    if (orderPosition.PricePosition.PriceId == actualPriceId)
                     {
-                        if (orderPosition.PricePosition.PriceId == actualPriceId)
-                        {
-                            RestoreClonedOrderPosition(orderPosition.OrderPosition,
-                                                       orderPosition.ClonedAdvertisements.ToList(),
-                                                       orderPosition.PricePosition,
-                                                       saveDiscounts);
+                        RestoreClonedOrderPosition(orderPosition.OrderPosition,
+                                                   orderPosition.ClonedAdvertisements.ToList(),
+                                                   orderPosition.PricePosition,
+                                                   saveDiscounts);
                         continue;
-                        }
-                    
-                            resultMessages.AddRange(UpgradeAndRestoreOrderPosition(orderPosition.OrderPosition,
-                                                                                   advertisements,
-                                                                                   orderPosition.PricePosition,
-                                                                                   actualPriceId,
-                                                                                   saveDiscounts));
-                        }
                     }
+
+                    resultMessages.AddRange(UpgradeAndRestoreOrderPosition(orderPosition.OrderPosition,
+                                                                           advertisements,
+                                                                           orderPosition.PricePosition,
+                                                                           actualPriceId,
+                                                                           saveDiscounts));
+                }
             }
+        }
 
         private void RemoveOutdated(OrderRepairOutdatedOrderPositionDto currenOrderInfo)
-                {
-            foreach (var orderPosition in currenOrderInfo.OrderPositions)
         {
+            foreach (var orderPosition in currenOrderInfo.OrderPositions)
+            {
                 _deleteReleaseWithdrawalsAggregateService.Delete(orderPosition.ReleaseWithdrawals);
 
                 _orderRepository.Delete(orderPosition.Advertisements);
@@ -278,24 +279,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             var amount = GetPositionAmount(orderPosition, pricePosition, orderPositionAdvertisements.Count);
 
             var newPosition = new OrderPosition
-                {
-                    OrderId = orderPosition.OrderId,
-                    Amount = amount,
-                    PricePositionId = pricePosition.Id,
+                                  {
+                                      OrderId = orderPosition.OrderId,
+                                      Amount = amount,
+                                      PricePositionId = pricePosition.Id,
 
-                    Comment = orderPosition.Comment,
-                    CalculateDiscountViaPercent = true,
-                    DiscountPercent = saveDiscount ? orderPosition.DiscountPercent : 0m,
+                                      Comment = orderPosition.Comment,
+                                      CalculateDiscountViaPercent = true,
+                                      DiscountPercent = saveDiscount ? orderPosition.DiscountPercent : 0m,
 
-                    IsActive = true
-                };
+                                      IsActive = true
+                                  };
 
             var createRequest = new EditOrderPositionRequest
-                {
-                    Entity = newPosition,
-                    HasUpdatedAdvertisementMaterials = true,
-                    AdvertisementsLinks = orderPositionAdvertisements.ToArray(),
-                };
+                                    {
+                                        Entity = newPosition,
+                                        HasUpdatedAdvertisementMaterials = true,
+                                        AdvertisementsLinks = orderPositionAdvertisements.ToArray(),
+                                    };
             _publicService.Handle(createRequest);
         }
     }

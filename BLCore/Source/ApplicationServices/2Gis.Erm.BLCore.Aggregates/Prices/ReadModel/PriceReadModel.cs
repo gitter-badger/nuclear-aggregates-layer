@@ -65,7 +65,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
 
         public PricePosition GetPricePosition(long priceId, long positionId)
         {
-            return _finder.FindOne(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId));
+            return _finder.FindOne(Specs.Find.ActiveAndNotDeleted<PricePosition>() &&
+                                   PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId));
         }
 
         public bool IsDifferentPriceExistsForDate(long priceId, long organizationUnitId, DateTime beginDate)
