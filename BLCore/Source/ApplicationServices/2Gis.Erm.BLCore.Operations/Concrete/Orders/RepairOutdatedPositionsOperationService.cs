@@ -238,7 +238,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             var resultMessages = new List<RepairOutdatedPositionsOperationMessage>();
 
             var positionName = _positionReadModel.GetPositionNames(new[] { pricePosition.PositionId }).Single().Value;
-            var actualPricePosition = _priceReadModel.GetPricePosition(actualPriceId, pricePosition.PositionId);
+            var actualPricePosition = _priceReadModel.GetActivePricePosition(actualPriceId, pricePosition.PositionId);
             if (actualPricePosition == null)
             {
                 var message = string.Format(BLResources.OrderPositionWasRemoved, positionName);
