@@ -421,6 +421,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Test.408.config = Environments\Erm.Test.408.config
 		Environments\Erm.Test.508.config = Environments\Erm.Test.508.config
 		Environments\Erm.Test.608.config = Environments\Erm.Test.608.config
+		Environments\Erm.Test.88.config = Environments\Erm.Test.88.config
 		Environments\quartz.Business.Russia.config = Environments\quartz.Business.Russia.config
 		Environments\quartz.Edu.MultiCulture.config = Environments\quartz.Edu.MultiCulture.config
 		Environments\quartz.Edu.Russia.config = Environments\quartz.Edu.Russia.config
@@ -434,6 +435,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\quartz.Test.408.config = Environments\quartz.Test.408.config
 		Environments\quartz.Test.508.config = Environments\quartz.Test.508.config
 		Environments\quartz.Test.608.config = Environments\quartz.Test.608.config
+		Environments\quartz.Test.88.config = Environments\quartz.Test.88.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{449B2EF7-9FF9-4BA5-BFFD-441A1DC29817}"
@@ -516,6 +518,42 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.UI.Web.Metadata", "..\..\BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.UI.Web.Metadata\2Gis.Erm.BLFlex.UI.Web.Metadata.csproj", "{75699A90-60A2-404A-9691-041066F1B572}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.UI.Web.Metadata", "..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Metadata\2Gis.Erm.BLCore.UI.Web.Metadata.csproj", "{995BF65F-5951-40E5-A0F0-DF8DD343116A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{3F714583-007C-4159-8204-F3DAF5DE900E}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\build\branchmerge.ps1 = ..\..\build\branchmerge.ps1
+		..\..\build\branchreadiness.ps1 = ..\..\build\branchreadiness.ps1
+		..\..\build\default.ps1 = ..\..\build\default.ps1
+		..\..\build\dynamics.ps1 = ..\..\build\dynamics.ps1
+		..\..\build\fxcop.ps1 = ..\..\build\fxcop.ps1
+		..\..\build\fxcop.ruleset = ..\..\build\fxcop.ruleset
+		..\..\build\integrationtests.ps1 = ..\..\build\integrationtests.ps1
+		..\..\build\metadata.dynamics.psm1 = ..\..\build\metadata.dynamics.psm1
+		..\..\build\metadata.psm1 = ..\..\build\metadata.psm1
+		..\..\build\metadata.servicebus.psm1 = ..\..\build\metadata.servicebus.psm1
+		..\..\build\metadata.taskservice.psm1 = ..\..\build\metadata.taskservice.psm1
+		..\..\build\metadata.transform.psm1 = ..\..\build\metadata.transform.psm1
+		..\..\build\metadata.web.psm1 = ..\..\build\metadata.web.psm1
+		..\..\build\migrations.ps1 = ..\..\build\migrations.ps1
+		..\..\build\nuget.ps1 = ..\..\build\nuget.ps1
+		..\..\build\reports.ps1 = ..\..\build\reports.ps1
+		..\..\build\run-build.ps1 = ..\..\build\run-build.ps1
+		..\..\build\searchmigrations.ps1 = ..\..\build\searchmigrations.ps1
+		..\..\build\send-releaseletter.psm1 = ..\..\build\send-releaseletter.psm1
+		..\..\build\taskservice.ps1 = ..\..\build\taskservice.ps1
+		..\..\build\unittests.ps1 = ..\..\build\unittests.ps1
+		..\..\build\versioning.ps1 = ..\..\build\versioning.ps1
+		..\..\build\web.ps1 = ..\..\build\web.ps1
+		..\..\build\wpf.ps1 = ..\..\build\wpf.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Letter Templates", "Letter Templates", "{3A3D4881-CD05-448C-ADD5-A1AB6AA13F1B}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\build\letter_templates\Hotfix.htm = ..\..\build\letter_templates\Hotfix.htm
+		..\..\build\letter_templates\Hotfix_With_AddInfo.htm = ..\..\build\letter_templates\Hotfix_With_AddInfo.htm
+		..\..\build\letter_templates\Release.htm = ..\..\build\letter_templates\Release.htm
+		..\..\build\letter_templates\Release_With_AddInfo.htm = ..\..\build\letter_templates\Release_With_AddInfo.htm
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{C64A1B0C-A0FD-49A8-88A2-0EFF083046A8}"
 EndProject
@@ -1974,6 +2012,7 @@ Global
 		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D} = {C87ED53C-F768-47C8-80E0-4CEF3D9C7A9D}
 		{75699A90-60A2-404A-9691-041066F1B572} = {60D0D089-7A06-4B9F-A162-3EEBF516311D}
 		{995BF65F-5951-40E5-A0F0-DF8DD343116A} = {E0B086E9-70F7-4FB1-B895-1D341440A893}
+		{3A3D4881-CD05-448C-ADD5-A1AB6AA13F1B} = {3F714583-007C-4159-8204-F3DAF5DE900E}
 		{C64A1B0C-A0FD-49A8-88A2-0EFF083046A8} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
 		{A2CC4EF2-099E-4F89-9A2A-7CE2AD16561C} = {C64A1B0C-A0FD-49A8-88A2-0EFF083046A8}
 		{A69A5719-A97E-4869-B854-DF1A8D1F99D2} = {C64A1B0C-A0FD-49A8-88A2-0EFF083046A8}

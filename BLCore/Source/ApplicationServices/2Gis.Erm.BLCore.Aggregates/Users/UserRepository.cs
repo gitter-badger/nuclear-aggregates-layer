@@ -541,25 +541,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 .SingleOrDefault();
         }
 
-        public IEnumerable<CategoryGroup> GetCategoryGroups()
-        {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryGroup>()).OrderBy(x => x.GroupRate).ToArray();
-        }
-
-        public IEnumerable<CategoryGroupMembershipDto> GetCategoryGroupMembership(long organizationUnitId)
-        {
-            return _finder.Find<CategoryOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted
-                                                               && x.Category.IsActive && !x.Category.IsDeleted)
-                          .Select(x => new CategoryGroupMembershipDto
-                              {
-                                  Id = x.Id,
-                                  CategoryGroupId = x.CategoryGroupId,
-                                  CategoryId = x.CategoryId,
-                                  CategoryName = x.Category.Name,
-                                  CategoryLevel = x.Category.Level
-                              }).ToArray();
-        }
-
         public void CreateOrUpdate(UserOrganizationUnit userOrganizationUnit)
         {
             var organizationUnitExist = _finder.Find<UserOrganizationUnit>(x => x.UserId == userOrganizationUnit.UserId &&

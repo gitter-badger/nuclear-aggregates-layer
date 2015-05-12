@@ -17,17 +17,8 @@ Task Build-WpfClient -Precondition { $false } -Depends Update-AssemblyInfo {
 	Build-WpfShell
 }
 
-Task Deploy-WpfClient -Precondition { $OptionWpfClient } {
-	$artifactName = Get-Artifacts '' '2Gis.Erm.UI.Desktop.WPF.zip'
-	
-	$entryPointMetadata = Get-Metadata '2Gis.Erm.UI.Desktop.WPF'
-	foreach($targetHost in $EntryPointMetadata.TargetHosts){
-		Create-RemoteWebsite $targetHost $entryPointMetadata.IisAppPath
-
-		Invoke-MSDeploy `
-		-Source "package=""$artifactName""" `
-		-HostName $targetHost
-	}
+Task Deploy-WpfClient -Precondition { $false } {
+	Deploy-WebPackage '2Gis.Erm.UI.Desktop.WPF'
 }
 
 function Build-WpfShell {
