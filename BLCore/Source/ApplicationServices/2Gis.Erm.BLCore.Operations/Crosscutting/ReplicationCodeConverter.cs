@@ -11,19 +11,20 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects.Integration;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
 {
     // FIXME {all, 21.10.2013}: нужно избавиться от использования DAL напрямую, скорее всего реализовать нужно как operation specific aggregate service
     public sealed class ReplicationCodeConverter : IReplicationCodeConverter
     {
-        private readonly IFinder _finder;
-        private readonly ISecureFinder _secureFinder;
+        private readonly IQuery _query;
+        private readonly ISecureQuery _secureQuery;
 
-        public ReplicationCodeConverter(IFinder finder, ISecureFinder secureFinder)
+        public ReplicationCodeConverter(IQuery query, ISecureQuery secureQuery)
         {
-            _finder = finder;
-            _secureFinder = secureFinder;
+            _query = query;
+            _secureQuery = secureQuery;
         }
 
         public long ConvertToEntityId(IEntityType entityName, Guid replicationCode)
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
         public IEnumerable<long> ConvertToEntityIds(IEntityType entityName, IEnumerable<Guid> replicationCodes)
         {
             var codes = replicationCodes.ToList();
-            var entityIds = LookupEntities(_finder, entityName, codes).Select(x => x.Id).ToList();
+            var entityIds = LookupEntities(_query, entityName, codes).Select(x => x.Id).ToList();
             if (entityIds.Count != codes.Count)
             {
                 throw new ArgumentException("Some replication codes cannot be converted to entity identifiers", "replicationCodes");
@@ -57,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             foreach (var entityType in list)
             {
                 var type = entityType;
-                var entityIds = LookupEntities(_finder, entityType.EntityName, entityType.replicationCodes)
+                var entityIds = LookupEntities(_query, entityType.EntityName, entityType.replicationCodes)
                     .Select(x => new ErmEntityInfo { EntityName = type.EntityName, Id = x.Id });                    
                 resultList.AddRange(entityIds);
             }
@@ -77,13 +78,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
 
         private long LookupEntityId(IEntityType entityName, Guid replicationCode)
         {
-            var entity = LookupEntity(_finder, entityName, replicationCode);
+            var entity = LookupEntity(_query, entityName, replicationCode);
             if (entity == null)
             {
                 throw new ArgumentException(BLResources.CannotFindEntityByReplicationCode, "replicationCode");
             }
 
-            var userCannotRead = LookupEntity(_secureFinder, entityName, replicationCode) == null;
+            var userCannotRead = LookupEntity(_secureQuery, entityName, replicationCode) == null;
             if (userCannotRead)
             {
                 throw new ArgumentException(BLResources.CurrentUserHasNoReadEntityPermission, "replicationCode");

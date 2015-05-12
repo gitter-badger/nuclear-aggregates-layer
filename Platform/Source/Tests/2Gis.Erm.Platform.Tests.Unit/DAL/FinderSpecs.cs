@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EAV;
-using NuClear.Model.Common.Entities.Aspects;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
+using NuClear.Storage.Core;
+using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
 

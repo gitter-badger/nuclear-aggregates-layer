@@ -4,15 +4,15 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositionAdvertisementValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementValidation.Rules
 {
     // Проверка на то, что не используется скрытый или пустой адрес там, где его нельзя использовать
-    // TODO {d.ivanov, 16.12.2013}: 2+ BL\Source\API\2Gis.Erm.BLCore.API.Operations\Concrete\OrderPositionAdvertisementValidation\Rules
     public class CorrectAddressOrderPositionAdvertisementValidationRule : IAdvertisementValidationRule
     {
         private const OrderPositionAdvertisementValidationRule CurrentRule = OrderPositionAdvertisementValidationRule.CorrectAddress;

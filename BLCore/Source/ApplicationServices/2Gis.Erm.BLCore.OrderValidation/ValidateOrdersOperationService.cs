@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderValidation;
 
 using NuClear.Model.Common.Operations.Identity;
+using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation

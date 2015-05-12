@@ -16,6 +16,8 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Xml;
 
+using NuClear.Storage.UseCases;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.AutoMailer
 {
     [UseCase(Duration = UseCaseDuration.VeryLong)]

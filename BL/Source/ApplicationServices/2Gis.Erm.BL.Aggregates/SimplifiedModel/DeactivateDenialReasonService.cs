@@ -1,9 +1,9 @@
 ﻿using DoubleGis.Erm.BL.API.Aggregates.SimplifiedModel;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BL.Aggregates.SimplifiedModel
 {

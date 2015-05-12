@@ -14,13 +14,15 @@ using DoubleGis.Erm.BLCore.API.MoDi.Reports;
 using DoubleGis.Erm.BLCore.API.MoDi.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
+using NuClear.Storage.UseCases;
 
 namespace DoubleGis.Erm.BLCore.MoDi
 {

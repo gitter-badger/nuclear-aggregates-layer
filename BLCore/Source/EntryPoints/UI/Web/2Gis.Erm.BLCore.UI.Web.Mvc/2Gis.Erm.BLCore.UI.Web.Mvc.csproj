@@ -760,6 +760,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\NuClear\Aggregates\Aggregates.csproj">
+      <Project>{0EA26AB2-9054-4843-B98E-BD239898BF45}</Project>
+      <Name>Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6e35864b-bba8-4cf2-8c76-620ff1e4bfc2}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{d007e5b7-ad99-4995-ab7b-ecf63f065aeb}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

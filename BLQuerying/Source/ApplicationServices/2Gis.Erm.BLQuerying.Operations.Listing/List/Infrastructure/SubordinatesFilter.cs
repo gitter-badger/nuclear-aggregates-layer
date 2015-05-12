@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 {

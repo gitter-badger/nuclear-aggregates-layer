@@ -22,6 +22,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release;
 
+using NuClear.Aggregates;
+using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
@@ -136,8 +138,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 if (acquiredRelease != null)
                 {
-                    _aggregateServiceIsolator.TransactedExecute<IReleaseChangeStatusAggregateService>(
-                        TransactionScopeOption.RequiresNew,
+                    _aggregateServiceIsolator.Execute<IReleaseChangeStatusAggregateService>(
                         service => service.Finished(acquiredRelease, ReleaseStatus.Error, msg));
                 }
 

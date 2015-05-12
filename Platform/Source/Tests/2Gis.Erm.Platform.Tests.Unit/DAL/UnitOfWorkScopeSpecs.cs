@@ -11,6 +11,8 @@ using FluentAssertions;
 
 using Machine.Specifications;
 
+using NuClear.Aggregates;
+using NuClear.Storage.Core;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL

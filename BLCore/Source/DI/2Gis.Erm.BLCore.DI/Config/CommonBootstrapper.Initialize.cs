@@ -10,8 +10,10 @@ using DoubleGis.Erm.Platform.Model;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Aggregates;
 using NuClear.DI.Unity.Config;
 using NuClear.DI.Unity.Config.RegistrationResolvers;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {
@@ -39,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
         {
             resolvedParameter = null;
 
-            if (ModelIndicators.IsAggregateReadModel(constructorParameter.ParameterType))
+            if (constructorParameter.ParameterType.IsAggregateReadModel())
             {
                 if (!constructorParameter.ParameterType.IsInterface)
                 {

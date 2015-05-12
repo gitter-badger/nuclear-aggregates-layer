@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 {

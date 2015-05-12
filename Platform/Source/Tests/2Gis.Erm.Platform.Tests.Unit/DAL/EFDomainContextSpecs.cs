@@ -3,17 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.EntityFramework;
 
 using Effort;
+using Effort.Provider;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
 using NuClear.Model.Common.Entities.Aspects;
-
-using It = Machine.Specifications.It;
+using NuClear.Storage.Core;
+using NuClear.Storage.EntityFramework;
+using NuClear.Storage.UseCases;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () =>
             {
-                Effort.Provider.EffortProviderConfiguration.RegisterProvider();
+                EffortProviderConfiguration.RegisterProvider();
                 
                 var builder = new DbModelBuilder();
                 builder.Entity<Entity>().ToTable("E").HasKey(x => x.Id).Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);

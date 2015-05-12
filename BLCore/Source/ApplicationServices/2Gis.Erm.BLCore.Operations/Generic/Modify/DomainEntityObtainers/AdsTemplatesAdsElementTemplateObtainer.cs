@@ -1,16 +1,17 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Aggregates;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 {
     public sealed class AdsTemplatesAdsElementTemplateObtainer : IBusinessModelEntityObtainer<AdsTemplatesAdsElementTemplate>, IAggregateReadModel<Advertisement>
     {
-        private IFinder _finder;
+        private readonly IFinder _finder;
 
         public AdsTemplatesAdsElementTemplateObtainer(IFinder finder)
         {

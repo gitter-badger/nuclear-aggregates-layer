@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.EntityTypes;
+
+using NuClear.Storage.Core;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 {

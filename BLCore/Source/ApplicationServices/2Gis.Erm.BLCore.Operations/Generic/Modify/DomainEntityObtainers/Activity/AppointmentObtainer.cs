@@ -1,11 +1,12 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
+
+using NuClear.Aggregates;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.DAL;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories
 {

@@ -195,6 +195,18 @@
     <Compile Include="DAL\WrappedQuerySpecs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\NuClear\Aggregates\Aggregates.csproj">
+      <Project>{0ea26ab2-9054-4843-b98e-bd239898bf45}</Project>
+      <Name>Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\NuClear\Storage.EntityFramework\Storage.EntityFramework.csproj">
+      <Project>{0c41f68d-c3c1-4958-9aa5-1fcd8af9d07a}</Project>
+      <Name>Storage.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6e35864b-bba8-4cf2-8c76-620ff1e4bfc2}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>

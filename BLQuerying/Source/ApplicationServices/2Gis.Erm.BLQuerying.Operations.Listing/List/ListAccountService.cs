@@ -6,27 +6,28 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListAccountService : ListEntityDtoServiceBase<Account, ListAccountDto>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IUserContext _userContext;
 
         public ListAccountService(
-            IFinder finder,
+            IQuery query,
             FilterHelper filterHelper, 
             ISecurityServiceUserIdentifier userIdentifierService,
             IUserContext userContext)
         {
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
             _userIdentifierService = userIdentifierService;
             _userContext = userContext;
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<Account>();
+            var query = _query.For<Account>();
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))

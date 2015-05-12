@@ -1,5 +1,6 @@
-﻿using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities.Erm;
+﻿using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BL.API.Aggregates.SimplifiedModel.ReadModel
 {

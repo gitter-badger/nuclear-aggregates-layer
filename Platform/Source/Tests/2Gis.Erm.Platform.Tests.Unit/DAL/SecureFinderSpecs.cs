@@ -13,6 +13,8 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
 

@@ -3,9 +3,10 @@ using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
 {

@@ -17,6 +17,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release;
 
+using NuClear.Aggregates;
+using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release
@@ -120,8 +122,7 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                           organizationUnitId,
                                           period);
 
-                    _aggregateServiceIsolator.TransactedExecute<IReleaseChangeStatusAggregateService>(
-                        TransactionScopeOption.RequiresNew,
+                    _aggregateServiceIsolator.Execute<IReleaseChangeStatusAggregateService>(
                         service => service.SetPreviousStatus(acquiredRelease, ReleaseStatus.Success, "Restored status, after reverting attempt failed"));
 
                     _tracer.ErrorFormat("Reverting release with id {0} failed. Organization unit: {1}. {2}. Release status restored to success value",

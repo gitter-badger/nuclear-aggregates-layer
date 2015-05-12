@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 {

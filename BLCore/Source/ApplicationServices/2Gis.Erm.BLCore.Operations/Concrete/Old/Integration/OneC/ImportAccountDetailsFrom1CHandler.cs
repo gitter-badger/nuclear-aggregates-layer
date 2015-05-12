@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.OneC

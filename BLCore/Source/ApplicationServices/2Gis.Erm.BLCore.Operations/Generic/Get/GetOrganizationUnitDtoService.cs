@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
 
 using TimeZone = DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone;
 

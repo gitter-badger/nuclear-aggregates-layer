@@ -1,5 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.EntityTypes;
+﻿using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.EntityTypes;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories
 {

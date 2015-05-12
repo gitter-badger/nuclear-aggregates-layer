@@ -3,9 +3,10 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.API.Aggregates.SimplifiedModel.DTOs;
 using DoubleGis.Erm.BL.API.Aggregates.SimplifiedModel.ReadModel;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BL.Aggregates.SimplifiedModel.ReadModel
 {

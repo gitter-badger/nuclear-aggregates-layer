@@ -6,9 +6,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 {

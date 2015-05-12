@@ -5,10 +5,10 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
@@ -21,15 +21,18 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
     // TODO {all, 03.10.2014}: подумать, над упрощением реализации данной проверки, например, как жить дальше будет CheckOrdersAssociatedAndDeniedPositionsRequest и будет ли (ранне это был отдельный handler, теперь все это переехало в данный rule )
     public sealed class AssociatedAndDeniedPricePositionsOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly IPriceConfigurationService _priceConfigurationService;
         private readonly ITracer _tracer;
 
         public AssociatedAndDeniedPricePositionsOrderValidationRule(
+            IQuery query,
             IFinder finder,
             IPriceConfigurationService priceConfigurationService,
             ITracer tracer)
         {
+            _query = query;
             _finder = finder;
             _priceConfigurationService = priceConfigurationService;
             _tracer = tracer;
@@ -93,7 +96,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
         {
             var messages = new List<OrderValidationMessage>();
 
-            var validationQueryProvider = new ADPValidationQueryProvider(_finder, request.Mode, request.OrderId, request.FilterExpression);
+            var validationQueryProvider = new ADPValidationQueryProvider(_query, _finder, request.Mode, request.OrderId, request.FilterExpression);
 
             var orderStatesDictionary = ADPValidationInitializationHelper.LoadOrderStates(validationQueryProvider);
 

@@ -4,11 +4,10 @@ using System.Data.Entity;
 
 using AutoMapper;
 
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.EntityFramework;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 
 using Effort;
+using Effort.Provider;
 
 using FluentAssertions;
 
@@ -18,7 +17,10 @@ using Moq;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Entities.Aspects.Integration;
-using NuClear.Tracing.API;
+using NuClear.Storage;
+using NuClear.Storage.Core;
+using NuClear.Storage.EntityFramework;
+using NuClear.Storage.UseCases;
 
 using It = Machine.Specifications.It;
 
@@ -58,7 +60,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () =>
             {
-                Effort.Provider.EffortProviderConfiguration.RegisterProvider();
+                EffortProviderConfiguration.RegisterProvider();
 
                 Entity = new TEntity() { Id = 1 };
 

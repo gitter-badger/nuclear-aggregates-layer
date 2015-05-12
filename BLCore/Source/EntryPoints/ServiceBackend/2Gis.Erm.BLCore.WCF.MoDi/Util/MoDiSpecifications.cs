@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.API.Common.Enums;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.WCF.MoDi.Util
 {

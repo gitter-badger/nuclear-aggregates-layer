@@ -14,12 +14,12 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -32,6 +32,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private readonly ILocalizationSettings _localizationSettings;
         private readonly IUserProfileService _userProfileService;
         private readonly IGetUserInfoService _userInfoService;
+        private readonly IQuery _query;
         private readonly IFinder _finder;
 
         public UserProfileController(IMsCrmSettings msCrmSettings,
@@ -44,12 +45,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
                                      ILocalizationSettings localizationSettings,
                                      IUserProfileService userProfileService,
                                      IGetUserInfoService userInfoService,
+                                     IQuery query,
                                      IFinder finder)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _localizationSettings = localizationSettings;
             _userProfileService = userProfileService;
             _userInfoService = userInfoService;
+            _query = query;
             _finder = finder;
         }
 
@@ -118,7 +121,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             const int StubOffsetValue = 0;
             const string StubTimeZoneId = "";
 
-            var supportedTimeZones = _finder.For<TimeZone>().AsEnumerable().Select(tz => new
+            var supportedTimeZones = _query.For<TimeZone>().AsEnumerable().Select(tz => new
             {
                 TimeZone = tz,
                 TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(tz.TimeZoneId)

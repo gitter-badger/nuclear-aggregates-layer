@@ -9,6 +9,8 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
 
+using NuClear.Storage.UseCases;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Prices
 {
     [UseCase(Duration = UseCaseDuration.Long)]

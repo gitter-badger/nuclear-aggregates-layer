@@ -44,6 +44,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;

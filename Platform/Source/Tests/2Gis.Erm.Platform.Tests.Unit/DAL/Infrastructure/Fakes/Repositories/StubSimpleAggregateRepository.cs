@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.Platform.Model.Aggregates;
+﻿using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories
 {

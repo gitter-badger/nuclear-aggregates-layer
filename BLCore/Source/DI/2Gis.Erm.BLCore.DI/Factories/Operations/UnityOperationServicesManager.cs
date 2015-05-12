@@ -31,6 +31,7 @@ using DoubleGis.Erm.Platform.Model.Simplified;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Aggregates;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity;
 using NuClear.Model.Common.Operations.Identity.Generic;

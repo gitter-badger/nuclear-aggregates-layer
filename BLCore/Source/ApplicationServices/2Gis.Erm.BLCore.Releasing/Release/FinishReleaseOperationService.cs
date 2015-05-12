@@ -18,6 +18,7 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Release;
 
+using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Releasing.Release

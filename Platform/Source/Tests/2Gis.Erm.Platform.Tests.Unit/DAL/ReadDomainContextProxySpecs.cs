@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.EntityTypes;
 
@@ -10,21 +9,23 @@ using Machine.Specifications;
 
 using Moq;
 
+using NuClear.Storage.Core;
+
 using It = Machine.Specifications.It;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
     public class ReadDomainContextProxySpecs
     {
-        static ReadDomainContextCachingProxy _readDomainContextCachingProxy;
+        static CachingReadDomainContext _readDomainContextCachingProxy;
 
         [Tags("DAL")]
-        [Subject(typeof(ReadDomainContextCachingProxy))]
+        [Subject(typeof(CachingReadDomainContext))]
         class When_call_GetQueryableSource_for_entity_from_Erm_scope
         {
             static IQueryable<ErmScopeEntity1> _query;
 
-            Establish context = () => _readDomainContextCachingProxy = new ReadDomainContextCachingProxy(new StubDomainContextFactory(),
+            Establish context = () => _readDomainContextCachingProxy = new CachingReadDomainContext(new StubDomainContextFactory(),
                                                                                                          new StubDomainContextMetadataProvider());
 
             Because of = () => _query = _readDomainContextCachingProxy.GetQueryableSource<ErmScopeEntity1>();
@@ -34,14 +35,14 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         }
 
         [Tags("DAL")]
-        [Subject(typeof(ReadDomainContextCachingProxy))]
+        [Subject(typeof(CachingReadDomainContext))]
 
         class When_call_GetQueryableSource_for_entity_from_Security_scope
         {
             static IReadDomainContext _readDomainContext;
             static IQueryable<SecurityScopeEntity1> _query;
 
-            Establish context = () => _readDomainContext = new ReadDomainContextCachingProxy(new StubDomainContextFactory(),
+            Establish context = () => _readDomainContext = new CachingReadDomainContext(new StubDomainContextFactory(),
                                                                                              new StubDomainContextMetadataProvider());
 
             Because of = () => _query = _readDomainContext.GetQueryableSource<SecurityScopeEntity1>();
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         }
 
         [Tags("DAL")]
-        [Subject(typeof(ReadDomainContextCachingProxy))]
+        [Subject(typeof(CachingReadDomainContext))]
         class When_call_GetQueryableSource_for_types_from_the_same_scope
         {
             static Mock<IReadDomainContextFactory> _readDomainContextFactoryMock;
@@ -62,7 +63,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     _readDomainContextFactoryMock = new Mock<IReadDomainContextFactory>();
                     _readDomainContextFactoryMock.Setup(x => x.Create(Moq.It.IsAny<DomainContextMetadata>())).Returns(new StubDomainContext()).Verifiable();
 
-                    _readDomainContextCachingProxy = new ReadDomainContextCachingProxy(_readDomainContextFactoryMock.Object,
+                    _readDomainContextCachingProxy = new CachingReadDomainContext(_readDomainContextFactoryMock.Object,
                                                                                        new StubDomainContextMetadataProvider());
                 };
 
@@ -79,7 +80,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         }
 
         [Tags("DAL")]
-        [Subject(typeof(ReadDomainContextCachingProxy))]
+        [Subject(typeof(CachingReadDomainContext))]
         class When_Disposing
         {
             static Mock<IReadDomainContext> _readDomainContextMock;
@@ -92,7 +93,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     var readDomainContextFactoryMock = new Mock<IReadDomainContextFactory>();
                     readDomainContextFactoryMock.Setup(x => x.Create(Moq.It.IsAny<DomainContextMetadata>())).Returns(_readDomainContextMock.Object);
 
-                    _readDomainContextCachingProxy = new ReadDomainContextCachingProxy(readDomainContextFactoryMock.Object,
+                    _readDomainContextCachingProxy = new CachingReadDomainContext(readDomainContextFactoryMock.Object,
                                                                                        new StubDomainContextMetadataProvider());
                 };
 

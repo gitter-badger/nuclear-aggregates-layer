@@ -3,6 +3,7 @@ using System.Linq;
 
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -14,17 +15,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
     public class GetDeniedPositionDtoService : GetDomainEntityDtoServiceBase<DeniedPosition>
     {
+        private readonly ISecureQuery _secureQuery;
         private readonly ISecureFinder _finder;
 
-        public GetDeniedPositionDtoService(IUserContext userContext, ISecureFinder finder) : base(userContext)
+        public GetDeniedPositionDtoService(IUserContext userContext, ISecureQuery secureQuery, ISecureFinder finder) : base(userContext)
         {
+            _secureQuery = secureQuery;
             _finder = finder;
         }
 
         protected override IDomainEntityDto<DeniedPosition> GetDto(long entityId)
         {
-            var positionQuery = _finder.For<Position>();
-            return (from deniesPosition in _finder.Find<DeniedPosition>(x => x.Id == entityId)
+            var positionQuery = _secureQuery.For<Position>();
+            return (from deniesPosition in _finder.Find(Specs.Find.ById<DeniedPosition>(entityId))
                     join position in positionQuery on deniesPosition.PositionId equals position.Id
                     select new DeniedPositionDomainEntityDto
                         {
@@ -58,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 throw new ArgumentNullException("parentEntityId");
             }
 
-            var model = _finder.Find<PricePosition>(x => x.Id == pricePositionsId)
+            var model = _finder.Find(Specs.Find.ById<PricePosition>(pricePositionsId))
                                .Select(x => new DeniedPositionDomainEntityDto
                                    {
                                        PriceRef = new EntityReference { Id = x.PriceId, Name = null },

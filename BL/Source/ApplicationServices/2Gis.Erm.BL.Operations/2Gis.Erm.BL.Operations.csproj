@@ -166,6 +166,14 @@
       <Project>{42389AA5-A1E5-4BFC-84E9-0E0E0CC5B6FC}</Project>
       <Name>2Gis.Erm.BLCore.Resources.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\NuClear\Aggregates\Aggregates.csproj">
+      <Project>{0EA26AB2-9054-4843-B98E-BD239898BF45}</Project>
+      <Name>Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6E35864B-BBA8-4CF2-8C76-620FF1E4BFC2}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
       <Name>2Gis.Erm.Platform.Common</Name>

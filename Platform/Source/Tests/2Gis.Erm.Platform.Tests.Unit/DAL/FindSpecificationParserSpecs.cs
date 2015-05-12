@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
-using NuClear.Model.Common.Entities.Aspects;
 using FluentAssertions;
 
 using Machine.Specifications;
 
-using It = Machine.Specifications.It;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {

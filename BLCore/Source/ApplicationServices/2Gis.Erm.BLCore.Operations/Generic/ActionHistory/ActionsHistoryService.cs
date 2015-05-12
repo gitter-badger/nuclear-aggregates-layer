@@ -8,10 +8,8 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -20,6 +18,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
 {

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.DAL;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
+using NuClear.Storage.Core;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories
 {

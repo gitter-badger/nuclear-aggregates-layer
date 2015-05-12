@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Aggregates;
-using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.EntityTypes;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes.Repositories;
@@ -14,6 +11,9 @@ using Machine.Specifications;
 
 using Moq;
 
+using NuClear.Aggregates;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Core;
 using NuClear.Tracing.API;
 
 using It = Machine.Specifications.It;

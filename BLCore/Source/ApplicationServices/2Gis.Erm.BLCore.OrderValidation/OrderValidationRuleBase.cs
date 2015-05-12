@@ -5,12 +5,12 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
 {

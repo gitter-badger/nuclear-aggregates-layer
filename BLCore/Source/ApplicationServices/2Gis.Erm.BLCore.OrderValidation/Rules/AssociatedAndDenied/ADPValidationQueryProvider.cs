@@ -2,22 +2,25 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
 {
     public sealed class ADPValidationQueryProvider
     {
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly ADPCheckMode _checkMode;
         private readonly long _orderId;
         private readonly Expression<Func<Order, bool>> _filterExpression;
 
-        public ADPValidationQueryProvider(IFinder finder, ADPCheckMode checkMode, long orderId, Expression<Func<Order, bool>> filterExpression)
+        public ADPValidationQueryProvider(IQuery query, IFinder finder, ADPCheckMode checkMode, long orderId, Expression<Func<Order, bool>> filterExpression)
         {
+            _query = query;
             _finder = finder;
             _checkMode = checkMode;
             _orderId = orderId;
@@ -31,16 +34,17 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
                 case ADPCheckMode.OrderBeingCancelled:
                 case ADPCheckMode.OrderBeingReapproved:
                 case ADPCheckMode.SpecificOrder:
-                    var orderInfo = _finder.Find(Specs.Find.ById<Order>(_orderId))
-                        .Select(item => new
-                            {
-                                item.FirmId,
-                                item.BeginReleaseNumber,
-                                item.DestOrganizationUnitId,
-                                EndReleaseNumber = _checkMode == ADPCheckMode.OrderBeingReapproved
-                                                       ? item.EndReleaseNumberPlan //После возвращения, Fact сбросится на Plan
-                                                       : item.EndReleaseNumberFact
-                            }).Single();
+                    var orderInfo = _finder.FindMany(Specs.Find.ById<Order>(_orderId))
+                                           .Select(item => new
+                                               {
+                                                   item.FirmId,
+                                                   item.BeginReleaseNumber,
+                                                   item.DestOrganizationUnitId,
+                                                   EndReleaseNumber = _checkMode == ADPCheckMode.OrderBeingReapproved
+                                                                          ? item.EndReleaseNumberPlan //После возвращения, Fact сбросится на Plan
+                                                                          : item.EndReleaseNumberFact
+                                               })
+                                           .Single();
                     Expression<Func<Order, bool>> orderFilter =
                         order => order.IsActive
                                  && !order.IsDeleted
@@ -60,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
                 case ADPCheckMode.Massive:
                     // Находим заказы, для фирм которых оформлено больше одного заказа,
                     // т.к. если для фирмы оформлен всего один заказ, то ошибки в нем будут учтены при единичной проверке
-                    var moreThanOneOrderForFirmQuery = from order in _finder.For<Order>()
+                    var moreThanOneOrderForFirmQuery = from order in _query.For<Order>()
                                                        where !order.IsDeleted
                                                        group order.Id by order.FirmId
                                                        into orderIdsByFirm
@@ -78,12 +82,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
 
         public IQueryable<OrderPosition> GetOrderPositionsQuery()
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrderPosition>());
+            return _query.For<OrderPosition>().Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>().Predicate);
         }
 
-        public IQueryable<DoubleGis.Erm.Platform.Model.Entities.Erm.Category> GetCategoryQuery()
+        public IQueryable<Category> GetCategoryQuery()
         {
-            return _finder.For<DoubleGis.Erm.Platform.Model.Entities.Erm.Category>();
+            return _query.For<Category>();
         }
     }
 }

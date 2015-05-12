@@ -12,13 +12,15 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
 
+using NuClear.Aggregates;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
@@ -122,9 +124,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
 
                 if (acquiredWithdrawal != null)
                 {
-                    _aggregateServiceIsolator.TransactedExecute<IAccountWithdrawalChangeStatusAggregateService>(TransactionScopeOption.RequiresNew,
-                                                                                                                service =>
-                                                                                                                service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
+                    _aggregateServiceIsolator.Execute<IAccountWithdrawalChangeStatusAggregateService>(service => service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
                 }
 
                 return WithdrawalProcessingResult.Errors(msg);

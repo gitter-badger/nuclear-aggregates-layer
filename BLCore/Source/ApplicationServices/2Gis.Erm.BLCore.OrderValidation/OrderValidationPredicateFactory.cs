@@ -3,20 +3,21 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation
 {
     // TODO {all, 29.09.2014}: возможно, данный функционал лучше будет вынести, например, в readmodel или просто util метод
     public sealed class OrderValidationPredicateFactory : IOrderValidationPredicateFactory
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public OrderValidationPredicateFactory(IFinder finder)
+        public OrderValidationPredicateFactory(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         public OrderValidationPredicate CreatePredicate(ValidationParams validationParams)
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 OrderValidationPredicate validationPredicate;
                 if (massOrdersValidationParams.OwnerId.HasValue)
                 {
-                    var userDescendantsQuery = _finder.For<UsersDescendant>();
+                    var userDescendantsQuery = _query.For<UsersDescendant>();
 
                     // необходимо уточнить условия фильтрации для заказов уходящих в выпуск
                     validationPredicate = new OrderValidationPredicate(
@@ -46,10 +47,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                               (x.WorkflowStepId == OrderState.OnTermination && x.EndDistributionDateFact >= massOrdersValidationParams.Period.End)) &&
                              x.BeginDistributionDate < massOrdersValidationParams.Period.End && x.EndDistributionDateFact > massOrdersValidationParams.Period.Start &&
                              (x.OwnerCode == massOrdersValidationParams.OwnerId || (massOrdersValidationParams.IncludeOwnerDescendants &&
-                                                                                    userDescendantsQuery.Any(
-                                                                                                             ud =>
-                                                                                                             ud.AncestorId == massOrdersValidationParams.OwnerId &&
-                                                                                                             ud.DescendantId == x.OwnerCode))),
+                                                                                    userDescendantsQuery.Any(ud => ud.AncestorId == massOrdersValidationParams.OwnerId &&
+                                                                                                                   ud.DescendantId == x.OwnerCode))),
                         orgUnitPart,
                         null);
                 }

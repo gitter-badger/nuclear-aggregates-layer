@@ -14,6 +14,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderPosition;
 
+using NuClear.Storage;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementValidation
 {
     // FIXME {all, 01.12.2014}: в operation service используется finder, те же вопросы к AdverisementValidationRule - скорее всего их resolve вынести в factory, а ещё лучше подтягивать через сonstructor injection
