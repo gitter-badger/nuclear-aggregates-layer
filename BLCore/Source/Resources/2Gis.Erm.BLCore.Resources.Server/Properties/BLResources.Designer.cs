@@ -2475,6 +2475,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CanNotChangeGroupForUpperLevelsCategory {
+            get {
+                return ResourceManager.GetString("CanNotChangeGroupForUpperLevelsCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotChangePositionAdvertisementTemplate {
             get {
                 return ResourceManager.GetString("CannotChangePositionAdvertisementTemplate", resourceCulture);
@@ -2659,6 +2668,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
             get {
                 return ResourceManager.GetString("CanNotDeleteAdsTemplatesAdsElementTemplateSinceThereIsAdvertisementMaterialsWithC" +
                         "ontent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CanNotDeleteDefaultCategoryGroup {
+            get {
+                return ResourceManager.GetString("CanNotDeleteDefaultCategoryGroup", resourceCulture);
             }
         }
         

@@ -106,6 +106,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 throw new EntityNotFoundException(typeof(LegalPersonProfile), legalPersonProfileId);
             }
 
+            // FIXME {all, 03.04.2015}: OrganizationUnit через UserRepository? Да вы издеваетесь, товарищи!
             var sourceOrganizationUnit = _userRepository.GetOrganizationUnit(sourceOrganizationUnitId);
             if (sourceOrganizationUnit == null)
             {

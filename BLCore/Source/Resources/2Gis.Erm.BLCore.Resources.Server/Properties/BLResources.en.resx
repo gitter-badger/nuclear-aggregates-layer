@@ -5224,6 +5224,12 @@ Placement period: {3}.</value>
   <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
     <value>You can't pick more than one reference object for the following positions: {0}</value>
   </data>
+  <data name="CanNotChangeGroupForUpperLevelsCategory" xml:space="preserve">
+    <value>Ценовая группа рубрики первого или второго уровня не может быть задана</value>
+  </data>
+  <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
+    <value>Нельзя удалить ценовую группу по умолчанию</value>
+  </data>
   <data name="AllPositionsMustBePicked" xml:space="preserve">
     <value>You need to select all items</value>
   </data>
