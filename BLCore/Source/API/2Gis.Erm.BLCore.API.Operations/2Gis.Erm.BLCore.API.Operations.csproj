@@ -226,6 +226,9 @@
     <Compile Include="Concrete\HotClients\HotClientRequestDto.cs" />
     <Compile Include="Concrete\HotClients\RegardingObject.cs" />
     <Compile Include="Concrete\Simplified\ISendNotificationOperationService.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Categories\CategoryGroupDto.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Categories\CategoryOrganizationUnitDto.cs" />
+    <Compile Include="Concrete\Simplified\Dictionary\Categories\IChangeCategoryGroupService.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForRevertingWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\AccountStateForWithdrawalDto.cs" />
     <Compile Include="Concrete\Withdrawals\ActualizeOrdersDto.cs" />

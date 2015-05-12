@@ -5227,6 +5227,12 @@ Cумма по операции: {5}.
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>Вы пытаетесь завершить действие, запланированное будущим периодом, измените срок действия или отмените, если действие не было выполнено</value>
   </data>
+  <data name="CanNotChangeGroupForUpperLevelsCategory" xml:space="preserve">
+    <value>Ценовая группа рубрики первого или второго уровня не может быть задана</value>
+  </data>
+  <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
+    <value>Нельзя удалить ценовую группу по умолчанию</value>
+  </data>
   <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
     <value>Пользователь {0} уже связан с юр. лицом {1}</value>
   </data>

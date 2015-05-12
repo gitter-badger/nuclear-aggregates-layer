@@ -5227,6 +5227,12 @@ Periodo de la publicación: {3}.</value>
   <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
     <value>You can't pick more than one reference object for the following positions: {0}</value>
   </data>
+  <data name="CanNotChangeGroupForUpperLevelsCategory" xml:space="preserve">
+    <value>Ценовая группа рубрики первого или второго уровня не может быть задана</value>
+  </data>
+  <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
+    <value>Нельзя удалить ценовую группу по умолчанию</value>
+  </data>
   <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
     <value>Usuario {0} ya está enlazado con la razón social {1}</value>
   </data>

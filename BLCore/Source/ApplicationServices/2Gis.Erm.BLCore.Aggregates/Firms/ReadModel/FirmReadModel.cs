@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 {
     public class FirmReadModel : IFirmReadModel
     {
-        private const long TelesaleCategoryGroupId = 1;
+        private const long TelesaleCategoryGroupId = 5;
         private const long DefaultCategoryRate = 1;
 
         private readonly IFinder _finder;
@@ -71,12 +71,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                                      .Distinct()
                                      .ToArray();
 
-            var mostExpensiveGroupId = _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>() &&
-                                                    new FindSpecification<CategoryOrganizationUnit>(
-                                                        link => link.OrganizationUnitId == organizationUnitId &&
-                                                                categoryIds.Contains(link.CategoryId)))
-                // ReSharper disable once ConstantNullCoalescingCondition
-                                              .OrderByDescending(x => (decimal?)x.CategoryGroup.GroupRate ?? DefaultCategoryRate)
+            var mostExpensiveGroupId = _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>()
+                                                    && CategorySpecs.CategoryOrganizationUnits.Find.ForOrganizationUnit(organizationUnitId)
+                                                    && CategorySpecs.CategoryOrganizationUnits.Find.ForCategories(categoryIds))
+                                              .OrderByDescending(x => x.CategoryGroup != null ? x.CategoryGroup.GroupRate : DefaultCategoryRate)
                                               .Select(x => x.CategoryGroupId)
                                               .FirstOrDefault();
 
