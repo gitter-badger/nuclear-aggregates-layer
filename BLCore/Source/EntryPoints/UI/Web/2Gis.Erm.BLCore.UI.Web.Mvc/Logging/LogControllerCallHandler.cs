@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 try
                 {
                     var modifiedEntities = GetEntities(input);
-                    foreach (var pair in originalEntities.Zip(modifiedEntities, (o, m) => new { Original = o, Modified = m }))
+                    foreach (var pair in originalEntities.Join(modifiedEntities, o => o, m => m, (o, m) => new { Original = o, Modified = m }))
                     {
                         var differenceMap = CompareObjectsHelper.CompareObjects(CompareObjectMode.Shallow,
                                                                                 pair.Original,
