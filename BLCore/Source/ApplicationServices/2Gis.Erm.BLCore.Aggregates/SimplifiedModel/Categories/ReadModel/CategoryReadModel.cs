@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -14,6 +15,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
 {
     public class CategoryReadModel : ICategoryReadModel
     {
+        private const long DefaultCategoryGroupId = 3;
+
         private readonly IFinder _finder;
 
         public CategoryReadModel(IFinder finder)
@@ -94,6 +97,39 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
             var allowedCategoriesSpecification = CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit(salesModel, destOrganizationUnitId);
             return _finder.Find(Specs.Find.ByIds<Category>(categoryIds) && !allowedCategoriesSpecification)
                           .ToDictionary(category => category.Id, category => category.Name);
+        }
+
+        public IEnumerable<CategoryGroupDto> GetCategoryGroups()
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryGroup>())
+                          .OrderBy(x => x.GroupRate)
+                          .Select(group => new CategoryGroupDto
+                                               {
+                                                   Id = group.Id,
+                                                   Name = group.Name,
+                                                   IsDefault = group.Id == DefaultCategoryGroupId
+                                               })
+                          .ToArray();
+        }
+
+        public IEnumerable<CategoryGroupMembershipDto> GetCategoryGroupMembership(long organizationUnitId)
+        {
+            var filter = Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>()
+                         && CategorySpecs.CategoryOrganizationUnits.Find.ForOrganizationUnit(organizationUnitId)
+                         && CategorySpecs.CategoryOrganizationUnits.Find.ForActiveAndNotDeletedCategory();
+
+            var selector = CategorySpecs.CategoryOrganizationUnits.Select.CategoryGroupMembershipDto();
+
+            return _finder.Find(selector, filter)
+                          .Where(dto => dto.CategoryLevel == 3)
+                          .ToArray();
+        }
+
+        public IEnumerable<CategoryOrganizationUnitDto> GetCategoryOrganizationUnits(IEnumerable<long> ids)
+        {
+            return _finder.Find(Specs.Find.ByIds<CategoryOrganizationUnit>(ids))
+                                          .Select(unit => new CategoryOrganizationUnitDto { Unit = unit, Level = unit.Category.Level })
+                                          .ToArray();
         }
     }
 }
