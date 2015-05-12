@@ -654,7 +654,7 @@
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="FirmId" NameLocaleResourceId="DFieldFirmId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ClientId" NameLocaleResourceId="DFieldClientId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="Number" Width="150" FieldType="String" ExtTypeName="String" />
+          <Field Name="Number" NameLocaleResourceId="BillNumber" Width="150" FieldType="String" ExtTypeName="String" />
           <Field Name="CreatedOn" Width="100" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="PaymentDatePlan" Width="100" FieldType="Period" ExtTypeName="Date" />
           <Field Name="PayablePlan" Width="100" FieldType="Money" ExtTypeName="Float" />
