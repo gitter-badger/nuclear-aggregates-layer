@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:simpleType name="string4000">
+  <xs:simpleType name="string40000">
     <xs:restriction base="xs:string">
-      <xs:maxLength value="4000"/>
+      <xs:maxLength value="40000"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -24,7 +24,7 @@
         <xs:documentation>Id причины отклонения РМ.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Comment" type="string4000" use="optional">
+    <xs:attribute name="Comment" type="string40000" use="optional">
       <xs:annotation>
         <xs:documentation>Комментарий оставленный модератором к ЭРМ.</xs:documentation>
       </xs:annotation>
@@ -50,7 +50,7 @@
         <xs:documentation>Стабильный код шаблона элемента рекламного материала</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Value" type="string4000" use="required">
+    <xs:attribute name="Value" type="string40000" use="required">
       <xs:annotation>
         <xs:documentation>Значение элемента рекламного материала</xs:documentation>
       </xs:annotation>
