@@ -20,7 +20,7 @@ function Get-MigrationsMetadata ($Country) {
 
 function Get-ReportsMetadata ($EnvType) {
 	switch ($EnvType){
-		{ @('Production', 'Edu', 'Business') -contains $_ } {
+		{ @('Edu', 'Business') -contains $_ } {
 			return @{ 'OptionReports' = $true }
 		}
 		default {
