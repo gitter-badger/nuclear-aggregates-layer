@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Policy;
+using System.Linq;
 using System.ServiceModel.Description;
 
 using DoubleGis.Erm.API.WCF.OrderValidation.Config;
@@ -25,10 +27,10 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.Resources.Server;
@@ -40,6 +42,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Aggregates.Storage.DI.Unity;
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
 using NuClear.Metamodeling.Validators;
@@ -48,7 +51,10 @@ using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
+using NuClear.Storage.EntityFramework.DI;
 using NuClear.Tracing.API;
+
+using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 {
@@ -67,13 +73,13 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                     new CheckApplicationServicesConventionsMassProcessor(), 
                     new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new MetadataSourcesMassProcessor(container),
-                    new AggregatesLayerMassProcessor(container),
+                    new AggregatesLayerMassProcessor(container, AggregatesLayerRegistrationTypeMappingResolver),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
                     new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OrderValidationRuleMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
-                    new EfDbModelMassProcessor(container)
+                    new EFDbModelMassProcessor(container)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -206,6 +212,14 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                                     new InjectionConstructor(typeof(IUserAuthenticationService),
                                                              typeof(IUserIdentityLogonService)))
                 .RegisterType<IAuthorizationPolicy, UnityAuthorizationPolicy>(typeof(UnityAuthorizationPolicy).ToString(), Lifetime.Singleton);
+        }
+
+        private static string AggregatesLayerRegistrationTypeMappingResolver(Type aggregateServiceType)
+        {
+            return aggregateServiceType.GenericTypeArguments
+                                       .Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
+                       ? Mapping.SecureOperationRepositoriesScope
+                       : Mapping.UnsecureOperationRepositoriesScope;
         }
     }
 }

@@ -2,21 +2,24 @@
 
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage;
+
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.BranchOfficesAggregate.ReadModel
 {
     public class UkraineBranchOfficeReadModel : BranchOfficeReadModel, IUkraineBranchOfficeReadModel, IUkraineAdapted
     {
+        private readonly IQuery _query;
         private readonly IFinder _finder;
 
-        public UkraineBranchOfficeReadModel(IFinder finder)
+        public UkraineBranchOfficeReadModel(IQuery query, IFinder finder)
             : base(finder)
         {
+            _query = query;
             _finder = finder;
         }
 
@@ -33,9 +36,9 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.BranchOfficesAggregate.
         public bool AreThereAnyActiveIpnDuplicates(long branchOfficeId, string ipn)
         {
             var duplicatesQuery = _finder.Find(BusinessEntitySpecs.BusinessEntity.Find.ByProperty(IpnIdentity.Instance.Id, ipn))
-                             .Where(x => x.EntityId != branchOfficeId).Select(x => x.EntityId);
+                                         .Where(x => x.EntityId != branchOfficeId).Select(x => x.EntityId);
 
-            return _finder.For<BranchOffice>().Join(duplicatesQuery, x => x.Id, y => y.Value, (x, y) => x).Any(x => x.IsActive && !x.IsDeleted);
+            return _query.For<BranchOffice>().Join(duplicatesQuery, x => x.Id, y => y.Value, (x, y) => x).Any(x => x.IsActive && !x.IsDeleted);
         }
     }
 }

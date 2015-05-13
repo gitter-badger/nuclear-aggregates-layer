@@ -4,33 +4,33 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListCategoryFirmAddressService : ListEntityDtoServiceBase<CategoryFirmAddress, ListCategoryFirmAddressDto>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public ListCategoryFirmAddressService(
-            IFinder finder,
+            IQuery query,
             IUserContext userContext, FilterHelper filterHelper)
         {
-            _finder = finder;
+            _query = query;
             _userContext = userContext;
             _filterHelper = filterHelper;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<CategoryFirmAddress>();
+            var query = _query.For<CategoryFirmAddress>();
 
             var defaultCategoryRate = string.Format(_userContext.Profile.UserLocaleInfo.UserCultureInfo, "{0:p0}", 1);
 

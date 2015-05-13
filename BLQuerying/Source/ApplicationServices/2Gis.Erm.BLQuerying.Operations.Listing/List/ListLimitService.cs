@@ -5,26 +5,27 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public class ListLimitService : ListEntityDtoServiceBase<Limit, ListLimitDto>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly FilterHelper _filterHelper;
 
         public ListLimitService(
-            IFinder finder,
+            IQuery query,
             IUserContext userContext,
             ISecurityServiceUserIdentifier userIdentifierService,
             FilterHelper filterHelper)
         {
-            _finder = finder;
+            _query = query;
             _userContext = userContext;
             _userIdentifierService = userIdentifierService;
             _filterHelper = filterHelper;
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<Limit>();
+            var query = _query.For<Limit>();
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))

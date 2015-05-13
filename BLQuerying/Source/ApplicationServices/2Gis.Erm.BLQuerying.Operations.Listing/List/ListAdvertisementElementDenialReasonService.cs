@@ -5,25 +5,25 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListAdvertisementElementDenialReasonService :
         ListEntityDtoServiceBase<AdvertisementElementDenialReason, ListAdvertisementElementDenialReasonsDto>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
 
         public ListAdvertisementElementDenialReasonService(
-            IFinder finder,
+            IQuery query,
             FilterHelper filterHelper)
         {
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
         }
 
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         private IRemoteCollection ListCheckedReasons(QuerySettings querySettings)
         {
-            var query = _finder.For<AdvertisementElementDenialReason>();
+            var query = _query.For<AdvertisementElementDenialReason>();
 
             var result = query
                 .Select(x => new ListAdvertisementElementDenialReasonsDto
@@ -72,8 +72,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             var advertisementElementId = querySettings.ParentEntityId.Value;
 
-            var checkedReasons = _finder.For<AdvertisementElementDenialReason>().Where(x => x.AdvertisementElementId == advertisementElementId);
-            return _finder.For<DenialReason>()
+            var checkedReasons = _query.For<AdvertisementElementDenialReason>().Where(x => x.AdvertisementElementId == advertisementElementId);
+            return _query.For<DenialReason>()
                           .GroupJoin(checkedReasons, dr => dr.Id, aedr => aedr.DenialReasonId, (dr, aedr) => new { dr, aedr = aedr.FirstOrDefault() })
                           .Select(x => new ListAdvertisementElementDenialReasonsDto
                               {

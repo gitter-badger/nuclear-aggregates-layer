@@ -5,43 +5,43 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListCategoryService : ListEntityDtoServiceBase<Category, ListCategoryDto>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
 
         public ListCategoryService(
-            IFinder finder,
+            IQuery query,
             FilterHelper filterHelper)
         {
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<Category>();
+            var query = _query.For<Category>();
 
             // Фильтр рубрик, которые можно добавить в тематику (рубрики есть во всех подразделениях тематики)
             if (querySettings.ParentEntityName.Equals(EntityType.Instance.Theme()))
             {
                 var themeId = querySettings.ParentEntityId;
 
-                var unitCount = _finder.For<OrganizationUnit>()
+                var unitCount = _query.For<OrganizationUnit>()
                                   .Count(unit => unit.ThemeOrganizationUnits.Any(link => link.IsActive
                                                                                          && !link.IsDeleted
                                                                                          && link.Theme.Id == themeId));
 
-                query = _finder.For<OrganizationUnit>()
+                query = _query.For<OrganizationUnit>()
 
                     // Только те подразделения, в которых есть рубрика
                        .Where(unit => unit.ThemeOrganizationUnits.Any(link => link.IsActive

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BL.Reports;
@@ -54,9 +55,9 @@ using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
@@ -75,6 +76,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.B
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Aggregates.Storage.DI.Unity;
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
 using NuClear.Security;
@@ -85,7 +87,11 @@ using NuClear.Metamodeling.Processors;
 using NuClear.Metamodeling.Validators;
 using NuClear.Model.Common.Entities;
 using NuClear.Settings.API;
+using NuClear.Storage;
+using NuClear.Storage.EntityFramework.DI;
 using NuClear.Tracing.API;
+
+using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {
@@ -109,7 +115,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                     new CheckDomainModelEntitiesConsistencyMassProcessor(),  
                     new MetadataSourcesMassProcessor(container), 
                     new IntegrationTestsMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, explicitlyTypesSpecified, explicitlyExcludedTypes), 
-                    new AggregatesLayerMassProcessor(container),
+                    new AggregatesLayerMassProcessor(container, AggregatesLayerRegistrationTypeMappingResolver),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(
@@ -132,7 +138,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                                          settingsContainer.AsSettings<IIntegrationSettings>().UseWarehouseIntegration
                                                              ? new[] { typeof(CardServiceBusDto), typeof(FirmServiceBusDto) }
                                                              : new Type[0]),
-                    new EfDbModelMassProcessor(container)
+                    new EFDbModelMassProcessor(container)
                 };
 
             CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -326,6 +332,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                 // receiver                
                     .RegisterTypeWithDependencies(typeof(IServiceBusMessageReceiver<>), typeof(ServiceBusMessageReceiver<>), Lifetime.Singleton, null);
                 
+        }
+
+        private static string AggregatesLayerRegistrationTypeMappingResolver(Type aggregateServiceType)
+        {
+            return aggregateServiceType.GenericTypeArguments
+                                       .Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
+                       ? Mapping.SecureOperationRepositoriesScope
+                       : Mapping.UnsecureOperationRepositoriesScope;
         }
     }
 }

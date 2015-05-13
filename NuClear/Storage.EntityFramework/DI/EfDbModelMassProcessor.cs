@@ -9,7 +9,7 @@ using NuClear.Storage.Core;
 
 namespace NuClear.Storage.EntityFramework.DI
 {
-    public class EfDbModelMassProcessor : IMassProcessor
+    public class EFDbModelMassProcessor : IMassProcessor
     {
         private readonly IUnityContainer _container;
         private readonly List<IEFDbModelConfiguration> _configurations = new List<IEFDbModelConfiguration>();
@@ -17,7 +17,7 @@ namespace NuClear.Storage.EntityFramework.DI
         private static readonly Type EfDbModelConfigurationMarker = typeof(IEFDbModelConfiguration);
         private static readonly Type EfDbModelConventionMarker = typeof(IEFDbModelConvention);
 
-        public EfDbModelMassProcessor(IUnityContainer container)
+        public EFDbModelMassProcessor(IUnityContainer container)
         {
             _container = container;
         }

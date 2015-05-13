@@ -13,7 +13,6 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -22,6 +21,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ICompositeEntityDecorator _compositeEntityDecorator;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly ISecureFinder _secureFinder;
         private readonly IDebtProcessingSettings _debtProcessingSettings;
 
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             ISecurityServiceUserIdentifier userIdentifierService,
             ISecurityServiceFunctionalAccess functionalAccessService,
             ICompositeEntityDecorator compositeEntityDecorator,
-            IFinder finder,
+            IQuery query,
             ISecureFinder secureFinder,
             IUserContext userContext,
             FilterHelper filterHelper,
@@ -55,13 +56,13 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             _userIdentifierService = userIdentifierService;
             _functionalAccessService = functionalAccessService;
             _compositeEntityDecorator = compositeEntityDecorator;
-            _finder = finder;
+            _query = query;
             _secureFinder = secureFinder;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<Client>();
+            var query = _query.For<Client>();
 
             bool excludeReserve;
             Expression<Func<Client, bool>> excludeReserveFilter = null;
@@ -253,7 +254,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             if (excludeChildClients && querySettings.ParentEntityId.HasValue)
             {
                 var currentClient = querySettings.ParentEntityId.Value;
-                var list = _finder.Find<ClientLink>(cl => cl.MasterClientId == currentClient && !cl.IsDeleted).Select(cl => cl.ChildClientId).ToList();
+                var list = _query.For<ClientLink>().Where(cl => cl.MasterClientId == currentClient && !cl.IsDeleted).Select(cl => cl.ChildClientId).ToList();
 
                 list.Add(currentClient);
                 return list;

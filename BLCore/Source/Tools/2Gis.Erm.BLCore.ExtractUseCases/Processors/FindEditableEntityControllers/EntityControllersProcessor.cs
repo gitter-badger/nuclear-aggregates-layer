@@ -5,6 +5,8 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations;
 
+using NuClear.Storage.UseCases;
+
 using Roslyn.Compilers;
 using Roslyn.Compilers.Common;
 using Roslyn.Compilers.CSharp;

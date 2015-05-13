@@ -8,32 +8,33 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListTerritoryService : ListEntityDtoServiceBase<Territory, ListTerritoryDto>
     {
         private readonly IPublicService _publicService;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
 
         public ListTerritoryService(
             IPublicService publicService,
-            IFinder finder, FilterHelper filterHelper)
+            IQuery query, 
+            FilterHelper filterHelper)
         {
             _publicService = publicService;
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<Territory>();
+            var query = _query.For<Territory>();
 
             Expression<Func<Territory, bool>> restrictToCurrentUserFilter = null;
             if (querySettings.ParentEntityName.Equals(EntityType.Instance.User()) && querySettings.ParentEntityId != null)

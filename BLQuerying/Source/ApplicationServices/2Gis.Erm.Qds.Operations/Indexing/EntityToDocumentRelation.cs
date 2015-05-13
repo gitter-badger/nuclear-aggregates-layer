@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Core.EntityProjection;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
@@ -11,6 +10,8 @@ using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
 using FastMember;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {

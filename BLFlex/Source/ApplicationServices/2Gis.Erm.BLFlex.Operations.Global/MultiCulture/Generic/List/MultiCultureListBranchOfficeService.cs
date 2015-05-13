@@ -4,27 +4,28 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.List
 {
     public sealed class MultiCultureListBranchOfficeService : ListEntityDtoServiceBase<BranchOffice, ListBranchOfficeDto>, IRussiaAdapted, ICyprusAdapted, ICzechAdapted, IChileAdapted
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
 
         public MultiCultureListBranchOfficeService(
-            IFinder finder, FilterHelper filterHelper)
+            IQuery query, FilterHelper filterHelper)
         {
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<BranchOffice>();
+            var query = _query.For<BranchOffice>();
 
             return query
                 .Where(x => !x.IsDeleted)

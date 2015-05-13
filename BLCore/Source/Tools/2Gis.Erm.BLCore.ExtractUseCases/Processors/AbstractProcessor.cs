@@ -1,3 +1,5 @@
+using NuClear.Storage.UseCases;
+
 using Roslyn.Compilers.Common;
 using Roslyn.Services;
 

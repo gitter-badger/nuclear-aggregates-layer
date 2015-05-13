@@ -4,31 +4,32 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Ukraine.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
 {
     public class UkraineListBranchOfficeService : ListEntityDtoServiceBase<BranchOffice, UkraineListBranchOfficeDto>, IUkraineAdapted
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
 
         public UkraineListBranchOfficeService(
-            IFinder finder,
+            IQuery query,
             FilterHelper filterHelper)
         {
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<BranchOffice>();
+            var query = _query.For<BranchOffice>();
 
-            var dynamicObjectsQuery = _finder.For<BusinessEntityInstance>().Select(x => new
+            var dynamicObjectsQuery = _query.For<BusinessEntityInstance>().Select(x => new
                 {
                     Instance = x,
                     x.BusinessEntityPropertyInstances

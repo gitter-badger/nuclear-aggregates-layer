@@ -1,10 +1,8 @@
-﻿using DoubleGis.Erm.BLCore.Aggregates.LegalPersons.ReadModel;
-using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -15,6 +13,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using FluentAssertions;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {

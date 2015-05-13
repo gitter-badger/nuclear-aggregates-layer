@@ -194,7 +194,7 @@
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintNewSalesModelBargainHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Bargains\PrintForms\PrintBargainProlongationAgreementHandler.cs" />
     <Compile Include="MultiCulture\Generic\BargainPrintFormDataExtractor.cs" />
-	<Compile Include="Russia\Concrete\Old\Bills\PrintJointBillHandler.cs" />
+    <Compile Include="Russia\Concrete\Old\Bills\PrintJointBillHandler.cs" />
     <Compile Include="Russia\Concrete\Old\Orders\PrintForms\PrintHelper.cs" />
     <Compile Include="Russia\Concrete\Orders\Print\PrintBindingChangeAgreementOperationService.cs" />
     <Compile Include="Russia\Concrete\Orders\Print\PrintCancellationAgreementOperationService.cs" />
@@ -436,6 +436,14 @@
     <ProjectReference Include="..\..\..\..\BL\Source\Resources\2Gis.Erm.BL.Resources.Server\2Gis.Erm.BL.Resources.Server.csproj">
       <Project>{92094490-5350-427A-8A9D-80123D41E30A}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\NuClear\Aggregates\Aggregates.csproj">
+      <Project>{0ea26ab2-9054-4843-b98e-bd239898bf45}</Project>
+      <Name>Aggregates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6e35864b-bba8-4cf2-8c76-620ff1e4bfc2}</Project>
+      <Name>Storage</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
       <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>

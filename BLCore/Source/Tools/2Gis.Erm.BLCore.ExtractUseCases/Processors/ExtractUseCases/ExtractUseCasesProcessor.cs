@@ -9,6 +9,8 @@ using DoubleGis.Erm.BLCore.ExtractUseCases.Processors.FindPublicServiceUseCases;
 using DoubleGis.Erm.BLCore.ExtractUseCases.UseCases;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 
+using NuClear.Storage.UseCases;
+
 using Roslyn.Compilers.Common;
 using Roslyn.Services;
 

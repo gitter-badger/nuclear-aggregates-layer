@@ -6,6 +6,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Old.Clients
 {
     public class MergeClientsHandlerTest : UseModelEntityHandlerTestBase<Client, MergeClientsRequest, EmptyResponse>

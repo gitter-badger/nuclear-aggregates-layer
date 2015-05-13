@@ -1,5 +1,7 @@
 using System;
 
+using NuClear.Storage.UseCases;
+
 namespace DoubleGis.Erm.BLCore.ExtractUseCases.Processors.ExtractUseCases
 {
     public class ExtractUseCasesKey : IContextKey<ExtractUseCasesProcessingResults>

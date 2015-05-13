@@ -7,6 +7,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {
     public sealed class ActivateOperationServiceTest : UseModelEntityTestBase<BranchOfficeOrganizationUnit>

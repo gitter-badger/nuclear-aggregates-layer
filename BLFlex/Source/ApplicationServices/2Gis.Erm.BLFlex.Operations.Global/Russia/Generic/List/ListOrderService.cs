@@ -6,34 +6,34 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 {
     public sealed class ListOrderService : ListEntityDtoServiceBase<Order, ListOrderDto>, IRussiaAdapted
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
 
         public ListOrderService(ISecurityServiceUserIdentifier userIdentifierService,
-                                IFinder finder,
+                                IQuery query,
                                 FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<Order>();
+            var query = _query.For<Order>();
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))
@@ -115,11 +115,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                         var rejectedState = OrderState.Rejected.ToString();
 
                         var orderTypeId = EntityType.Instance.Order().Id;
-                        var loqQuery = _finder.Find<ActionsHistoryDetail>(x => x.ActionsHistory.EntityType == orderTypeId &&
-                                                                               x.PropertyName == "WorkflowStepId" &&
-                                                                               x.OriginalValue == onApprovalState &&
-                                                                               x.ModifiedValue == rejectedState)
-                                              .Select(x => x.ActionsHistory.EntityId);
+                        var loqQuery = _query.For<ActionsHistoryDetail>().Where(x => x.ActionsHistory.EntityType == orderTypeId &&
+                                                                                     x.PropertyName == "WorkflowStepId" &&
+                                                                                     x.OriginalValue == onApprovalState &&
+                                                                                     x.ModifiedValue == rejectedState)
+                                             .Select(x => x.ActionsHistory.EntityId);
 
                         return x => loqQuery.Contains(x.Id);
                     });

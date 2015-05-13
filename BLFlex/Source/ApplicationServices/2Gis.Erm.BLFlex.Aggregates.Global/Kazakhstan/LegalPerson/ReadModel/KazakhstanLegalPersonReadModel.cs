@@ -3,9 +3,10 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO;
 using DoubleGis.Erm.BLFlex.API.Aggregates.Global.Kazakhstan;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Kazakhstan.LegalPerson.ReadModel
 {

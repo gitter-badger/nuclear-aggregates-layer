@@ -4,8 +4,6 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
@@ -14,6 +12,7 @@ using DoubleGis.Erm.Qds.Operations.Indexing;
 using FastMember;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Qds.Operations.Metadata
 {

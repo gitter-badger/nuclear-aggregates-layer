@@ -8,33 +8,34 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListBranchOfficeOrganizationUnitService : ListEntityDtoServiceBase<BranchOfficeOrganizationUnit, ListBranchOfficeOrganizationUnitDto>
     {
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public ListBranchOfficeOrganizationUnitService(
             ISecurityServiceFunctionalAccess functionalAccessService,
-            IFinder finder,
+            IQuery query,
             IUserContext userContext, FilterHelper filterHelper)
         {
             _functionalAccessService = functionalAccessService;
-            _finder = finder;
+            _query = query;
             _userContext = userContext;
             _filterHelper = filterHelper;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<BranchOfficeOrganizationUnit>();
+            var query = _query.For<BranchOfficeOrganizationUnit>();
 
             var filter = querySettings.CreateForExtendedProperty<BranchOfficeOrganizationUnit, long, bool>(
                 "userId", 

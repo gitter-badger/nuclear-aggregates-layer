@@ -10,33 +10,34 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListOrganizationUnitService : ListEntityDtoServiceBase<OrganizationUnit, ListOrganizationUnitDto>
     {
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly IUserContext _userContext;
         private readonly FilterHelper _filterHelper;
 
         public ListOrganizationUnitService(
             ISecurityServiceFunctionalAccess functionalAccessService,
-            IFinder finder,
+            IQuery query,
             IUserContext userContext, FilterHelper filterHelper)
         {
             _userContext = userContext;
             _filterHelper = filterHelper;
             _functionalAccessService = functionalAccessService;
-            _finder = finder;
+            _query = query;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<OrganizationUnit>();
+            var query = _query.For<OrganizationUnit>();
 
             var orgUnitFilter = querySettings.CreateForExtendedProperty<OrganizationUnit, long>(
                  "userId", userId => x => x.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId));

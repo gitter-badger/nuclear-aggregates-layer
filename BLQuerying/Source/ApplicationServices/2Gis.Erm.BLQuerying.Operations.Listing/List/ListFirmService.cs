@@ -8,11 +8,12 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -20,16 +21,19 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
         public ListFirmService(
             ISecurityServiceUserIdentifier userIdentifierService,
+            IQuery query,
             IFinder finder,
             FilterHelper filterHelper,
             IUserContext userContext)
         {
             _userIdentifierService = userIdentifierService;
+            _query = query;
             _finder = finder;
             _filterHelper = filterHelper;
             _userContext = userContext;
@@ -37,7 +41,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<Firm>();         
+            var query = _query.For<Firm>();         
 
             bool excludeReserve;
             Expression<Func<Firm, bool>> excludeReserveFilter = null;

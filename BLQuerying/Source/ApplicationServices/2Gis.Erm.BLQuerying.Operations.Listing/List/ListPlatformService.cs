@@ -4,24 +4,25 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.DAL;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListPlatformService : ListEntityDtoServiceBase<Platform.Model.Entities.Erm.Platform, ListPlatformDto>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
 
-        public ListPlatformService(IFinder finder, FilterHelper filterHelper)
+        public ListPlatformService(IQuery query, FilterHelper filterHelper)
         {
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<Platform.Model.Entities.Erm.Platform>();
+            var query = _query.For<Platform.Model.Entities.Erm.Platform>();
 
             return query
                 .Select(x => new ListPlatformDto

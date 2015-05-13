@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
@@ -52,12 +53,12 @@ using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.MsCRM;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.DB;
 using DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.Transports.ServiceBusForWindowsServer;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Factories.Messaging;
 using DoubleGis.Erm.Platform.DI.Factories.PerformedOperationsAnalysis;
 using DoubleGis.Erm.Platform.DI.Proxies.PerformedOperations;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Consumer;
 using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Producer;
@@ -68,6 +69,7 @@ using DoubleGis.Erm.TaskService.Config;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Aggregates.Storage.DI.Unity;
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
 using NuClear.Jobs.Schedulers;
@@ -77,9 +79,12 @@ using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
+using NuClear.Storage.EntityFramework.DI;
 using NuClear.Tracing.API;
 
 using Quartz.Spi;
+
+using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.TaskService.DI
 {
@@ -95,7 +100,7 @@ namespace DoubleGis.Erm.TaskService.DI
                     new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new CheckApplicationServicesConventionsMassProcessor(),
                     new MetadataSourcesMassProcessor(container),
-                    new AggregatesLayerMassProcessor(container),
+                    new AggregatesLayerMassProcessor(container, AggregatesLayerRegistrationTypeMappingResolver),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
@@ -106,7 +111,7 @@ namespace DoubleGis.Erm.TaskService.DI
                                                              ? new[] { typeof(CardServiceBusDto), typeof(FirmServiceBusDto) }
                                                              : new Type[0]),
                     new TaskServiceJobsMassProcessor(container),
-                    new EfDbModelMassProcessor(container)
+                    new EFDbModelMassProcessor(container)
                 };
 
             CheckConventionsComplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -312,8 +317,16 @@ namespace DoubleGis.Erm.TaskService.DI
         }
 
         private static IUnityContainer ConfigureEAV(this IUnityContainer container)
-            {
+        {
             return container;
+        }
+
+        private static string AggregatesLayerRegistrationTypeMappingResolver(Type aggregateServiceType)
+        {
+            return aggregateServiceType.GenericTypeArguments
+                                       .Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
+                       ? Mapping.SecureOperationRepositoriesScope
+                       : Mapping.UnsecureOperationRepositoriesScope;
         }
     }
 }

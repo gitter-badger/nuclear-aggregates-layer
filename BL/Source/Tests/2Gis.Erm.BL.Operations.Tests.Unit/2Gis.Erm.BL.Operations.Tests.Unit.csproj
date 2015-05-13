@@ -87,6 +87,10 @@
       <Project>{15B3E0D2-6217-493A-A690-158C497F5318}</Project>
       <Name>2Gis.Erm.BLCore.API.Operations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\NuClear\Aggregates\Aggregates.csproj">
+      <Project>{0EA26AB2-9054-4843-B98E-BD239898BF45}</Project>
+      <Name>Aggregates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>

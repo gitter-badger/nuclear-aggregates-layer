@@ -1,4 +1,3 @@
-using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
 using DoubleGis.Erm.Platform.API.Security;
@@ -9,6 +8,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
+
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {

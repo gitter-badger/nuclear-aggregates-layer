@@ -5,9 +5,10 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 {
@@ -15,22 +16,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                                                  IChileAdapted, IUkraineAdapted, IEmiratesAdapted, IKazakhstanAdapted
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
 
         public ListLegalPersonProfileService(
             ISecurityServiceUserIdentifier userIdentifierService,
-            IFinder finder,
+            IQuery query,
             FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<LegalPersonProfile>();
+            var query = _query.For<LegalPersonProfile>();
 
             return query
                 .Select(x => new ListLegalPersonProfileDto

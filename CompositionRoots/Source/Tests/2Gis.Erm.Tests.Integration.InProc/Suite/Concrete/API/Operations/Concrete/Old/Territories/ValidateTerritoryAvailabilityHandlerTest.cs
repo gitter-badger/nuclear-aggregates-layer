@@ -2,11 +2,12 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Territories;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Old.Territories
 {

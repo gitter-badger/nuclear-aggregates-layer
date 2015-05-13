@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.UseCases;
 
 using Roslyn.Compilers;
 using Roslyn.Compilers.Common;

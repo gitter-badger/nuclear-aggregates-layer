@@ -1,14 +1,13 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.DTO;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel.Banks
 {

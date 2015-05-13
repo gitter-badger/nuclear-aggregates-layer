@@ -9,6 +9,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Themes
 {
     public class SetAsDefaultThemeOperationServiceTest : UseModelEntityTestBase<Theme>

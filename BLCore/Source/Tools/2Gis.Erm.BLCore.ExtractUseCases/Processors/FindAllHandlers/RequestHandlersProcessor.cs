@@ -5,6 +5,8 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 
+using NuClear.Storage.UseCases;
+
 using Roslyn.Compilers;
 using Roslyn.Compilers.Common;
 using Roslyn.Compilers.CSharp;

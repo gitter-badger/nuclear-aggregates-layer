@@ -5,15 +5,16 @@ using System.Reflection;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Common.Crosscutting;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model;
 
 using Microsoft.Practices.Unity;
 
-using NuClear.Aggregates;
+using NuClear.Aggregates.Storage.DI.Unity;
 using NuClear.DI.Unity.Config;
 using NuClear.DI.Unity.Config.RegistrationResolvers;
 using NuClear.Storage;
+
+using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
 {
@@ -24,9 +25,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             unityContainer.AttachQueryableContainerExtension()
                           .UseParameterResolvers(new ParameterResolver[]
                                                      {
-                                                         OnAggregateReadModelDependencyResolver,
-                                                         OnAggregateReadModelDependencyResolver,
-                                                         OnAggregateRepositoryDependencyResolver,
                                                          OnSimplifiedModelConsumerReadModelDependencyResolver,
                                                          OnSimplifiedModelConsumerDependencyResolver,
                                                          OnPersistenceServiceDependencyResolver,
@@ -34,58 +32,10 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                                          OnCrosscuttingDependencyResolver,
                                                          OnDynamicEntitiesRepositoriesDependencyResolver
                                                      }
+                                                     .Concat(AggregatesLayerParameterResolvers.Defaults)
                                                      .Concat(ParameterResolvers.Defaults));
         }
         
-        private static bool OnAggregateReadModelDependencyResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
-        {
-            resolvedParameter = null;
-
-            if (constructorParameter.ParameterType.IsAggregateReadModel())
-            {
-                if (!constructorParameter.ParameterType.IsInterface)
-                {
-                    throw new InvalidOperationException("Aggregate read model can't be injected dependency as concrete type. Dependant consumer type: " + type + ". Dependency type:" + constructorParameter.ParameterType);
-                }
-
-                // constructorParameter - это read model
-                // Тип для которго настраиваются зависимости, использует упрощенную работу с aggregates layer (через constructor injection и без явного использования UoW), 
-                // и упростить её нужно здесь и сейчас
-                resolvedParameter = new ResolvedParameter(constructorParameter.ParameterType, Mapping.ConstructorInjectionReadModelsScope);
-                return true;
-            }
-
-            return false;
-        }
-
-        private static bool OnAggregateRepositoryDependencyResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
-        {
-            resolvedParameter = null;
-
-            if (constructorParameter.ParameterType.IsAggregateRepository())
-            {
-                if (!constructorParameter.ParameterType.IsInterface)
-                {
-                    throw new InvalidOperationException("Aggregate repository can't be injected dependency as concrete type. Dependant consumer type: " + type + ". Dependency type:" + constructorParameter.ParameterType);
-                }
-
-                // Резолв aggregate service-а, который является зависимостью другого aggregate service-а
-                if (type.IsAggregateRepository())
-                {
-                    resolvedParameter = new ResolvedParameter(constructorParameter.ParameterType, Mapping.ConstructorInjectionNestedAggregateRepositoriesScope);
-                    return true;
-                }
-
-                // constructorParameter - это аргегирующий репозиторий, 
-                // Тип для которго настраиваются зависимости, использует упрощенную работу с aggregates layer (через constructor injection и без явного использования UoW), 
-                // и упростить её нужно здесь и сейчас
-                resolvedParameter = new ResolvedParameter(constructorParameter.ParameterType, Mapping.ConstructorInjectionAggregateRepositoriesScope);
-                return true;
-            }
-
-            return false;
-        }
-
         private static bool OnSimplifiedModelConsumerReadModelDependencyResolver(IUnityContainer container, Type type, string targetNamedMapping, ParameterInfo constructorParameter, out object resolvedParameter)
         {
             resolvedParameter = null;

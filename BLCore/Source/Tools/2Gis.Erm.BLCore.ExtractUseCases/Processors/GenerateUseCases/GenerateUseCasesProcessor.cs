@@ -6,6 +6,8 @@ using DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Processors.ExtractUseCases;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 
+using NuClear.Storage.UseCases;
+
 using Roslyn.Compilers;
 using Roslyn.Compilers.Common;
 using Roslyn.Compilers.CSharp;

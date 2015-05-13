@@ -18,6 +18,8 @@ using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 
 using Microsoft.Win32;
 
+using NuClear.Storage.UseCases;
+
 using Roslyn.Services;
 
 namespace DoubleGis.Erm.BLCore.ExtractUseCases

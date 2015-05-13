@@ -6,13 +6,12 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Simplified;
 using DoubleGis.Erm.BLCore.API.Aggregates.CommonService;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using Specs = DoubleGis.Erm.Platform.DAL.Specifications.Specs;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {

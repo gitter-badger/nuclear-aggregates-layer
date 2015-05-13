@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Boundaries;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global
 {

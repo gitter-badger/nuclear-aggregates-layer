@@ -11,6 +11,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Accounts
 {
     public class AccountReadModelTest : IIntegrationTest

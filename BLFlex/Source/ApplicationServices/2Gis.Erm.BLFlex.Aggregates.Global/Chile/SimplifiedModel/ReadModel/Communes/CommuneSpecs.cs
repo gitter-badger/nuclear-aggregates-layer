@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 using NuClear.Model.Common;
 using NuClear.Model.Common.Entities;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel.Communes
 {

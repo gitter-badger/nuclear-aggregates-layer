@@ -7,8 +7,6 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -16,6 +14,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
 {
@@ -23,18 +23,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
     {
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
         private readonly IDebtProcessingSettings _debtProcessingSettings;
 
         public UkraineListLegalPersonService(
             ISecurityServiceUserIdentifier userIdentifierService,
+            IQuery query,
             IFinder finder,
             FilterHelper filterHelper,
             IUserContext userContext,
             IDebtProcessingSettings debtProcessingSettings)
         {
             _userIdentifierService = userIdentifierService;
+            _query = query;
             _finder = finder;
             _filterHelper = filterHelper;
             _userContext = userContext;
@@ -43,9 +46,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<LegalPerson>();
+            var query = _query.For<LegalPerson>();
 
-            var dynamicObjectsQuery = _finder.For<BusinessEntityInstance>().Select(x => new
+            var dynamicObjectsQuery = _query.For<BusinessEntityInstance>().Select(x => new
                 {
                     Instance = x,
                     x.BusinessEntityPropertyInstances
@@ -59,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
 
             if (querySettings.ParentEntityName.Equals(EntityType.Instance.Deal()) && querySettings.ParentEntityId.HasValue)
             {
-                var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
+                var clientId = _finder.FindOne(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).ClientId;
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 

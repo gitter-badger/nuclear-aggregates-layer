@@ -7,14 +7,14 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
 {
@@ -23,18 +23,21 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
     {
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
         private readonly IDebtProcessingSettings _debtProcessingSettings;
 
         public EmiratesListLegalPersonService(
             ISecurityServiceUserIdentifier userIdentifierService,
+            IQuery query,
             IFinder finder,
             FilterHelper filterHelper,
             IUserContext userContext,
             IDebtProcessingSettings debtProcessingSettings)
         {
             _userIdentifierService = userIdentifierService;
+            _query = query;
             _finder = finder;
             _filterHelper = filterHelper;
             _userContext = userContext;
@@ -43,7 +46,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<LegalPerson>();
+            var query = _query.For<LegalPerson>();
 
             bool forSubordinates;
             if (querySettings.TryGetExtendedProperty("ForSubordinates", out forSubordinates))

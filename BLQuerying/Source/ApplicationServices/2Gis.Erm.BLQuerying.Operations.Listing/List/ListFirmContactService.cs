@@ -5,26 +5,26 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListFirmContactService : ListEntityDtoServiceBase<FirmContact, ListFirmContactDto>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
         private readonly IFirmReadModel _firmReadModel;
 
         public ListFirmContactService(
-            IFinder finder,
+            IQuery query,
             FilterHelper filterHelper,
             IFirmReadModel firmReadModel)
         {
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
             _firmReadModel = firmReadModel;
         }
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             }
             else
             {
-                query = _finder.For<FirmContact>();
+                query = _query.For<FirmContact>();
             }
 
             var data = query

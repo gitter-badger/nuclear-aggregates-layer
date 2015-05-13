@@ -2,9 +2,10 @@
 
 using DoubleGis.Erm.BLFlex.API.Aggregates.Global.Russia.LegalPersons.DTO;
 using DoubleGis.Erm.BLFlex.API.Aggregates.Global.Russia.LegalPersons.ReadModel;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.LegalPersons
 {

@@ -3,34 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListBargainService : ListEntityDtoServiceBase<Bargain, ListBargainDto>
     {
         private readonly IUserContext _userContext;
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
 
         public ListBargainService(
+            IQuery query,
             IFinder finder,
             FilterHelper filterHelper,
             IUserContext userContext,
             ISecurityServiceFunctionalAccess functionalAccessService)
         {
+            _query = query;
             _finder = finder;
             _filterHelper = filterHelper;
             _userContext = userContext;
@@ -39,7 +42,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<Bargain>();
+            var query = _query.For<Bargain>();
 
             var myFilter = querySettings.CreateForExtendedProperty<Bargain, bool>(
                 "ForMe",

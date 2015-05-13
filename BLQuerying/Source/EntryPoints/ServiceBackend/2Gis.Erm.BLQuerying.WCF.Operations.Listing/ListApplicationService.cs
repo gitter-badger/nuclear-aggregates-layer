@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using NuClear.Security.API.UserContext;
 using NuClear.Model.Common.Entities;
 using NuClear.ResourceUtilities;
+using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing

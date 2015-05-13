@@ -4,28 +4,30 @@ using System.Linq;
 using System.Reflection;
 using System.Transactions;
 
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.EntityFramework;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
+using NuClear.Storage.EntityFramework;
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
 {
     public class QueryAllRegisteredEntitiesTest : IIntegrationTest
     {
-        private readonly IEfDbModelConfigurationsProvider _dbModelConfigurationsProvider;
+        private readonly IEFDbModelConfigurationsProvider _dbModelConfigurationsProvider;
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly ITracer _tracer;
 
-        public QueryAllRegisteredEntitiesTest(IEfDbModelConfigurationsProvider dbModelConfigurationsProvider, IFinder finder, ITracer tracer)
+        public QueryAllRegisteredEntitiesTest(IEFDbModelConfigurationsProvider dbModelConfigurationsProvider, IQuery query, IFinder finder, ITracer tracer)
         {
             _dbModelConfigurationsProvider = dbModelConfigurationsProvider;
+            _query = query;
             _finder = finder;
             _tracer = tracer;
         }
@@ -72,15 +74,15 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
         }
 
         // ReSharper disable once UnusedMember.Local
-        private TEntity CallFind<TEntity>() where TEntity : class, IEntity
+        private TEntity CallFor<TEntity>() where TEntity : class, IEntity
         {
-            return _finder.For<TEntity>().FirstOrDefault();
+            return _query.For<TEntity>().FirstOrDefault();
         }
 
         // ReSharper disable once UnusedMember.Local
         private TEntity CallFindOne<TEntity>() where TEntity : class, IEntity, IEntityKey
         {
-            var id = _finder.For<TEntity>().Select(x => x.Id).FirstOrDefault();
+            var id = _query.For<TEntity>().Select(x => x.Id).FirstOrDefault();
             return _finder.FindOne(new FindSpecification<TEntity>(x => x.Id == id));
         }
     }

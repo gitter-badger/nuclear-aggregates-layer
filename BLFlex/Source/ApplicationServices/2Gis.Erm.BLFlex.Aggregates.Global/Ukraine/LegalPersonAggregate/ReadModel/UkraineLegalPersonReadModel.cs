@@ -1,18 +1,21 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.Platform.Aggregates.EAV;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.LegalPersonAggregate.ReadModel
 {
     public sealed class UkraineLegalPersonReadModel : IUkraineLegalPersonReadModel
     {
+        private readonly IQuery _query;
         private readonly IFinder _finder;
 
-        public UkraineLegalPersonReadModel(IFinder finder)
+        public UkraineLegalPersonReadModel(IQuery query, IFinder finder)
         {
+            _query = query;
             _finder = finder;
         }
 
@@ -22,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.LegalPersonAggregate.Re
                                          .Where(x => x.EntityId != legalPersonId)
                                          .Select(x => x.EntityId);
 
-            return _finder.For<LegalPerson>().Join(duplicatesQuery, x => x.Id, y => y.Value, (x, y) => x).Any(x => x.IsActive && !x.IsDeleted);
+            return _query.For<LegalPerson>().Join(duplicatesQuery, x => x.Id, y => y.Value, (x, y) => x).Any(x => x.IsActive && !x.IsDeleted);
         }
     }
 }

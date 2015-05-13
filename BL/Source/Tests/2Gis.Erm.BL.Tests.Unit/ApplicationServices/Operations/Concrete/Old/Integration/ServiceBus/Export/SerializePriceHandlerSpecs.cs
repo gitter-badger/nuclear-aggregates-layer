@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;
@@ -15,6 +14,7 @@ using Machine.Specifications;
 
 using Moq;
 
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 using It = Machine.Specifications.It;

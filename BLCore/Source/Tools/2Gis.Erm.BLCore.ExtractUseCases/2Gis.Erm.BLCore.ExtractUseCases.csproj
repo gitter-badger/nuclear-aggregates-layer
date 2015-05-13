@@ -171,6 +171,10 @@
       <Project>{f4fb1c82-f644-45c6-a351-8b9a994ee3dd}</Project>
       <Name>2Gis.Erm.BLFlex.Operations.Global</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6E35864B-BBA8-4CF2-8C76-620FF1E4BFC2}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>
       <Name>2Gis.Erm.Platform.API.Core</Name>

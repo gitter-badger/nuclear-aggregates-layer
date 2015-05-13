@@ -12,6 +12,8 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage.Specifications;
+
 using BLCoreResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.BLResources;
 using BLFlexResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;
 using EnumResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.EnumResources;

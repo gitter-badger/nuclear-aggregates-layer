@@ -164,6 +164,14 @@
       <Project>{92094490-5350-427a-8a9d-80123d41e30a}</Project>
       <Name>2Gis.Erm.BL.Resources.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\NuClear\Aggregates.Storage.DI.Unity\Aggregates.Storage.DI.Unity.csproj">
+      <Project>{48385786-D95A-4B82-AFFA-D8A971C71BA3}</Project>
+      <Name>Aggregates.Storage.DI.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\NuClear\Storage.EntityFramework\Storage.EntityFramework.csproj">
+      <Project>{0C41F68D-C3C1-4958-9AA5-1FCD8AF9D07A}</Project>
+      <Name>Storage.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
       <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
       <Name>2Gis.Erm.Platform.API.Aggregates</Name>

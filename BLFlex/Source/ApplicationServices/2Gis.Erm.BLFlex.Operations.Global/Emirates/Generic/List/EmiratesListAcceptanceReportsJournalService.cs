@@ -6,21 +6,24 @@ using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Generic.Lis
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
 {
     public sealed class ListAcceptanceReportService : ListEntityDtoServiceBase<AcceptanceReportsJournalRecord, EmiratesListAcceptanceReportsJournalRecordDto>,
                                                       IEmiratesAdapted
     {
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
 
-        public ListAcceptanceReportService(IFinder finder, FilterHelper filterHelper, ISecurityServiceUserIdentifier userIdentifierService)
+        public ListAcceptanceReportService(IQuery query, IFinder finder, FilterHelper filterHelper, ISecurityServiceUserIdentifier userIdentifierService)
         {
+            _query = query;
             _finder = finder;
             _filterHelper = filterHelper;
             _userIdentifierService = userIdentifierService;
@@ -28,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var organizationUnitsQuery = _finder.For<OrganizationUnit>();
+            var organizationUnitsQuery = _query.For<OrganizationUnit>();
 
             return _finder.Find(AcceptanceReportsJournalSpecs.Select.AcceptanceReportsJournalRecords,
                                 AcceptanceReportsJournalSpecs.Find.OnlyAcceptanceReportsJournalRecords)

@@ -1,11 +1,11 @@
 ﻿using DoubleGis.Erm.Platform.Core.EntityProjection;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 
 using FastMember;
+
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Qds.Operations.Metadata
 {

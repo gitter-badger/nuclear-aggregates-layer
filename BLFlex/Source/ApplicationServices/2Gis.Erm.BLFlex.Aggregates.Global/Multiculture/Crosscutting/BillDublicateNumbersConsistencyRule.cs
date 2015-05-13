@@ -4,10 +4,11 @@ using System.Linq;
 
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Bills;
 using DoubleGis.Erm.BLFlex.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
 {

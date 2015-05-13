@@ -7,6 +7,8 @@ using DoubleGis.Erm.BLCore.ExtractUseCases.Processors.FindAllHandlers;
 using DoubleGis.Erm.BLCore.ExtractUseCases.Utils;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 
+using NuClear.Storage.UseCases;
+
 using Roslyn.Compilers;
 using Roslyn.Compilers.Common;
 using Roslyn.Compilers.CSharp;

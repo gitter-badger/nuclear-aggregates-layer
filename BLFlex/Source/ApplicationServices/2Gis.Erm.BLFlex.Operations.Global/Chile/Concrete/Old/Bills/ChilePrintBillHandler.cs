@@ -21,6 +21,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
 {
     public sealed class ChilePrintBillHandler : RequestHandler<PrintBillRequest, Response>, IChileAdapted

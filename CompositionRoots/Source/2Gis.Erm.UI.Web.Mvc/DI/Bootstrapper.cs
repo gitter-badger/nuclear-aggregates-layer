@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 
@@ -77,13 +78,13 @@ using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Migration.Core;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
@@ -96,6 +97,7 @@ using DoubleGis.Erm.UI.Web.Mvc.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Aggregates.Storage.DI.Unity;
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
 using NuClear.Security.API;
@@ -104,7 +106,10 @@ using NuClear.Security.API.UserContext.Identity;
 using NuClear.Metamodeling.Validators;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Settings.API;
+using NuClear.Storage.EntityFramework.DI;
 using NuClear.Tracing.API;
+
+using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.DI
 {
@@ -120,7 +125,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                     new CheckDomainModelEntitiesConsistencyMassProcessor(), 
                     new CheckApplicationServicesConventionsMassProcessor(), 
                     new MetadataSourcesMassProcessor(container), 
-                    new AggregatesLayerMassProcessor(container),
+                    new AggregatesLayerMassProcessor(container, AggregatesLayerRegistrationTypeMappingResolver),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new UIServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
@@ -129,7 +134,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                     new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
                     new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new ControllersProcessor(container),
-                    new EfDbModelMassProcessor(container)
+                    new EFDbModelMassProcessor(container)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -382,6 +387,14 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                 .RegisterType<ModelMetadataProvider, LocalizedMetaDataProvider>(Lifetime.Singleton,
                                                          new InjectionConstructor(
                                                              typeof(IUserContextProvider), new[] { MetadataResources.ResourceManager }));
+        }
+
+        private static string AggregatesLayerRegistrationTypeMappingResolver(Type aggregateServiceType)
+        {
+            return aggregateServiceType.GenericTypeArguments
+                                       .Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
+                       ? Mapping.SecureOperationRepositoriesScope
+                       : Mapping.UnsecureOperationRepositoriesScope;
         }
     }
 }

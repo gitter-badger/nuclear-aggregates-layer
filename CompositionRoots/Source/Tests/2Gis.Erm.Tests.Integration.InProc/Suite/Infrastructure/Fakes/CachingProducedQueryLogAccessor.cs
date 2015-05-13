@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using DoubleGis.Erm.Platform.DAL;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes
 {

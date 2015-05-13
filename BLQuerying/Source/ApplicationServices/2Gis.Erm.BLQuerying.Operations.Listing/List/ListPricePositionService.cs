@@ -5,28 +5,29 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListPricePositionService : ListEntityDtoServiceBase<PricePosition, ListPricePositionDto>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
         private readonly IOrderReadModel _orderReadModel;
 
-        public ListPricePositionService(IFinder finder, FilterHelper filterHelper, IOrderReadModel orderReadModel)
+        public ListPricePositionService(IQuery query, FilterHelper filterHelper, IOrderReadModel orderReadModel)
         {
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
             _orderReadModel = orderReadModel;
         }
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<PricePosition>();
+            var query = _query.For<PricePosition>();
 
             var restrictByOrderSalesModelFilter = querySettings.CreateForExtendedProperty<PricePosition, long>(
                 "orderId",

@@ -60,12 +60,12 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.DI.WCF;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
@@ -81,6 +81,7 @@ using DoubleGis.Erm.WCF.BasicOperations.Config;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Aggregates.Storage.DI.Unity;
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
 using NuClear.Security;
@@ -89,7 +90,10 @@ using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
 using NuClear.Model.Common.Entities;
 using NuClear.Settings.API;
+using NuClear.Storage.EntityFramework.DI;
 using NuClear.Tracing.API;
+
+using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.WCF.BasicOperations.DI
 {
@@ -108,7 +112,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                     new CheckApplicationServicesConventionsMassProcessor(), 
                     new CheckDomainModelEntitiesConsistencyMassProcessor(),
                     new MetadataSourcesMassProcessor(container), 
-                    new AggregatesLayerMassProcessor(container),
+                    new AggregatesLayerMassProcessor(container, AggregatesLayerRegistrationTypeMappingResolver),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new OperationsServicesMassProcessor(container,
@@ -117,7 +121,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                         new Func<Type, EntitySet, IEnumerable<Type>, Type>[] { BLQueryingConflictResolver.ListServices },
                         new Func<Type, IEnumerable<Type>, Type>[0]),
                     new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
-                    new EfDbModelMassProcessor(container)
+                    new EFDbModelMassProcessor(container)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
@@ -330,6 +334,14 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .RegisterType<IAuthorizationPolicy, UnityAuthorizationPolicy>(typeof(UnityAuthorizationPolicy).ToString(), Lifetime.Singleton);
 
             return container;
+        }
+
+        private static string AggregatesLayerRegistrationTypeMappingResolver(Type aggregateServiceType)
+        {
+            return aggregateServiceType.GenericTypeArguments
+                                       .Any(x => x.IsEntity() && x.IsSecurableAccessRequired())
+                       ? Mapping.SecureOperationRepositoriesScope
+                       : Mapping.UnsecureOperationRepositoriesScope;
         }
     }
 }

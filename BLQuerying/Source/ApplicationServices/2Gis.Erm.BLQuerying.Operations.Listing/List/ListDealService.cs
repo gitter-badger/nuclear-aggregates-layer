@@ -7,27 +7,28 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListDealService : ListEntityDtoServiceBase<Deal, ListDealDto>
     {
         private readonly IUserContext _userContext;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly FilterHelper _filterHelper;
 
         public ListDealService(
-            IFinder finder,
+            IQuery query,
             ISecurityServiceUserIdentifier userIdentifierService,
             FilterHelper filterHelper,
             IUserContext userContext)
         {
-            _finder = finder;
+            _query = query;
             _userIdentifierService = userIdentifierService;
             _filterHelper = filterHelper;
             _userContext = userContext;
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
-            var query = _finder.For<Deal>();           
+            var query = _query.For<Deal>();           
 
             bool excludeReserve;
             Expression<Func<Deal, bool>> excludeReserveFilter = null;
@@ -78,7 +79,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 orderId =>
                     {
                         var orderInfo =
-                            _finder.For<Order>()
+                            _query.For<Order>()
                                    .Where(x => x.Id == orderId)
                                    .Select(
                                        x =>

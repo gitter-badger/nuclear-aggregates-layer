@@ -2,7 +2,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Integration.ServiceBus;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Base;
@@ -10,6 +9,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using FluentAssertions;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLCore.Operations.Concrete.Old.Integration.ServiceBus
 {
