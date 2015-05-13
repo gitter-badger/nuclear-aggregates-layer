@@ -1,7 +1,7 @@
 ﻿--declare 	@IssueDate date = '20130901'
 --			,@City bigint = 1
 DECLARE
-	@DZCheckPoint date = '20111201'
+	@DZCheckPoint date = '20141201'
 
 
 DECLARE 
