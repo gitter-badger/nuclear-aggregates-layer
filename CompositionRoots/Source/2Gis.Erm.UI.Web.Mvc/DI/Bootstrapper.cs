@@ -331,7 +331,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterTypeWithDependencies<IBasicOrderProlongationOperationLogic, BasicOrderProlongationOperationLogic>(CustomLifetime.PerRequest, mappingScope)
 
-                .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerRequest, Mapping.ConstructorInjectionReadModelsScope)
+                .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(CustomLifetime.PerRequest, mappingScope)
 
                 // notification sender
                 .RegisterType<ILinkToEntityCardFactory, WebClientLinkToEntityCardFactory>()

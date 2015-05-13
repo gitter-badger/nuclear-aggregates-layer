@@ -25,8 +25,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
@@ -51,9 +49,11 @@ using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
+using NuClear.Storage.ConnectionStrings;
 using NuClear.Storage.EntityFramework.DI;
 using NuClear.Tracing.API;
 
+using IConnectionStringSettings = DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings.IConnectionStringSettings;
 using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
@@ -162,17 +162,17 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
 
         private static IUnityContainer ConfigureReadWriteModels(this IUnityContainer container)
         {
-            var readConnectionStringNameMap = new Dictionary<string, ConnectionStringName>
-            {
-                                                      { ErmContainer.Instance.Name, ConnectionStringName.ErmValidation },
-                                                      { ErmSecurityContainer.Instance.Name, ConnectionStringName.Erm },
-                                                  };
-
-            var writeConnectionStringNameMap = new Dictionary<string, ConnectionStringName>
+            var readConnectionStringNameMap = new Dictionary<string, IConnectionStringIdentity>
                 {
-                                                       { ErmContainer.Instance.Name, ConnectionStringName.Erm },
-                                                       { ErmSecurityContainer.Instance.Name, ConnectionStringName.Erm },
-            };
+                    { ErmContainer.Instance.Name, OrderValidationConnectionStringIdentity.Instance },
+                    { ErmSecurityContainer.Instance.Name, ErmConnectionStringIdentity.Instance },
+                };
+
+            var writeConnectionStringNameMap = new Dictionary<string, IConnectionStringIdentity>
+                {
+                    { ErmContainer.Instance.Name, ErmConnectionStringIdentity.Instance },
+                    { ErmSecurityContainer.Instance.Name, ErmConnectionStringIdentity.Instance },
+                };
 
             return container.RegisterInstance<IConnectionStringNameResolver>(new ConnectionStringNameResolver(readConnectionStringNameMap,
                                                                                                               writeConnectionStringNameMap));
