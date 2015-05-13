@@ -8,8 +8,8 @@ namespace DoubleGis.Erm.Platform.API.Core.Exceptions
     [Serializable]
     public class InvalidMetadataException : BusinessLogicException
     {
-        public InvalidMetadataException(IMetadataElementIdentity metadataIdentity) :
-            base(GenerateMessage(metadataIdentity))
+        public InvalidMetadataException(IMetadataElementIdentity metadataIdentity, string comment) :
+            base(GenerateMessage(metadataIdentity, comment))
         {
         }
 
@@ -18,9 +18,9 @@ namespace DoubleGis.Erm.Platform.API.Core.Exceptions
         {
         }
 
-        private static string GenerateMessage(IMetadataElementIdentity metadataIdentity)
+        private static string GenerateMessage(IMetadataElementIdentity metadataIdentity, string comment)
         {
-            return string.Format("Invalid metadata for {0}", metadataIdentity.Id);
+            return string.Format("Invalid metadata in {0}. Comment: {1}", metadataIdentity.Id, comment);
         }
     }
 }

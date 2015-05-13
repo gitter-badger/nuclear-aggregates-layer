@@ -67,11 +67,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
                 }
                 else
                 {
-                    throw new InvalidMetadataException(element.Identity);
+                    throw new InvalidMetadataException(element.Identity, string.Format("Entity in feature {0} must be equal instance entity.", feature));
                 }
             }
 
-            // TODO {Yury Baranikhin, 13.05.2015}: Мы ввели 2 foreach которые введены на смену SecuredByEntityPrivelegeFeature. Убрать когда разделим проверку прав на сущность и экземпляр сущности
+            // TODO {y.baranihin, 13.05.2015}: Мы ввели 2 foreach которые введены на смену SecuredByEntityPrivelegeFeature. Убрать когда разделим проверку прав на сущность и экземпляр сущности
             foreach (var feature in element.Features<SecuredByEntityPrivelegeFeature>())
             {
                 if (feature.Entity == model.ViewConfig.EntityName)
