@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Platform.Migration.Core;
@@ -9,12 +8,8 @@ namespace DoubleGis.Erm.BL.DB.Migrations._2._1
     [Migration(201504060130, "Удаляем невалидные правила запрещения", "y.baranihin")]
     public class Migration201504060130 : TransactedMigration
     {
-        private const string ValidationQuery = @"select count(*)
-  FROM [Billing].[DeniedPositions] dp 
-  left join [Billing].[DeniedPositions] dp1 on dp.PriceId = dp1.PriceId and dp.PositionId = dp1.PositionDeniedId and dp.PositionDeniedId = dp1.PositionId and dp.ObjectBindingType = dp1.ObjectBindingType
-  where dp.PositionId != dp.PositionDeniedId and dp.IsDeleted = 0 and dp1.Id is null";
-
         #region Записи к удалению
+
         private readonly long[] _deniedPositionsToDelete =
             {
                 73292,
@@ -215,20 +210,19 @@ namespace DoubleGis.Erm.BL.DB.Migrations._2._1
                 2583181,
                 2583198,
                 2590066,
-                2597186
+                2597186,
+
+                548926943232843714,
+                570713651925789890,
+                593933647023953602,
+                605491500754885570
             }; 
-        #endregion   
+        #endregion
 
         protected override void ApplyOverride(IMigrationContext context)
         {
             context.Connection.ExecuteNonQuery(string.Format("Update [Billing].[DeniedPositions] set IsActive = 0, IsDeleted = 1, ModifiedOn = Getutcdate(), ModifiedBy = 1 where Id in ({0})",
                                                              string.Join(",", _deniedPositionsToDelete.Select(x => x.ToString()))));
-
-            var notDeleted = (int)context.Connection.ExecuteScalar(ValidationQuery);
-            if (notDeleted > 0)
-            {
-                throw new Exception(string.Format("Появилось {0} новых невалидных правил запрещения.", notDeleted));
-            }
         }
     }
 }
