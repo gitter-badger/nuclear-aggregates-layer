@@ -143,6 +143,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 securityPrivelegeFlag |= (int)feature.Privilege;
             }
 
+            foreach (var feature in toolbarElement.Features<SecuredByEntityInstancePrivilegeFeature>())
+            {
+                securityPrivelegeFlag |= (int)feature.Privilege;
+            }
+
+            foreach (var feature in toolbarElement.Features<SecuredByEntityTypePrivilegeFeature>())
+            {
+                securityPrivelegeFlag |= (int)feature.Privilege;
+            }
+
             foreach (var feature in toolbarElement.Features<SecuredByEntityPrivelegeFeature>())
             {
                 securityPrivelegeFlag |= (int)feature.Privilege;

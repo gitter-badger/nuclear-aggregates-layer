@@ -77,6 +77,7 @@
     <Compile Include="ActionLogging\ActionType.cs" />
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\InvalidMetadataException.cs" />
     <Compile Include="Exceptions\RequiredFieldIsEmptyException.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\EntityIsNotUniqueException.cs" />

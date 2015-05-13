@@ -228,7 +228,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlCreateAppointment)
                                     .ControlType(ControlType.TextButton)
                                     .JSHandler("CreateAppointment")                                    
-                                    .AccessWithPrivelege<Appointment>(EntityAccessTypes.Create)
+                                    .AccessWithEntityTypePrivilege<Appointment>(EntityAccessTypes.Create)                                    
                                     .Operation.SpecificFor<CreateIdentity, Appointment>();
         }
 
@@ -239,7 +239,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlCreateTask)
                                     .ControlType(ControlType.TextButton)
                                     .JSHandler("CreateTask")
-                                    .AccessWithPrivelege<Task>(EntityAccessTypes.Create)
+                                    .AccessWithEntityTypePrivilege<Task>(EntityAccessTypes.Create)                                    
                                     .Operation.SpecificFor<CreateIdentity, Task>();
         }
 
@@ -250,7 +250,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlCreatePhonecall)
                                     .ControlType(ControlType.TextButton)
                                     .JSHandler("CreatePhonecall")
-                                    .AccessWithPrivelege<Phonecall>(EntityAccessTypes.Create)
+                                    .AccessWithEntityTypePrivilege<Phonecall>(EntityAccessTypes.Create)                                    
                                     .Operation.SpecificFor<CreateIdentity, Phonecall>();
         }
 
@@ -261,7 +261,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                     .Title.Resource(() => ErmConfigLocalization.ControlCreateLetter)
                                     .ControlType(ControlType.TextButton)
                                     .JSHandler("CreateLetter")
-                                    .AccessWithPrivelege<Letter>(EntityAccessTypes.Create)
+                                    .AccessWithEntityTypePrivilege<Letter>(EntityAccessTypes.Create)                                    
                                     .Operation.SpecificFor<CreateIdentity, Letter>();
         }
 
