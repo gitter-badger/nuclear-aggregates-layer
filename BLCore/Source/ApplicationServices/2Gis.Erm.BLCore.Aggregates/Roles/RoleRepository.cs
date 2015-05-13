@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
                                               .GroupBy(x => x.EntityType)
                                               .Select(x => new
                                                   {
-                                                      EntityName = x.Key,
+                                                      EntityType = x.Key.Value,
                                                       PrivilegeInfoList = x.Select(p => new PrivilegeDto
                                                           {
                                                               PrivilegeId = p.Id,
@@ -100,7 +100,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
                                               .AsEnumerable()
                                               .Select(x => new EntityPrivilegeInfo
                                                   {
-                                                      EntityName = EntityType.Instance.Parse(x.EntityName.Value),
+                                                      EntityName = EntityType.Instance.Parse(x.EntityType),
                                                       PrivilegeInfoList = x.PrivilegeInfoList
                                                   })
                                               .ToArray();
