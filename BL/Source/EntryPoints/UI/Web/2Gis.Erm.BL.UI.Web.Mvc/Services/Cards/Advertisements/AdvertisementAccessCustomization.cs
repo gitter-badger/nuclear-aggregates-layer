@@ -32,7 +32,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements
             }
 
             var firmId = viewModel.Firm.Key.Value;
-            var firmOwnerCode = _firmReadModel.GetFirmOwnerCodeUnsecure(firmId);
+
+            long firmOwnerCode;
+            _firmReadModel.TryGetFirmOwnerCodeUnsecure(firmId, out firmOwnerCode);
 
             viewModel.ViewConfig.ReadOnly |= !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                            EntityName.Firm,

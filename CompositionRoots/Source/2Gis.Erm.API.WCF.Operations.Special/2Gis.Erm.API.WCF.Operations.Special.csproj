@@ -295,6 +295,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FirmWorkStatus.svc" />
     <Content Include="HandleAdsState.svc" />
     <Content Include="ManageTextAds.svc" />
     <Content Include="Calculate.svc" />

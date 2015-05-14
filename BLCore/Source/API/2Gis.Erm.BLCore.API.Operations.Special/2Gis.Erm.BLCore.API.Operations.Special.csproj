@@ -76,9 +76,12 @@
     <Compile Include="FirmInfo\CategoryInfoDto.cs" />
     <Compile Include="FirmInfo\FirmIdDto.cs" />
     <Compile Include="FirmInfo\FirmInfoDto.cs" />
-    <Compile Include="FirmInfo\IGetFirmInfoOperationService.cs" />
+    <Compile Include="FirmWorkStatus\FirmWorkStatusErrorDescription.cs" />
+    <Compile Include="FirmWorkStatus\IGetFirmInfoOperationService.cs" />
+    <Compile Include="FirmInfo\IGetFirmWorkStatusOperationService.cs" />
     <Compile Include="FirmInfo\ProjectInfoDto.cs" />
     <Compile Include="DI\OperationsSpecialZone.cs" />
+    <Compile Include="FirmWorkStatus\FirmWorkStatus.cs" />
     <Compile Include="OrderProcessingRequests\CancelledOrderRequestStateDescription.cs" />
     <Compile Include="OrderProcessingRequests\CompletedOrderRequestStateDescription.cs" />
     <Compile Include="OrderProcessingRequests\IBasicOrderProlongationOperationLogic.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="OrderProcessingRequests\IOrderProcessingRequestService.cs" />
     <Compile Include="Remote\FirmInfo\FirmInfoOperationErrorDescription.cs" />
     <Compile Include="Remote\FirmInfo\IFirmInfoApplicationRestService.cs" />
+    <Compile Include="Remote\FirmWorkStatus\IFirmWorkStatusApplicationService.cs" />
     <Compile Include="Remote\OrderProcessing\IOrderProcessingApplicationService.cs" />
     <Compile Include="Remote\OrderProcessing\IRequestStateApplicationService.cs" />
     <Compile Include="Remote\OrderProcessing\OrderProcessingErrorDescription.cs" />

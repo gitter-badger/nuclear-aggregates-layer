@@ -63,6 +63,7 @@
     <Compile Include="FinancialOperations\OrderRequest.svc.cs" />
     <Compile Include="FinancialOperations\RequestState.svc.cs" />
     <Compile Include="FirmInfo\FirmInfo.svc.cs" />
+    <Compile Include="FirmWorkStatus\FirmWorkStatus.svc.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">

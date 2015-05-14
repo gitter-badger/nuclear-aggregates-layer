@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
@@ -12,7 +11,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 {
@@ -332,9 +330,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                           .ToArray();
         }
 
-        public long GetFirmOwnerCodeUnsecure(long firmId)
+        public bool TryGetFirmOwnerCodeUnsecure(long firmId, out long ownerCode)
         {
-            return _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.OwnerCode).Single();
+            var nullableOwnerCode = _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => (long?)x.OwnerCode)
+                                           .SingleOrDefault();
+
+            ownerCode = nullableOwnerCode ?? 0;
+            return nullableOwnerCode.HasValue;
         }
 
         private Dictionary<int, string> GetReferenceItems(IEnumerable<int> referenceItemCodes, string referenceCode)
