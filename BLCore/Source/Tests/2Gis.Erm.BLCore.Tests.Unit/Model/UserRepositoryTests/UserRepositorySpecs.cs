@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;
@@ -14,6 +13,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Storage;
 
 using NUnit.Framework;
 
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Model.UserRepositoryTests
                     Finder.Setup(finder => finder.Find(Moq.It.IsAny<Expression<Func<CategoryOrganizationUnit, bool>>>()))
                        .Returns<Expression<Func<CategoryOrganizationUnit, bool>>>(expression => SourceData.Where(expression.Compile()).AsQueryable());
 
-                    UserRepository = new UserRepository(null, null, null, null, null, null, null, null, null, null, Finder.Object, null, null, null, null, null, null, null, null, null, null, null, null, null);
+                    UserRepository = new UserRepository(null, null, null, null, null, null, null, null, null, null, null, Finder.Object, null, null, null, null, null, null, null, null, null, null, null, null, null);
                 };
 
             Because of = () => Result = UserRepository.GetCategoryGroupMembership(OrganizationUnitId);

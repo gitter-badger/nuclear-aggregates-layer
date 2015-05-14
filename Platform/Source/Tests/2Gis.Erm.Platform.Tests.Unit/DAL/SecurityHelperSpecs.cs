@@ -4,8 +4,8 @@ using System.ServiceModel.Security;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 
 using FluentAssertions;
 
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 // DONE {d.ivanov, 03.10.2013}: Ок. Опять же это CleanCode, очень хочу автоматизировать этот процесс, если так и не смогу подогнать, то откажусь от него.
                 _entityAccessService.Setup(e => e.RestrictEntityAccess(Entity.GetType().AsEntityName(),
                                                                        OperationType,
-                                                                       _moqUserContext.Object.Identity.Code,
+                                                                       _mockUserContext.Object.Identity.Code,
                                                                        Entity.Id,
                                                                        Entity.OwnerCode,
                                                                        ((ICuratedEntity)Entity).OldOwnerCode))
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             protected const EntityAccessTypes GrantedEntityAccess = EntityAccessTypes.Assign;
 
             Establish context = () => _entityAccessService
-                                          .Setup(e => e.GetCommonEntityAccessForMetadata(Entity.GetType().AsEntityName(), _moqUserContext.Object.Identity.Code))
+                                          .Setup(e => e.GetCommonEntityAccessForMetadata(Entity.GetType().AsEntityName(), _mockUserContext.Object.Identity.Code))
                                           .Returns(GrantedEntityAccess);
         }
 
@@ -63,22 +63,22 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             protected static readonly Deal Entity = new Deal();
 
             protected static Mock<ISecurityServiceEntityAccessInternal> _entityAccessService;
-            protected static MoqUserContext _moqUserContext;
+            protected static MockUserContext _mockUserContext;
 
             Establish context = () =>
                 {
-                    _moqUserContext = new MoqUserContext();
+                    _mockUserContext = new MockUserContext();
 
                     _entityAccessService = new Mock<ISecurityServiceEntityAccessInternal>();
 
-                    Target = new SecurityHelper(_moqUserContext.Object, _entityAccessService.Object);
+                    Target = new SecurityHelper(_mockUserContext.Object, _entityAccessService.Object);
                 };
 
             protected static SecurityHelper Target { get; private set; }
 
             protected static void SkipEntityAccess(bool checkAccess)
             {
-                _moqUserContext.SkipEntityAccess(checkAccess);
+                _mockUserContext.SkipEntityAccess(checkAccess);
             }
         }
 

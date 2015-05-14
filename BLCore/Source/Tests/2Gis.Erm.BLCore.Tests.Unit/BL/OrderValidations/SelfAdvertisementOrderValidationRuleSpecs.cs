@@ -7,7 +7,6 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;
@@ -15,6 +14,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Storage;
 
 using It = Machine.Specifications.It;
 
@@ -97,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
 
             protected static OrderPosition CreateOrderPosition(long positionCategoryId, PlatformEnum platformType)
             {
-                var platform = new DoubleGis.Erm.Platform.Model.Entities.Erm.Platform { DgppId = (long)platformType };
+                var platform = new Platform.Model.Entities.Erm.Platform { DgppId = (long)platformType };
 
                 var position = new Position
                 {

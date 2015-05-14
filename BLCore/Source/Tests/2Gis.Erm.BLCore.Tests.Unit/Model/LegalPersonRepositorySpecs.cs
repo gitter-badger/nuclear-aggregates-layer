@@ -18,6 +18,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Model
         {
             private Establish context = () => LegalPersonRepository = new LegalPersonRepository(null,
                                                                                                 null,
+                                                                                                null,
                                                                                                 Mock.Of<ISecureRepository<LegalPerson>>(),
                                                                                                 null,
                                                                                                 null,

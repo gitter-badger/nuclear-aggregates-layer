@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -14,6 +12,9 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
 

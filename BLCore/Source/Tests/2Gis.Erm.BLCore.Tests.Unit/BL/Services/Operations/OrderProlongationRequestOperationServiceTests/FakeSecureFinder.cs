@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.Platform.DAL;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongationRequestOperationServiceTests
 {
@@ -43,12 +44,12 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
             throw new NotImplementedException();
         }
 
-        public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity, IEntityKey
+        public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity, IEntityKey
+        public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
             return Storage.OfType<TEntity>().Where(findSpecification.Predicate.Compile()).ToArray();
         }

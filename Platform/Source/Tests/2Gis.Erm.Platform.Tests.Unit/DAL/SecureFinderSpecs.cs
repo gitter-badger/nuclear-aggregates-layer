@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 
 using FluentAssertions;
 
@@ -22,17 +23,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
     public class SecureFinderSpecs
     {
-        class FindAllSecureFinderContext : SecureFinderContext
-        {
-            Establish context = () =>
-                {
-                    ExpectedType = typeof(Deal);
-                    Finder.Setup(f => f.For(ExpectedType)).Returns(_finderEntities);
-                };
-
-            protected static Type ExpectedType { get; set; }
-        }
-
         class FindByExprContext : SecureFinderContext
         {
             static Expression<Func<Deal, bool>> _expression;
@@ -91,7 +81,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             protected static IQueryable _result;
             protected static Mock<ISecurityServiceEntityAccessInternal> _securityAccess;
 
-            static MoqUserContext _moqUserContext;
+            static MockUserContext _mockUserContext;
 
             Establish context = () =>
                 {
@@ -101,10 +91,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
                     _securityAccess = new Mock<ISecurityServiceEntityAccessInternal>();
 
-                    _moqUserContext = new MoqUserContext();
+                    _mockUserContext = new MockUserContext();
 
                     Target = new SecureFinder(Finder.Object,
-                                              _moqUserContext.Object,
+                                              _mockUserContext.Object,
                                               _securityAccess.Object);
                 };
 
@@ -116,13 +106,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 SkipEntityAccess(false);
 
                 _restrictedEntities = CreateEntities();
-                _securityAccess.Setup(s => s.RestrictQuery(_finderEntities, typeof(Deal).AsEntityName(), _moqUserContext.Object.Identity.Code))
+                _securityAccess.Setup(s => s.RestrictQuery(_finderEntities, typeof(Deal).AsEntityName(), _mockUserContext.Object.Identity.Code))
                                .Returns(_restrictedEntities);
             }
 
             protected static void SkipEntityAccess(bool checkAccess)
             {
-                _moqUserContext.SkipEntityAccess(checkAccess);
+                _mockUserContext.SkipEntityAccess(checkAccess);
             }
 
             static IQueryable<Deal> CreateEntities()
@@ -143,33 +133,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             It should_return_same_result_as_Finder = () => _result.Should().Contain(_finderEntities, "Коллекции элементов должны совпадать.");
         }
 
-        /// <summary>
-        ///     Запрос всех по типу, с ограничением вызова.
-        /// </summary>
-        [Tags("DAL")]
-        [Subject(typeof(SecureFinder))]
-        class When_FindAll_by_Type_access_check : FindAllSecureFinderContext
-        {
-            Establish context = () => SetUpRestrictQuery();
-
-            Because of = () => _result = Target.For(ExpectedType);
-
-            Behaves_like<RestrictAccessBehavior> restrict_query;
-        }
-
-        /// <summary>
-        ///     Запрос всех по типу без ограничения вызова.
-        /// </summary>
-        [Tags("DAL")]
-        [Subject(typeof(SecureFinder))]
-        class When_FindAll_by_Type_skip_access_check : FindAllSecureFinderContext
-        {
-            Establish context = () => SkipEntityAccess(true);
-
-            Because of = () => _result = Target.For(ExpectedType);
-
-            Behaves_like<SkipEntityAccessCheckBehavior> skip_entity_access;
-        }
 
         /// <summary>
         ///     Запрос по выражению, с ограничением вызова.

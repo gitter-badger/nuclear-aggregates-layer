@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;
@@ -14,6 +13,9 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;

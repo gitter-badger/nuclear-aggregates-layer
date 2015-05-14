@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.Accounts;
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -12,6 +11,8 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
 
@@ -30,6 +31,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Model
                 finderMock.Setup(x => x.Find(Moq.It.IsAny<IFindSpecification<Account>>())).Returns(new[] { Account }.AsQueryable());
 
                 _assignAccountRepository = new AccountRepository(null,
+                                                                 null,
                                                                  null,
                                                                  finderMock.Object,
                                                                  null,

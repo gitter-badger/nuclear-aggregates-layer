@@ -16,7 +16,8 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes
 
         private readonly bool _skipSecureCheck;
 
-        public StubUserContext() : this(false)
+        public StubUserContext()
+            : this(false)
         {
         }
 
