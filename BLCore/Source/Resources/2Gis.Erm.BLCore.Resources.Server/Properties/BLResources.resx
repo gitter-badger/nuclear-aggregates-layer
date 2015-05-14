@@ -5217,4 +5217,10 @@
   <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
     <value />
   </data>
+  <data name="CanNotChangeGroupForUpperLevelsCategory" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
+    <value />
+  </data>
 </root>
