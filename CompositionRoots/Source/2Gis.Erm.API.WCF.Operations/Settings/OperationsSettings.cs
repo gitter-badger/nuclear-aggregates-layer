@@ -18,6 +18,7 @@ using DoubleGis.Erm.Qds.Common.Settings;
 
 using NuClear.Settings;
 using NuClear.Settings.API;
+using NuClear.Storage.ConnectionStrings;
 
 namespace DoubleGis.Erm.WCF.BasicOperations.Settings
 {
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.Settings
 
         public OperationsSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
-            var connectionStrings = new ConnectionStringsSettingsAspect();
+            var connectionStrings = new ConnectionStringSettingsAspect(new ConnectionStringsStorage().ConnectionStringsMap);
 
             Aspects
                 .UseUsuallyRequiredFor(supportedBusinessModelIndicators)

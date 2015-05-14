@@ -79,6 +79,7 @@ using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
 using NuClear.Settings.API;
+using NuClear.Storage.ConnectionStrings;
 using NuClear.Storage.EntityFramework.DI;
 using NuClear.Tracing.API;
 

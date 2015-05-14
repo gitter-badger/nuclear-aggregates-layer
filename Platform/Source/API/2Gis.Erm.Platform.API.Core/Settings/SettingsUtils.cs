@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 
 using NuClear.Settings.API;
+using NuClear.Storage.ConnectionStrings;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings
 {
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings
 
         private static IEnumerable<ISettingsAspect> UsuallyRequiredFor(IEnumerable<Type> supportedBusinessModelIndicators)
         {
-            var connectionStrings = new ConnectionStringsSettingsAspect();
+            var connectionStrings = new ConnectionStringSettingsAspect(new ConnectionStringsStorage().ConnectionStringsMap);
 
             return new ISettingsAspect[]
                 {

@@ -14,6 +14,7 @@ using Microsoft.Practices.Unity;
 
 using NuClear.Jobs.Schedulers;
 using NuClear.Settings.API;
+using NuClear.Storage.ConnectionStrings;
 using NuClear.Tracing.API;
 using NuClear.Tracing.Environment;
 using NuClear.Tracing.Log4Net;

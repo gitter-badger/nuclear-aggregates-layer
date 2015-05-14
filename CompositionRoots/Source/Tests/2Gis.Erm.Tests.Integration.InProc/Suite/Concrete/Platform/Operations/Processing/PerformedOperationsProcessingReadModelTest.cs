@@ -20,6 +20,8 @@ using NuClear.Storage;
 using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 
+using IConnectionStringSettings = NuClear.Storage.ConnectionStrings.IConnectionStringSettings;
+
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Processing
 {
     [UseCase(Duration = UseCaseDuration.VeryLong)]
@@ -67,7 +69,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
             get 
             { 
                 return 
-                    _connectionStringSettings.GetConnectionString(ConnectionStringName.Erm);
+                    _connectionStringSettings.GetConnectionString(ErmConnectionStringIdentity.Instance);
                     //ProdDbConnectionString;
             }
         }

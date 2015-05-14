@@ -27,7 +27,7 @@ namespace NuClear.Aggregates
                     throw new InvalidOperationException("Only open generic indicators must be specified");
                 }
 
-                var targetGenericTypeParameters = checkingIndicator.GenericTypeArguments;
+                var targetGenericTypeParameters = checkingIndicator.GetTypeInfo().GenericTypeParameters;
                 var resolvedIndicatorUsings = checkingType.GetTypeInfo().ImplementedInterfaces
                                                           .Where(t => t.GetTypeInfo().IsGenericType && checkingIndicator == t.GetGenericTypeDefinition())
                                                           .Select(t => t.GenericTypeArguments)

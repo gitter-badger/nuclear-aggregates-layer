@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.Migration.Base;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Migration.CRM;
@@ -75,11 +74,9 @@ namespace DoubleGis.Erm.Migrator
                 }
 
                 var calculatedArguments = new MigrationConsoleCalculatedArguments();
-                var connectionStringsAspect = new ConnectionStringsSettingsAspect();
-
-                foreach (var pair in connectionStringsAspect.AllConnections)
+                foreach (var connectionStringSettings in ConfigurationManager.ConnectionStrings.Cast<ConnectionStringSettings>())
                 {
-                    calculatedArguments.ConnectionStrings.Add(new ConnectionStringSettings(pair.Key.ToString(), pair.Value.ConnectionString));
+                    calculatedArguments.ConnectionStrings.Add(connectionStringSettings);
                 }
 
                 Execute(Console.Out, _arguments, calculatedArguments);

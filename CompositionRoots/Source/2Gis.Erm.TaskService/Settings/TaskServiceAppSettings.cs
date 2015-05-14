@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Common;
-using System.Data.SqlClient;
 
 using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
@@ -25,6 +22,8 @@ using DoubleGis.Erm.Qds.Common.Settings;
 using NuClear.Jobs.Settings;
 using NuClear.Settings;
 using NuClear.Settings.API;
+
+using IConnectionStringSettings = NuClear.Storage.ConnectionStrings.IConnectionStringSettings;
 
 namespace DoubleGis.Erm.TaskService.Settings
 {
@@ -175,7 +174,7 @@ namespace DoubleGis.Erm.TaskService.Settings
 
         string IPersistentStoreSettings.ConnectionString
         {
-            get { return this.AsSettings<IConnectionStringSettings>().GetConnectionStringSettings(ConnectionStringName.ErmInfrastructure).ConnectionString; }
+            get { return this.AsSettings<IConnectionStringSettings>().GetConnectionString(InfrastructureConnectionStringIdentity.Instance); }
         }
 
         string IPersistentStoreSettings.TablePrefix

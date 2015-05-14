@@ -2,9 +2,9 @@
 {
     public static class ConnectionStringsSettingsAccessors
     {
-        public static string LoggingConnectionString(this IConnectionStringSettings connectionStringSettings)
+        public static string LoggingConnectionString(this NuClear.Storage.ConnectionStrings.IConnectionStringSettings connectionStringSettings)
         {
-            return connectionStringSettings.GetConnectionString(ConnectionStringName.Logging);
+            return connectionStringSettings.GetConnectionString(LoggingConnectionStringIdentity.Instance);
         }
     }
 }

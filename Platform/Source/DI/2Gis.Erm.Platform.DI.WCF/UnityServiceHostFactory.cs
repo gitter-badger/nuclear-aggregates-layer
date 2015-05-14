@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceHost;
 using Microsoft.Practices.Unity;
 
 using NuClear.Settings.API;
+using NuClear.Storage.ConnectionStrings;
 using NuClear.Tracing.API;
 using NuClear.Tracing.Environment;
 using NuClear.Tracing.Log4Net;

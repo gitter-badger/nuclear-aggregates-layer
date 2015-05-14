@@ -67,7 +67,7 @@ using NuClear.Storage.EntityFramework;
 using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 
-using IConnectionStringSettings = DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings.IConnectionStringSettings;
+using IConnectionStringSettings = NuClear.Storage.ConnectionStrings.IConnectionStringSettings;
 using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
@@ -95,7 +95,11 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                             .RegisterInstance(tracerContextManager);
         }
 
-        public static IUnityContainer ConfigureDAL(this IUnityContainer container, Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, IEnvironmentSettings environmentSettings, IConnectionStringSettings connectionStringSettings)
+        public static IUnityContainer ConfigureDAL(
+            this IUnityContainer container, 
+            Func<LifetimeManager> entryPointSpecificLifetimeManagerFactory, 
+            IEnvironmentSettings environmentSettings, 
+            IConnectionStringSettings connectionStringSettings)
         {
             if (environmentSettings.Type == EnvironmentType.Production)
             {
@@ -122,7 +126,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IReadDomainContextFactory, EFDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IModifiableDomainContextFactory, EFDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IReadDomainContext, CachingReadDomainContext>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
+                        .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ErmConnectionStringIdentity.Instance)))
                         .RegisterType<IProcessingContext, ProcessingContext>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IUseCaseTuner, UseCaseTuner>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IConcurrentPeriodCounter, ConcurrentPeriodCounter>()
@@ -139,6 +143,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
 
                         .RegisterType<IDynamicPropertiesConverterFactory, UnityDynamicPropertiesConverterFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IDynamicEntityMetadataProvider, DynamicEntityMetadataProvider>(Lifetime.Singleton)
+
+                        .RegisterType<IQuery, Query>(Lifetime.PerResolve)
+                        .RegisterType<ISecureQuery, SecureQuery>(Lifetime.PerResolve)
 
                         .RegisterType<IFinder>(Lifetime.PerResolve, new InjectionFactory(c => c.Resolve<ConsistentFinderDecorator>(new DependencyOverride<IFinder>(typeof(Finder)))))
                         .RegisterType<ISecureFinder>(Lifetime.PerResolve, new InjectionFactory(c => c.Resolve<ConsistentSecureFinderDecorator>(new DependencyOverride<ISecureFinder>(typeof(SecureFinder)), new DependencyOverride<IFinder>(typeof(Finder)))))

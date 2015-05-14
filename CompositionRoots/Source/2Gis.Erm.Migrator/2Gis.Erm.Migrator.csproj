@@ -79,14 +79,6 @@
       <Project>{53a13f6f-53a4-4edc-8284-51accf00b51c}</Project>
       <Name>2Gis.Erm.BL.DB.Migrations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Platform\Source\2Gis.Erm.Platform.Common\2Gis.Erm.Platform.Common.csproj">
-      <Project>{D007E5B7-AD99-4995-AB7B-ECF63F065AEB}</Project>
-      <Name>2Gis.Erm.Platform.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
-      <Project>{0feb67d9-78a5-491a-b4fb-a44fba071f70}</Project>
-      <Name>2Gis.Erm.Platform.API.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\Data\Migrations\2Gis.Erm.Platform.Migration.Core\2Gis.Erm.Platform.Migration.Core.csproj">
       <Project>{2ee6dcd3-218d-4eea-8902-8cf501c7e034}</Project>
       <Name>2Gis.Erm.Platform.Migration.Core</Name>

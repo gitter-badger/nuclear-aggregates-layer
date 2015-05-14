@@ -43,6 +43,7 @@ using NuClear.Settings.API;
 using NuClear.Storage.EntityFramework.DI;
 using NuClear.Tracing.API;
 
+using IConnectionStringSettings = NuClear.Storage.ConnectionStrings.IConnectionStringSettings;
 using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.API.WCF.Metadata.DI
@@ -124,7 +125,7 @@ namespace DoubleGis.Erm.API.WCF.Metadata.DI
                      .RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
                      .RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton)
                             .RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton)
-                            .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Mapping.ErmInfrastructure, Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmInfrastructure)))
+                            .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Mapping.ErmInfrastructure, Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(InfrastructureConnectionStringIdentity.Instance)))
                             .RegisterType<IApplicationLocksManager, ApplicationLocksManager>(Mapping.ErmInfrastructure, Lifetime.Singleton)
                             .RegisterTypeWithDependencies<IApplicationLocksService, ApplicationLocksService>(Lifetime.Singleton, Mapping.ErmInfrastructure)
                             .RegisterTypeWithDependencies<IIdentityServiceUniqueIdProvider, AppLockIdentityServiceUniqueIdProvider>(Lifetime.Singleton,

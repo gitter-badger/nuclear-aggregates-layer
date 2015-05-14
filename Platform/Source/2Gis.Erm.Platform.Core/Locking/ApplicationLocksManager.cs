@@ -8,6 +8,10 @@ using DoubleGis.Erm.Platform.API.Core.Locking;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
 
+using NuClear.Storage.ConnectionStrings;
+
+using IConnectionStringSettings = NuClear.Storage.ConnectionStrings.IConnectionStringSettings;
+
 namespace DoubleGis.Erm.Platform.Core.Locking
 {
     public class ApplicationLocksManager : IApplicationLocksManager
@@ -25,7 +29,9 @@ namespace DoubleGis.Erm.Platform.Core.Locking
 
         public bool AcquireLock(string lockName, LockOwner lockOwner, LockScope lockScope, TimeSpan timeout, out Guid lockId)
         {
-            var connectionString = lockScope == LockScope.CurrentInstallation ? ConnectionStringName.Erm : ConnectionStringName.ErmInfrastructure;
+            var connectionString = lockScope == LockScope.CurrentInstallation
+                                       ? (IConnectionStringIdentity)ErmConnectionStringIdentity.Instance
+                                       : InfrastructureConnectionStringIdentity.Instance;
             var builder = new SqlConnectionStringBuilder(_connectionStringSettings.GetConnectionString(connectionString)) { Pooling = false, Enlist = false };
             var connection = new SqlConnection(builder.ConnectionString);
 

@@ -26,6 +26,7 @@ using Microsoft.Practices.Unity;
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
 using NuClear.Settings.API;
+using NuClear.Storage.ConnectionStrings;
 using NuClear.Tracing.API;
 using NuClear.Tracing.Environment;
 using NuClear.Tracing.Log4Net;

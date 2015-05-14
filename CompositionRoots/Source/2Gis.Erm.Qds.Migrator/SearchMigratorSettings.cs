@@ -5,6 +5,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Qds.Common.Settings;
 
 using NuClear.Settings.API;
+using NuClear.Storage.ConnectionStrings;
 
 namespace DoubleGis.Erm.Qds.Migrator
 {
@@ -12,7 +13,7 @@ namespace DoubleGis.Erm.Qds.Migrator
     {
         public SearchMigratorSettings()
         {
-            var connectionStrings = new ConnectionStringsSettingsAspect();
+            var connectionStrings = new ConnectionStringSettingsAspect(new ConnectionStringsStorage().ConnectionStringsMap);
             Aspects
                .Use(connectionStrings)
                .Use<EnvironmentsAspect>()

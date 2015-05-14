@@ -53,7 +53,6 @@ using NuClear.Storage.ConnectionStrings;
 using NuClear.Storage.EntityFramework.DI;
 using NuClear.Tracing.API;
 
-using IConnectionStringSettings = DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings.IConnectionStringSettings;
 using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.API.WCF.OrderValidation.DI

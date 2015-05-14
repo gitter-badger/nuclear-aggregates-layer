@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ConnectionStrings\ConnectionStringNameResolver.cs" />
-    <Compile Include="ConnectionStrings\ConnectionStringSettings.cs" />
+    <Compile Include="ConnectionStrings\ConnectionStringSettingsAspect.cs" />
     <Compile Include="ConnectionStrings\DefaultConnectionStringNameResolver.cs" />
     <Compile Include="ConnectionStrings\IConnectionStringIdentity.cs" />
     <Compile Include="ConnectionStrings\IConnectionStringNameResolver.cs" />

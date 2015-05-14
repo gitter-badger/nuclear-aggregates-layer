@@ -109,6 +109,7 @@ using NuClear.Settings.API;
 using NuClear.Storage.EntityFramework.DI;
 using NuClear.Tracing.API;
 
+using IConnectionStringSettings = NuClear.Storage.ConnectionStrings.IConnectionStringSettings;
 using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 
 namespace DoubleGis.Erm.UI.Web.Mvc.DI
@@ -272,7 +273,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
         private static IUnityContainer CreateErmReportsSpecific(this IUnityContainer container, IConnectionStringSettings connectionStringSettings)
         {
-            return container.RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Mapping.ErmReports, CustomLifetime.PerRequest, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.ErmReports)))
+            return container.RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Mapping.ErmReports, CustomLifetime.PerRequest, new InjectionConstructor(connectionStringSettings.GetConnectionString(ErmReportsConnectionStringIdentity.Instance)))
                 .RegisterType<IReportPersistenceService, ReportPersistenceService>(CustomLifetime.PerRequest, new InjectionConstructor(new ResolvedParameter<IDatabaseCaller>(Mapping.ErmReports), new ResolvedParameter<IBusinessModelSettings>()))
                 .RegisterType<IReportSimplifiedModel, ReportSimplifiedModel>(CustomLifetime.PerRequest);
         }
@@ -290,7 +291,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                             "2Gis.Erm.BL.DB.Migrations",
                         }
                     }))
-                .RegisterType<IAppliedVersionsReader, AdoNetAppliedVersionsReader>(CustomLifetime.PerRequest, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
+                .RegisterType<IAppliedVersionsReader, AdoNetAppliedVersionsReader>(CustomLifetime.PerRequest, new InjectionConstructor(connectionStringSettings.GetConnectionString(ErmConnectionStringIdentity.Instance)))
                 .RegisterType<IDatabaseSyncChecker, DatabaseSyncChecker>(CustomLifetime.PerRequest);
         }
 
@@ -310,7 +311,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
 
                 .RegisterType<IPrintFormService, PrintFormService>(Lifetime.Singleton)
 
-                .RegisterType<IReportsSqlConnectionWrapper, ReportsSqlConnectionWrapper>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
+                .RegisterType<IReportsSqlConnectionWrapper, ReportsSqlConnectionWrapper>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ErmConnectionStringIdentity.Instance)))
 
                 .RegisterTypeWithDependencies<IOrderProcessingService, OrderProcessingService>(CustomLifetime.PerRequest, mappingScope)
                 .RegisterTypeWithDependencies<IChangeAdvertisementElementStatusStrategiesFactory, UnityChangeAdvertisementElementStatusStrategiesFactory>(CustomLifetime.PerRequest, mappingScope)

@@ -213,6 +213,10 @@
       <Project>{0C41F68D-C3C1-4958-9AA5-1FCD8AF9D07A}</Project>
       <Name>Storage.EntityFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\NuClear\Storage\Storage.csproj">
+      <Project>{6E35864B-BBA8-4CF2-8C76-620FF1E4BFC2}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Platform\Source\API\2Gis.Erm.Platform.API.Aggregates\2Gis.Erm.Platform.API.Aggregates.csproj">
       <Project>{C5E52A19-8EAC-45C1-BA71-ED86F9B89989}</Project>
       <Name>2Gis.Erm.Platform.API.Aggregates</Name>

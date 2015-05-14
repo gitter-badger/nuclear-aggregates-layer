@@ -18,6 +18,7 @@ using NuClear.Storage.Core;
 using NuClear.Storage.Specifications;
 
 using File = DoubleGis.Erm.Platform.Model.Entities.Erm.File;
+using IConnectionStringSettings = NuClear.Storage.ConnectionStrings.IConnectionStringSettings;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -62,7 +63,7 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
             _changesRegistryProvider = changesRegistryProvider;
             _readDomainContextProvider = readDomainContextProvider;
 
-            _connectionString = connectionStringSettings.GetConnectionString(ConnectionStringName.Erm);
+            _connectionString = connectionStringSettings.GetConnectionString(ErmConnectionStringIdentity.Instance);
         }
 
         private enum CommandType

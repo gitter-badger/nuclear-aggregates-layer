@@ -238,7 +238,6 @@
     <Compile Include="Settings\ConnectionStrings\MsCrmConnectionStringIdentity.cs" />
     <Compile Include="Settings\ConnectionStrings\ErmConnectionStringIdentity.cs" />
     <Compile Include="Settings\ConnectionStrings\ErmReportsConnectionStringIdentity.cs" />
-    <Compile Include="Settings\ConnectionStrings\IConnectionStringSettings.cs" />
     <Compile Include="Settings\ConnectionStrings\LoggingConnectionStringIdentity.cs" />
     <Compile Include="Settings\ConnectionStrings\OrderValidationConnectionStringIdentity.cs" />
     <Compile Include="Settings\ConnectionStrings\PerformedOperationsServiceBusConnectionStringIdentity.cs" />
@@ -299,7 +298,6 @@
     <Compile Include="PersistenceCleanup\IDBCleanupSettings.cs" />
     <Compile Include="Settings\APIServices\APIServiceSettingsBase.cs" />
     <Compile Include="Settings\APIServices\IAPIServiceSettingsInitializer.cs" />
-    <Compile Include="Settings\ConnectionStrings\ConnectionStringsSettingsAspect.cs" />
     <Compile Include="Settings\ConnectionStrings\ConnectionStringsSettingsAccessors.cs" />
     <Compile Include="Settings\CRM\MsCRMSettingsAspect.cs" />
     <Compile Include="Settings\Environments\EnvironmentsAspect.cs" />
@@ -307,8 +305,7 @@
     <Compile Include="Settings\Globalization\ILocalizationSettings.cs" />
     <Compile Include="Settings\Globalization\LocalizationSettings.cs" />
     <Compile Include="Settings\Environments\EnvironmentType.cs" />
-    <Compile Include="Settings\ConnectionStrings\ConnectionStringName.cs" />
-    <Compile Include="Settings\ConnectionStrings\DefaultConnectionStringNameExtension.cs" />
+    <Compile Include="Settings\ConnectionStrings\ConnectionStringsStorage.cs" />
     <Compile Include="Settings\CRM\IMsCrmSettings.cs" />
     <Compile Include="Settings\APIServices\Config\Xml\ErmServiceDescriptionsAccessor.cs" />
     <Compile Include="ServiceNamespaces.cs" />

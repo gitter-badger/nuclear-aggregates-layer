@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.Common;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
+
 using NuClear.Settings.API;
+
+using IConnectionStringSettings = NuClear.Storage.ConnectionStrings.IConnectionStringSettings;
 
 namespace DoubleGis.Erm.Qds.Common.Settings
 {
@@ -13,11 +15,10 @@ namespace DoubleGis.Erm.Qds.Common.Settings
     {
         public NestSettingsAspect(IConnectionStringSettings connectionStringsSettings)
         {
-            var connectionString = string.Empty;
-            ConnectionStringSettings settings;
-            if (connectionStringsSettings.AllConnections.TryGetValue(ConnectionStringName.ErmSearch, out settings))
+            string connectionString;
+            if (connectionStringsSettings.AllConnectionStrings.TryGetValue(SearchStorageConnectionStringIdentity.Instance, out connectionString))
             {
-                connectionString = settings.ConnectionString;
+                connectionString = string.Empty;
             }
 
             var builder = new DbConnectionStringBuilder { ConnectionString = connectionString };

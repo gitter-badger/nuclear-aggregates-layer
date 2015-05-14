@@ -5,18 +5,19 @@ using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
 
 using NuClear.Settings;
 using NuClear.Settings.API;
+using NuClear.Storage.ConnectionStrings;
 
 namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
 {
     public sealed class MsCRMSettingsAspect : ISettingsAspect, IMsCrmSettings
     {
-        private readonly ConnectionStringsSettingsAspect _connectionStringsSettings;
+        private readonly ConnectionStringSettingsAspect _connectionStringsSettings;
 
         private readonly EnumSetting<MsCrmIntegrationMode> _integrationMode = ConfigFileSetting.Enum.Required<MsCrmIntegrationMode>("MsCrmIntegrationMode");
 
         private readonly Lazy<string> _crmOrganizationName;
 
-        public MsCRMSettingsAspect(ConnectionStringsSettingsAspect connectionStringsSettings)
+        public MsCRMSettingsAspect(ConnectionStringSettingsAspect connectionStringsSettings)
         {
             _connectionStringsSettings = connectionStringsSettings;
             _crmOrganizationName = new Lazy<string>(ExtractOrganizationName);
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Settings.CRM
 
         public string CrmRuntimeConnectionString
         {
-            get { return _connectionStringsSettings.GetConnectionString(ConnectionStringName.CrmConnection); }
+            get { return _connectionStringsSettings.GetConnectionString(MsCrmConnectionStringIdentity.Instance); }
         }
 
         private string ExtractOrganizationName()
