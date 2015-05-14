@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.UseCases;
@@ -8,7 +9,6 @@ using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
 
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private readonly DbContext _dbContext;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
 
-        private readonly HashSet<object> _attachedEntitiesRegistrar = new HashSet<object>();
+        private readonly IDictionary<object, object> _dbEntityEntriesCache = new Dictionary<object, object>();
 
         public EFDomainContext(IProcessingContext processingContext,
                                DbContext dbContext,
@@ -49,33 +49,45 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 
         public void Add<TEntity>(TEntity entity) where TEntity : class
         {
-            Attach(entity, EntityState.Added);
+            _dbContext.Set<TEntity>().Add(entity);
+
+            // TODO {all, 19.03.2015}: Могут возникнуть проблемы для сущностей с автогенеренными id - возможно для них стоит по-другому реализовать Equals/GetHashCode
+            _dbEntityEntriesCache.Add(entity, _dbContext.Entry(entity));
         }
 
         public void AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
+            _dbContext.Set<TEntity>().AddRange(entities);
             foreach (var entity in entities)
             {
-                Attach(entity, EntityState.Added);
+                // TODO {all, 19.03.2015}: Могут возникнуть проблемы для сущностей с автогенеренными id - возможно для них стоит по-другому реализовать Equals/GetHashCode
+                _dbEntityEntriesCache.Add(entity, _dbContext.Entry(entity));
             }
         }
 
-
         public void Update<TEntity>(TEntity entity) where TEntity : class
         {
-            Attach(entity, EntityState.Modified);
+            DbEntityEntry<TEntity> entry;
+            if (!AttachEntity(entity, out entry))
+            {
+                entry.CurrentValues.SetValues(entity);
+            }
+
+            entry.State = EntityState.Modified;
         }
 
         public void Remove<TEntity>(TEntity entity) where TEntity : class
         {
-            Attach(entity, EntityState.Deleted);
+            _dbContext.Set<TEntity>().Remove(GetAttachedEntity(entity));
+            _dbEntityEntriesCache.Remove(entity);
         }
 
         public void RemoveRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
+            _dbContext.Set<TEntity>().RemoveRange(entities.Select(GetAttachedEntity).ToArray());
             foreach (var entity in entities)
             {
-                Attach(entity, EntityState.Deleted);
+                _dbEntityEntriesCache.Remove(entity);
             }
         }
 
@@ -83,16 +95,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             EnsureUseCaseDuration();
 
-            var savedEntitiesCount = _dbContext.SaveChanges();
-
-            foreach (var entry in _dbContext.ChangeTracker.Entries())
-            {
-                entry.State = EntityState.Detached;
-            }
-
-            _attachedEntitiesRegistrar.Clear();
-
-            return savedEntitiesCount;
+            return _dbContext.SaveChanges();
         }
 
         public IQueryable GetQueryableSource(Type entityType)
@@ -126,14 +129,24 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _dbContext.Database.CommandTimeout = Math.Max(timeout, currentValue);
         }
 
-        private void Attach<TEntity>(TEntity entity, EntityState entityState)
-            where TEntity : class
+        private TEntity GetAttachedEntity<TEntity>(TEntity entity) where TEntity : class
         {
-            if (!_attachedEntitiesRegistrar.Add(entity))
+            DbEntityEntry<TEntity> entry;
+            AttachEntity(entity, out entry);
+            return entry.Entity;
+        }
+
+        private bool AttachEntity<TEntity>(TEntity entity, out DbEntityEntry<TEntity> dbEntityEntry) where TEntity : class
+        {
+            object entry;
+            if (_dbEntityEntriesCache.TryGetValue(entity, out entry))
             {
+                var existingEntry = (DbEntityEntry<TEntity>)entry;
+                if (existingEntry.State != EntityState.Unchanged)
+                {
                     var entityKey = entity as IEntityKey;
 
-                // т.е. для экземпяра выполнили CUD, не сохранили и опять пытаемся менять экземпляр с тем же identity
+                    // используется НЕотложенное сохранение - т.е. объект изменили, не сохранили изменения и опять пытаемся менять экземпляр сущности с тем же identity
                     throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
                                                                       "with unsaved changes => trying to update not saved entity. " +
                                                                       "Possible entity repository save method not called before next update. " +
@@ -142,9 +155,19 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
                                                                       entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
                 }
 
-            var entry = _dbContext.Entry(entity);
+                dbEntityEntry = existingEntry;
+                return false;
+            }
+
+            var newEntry = _dbContext.Entry(entity);
+            if (newEntry.State == EntityState.Detached)
+            {
                 _dbContext.Set<TEntity>().Attach(entity);
-            entry.State = entityState;
+            }
+
+            _dbEntityEntriesCache.Add(entity, newEntry);
+            dbEntityEntry = newEntry;
+            return true;
         }
     }
 }
