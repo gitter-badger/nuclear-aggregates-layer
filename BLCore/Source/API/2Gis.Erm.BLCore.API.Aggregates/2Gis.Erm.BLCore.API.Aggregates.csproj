@@ -37,9 +37,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Tracing.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Tracing.API.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -328,6 +336,7 @@
     <Compile Include="Prices\Operations\IBulkDeactivatePricePositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeleteDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeletePricePositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IUpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePricePositionAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />
@@ -355,6 +364,7 @@
     <Compile Include="SimplifiedModel\Categories\DTO\LinkingObjectsSchemaCategoryDto.cs" />
     <Compile Include="SimplifiedModel\Categories\IBulkCreateSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\IBulkDeleteSalesModelCategoryRestrictionsService.cs" />
+    <Compile Include="SimplifiedModel\Categories\Operations\IChangeCategoryGroupAggregateService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ICategoryReadModel.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\ISalesModelCategoryRestrictionReadModel.cs" />
     <Compile Include="SimplifiedModel\Currencies\ICurrencyReadModel.cs" />

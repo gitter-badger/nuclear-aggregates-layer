@@ -17,5 +17,6 @@ namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
         public string RequestUrl { get; set; }
         public string ExtendedInfo { get; set; }
         public string AppendableEntity { get; set; }
+        public string DefaultDataView { get; set; }
     }
 }

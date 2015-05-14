@@ -1,5 +1,5 @@
 ﻿@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
-@using DoubleGis.Erm.Platform.API.Security.FunctionalAccess
+@using NuClear.Security.API.FunctionalAccess
 @model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureOrderViewModel
 
 @{
@@ -65,12 +65,12 @@
         @Html.HiddenFor(m => m.PlatformId)
         @Html.HiddenFor(m => m.VatPlan)
         @Html.HiddenFor(m => m.OrderValidationServiceUrl)
-        @Html.HiddenFor(m => m.RegionalNumber)
+        @Html.HiddenFor(m => m.RegionalNumber) 
         @Html.HiddenFor(m => m.DisabledOrderTypes)
 
         @*Скрыты в международной версии*@
         @Html.HiddenFor(m => m.HasDocumentsDebt)
-        @Html.HiddenFor(m => m.DocumentsComment)
+        @Html.HiddenFor(m => m.DocumentsComment) 
     </div>
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <br />

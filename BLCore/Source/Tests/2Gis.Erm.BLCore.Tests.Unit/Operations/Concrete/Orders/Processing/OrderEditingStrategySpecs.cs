@@ -12,8 +12,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;

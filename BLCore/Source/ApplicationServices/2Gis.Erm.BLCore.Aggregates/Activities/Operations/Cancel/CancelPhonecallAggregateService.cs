@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Cancel
             {
                 throw new ArgumentNullException("phonecall");
             }
-
+           
             if (phonecall.Status != ActivityStatus.InProgress)
             {
                 throw new BusinessLogicException(string.Format(BLResources.CannotCancelFinishedOrClosedActivity, phonecall.Header));

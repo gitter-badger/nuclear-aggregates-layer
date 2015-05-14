@@ -408,5 +408,31 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
                 return ResourceManager.GetString("Migration23100", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to begin tran
+        ///
+        ///ALTER TABLE BusinessDirectory.CategoryOrganizationUnits NOCHECK CONSTRAINT FK_CategoryOrganizationUnits_CategoryGroups
+        ///
+        ///update BusinessDirectory.CategoryGroups
+        ///set ModifiedBy = 1,
+        ///	ModifiedOn = GETDATE(),
+        ///	Id = CASE WHEN Id = 1 THEN 5
+        ///		WHEN Id = 2 THEN 4
+        ///		WHEN Id = 3 THEN 2      
+        ///		WHEN Id = 4 THEN 1
+        ///	END
+        ///	
+        ///update BusinessDirectory.CategoryOrganizationUnits
+        ///set ModifiedBy = 1,
+        ///	ModifiedOn = GETDATE(),
+        ///	CategoryGroupId = CASE WHEN CategoryGroupId = 1 THEN 5
+        ///		WHEN CategoryGroup [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string script_201504011053 {
+            get {
+                return ResourceManager.GetString("script_201504011053", resourceCulture);
+            }
+        }
     }
 }

@@ -4,10 +4,12 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.DI
 {

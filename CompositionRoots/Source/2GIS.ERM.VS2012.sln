@@ -197,8 +197,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CompositionRoots", "Composi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.TaskService", "2Gis.Erm.TaskService\2Gis.Erm.TaskService.csproj", "{25A08D41-8C0F-4DA6-9979-0E8DBDB75F48}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "2Gis.Erm.TaskService.Installer", "2Gis.Erm.TaskService.Installer\2Gis.Erm.TaskService.Installer.wixproj", "{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.TaskService", "..\..\BLCore\Source\EntryPoints\TaskService\2Gis.Erm.BLCore.TaskService\2Gis.Erm.BLCore.TaskService.csproj", "{BE701360-D551-40B4-BD60-5F70CF4DE575}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.API.WCF.MoDi", "2Gis.Erm.API.WCF.MoDi\2Gis.Erm.API.WCF.MoDi.csproj", "{62E68D3E-1DBF-4759-A330-F412D62FBEDD}"
@@ -423,6 +421,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\Erm.Test.408.config = Environments\Erm.Test.408.config
 		Environments\Erm.Test.508.config = Environments\Erm.Test.508.config
 		Environments\Erm.Test.608.config = Environments\Erm.Test.608.config
+		Environments\Erm.Test.88.config = Environments\Erm.Test.88.config
 		Environments\quartz.Business.Russia.config = Environments\quartz.Business.Russia.config
 		Environments\quartz.Edu.MultiCulture.config = Environments\quartz.Edu.MultiCulture.config
 		Environments\quartz.Edu.Russia.config = Environments\quartz.Edu.Russia.config
@@ -436,6 +435,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\quartz.Test.408.config = Environments\quartz.Test.408.config
 		Environments\quartz.Test.508.config = Environments\quartz.Test.508.config
 		Environments\quartz.Test.608.config = Environments\quartz.Test.608.config
+		Environments\quartz.Test.88.config = Environments\quartz.Test.88.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{449B2EF7-9FF9-4BA5-BFFD-441A1DC29817}"
@@ -518,6 +518,42 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLFlex.UI.Web.Metadata", "..\..\BLFlex\Source\EntryPoints\UI\Web\2Gis.Erm.BLFlex.UI.Web.Metadata\2Gis.Erm.BLFlex.UI.Web.Metadata.csproj", "{75699A90-60A2-404A-9691-041066F1B572}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2Gis.Erm.BLCore.UI.Web.Metadata", "..\..\BLCore\Source\EntryPoints\UI\Web\2Gis.Erm.BLCore.UI.Web.Metadata\2Gis.Erm.BLCore.UI.Web.Metadata.csproj", "{995BF65F-5951-40E5-A0F0-DF8DD343116A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{3F714583-007C-4159-8204-F3DAF5DE900E}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\build\branchmerge.ps1 = ..\..\build\branchmerge.ps1
+		..\..\build\branchreadiness.ps1 = ..\..\build\branchreadiness.ps1
+		..\..\build\default.ps1 = ..\..\build\default.ps1
+		..\..\build\dynamics.ps1 = ..\..\build\dynamics.ps1
+		..\..\build\fxcop.ps1 = ..\..\build\fxcop.ps1
+		..\..\build\fxcop.ruleset = ..\..\build\fxcop.ruleset
+		..\..\build\integrationtests.ps1 = ..\..\build\integrationtests.ps1
+		..\..\build\metadata.dynamics.psm1 = ..\..\build\metadata.dynamics.psm1
+		..\..\build\metadata.psm1 = ..\..\build\metadata.psm1
+		..\..\build\metadata.servicebus.psm1 = ..\..\build\metadata.servicebus.psm1
+		..\..\build\metadata.taskservice.psm1 = ..\..\build\metadata.taskservice.psm1
+		..\..\build\metadata.transform.psm1 = ..\..\build\metadata.transform.psm1
+		..\..\build\metadata.web.psm1 = ..\..\build\metadata.web.psm1
+		..\..\build\migrations.ps1 = ..\..\build\migrations.ps1
+		..\..\build\nuget.ps1 = ..\..\build\nuget.ps1
+		..\..\build\reports.ps1 = ..\..\build\reports.ps1
+		..\..\build\run-build.ps1 = ..\..\build\run-build.ps1
+		..\..\build\searchmigrations.ps1 = ..\..\build\searchmigrations.ps1
+		..\..\build\send-releaseletter.psm1 = ..\..\build\send-releaseletter.psm1
+		..\..\build\taskservice.ps1 = ..\..\build\taskservice.ps1
+		..\..\build\unittests.ps1 = ..\..\build\unittests.ps1
+		..\..\build\versioning.ps1 = ..\..\build\versioning.ps1
+		..\..\build\web.ps1 = ..\..\build\web.ps1
+		..\..\build\wpf.ps1 = ..\..\build\wpf.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Letter Templates", "Letter Templates", "{3A3D4881-CD05-448C-ADD5-A1AB6AA13F1B}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\build\letter_templates\Hotfix.htm = ..\..\build\letter_templates\Hotfix.htm
+		..\..\build\letter_templates\Hotfix_With_AddInfo.htm = ..\..\build\letter_templates\Hotfix_With_AddInfo.htm
+		..\..\build\letter_templates\Release.htm = ..\..\build\letter_templates\Release.htm
+		..\..\build\letter_templates\Release_With_AddInfo.htm = ..\..\build\letter_templates\Release_With_AddInfo.htm
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -969,16 +1005,6 @@ Global
 		{25A08D41-8C0F-4DA6-9979-0E8DBDB75F48}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{25A08D41-8C0F-4DA6-9979-0E8DBDB75F48}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{25A08D41-8C0F-4DA6-9979-0E8DBDB75F48}.Release|x64.ActiveCfg = Release|Any CPU
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}.Debug|Mixed Platforms.Build.0 = Debug|x64
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}.Debug|x64.ActiveCfg = Debug|x64
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}.Debug|x64.Build.0 = Debug|x64
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}.Release|Any CPU.ActiveCfg = Release|x64
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}.Release|Mixed Platforms.ActiveCfg = Release|x64
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}.Release|Mixed Platforms.Build.0 = Release|x64
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}.Release|x64.ActiveCfg = Release|x64
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3}.Release|x64.Build.0 = Release|x64
 		{BE701360-D551-40B4-BD60-5F70CF4DE575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE701360-D551-40B4-BD60-5F70CF4DE575}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE701360-D551-40B4-BD60-5F70CF4DE575}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -1840,7 +1866,6 @@ Global
 		{0FEB67D9-78A5-491A-B4FB-A44FBA071F70} = {86A16E04-CA0B-4892-A54B-A05D4816A76F}
 		{49D0D1C2-49A4-4063-BD9C-AC36BE6C36DD} = {97B498B0-DFD6-4F22-B093-3AA1E2FA8448}
 		{25A08D41-8C0F-4DA6-9979-0E8DBDB75F48} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
-		{1F08DD4B-C395-4ACD-A979-3E78DECD26C3} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
 		{BE701360-D551-40B4-BD60-5F70CF4DE575} = {5ACE3BE9-4971-428B-A800-309172EE8E5C}
 		{62E68D3E-1DBF-4759-A330-F412D62FBEDD} = {81DC040A-ABB8-44B7-972F-BCBBA11E1C20}
 		{C4D82876-700C-466A-8116-501E60E7AE89} = {B5F1F764-1EFE-4E6A-B0BE-665DDFEC7FA2}
@@ -1961,5 +1986,6 @@ Global
 		{21AF80B3-5A92-48BD-9750-D53BEC73DF2D} = {C87ED53C-F768-47C8-80E0-4CEF3D9C7A9D}
 		{75699A90-60A2-404A-9691-041066F1B572} = {60D0D089-7A06-4B9F-A162-3EEBF516311D}
 		{995BF65F-5951-40E5-A0F0-DF8DD343116A} = {E0B086E9-70F7-4FB1-B895-1D341440A893}
+		{3A3D4881-CD05-448C-ADD5-A1AB6AA13F1B} = {3F714583-007C-4159-8204-F3DAF5DE900E}
 	EndGlobalSection
 EndGlobal

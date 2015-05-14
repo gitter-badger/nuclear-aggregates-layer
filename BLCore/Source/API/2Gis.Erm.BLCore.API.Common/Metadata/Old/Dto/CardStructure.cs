@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto
 
         public bool HasComments { get; set; }
         public bool HasAdminTab { get; set; }
-
+        public bool HasActionsHistory { get; set; }
         // COMMENT {all, 20.11.2014}: Есть мнение, что этому тут не место
         public int DecimalDigits { get; set; }
 
