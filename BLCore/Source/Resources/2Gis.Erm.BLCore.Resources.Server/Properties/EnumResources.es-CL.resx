@@ -2039,6 +2039,6 @@
     <value>Agencia publicitaria</value>
   </data>
   <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
-    <value>Смена типа заказа РА</value>
+    <value>Cambio del tipo de orden Agencia Publicitaria (AP)</value>
   </data>
 </root>

@@ -2027,6 +2027,6 @@
     <value>Reklamní agentura</value>
   </data>
   <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
-    <value>Смена типа заказа РА</value>
+    <value>Změna typu objednávky Reklamní agentury</value>
   </data>
 </root>

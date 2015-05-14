@@ -2027,6 +2027,6 @@
     <value>Advertising agency</value>
   </data>
   <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
-    <value>Смена типа заказа РА</value>
+    <value>Changing Advertising Agency order type</value>
   </data>
 </root>
