@@ -3,14 +3,14 @@
 --		,@IsAdvertisingAgency int = 0
 
 DECLARE
-	@DZCheckPoint date = '20111201'
+	@DZCheckPoint date = '20141201'
 
 SELECT
 	[Куратор юр.лица клиента] = u.DisplayName
 	, [Юр.лицо заказчика] = lp.LegalName
-	, [ДЗ до 01.12] = ABS([data].DZ)
-	, [Оплаты с 01.12] = [data].Payments
-	, [Остаток ДЗ, накопленного до 01.12] = CASE WHEN [data].DZ + [data].Payments >= 0 THEN 0 ELSE ABS([data].DZ + [data].Payments) END
+	, [ДЗ до 01.12.2014] = ABS([data].DZ)
+	, [Оплаты с 01.12.2014] = [data].Payments
+	, [Остаток ДЗ, накопленного до 01.12.2014] = CASE WHEN [data].DZ + [data].Payments >= 0 THEN 0 ELSE ABS([data].DZ + [data].Payments) END
 	, [Корректировка РГ] = NULL
 	, [Примечание] = NULL
 FROM
