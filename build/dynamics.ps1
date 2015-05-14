@@ -11,11 +11,11 @@ Import-Module "$BuildToolsRoot\modules\web.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\transform.psm1" -DisableNameChecking
 
 Properties { $OptionDynamics = $true }
-Task Build-Dynamics -Precondition { $OptionDynamics -and (Get-EntryPointMetadata 'Dynamics').OptionDynamics } -Depends `
+Task Build-Dynamics -Precondition { $OptionDynamics -and (Get-Metadata 'Dynamics').OptionDynamics } -Depends `
 Build-HackFiles, `
 Build-Plugins
 
-Task Deploy-Dynamics -Precondition { $OptionDynamics -and (Get-EntryPointMetadata 'Dynamics').OptionDynamics } -Depends `
+Task Deploy-Dynamics -Precondition { $OptionDynamics -and (Get-Metadata 'Dynamics').OptionDynamics } -Depends `
 Deploy-HackFiles, `
 Deploy-Plugins, `
 Update-CustomizationsXml, `
@@ -23,9 +23,11 @@ Replace-DynamicsStoredProcs
 
 Task Build-HackFiles {
 	
-	$hackFilesDir = Join-Path $global:Context.Dir.Solution '..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.MsCRM.Plugins\Customizations\Hack'
+	$commonMetadata = Get-Metadata 'Common'
+
+	$hackFilesDir = Join-Path $commonMetadata.Dir.Solution '..\..\BLCore\Source\ApplicationServices\2Gis.Erm.BLCore.MsCRM.Plugins\Customizations\Hack'
 	$convensionalArtifactName = Create-ContentPackage $hackFilesDir 'Microsoft Dynamics CRM'
-	$artifactFileName = Join-Path $global:Context.Dir.Temp '2Gis.Erm.BLCore.MsCRM.HackFiles.zip'
+	$artifactFileName = Join-Path $commonMetadata.Dir.Temp '2Gis.Erm.BLCore.MsCRM.HackFiles.zip'
 
 	Copy-Item $convensionalArtifactName $artifactFileName
 	Publish-Artifacts $artifactFileName
@@ -34,7 +36,7 @@ Task Build-HackFiles {
 Task Deploy-HackFiles {
 	$artifactName = Get-Artifacts '' '2Gis.Erm.BLCore.MsCRM.HackFiles.zip'
 	
-	$entryPointMetadata = Get-EntryPointMetadata 'Dynamics'
+	$entryPointMetadata = Get-Metadata 'Dynamics'
 	foreach($crmHost in $EntryPointMetadata.CrmHosts){
 		# DoNotDeleteRule чтобы не затирать существующий сайт Dynamics CRM а дописывать в него контент
 		Invoke-MSDeploy `
@@ -62,7 +64,7 @@ Task Deploy-Plugins {
 	$crmConnectionString = Get-ConnectionString 'CrmConnection'
 	Unregister-Plugins $crmConnectionString '2Gis.Erm.*'
 
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Operations'
+	$entryPointMetadata = Get-Metadata '2Gis.Erm.API.WCF.Operations'
 	$uriBuilder = New-Object System.UriBuilder('https', $entryPointMetadata.IisAppPath, -1, 'MsCrm.svc/Soap')
 	$pluginRegistrationXml = Join-Path $artifactName 'PluginRegistration.xml'
 	Register-Plugins $crmConnectionString $uriBuilder.ToString() $pluginRegistrationXml
@@ -73,7 +75,7 @@ Task Update-CustomizationsXml {
 	
 	$xml = Export-CustomizationsXml $crmConnectionString
 
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Web.Mvc'
+	$entryPointMetadata = Get-Metadata '2Gis.Erm.UI.Web.Mvc'
 	$uriBuilder = New-Object System.UriBuilder('https', $entryPointMetadata.IisAppPath)
 	
 	$replaceText = $uriBuilder.ToString()

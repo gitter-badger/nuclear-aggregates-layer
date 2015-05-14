@@ -79,8 +79,5 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users
         OrganizationUnit GetFirstUserOrganizationUnit(long userId);
 
         void ChangeUserTerritory(IEnumerable<User> users, long oldTerritoryId, long newTerritoryId);
-
-        IEnumerable<CategoryGroup> GetCategoryGroups();
-        IEnumerable<CategoryGroupMembershipDto> GetCategoryGroupMembership(long organizationUnitId);
     }
 }

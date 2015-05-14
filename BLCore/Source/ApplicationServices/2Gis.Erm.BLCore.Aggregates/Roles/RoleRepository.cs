@@ -85,28 +85,28 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
         public IEnumerable<EntityPrivilegeInfo> GetEntityPrivileges(long roleId)
         {
             var entityPrivilegeInfos = _query.For<Privilege>()
-                                             .Where(x => x.EntityType != null)
-                                             .GroupBy(x => x.EntityType)
-                                             .Select(x => new
-                                                 {
-                                                     EntityName = x.Key,
-                                                     PrivilegeInfoList = x.Select(p => new PrivilegeDto
-                                                         {
-                                                             PrivilegeId = p.Id,
-                                                             Operation = (EntityAccessTypes)p.Operation,
-                                                             PrivilegeDepthMask = (EntityPrivilegeDepthState)p.RolePrivileges
-                                                                                                              .Where(rp => rp.RoleId == roleId)
-                                                                                                              .Select(rp => rp.Mask)
-                                                                                                              .FirstOrDefault(),
-                                                         })
-                                                 })
-                                             .AsEnumerable()
-                                             .Select(x => new EntityPrivilegeInfo
-                                                 {
-                                                     EntityName = EntityType.Instance.Parse(x.EntityName.Value),
-                                                     PrivilegeInfoList = x.PrivilegeInfoList
-                                                 })
-                                             .ToArray();
+                                              .Where(x => x.EntityType != null)
+                                              .GroupBy(x => x.EntityType)
+                                              .Select(x => new
+                                                  {
+                                                      EntityType = x.Key.Value,
+                                                      PrivilegeInfoList = x.Select(p => new PrivilegeDto
+                                                          {
+                                                              PrivilegeId = p.Id,
+                                                              Operation = (EntityAccessTypes)p.Operation,
+                                                              PrivilegeDepthMask = (EntityPrivilegeDepthState)p.RolePrivileges
+                                                                                                               .Where(rp => rp.RoleId == roleId)
+                                                                                                               .Select(rp => rp.Mask)
+                                                                                                               .FirstOrDefault(),
+                                                          })
+                                                  })
+                                              .AsEnumerable()
+                                              .Select(x => new EntityPrivilegeInfo
+                                                  {
+                                                      EntityName = EntityType.Instance.Parse(x.EntityType),
+                                                      PrivilegeInfoList = x.PrivilegeInfoList
+                                                  })
+                                              .ToArray();
 
             foreach (var entityPrivilegeInfo in entityPrivilegeInfos)
             {
@@ -124,21 +124,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
         public IEnumerable<FunctionalPrivilegeInfo> GetFunctionalPrivileges(long roleId)
         {
             return _query.For<Privilege>()
-                         .Where(x => x.EntityType == null)
-                         .Select(x => new
-                             {
-                                 PrivilegeId = x.Id,
-                                 Operation = (FunctionalPrivilegeName)x.Operation,
-                                 Mask = x.RolePrivileges.Where(y => y.RoleId == roleId).Select(y => y.Mask).FirstOrDefault(),
-                                 Priority = 0
-                             }).ToArray()
-                         .Select(x => new FunctionalPrivilegeInfo
-                             {
-                                 PrivilegeId = x.PrivilegeId,
-                                 NameLocalized = x.Operation.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
-                                 Mask = x.Mask,
-                                 Priority = 0
-                             });
+                    .Where(x => x.EntityType == null)
+                    .Select(x => new
+                    {
+                        PrivilegeId = x.Id,
+                        Operation = (FunctionalPrivilegeName)x.Operation,
+                        Mask = x.RolePrivileges.Where(y => y.RoleId == roleId).Select(y => y.Mask).FirstOrDefault(),
+                        Priority = 0
+                    }).ToArray()
+                    .Select(x => new FunctionalPrivilegeInfo
+                    {
+                        PrivilegeId = x.PrivilegeId,
+                        NameLocalized = x.Operation.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture),
+                        Mask = x.Mask,
+                        Priority = 0
+                    });
         }
 
         public void UpdateEntityPrivileges(long roleId, PrivilegeDto[] privilegeInfos)
@@ -258,11 +258,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
         {
             return _query.For<FunctionalPrivilegeDepth>()
                           .Select(x => new FunctionalPrivilegeInfo
-                              {
-                                  PrivilegeId = x.PrivilegeId,
-                                  NameLocalized = x.LocalResourceName,
-                                  Mask = x.Mask,
-                                  Priority = x.Priority
+                                           {
+                                               PrivilegeId = x.PrivilegeId,
+                                               NameLocalized = x.LocalResourceName,
+                                               Mask = x.Mask,
+                                               Priority = x.Priority
                               })
                           .AsEnumerable();
         }

@@ -97,6 +97,13 @@ function Get-TaskServiceMetadata ($EnvType, $Country, $Index) {
 	$metadata += Get-TargetHostsMetadata $EnvType $Country $Index
 	$metadata += Get-QuartzConfigMetadata $EnvType $Country $Index
 	
+	$metadata += @{
+		'ServiceName' = 'ERM'
+		'ServiceDisplayName' = '2GIS ERM Task Service'
+		
+		'EntrypointType' = 'Desktop'
+	}
+	
 	return $metadata
 }
 

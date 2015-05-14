@@ -176,13 +176,13 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             sheet.Cells[1, ++i].Value = "Предоплата по прочим";
             sheet.Cells[1, ++i].Value = "Предоплата по продлениям ";
             sheet.Cells[1, ++i].Value = "Предоплата по продлениям с коэффициентом";
-            sheet.Cells[1, ++i].Value = "Оплаты по ДЗ накопленной до 01.12";
-            sheet.Cells[1, ++i].Value = "Поступления по рассрочкам  (кроме оплат ДЗ до 01.12)";
-            sheet.Cells[1, ++i].Value = "Поступления по дебитоpке (кроме оплат ДЗ до 01.12)";
-            sheet.Cells[1, ++i].Value = "Поступления по дебиторке с коэффициентом  (кроме оплат ДЗ до 01.12)";
+            sheet.Cells[1, ++i].Value = "Оплаты по ДЗ накопленной до 01.12.2014";
+            sheet.Cells[1, ++i].Value = "Поступления по рассрочкам  (кроме оплат ДЗ до 01.12.2014)";
+            sheet.Cells[1, ++i].Value = "Поступления по дебитоpке (кроме оплат ДЗ до 01.12.2014)";
+            sheet.Cells[1, ++i].Value = "Поступления по дебиторке с коэффициентом  (кроме оплат ДЗ до 01.12.2014)";
             sheet.Cells[1, ++i].Value = "План по оплатам";
             sheet.Cells[1, ++i].Value = "Полная дебиторская задолженность филиала (Продажи) Справочно";
-            sheet.Cells[1, ++i].Value = "Дебиторская задолженность филиала, накопленная с 01.12 (Продажи) Справочно";
+            sheet.Cells[1, ++i].Value = "Дебиторская задолженность филиала, накопленная с 01.12.2014 (Продажи) Справочно";
             sheet.Cells[1, ++i].Value = "Обоснование плана по продлениям";
             sheet.Cells[1, ++i].Value = "Обоснование плана по новым продажам";
             sheet.Cells[1, ++i].Value = "Обоснование плана по оплатам";
@@ -344,7 +344,7 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
                 sheet.Cells[currentRow, currentColumn = 40].Formula = String.Format("AM{0}*$AN$2", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 41].Formula = String.Format("SUMIF('Оплаты по ДЗ до 01.12'!A:A,B{0},'Оплаты по ДЗ до 01.12'!F:F)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 41].Formula = String.Format("SUMIF('Оплаты по ДЗ до 01.12.2014'!A:A,B{0},'Оплаты по ДЗ до 01.12.2014'!F:F)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
@@ -365,7 +365,7 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
 
-                sheet.Cells[currentRow, currentColumn = 47].Formula = String.Format("SUMIF('ДЗ накопленная с 01.12'!C:C,B{0},'ДЗ накопленная с 01.12'!D:D)", currentRow);
+                sheet.Cells[currentRow, currentColumn = 47].Formula = String.Format("SUMIF('ДЗ накопленная с 01.12.2014'!C:C,B{0},'ДЗ накопленная с 01.12.2014'!D:D)", currentRow);
                 StyleBoldNumber(sheet.Cells[currentRow, currentColumn]);
                 StyleGrayBckGrnd(sheet.Cells[currentRow, currentColumn]);
             }
@@ -499,7 +499,7 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             sheet.Cells[7, 1].Value = "Объем рекламы в выпуск от продления и увеличения (прирост)";
             sheet.Cells[8, 1].Value = "План по оплаченному объему рекламы в выпуск от продления и увеличения";
             sheet.Cells[9, 1].Value = "Итого объем рекламы в выпуск";
-            sheet.Cells[10, 1].Value = "Оплаты по ДЗ накопленной до 01.12";
+            sheet.Cells[10, 1].Value = "Оплаты по ДЗ накопленной до 01.12.2014";
             sheet.Cells[11, 1].Value = "План по оплатам";
             sheet.Cells[12, 1].Value = "Полная дебиторская задолженность филиала (Продажи) Справочно";
 
@@ -558,7 +558,7 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             usedRange.Intersect("U:U").FormulaR1C1 = "IF(RC[-1]=0,0,RC[-1]-RC[-6])";
             usedRange.Intersect("V:V").FormulaR1C1 = "IF(RC[-6]=0,0,IF(RC[-3]<=RC[-6],RC[-3],RC[-6]))";
 
-            table = FillSheetFromMssql(package.Workbook, "Оплаты по ДЗ до 01.12", @"PlanningReport.Лист_Оплаты_по_ДЗ_до_01_12.sql");
+            table = FillSheetFromMssql(package.Workbook, "Оплаты по ДЗ до 01.12.2014", @"PlanningReport.Лист_Оплаты_по_ДЗ_до_01_12.sql");
             table.WorkSheet.Column(3).Hidden = true;
             table.WorkSheet.Column(4).Hidden = true;
 
@@ -587,7 +587,7 @@ namespace DoubleGis.Erm.BL.Reports.PlanningReport
             table = FillSheetFromMssql(package.Workbook, "Поступления по ДЗ", @"PlanningReport.Лист_Поступления_по_ДЗ.sql");
             table = FillSheetFromMssql(package.Workbook, "Полная ДЗ (справочно)", @"PlanningReport.Лист_Полная_ДЗ.sql");
 
-            table = FillSheetFromMssql(package.Workbook, "ДЗ накопленная с 01.12", @"PlanningReport.Лист_ДЗ_накопленная_с_01_12.sql");
+            table = FillSheetFromMssql(package.Workbook, "ДЗ накопленная с 01.12.2014", @"PlanningReport.Лист_ДЗ_накопленная_с_01_12.sql");
             table.WorkSheet.Column(2).Hidden = true;
             table.WorkSheet.Column(5).Hidden = true;
             table.WorkSheet.Column(6).Hidden = true;

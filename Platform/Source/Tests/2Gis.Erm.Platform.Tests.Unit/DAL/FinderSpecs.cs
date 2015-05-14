@@ -14,7 +14,7 @@ using NuClear.Storage;
 using NuClear.Storage.Core;
 using NuClear.Storage.Specifications;
 
-using It = Moq.It;
+using It = Machine.Specifications.It;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {

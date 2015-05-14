@@ -84,7 +84,6 @@
         public const int UkraineLegalPersonProfilePart = 263;
         public const int EmiratesLegalPersonProfilePart = 606;
         public const int KazakhstanLegalPersonProfilePart = 614;
-        public const int AdditionalFirmService = 220;
         public const int Theme = 221;
         public const int ThemeTemplate = 222;
         public const int ThemeCategory = 223;

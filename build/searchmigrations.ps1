@@ -5,7 +5,7 @@ $ErrorActionPreference = 'Stop'
 Import-Module "$BuildToolsRoot\modules\msbuild.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\transform.psm1" -DisableNameChecking
 
-Task Build-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations').RunElasticsearchMigrations } -Depends Update-AssemblyInfo {
+Task Build-SearchMigrations -Precondition { (Get-Metadata 'Migrations').RunElasticsearchMigrations } -Depends Update-AssemblyInfo {
 
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.Qds.Migrator'
 	$configFileName = Join-Path (Split-Path $ProjectFileName) 'app.config'
@@ -13,7 +13,7 @@ Task Build-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations'
 	Build-SearchMigrationProject $projectFileName -Properties @{ 'AppConfig' = 'app.transformed.config' } -CustomXmls $configXml
 }
 
-Task Deploy-SearchMigrations -Precondition { (Get-EntryPointMetadata 'Migrations').RunElasticsearchMigrations } {
+Task Deploy-SearchMigrations -Precondition { (Get-Metadata 'Migrations').RunElasticsearchMigrations } {
 	$artifactName = Get-Artifacts 'Search Migrations'
 	
 	$migrationsExePath = Join-Path $artifactName '2Gis.Erm.Qds.Migrator.exe'
