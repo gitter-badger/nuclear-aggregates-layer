@@ -4,9 +4,10 @@ using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 {

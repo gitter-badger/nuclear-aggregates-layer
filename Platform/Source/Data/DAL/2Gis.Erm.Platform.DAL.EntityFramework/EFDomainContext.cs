@@ -6,7 +6,9 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context.Keys;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -129,19 +131,19 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             if (!_attachedEntitiesRegistrar.Add(entity))
             {
-                var entityKey = entity as IEntityKey;
+                    var entityKey = entity as IEntityKey;
 
                 // т.е. для экземпяра выполнили CUD, не сохранили и опять пытаемся менять экземпляр с тем же identity
-                throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
-                                                                  "with unsaved changes => trying to update not saved entity. " +
-                                                                  "Possible entity repository save method not called before next update. " +
-                                                                  "Save mode is immediately, not deferred",
-                                                                  typeof(TEntity).Name,
-                                                                  entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
-            }
+                    throw new InvalidOperationException(string.Format("Instance of type {0} with id={1} already in domain context cache " +
+                                                                      "with unsaved changes => trying to update not saved entity. " +
+                                                                      "Possible entity repository save method not called before next update. " +
+                                                                      "Save mode is immediately, not deferred",
+                                                                      typeof(TEntity).Name,
+                                                                      entityKey != null ? entityKey.Id.ToString() : "NOTDETECTED"));
+                }
 
             var entry = _dbContext.Entry(entity);
-            _dbContext.Set<TEntity>().Attach(entity);
+                _dbContext.Set<TEntity>().Attach(entity);
             entry.State = entityState;
         }
     }

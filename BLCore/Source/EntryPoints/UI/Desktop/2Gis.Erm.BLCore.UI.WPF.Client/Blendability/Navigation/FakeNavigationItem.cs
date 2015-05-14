@@ -1,16 +1,17 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
+
+using NuClear.Metamodeling.Elements.Identities.Builder;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Blendability.Navigation
 {
     public sealed class FakeNavigationItem : INavigationItem
     {
         private readonly string _title;
-        private readonly Uri _id = IdBuilder.UniqueFor("FakeNavigationItems");
+        private readonly Uri _id = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Unique().For("FakeNavigationItems");
 
         public FakeNavigationItem(string title)
         {

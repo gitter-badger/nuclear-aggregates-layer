@@ -4,8 +4,9 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Messaging;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final
 {
@@ -25,7 +26,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final
         }
 
         public long EntityId { get; set; }
-        public EntityName EntityName { get; set; }
+        public IEntityType EntityName { get; set; }
         public int MaxAttemptCount { get; set; }
         public IMessageFlow Flow { get; set; }
         public IEnumerable<PerformedOperationFinalProcessing> FinalProcessings { get; set; }

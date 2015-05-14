@@ -18,7 +18,7 @@
     </div>
     <div class="row-wrapper">
         @Html.TemplateField(m => m.Amount, FieldFlex.twins)
-        @Html.TemplateField(m => m.OperationType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OperationType, ShowReadOnlyCard = true, ReadOnly = !Model.IsNew, ExtendedInfo = "excludeSyncCode=11" })
+        @Html.TemplateField(m => m.OperationType, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OperationType(), ShowReadOnlyCard = true, ReadOnly = !Model.IsNew, ExtendedInfo = "excludeSyncCode=11" })
     </div>
     <div class="row-wrapper">
         @Html.TemplateField(m => m.TransactionDate, FieldFlex.twins, new DateTimeSettings { ReadOnly = !Model.IsNew, ShiftOffset = false})
@@ -30,14 +30,14 @@
 <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
     @Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle)
     <div class="row-wrapper">
-        @Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
+        @Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
     </div>
     <div class="row-wrapper">
-        @Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+        @Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true })
         @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
     </div>
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+        @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true })
         @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
     </div>
 </div>

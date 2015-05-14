@@ -1,5 +1,4 @@
-﻿@using DoubleGis.Erm.Platform.Common.Utils
-@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel
+﻿@model GroupOperationViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -97,7 +96,7 @@
             </tr>
             <tr style="display:none;">
                 <td colspan="2">
-                    @Html.HiddenFor(m => m.EntityTypeName)
+                    @Html.Hidden("EntityType", Model.EntityTypeName.Description)
                 </td>
             </tr>
         </tbody>

@@ -11,6 +11,8 @@ using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
 {
     public class OrderFileViewService : GenericEntityGridViewService<OrderFile>
@@ -33,10 +35,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
 
         protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings,
                                                                      long? parentEntityId,
-                                                                     EntityName parentEntityName,
+                                                                     IEntityType parentEntityName,
                                                                      string parentEntityState)
         {
-            if (parentEntityName == EntityName.Order && parentEntityId.HasValue)
+            if (parentEntityName.Equals(EntityType.Instance.Order()) && parentEntityId.HasValue)
             {
                 var order = _orderReadModel.GetOrderSecure(parentEntityId.Value);
                 if (order == null)
@@ -45,7 +47,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
                 }
 
                 var hasUserRightsToEditOrder = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                    EntityName.Order,
+                                                                                    EntityType.Instance.Order(),
                                                                                     _userContext.Identity.Code,
                                                                                     order.Id,
                                                                                     order.OwnerCode,

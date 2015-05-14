@@ -7,10 +7,11 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 {
@@ -25,8 +26,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         where TEntity : class, IEntity, IEntityKey
         where TProcessedOperationEntity : class, IIntegrationProcessorState
     {
-        private readonly EntityName _entityName = typeof(TEntity).AsEntityName();
-        private readonly EntityName _integrationProcessorStateEntityName = typeof(TProcessedOperationEntity).AsEntityName();
+        private readonly IEntityType _entityName = typeof(TEntity).AsEntityName();
+        private readonly IEntityType _integrationProcessorStateEntityName = typeof(TProcessedOperationEntity).AsEntityName();
 
         private readonly IIdentityProvider _identityProvider;
         private readonly IUseCaseTuner _useCaseTuner;
@@ -88,9 +89,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             {
                 var entity = new ExportFailedEntity
                     {
-                        EntityName = (int)_entityName,
+                        EntityName = _entityName.Id,
                         EntityId = failedObjectId,
-                        ProcessorId = (int)_integrationProcessorStateEntityName
+                        ProcessorId = _integrationProcessorStateEntityName.Id
                     };
                 _identityProvider.SetFor(entity);
                 _exportFailedRepository.Add(entity);
@@ -104,9 +105,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         /// </summary>
         public void RemoveFromFailureQueue(IEnumerable<IExportableEntityDto> exportedObjects)
         {
+            var entityTypeId = _entityName.Id;
+            var integrationProcessorStateEntityTypeId = _integrationProcessorStateEntityName.Id;
             var exportedObjectIds = exportedObjects.Select(x => x.Id).ToArray();
-            var records = _finder.Find<ExportFailedEntity>(entity => entity.EntityName == (int)_entityName
-                                                                        && entity.ProcessorId == (int)_integrationProcessorStateEntityName
+            var records = _finder.Find<ExportFailedEntity>(entity => entity.EntityName == entityTypeId
+                                                                        && entity.ProcessorId == integrationProcessorStateEntityTypeId
                                                                         && exportedObjectIds.Contains(entity.EntityId))
                                  .ToArray();
             foreach (var record in records)
@@ -189,8 +192,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 
         private IQueryable<ExportFailedEntity> GetFailedEntitiesQuery()
         {
-            return _finder.Find<ExportFailedEntity>(entity => entity.EntityName == (int)_entityName 
-                                                                && entity.ProcessorId == (int)_integrationProcessorStateEntityName);
+            var entityTypeId = _entityName.Id;
+            var integrationProcessorStateEntityTypeId = _integrationProcessorStateEntityName.Id;
+            return _finder.Find<ExportFailedEntity>(entity => entity.EntityName == entityTypeId
+                                                                && entity.ProcessorId == integrationProcessorStateEntityTypeId);
         }
     }
 }

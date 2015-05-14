@@ -1,5 +1,6 @@
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 // ReSharper disable CheckNamespace
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels

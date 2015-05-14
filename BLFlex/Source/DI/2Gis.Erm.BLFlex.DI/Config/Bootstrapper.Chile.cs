@@ -29,6 +29,7 @@ using Microsoft.Practices.Unity;
 
 using NuClear.DI.Unity.Config;
 using NuClear.Security.API.UserContext;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLFlex.DI.Config
 {
@@ -94,7 +95,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             FilteredFieldsMetadata.RegisterFilteredFields<ChileListCommuneDto>(
                 x => x.Name);
 
-            RelationalMetadata.RegisterRelatedFilter<ChileListLegalPersonDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<ChileListLegalPersonDto>(EntityType.Instance.Client(), x => x.ClientId);
 
             var extendedInfoFilterMetadata = container.Resolve<IExtendedInfoFilterMetadata>();
 

@@ -12,6 +12,8 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListTerritoryService : ListEntityDtoServiceBase<Territory, ListTerritoryDto>
@@ -34,7 +36,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<Territory>();
 
             Expression<Func<Territory, bool>> restrictToCurrentUserFilter = null;
-            if (querySettings.ParentEntityName == EntityName.User && querySettings.ParentEntityId != null)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.User()) && querySettings.ParentEntityId != null)
             {
                 var currentUserTerritories = (SelectCurrentUserTerritoriesResponse)_publicService.Handle(new SelectCurrentUserTerritoriesRequest());
                 restrictToCurrentUserFilter = x => currentUserTerritories.TerritoryIds.Contains(x.Id);

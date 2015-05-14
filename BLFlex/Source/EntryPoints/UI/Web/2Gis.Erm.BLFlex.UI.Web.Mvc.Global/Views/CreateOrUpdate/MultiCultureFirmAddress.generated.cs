@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
+namespace ASP
 {
     using System;
     using System.Collections.Generic;
@@ -37,12 +37,15 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/MultiCultureFirmAddress.cshtml")]
-    public partial class MultiCultureFirmAddress : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureFirmAddressViewModel>
+    public partial class _Views_CreateOrUpdate_MultiCultureFirmAddress_cshtml : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureFirmAddressViewModel>
     {
-        public MultiCultureFirmAddress()
+        public _Views_CreateOrUpdate_MultiCultureFirmAddress_cshtml()
         {
         }
         public override void Execute()
@@ -106,7 +109,7 @@ WriteLiteral("            ");
 
             
             #line 17 "..\..\Views\CreateOrUpdate\MultiCultureFirmAddress.cshtml"
-       Write(Html.TemplateField(m => m.Firm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.Firm, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Firm(), ReadOnly = true }));
 
             
             #line default

@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
+namespace ASP
 {
     using System;
     using System.Collections.Generic;
@@ -38,12 +38,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Order/SetOrderDocumentsDebt.cshtml")]
-    public partial class SetOrderDocumentsDebt : System.Web.Mvc.WebViewPage<SetOrderDocumentsDebtViewModel>
+    public partial class _Views_Order_SetOrderDocumentsDebt_cshtml : System.Web.Mvc.WebViewPage<SetOrderDocumentsDebtViewModel>
     {
-        public SetOrderDocumentsDebt()
+        public _Views_Order_SetOrderDocumentsDebt_cshtml()
         {
         }
         public override void Execute()
@@ -164,7 +167,7 @@ WriteLiteral("                ");
             #line 23 "..\..\Views\Order\SetOrderDocumentsDebt.cshtml"
            Write(Html.TemplateField(m => m.Order,
                                     FieldFlex.lone,
-                                    new LookupSettings { EntityName = EntityName.Order, ReadOnly = true }));
+                                    new LookupSettings { EntityName = EntityType.Instance.Order(), ReadOnly = true }));
 
             
             #line default

@@ -30,6 +30,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Model.Common.Entities;
 using NuClear.DI.Unity.Config;
 using NuClear.Security.API.UserContext;
 
@@ -94,7 +95,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             FilteredFieldsMetadata.RegisterFilteredFields<EmiratesListAcceptanceReportsJournalRecordDto>(
                 x => x.OrganizationUnitName);
 
-            RelationalMetadata.RegisterRelatedFilter<EmiratesListLegalPersonDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<EmiratesListLegalPersonDto>(EntityType.Instance.Client(), x => x.ClientId);
 
             var extendedInfoFilterMetadata = container.Resolve<IExtendedInfoFilterMetadata>();
 

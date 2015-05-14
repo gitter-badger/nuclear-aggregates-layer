@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 
 using FluentValidation;
 using FluentValidation.Results;
+
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation
 {

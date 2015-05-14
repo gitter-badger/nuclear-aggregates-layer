@@ -11,6 +11,7 @@ using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -39,8 +40,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         {
             // Метод возвращает обновлённое состояние сущности, 
             // это требуется, ибо сейчас асинхронная заливка файла приводит к изменению самой сущности.
-            var service = _operationServicesManager.GetDomainEntityDtoService(EntityName.OrderFile);
-            var domainEntityDto = service.GetDomainEntityDto(id, false, null, EntityName.None, null);
+            var service = _operationServicesManager.GetDomainEntityDtoService(EntityType.Instance.OrderFile());
+            var domainEntityDto = service.GetDomainEntityDto(id, false, null, EntityType.Instance.None(), null);
 
             var model = new OrderFileViewModel();
             model.LoadDomainEntityDto(domainEntityDto);

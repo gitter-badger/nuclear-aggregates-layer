@@ -10,7 +10,8 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
+
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Cancel
 {

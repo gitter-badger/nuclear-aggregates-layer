@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
@@ -51,7 +53,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
             }
 
             return _entityAccessService.HasEntityAccess(EntityAccessTypes.Read,
-                                                        EntityName.Account,
+                                                        EntityType.Instance.Account(),
                                                         _userContext.Identity.Code,
                                                         accountInfo.AccountId.Value,
                                                         accountInfo.OwnerCode.Value,

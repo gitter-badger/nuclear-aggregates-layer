@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Handlers;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Messages;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Mappers;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
+
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers.Actions.Execute
 {

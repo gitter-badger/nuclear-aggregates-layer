@@ -3,10 +3,11 @@
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EAV;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Properties;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Aggregates.EAV
 {
@@ -16,11 +17,11 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
          {
              public static class Find
              {
-                 public static FindSpecification<DictionaryEntityInstance> ByEntityName(EntityName entityName)
+                 public static FindSpecification<DictionaryEntityInstance> ByEntityName(IEntityType entityName)
                  {
                      return new FindSpecification<DictionaryEntityInstance>(
                          x => x.DictionaryEntityPropertyInstances.Any(y => y.PropertyId == EntityTypeNameIdentity.Instance.Id &&
-                                                                           y.NumericValue == (decimal)entityName));
+                                                                           y.NumericValue == entityName.Id));
                  }
 
                  public static FindSpecification<DictionaryEntityInstance> ByPropertyValue(IEntityPropertyIdentity identity, long entityId)

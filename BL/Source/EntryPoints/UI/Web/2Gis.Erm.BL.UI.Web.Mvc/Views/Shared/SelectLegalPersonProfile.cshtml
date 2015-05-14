@@ -22,12 +22,12 @@
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.LegalPerson,
                     FieldFlex.lone,
-                    new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true })
+                    new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ReadOnly = true })
                 </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.LegalPersonProfile, 
                     FieldFlex.lone, 
-                    new LookupSettings { EntityName = EntityName.LegalPersonProfile, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.LegalPerson, ParentIdPattern = "LegalPersonId" })
+                    new LookupSettings { EntityName = EntityType.Instance.LegalPersonProfile(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.LegalPerson(), ParentIdPattern = "LegalPersonId" })
             </div>
         </div>
     }

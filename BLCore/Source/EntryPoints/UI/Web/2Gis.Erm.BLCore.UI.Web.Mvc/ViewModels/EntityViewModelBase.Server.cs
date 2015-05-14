@@ -3,7 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Aspects;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 

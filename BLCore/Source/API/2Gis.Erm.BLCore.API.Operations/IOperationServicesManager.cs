@@ -17,31 +17,32 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Qualify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Reopen;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations
 {
     public interface IOperationServicesManager
     {
-        IListEntityService GetListEntityService(EntityName entityName);
-        IDeleteEntityService GetDeleteEntityService(EntityName entityName);
-        IAssignEntityService GetAssignEntityService(EntityName entityName);
-        IDeactivateEntityService GetDeactivateEntityService(EntityName entityName);
-        IActivateEntityService GetActivateEntityService(EntityName entityName);
-        IQualifyEntityService GetQualifyEntityService(EntityName entityName);
-        IDisqualifyEntityService GetDisqualifyEntityService(EntityName entityName);
-        ICheckEntityForDebtsService GetCheckEntityForDebtsService(EntityName entityName);
-        IChangeEntityTerritoryService GetChangeEntityTerritoryService(EntityName entityName);
-        IChangeEntityClientService GetChangeEntityClientService(EntityName entityName);
-        IAppendEntityService GetAppendEntityService(EntityName parentType, EntityName appendedType);
-        IActionsHistoryService GetActionHistoryService(EntityName entityName);
-        IGetDomainEntityDtoService GetDomainEntityDtoService(EntityName entityName);
-        IModifyDomainEntityService GetModifyDomainEntityService(EntityName entityName);
-        IDownloadFileService GetDownloadFileService(EntityName entityName);
-        IUploadFileService GetUploadFileService(EntityName entityName);
-        IIntegrationProcessorOperationService GetOperationsExportService(EntityName entityName, EntityName integrationEntityName);
-        ICancelOperationService GetCancelService(EntityName entityName);
-        ICompleteOperationService GetCompleteService(EntityName entityName);
-        IReopenOperationService GetReopenService(EntityName entityName);
+        IListEntityService GetListEntityService(IEntityType entityName);
+        IDeleteEntityService GetDeleteEntityService(IEntityType entityName);
+        IAssignEntityService GetAssignEntityService(IEntityType entityName);
+        IDeactivateEntityService GetDeactivateEntityService(IEntityType entityName);
+        IActivateEntityService GetActivateEntityService(IEntityType entityName);
+        IQualifyEntityService GetQualifyEntityService(IEntityType entityName);
+        IDisqualifyEntityService GetDisqualifyEntityService(IEntityType entityName);
+        ICheckEntityForDebtsService GetCheckEntityForDebtsService(IEntityType entityName);
+        IChangeEntityTerritoryService GetChangeEntityTerritoryService(IEntityType entityName);
+        IChangeEntityClientService GetChangeEntityClientService(IEntityType entityName);
+        IAppendEntityService GetAppendEntityService(IEntityType parentType, IEntityType appendedType);
+        IActionsHistoryService GetActionHistoryService(IEntityType entityName);
+        IGetDomainEntityDtoService GetDomainEntityDtoService(IEntityType entityName);
+        IModifyDomainEntityService GetModifyDomainEntityService(IEntityType entityName);
+        IDownloadFileService GetDownloadFileService(IEntityType entityName);
+        IUploadFileService GetUploadFileService(IEntityType entityName);
+        IIntegrationProcessorOperationService GetOperationsExportService(IEntityType entityName, IEntityType integrationEntityName);
+        ICancelOperationService GetCancelService(IEntityType entityName);
+        ICompleteOperationService GetCompleteService(IEntityType entityName);
+        IReopenOperationService GetReopenService(IEntityType entityName);
     }
 }

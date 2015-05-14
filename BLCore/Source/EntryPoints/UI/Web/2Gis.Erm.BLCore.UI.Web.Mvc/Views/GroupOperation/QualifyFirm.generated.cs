@@ -28,29 +28,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 1 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/QualifyFirm.cshtml")]
-    public partial class QualifyFirm : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.QualifyFirmViewModel>
+    public partial class QualifyFirm : System.Web.Mvc.WebViewPage<QualifyFirmViewModel>
     {
         public QualifyFirm()
         {
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 3 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -72,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 7 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
             Write(BLResources.Qualify);
 
             
@@ -87,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 8 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                   Write(BLResources.QualifyFirm);
 
             
@@ -102,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 9 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -122,43 +122,43 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 525), Tuple.Create("\"", 573)
-, Tuple.Create(Tuple.Create("", 532), Tuple.Create("/Content/Progress.css?", 532), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 427), Tuple.Create("\"", 475)
+, Tuple.Create(Tuple.Create("", 434), Tuple.Create("/Content/Progress.css?", 434), true)
             
-            #line 14 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-, Tuple.Create(Tuple.Create("", 554), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 13 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+, Tuple.Create(Tuple.Create("", 456), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 554), false)
+, 456), false)
 );
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 592), Tuple.Create("\"", 650)
-, Tuple.Create(Tuple.Create("", 598), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 598), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 494), Tuple.Create("\"", 552)
+, Tuple.Create(Tuple.Create("", 500), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 500), true)
             
-            #line 16 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-, Tuple.Create(Tuple.Create("", 631), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 15 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+, Tuple.Create(Tuple.Create("", 533), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 631), false)
+, 533), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 697), Tuple.Create("\"", 763)
-, Tuple.Create(Tuple.Create("", 703), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 703), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 599), Tuple.Create("\"", 665)
+, Tuple.Create(Tuple.Create("", 605), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 605), true)
             
-            #line 17 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-, Tuple.Create(Tuple.Create("", 744), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 16 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+, Tuple.Create(Tuple.Create("", 646), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 744), false)
+, 646), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -264,7 +264,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Firm\');\r\n        
 "ущностей\r\n                OperationName: \'");
 
             
-            #line 177 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 176 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                            Write(Model.OperationName);
 
             
@@ -288,13 +288,13 @@ WriteLiteral(@"', // тип операции - Qualify, Assign, ChangeTerritory
 ");
 
             
-            #line 192 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 191 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 192 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 191 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -332,7 +332,7 @@ WriteLiteral(" id=\"Notifications\"");
 WriteLiteral(">");
 
             
-            #line 202 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 201 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                                                                  Write(Model.Message);
 
             
@@ -368,7 +368,7 @@ WriteLiteral(" for=\"rdoNewAccount\"");
 WriteLiteral(">");
 
             
-            #line 210 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 209 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                                                                         Write(BLResources.QualifyCreateNewClient);
 
             
@@ -381,7 +381,7 @@ WriteLiteral(" style=\"color: #444444; padding-top: 5px\"");
 WriteLiteral(">");
 
             
-            #line 212 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 211 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                                                                  Write(BLResources.QualifyCreateNewClientLegend);
 
             
@@ -422,7 +422,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 226 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 225 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                        Write(BLResources.QualifyPickClient);
 
             
@@ -441,7 +441,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 230 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 229 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                            Write(BLResources.QualifyPickClientLegend);
 
             
@@ -463,8 +463,8 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 WriteLiteral("                                        ");
 
             
-            #line 235 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-                                   Write(Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityName.Client, ExtendedInfo = "filterToCurrentUser=true" }));
+            #line 234 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+                                   Write(Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.Client(), ExtendedInfo = "filterToCurrentUser=true" }));
 
             
             #line default
@@ -503,7 +503,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 248 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 247 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                        Write(BLResources.QualifyAssignToMe);
 
             
@@ -518,7 +518,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 251 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 250 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                        Write(BLResources.QualifyAssignToMeLegend);
 
             
@@ -559,7 +559,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 265 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 264 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                        Write(BLResources.QualifyAssignToOtherUser);
 
             
@@ -578,7 +578,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 269 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 268 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
                            Write(BLResources.QualifyAssignToOtherUserLegend);
 
             
@@ -600,8 +600,8 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 WriteLiteral("                                        ");
 
             
-            #line 274 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-                                   Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'" }));
+            #line 273 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+                                   Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.User(), ExtendedInfo = "'hideReserveUser=true'" }));
 
             
             #line default
@@ -621,8 +621,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 283 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
-                   Write(Html.HiddenFor(m => m.EntityTypeName));
+            #line 282 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+                   Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
@@ -647,7 +647,7 @@ WriteLiteral(">\r\n                            </div>\r\n                       
 "");
 
             
-            #line 298 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
+            #line 297 "..\..\Views\GroupOperation\QualifyFirm.cshtml"
     }
 
             

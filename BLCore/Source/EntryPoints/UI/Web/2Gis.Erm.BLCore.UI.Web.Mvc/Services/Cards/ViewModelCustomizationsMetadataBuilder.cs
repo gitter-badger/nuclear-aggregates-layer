@@ -1,7 +1,8 @@
 ﻿using System;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+
+using NuClear.Metamodeling.Elements;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {

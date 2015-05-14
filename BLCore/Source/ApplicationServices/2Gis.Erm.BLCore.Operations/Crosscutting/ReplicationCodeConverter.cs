@@ -8,8 +8,9 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 
 namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
 {
@@ -25,17 +26,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             _secureFinder = secureFinder;
         }
 
-        public long ConvertToEntityId(EntityName entityName, Guid replicationCode)
+        public long ConvertToEntityId(IEntityType entityName, Guid replicationCode)
         {
             return LookupEntityId(entityName, replicationCode);
         }
 
-        public Guid ConvertToReplicationCode(EntityName entityName, long entityId)
+        public Guid ConvertToReplicationCode(IEntityType entityName, long entityId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<long> ConvertToEntityIds(EntityName entityName, IEnumerable<Guid> replicationCodes)
+        public IEnumerable<long> ConvertToEntityIds(IEntityType entityName, IEnumerable<Guid> replicationCodes)
         {
             var codes = replicationCodes.ToList();
             var entityIds = LookupEntities(_finder, entityName, codes).Select(x => x.Id).ToList();
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             }
 
             return entityIds;
-        }      
+        }
 
         public IEnumerable<ErmEntityInfo> ConvertToEntityIds(IEnumerable<CrmEntityInfo> crmEntities)
         {
@@ -69,12 +70,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             return resultList;
         }
 
-        public IEnumerable<Guid> ConvertToReplicationCodes(EntityName entityName, IEnumerable<long> entityIds)
+        public IEnumerable<Guid> ConvertToReplicationCodes(IEntityType entityName, IEnumerable<long> entityIds)
         {
             throw new NotImplementedException();
         }
 
-        private long LookupEntityId(EntityName entityName, Guid replicationCode)
+        private long LookupEntityId(IEntityType entityName, Guid replicationCode)
         {
             var entity = LookupEntity(_finder, entityName, replicationCode);
             if (entity == null)
@@ -91,7 +92,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             return entity.Id;
         }
 
-        private static IReplicableEntity LookupEntity(IFinderBase finder, EntityName entityName, Guid replicationCode)
+        private static IReplicableEntity LookupEntity(IFinderBase finder, IEntityType entityName, Guid replicationCode)
         {
             var findOneMethodInfo = finder.GetType().GetMethods().First(x => x.Name == "FindOne");
             if (findOneMethodInfo == null)
@@ -103,8 +104,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
 
             var findSpecExpression = Expression.Call(
                 ByReplicationCodeMethodInfo.MakeGenericMethod(entityType),
-                Expression.Constant(replicationCode)
-                );
+                Expression.Constant(replicationCode));
 
             var findOneExpression = Expression.Call(
                 Expression.Constant(finder),
@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
             return queryLambda();
         }
 
-        private static IEnumerable<IReplicableEntity> LookupEntities(IFinderBase finder, EntityName entityName, IEnumerable<Guid> replicationCodes)
+        private static IEnumerable<IReplicableEntity> LookupEntities(IFinderBase finder, IEntityType entityName, IEnumerable<Guid> replicationCodes)
         {
             var findManyMethodInfo = finder.GetType().GetMethods().First(x => x.Name == "FindMany");
             if (findManyMethodInfo == null)
@@ -128,8 +128,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
 
             var findSpecExpression = Expression.Call(
                 ByReplicationCodesMethodInfo.MakeGenericMethod(entityType),
-                Expression.Constant(replicationCodes)
-                );
+                Expression.Constant(replicationCodes));
 
             var findManyExpression = Expression.Call(
                 Expression.Constant(finder),

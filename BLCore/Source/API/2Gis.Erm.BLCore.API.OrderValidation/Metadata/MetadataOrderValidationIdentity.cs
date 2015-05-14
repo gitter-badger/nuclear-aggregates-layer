@@ -1,13 +1,15 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Kinds;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Kinds;
+
+using MetadataBuilder = NuClear.Metamodeling.Elements.Identities.Builder.Metadata;
 
 namespace DoubleGis.Erm.BLCore.API.OrderValidation.Metadata
 {
     public sealed class MetadataOrderValidationIdentity : MetadataKindIdentityBase<MetadataOrderValidationIdentity>
     {
-        private readonly Uri _id = IdBuilder.For("OrderValidation");
+        private readonly Uri _id = MetadataBuilder.Id.For(MetadataBuilder.Id.DefaultRoot, "OrderValidation");
 
         public override Uri Id
         {

@@ -1,5 +1,4 @@
-﻿@using DoubleGis.Erm.Platform.Common.Utils
-@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.QualifyFirmViewModel
+﻿@model QualifyFirmViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -232,7 +231,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityName.Client, ExtendedInfo = "filterToCurrentUser=true" })
+                                        @Html.LookupFor(m => m.ClientCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.Client(), ExtendedInfo = "filterToCurrentUser=true" })
                                     </td>
                                 </tr>
                             </tbody>
@@ -271,7 +270,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'" })
+                                        @Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.User(), ExtendedInfo = "'hideReserveUser=true'" })
                                     </td>
                                 </tr>
                             </tbody>
@@ -280,7 +279,7 @@
                 </tr>
                 <tr style="display: none;">
                     <td colspan="2">
-                        @Html.HiddenFor(m => m.EntityTypeName)
+                        @Html.Hidden("EntityType", Model.EntityTypeName.Description)
                     </td>
                 </tr>
             </tbody>
