@@ -122,8 +122,14 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
                                           organizationUnitId,
                                           period);
 
-                    _aggregateServiceIsolator.Execute<IReleaseChangeStatusAggregateService>(
-                        service => service.SetPreviousStatus(acquiredRelease, ReleaseStatus.Success, "Restored status, after reverting attempt failed"));
+                    using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
+                    {
+                        _aggregateServiceIsolator.Execute<IReleaseChangeStatusAggregateService>(service =>
+                                                                                                service.SetPreviousStatus(acquiredRelease,
+                                                                                                                          ReleaseStatus.Success,
+                                                                                                                          "Restored status, after reverting attempt failed"));
+                        scope.Complete();
+                    }
 
                     _tracer.ErrorFormat("Reverting release with id {0} failed. Organization unit: {1}. {2}. Release status restored to success value",
                                           acquiredRelease.Id,

@@ -138,8 +138,11 @@ namespace DoubleGis.Erm.BLCore.Releasing.Release
 
                 if (acquiredRelease != null)
                 {
-                    _aggregateServiceIsolator.Execute<IReleaseChangeStatusAggregateService>(
-                        service => service.Finished(acquiredRelease, ReleaseStatus.Error, msg));
+                    using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
+                    {
+                        _aggregateServiceIsolator.Execute<IReleaseChangeStatusAggregateService>(service => service.Finished(acquiredRelease, ReleaseStatus.Error, msg));
+                        scope.Complete();
+                    }
                 }
 
                 throw;

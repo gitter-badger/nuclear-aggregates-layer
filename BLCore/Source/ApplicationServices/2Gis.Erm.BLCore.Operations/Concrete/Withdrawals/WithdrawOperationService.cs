@@ -140,7 +140,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
         {
             if (acquiredWithdrawal != null)
             {
-                _aggregateServiceIsolator.Execute<IAccountWithdrawalChangeStatusAggregateService>(service => service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
+                using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
+                {
+                    _aggregateServiceIsolator.Execute<IAccountWithdrawalChangeStatusAggregateService>(service => service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
+                    scope.Complete();
+                }
             }
 
             return WithdrawalProcessingResult.Errors(msg);

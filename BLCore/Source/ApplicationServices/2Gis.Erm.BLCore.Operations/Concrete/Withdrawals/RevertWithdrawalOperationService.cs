@@ -117,14 +117,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals
             }
             catch (Exception ex)
             {
-                var msg =
-                    string.Format("Reverting withdrawing aborted. Unexpected exception was caught. {0}",
-                                  operationParametersDescription);
+                var msg = string.Format("Reverting withdrawing aborted. Unexpected exception was caught. {0}",
+                                        operationParametersDescription);
                 _tracer.Error(ex, msg);
 
                 if (acquiredWithdrawal != null)
                 {
-                    _aggregateServiceIsolator.Execute<IAccountWithdrawalChangeStatusAggregateService>(service => service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
+                    using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, DefaultTransactionOptions.Default))
+                    {
+                        _aggregateServiceIsolator.Execute<IAccountWithdrawalChangeStatusAggregateService>(service => service.Finish(acquiredWithdrawal, WithdrawalStatus.Error, msg));
+                        scope.Complete();
+                    }
                 }
 
                 return WithdrawalProcessingResult.Errors(msg);
