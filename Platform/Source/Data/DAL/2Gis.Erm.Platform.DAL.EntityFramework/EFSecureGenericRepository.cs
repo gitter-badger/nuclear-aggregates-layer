@@ -1,4 +1,7 @@
-﻿using DoubleGis.Erm.Platform.API.Security;
+﻿using System;
+using System.Collections.Generic;
+
+using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 
 using NuClear.Model.Common.Entities.Aspects;
@@ -27,6 +30,11 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _repository.Add(entity);
         }
 
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+            throw new NotSupportedException();
+        }
+
         public void Update(TEntity entity)
         {
             _securityHelper.CheckRequest(EntityAccessTypes.Update, entity);
@@ -37,6 +45,11 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         {
             _securityHelper.CheckRequest(EntityAccessTypes.Delete, entity);
             _repository.Delete(entity);
+        }
+
+        public void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            throw new NotSupportedException();
         }
 
         public int Save()
