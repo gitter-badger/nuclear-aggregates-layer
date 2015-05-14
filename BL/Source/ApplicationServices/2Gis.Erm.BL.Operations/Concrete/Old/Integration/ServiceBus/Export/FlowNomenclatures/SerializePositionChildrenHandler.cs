@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                                 new XAttribute("IsDeleted", dto.IsDeleted));
         }
 
-        protected override ISelectSpecification<PositionChildren, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<PositionChildren, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<PositionChildren, IExportableEntityDto>(x => new PositionChildrenDto
                 {

@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
         {
             public static class Find
             {
-                public static IFindSpecification<BusinessEntityInstance> ByReferencedEntities(IEnumerable<long> entityIds)
+                public static FindSpecification<BusinessEntityInstance> ByReferencedEntities(IEnumerable<long> entityIds)
                 {
                     return new FindSpecification<BusinessEntityInstance>(x => entityIds.Contains(x.EntityId.Value));
                 }
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
 
             public static class Select
             {
-                public static ISelectSpecification<BusinessEntityInstance, DynamicEntityInstanceDto<BusinessEntityInstance, BusinessEntityPropertyInstance>> DynamicEntityInstanceDto()
+                public static SelectSpecification<BusinessEntityInstance, DynamicEntityInstanceDto<BusinessEntityInstance, BusinessEntityPropertyInstance>> DynamicEntityInstanceDto()
                 {
                     return new SelectSpecification<BusinessEntityInstance, DynamicEntityInstanceDto<BusinessEntityInstance, BusinessEntityPropertyInstance>>(
                         x => new DynamicEntityInstanceDto<BusinessEntityInstance, BusinessEntityPropertyInstance>

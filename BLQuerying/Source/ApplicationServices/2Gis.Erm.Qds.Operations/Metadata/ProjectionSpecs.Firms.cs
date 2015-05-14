@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
     {
         public static class Firms
         {
-            public static ISelectSpecification<Firm, object> Select()
+            public static SelectSpecification<Firm, object> Select()
             {
                 return new SelectSpecification<Firm, object>(
                     x => new

@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
     {
         public static class Users
         {
-            public static ISelectSpecification<User, object> Select()
+            public static SelectSpecification<User, object> Select()
             {
                 return new SelectSpecification<User, object>(
                     x => new
@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                         });
             }
 
-            public static ISelectSpecification<User, object> SelectUserPrivilegesContainer()
+            public static SelectSpecification<User, object> SelectUserPrivilegesContainer()
             {
                 // индексируем только операции чтения
                 const int ReadEntityOperationIdentity = 1;

@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
                     return new FindSpecification<Firm>(x => !x.Orders.Any(y => y.IsActive && !y.IsDeleted));
                 }
 
-                public static IFindSpecification<Firm> ByReplicationCodes(IEnumerable<Guid> crmId)
+                public static FindSpecification<Firm> ByReplicationCodes(IEnumerable<Guid> crmId)
                 {
                     return new FindSpecification<Firm>(x => crmId.Contains(x.ReplicationCode));
                 }
@@ -43,12 +43,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
 
             public static class Select
             {
-                public static ISelectSpecification<Firm, int> FirmCountForFirmClient()
+                public static SelectSpecification<Firm, int> FirmCountForFirmClient()
                 {
                     return new SelectSpecification<Firm, int>(x => x.Client.Firms.Count(y => y.IsActive && !y.IsDeleted));
                 }
 
-                public static ISelectSpecification<Firm, FirmWithAddressesAndProjectDto> FirmWithAddressesAndProject()
+                public static SelectSpecification<Firm, FirmWithAddressesAndProjectDto> FirmWithAddressesAndProject()
                 {
                     return new SelectSpecification<Firm, FirmWithAddressesAndProjectDto>(firm => new FirmWithAddressesAndProjectDto
                         {

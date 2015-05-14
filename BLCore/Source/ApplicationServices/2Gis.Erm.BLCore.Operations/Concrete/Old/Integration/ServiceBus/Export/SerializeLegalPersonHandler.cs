@@ -245,7 +245,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return null;
         }
 
-        protected override ISelectSpecification<LegalPerson, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<LegalPerson, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<LegalPerson, IExportableEntityDto>(lp => new LegalPersonDto
                 {

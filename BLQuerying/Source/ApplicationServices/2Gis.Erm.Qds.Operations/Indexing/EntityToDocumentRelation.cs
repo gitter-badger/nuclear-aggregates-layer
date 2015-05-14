@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
         where TEntity : class, IEntity, IEntityKey
     {
         private readonly IFinder _finder;
-        private readonly ISelectSpecification<TEntity, object> _selectSpec;
+        private readonly SelectSpecification<TEntity, object> _selectSpec;
         private readonly IProjectSpecification<ObjectAccessor, IIndexedDocumentWrapper> _projectSpec;
 
         public EntityToDocumentRelation(IFinder finder,
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
             return SelectDocuments(Specs.Find.ByIds<TEntity>(ids));
         }
 
-        private IEnumerable<IIndexedDocumentWrapper> SelectDocuments(IFindSpecification<TEntity> findSpec)
+        private IEnumerable<IIndexedDocumentWrapper> SelectDocuments(FindSpecification<TEntity> findSpec)
         {
             var entities = _finder.Find(_selectSpec, findSpec).AsEnumerable();
             return entities.Select(x => _projectSpec.Project(ObjectAccessor.Create(x)));

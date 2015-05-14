@@ -12,17 +12,17 @@ namespace NuClear.Storage.Specifications
     {
         private const string IdPropertyName = "Id";
         
-        public static IQueryable<T> Find<T>(this IQueryable<T> queryable, IFindSpecification<T> findSpecification)
+        public static IQueryable<T> Find<T>(this IQueryable<T> queryable, FindSpecification<T> findSpecification) where T : class
         {
             return queryable.Where(findSpecification.Predicate);
         }
 
-        public static IQueryable<T> Where<T>(this IQueryable<T> source, IFindSpecification<T> specification)
+        public static IQueryable<T> Where<T>(this IQueryable<T> source, FindSpecification<T> specification) where T : class
         {
             return source.Where(specification.Predicate);
         }
         
-        public static long ExtractEntityId<TEntity>(this IFindSpecification<TEntity> findSpecification)
+        public static long ExtractEntityId<TEntity>(this FindSpecification<TEntity> findSpecification) where TEntity : class
         {
             var predicate = findSpecification.Predicate;
 
@@ -54,7 +54,7 @@ namespace NuClear.Storage.Specifications
             return Expression.Lambda<Func<long>>(idExpression).Compile().Invoke();
         }
 
-        public static long[] ExtractEntityIds<TEntity>(this IFindSpecification<TEntity> findSpecification)
+        public static long[] ExtractEntityIds<TEntity>(this FindSpecification<TEntity> findSpecification) where TEntity : class
         {
             var predicate = findSpecification.Predicate;
 

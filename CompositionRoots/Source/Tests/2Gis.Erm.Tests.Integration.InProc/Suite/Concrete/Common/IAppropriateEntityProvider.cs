@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common
 {
     public interface IAppropriateEntityProvider<TEntity> where TEntity : class, IEntity
     {
-        TEntity Get(IFindSpecification<TEntity> spec);
-        IReadOnlyCollection<TEntity> Get(IFindSpecification<TEntity> spec, int maxCount);
+        TEntity Get(FindSpecification<TEntity> spec);
+        IReadOnlyCollection<TEntity> Get(FindSpecification<TEntity> spec, int maxCount);
     }
 }

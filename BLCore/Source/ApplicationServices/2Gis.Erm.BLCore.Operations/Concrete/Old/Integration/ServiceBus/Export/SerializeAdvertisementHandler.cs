@@ -100,7 +100,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return advMaterialElement;
         }
 
-        protected override ISelectSpecification<Advertisement, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<Advertisement, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<Advertisement, IExportableEntityDto>(x => new AdvertisementDto
                 {

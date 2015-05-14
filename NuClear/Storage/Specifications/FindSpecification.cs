@@ -7,7 +7,7 @@ namespace NuClear.Storage.Specifications
     /// Specification pattern base type.
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class FindSpecification<TEntity> : IFindSpecification<TEntity> where TEntity : class
+    public class FindSpecification<TEntity> where TEntity : class
     {
         private readonly Expression<Func<TEntity, bool>> _predicate;
 
@@ -44,11 +44,6 @@ namespace NuClear.Storage.Specifications
         public static bool operator false(FindSpecification<TEntity> fs)
         {
             return false;
-        }
-
-        public bool IsSatisfiedBy(TEntity entity)
-        {
-            return _predicate.Compile().Invoke(entity);
         }
     }
 }

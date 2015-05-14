@@ -39,11 +39,11 @@ namespace Storage.Tests
         {
             Establish context = () =>
                 {
-                    FindSpecification = new Mock<IFindSpecification<IEntity>>();
+                    FindSpecification = new Mock<FindSpecification<IEntity>>();
                     FindSpecification.SetupGet(f => f.Predicate).Returns(e => e.Equals(Finded));
                 };
 
-            protected static Mock<IFindSpecification<IEntity>> FindSpecification { get; private set; }
+            protected static Mock<FindSpecification<IEntity>> FindSpecification { get; private set; }
         }
 
         class FinderSpecBase
@@ -110,14 +110,14 @@ namespace Storage.Tests
         [Subject(typeof(Finder))]
         class When_Find_by_find_and_select_specification : FindBySpecificationFinderSpecBase
         {
-            static Mock<ISelectSpecification<IEntity, IEntity>> _selectSpecification;
+            static Mock<SelectSpecification<IEntity, IEntity>> _selectSpecification;
             static IEntity _selected;
 
             Establish context = () =>
                 {
                     _selected = Mock.Of<IEntity>();
 
-                    _selectSpecification = new Mock<ISelectSpecification<IEntity, IEntity>>();
+                    _selectSpecification = new Mock<SelectSpecification<IEntity, IEntity>>();
                     _selectSpecification.SetupGet(s => s.Selector).Returns(e => e.Equals(Finded) ? _selected : (IEntity)null);
                 };
 

@@ -31,9 +31,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Because of = () => Result = Finder.Find(CreateSpecification());
             It should_return_restricted_queryable = () => (Result is WrappedQuery).Should().BeTrue();
 
-            static IFindSpecification<IEntity> CreateSpecification()
+            static FindSpecification<IEntity> CreateSpecification()
             {
-                var spec = Mock.Of<IFindSpecification<IEntity>>();
+                var spec = Mock.Of<FindSpecification<IEntity>>();
                 Mock.Get(spec)
                     .SetupGet(x => x.Predicate)
                     .Returns(e => true);

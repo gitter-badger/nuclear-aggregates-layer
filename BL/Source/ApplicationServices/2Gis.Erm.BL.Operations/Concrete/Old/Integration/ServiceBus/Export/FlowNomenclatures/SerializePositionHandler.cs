@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                                 new XAttribute("LinkObjectType", dto.LinkObjectType));
         }
 
-        protected override ISelectSpecification<Position, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<Position, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<Position, IExportableEntityDto>(x => new PositionDto
             {

@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return accessRestrictor(_dynamicStorageFinder.Find(specs).AsQueryable()).Cast<TEntity>();
         }
 
-        public IReadOnlyCollection<TEntity> FindMany<TEntity>(Func<IFindSpecification<TEntity>, IQueryable<TEntity>> queryExecutor, IFindSpecification<TEntity> findSpecification)
+        public IReadOnlyCollection<TEntity> FindMany<TEntity>(Func<FindSpecification<TEntity>, IQueryable<TEntity>> queryExecutor, FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             }
         }
 
-        public TEntity FindOne<TEntity>(Func<IFindSpecification<TEntity>, IQueryable<TEntity>> queryExecutor, IFindSpecification<TEntity> findSpecification)
+        public TEntity FindOne<TEntity>(Func<FindSpecification<TEntity>, IQueryable<TEntity>> queryExecutor, FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))

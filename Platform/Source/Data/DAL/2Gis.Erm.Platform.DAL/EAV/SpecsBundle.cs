@@ -4,24 +4,25 @@ using NuClear.Storage.Specifications;
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {
     public sealed class SpecsBundle<TEntityInstance, TEntityPropertyInstance>
-        where TEntityInstance : IDynamicEntityInstance where TEntityPropertyInstance : IDynamicEntityPropertyInstance
+        where TEntityInstance : class, IDynamicEntityInstance 
+        where TEntityPropertyInstance : class, IDynamicEntityPropertyInstance
     {
-        private readonly IFindSpecification<TEntityInstance> _findSpec;
-        private readonly ISelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>> _selectSpec;
+        private readonly FindSpecification<TEntityInstance> _findSpec;
+        private readonly SelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>> _selectSpec;
 
-        public SpecsBundle(IFindSpecification<TEntityInstance> findSpec,
-                           ISelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>> selectSpec)
+        public SpecsBundle(FindSpecification<TEntityInstance> findSpec,
+                           SelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>> selectSpec)
         {
             _findSpec = findSpec;
             _selectSpec = selectSpec;
         }
 
-        public IFindSpecification<TEntityInstance> FindSpec
+        public FindSpecification<TEntityInstance> FindSpec
         {
             get { return _findSpec; }
         }
 
-        public ISelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>> SelectSpec
+        public SelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>> SelectSpec
         {
             get { return _selectSpec; }
         }

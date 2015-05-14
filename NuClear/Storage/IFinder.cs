@@ -16,12 +16,12 @@ namespace NuClear.Storage
         /// <summary>
         /// Find the Entity object(s) based on findSpecification.
         /// </summary>
-        IQueryable<TEntity> Find<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
+        IQueryable<TEntity> Find<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
 
         /// <summary>
         /// Find the Entity object(s) based on findSpecification and returns the projection based on selectSpecification.
         /// </summary>
-        IQueryable<TOutput> Find<TEntity, TOutput>(ISelectSpecification<TEntity, TOutput> selectSpecification, IFindSpecification<TEntity> findSpecification)
+        IQueryable<TOutput> Find<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity;
         
         /// <summary>
@@ -32,11 +32,11 @@ namespace NuClear.Storage
         /// <summary>
         /// Find one entity object based on findSpecification.
         /// </summary>
-        TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
+        TEntity FindOne<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
 
         /// <summary>
         /// Find and select collection of entity objects based on findSpecification.
         /// </summary>
-        IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
+        IEnumerable<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
     }
 }

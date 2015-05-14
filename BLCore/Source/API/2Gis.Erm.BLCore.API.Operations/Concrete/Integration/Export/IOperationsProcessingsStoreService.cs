@@ -26,6 +26,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export
         int SaveProcessedOperations(IEnumerable<PerformedBusinessOperation> operations,
                                    Func<PerformedBusinessOperation, TProcessedOperationEntity> processedOperationEntityCreator,
                                    Action<TProcessedOperationEntity> processedOperationEntityUpdater);
-        DateTime GetLastProcessedOperationPerformDate(ISelectSpecification<TProcessedOperationEntity, DateTime> selectSortFieldSpecification);
+        DateTime GetLastProcessedOperationPerformDate(SelectSpecification<TProcessedOperationEntity, DateTime> selectSortFieldSpecification);
     }
 }

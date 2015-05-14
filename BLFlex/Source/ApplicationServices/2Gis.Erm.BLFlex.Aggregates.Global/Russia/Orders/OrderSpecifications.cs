@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Orders
     {
         public static class Select
         {
-            public static ISelectSpecification<Order, ListOrderDto> OrdersForGridView()
+            public static SelectSpecification<Order, ListOrderDto> OrdersForGridView()
             {
                 return new SelectSpecification<Order, ListOrderDto>(
                     x => new ListOrderDto

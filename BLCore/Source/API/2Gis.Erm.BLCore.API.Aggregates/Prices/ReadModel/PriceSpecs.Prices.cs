@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
 
             public static class Select
             {
-                public static ISelectSpecification<Price, PriceValidationDto> PriceValidationDto()
+                public static SelectSpecification<Price, PriceValidationDto> PriceValidationDto()
                 {
                     return new SelectSpecification<Price, PriceValidationDto>(x => new PriceValidationDto
                         {

@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.Qds.API.Operations.Replication.Metadata
         }
 
 
-        public EntityToDocumentProjectionMetadataBuilder Use<TDocument, TEntity>(ISelectSpecification<TEntity, object> selectSpec,
+        public EntityToDocumentProjectionMetadataBuilder Use<TDocument, TEntity>(SelectSpecification<TEntity, object> selectSpec,
                                                                                  IProjectSpecification<ObjectAccessor, IIndexedDocumentWrapper> projectSpec)
         {
             if (typeof(TDocument) != _documentType)

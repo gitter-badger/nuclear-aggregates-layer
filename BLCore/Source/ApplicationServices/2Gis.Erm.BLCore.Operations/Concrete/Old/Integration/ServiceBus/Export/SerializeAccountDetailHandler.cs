@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             throw new NotSupportedException("Обработка невыгруженных с первой попытки пакетов не поддерживается");
         }
 
-        protected override ISelectSpecification<AccountDetail, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<AccountDetail, IExportableEntityDto> CreateDtoExpression()
         {
             throw new NotSupportedException("Данные выбираются только пакетом по операции");
         }
@@ -147,7 +147,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             }
         }
 
-        private ISelectSpecification<Lock, AccountDetailDto> AccountDetailDtoSelectSpecification()
+        private SelectSpecification<Lock, AccountDetailDto> AccountDetailDtoSelectSpecification()
         {
             return new SelectSpecification<Lock, AccountDetailDto>(
                 x => new AccountDetailDto
@@ -175,7 +175,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                          });
         }
 
-        private IFindSpecification<Lock> CreateAccountDetailsFilter(PerformedBusinessOperation operation)
+        private FindSpecification<Lock> CreateAccountDetailsFilter(PerformedBusinessOperation operation)
         {
             if (operation.Operation == WithdrawFromAccountsIdentity.Instance.Id)
             {

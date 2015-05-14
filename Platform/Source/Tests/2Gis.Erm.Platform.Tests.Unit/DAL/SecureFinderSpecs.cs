@@ -38,11 +38,11 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class FindBySelectorContext : FindBySpecContext
         {
-            protected static ISelectSpecification<Deal, Deal> _selectSpec;
+            protected static SelectSpecification<Deal, Deal> _selectSpec;
 
             Establish context = () =>
                 {
-                    var selectSpecMock = new Mock<ISelectSpecification<Deal, Deal>>();
+                    var selectSpecMock = new Mock<SelectSpecification<Deal, Deal>>();
                     selectSpecMock.SetupGet(s => s.Selector).Returns(e => e);
 
                     _selectSpec = selectSpecMock.Object;
@@ -51,11 +51,11 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
         class FindBySpecContext : SecureFinderContext
         {
-            protected static IFindSpecification<Deal> _findSpec;
+            protected static FindSpecification<Deal> _findSpec;
 
             Establish context = () =>
                 {
-                    var specMock = new Mock<IFindSpecification<Deal>>();
+                    var specMock = new Mock<FindSpecification<Deal>>();
                     specMock.SetupGet(s => s.Predicate).Returns(e => true);
                     _findSpec = specMock.Object;
                     Finder.Setup(f => f.Find(_findSpec)).Returns(_finderEntities.Cast<Deal>());

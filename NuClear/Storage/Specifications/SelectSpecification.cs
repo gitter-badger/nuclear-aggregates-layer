@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace NuClear.Storage.Specifications
 {
-    public class SelectSpecification<TInput, TOutput> : ISelectSpecification<TInput, TOutput>
+    public class SelectSpecification<TInput, TOutput>
     {
         private readonly Expression<Func<TInput, TOutput>> _selector;
 

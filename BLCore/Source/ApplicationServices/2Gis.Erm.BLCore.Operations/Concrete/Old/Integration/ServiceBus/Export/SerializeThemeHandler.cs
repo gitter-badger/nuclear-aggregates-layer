@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return element;
         }
 
-        protected override ISelectSpecification<Theme, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<Theme, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<Theme, IExportableEntityDto>(theme => new ThemeExportDto
             {

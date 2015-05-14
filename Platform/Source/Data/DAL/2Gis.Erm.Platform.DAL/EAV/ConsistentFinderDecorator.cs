@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             _dynamicStorageFinderWrapper = new DynamicStorageFinderWrapper(dynamicStorageFinder, dynamicEntityMetadataProvider);
         }
 
-        public IQueryable<TEntity> Find<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public IQueryable<TEntity> Find<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
             IQueryable<TEntity> mappedQueryable;
             if (TryFindMapped(findSpecification, out mappedQueryable))
@@ -39,8 +39,8 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return _finder.Find(findSpecification).ValidateQueryCorrectness();
         }
 
-        public IQueryable<TOutput> Find<TEntity, TOutput>(ISelectSpecification<TEntity, TOutput> selectSpecification,
-                                                          IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public IQueryable<TOutput> Find<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification,
+                                                          FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
             IQueryable<TEntity> mappedQueryable;
             if (TryFindMapped(findSpecification, out mappedQueryable))
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return _finder.Find(expression).ValidateQueryCorrectness();
         }
 
-        public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
+        public TEntity FindOne<TEntity>(FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
             if (typeof(IPartable).IsAssignableFrom(typeof(TEntity)))
@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return Find(findSpecification).SingleOrDefault();
         }
 
-        public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+        public IEnumerable<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
             if (typeof(IPartable).IsAssignableFrom(typeof(TEntity)))
@@ -108,7 +108,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return Find(findSpecification).ToArray();
         }
 
-        private bool TryFindMapped<TEntity>(IFindSpecification<TEntity> findSpecification, out IQueryable<TEntity> queryable)
+        private bool TryFindMapped<TEntity>(FindSpecification<TEntity> findSpecification, out IQueryable<TEntity> queryable) where TEntity : class
         {
             var entityType = typeof(TEntity);
 

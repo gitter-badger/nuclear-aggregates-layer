@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
 
             public class Select
             {
-                public static ISelectSpecification<Position, PositionSortingOrderDto> PositionSortingOrderDto()
+                public static SelectSpecification<Position, PositionSortingOrderDto> PositionSortingOrderDto()
                 {
                     return new SelectSpecification<Position, PositionSortingOrderDto>(
                         position => new PositionSortingOrderDto

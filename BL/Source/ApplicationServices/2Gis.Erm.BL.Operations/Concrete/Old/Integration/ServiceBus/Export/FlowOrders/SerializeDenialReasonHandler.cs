@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
             return denialReasonElement;
         }
 
-        protected override ISelectSpecification<DenialReason, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<DenialReason, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<DenialReason, IExportableEntityDto>(x => new DenialReasonDto
                 {

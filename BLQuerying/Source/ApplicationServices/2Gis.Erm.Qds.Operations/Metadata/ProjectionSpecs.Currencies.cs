@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
     {
         public static class Currencies
         {
-            public static ISelectSpecification<Currency, object> Select()
+            public static SelectSpecification<Currency, object> Select()
             {
                 return new SelectSpecification<Currency, object>(
                     x => new

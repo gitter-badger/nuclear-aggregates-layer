@@ -35,8 +35,8 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
         }
 
         public IEnumerable<TDto> GetEntityDtos<TDto>(IQueryBuilder<TEntity> queryBuilder,
-                                                     ISelectSpecification<TEntity, TDto> selectSpecification,
-                                                     params IFindSpecification<TEntity>[] filterSpecifications)
+                                                     SelectSpecification<TEntity, TDto> selectSpecification,
+                                                     params FindSpecification<TEntity>[] filterSpecifications)
         {
             var query = queryBuilder.Create(filterSpecifications);
             return query.Select(selectSpecification.Selector).ToArray();

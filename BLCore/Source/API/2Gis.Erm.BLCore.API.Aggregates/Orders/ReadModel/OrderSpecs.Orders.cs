@@ -142,7 +142,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
 
             public static class Select
             {
-                public static ISelectSpecification<Order, OrderDomainEntityDto> OrderDomainEntityDto()
+                public static SelectSpecification<Order, OrderDomainEntityDto> OrderDomainEntityDto()
                 {
                     return new SelectSpecification<Order, OrderDomainEntityDto>(x => new OrderDomainEntityDto
                     {

@@ -31,23 +31,23 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             var finder = Mock.Of<IFinder>();
 
             Mock.Get(finder)
-                .Setup(f => f.Find(It.IsAny<IFindSpecification<Order>>()))
+                .Setup(f => f.Find(It.IsAny<FindSpecification<Order>>()))
                 .Returns(new[] { order }.AsQueryable());
 
             Mock.Get(finder)
-                .Setup(f => f.FindOne(It.IsAny<IFindSpecification<BranchOfficeOrganizationUnit>>()))
+                .Setup(f => f.FindOne(It.IsAny<FindSpecification<BranchOfficeOrganizationUnit>>()))
                 .Returns(branchOfficeOrganizationUnit);
 
             Mock.Get(finder)
-                .Setup(f => f.FindOne(It.IsAny<IFindSpecification<LegalPerson>>()))
+                .Setup(f => f.FindOne(It.IsAny<FindSpecification<LegalPerson>>()))
                 .Returns(legalPerson);
 
             Mock.Get(finder)
-                .Setup(f => f.FindOne(It.IsAny<IFindSpecification<LegalPersonProfile>>()))
+                .Setup(f => f.FindOne(It.IsAny<FindSpecification<LegalPersonProfile>>()))
                 .Returns(legalPersonProfile);
 
             Mock.Get(finder)
-                .Setup(f => f.FindOne(It.IsAny<IFindSpecification<BranchOffice>>()))
+                .Setup(f => f.FindOne(It.IsAny<FindSpecification<BranchOffice>>()))
                 .Returns(branchOffice);
 
             return finder;

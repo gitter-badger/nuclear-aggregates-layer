@@ -23,7 +23,7 @@ namespace NuClear.Storage
             _readDomainContextProvider = readDomainContextProvider;
         }
 
-        public IQueryable<TEntity> Find<TEntity>(IFindSpecification<TEntity> findSpecification) 
+        public IQueryable<TEntity> Find<TEntity>(FindSpecification<TEntity> findSpecification) 
             where TEntity : class, IEntity
         {
             if (findSpecification == null)
@@ -35,8 +35,8 @@ namespace NuClear.Storage
             return queryableSource.Where(findSpecification.Predicate);
         }
 
-        public IQueryable<TOutput> Find<TEntity, TOutput>(ISelectSpecification<TEntity, TOutput> selectSpecification,
-                                                          IFindSpecification<TEntity> findSpecification)
+        public IQueryable<TOutput> Find<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification,
+                                                          FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
             if (selectSpecification == null)
@@ -64,13 +64,13 @@ namespace NuClear.Storage
             return queryableSource.Where(expression);
         }
 
-        public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
+        public TEntity FindOne<TEntity>(FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
             throw new NotSupportedException("ConsistentFinderDecorator should be used");
         }
 
-        public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+        public IEnumerable<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
             throw new NotSupportedException("ConsistentFinderDecorator should be used");

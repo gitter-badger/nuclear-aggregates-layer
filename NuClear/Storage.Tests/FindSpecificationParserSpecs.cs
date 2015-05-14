@@ -14,15 +14,15 @@ namespace Storage.Tests
     public static class FindSpecificationParserSpecs
     {
         #region Environment
-        public interface IFindSpecificationFactory<T>
+        public interface FindSpecificationFactory<T> where T : class
         {
-            IFindSpecification<T> FindSpecification { get; }
+            FindSpecification<T> FindSpecification { get; }
             long ExpectedValue { get; }
         }
 
-        public class BarFindSpecificationFactory : IFindSpecificationFactory<Bar>
+        public class BarFindSpecificationFactory : FindSpecificationFactory<Bar>
         {
-            public IFindSpecification<Bar> FindSpecification
+            public FindSpecification<Bar> FindSpecification
             {
                 get { return new FindSpecification<Bar>(x => x.Id == 5); }
             }
@@ -30,9 +30,9 @@ namespace Storage.Tests
             public long ExpectedValue { get; private set; }
         }
 
-        public class WithoutIdComparisonFindSpecificationFactory : IFindSpecificationFactory<Foo>
+        public class WithoutIdComparisonFindSpecificationFactory : FindSpecificationFactory<Foo>
         {
-            public IFindSpecification<Foo> FindSpecification
+            public FindSpecification<Foo> FindSpecification
             {
                 get { return new FindSpecification<Foo>(x => x == null); }
             }
@@ -40,9 +40,9 @@ namespace Storage.Tests
             public long ExpectedValue { get; private set; }
         }
 
-        public class WithoutEqualityFindSpecificationFactory : IFindSpecificationFactory<Foo>
+        public class WithoutEqualityFindSpecificationFactory : FindSpecificationFactory<Foo>
         {
-            public IFindSpecification<Foo> FindSpecification
+            public FindSpecification<Foo> FindSpecification
             {
                 get { return new FindSpecification<Foo>(x => x.Id != 5); }
             }
@@ -50,9 +50,9 @@ namespace Storage.Tests
             public long ExpectedValue { get; private set; }
         }
 
-        public class ExcessOfStatementsFindSpecificationFactory : IFindSpecificationFactory<Foo>
+        public class ExcessOfStatementsFindSpecificationFactory : FindSpecificationFactory<Foo>
         {
-            public IFindSpecification<Foo> FindSpecification
+            public FindSpecification<Foo> FindSpecification
             {
                 get { return new FindSpecification<Foo>(x => x.Id == 5 && x is Foo); }
             }
@@ -60,9 +60,9 @@ namespace Storage.Tests
             public long ExpectedValue { get; private set; }
         }
 
-        public class ConstFindSpecificationFactory : IFindSpecificationFactory<Foo>
+        public class ConstFindSpecificationFactory : FindSpecificationFactory<Foo>
         {
-            public IFindSpecification<Foo> FindSpecification
+            public FindSpecification<Foo> FindSpecification
             {
                 get { return new FindSpecification<Foo>(x => x.Id == 5); }
             }
@@ -73,9 +73,9 @@ namespace Storage.Tests
             }
         }
 
-        public class SimpleVariableFindSpecificationFactory : IFindSpecificationFactory<Foo>
+        public class SimpleVariableFindSpecificationFactory : FindSpecificationFactory<Foo>
         {
-            public IFindSpecification<Foo> FindSpecification
+            public FindSpecification<Foo> FindSpecification
             {
                 get
                 {
@@ -101,13 +101,13 @@ namespace Storage.Tests
         #endregion
 
         public class ContextForSingleId<TExpressionFactory, T>
-            where TExpressionFactory : IFindSpecificationFactory<T>, new()
+            where TExpressionFactory : FindSpecificationFactory<T>, new() where T : class
         {
             protected static long ExpectedValue;
             protected static long ParsedValue;
             protected static Exception Exception;
 
-            static IFindSpecification<T> FindSpecification;
+            static FindSpecification<T> FindSpecification;
 
             Establish context = () =>
                 {
@@ -166,7 +166,7 @@ namespace Storage.Tests
             protected static IEnumerable<long> ExpectedValue;
             protected static IEnumerable<long> ParsedValue;
 
-            static IFindSpecification<Foo> FindSpecification;
+            static FindSpecification<Foo> FindSpecification;
 
             Establish context = () =>
             {

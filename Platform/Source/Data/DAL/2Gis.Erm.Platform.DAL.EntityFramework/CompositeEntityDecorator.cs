@@ -23,8 +23,8 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _query = query;
 		}
 
-        public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression)
-		{
+        public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class
+        {
 			// TODO {s.pomadin, 06.08.2014}: consider how to query via dynamic expression building
 
 			if (typeof(TEntity) == typeof(Appointment))
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 			throw new NotSupportedException("The requested mapping is not supported");
 		}
 
-        public IQueryable<TEntity> Find<TEntity>(IFindSpecification<TEntity> findSpecification)
+        public IQueryable<TEntity> Find<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class
         {
             return Find(findSpecification.Predicate);
         }

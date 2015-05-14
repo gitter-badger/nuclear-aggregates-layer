@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
 
              public static class Select
              {
-                public static ISelectSpecification<DictionaryEntityInstance, DynamicEntityInstanceDto<DictionaryEntityInstance, DictionaryEntityPropertyInstance>> DynamicEntityInstanceDto()
+                public static SelectSpecification<DictionaryEntityInstance, DynamicEntityInstanceDto<DictionaryEntityInstance, DictionaryEntityPropertyInstance>> DynamicEntityInstanceDto()
                 {
                     return new SelectSpecification<DictionaryEntityInstance, DynamicEntityInstanceDto<DictionaryEntityInstance, DictionaryEntityPropertyInstance>>(
                         x => new DynamicEntityInstanceDto<DictionaryEntityInstance, DictionaryEntityPropertyInstance>
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
                             });
                 }
 
-                 public static ISelectSpecification<DictionaryEntityInstance, string> Name()
+                 public static SelectSpecification<DictionaryEntityInstance, string> Name()
                  {
                      return new SelectSpecification<DictionaryEntityInstance, string>(x => x.DictionaryEntityPropertyInstances
                                                                                             .Where(y => y.PropertyId == NameIdentity.Instance.Id)

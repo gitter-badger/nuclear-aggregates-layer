@@ -48,10 +48,10 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.Export
                     PriceExportRepositoryMock = new Mock<IExportRepository<Price>>();
 
                     PriceExportRepositoryMock.Setup(x => x.GetEntityDtos(Moq.It.IsAny<IQueryBuilder<Price>>(),
-                                                                         Moq.It.IsAny<ISelectSpecification<Price, IExportableEntityDto>>(),
-                                                                         Moq.It.IsAny<IFindSpecification<Price>[]>()))
+                                                                         Moq.It.IsAny<SelectSpecification<Price, IExportableEntityDto>>(),
+                                                                         Moq.It.IsAny<FindSpecification<Price>[]>()))
                                              .Returns(
-                                                 (IQueryBuilder<Price> x, ISelectSpecification<Price, IExportableEntityDto> y, IFindSpecification<Price>[] z) =>
+                                                 (IQueryBuilder<Price> x, SelectSpecification<Price, IExportableEntityDto> y, FindSpecification<Price>[] z) =>
                                                  new[] { PublishedPrice }.AsQueryable().Select(y.Selector).ToArray());
 
                     SerializeRequest = SerializeObjectsRequest<Price, ExportFlowPriceListsPriceList>.Create(SchemaName, Enumerable.Empty<PerformedBusinessOperation>());

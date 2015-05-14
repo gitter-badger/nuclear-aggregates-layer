@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             _securityServiceUserIdentifier = securityServiceUserIdentifier;
         }
 
-        protected override ISelectSpecification<Order, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<Order, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<Order, IExportableEntityDto>(x => new OrderDto
             {

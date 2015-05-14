@@ -63,7 +63,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
         }
 
         // TODO {all, 04.03.2014}: После выполнения задачи ERM-3530 необходимо выгружать неопубликованные прайсы по сокращенной схеме
-        protected override ISelectSpecification<Price, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<Price, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<Price, IExportableEntityDto>(x => new PriceDto
                 {

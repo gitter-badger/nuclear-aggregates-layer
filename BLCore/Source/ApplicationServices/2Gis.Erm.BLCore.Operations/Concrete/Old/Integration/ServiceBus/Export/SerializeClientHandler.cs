@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
             return null;
         }
 
-        protected override ISelectSpecification<Client, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<Client, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<Client, IExportableEntityDto>(client => new ClientDto
                 {

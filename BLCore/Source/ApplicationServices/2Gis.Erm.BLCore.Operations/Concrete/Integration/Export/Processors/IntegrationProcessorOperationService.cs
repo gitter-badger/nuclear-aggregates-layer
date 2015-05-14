@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Processors
             _operationsExporter = operationsExporter;
         }
 
-        protected ISelectSpecification<TProcessedOperationEntity, DateTime> ProcessingDateSpecification
+        protected SelectSpecification<TProcessedOperationEntity, DateTime> ProcessingDateSpecification
         {
             get { return new SelectSpecification<TProcessedOperationEntity, DateTime>(operation => operation.Date); }
         }

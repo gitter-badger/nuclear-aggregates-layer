@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.IsPrimary);
                 }
 
-                public static IFindSpecification<BranchOfficeOrganizationUnit> PrimaryForRegionalSalesOfOrganizationUnit(long organizationUnitId)
+                public static FindSpecification<BranchOfficeOrganizationUnit> PrimaryForRegionalSalesOfOrganizationUnit(long organizationUnitId)
                 {
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.IsPrimaryForRegionalSales &&
                                                                                     x.IsActive && !x.IsDeleted &&
@@ -42,12 +42,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId);
                 }
 
-                public static IFindSpecification<BranchOfficeOrganizationUnit> ByBranchOffice(long branchOfficeId)
+                public static FindSpecification<BranchOfficeOrganizationUnit> ByBranchOffice(long branchOfficeId)
                 {
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.BranchOfficeId == branchOfficeId);
                 }
 
-                public static IFindSpecification<BranchOfficeOrganizationUnit> ByOrderId(long orderId)
+                public static FindSpecification<BranchOfficeOrganizationUnit> ByOrderId(long orderId)
                 {
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.Orders.Any(order => order.Id == orderId));
                 }
@@ -64,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
 
             public static class Select
             {
-                public static ISelectSpecification<BranchOfficeOrganizationUnit, BranchOfficeOrganizationUnitNamesDto> BranchOfficeAndOrganizationUnitNames()
+                public static SelectSpecification<BranchOfficeOrganizationUnit, BranchOfficeOrganizationUnitNamesDto> BranchOfficeAndOrganizationUnitNames()
                 {
                     return new SelectSpecification<BranchOfficeOrganizationUnit, BranchOfficeOrganizationUnitNamesDto>(
                         x => new BranchOfficeOrganizationUnitNamesDto

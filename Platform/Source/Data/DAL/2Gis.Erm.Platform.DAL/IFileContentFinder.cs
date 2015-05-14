@@ -10,8 +10,8 @@ namespace DoubleGis.Erm.Platform.DAL
 {
     public interface IFileContentFinder
     {
-        IQueryable<FileWithContent> Find(IFindSpecification<FileWithContent> findSpecification);
-        IQueryable<TOutput> Find<TOutput>(ISelectSpecification<FileWithContent, TOutput> selectSpecification, IFindSpecification<FileWithContent> findSpecification);
+        IQueryable<FileWithContent> Find(FindSpecification<FileWithContent> findSpecification);
+        IQueryable<TOutput> Find<TOutput>(SelectSpecification<FileWithContent, TOutput> selectSpecification, FindSpecification<FileWithContent> findSpecification);
         IQueryable<FileWithContent> Find(Expression<Func<FileWithContent, bool>> expression);
     }
 }

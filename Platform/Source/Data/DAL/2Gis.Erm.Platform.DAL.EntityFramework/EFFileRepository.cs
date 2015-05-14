@@ -130,12 +130,12 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
             CheckArgumentNull(entity, "entity");
         }
 
-        public IQueryable<FileWithContent> Find(IFindSpecification<FileWithContent> findSpecification)
+        public IQueryable<FileWithContent> Find(FindSpecification<FileWithContent> findSpecification)
         {
             return FindInternal(findSpecification.Predicate);
         }
 
-        public IQueryable<TOutput> Find<TOutput>(ISelectSpecification<FileWithContent, TOutput> selectSpecification, IFindSpecification<FileWithContent> findSpecification)
+        public IQueryable<TOutput> Find<TOutput>(SelectSpecification<FileWithContent, TOutput> selectSpecification, FindSpecification<FileWithContent> findSpecification)
         {
             return FindInternal(findSpecification.Predicate).Select(selectSpecification.Selector);
         }

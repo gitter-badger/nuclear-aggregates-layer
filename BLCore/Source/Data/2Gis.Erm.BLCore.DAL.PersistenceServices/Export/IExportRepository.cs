@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
         IQueryBuilder<T> GetBuilderForOperations(IEnumerable<PerformedBusinessOperation> operations);
         IQueryBuilder<T> GetBuilderForFailedObjects(IEnumerable<ExportFailedEntity> failedEntities);
         IEnumerable<TDto> GetEntityDtos<TDto>(IQueryBuilder<T> queryBuilder,
-                                              ISelectSpecification<T, TDto> selectSpecification,
-                                              params IFindSpecification<T>[] filterSpecifications);
+                                              SelectSpecification<T, TDto> selectSpecification,
+                                              params FindSpecification<T>[] filterSpecifications);
     }
 }

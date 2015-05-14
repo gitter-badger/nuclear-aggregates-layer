@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel
     {
         public static class Find
         {
-            public static IFindSpecification<DictionaryEntityInstance> OnlyBanks
+            public static FindSpecification<DictionaryEntityInstance> OnlyBanks
             {
                 get
                 {
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel
 
         public static class Select
         {
-            public static ISelectSpecification<DictionaryEntityInstance, Bank> Banks
+            public static SelectSpecification<DictionaryEntityInstance, Bank> Banks
             {
                 get
                 {

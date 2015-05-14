@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.WCF.MoDi.Util
             }
         }
 
-        public static ISelectSpecification<BranchOfficeOrganizationUnit, BouInfo> SelectBouInfo
+        public static SelectSpecification<BranchOfficeOrganizationUnit, BouInfo> SelectBouInfo
         {
             get
             {

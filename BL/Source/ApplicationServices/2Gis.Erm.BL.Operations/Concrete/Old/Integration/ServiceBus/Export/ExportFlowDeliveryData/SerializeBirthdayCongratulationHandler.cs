@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
                                 recipients);
         }
 
-        protected override ISelectSpecification<BirthdayCongratulation, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<BirthdayCongratulation, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<BirthdayCongratulation, IExportableEntityDto>(x => new BirthdayCongratulationDto
                 {

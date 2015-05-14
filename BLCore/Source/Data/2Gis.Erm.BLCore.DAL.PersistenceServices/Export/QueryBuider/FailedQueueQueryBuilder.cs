@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
             _failedEntities = failedEntities;
         }
 
-        public IQueryable<TEntity> Create(params IFindSpecification<TEntity>[] filterSpecifications)
+        public IQueryable<TEntity> Create(params FindSpecification<TEntity>[] filterSpecifications)
         {
             var ids = _failedEntities
                             .Select(entity => entity.EntityId)

@@ -37,24 +37,24 @@ namespace DoubleGis.Erm.Platform.Aggregates.EAV
             return entityType.AsEntityType();
         }
 
-        public SpecsBundle<TEntityInstance, TEntityPropertyInstance> GetSpecifications<TEntityInstance, TEntityPropertyInstance>(Type entityType, IEnumerable<long> entityIds) 
-            where TEntityInstance : class, IDynamicEntityInstance
+        public SpecsBundle<TEntityInstance, TEntityPropertyInstance> GetSpecifications<TEntityInstance, TEntityPropertyInstance>(Type entityType, IEnumerable<long> entityIds)
+            where TEntityInstance : class, IDynamicEntityInstance 
             where TEntityPropertyInstance : class, IDynamicEntityPropertyInstance
         {
-            IFindSpecification<TEntityInstance> findSpecification;
-            ISelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>> selectSpecification;
+            FindSpecification<TEntityInstance> findSpecification;
+            SelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>> selectSpecification;
 
             if (typeof(TEntityInstance) == typeof(BusinessEntityInstance) && typeof(TEntityPropertyInstance) == typeof(BusinessEntityPropertyInstance))
             {
-                findSpecification = (IFindSpecification<TEntityInstance>)BusinessEntitySpecs.BusinessEntity.Find.ByReferencedEntities(entityIds);
-                selectSpecification = (ISelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>>)BusinessEntitySpecs.BusinessEntity.Select.DynamicEntityInstanceDto();
+                findSpecification = BusinessEntitySpecs.BusinessEntity.Find.ByReferencedEntities(entityIds) as FindSpecification<TEntityInstance>;
+                selectSpecification = BusinessEntitySpecs.BusinessEntity.Select.DynamicEntityInstanceDto() as SelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>>;
                 return new SpecsBundle<TEntityInstance, TEntityPropertyInstance>(findSpecification, selectSpecification);
             }
 
             if (typeof(TEntityInstance) == typeof(DictionaryEntityInstance) && typeof(TEntityPropertyInstance) == typeof(DictionaryEntityPropertyInstance))
             {
-                findSpecification = (IFindSpecification<TEntityInstance>)Specs.Find.ByIds<DictionaryEntityInstance>(entityIds);
-                selectSpecification = (ISelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>>)DictionaryEntitySpecs.DictionaryEntity.Select.DynamicEntityInstanceDto();
+                findSpecification = Specs.Find.ByIds<DictionaryEntityInstance>(entityIds) as FindSpecification<TEntityInstance>;
+                selectSpecification = DictionaryEntitySpecs.DictionaryEntity.Select.DynamicEntityInstanceDto() as SelectSpecification<TEntityInstance, DynamicEntityInstanceDto<TEntityInstance, TEntityPropertyInstance>>;
                 return new SpecsBundle<TEntityInstance, TEntityPropertyInstance>(findSpecification, selectSpecification);
             }
 

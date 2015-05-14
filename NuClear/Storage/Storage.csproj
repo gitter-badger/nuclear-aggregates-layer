@@ -78,8 +78,6 @@
     <Compile Include="Query.cs" />
     <Compile Include="Specifications\ExpressionUtils.cs" />
     <Compile Include="Specifications\FindSpecification.cs" />
-    <Compile Include="Specifications\IFindSpecification.cs" />
-    <Compile Include="Specifications\ISelectSpecification.cs" />
     <Compile Include="Specifications\SelectSpecification.cs" />
     <Compile Include="Specifications\SpecificationExtensions.cs" />
     <Compile Include="UseCases\IContextKey.cs" />

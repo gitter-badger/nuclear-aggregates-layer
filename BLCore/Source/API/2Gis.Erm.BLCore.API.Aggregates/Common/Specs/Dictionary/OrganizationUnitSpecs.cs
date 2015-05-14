@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
 
         public static class Select
         {
-            public static ISelectSpecification<OrganizationUnit, decimal> VatRate()
+            public static SelectSpecification<OrganizationUnit, decimal> VatRate()
             {
                 return new SelectSpecification<OrganizationUnit, decimal>(
                     x => x.BranchOfficeOrganizationUnits

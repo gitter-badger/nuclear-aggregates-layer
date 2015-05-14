@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
     {
         public static class Bargains
         {
-            public static ISelectSpecification<Bargain, object> Select()
+            public static SelectSpecification<Bargain, object> Select()
             {
                 return new SelectSpecification<Bargain, object>(
                     x => new

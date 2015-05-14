@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.Orders
     {
         public static class Select
         {
-            public static ISelectSpecification<Order, MultiCultureListOrderDto> OrdersForMulticultureGridView()
+            public static SelectSpecification<Order, MultiCultureListOrderDto> OrdersForMulticultureGridView()
             {
                 return new SelectSpecification<Order, MultiCultureListOrderDto>(
                     order => new MultiCultureListOrderDto

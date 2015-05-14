@@ -121,8 +121,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                     finderMock.Setup(ld => ld.Find(Moq.It.IsAny<Expression<Func<Order, bool>>>()))
                               .Returns((Expression<Func<Order, bool>> predicate) => Orders.Where(predicate.Compile()).AsQueryable());
                     
-                    finderMock.Setup(ld => ld.Find(Moq.It.IsAny<IFindSpecification<Order>>()))
-                              .Returns((IFindSpecification<Order> predicate) => Orders.Where(predicate.Predicate.Compile()).AsQueryable());
+                    finderMock.Setup(ld => ld.Find(Moq.It.IsAny<FindSpecification<Order>>()))
+                              .Returns((FindSpecification<Order> predicate) => Orders.Where(predicate.Predicate.Compile()).AsQueryable());
 
                     _orderValidationRule = new IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule(finderMock.Object);
                 };

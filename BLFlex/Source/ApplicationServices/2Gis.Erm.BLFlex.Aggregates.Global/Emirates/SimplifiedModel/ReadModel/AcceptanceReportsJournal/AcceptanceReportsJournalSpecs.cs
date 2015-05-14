@@ -13,7 +13,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.SimplifiedModel.ReadMo
     {
         public static class Find
         {
-            public static IFindSpecification<DictionaryEntityInstance> OnlyAcceptanceReportsJournalRecords
+            public static FindSpecification<DictionaryEntityInstance> OnlyAcceptanceReportsJournalRecords
             {
                 get
                 {
@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.SimplifiedModel.ReadMo
 
         public static class Select
         {
-            public static ISelectSpecification<DictionaryEntityInstance, AcceptanceReportsJournalRecord> AcceptanceReportsJournalRecords
+            public static SelectSpecification<DictionaryEntityInstance, AcceptanceReportsJournalRecord> AcceptanceReportsJournalRecords
             {
                 get
                 {

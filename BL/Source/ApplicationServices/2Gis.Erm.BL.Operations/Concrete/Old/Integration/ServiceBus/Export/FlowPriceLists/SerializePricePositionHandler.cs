@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Old.Integration.ServiceBus.Export
             return pricePositionElement;
         }
 
-        protected override ISelectSpecification<PricePosition, IExportableEntityDto> CreateDtoExpression()
+        protected override SelectSpecification<PricePosition, IExportableEntityDto> CreateDtoExpression()
         {
             return new SelectSpecification<PricePosition, IExportableEntityDto>(x =>
                                                                                 new PricePositionDto

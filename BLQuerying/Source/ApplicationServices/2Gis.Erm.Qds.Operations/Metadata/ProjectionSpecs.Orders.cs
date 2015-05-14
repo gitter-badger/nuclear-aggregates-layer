@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
     {
         public static class Orders
         {
-            public static ISelectSpecification<Order, object> Select()
+            public static SelectSpecification<Order, object> Select()
             {
                 return new SelectSpecification<Order, object>(
                     x => new

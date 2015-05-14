@@ -17,12 +17,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common
             _finder = finder;
         }
 
-        public TEntity Get(IFindSpecification<TEntity> spec)
+        public TEntity Get(FindSpecification<TEntity> spec)
         {
             return _finder.Find(spec).FirstOrDefault();
         }
 
-        public IReadOnlyCollection<TEntity> Get(IFindSpecification<TEntity> spec, int maxCount)
+        public IReadOnlyCollection<TEntity> Get(FindSpecification<TEntity> spec, int maxCount)
         {
             return _finder.Find(spec).Take(maxCount).ToArray();
         }

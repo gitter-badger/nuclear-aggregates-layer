@@ -14,10 +14,10 @@ namespace DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features
         private readonly Type _entityType;
         private readonly Type _documentType;
 
-        private readonly ISelectSpecification<TEntity, object> _selectSpec;
+        private readonly SelectSpecification<TEntity, object> _selectSpec;
         private readonly IProjectSpecification<ObjectAccessor, IIndexedDocumentWrapper> _projectSpec;
         
-        public EntityRelationFeature(ISelectSpecification<TEntity, object> selectSpec,
+        public EntityRelationFeature(SelectSpecification<TEntity, object> selectSpec,
                                      IProjectSpecification<ObjectAccessor, IIndexedDocumentWrapper> projectSpec)
         {
             _entityType = typeof(TEntity);
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features
             get { return _documentType; }
         }
 
-        public ISelectSpecification<TEntity, object> SelectSpec
+        public SelectSpecification<TEntity, object> SelectSpec
         {
             get { return _selectSpec; }
         }

@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
             _entityTypeToIds = GetEntityTypeToIds(performedBusinessOperations);
         }
 
-        public IQueryable<TEntity> Create(params IFindSpecification<TEntity>[] filterSpecifications)
+        public IQueryable<TEntity> Create(params FindSpecification<TEntity>[] filterSpecifications)
         {
             var curriedRules = from mapping in _entityTypeToIds
                                join expressionEntry in _container.SelectExpressionsByEntity on mapping.Key equals expressionEntry.Key

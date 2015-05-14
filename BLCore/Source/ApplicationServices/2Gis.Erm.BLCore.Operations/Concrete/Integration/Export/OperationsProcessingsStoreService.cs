@@ -153,7 +153,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             return _processedOperationEntity.Save();
         }
 
-        public DateTime GetLastProcessedOperationPerformDate(ISelectSpecification<TProcessedOperationEntity, DateTime> selectSortFieldSpecification)
+        public DateTime GetLastProcessedOperationPerformDate(SelectSpecification<TProcessedOperationEntity, DateTime> selectSortFieldSpecification)
         {
             var lastMessageId = _query.For<TProcessedOperationEntity>()
                                       .OrderByDescending(selectSortFieldSpecification.Selector)

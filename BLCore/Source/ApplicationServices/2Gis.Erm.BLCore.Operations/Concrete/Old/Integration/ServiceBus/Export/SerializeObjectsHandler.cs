@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
 
         protected abstract XElement SerializeDtoToXElement(IExportableEntityDto entityDto);
 
-        protected abstract ISelectSpecification<TEntity, IExportableEntityDto> CreateDtoExpression();
+        protected abstract SelectSpecification<TEntity, IExportableEntityDto> CreateDtoExpression();
 
         protected override SerializeObjectsResponse Handle(SerializeObjectsRequest<TEntity, TProcessedOperationEntity> request)
         {

@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.Platform.DAL
             _entityAccessService = entityAccessService;
         }
 
-        public IQueryable<TEntity> Find<TEntity>(IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public IQueryable<TEntity> Find<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
             if (findSpecification == null)
             {
@@ -53,8 +53,8 @@ namespace DoubleGis.Erm.Platform.DAL
         }
 
         public IQueryable<TOutput> Find<TEntity, TOutput>(
-            ISelectSpecification<TEntity, TOutput> selectSpecification, 
-            IFindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+            SelectSpecification<TEntity, TOutput> selectSpecification, 
+            FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
             if (selectSpecification == null)
             {
@@ -81,13 +81,13 @@ namespace DoubleGis.Erm.Platform.DAL
             return RestrictQueryWhenAccessCheck<IQueryable<TEntity>>(_finder.Find(expression));
         }
 
-        public TEntity FindOne<TEntity>(IFindSpecification<TEntity> findSpecification)
+        public TEntity FindOne<TEntity>(FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
             throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");
         }
 
-        public IEnumerable<TEntity> FindMany<TEntity>(IFindSpecification<TEntity> findSpecification)
+        public IEnumerable<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
             throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");
