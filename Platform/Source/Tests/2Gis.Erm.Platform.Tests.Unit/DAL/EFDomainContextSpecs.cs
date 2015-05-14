@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
+using DoubleGis.Erm.Platform.DAL;
+
 using Effort;
 using Effort.Provider;
 
@@ -14,29 +16,29 @@ using NuClear.Storage.Core;
 using NuClear.Storage.EntityFramework;
 using NuClear.Storage.UseCases;
 
-namespace Storage.EntityFramework.Tests
+namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
     public class EFDomainContextSpecs
     {
         static IModifiableDomainContext _domainContext;
-        
+
         [Tags("Storage")]
         [Subject(typeof(EFDomainContext))]
-        class When_Disposing_with_NullPendingChangesHandlingStrategy : EFDomainContextMockContext
+        class When_Disposing_with_ForcePendingChangesHandlingStrategy : EFDomainContextMockContext
         {
             static Exception _exception;
 
             Establish context = () =>
-                {
-                    _domainContext = new EFDomainContext(new ProcessingContext(),
-                                                         DbContext,
-                                                         new NullPendingChangesHandlingStrategy());
-                    _domainContext.Add(new Entity() { Id = 100 });
-                };
+            {
+                _domainContext = new EFDomainContext(new ProcessingContext(),
+                                                     DbContext,
+                                                     new ForcePendingChangesHandlingStrategy());
+                _domainContext.Add(new Entity() { Id = 100 });
+            };
 
             Because of = () => _exception = Catch.Exception(() => _domainContext.Dispose());
 
-            It exception_should_not_be_thrown = () => _exception.Should().Be(null);
+            It exception_of_type_PendingChangesNotHandledException_should_be_thrown = () => _exception.Should().BeOfType<PendingChangesNotHandledException>();
         }
 
         private abstract class EFDomainContextMockContext

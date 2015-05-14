@@ -146,7 +146,9 @@
     <Compile Include="Core\Infrastructure\StubOperationScopeFactory.cs" />
     <Compile Include="Core\Operations\Processing\Final\ReplicateToMsCRMHandlerSlicerSpecs.cs" />
     <Compile Include="Core\Services\Operations\Metadata\Security\AccessRequirementBuilderSpecs.cs" />
+    <Compile Include="DAL\EFDomainContextSpecs.cs" />
     <Compile Include="DAL\EFSecureGenericRepositorySpecs.cs" />
+    <Compile Include="DAL\FinderSpecs.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\Repositories\StubGenericRepository.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\StubUserContext.cs" />
     <Compile Include="DAL\Infrastructure\Fakes\MockUserContext.cs" />
