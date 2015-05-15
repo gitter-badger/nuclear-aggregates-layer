@@ -77,8 +77,8 @@
     <Compile Include="FirmInfo\FirmIdDto.cs" />
     <Compile Include="FirmInfo\FirmInfoDto.cs" />
     <Compile Include="FirmWorkStatus\FirmWorkStatusErrorDescription.cs" />
-    <Compile Include="FirmWorkStatus\IGetFirmInfoOperationService.cs" />
-    <Compile Include="FirmInfo\IGetFirmWorkStatusOperationService.cs" />
+    <Compile Include="FirmInfo\IGetFirmInfoOperationService.cs" />
+    <Compile Include="FirmWorkStatus\IGetFirmWorkStatusOperationService.cs" />
     <Compile Include="FirmInfo\ProjectInfoDto.cs" />
     <Compile Include="DI\OperationsSpecialZone.cs" />
     <Compile Include="FirmWorkStatus\FirmWorkStatus.cs" />

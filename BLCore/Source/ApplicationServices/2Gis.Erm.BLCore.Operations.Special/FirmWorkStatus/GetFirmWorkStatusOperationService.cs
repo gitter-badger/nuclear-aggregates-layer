@@ -1,8 +1,7 @@
-﻿using System;
-using System.ServiceModel.Security;
+﻿using System.ServiceModel.Security;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Special.FirmInfo;
+using DoubleGis.Erm.BLCore.API.Operations.Special.FirmWorkStatus;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
