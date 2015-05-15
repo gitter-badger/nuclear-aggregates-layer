@@ -34,14 +34,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements
             var firmId = viewModel.Firm.Key.Value;
 
             long firmOwnerCode;
-            _firmReadModel.TryGetFirmOwnerCodeUnsecure(firmId, out firmOwnerCode);
-
-            viewModel.ViewConfig.ReadOnly |= !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                           EntityName.Firm,
-                                                                                           _userContext.Identity.Code,
-                                                                                           firmId,
-                                                                                           firmOwnerCode,
-                                                                                           null);
+            if (_firmReadModel.TryGetFirmOwnerCodeUnsecure(firmId, out firmOwnerCode))
+            {
+                viewModel.ViewConfig.ReadOnly |= !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                                                               EntityName.Firm,
+                                                                                               _userContext.Identity.Code,
+                                                                                               firmId,
+                                                                                               firmOwnerCode,
+                                                                                               null);
+            }
         }
     }
 }
