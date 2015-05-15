@@ -3,8 +3,10 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Platform.UI.WPF.Infrastructure.CustomTypeProvider;
+
+using NuClear.ResourceUtilities;
+using NuClear.ResourceUtilities.Legacy;
 
 namespace DoubleGis.Platform.UI.WPF.Infrastructure.Localization
 {

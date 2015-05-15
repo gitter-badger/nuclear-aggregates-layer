@@ -238,8 +238,9 @@
     <Compile Include="0.18\2013.07.19 rev. 10436 - Alter import buildings.cs" />
     <Compile Include="2.0\2014.04.08 rev. 19206 - Delete Success field in price export tables.cs" />
     <Compile Include="2.0\2014.04.04 rev. 19057 - Alter export table for price positions.cs" />
+    <Compile Include="2.1\201505131721 - remove additional firm service privilege settings.cs" />
+    <Compile Include="2.1\201502160411 - add SortingIndex column.cs" />
     <Compile Include="2.1\201505070309 - Add new AdvAgencies FP.cs" />
-    <Compile Include="2.1\Migration201502160411 - add SortingIndex column.cs" />
     <Compile Include="2.1\2014.12.08 rev. 201412081011.cs" />
     <Compile Include="2.1\2014.12.03 rev. 201412031042.cs" />
     <Compile Include="2.1\2014.12.02 rev. 201412021619.cs" />
@@ -371,6 +372,7 @@
     <Content Include="Resources\2014.12.08 rev. 201412081011\Create ReplicateAppointments.sql" />
     <Content Include="Resources\201501201646\Billing.ReplicateDeals.sql" />
     <Content Include="Resources\201502110416\Log.Events_DateLocalTimeZone.sql" />
+    <Content Include="Resources\201504090414\script.sql" />
     <None Include="Resources\201503040330\customizations.xml" />
     <None Include="Resources\201502090244\customizations_201502090244.xml" />
     <None Include="packages.config" />
@@ -832,8 +834,9 @@
     <Compile Include="2.1\201503040330 - add support button to MS CRM.cs" />
     <Compile Include="2.1\201502111010 - remove Timestamp from SalesModelCategoryRestrictions.cs" />
     <Compile Include="2.1\201502240101 - Add new Integration.ExportFlowFinancialData_DebitsInfoInitial table.cs" />
-    <Compile Include="2.1\201503120344 - Drop firm services tables.cs" />
-    <Compile Include="2.1\201503251251 - Add ApplicationCityName to BranchOfficeOrganizationUnits.cs" />
+	<Compile Include="2.1\201503120344 - Drop firm services tables.cs" />
+    <Compile Include="2.1\201504090414 - Fix MS Dynamics TimeZones.cs" />
+	<Compile Include="2.1\201503251251 - Add ApplicationCityName to BranchOfficeOrganizationUnits.cs" />
     <Compile Include="2.1\201502110416 - Create view for log events table.cs" />
     <Compile Include="2.1\201501190608 - add Amount to Billing.Charges.cs" />
     <Compile Include="2.1\201501201220 - remove PositionId column.cs" />

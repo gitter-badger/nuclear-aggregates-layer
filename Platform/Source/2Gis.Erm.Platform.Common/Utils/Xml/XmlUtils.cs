@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Xml.Linq;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Platform.Common.Utils.Xml
 {
     public static partial class XmlUtils
@@ -32,11 +34,20 @@ namespace DoubleGis.Erm.Platform.Common.Utils.Xml
 
             try
             {
-                attributeValue = targetType.IsEnum 
-                    ? (TValue)Enum.Parse(targetType, attribute.Value) 
-                    : (TValue)Convert.ChangeType(attribute.Value, targetType);
+                if (targetType == typeof(IEntityType))
+                {
+                    attributeValue = (TValue)EntityType.Instance.Parse(int.Parse(attribute.Value));
+                }
+                else if (targetType.IsEnum)
+                {
+                    attributeValue = (TValue)Enum.Parse(targetType, attribute.Value);
+                }
+                else
+                {
+                    attributeValue = (TValue)Convert.ChangeType(attribute.Value, targetType);
+                }
             }
-            catch (Exception ex)
+            catch
             {
                 report = string.Format(ReportTemplate, attributeName, "Can't convert attribute value " + attribute.Value + " to target type " + targetType.FullName);
                 return false;

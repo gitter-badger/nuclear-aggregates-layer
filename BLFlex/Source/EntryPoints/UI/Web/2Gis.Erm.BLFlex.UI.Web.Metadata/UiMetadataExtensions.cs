@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
 {
     public static class UIMetadataExtensions
@@ -122,9 +124,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc
             return new UIElementMetadata[]
                        {
                            RelatedItem.ContentTab(),
-                           RelatedItem.EntityGrid(EntityName.Bill, () => ErmConfigLocalization.CrdRelBills),
-                           RelatedItem.EntityGrid(EntityName.Lock, () => ErmConfigLocalization.CrdRelLocks),
-                           RelatedItem.EntityGrid(EntityName.OrderFile, () => ErmConfigLocalization.CrdRelOrderFiles)
+                           RelatedItem.EntityGrid(EntityType.Instance.Bill(), () => ErmConfigLocalization.CrdRelBills),
+                           RelatedItem.EntityGrid(EntityType.Instance.Lock(), () => ErmConfigLocalization.CrdRelLocks),
+                           RelatedItem.EntityGrid(EntityType.Instance.OrderFile(), () => ErmConfigLocalization.CrdRelOrderFiles)
                        };
         }
 

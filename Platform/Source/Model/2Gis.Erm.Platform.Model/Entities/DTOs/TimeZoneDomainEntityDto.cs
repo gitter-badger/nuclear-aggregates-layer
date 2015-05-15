@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 using TimeZone = DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone;
 

@@ -7,6 +7,8 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     /// <summary>
@@ -56,11 +58,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                            MessageText =
                                                                string.Format(BLResources.AdvertisementIsLinkedWithEmptyAddressError,
                                                                              GenerateDescription(ruleContext.IsMassValidation,
-                                                                                                 EntityName.OrderPosition,
+                                                                                                 EntityType.Instance.OrderPosition(),
                                                                                                  x.OrderPositionName,
                                                                                                  x.OrderPositionId),
                                                                              GenerateDescription(ruleContext.IsMassValidation,
-                                                                                                 EntityName.FirmAddress,
+                                                                                                 EntityType.Instance.FirmAddress(),
                                                                                                  x.FirmAddressName,
                                                                                                  x.FirmAddressId))
                                                        });

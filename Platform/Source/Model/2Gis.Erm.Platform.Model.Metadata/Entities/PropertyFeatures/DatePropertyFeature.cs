@@ -2,6 +2,8 @@
 
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 
+using NuClear.Metamodeling.Domain.Entities;
+
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {
     public sealed class DatePropertyFeature : IPropertyFeature

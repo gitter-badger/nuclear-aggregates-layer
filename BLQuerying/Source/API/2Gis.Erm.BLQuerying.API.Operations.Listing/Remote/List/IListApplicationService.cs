@@ -1,9 +1,9 @@
 ﻿using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
 {
@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
     {
         [OperationContract]
         [FaultContract(typeof(ListOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.List201303)]
-        ListResult Execute(EntityName entityName,
+        ListResult Execute(IEntityType entityName,
                            int start,
                            string filterInput,
                            string extendedInfo,
@@ -20,6 +20,6 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.Remote.List
                            int limit,
                            string sort,
                            long? parentId,
-                           EntityName parentType);
+                           IEntityType parentType);
     }
 }

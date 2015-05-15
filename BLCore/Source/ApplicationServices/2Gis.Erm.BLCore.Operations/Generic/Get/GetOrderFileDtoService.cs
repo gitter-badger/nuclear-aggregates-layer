@@ -7,9 +7,10 @@ using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -59,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var orderOwnerCode = _orderReadModel.GetOrderOwnerCode(dto.OrderId);
 
             dto.SetReadonly = !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                                EntityName.Order,
+                                                                                                EntityType.Instance.Order(),
                                                                                                 _userContext.Identity.Code,
                                                                                                 dto.OrderId,
                                                                                                 orderOwnerCode,
@@ -67,11 +68,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override IDomainEntityDto<OrderFile> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<OrderFile> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             return new OrderFileDomainEntityDto
                 {
-                    OrderId = parentEntityName == EntityName.Order && parentEntityId.HasValue ? parentEntityId.Value : 0,
+                    OrderId = parentEntityName.Equals(EntityType.Instance.Order()) && parentEntityId.HasValue ? parentEntityId.Value : 0,
                 };
         }
     }

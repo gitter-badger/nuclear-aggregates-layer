@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.Shared
+namespace ASP
 {
     using System;
     using System.Collections.Generic;
@@ -28,9 +28,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.Shared
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -41,12 +44,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.Shared
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/_CardLayout.cshtml")]
-    public partial class CardLayout : System.Web.Mvc.WebViewPage<EntityViewModelBase>
+    public partial class _Views_Shared__CardLayout_cshtml : System.Web.Mvc.WebViewPage<EntityViewModelBase>
     {
-        public CardLayout()
+        public _Views_Shared__CardLayout_cshtml()
         {
         }
         public override void Execute()
@@ -889,8 +895,8 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 99 "..\..\Views\Shared\_CardLayout.cshtml"
-               Write(Html.HiddenFor(m => m.ViewConfig.EntityName));
+            #line 98 "..\..\Views\Shared\_CardLayout.cshtml"
+               Write(Html.Hidden("ViewConfig.EntityName", Model.ViewConfig.EntityName.Description));
 
             
             #line default
@@ -922,8 +928,8 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 102 "..\..\Views\Shared\_CardLayout.cshtml"
-               Write(Html.HiddenFor(m => m.ViewConfig.PType));
+            #line 101 "..\..\Views\Shared\_CardLayout.cshtml"
+               Write(Html.Hidden("ViewConfig.PType", Model.ViewConfig.PType.Description));
 
             
             #line default
@@ -966,8 +972,8 @@ WriteLiteral("\r\n");
 WriteLiteral("                    ");
 
             
-            #line 106 "..\..\Views\Shared\_CardLayout.cshtml"
-               Write(Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList));
+            #line 105 "..\..\Views\Shared\_CardLayout.cshtml"
+               Write(Html.Hidden("ViewConfig.DependencyList", Model.ViewConfig.DependencyList));
 
             
             #line default

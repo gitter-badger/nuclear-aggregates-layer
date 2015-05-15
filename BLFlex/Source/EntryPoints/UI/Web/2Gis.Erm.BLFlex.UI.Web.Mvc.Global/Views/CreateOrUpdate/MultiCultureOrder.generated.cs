@@ -37,6 +37,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
     #line default
     #line hidden
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
+    using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
     
     #line 2 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
     using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -49,10 +50,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/MultiCultureOrder.cshtml")]
-    public partial class MultiCultureOrder : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureOrderViewModel>
+    public partial class MultiCultureOrder : System.Web.Mvc.WebViewPage<MultiCultureOrderViewModel>
     {
         public MultiCultureOrder()
         {
@@ -77,15 +81,15 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 315), Tuple.Create("\"", 360)
-, Tuple.Create(Tuple.Create("", 322), Tuple.Create("/Content/order.css?", 322), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 269), Tuple.Create("\"", 314)
+, Tuple.Create(Tuple.Create("", 276), Tuple.Create("/Content/order.css?", 276), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 341), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 295), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 341), false)
+, 295), false)
 );
 
 WriteLiteral(" />\r\n\r\n");
@@ -101,90 +105,90 @@ Write(RenderSection("CultureSpecificScript", true));
             #line hidden
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 430), Tuple.Create("\"", 487)
-, Tuple.Create(Tuple.Create("", 436), Tuple.Create("/Scripts/Ext.DoubleGis.Print.js?", 436), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 384), Tuple.Create("\"", 441)
+, Tuple.Create(Tuple.Create("", 390), Tuple.Create("/Scripts/Ext.DoubleGis.Print.js?", 390), true)
             
             #line 14 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 468), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 422), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 468), false)
+, 422), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>   \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 537), Tuple.Create("\"", 597)
-, Tuple.Create(Tuple.Create("", 543), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Order.js?", 543), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 491), Tuple.Create("\"", 551)
+, Tuple.Create(Tuple.Create("", 497), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Order.js?", 497), true)
             
             #line 15 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 578), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 532), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 578), false)
+, 532), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 644), Tuple.Create("\"", 717)
-, Tuple.Create(Tuple.Create("", 650), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CopyOrderDialog.js?", 650), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 598), Tuple.Create("\"", 671)
+, Tuple.Create(Tuple.Create("", 604), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CopyOrderDialog.js?", 604), true)
             
             #line 16 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 698), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 652), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 698), false)
+, 652), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 764), Tuple.Create("\"", 834)
-, Tuple.Create(Tuple.Create("", 770), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckManager.js?", 770), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 718), Tuple.Create("\"", 788)
+, Tuple.Create(Tuple.Create("", 724), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckManager.js?", 724), true)
             
             #line 17 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 815), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 769), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 815), false)
+, 769), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 881), Tuple.Create("\"", 956)
-, Tuple.Create(Tuple.Create("", 887), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckResultWindow.js?", 887), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 835), Tuple.Create("\"", 910)
+, Tuple.Create(Tuple.Create("", 841), Tuple.Create("/Scripts/Ext.DoubleGis.Order.CheckResultWindow.js?", 841), true)
             
             #line 18 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 937), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 891), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 937), false)
+, 891), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1003), Tuple.Create("\"", 1080)
-, Tuple.Create(Tuple.Create("", 1009), Tuple.Create("/Scripts/Ext.DoubleGis.Order.UpgradeResultWindow.js?", 1009), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 957), Tuple.Create("\"", 1034)
+, Tuple.Create(Tuple.Create("", 963), Tuple.Create("/Scripts/Ext.DoubleGis.Order.UpgradeResultWindow.js?", 963), true)
             
             #line 19 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 1061), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 1015), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1061), false)
+, 1015), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -499,14 +503,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2940), Tuple.Create("\"", 2976)
+WriteAttribute("title", Tuple.Create(" title=\"", 2894), Tuple.Create("\"", 2930)
             
             #line 75 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 2948), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 2902), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 2948), false)
+, 2902), false)
 );
 
 WriteLiteral(">\r\n        <br />\r\n        <div");
@@ -547,7 +551,7 @@ WriteLiteral("            ");
             #line 82 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings
                                                                             {
-                                                                                EntityName = EntityName.Deal,
+                                                                                EntityName = EntityType.Instance.Deal(),
                                                                                 ReadOnly = true,
                                                                             }));
 
@@ -562,9 +566,9 @@ WriteLiteral("            ");
             #line 87 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
                                                                         {
-                                                                            EntityName = EntityName.LegalPerson,
+                                                                            EntityName = EntityType.Instance.LegalPerson(),
                                                                             ExtendedInfo = "DealId={DealId}",
-                                                                            ParentEntityName = EntityName.Client,
+                                                                            ParentEntityName = EntityType.Instance.Client(),
                                                                             ParentIdPattern = "ClientId",
                                                                         }));
 
@@ -583,7 +587,7 @@ WriteLiteral("            ");
             #line 96 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings
                                                                             {
-                                                                                EntityName = EntityName.Firm,
+                                                                                EntityName = EntityType.Instance.Firm(),
                                                                                 ReadOnly = Model.HasAnyOrderPosition,
                                                                                 ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}&ForReserve=false&DealId={DealId}"
                                                                             }));
@@ -597,7 +601,7 @@ WriteLiteral("            ");
 
             
             #line 102 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "SourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" }));
+       Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit(), ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "SourceOrganizationUnitId={sourceOrganizationUnitId}&restrictByFP=true&userId={CurrenctUserCode}" }));
 
             
             #line default
@@ -612,7 +616,7 @@ WriteLiteral("            ");
 
             
             #line 105 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-       Write(Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "currencyId={DealCurrencyId}&userId={CurrenctUserCode}", ShowReadOnlyCard = true }));
+       Write(Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "currencyId={DealCurrencyId}&userId={CurrenctUserCode}", ShowReadOnlyCard = true }));
 
             
             #line default
@@ -625,7 +629,7 @@ WriteLiteral("            ");
             #line 106 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
        Write(Html.TemplateField(m => m.Bargain, FieldFlex.twins, new LookupSettings
                 {
-                    EntityName = EntityName.Bargain,
+                    EntityName = EntityType.Instance.Bargain(),
                     ExtendedInfo = "legalPersonId={LegalPersonId}&branchOfficeOrganizationUnitId={BranchOfficeOrganizationUnitId}"
                 }));
 
@@ -642,7 +646,7 @@ WriteLiteral("            ");
 
             
             #line 113 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-       Write(Html.TemplateField(m => m.DestinationOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ShowReadOnlyCard = true, ExtendedInfo = "restrictByProjects=true" }));
+       Write(Html.TemplateField(m => m.DestinationOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), ReadOnly = Model.HasAnyOrderPosition, ShowReadOnlyCard = true, ExtendedInfo = "restrictByProjects=true" }));
 
             
             #line default
@@ -1140,14 +1144,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"FinancesTerminationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 14640), Tuple.Create("\"", 14679)
+WriteAttribute("title", Tuple.Create(" title=\"", 14682), Tuple.Create("\"", 14721)
             
             #line 243 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 14648), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
+, Tuple.Create(Tuple.Create("", 14690), Tuple.Create<System.Object, System.Int32>(BLResources.AdditionalTabTitle
             
             #line default
             #line hidden
-, 14648), false)
+, 14690), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1182,7 +1186,7 @@ WriteLiteral("            ");
 
             
             #line 247 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-       Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true, ShowReadOnlyCard = true, }));
+       Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true, ShowReadOnlyCard = true, }));
 
             
             #line default
@@ -1316,7 +1320,7 @@ WriteLiteral("            ");
 
             
             #line 269 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-       Write(Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}" }));
+       Write(Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}" }));
 
             
             #line default
@@ -1342,7 +1346,7 @@ WriteLiteral("            ");
 
             
             #line 273 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-       Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.twins, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.LegalPersonProfile(), ReadOnly = true }));
 
             
             #line default
@@ -1353,14 +1357,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 17350), Tuple.Create("\"", 17393)
+WriteAttribute("title", Tuple.Create(" title=\"", 17425), Tuple.Create("\"", 17468)
             
             #line 276 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-, Tuple.Create(Tuple.Create("", 17358), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 17433), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 17358), false)
+, 17433), false)
 );
 
 WriteLiteral(">\r\n");
@@ -1400,7 +1404,7 @@ WriteLiteral("                ");
 
             
             #line 281 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-           Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
+           Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
             #line default
@@ -1435,7 +1439,7 @@ WriteLiteral("            ");
 
             
             #line 286 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default
@@ -1461,7 +1465,7 @@ WriteLiteral("            ");
 
             
             #line 290 "..\..\Views\CreateOrUpdate\MultiCultureOrder.cshtml"
-       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default

@@ -11,7 +11,9 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 using NuClear.Security.API.UserContext;
 
@@ -34,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.Operations
 
         public void ChangeSorting(IEnumerable<Position> positions, IEnumerable<PositionSortingOrderDto> sorting)
         {
-            var hasUpdateAccess = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update, EntityName.Position, _userContext.Identity.Code, 0, 0, 0);
+            var hasUpdateAccess = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update, EntityType.Instance.Position(), _userContext.Identity.Code, 0, 0, 0);
             if (!hasUpdateAccess)
             {
                 throw new ErmSecurityException(BLResources.PositionAccessDenied);

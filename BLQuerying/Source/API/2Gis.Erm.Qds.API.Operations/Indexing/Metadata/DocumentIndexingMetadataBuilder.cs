@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Qds.API.Operations.Indexing.Metadata.Features;
+
+using NuClear.Metamodeling.Elements;
 
 namespace DoubleGis.Erm.Qds.API.Operations.Indexing.Metadata
 {

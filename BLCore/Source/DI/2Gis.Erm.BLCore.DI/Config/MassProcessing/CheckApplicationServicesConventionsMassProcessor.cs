@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.Model.Simplified;
 
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
 {

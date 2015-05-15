@@ -3,7 +3,9 @@
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
@@ -12,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
     public static partial class ExportMetadata
     {
         public static readonly QueryRuleContainer<PricePosition> PricePosition = QueryRuleContainer<PricePosition>.Create(
-            () => EntityOperationMapping<PricePosition>.ForEntity(EntityName.PricePosition)
+            () => EntityOperationMapping<PricePosition>.ForEntity(EntityType.Instance.PricePosition())
                                                        .Operation<CreateIdentity>()
                                                        .Operation<UpdateIdentity>()
                                                        .Operation<DeactivateIdentity>()

@@ -1,10 +1,11 @@
 ﻿using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services
 {
     public interface IUIServicesManager
     {
-        IEntityGridViewService GetEntityGridViewService(EntityName entityName);
+        IEntityGridViewService GetEntityGridViewService(IEntityType entityName);
     }
 }

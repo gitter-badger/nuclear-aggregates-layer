@@ -7,6 +7,8 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -34,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                Type = MessageType.Error,
                                                MessageText =
                                                    string.Format(BLResources.OrdersCheckOrderHasNoAccount,
-                                                                 GenerateDescription(ruleContext.IsMassValidation, EntityName.Order, o.Number, o.Id)),
+                                                                 GenerateDescription(ruleContext.IsMassValidation, EntityType.Instance.Order(), o.Number, o.Id)),
                                                OrderId = o.Id,
                                                OrderNumber = o.Number
                                            });

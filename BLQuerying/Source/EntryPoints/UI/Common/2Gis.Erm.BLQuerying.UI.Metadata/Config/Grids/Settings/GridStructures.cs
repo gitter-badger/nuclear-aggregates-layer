@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Grids;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
+
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BLQuerying.UI.Metadata.Config.Grids.Settings
 {

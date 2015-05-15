@@ -1,5 +1,5 @@
 ﻿
-@model Models.AssociatedPositionViewModel
+@model AssociatedPositionViewModel
            
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -17,11 +17,11 @@
         @Html.HiddenFor(m => m.Id)
     }
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.PricePosition, FieldFlex.twins, new LookupSettings { EntityName = EntityName.PricePosition, ReadOnly = true })
-        @Html.TemplateField(m => m.AssociatedPositionsGroup, FieldFlex.twins, new LookupSettings { EntityName = EntityName.AssociatedPositionsGroup, ReadOnly = true })
+        @Html.TemplateField(m => m.PricePosition, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.PricePosition(), ReadOnly = true })
+        @Html.TemplateField(m => m.AssociatedPositionsGroup, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.AssociatedPositionsGroup(), ReadOnly = true })
     </div>
     <div class="row-wrapper">
-        @Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Position })
+        @Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Position() })
         @Html.TemplateField(m => m.ObjectBindingType, FieldFlex.twins, null, EnumResources.ResourceManager)
     </div>
 </div>

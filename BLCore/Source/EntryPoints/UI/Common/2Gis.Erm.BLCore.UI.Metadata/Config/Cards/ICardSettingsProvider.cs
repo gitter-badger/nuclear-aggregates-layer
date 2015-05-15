@@ -2,8 +2,9 @@
 using System.Globalization;
 
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
 {
@@ -16,6 +17,6 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards
             where TEntity : IEntity;
 
         [Obsolete("После выпиливания метаданных из xml убрать этот метод")]
-        CardStructure GetCardSettings(EntityName entity, CultureInfo culture);
+        CardStructure GetCardSettings(IEntityType entity, CultureInfo culture);
     }
 }

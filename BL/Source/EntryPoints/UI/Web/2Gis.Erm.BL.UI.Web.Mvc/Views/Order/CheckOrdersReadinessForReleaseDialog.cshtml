@@ -86,10 +86,10 @@
             @Html.TemplateField(m => m.StartPeriodDate, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative, Display = CalendarSettings.DisplayMode.Month })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit })
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit() })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Owner, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User})
+            @Html.TemplateField(m => m.Owner, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.User()})
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.IncludeOwnerDescendants, FieldFlex.lone, new Dictionary<string, object> {{"disabled", "disabled"}})
