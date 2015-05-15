@@ -5233,6 +5233,6 @@ Doba zveřejnění: {3}.</value>
     <value>Je třeba označit všechny pozice</value>
   </data>
   <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
-    <value>Набор рубрик для позиций {0} должен быть одинаков</value>
+    <value>Sada rubrik pro pozici {0} musí být stejná</value>
   </data>
 </root>

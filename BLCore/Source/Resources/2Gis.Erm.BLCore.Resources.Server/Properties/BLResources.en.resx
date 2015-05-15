@@ -5234,6 +5234,6 @@ Placement period: {3}.</value>
     <value>You need to select all items</value>
   </data>
   <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
-    <value>Набор рубрик для позиций {0} должен быть одинаков</value>
+    <value>Items {0} should have identical category sets</value>
   </data>
 </root>
