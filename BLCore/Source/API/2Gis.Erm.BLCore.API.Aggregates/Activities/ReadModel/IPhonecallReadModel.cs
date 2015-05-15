@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
 {
@@ -12,11 +13,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel
         IEnumerable<PhonecallRegardingObject> GetRegardingObjects(long phonecallId);
         PhonecallRecipient GetRecipient(long phonecallId);
 
-        bool CheckIfPhonecallExistsRegarding(EntityName entityName, long entityId);
-        bool CheckIfOpenPhonecallExistsRegarding(EntityName entityName, long entityId);
+        bool CheckIfPhonecallExistsRegarding(IEntityType entityName, long entityId);
+        bool CheckIfOpenPhonecallExistsRegarding(IEntityType entityName, long entityId);
 
-        IEnumerable<Phonecall> LookupPhonecallsRegarding(EntityName entityName, long entityId);
-        IEnumerable<Phonecall> LookupOpenPhonecallsRegarding(EntityName entityName, long entityId);
+        IEnumerable<Phonecall> LookupPhonecallsRegarding(IEntityType entityName, long entityId);
+        IEnumerable<Phonecall> LookupOpenPhonecallsRegarding(IEntityType entityName, long entityId);
         IEnumerable<Phonecall> LookupOpenPhonecallsOwnedBy(long ownerCode);
     }
 }

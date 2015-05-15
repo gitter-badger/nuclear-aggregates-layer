@@ -13,8 +13,8 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BL.Operations.Generic.Modify

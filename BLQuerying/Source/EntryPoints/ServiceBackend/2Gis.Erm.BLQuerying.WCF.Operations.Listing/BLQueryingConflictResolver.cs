@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Qds.Operations.Listing;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Settings;
 
 namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
@@ -14,11 +15,11 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing
     public static class BLQueryingConflictResolver
     // ReSharper restore InconsistentNaming
     {
-        private static readonly EntityName[] QdsEntityNames =
+        private static readonly IEntityType[] QdsEntityNames =
             {
-                EntityName.Order,
-                EntityName.Client,
-                EntityName.Firm
+                EntityType.Instance.Order(),
+                EntityType.Instance.Client(),
+                EntityType.Instance.Firm()
             };
 
         public static Type ListServices(Type operationType, EntitySet entitySet, IEnumerable<Type> candidates)

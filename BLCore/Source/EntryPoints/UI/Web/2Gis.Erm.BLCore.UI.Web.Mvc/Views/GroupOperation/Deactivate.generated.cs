@@ -28,47 +28,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-    
-    #line 1 "..\..\Views\GroupOperation\Deactivate.cshtml"
     using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 2 "..\..\Views\GroupOperation\Deactivate.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
-    
-    #line 3 "..\..\Views\GroupOperation\Deactivate.cshtml"
-    using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\GroupOperation\Deactivate.cshtml"
-    using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/Deactivate.cshtml")]
-    public partial class Deactivate : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel>
+    public partial class Deactivate : System.Web.Mvc.WebViewPage<GroupOperationViewModel>
     {
         public Deactivate()
         {
@@ -76,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 7 "..\..\Views\GroupOperation\Deactivate.cshtml"
+            #line 3 "..\..\Views\GroupOperation\Deactivate.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -90,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 11 "..\..\Views\GroupOperation\Deactivate.cshtml"
+            #line 7 "..\..\Views\GroupOperation\Deactivate.cshtml"
             Write(BLResources.DeactivateConfirmation);
 
             
@@ -105,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 12 "..\..\Views\GroupOperation\Deactivate.cshtml"
+            #line 8 "..\..\Views\GroupOperation\Deactivate.cshtml"
                   Write(BLResources.DeactivateConfirmation);
 
             
@@ -120,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 13 "..\..\Views\GroupOperation\Deactivate.cshtml"
+            #line 9 "..\..\Views\GroupOperation\Deactivate.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -140,58 +122,58 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 753), Tuple.Create("\"", 801)
-, Tuple.Create(Tuple.Create("", 760), Tuple.Create("/Content/Progress.css?", 760), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 456), Tuple.Create("\"", 504)
+, Tuple.Create(Tuple.Create("", 463), Tuple.Create("/Content/Progress.css?", 463), true)
             
-            #line 17 "..\..\Views\GroupOperation\Deactivate.cshtml"
-, Tuple.Create(Tuple.Create("", 782), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 13 "..\..\Views\GroupOperation\Deactivate.cshtml"
+, Tuple.Create(Tuple.Create("", 485), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 782), false)
+, 485), false)
 );
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 820), Tuple.Create("\"", 878)
-, Tuple.Create(Tuple.Create("", 826), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 826), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 523), Tuple.Create("\"", 581)
+, Tuple.Create(Tuple.Create("", 529), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 529), true)
             
-            #line 19 "..\..\Views\GroupOperation\Deactivate.cshtml"
-, Tuple.Create(Tuple.Create("", 859), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 15 "..\..\Views\GroupOperation\Deactivate.cshtml"
+, Tuple.Create(Tuple.Create("", 562), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 859), false)
+, 562), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 925), Tuple.Create("\"", 991)
-, Tuple.Create(Tuple.Create("", 931), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 931), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 628), Tuple.Create("\"", 694)
+, Tuple.Create(Tuple.Create("", 634), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 634), true)
             
-            #line 20 "..\..\Views\GroupOperation\Deactivate.cshtml"
-, Tuple.Create(Tuple.Create("", 972), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 16 "..\..\Views\GroupOperation\Deactivate.cshtml"
+, Tuple.Create(Tuple.Create("", 675), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 972), false)
+, 675), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1038), Tuple.Create("\"", 1083)
-, Tuple.Create(Tuple.Create("", 1044), Tuple.Create("/Scripts/Tooltip.js?", 1044), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 741), Tuple.Create("\"", 786)
+, Tuple.Create(Tuple.Create("", 747), Tuple.Create("/Scripts/Tooltip.js?", 747), true)
             
-            #line 21 "..\..\Views\GroupOperation\Deactivate.cshtml"
-, Tuple.Create(Tuple.Create("", 1064), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 17 "..\..\Views\GroupOperation\Deactivate.cshtml"
+, Tuple.Create(Tuple.Create("", 767), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1064), false)
+, 767), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -225,7 +207,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Activate\');\r\n    
 "ds, // массив id сущностей\r\n                OperationName: \'");
 
             
-            #line 60 "..\..\Views\GroupOperation\Deactivate.cshtml"
+            #line 56 "..\..\Views\GroupOperation\Deactivate.cshtml"
                            Write(Model.OperationName);
 
             
@@ -264,16 +246,16 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create(" \r\n                        onmouseover=\"", 4121), Tuple.Create("\"", 4188)
-, Tuple.Create(Tuple.Create("", 4161), Tuple.Create("AddTooltip(", 4161), true)
+WriteAttribute("onmouseover", Tuple.Create(" \r\n                        onmouseover=\"", 3824), Tuple.Create("\"", 3891)
+, Tuple.Create(Tuple.Create("", 3864), Tuple.Create("AddTooltip(", 3864), true)
             
-            #line 77 "..\..\Views\GroupOperation\Deactivate.cshtml"
-, Tuple.Create(Tuple.Create("", 4172), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 73 "..\..\Views\GroupOperation\Deactivate.cshtml"
+, Tuple.Create(Tuple.Create("", 3875), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 4172), false)
-, Tuple.Create(Tuple.Create("", 4186), Tuple.Create(");", 4186), true)
+, 3875), false)
+, Tuple.Create(Tuple.Create("", 3889), Tuple.Create(");", 3889), true)
 );
 
 WriteLiteral(" \r\n                        onmouseout=\"RemoveTooltip();\"");
@@ -283,7 +265,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 79 "..\..\Views\GroupOperation\Deactivate.cshtml"
+            #line 75 "..\..\Views\GroupOperation\Deactivate.cshtml"
                Write(Model.Message);
 
             
@@ -301,7 +283,7 @@ WriteLiteral("></span>\r\n                <span>\r\n");
 WriteLiteral("                    ");
 
             
-            #line 87 "..\..\Views\GroupOperation\Deactivate.cshtml"
+            #line 83 "..\..\Views\GroupOperation\Deactivate.cshtml"
                Write(ConfirmationManager.GetConfirmation(new StrictOperationIdentity(DeactivateIdentity.Instance, new EntitySet(Model.EntityTypeName))));
 
             
@@ -322,8 +304,8 @@ WriteLiteral(">\r\n                    </div>\r\n                </div>\r\n     
 WriteLiteral("    ");
 
             
-            #line 100 "..\..\Views\GroupOperation\Deactivate.cshtml"
-Write(Html.HiddenFor(x => x.EntityTypeName));
+            #line 96 "..\..\Views\GroupOperation\Deactivate.cshtml"
+Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default

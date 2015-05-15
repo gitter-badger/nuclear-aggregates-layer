@@ -4,7 +4,8 @@ using System.Xml.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Xml;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {
@@ -22,7 +23,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                 foreach (var entity in element.Elements("entity"))
                 {
                     ChangesType changeType;
-                    EntityName entityName;
+                    IEntityType entityName;
                     long id;
 
                     string parseAttributecReport;

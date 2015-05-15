@@ -1,10 +1,10 @@
 ﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.ActionHistory;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.ActionHistory
@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.APIInteraction.Operations.ActionHis
         {
         }
 
-        public ActionsHistoryDto GetActionHistory(EntityName entityName, long entityId)
+        public ActionsHistoryDto GetActionHistory(IEntityType entityName, long entityId)
         {
             var apiTargetResource = GetOperationApiTargetResource("{0}/{1}", entityName, entityId);
             var request = new ApiRequest(apiTargetResource);

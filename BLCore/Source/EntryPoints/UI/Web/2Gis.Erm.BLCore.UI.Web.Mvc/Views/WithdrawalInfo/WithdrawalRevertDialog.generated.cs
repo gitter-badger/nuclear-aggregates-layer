@@ -9,10 +9,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.WithdrawalInfo
+namespace ASP
 {
     using System;
     using System.Collections.Generic;
+    
+    #line 1 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+    using System.Data.Entity.Core.Metadata.Edm;
+    
+    #line default
+    #line hidden
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -28,9 +34,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.WithdrawalInfo
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -42,17 +51,26 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.WithdrawalInfo
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
+    #line 2 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+    using EntityType = NuClear.Model.Common.Entities.EntityType;
+    
+    #line default
+    #line hidden
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/WithdrawalInfo/WithdrawalRevertDialog.cshtml")]
-    public partial class WithdrawalRevertDialog : System.Web.Mvc.WebViewPage<WithdrawalRevertDialogViewModel>
+    public partial class _Views_WithdrawalInfo_WithdrawalRevertDialog_cshtml : System.Web.Mvc.WebViewPage<WithdrawalRevertDialogViewModel>
     {
-        public WithdrawalRevertDialog()
+        public _Views_WithdrawalInfo_WithdrawalRevertDialog_cshtml()
         {
         }
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 5 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -66,7 +84,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 7 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 9 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
             Write(BLResources.RevertWithdraw);
 
             
@@ -81,7 +99,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 10 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
                   Write(BLResources.RevertWithdraw);
 
             
@@ -123,7 +141,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n    Ext.onReady(function ()\r\n    {\r\n        var isSuccess = \'");
 
             
-            #line 28 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 30 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
                     Write(Model.IsSuccess);
 
             
@@ -169,13 +187,13 @@ WriteLiteral(@"';
 ");
 
             
-            #line 65 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 67 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 65 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 67 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -199,7 +217,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 69 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 71 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Model.Message);
 
             
@@ -214,8 +232,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 72 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
-           Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityName.OrganizationUnit, ExtendedInfo = "restrictByUser=true"}));
+            #line 74 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+           Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityType.Instance.OrganizationUnit(), ExtendedInfo = "restrictByUser=true"}));
 
             
             #line default

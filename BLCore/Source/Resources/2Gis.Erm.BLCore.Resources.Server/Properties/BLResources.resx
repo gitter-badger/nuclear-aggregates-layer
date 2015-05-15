@@ -5223,4 +5223,10 @@
   <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
     <value />
   </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
+    <value />
+  </data>
 </root>

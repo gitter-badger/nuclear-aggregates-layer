@@ -69,7 +69,6 @@ using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.DI.WCF;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
@@ -91,6 +90,7 @@ using NuClear.Security;
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
+using NuClear.Model.Common.Entities;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 

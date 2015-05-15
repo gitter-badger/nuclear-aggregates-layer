@@ -5,19 +5,20 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Aspects;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Name;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
+
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Handler;
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Aspects.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Images;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Name;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements
 {
@@ -138,7 +139,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements
             var title = Features.OfType<TitleFeature>().SingleOrDefault();
             if (name == null && title == null)
             {
-                return new UIElementMetadata(IdBuilder.StubUnique, Features.ToArray());
+                return new UIElementMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Stub().Unique(), Features.ToArray());
             }
 
             string relativePath = null;

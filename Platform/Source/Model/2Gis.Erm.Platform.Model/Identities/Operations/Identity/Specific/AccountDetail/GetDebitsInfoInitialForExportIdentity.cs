@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AccountDetail
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AccountDetail
 {
     public class GetDebitsInfoInitialForExportIdentity : OperationIdentityBase<GetDebitsInfoInitialForExportIdentity>, INonCoupledOperationIdentity
     {

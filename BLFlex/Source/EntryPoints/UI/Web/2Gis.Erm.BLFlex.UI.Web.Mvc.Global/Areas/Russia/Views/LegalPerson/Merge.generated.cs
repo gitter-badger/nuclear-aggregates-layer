@@ -27,12 +27,6 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Views.LegalPerson
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 1 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
-    using BLCore.UI.Web.Mvc.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
@@ -44,10 +38,13 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Views.LegalPerson
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Russia/Views/LegalPerson/Merge.cshtml")]
-    public partial class Merge : System.Web.Mvc.WebViewPage<Models.MergeLegalPersonsViewModel>
+    public partial class Merge : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MergeLegalPersonsViewModel>
     {
         public Merge()
         {
@@ -55,7 +52,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Views.LegalPerson
         public override void Execute()
         {
             
-            #line 4 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 3 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
   
     Layout = "../../../../Views/Shared/_DialogLayout.cshtml";
 
@@ -69,7 +66,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 7 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
             Write(BLResources.MergeRecords);
 
             
@@ -84,7 +81,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 8 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
                   Write(BLResources.MergeRecords);
 
             
@@ -99,7 +96,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 9 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
                     Write(BLResources.MergeLegalPersonsLegend);
 
             
@@ -115,15 +112,15 @@ DefineSection("PageContent", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 349), Tuple.Create("\"", 404)
-, Tuple.Create(Tuple.Create("", 355), Tuple.Create("/Scripts/MergeLegalPersons.js?", 355), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 356), Tuple.Create("\"", 411)
+, Tuple.Create(Tuple.Create("", 362), Tuple.Create("/Scripts/MergeLegalPersons.js?", 362), true)
             
-            #line 14 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
-, Tuple.Create(Tuple.Create("", 385), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 13 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+, Tuple.Create(Tuple.Create("", 392), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 385), false)
+, 392), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -166,13 +163,13 @@ WriteLiteral(@">
 ");
 
             
-            #line 46 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 45 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 46 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 45 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -231,7 +228,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                        ");
 
             
-            #line 70 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 69 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
                                    Write(BLResources.MergeRecordsSelectMainRecord);
 
             
@@ -291,7 +288,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                        ");
 
             
-            #line 93 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 92 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
                                    Write(BLResources.MainRecord);
 
             
@@ -320,8 +317,8 @@ WriteLiteral(" />\r\n                                    </td>\r\n              
 WriteLiteral("                                        ");
 
             
-            #line 99 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
-                                   Write(Html.LookupFor(m => m.LegalPerson1, new LookupSettings { EntityName = EntityName.LegalPerson, ExtendedInfo = "restrictForMergeId={LegalPerson2Id}" }));
+            #line 98 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+                                   Write(Html.LookupFor(m => m.LegalPerson1, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ExtendedInfo = "restrictForMergeId={LegalPerson2Id}" }));
 
             
             #line default
@@ -331,7 +328,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                        ");
 
             
-            #line 100 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 99 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
                                    Write(Html.ValidationMessageFor(m => m.LegalPerson1));
 
             
@@ -358,8 +355,8 @@ WriteLiteral(" />\r\n                                    </td>\r\n              
 WriteLiteral("                                        ");
 
             
-            #line 107 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
-                                   Write(Html.LookupFor(m => m.LegalPerson2, new LookupSettings { EntityName = EntityName.LegalPerson, ExtendedInfo = "restrictForMergeId={LegalPerson1Id}" }));
+            #line 106 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+                                   Write(Html.LookupFor(m => m.LegalPerson2, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ExtendedInfo = "restrictForMergeId={LegalPerson1Id}" }));
 
             
             #line default
@@ -369,7 +366,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                        ");
 
             
-            #line 108 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 107 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
                                    Write(Html.ValidationMessageFor(m => m.LegalPerson2));
 
             
@@ -420,7 +417,7 @@ WriteLiteral(">\r\n                        </div>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 130 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 129 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
                    Write(Html.Hidden("AppendedLegalPersonId"));
 
             
@@ -431,7 +428,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                        ");
 
             
-            #line 131 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 130 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
                    Write(Html.Hidden("MainLegalPersonId"));
 
             
@@ -453,7 +450,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 139 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 138 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
        Write(Model.MessageType);
 
             
@@ -468,7 +465,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 141 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 140 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
        Write(Model.Message);
 
             
@@ -477,7 +474,7 @@ WriteLiteral("            ");
 WriteLiteral("</div>\r\n    </div>\r\n");
 
             
-            #line 143 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
+            #line 142 "..\..\Areas\Russia\Views\LegalPerson\Merge.cshtml"
     }
 
             

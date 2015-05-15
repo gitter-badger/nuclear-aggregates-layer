@@ -5,24 +5,26 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.API.Core.ActionLogging
 {
     public sealed class ChangesDescriptor
     {
-        private readonly EntityName _entityType;
+        private readonly IEntityType _entityType;
         private readonly long _entityId;
         private readonly IReadOnlyDictionary<string, PropertyChangeDescriptor> _changes;
 
-        private ChangesDescriptor(EntityName entityType, long entityId, IReadOnlyDictionary<string, PropertyChangeDescriptor> changes)
+        private ChangesDescriptor(IEntityType entityType, long entityId, IReadOnlyDictionary<string, PropertyChangeDescriptor> changes)
         {
             _entityType = entityType;
             _entityId = entityId;
             _changes = changes;
         }
 
-        public EntityName EntityType
+        public IEntityType EntityType
         {
             get { return _entityType; }
         }
@@ -83,7 +85,7 @@ namespace DoubleGis.Erm.Platform.API.Core.ActionLogging
             return new ChangesDescriptor(entityType.AsEntityName(), entityId, changes);
         }
 
-        public static ChangesDescriptor Create(EntityName entityType, long entityId, IReadOnlyDictionary<string, PropertyChangeDescriptor> changes)
+        public static ChangesDescriptor Create(IEntityType entityType, long entityId, IReadOnlyDictionary<string, PropertyChangeDescriptor> changes)
         {
             return new ChangesDescriptor(entityType, entityId, changes);
         }

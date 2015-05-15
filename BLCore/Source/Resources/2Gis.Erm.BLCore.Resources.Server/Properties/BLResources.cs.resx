@@ -5181,6 +5181,12 @@ Doba zveřejnění: {3}.</value>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>Operace změny klienta není určena pro zadaný typ entity</value>
   </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value>Vytváření regionálních objednávek není podporováno</value>
+  </data>
+  <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
+    <value>Nemáte práva pro vytvoření objednávky reklamní agentury</value>
+  </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Zadejte období, způsob evidence  poskytování služeb a oddělení organizace</value>
   </data>

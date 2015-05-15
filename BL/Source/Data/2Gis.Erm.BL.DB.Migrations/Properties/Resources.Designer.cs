@@ -147,6 +147,26 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
         ///    &lt;Entity&gt;
+        ///      &lt;Name LocalizedName=&quot;Заказ&quot; OriginalName=&quot;&quot;&gt;Dg_order&lt;/Name&gt;
+        ///      &lt;ObjectTypeCode&gt;10014&lt;/ObjectTypeCode&gt;
+        ///      &lt;EntityInfo&gt;
+        ///        &lt;entity Name=&quot;Dg_order&quot;&gt;
+        ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
+        ///          &lt;HasRelatedActivities&gt;True&lt;/HasRelatedActivities&gt;
+        ///          &lt;ObjectTypeCode&gt;10014&lt;/ObjectTypeCode&gt;
+        ///          &lt;CollectionName&gt;Dg_orders&lt;/CollectionName&gt;
+        ///          &lt;LogicalCo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string customizations_201503240347 {
+            get {
+                return ResourceManager.GetString("customizations_201503240347", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///    &lt;Entity&gt;
         ///      &lt;Name LocalizedName=&quot;Договор&quot; OriginalName=&quot;&quot;&gt;Dg_bargain&lt;/Name&gt;
         ///      &lt;ObjectTypeCode&gt;10010&lt;/ObjectTypeCode&gt;
         ///      &lt;EntityInfo&gt;

@@ -19,6 +19,8 @@ using Machine.Specifications;
 
 using Moq;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
 
@@ -78,7 +80,7 @@ namespace DoubleGis.Erm.BL.Operations.Tests.Unit.Generic.Append
         [Subject(typeof(AppendClientClientService))]
         class When_parent_type_not_specified : AppendParamsInvalidAppendClientClientServiceContext
         {
-            Establish context = () => Params.ParentType = EntityName.Account;
+            Establish context = () => Params.ParentType.Equals(EntityType.Instance.Account());
 
             It should_throw_exception = () => ExceptionShouldBeOfType<InvalidEntityTypesForLinkingException>();
         }
@@ -86,7 +88,7 @@ namespace DoubleGis.Erm.BL.Operations.Tests.Unit.Generic.Append
         [Subject(typeof(AppendClientClientService))]
         class When_appended_type_not_specified : AppendParamsInvalidAppendClientClientServiceContext
         {
-            Establish context = () => Params.AppendedType = EntityName.Account;
+            Establish context = () => Params.AppendedType.Equals(EntityType.Instance.Account());
 
             It should_throw_exception = () => ExceptionShouldBeOfType<InvalidEntityTypesForLinkingException>();
         }
@@ -126,10 +128,10 @@ namespace DoubleGis.Erm.BL.Operations.Tests.Unit.Generic.Append
                     Params = new AppendParams
                         {
                             ParentId = 42,
-                            ParentType = EntityName.Client,
+                            ParentType = EntityType.Instance.Client(),
 
                             AppendedId = 24,
-                            AppendedType = EntityName.Client,
+                            AppendedType = EntityType.Instance.Client(),
                         };
 
                     Scope = new Mock<IOperationScope>();
@@ -149,7 +151,7 @@ namespace DoubleGis.Erm.BL.Operations.Tests.Unit.Generic.Append
 
                     var securityService = new Mock<ISecurityServiceEntityAccess>();
                     securityService.Setup(mock => mock.HasEntityAccess(Moq.It.IsAny<EntityAccessTypes>(),
-                                                                       Moq.It.IsAny<EntityName>(),
+                                                                       Moq.It.IsAny<IEntityType>(),
                                                                        Moq.It.IsAny<long>(),
                                                                        Moq.It.IsAny<long?>(),
                                                                        Moq.It.IsAny<long>(),

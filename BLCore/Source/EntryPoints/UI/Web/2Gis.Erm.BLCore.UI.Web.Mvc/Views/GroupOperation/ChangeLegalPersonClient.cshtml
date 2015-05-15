@@ -1,5 +1,4 @@
-﻿@using DoubleGis.Erm.Platform.Common.Utils
-@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.ChangeClientViewModel
+﻿@model ChangeClientViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -109,7 +108,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    @Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ForReserve=false" })
+                                    @Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "ForReserve=false" })
                                 </td>
                             </tr>
                         </tbody>
@@ -122,7 +121,7 @@
                         <div id="pbInner">
                         </div>
                     </div>
-                    @Html.HiddenFor(m => m.EntityTypeName)
+                    @Html.Hidden("EntityType", Model.EntityTypeName.Description)
                 </td>
             </tr>
         </tbody>

@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListCategoryService : ListEntityDtoServiceBase<Category, ListCategoryDto>
@@ -30,7 +32,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var query = _finder.FindAll<Category>();
 
             // Фильтр рубрик, которые можно добавить в тематику (рубрики есть во всех подразделениях тематики)
-            if (querySettings.ParentEntityName == EntityName.Theme)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.Theme()))
             {
                 var themeId = querySettings.ParentEntityId;
 

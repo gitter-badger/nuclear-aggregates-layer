@@ -37,6 +37,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/MultiCultureClient.cshtml")]
@@ -294,7 +297,7 @@ WriteLiteral("            ");
 
             
             #line 43 "..\..\Views\CreateOrUpdate\MultiCultureClient.cshtml"
-       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "Id" }));
+       Write(Html.TemplateField(m => m.MainFirm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "Id" }));
 
             
             #line default
@@ -316,14 +319,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2316), Tuple.Create("\"", 2359)
+WriteAttribute("title", Tuple.Create(" title=\"", 2338), Tuple.Create("\"", 2381)
             
             #line 47 "..\..\Views\CreateOrUpdate\MultiCultureClient.cshtml"
-, Tuple.Create(Tuple.Create("", 2324), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 2346), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 2324), false)
+, 2346), false)
 );
 
 WriteLiteral(">\r\n");
@@ -363,7 +366,7 @@ WriteLiteral("                ");
 
             
             #line 52 "..\..\Views\CreateOrUpdate\MultiCultureClient.cshtml"
-           Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
+           Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
             #line default
@@ -374,7 +377,7 @@ WriteLiteral("                ");
 
             
             #line 53 "..\..\Views\CreateOrUpdate\MultiCultureClient.cshtml"
-           Write(Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Territory, ReadOnly = Model != null && Model.Territory != null && !string.IsNullOrEmpty(Model.Territory.Value) }));
+           Write(Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Territory(), ReadOnly = Model != null && Model.Territory != null && !string.IsNullOrEmpty(Model.Territory.Value) }));
 
             
             #line default
@@ -398,7 +401,7 @@ WriteLiteral("            ");
 
             
             #line 57 "..\..\Views\CreateOrUpdate\MultiCultureClient.cshtml"
-       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User }));
+       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User() }));
 
             
             #line default
@@ -424,7 +427,7 @@ WriteLiteral("            ");
 
             
             #line 61 "..\..\Views\CreateOrUpdate\MultiCultureClient.cshtml"
-       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User }));
+       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User() }));
 
             
             #line default

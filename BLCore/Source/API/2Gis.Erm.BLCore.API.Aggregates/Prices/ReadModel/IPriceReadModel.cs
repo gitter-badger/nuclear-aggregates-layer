@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
         decimal GetCategoryRateByFirm(long firmId);
         decimal GetCategoryRateByCategory(long[] categoryId, long organizationUnitId);
         decimal GetPricePositionCost(long pricePositionId);
-        PricePosition GetPricePosition(long priceId, long positionId);
+        PricePosition GetActivePricePosition(long priceId, long positionId);
         PricePositionDetailedInfo GetPricePositionDetailedInfo(long pricePositionId);
         DeniedPosition GetDeniedPosition(long deniedPositionId);
 

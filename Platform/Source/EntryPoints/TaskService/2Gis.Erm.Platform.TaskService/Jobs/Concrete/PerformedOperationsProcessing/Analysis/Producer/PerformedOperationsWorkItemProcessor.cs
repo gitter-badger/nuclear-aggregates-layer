@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific;
 
+using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Producer

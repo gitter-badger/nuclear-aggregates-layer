@@ -12926,6 +12926,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string RegionalOrdersAreNotSupported {
+            get {
+                return ResourceManager.GetString("RegionalOrdersAreNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string RegisteredPositionIsNotSupportedByExport {
             get {
                 return ResourceManager.GetString("RegisteredPositionIsNotSupportedByExport", resourceCulture);
@@ -14936,6 +14945,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string UserIsNotAllowedToCopyOrder {
             get {
                 return ResourceManager.GetString("UserIsNotAllowedToCopyOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UserIsNotAllowedToCreateAdvAgencyOrder {
+            get {
+                return ResourceManager.GetString("UserIsNotAllowedToCreateAdvAgencyOrder", resourceCulture);
             }
         }
         

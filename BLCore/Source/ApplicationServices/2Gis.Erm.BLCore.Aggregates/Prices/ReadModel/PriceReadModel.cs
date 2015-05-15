@@ -64,9 +64,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             return _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId)).Select(x => x.Cost).Single();
         }
 
-        public PricePosition GetPricePosition(long priceId, long positionId)
+        public PricePosition GetActivePricePosition(long priceId, long positionId)
         {
-            return _finder.FindOne(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId));
+            return _finder.FindOne(Specs.Find.ActiveAndNotDeleted<PricePosition>() &&
+                                   PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId));
         }
 
         public bool IsDifferentPriceExistsForDate(long priceId, long organizationUnitId, DateTime beginDate)
@@ -193,16 +194,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             var dto = (from pricePosition in _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId))
                        let deniedPositions = pricePosition.Price.DeniedPositions
                        select new
-                                  {
-                                      pricePosition.AssociatedPositionsGroups,
-                                      AssociatedPositionsMapping = pricePosition.AssociatedPositionsGroups
-                                                                                .Select(y => new
-                                                                                                 {
-                                                                                                     AssociatedPositionsGroupId = y.Id,
-                                                                                                     y.AssociatedPositions
-                                                                                                 }),
+                           {
+                               pricePosition.AssociatedPositionsGroups,
+                               AssociatedPositionsMapping = pricePosition.AssociatedPositionsGroups
+                                                                         .Select(y => new
+                                                                             {
+                                                                                 AssociatedPositionsGroupId = y.Id,
+                                                                                 y.AssociatedPositions
+                                                                             }),
                                       DeniedPositions = deniedPositions.Where(x => x.PositionId == positionId || x.PositionDeniedId == positionId)
-                                  })
+                           })
                 .Single();
 
             return new AllPricePositionDescendantsDto

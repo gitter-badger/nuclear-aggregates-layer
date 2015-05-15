@@ -5,10 +5,12 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
+
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Profile;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid
 {
@@ -37,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid
             return gridViewSettings.ToEntityViewSet();
         }
 
-        public EntityViewSet SecureViewsToolbars(EntityViewSet gridViewSettings, long? parentEntityId, EntityName parentEntityName, string parentEntityState)
+        public EntityViewSet SecureViewsToolbars(EntityViewSet gridViewSettings, long? parentEntityId, IEntityType parentEntityName, string parentEntityState)
         {
             var readOnly = parentEntityState == "Inactive";
 
@@ -80,10 +82,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid
             return gridViewSettings;
         }
 
-        protected virtual EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings,
-                                                                    long? parentEntityId,
-                                                                    EntityName parentEntityName,
-                                                                    string parentEntityState)
+        protected virtual EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings, long? parentEntityId, IEntityType parentEntityName, string parentEntityState)
         {
             return gridViewSettings;
         }

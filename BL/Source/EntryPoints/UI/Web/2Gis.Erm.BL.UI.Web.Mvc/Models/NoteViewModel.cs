@@ -4,7 +4,9 @@ using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
 {
@@ -19,7 +21,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models
         public long? FileId { get; set; }
 
         public long ParentId { get; set; }
-        public EntityName ParentTypeName { get; set; }
+        public IEntityType ParentTypeName { get; set; }
 
         public override byte[] Timestamp { get; set; }
 

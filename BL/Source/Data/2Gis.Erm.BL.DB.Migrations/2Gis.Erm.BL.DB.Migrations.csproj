@@ -98,6 +98,7 @@
     <Compile Include="2.1\201411240536 - Remove some PF templates.cs" />
     <Compile Include="2.1\201411240501 - Remove MakeRegionalAdsDocs FP.cs" />
     <Compile Include="2.1\201502121619 - Add cancel activity to  CRM.cs" />
+	<Compile Include="2.1\201503240347 - add AdvAgencies order type to MS CRM.cs" />
     <Compile Include="2.1\201501281731 - upate FAS comment type in UA.cs" />
     <Compile Include="2.1\201504011240 - return missing buttons to MS CRM.cs" />
     <Compile Include="2.1\201504010431 - Delete DeniedPositions duplications .cs" />
@@ -193,6 +194,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\201504011240\customizations.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\201503240347\customizations.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\201504011053\script.sql" />

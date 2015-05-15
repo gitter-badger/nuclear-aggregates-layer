@@ -2,7 +2,8 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.ActionHistory;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.ActionsHistory
 {
@@ -11,6 +12,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.ActionsHistory
     {
         [OperationContract]
         [FaultContract(typeof(ActionsHistoryOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.ActionsHistory201303)]
-        ActionsHistoryDto GetActionsHistory(EntityName entityName, long entityId);
+        ActionsHistoryDto GetActionsHistory(IEntityType entityName, long entityId);
     }
 }

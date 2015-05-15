@@ -1,16 +1,17 @@
 ﻿using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels
 {
     public static class ViewModelUtils
     {
-        public static bool TryGetBoundEntityName(this IViewModel viewModel, out EntityName entityName)
+        public static bool TryGetBoundEntityName(this IViewModel viewModel, out IEntityType entityName)
         {
             // TODO {all, 22.07.2013}: возможно стоит выделить общий интерфейс для ViewModel\ViewModelIdentity  к которым привязан EntityName
-            entityName = EntityName.None;
+            entityName = EntityType.Instance.None();
 
             var cardViewModel = viewModel as ICardViewModel<ICardViewModelIdentity>;
             if (cardViewModel != null)

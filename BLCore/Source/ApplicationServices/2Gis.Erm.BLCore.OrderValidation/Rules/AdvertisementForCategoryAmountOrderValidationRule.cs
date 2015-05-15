@@ -8,6 +8,8 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -107,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                   Type = ruleContext.ValidationParams.IsMassValidation ? MessageType.Error : MessageType.Warning,
                                                   MessageText =
                                                       string.Format(BLResources.TooManyAdvertisementForCategory,
-                                                                    GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Category, x.First().Name, x.Key),
+                                                                    GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityType.Instance.Category(), x.First().Name, x.Key),
                                                                     advertisementDistributioins.Where(ad => ad.Key.CategoryId == x.Key).Max(ad => ad.Value),
                                                                     AdsPerCategory)
                                               });

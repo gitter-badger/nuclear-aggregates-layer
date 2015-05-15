@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.DeniedPosition
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.DeniedPosition
 {
     public class GetSymmetricDeniedPositionIdentity : OperationIdentityBase<GetSymmetricDeniedPositionIdentity>, INonCoupledOperationIdentity
     {

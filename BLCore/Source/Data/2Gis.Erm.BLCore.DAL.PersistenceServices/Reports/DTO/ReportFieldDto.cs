@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Model.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO
 {
@@ -54,6 +54,6 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO
 
         // специфично для Lookup
         public string LookupExtendedInfo { get; set; }
-        public EntityName LookupEntityName { get; set; }
+        public IEntityType LookupEntityName { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
+
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Complete
 {

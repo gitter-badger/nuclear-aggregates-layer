@@ -5182,6 +5182,9 @@ Cумма по операции: {5}.
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>Операция смены клиента не определена для указанного типа сущности</value>
   </data>
+  <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
+    <value>Недостаточно прав для создания заказа рекламного агентства</value>
+  </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Укажите период, способ учета оказания услуг и отделение организации</value>
   </data>

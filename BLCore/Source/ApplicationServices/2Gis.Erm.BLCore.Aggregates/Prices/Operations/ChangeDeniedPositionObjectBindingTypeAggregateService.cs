@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.DeniedPosition;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
@@ -78,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             }
 
             if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                              EntityName.DeniedPosition,
+                                                              EntityType.Instance.DeniedPosition(),
                                                               _userContext.Identity.Code,
                                                               null,
                                                               0,
@@ -96,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             }
 
             if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                              EntityName.DeniedPosition,
+                                                              EntityType.Instance.DeniedPosition(),
                                                               _userContext.Identity.Code,
                                                               null,
                                                               0,
