@@ -1,9 +1,9 @@
 ﻿using DoubleGis.Erm.BL.API.Aggregates.Accounts.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BL.Aggregates.Accounts.Operations
 {
@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BL.Aggregates.Accounts.Operations
 
         public void Update(Limit limit, long accountOwnerCode)
         {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity>(EntityName.Limit))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Limit>())
             {
                 // TODO {all, 28.10.2014}: есть подозрение, что код куратора лимита должен выставляться не здесь
                 limit.OwnerCode = accountOwnerCode;

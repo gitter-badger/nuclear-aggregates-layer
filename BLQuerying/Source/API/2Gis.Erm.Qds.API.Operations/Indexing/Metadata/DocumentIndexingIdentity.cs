@@ -1,13 +1,15 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Kinds;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Kinds;
+
+using MetadataBuilder = NuClear.Metamodeling.Elements.Identities.Builder.Metadata;
 
 namespace DoubleGis.Erm.Qds.API.Operations.Indexing.Metadata
 {
     public sealed class DocumentIndexingIdentity : MetadataKindIdentityBase<DocumentIndexingIdentity>
     {
-        private readonly Uri _id = IdBuilder.For("Search/Indexing");
+        private readonly Uri _id = MetadataBuilder.Id.For(MetadataBuilder.Id.DefaultRoot, "Search/Indexing");
 
         public override Uri Id
         {

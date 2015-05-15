@@ -1,11 +1,30 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum BargainAggregate
+    public static class BargainAggregate
     {
-        Bargain = EntityName.Bargain,
-        BargainFile = EntityName.BargainFile,
-        FileWithContent = EntityName.FileWithContent
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Bargain(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.BargainFile(),
+                                    EntityType.Instance.FileWithContent()
+                                })
+                    .ToArray();
+            }
+        }
     }
 }

@@ -452,7 +452,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///--   25.11.2013, y.baranihin: изменен алгоритм обновления территории у фирмы
         ///--   20.05.2014, i.maslennikov: поддержка асинхронной репликации
         ///ALTER PROCEDURE [Integration].[ImportFirmFromXml]
-        ///	@Xml [xml] = NULL,        /// [rest of string was truncated]&quot;;.
+        ///	@Xml [xml] = NULL,
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _20434_ImportFirmFromXml {
             get {
@@ -2554,36 +2555,6 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ALTER TABLE [Integration].[HotClientRequests] ADD TaskNewId bigint 
-        ///
-        ///GO
-        ///
-        ///UPDATE [Integration].[HotClientRequests] 
-        ///SET TaskNewId = taskBase.Id
-        ///FROM [Integration].[HotClientRequests] hotClients
-        ///INNER JOIN [Activity].[TaskBase] taskBase ON
-        ///	hotClients.TaskId = taskBase.ReplicationCode
-        ///
-        ///GO
-        ///
-        ///ALTER TABLE [Integration].[HotClientRequests] DROP COLUMN TaskId
-        ///
-        ///GO
-        ///
-        ///sp_rename &apos;Integration.HotClientRequests.TaskNewId&apos;, &apos;TaskId&apos;, &apos;COLUMN&apos;
-        ///
-        ///GO 
-        ///
-        ///
-        ///.
-        /// </summary>
-        internal static string Change_HotClientRequest_TaskId_type {
-            get {
-                return ResourceManager.GetString("Change_HotClientRequest_TaskId_type", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to /****** Object:  StoredProcedure [Billing].[ReplicateDeals]    Script Date: 20.01.2015 16:15:02 ******/
         ///SET ANSI_NULLS ON
         ///GO
@@ -2611,6 +2582,36 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string Billing_ReplicateDeals_201501201646 {
             get {
                 return ResourceManager.GetString("Billing_ReplicateDeals_201501201646", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ALTER TABLE [Integration].[HotClientRequests] ADD TaskNewId bigint 
+        ///
+        ///GO
+        ///
+        ///UPDATE [Integration].[HotClientRequests] 
+        ///SET TaskNewId = taskBase.Id
+        ///FROM [Integration].[HotClientRequests] hotClients
+        ///INNER JOIN [Activity].[TaskBase] taskBase ON
+        ///	hotClients.TaskId = taskBase.ReplicationCode
+        ///
+        ///GO
+        ///
+        ///ALTER TABLE [Integration].[HotClientRequests] DROP COLUMN TaskId
+        ///
+        ///GO
+        ///
+        ///sp_rename &apos;Integration.HotClientRequests.TaskNewId&apos;, &apos;TaskId&apos;, &apos;COLUMN&apos;
+        ///
+        ///GO 
+        ///
+        ///
+        ///.
+        /// </summary>
+        internal static string Change_HotClientRequest_TaskId_type {
+            get {
+                return ResourceManager.GetString("Change_HotClientRequest_TaskId_type", resourceCulture);
             }
         }
         
@@ -2654,7 +2655,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///        &lt;ToolBar&gt;
         ///          &lt;Button Icon=&quot;/_imgs/AdvFind/new.GIF&quot; JavaScript=&quot;openStdWin(&apos;https://web-app05.test.erm.2gis.ru/Grid/View/Order?singleDataView=DListOrdersFast&apos;, &apos;FastSearch&apos;, 1000, 600)&quot; Client=&quot;Web&quot;&gt;
         ///            &lt;Titles&gt;
-        ///              &lt;Title LCID=&quot;1049&quot; Text=&quot;Быстрый поиск [rest of string was truncated]&quot;;.
+        ///              &lt;Title LCID=&quot;1049&quot; Text=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Customizations_201411271239 {
             get {
@@ -2696,11 +2697,11 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///    &lt;configuration version=&quot;3.0.0000.0&quot;&gt;
         ///      &lt;Root&gt;
         ///        &lt;ToolBar&gt;
-        ///          &lt;Button Icon=&quot;/_imgs/support/helpme.png&quot; JavaScript=&quot;openStdWin(&apos;https://web-app04.test.erm.2gis.ru/Support/Index&apos;, &apos;HelpMe&apos;, 1000, 600)&quot; Client=&quot;Web&quot;&gt;
+        ///          &lt;Button Icon=&quot;/_imgs/support/helpme.png&quot; JavaScript=&quot;openStdWin(&apos;https://web-app04.test.erm.2gis.ru/Support&apos;, &apos;HelpMe&apos;, 1000, 600)&quot; Client=&quot;Web&quot;&gt;
         ///            &lt;Titles&gt;
         ///              &lt;Title LCID=&quot;1049&quot; Text=&quot;Техподдержка&quot; /&gt;
         ///            &lt;/Titles&gt;
-        ///         [rest of string was truncated]&quot;;.
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string customizations_201503040330 {
             get {
@@ -2951,7 +2952,17 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to 		--создаем не созданные записи организаторов в ERM
+        ///		INSERT INTO [Activity].[AppointmentReferences]([AppointmentId],[Reference],[ReferencedType],[ReferencedObjectId])
+        ///		SELECT 
+        ///			[a1].[id] as [AppointmentId],
+        ///			2 as Reference,
+        ///			53 as ReferencedType, 	
+        ///			[a1].[OwnerCode] as [ReferencedObjectId]
+        ///		FROM [Activity].[AppointmentBase] a1 
+        ///        LEFT OUTER JOIN [Activity].[AppointmentReferences] a2
+        ///        ON [a1].[Id] = [a2].[AppointmentId] and [a2].[Reference] = 2
+        ///        WHERE [a2].[Appointmen [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InsertMissingOrganizers_201412291720 {
             get {
@@ -3204,8 +3215,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	            , [tasks].[ReplicationCode] as [ActivityId]
         ///
         ///	            , [tasks].[Subject]
-        ///	            , [tasks].[Description]
-        ///	            , CA [rest of string was truncated]&quot;;.
+        ///	            , [tasks].[Description [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration_24481_ReplicateTask {
             get {
@@ -3622,8 +3632,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///	            , [tasks].[ReplicationCode] as [ActivityId]
         ///
         ///	            , [tasks].[Subject]
-        ///	            , [tasks].[Description]
-        ///	            , CAS [rest of string was truncated]&quot;;.
+        ///	            , [tasks].[Description] [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration201412021150_Alter_ReplicateTask {
             get {
@@ -3735,9 +3744,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///        USING (
         ///            SELECT 
         ///                4212 as [ActivityTypeCode]
-        ///	            , [tasks].[ReplicationCode] as [ActivityId]
-        ///
-        ///	  [rest of string was truncated]&quot;;.
+        ///	            , [tasks].[ReplicationCode]  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration201412081011_Create_ReplicateTasks {
             get {
@@ -3809,7 +3816,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
         ///          &lt;HasRelatedActivities&gt;False&lt;/HasRelatedActivities&gt;
         ///          &lt;ObjectTypeCode&gt;4201&lt;/ObjectTypeCode&gt;
-        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;        /// [rest of string was truncated]&quot;;.
+        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration6642 {
             get {
@@ -3992,7 +4000,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
         ///          &lt;HasRelatedActivities&gt;False&lt;/HasRelatedActivities&gt;
         ///          &lt;ObjectTypeCode&gt;4201&lt;/ObjectTypeCode&gt;
-        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;        /// [rest of string was truncated]&quot;;.
+        ///          &lt;CollectionName&gt;Appointments&lt;/CollectionName&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Migration8145 {
             get {
@@ -4167,6 +4176,22 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Properties {
         internal static string ReplicateOrders_201411261501 {
             get {
                 return ResourceManager.GetString("ReplicateOrders_201411261501", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to declare @RussiaTimeZone1_Id uniqueidentifier = &apos;78465910-6B41-4510-B20D-CC48792811F3&apos;
+        ///declare @RussiaTimeZone1_UserInterfaceName nvarchar(100) = &apos;(GMT+02:00) Калининград (RTZ 1)&apos;
+        ///declare @RussiaTimeZone1_StandardName nvarchar(100) = &apos;Kaliningrad Standard Time&apos;
+        ///declare @RussiaTimeZone1_TimeZoneCode int = 1001
+        ///declare @RussiaTimeZone1_Bias int = -120
+        ///
+        ///declare @RussiaTimeZone2_Id uniqueidentifier = (select TimeZoneDefinitionId from [dbo].[TimeZoneDefinitionBase] where TimeZoneCode = 145)
+        ///declare @Russia [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string script_201504090414 {
+            get {
+                return ResourceManager.GetString("script_201504090414", resourceCulture);
             }
         }
     }

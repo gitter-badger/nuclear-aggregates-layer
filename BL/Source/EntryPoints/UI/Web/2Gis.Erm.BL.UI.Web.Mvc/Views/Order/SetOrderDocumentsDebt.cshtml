@@ -22,7 +22,7 @@
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.Order,
                                     FieldFlex.lone,
-                                    new LookupSettings { EntityName = EntityName.Order, ReadOnly = true })
+                                    new LookupSettings { EntityName = EntityType.Instance.Order(), ReadOnly = true })
             </div>
             <div class="row-wrapper">
                 @Html.TemplateField(m => m.HasDocumentsDebt,  FieldFlex.lone, null, EnumResources.ResourceManager)

@@ -1,12 +1,13 @@
 ﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
+
+using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sources
 {
@@ -14,12 +15,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
     {
         private readonly HierarchyMetadata _sparseMetadataMetadata = HierarchyMetadata
                    .Config
-                   .Id.Is(IdBuilder.For<MetadataEntitiesIdentity>(EntityName.Account.ToString()))
+                   .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(EntityType.Instance.Account().Description))
                    .Childs(
                         EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.Currency),
+                                      LookupPropertyFeature.Create(EntityType.Instance.Currency()),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Currency)),
 
                     EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.AccountDetailBalance)
@@ -53,14 +54,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
 
                     EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.OwnerRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Owner)),
 
                     EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
@@ -73,7 +74,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sou
 
                     EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 

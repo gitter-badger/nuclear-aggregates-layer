@@ -39,7 +39,7 @@
         </div>
     
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true })
+            @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ReadOnly = true })
         </div>
     
         <div class="row-wrapper">

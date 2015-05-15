@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Billing;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations
 {

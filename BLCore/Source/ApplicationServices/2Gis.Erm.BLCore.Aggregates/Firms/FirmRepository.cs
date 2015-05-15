@@ -19,7 +19,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms
@@ -177,7 +179,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             var client = _secureFinder.FindOne(Specs.Find.ById<Client>(clientId.Value));
 
             var hasClientPrivileges = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
-                                                                           EntityName.Client,
+                                                                           EntityType.Instance.Client(),
                                                                            currentUserCode,
                                                                            client.Id,
                                                                            client.OwnerCode,
@@ -391,7 +393,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             }
 
             // validate security
-            if (!_entityAccessService.HasEntityAccess(EntityAccessTypes.Update, EntityName.Firm, currentUserCode, firmInfo.Id, firmInfo.OwnerCode, null))
+            if (!_entityAccessService.HasEntityAccess(EntityAccessTypes.Update, EntityType.Instance.Firm(), currentUserCode, firmInfo.Id, firmInfo.OwnerCode, null))
             {
                 securityErrors.Add(BLResources.YouHasNoEntityAccessPrivilege);
                 return result;

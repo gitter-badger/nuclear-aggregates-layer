@@ -38,6 +38,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Views.Acceptance
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Emirates/Views/AcceptanceReport/Generate.cshtml")]
@@ -236,7 +239,7 @@ WriteLiteral("                ");
 
             
             #line 84 "..\..\Areas\Emirates\Views\AcceptanceReport\Generate.cshtml"
-           Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.OrganizationUnit, ExtendedInfo = "userId=" + Model.UserId }));
+           Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), ExtendedInfo = "userId=" + Model.UserId }));
 
             
             #line default

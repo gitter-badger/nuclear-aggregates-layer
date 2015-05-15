@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
+namespace ASP
 {
     using System;
     using System.Collections.Generic;
@@ -38,12 +38,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Advertisement.cshtml")]
-    public partial class Advertisement : System.Web.Mvc.WebViewPage<AdvertisementViewModel>
+    public partial class _Views_CreateOrUpdate_Advertisement_cshtml : System.Web.Mvc.WebViewPage<AdvertisementViewModel>
     {
-        public Advertisement()
+        public _Views_CreateOrUpdate_Advertisement_cshtml()
         {
         }
         public override void Execute()
@@ -235,7 +238,7 @@ WriteLiteral("            ");
 
             
             #line 85 "..\..\Views\CreateOrUpdate\Advertisement.cshtml"
-       Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ReadOnly = Model.HasAssignedOrder }));
+       Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ReadOnly = Model.HasAssignedOrder }));
 
             
             #line default
@@ -246,7 +249,7 @@ WriteLiteral("            ");
 
             
             #line 86 "..\..\Views\CreateOrUpdate\Advertisement.cshtml"
-       Write(Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.twins, new LookupSettings { EntityName = EntityName.AdvertisementTemplate, ReadOnly = Model.Id != 0, ExtendedInfo = "isPublished=true"}));
+       Write(Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.AdvertisementTemplate(), ReadOnly = Model.Id != 0, ExtendedInfo = "isPublished=true"}));
 
             
             #line default

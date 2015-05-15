@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price
 {
     public class UnpublishPriceIdentity : OperationIdentityBase<UnpublishPriceIdentity>, INonCoupledOperationIdentity
     {

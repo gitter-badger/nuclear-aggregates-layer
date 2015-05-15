@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs.Infrastructure
 {
     public sealed class DomainEntityDtoRegistry : IDomainEntityDtoRegistry
     {
-        private static readonly IReadOnlyDictionary<EntityName, Type> DtoRegistry;
+        private static readonly IReadOnlyDictionary<IEntityType, Type> DtoRegistry;
 
         static DomainEntityDtoRegistry()
         {
-            var registry = new Dictionary<EntityName, Type>();
+            var registry = new Dictionary<IEntityType, Type>();
             var dtoTypes = Assembly.GetExecutingAssembly().ExportedTypes
                     .Where(t => t.IsClass && !t.IsAbstract && typeof(IDomainEntityDto).IsAssignableFrom(t) && !t.IsPersistenceOnly());
 
@@ -36,7 +38,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs.Infrastructure
             DtoRegistry = registry;
         }
 
-        public bool TryGetDomainEntityDto(EntityName entityName, out Type domainEntityDtoType)
+        public bool TryGetDomainEntityDto(IEntityType entityName, out Type domainEntityDtoType)
         {
             return DtoRegistry.TryGetValue(entityName, out domainEntityDtoType);
         }

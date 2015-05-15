@@ -7,10 +7,11 @@ using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 try
                 {
                     var modifiedEntities = GetEntities(input);
-                    foreach (var pair in originalEntities.Zip(modifiedEntities, (o, m) => new { Original = o, Modified = m }))
+                    foreach (var pair in originalEntities.Join(modifiedEntities, o => o, m => m, (o, m) => new { Original = o, Modified = m }))
                     {
                         var differenceMap = CompareObjectsHelper.CompareObjects(CompareObjectMode.Shallow,
                                                                                 pair.Original,
@@ -75,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 
         private IEntityKey[] GetEntities(IMethodInvocation input)
         {
-            IEnumerable<EntityName> entityNames;
+            IEnumerable<IEntityType> entityNames;
 
             if (input.MethodBase.Name == "Merge")
             {
@@ -86,12 +87,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
                 }
 
                 var id = (long)viewModel.GetPropertyValue("AppendedClient");
-                entityNames = _entityProvider.GetDependentEntityNames(EntityName.Client);
+                entityNames = _entityProvider.GetDependentEntityNames(EntityType.Instance.Client());
 
-                return entityNames.SelectMany(en => _entityProvider.GetDependentEntities(EntityName.Client, en, id, true)).ToArray();
+                return entityNames.SelectMany(en => _entityProvider.GetDependentEntities(EntityType.Instance.Client(), en, id, true)).ToArray();
             }
 
-            var parentEntityName = (EntityName)input.Arguments[0];
+            var parentEntityName = (IEntityType)input.Arguments[0];
             var parentId = (long)input.Arguments[1];
             entityNames = _entityProvider.GetDependentEntityNames(parentEntityName);
 

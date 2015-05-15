@@ -2,6 +2,8 @@
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler;
+
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.RelatedItems
 {
     public static partial class RelatedItem

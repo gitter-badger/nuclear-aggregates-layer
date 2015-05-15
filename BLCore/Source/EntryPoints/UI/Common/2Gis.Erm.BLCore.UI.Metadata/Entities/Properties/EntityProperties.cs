@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
+using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Provider.Sources;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 {
     public static partial class EntityProperties
     {
-        private static readonly Dictionary<EntityName, IEnumerable<EntityPropertyMetadata>> EntityPropertiesMap = new Dictionary<EntityName, IEnumerable<EntityPropertyMetadata>>();
+        private static readonly Dictionary<IEntityType, IEnumerable<EntityPropertyMetadata>> EntityPropertiesMap = new Dictionary<IEntityType, IEnumerable<EntityPropertyMetadata>>();
 
         static EntityProperties()
         {
             typeof(EntityProperties).Extract<IEnumerable<EntityPropertyMetadata>>(EntityPropertyProcessor);
         }
 
-        public static IReadOnlyDictionary<EntityName, IEnumerable<EntityPropertyMetadata>> Settings
+        public static IReadOnlyDictionary<IEntityType, IEnumerable<EntityPropertyMetadata>> Settings
         {
             get
             {

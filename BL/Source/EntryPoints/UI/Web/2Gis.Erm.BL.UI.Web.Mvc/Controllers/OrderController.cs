@@ -43,6 +43,7 @@ using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -756,7 +757,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 throw new NotificationException("Выберите только один заказ");
             }
 
-            return CloseWithDenial(_replicationCodeConverter.ConvertToEntityId(EntityName.Order, crmIds[0]));
+            return CloseWithDenial(_replicationCodeConverter.ConvertToEntityId(EntityType.Instance.Order(), crmIds[0]));
         }
 
         #endregion

@@ -2,33 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
-
 using FluentValidation.Validators;
+
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation.Converters
 {
     public static class ValidatorFeatureToValidatorsConverter
     {
-        private delegate bool ValidatorFactory(IValidatablePropertyFeature validatablePropertyFeature, out IPropertyValidator validator);
-
         private static readonly ValidatorFactory[] Converters =
-            new ValidatorFactory[]
-                {
-                    CheckDateConverter.TryConvert,
-                    DigitsOnlyConverter.TryConvert,
-                    EmailFeatureConverter.TryConvert,
-                    LimitedLengthConverter.TryConvert,
-                    MustBeGreaterOrEqualConverter.TryConvert,
-                    NonZeroConverter.TryConvert,
-                    RangePropertyConverter.TryConvert,
-                    RegularExpressionConverter.TryConvert,
-                    RequiredConverter.TryConvert
-                };
-
-        static ValidatorFeatureToValidatorsConverter()
-        {
-        }
+            {
+                CheckDateConverter.TryConvert,
+                DigitsOnlyConverter.TryConvert,
+                EmailFeatureConverter.TryConvert,
+                LimitedLengthConverter.TryConvert,
+                MustBeGreaterOrEqualConverter.TryConvert,
+                NonZeroConverter.TryConvert,
+                RangePropertyConverter.TryConvert,
+                RegularExpressionConverter.TryConvert,
+                RequiredConverter.TryConvert
+            };
+        
+        private delegate bool ValidatorFactory(IValidatablePropertyFeature validatablePropertyFeature, out IPropertyValidator validator);
 
         public static IEnumerable<IPropertyValidator> Convert(IEnumerable<IValidatablePropertyFeature> validatablePropertyFeatures)
         {

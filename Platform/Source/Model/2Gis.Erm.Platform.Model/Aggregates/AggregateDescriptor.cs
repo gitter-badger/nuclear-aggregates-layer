@@ -1,28 +1,16 @@
 ﻿using System;
 using System.Text;
 
-using DoubleGis.Erm.Platform.Model.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates
 {
     public class AggregateDescriptor
     {
-        private readonly EntityName _aggregateRoot;
-        private readonly EntityName[] _aggregateEntities;
-        private readonly Type _aggregateAliasType;
+        private readonly IEntityType _aggregateRoot;
+        private readonly IEntityType[] _aggregateEntities;
 
-        public AggregateDescriptor(params EntityName[] aggregateEntities)
-        {
-            if (aggregateEntities == null || aggregateEntities.Length == 0)
-            {
-                throw new ArgumentNullException("aggregateEntities");
-            }
-
-            _aggregateRoot = aggregateEntities[0];
-            _aggregateEntities = aggregateEntities;
-        }
-
-        public AggregateDescriptor(EntityName aggregateRoot, EntityName[] aggregateEntities, Type aggregateAliasType)
+        public AggregateDescriptor(IEntityType aggregateRoot, IEntityType[] aggregateEntities)
         {
             if (aggregateEntities == null || aggregateEntities.Length == 0)
             {
@@ -31,10 +19,9 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
 
             _aggregateRoot = aggregateRoot;
             _aggregateEntities = aggregateEntities;
-            _aggregateAliasType = aggregateAliasType;
         }
 
-        public EntityName AggregateRoot
+        public IEntityType AggregateRoot
         {
             get
             {
@@ -42,7 +29,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
             }
         }
 
-        public EntityName[] AggregateEntities
+        public IEntityType[] AggregateEntities
         {
             get
             {
@@ -50,22 +37,11 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
             }
         }
 
-        /// <summary>
-        /// Тип alias enum агрегата содержащего подмножество элементов EntityName, относящихся к данному агрегату
-        /// </summary>
-        public Type AliasType
-        {
-            get
-            {
-                return _aggregateAliasType;
-            }
-        }
-
         public override string ToString()
         {
             var sb = new StringBuilder();
             sb.AppendLine(AggregateRoot + " Aggregate;");
-            sb.AppendLine("Alias: " + AliasType.Name + ";");
+            sb.AppendLine("Alias: " + AggregateRoot.Description + ";");
             sb.AppendLine("Members:");
             foreach (var aggregateEntity in AggregateEntities)
             {

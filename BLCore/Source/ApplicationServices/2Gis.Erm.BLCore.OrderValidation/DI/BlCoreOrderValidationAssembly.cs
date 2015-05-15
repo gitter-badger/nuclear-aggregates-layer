@@ -2,9 +2,9 @@
 using DoubleGis.Erm.BLCore.API.OrderValidation.DI;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 
 using NuClear.Assembling.Zones;
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.DI
 {

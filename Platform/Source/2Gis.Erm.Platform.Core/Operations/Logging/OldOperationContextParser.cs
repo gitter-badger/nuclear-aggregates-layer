@@ -6,8 +6,10 @@ using System.Xml.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
 {
@@ -18,10 +20,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         private static readonly Lazy<Dictionary<int, EntitySet>> EntitySetHashes = new Lazy<Dictionary<int, EntitySet>>(
            () =>
            {
-               var serviceEntityNames = new[] { EntityName.None, EntityName.All };
+               var serviceEntityNames = new IEntityType[] { EntityType.Instance.None(), EntityType.Instance.All() };
 
                var result = new Dictionary<int, EntitySet>();
-               var values = ((EntityName[])Enum.GetValues(typeof(EntityName))).Where(x => !serviceEntityNames.Contains(x)).ToArray();
+               var values = EntityType.Instance.GetTypes().Where(x => !serviceEntityNames.Contains(x)).ToArray();
                foreach (var value in values)
                {
                    result.Add(new[] { value }.EvaluateHash(), new EntitySet(value));
@@ -61,7 +63,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                     var typeAttribute = entity.Attribute("type");
                     var entitySet = typeAttribute == null
                         ? EvaluateEntitySetFromHash(operationIdentity.Id, descriptor)
-                        : new EntitySet((EntityName)int.Parse(typeAttribute.Value));
+                        : new EntitySet(EntityType.Instance.Parse(int.Parse(typeAttribute.Value)));
 
                     var strictOperationIdentity = new StrictOperationIdentity(operationIdentity, entitySet);
 
@@ -82,7 +84,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
         // FIXME {d.ivanov, 02.09.2013}: Код для восстановления EntityName из дескриптора операции. Убрать после того, как можно будет убедиться, что все операции, где type не указан, - обработаны
         private EntitySet EvaluateEntitySetFromHash(int operation, int descriptor)
         {
-            var entitiesWithFile = new[] { EntityName.AdvertisementElement, EntityName.Theme, EntityName.ThemeTemplate };
+            var entitiesWithFile = new IEntityType[] { EntityType.Instance.AdvertisementElement(), EntityType.Instance.Theme(), EntityType.Instance.ThemeTemplate() };
 
             EntitySet entitySet;
             if (EntitySetHashes.Value.TryGetValue(descriptor, out entitySet))
@@ -92,7 +94,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
                     entitySet.Entities.Count() == 1 &&
                     entitiesWithFile.Contains(entitySet.Entities.First()))
                 {
-                    return new EntitySet(EntityName.File);
+                    return new EntitySet(EntityType.Instance.File());
                 }
 
                 return entitySet;

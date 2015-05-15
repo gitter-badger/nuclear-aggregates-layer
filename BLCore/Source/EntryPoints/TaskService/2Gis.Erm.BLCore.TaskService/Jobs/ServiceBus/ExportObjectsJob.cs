@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 using NuClear.Jobs;
 using NuClear.Security.API;
 using NuClear.Tracing.API;
@@ -22,150 +24,150 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.ServiceBus
                     "floworders.advmaterial",
                     new FlowDescription
                         {
-                            EntityName = EntityName.Advertisement,
+                            EntityName = EntityType.Instance.Advertisement(),
                             FlowName = "flowOrders",
                             SchemaResourceName = "flowOrders_AdvMaterial",
-                            IntegrationEntityName = EntityName.ExportFlowOrdersAdvMaterial
+                            IntegrationEntityName = EntityType.Instance.ExportFlowOrdersAdvMaterial()
                         }
                 },
                 {
                     "floworders.order",
                     new FlowDescription
                         {
-                            EntityName = EntityName.Order,
+                            EntityName = EntityType.Instance.Order(),
                             FlowName = "flowOrders",
                             SchemaResourceName = "flowOrders_Order",
-                            IntegrationEntityName = EntityName.ExportFlowOrdersOrder
+                            IntegrationEntityName = EntityType.Instance.ExportFlowOrdersOrder()
                         }
                 },
                 {
                     "floworders.denialreason",
                     new FlowDescription
                         {
-                            EntityName = EntityName.DenialReason,
+                            EntityName = EntityType.Instance.DenialReason(),
                             FlowName = "flowOrders",
                             SchemaResourceName = "flowOrders_DenialReason",
-                            IntegrationEntityName = EntityName.ExportFlowOrdersDenialReason
+                            IntegrationEntityName = EntityType.Instance.ExportFlowOrdersDenialReason()
                         }
                 },
                 {
                     "flowfinancialdata.legalentity",
                     new FlowDescription
                         {
-                            EntityName = EntityName.LegalPerson,
+                            EntityName = EntityType.Instance.LegalPerson(),
                             FlowName = "flowFinancialData",
                             SchemaResourceName = "flowFinancialData_LegalEntity",
-                            IntegrationEntityName = EntityName.ExportFlowFinancialDataLegalEntity
+                            IntegrationEntityName = EntityType.Instance.ExportFlowFinancialDataLegalEntity()
                         }
                 },
                 {
                     "floworders.theme",
                     new FlowDescription
                         {
-                            EntityName = EntityName.Theme,
+                            EntityName = EntityType.Instance.Theme(),
                             FlowName = "flowOrders",
                             SchemaResourceName = "flowOrders_Theme",
-                            IntegrationEntityName = EntityName.ExportFlowOrdersTheme
+                            IntegrationEntityName = EntityType.Instance.ExportFlowOrdersTheme()
                         }
                 },
                 {
                     "floworders.resource",
                     new FlowDescription
                         {
-                            EntityName = EntityName.ThemeTemplate,
+                            EntityName = EntityType.Instance.ThemeTemplate(),
                             FlowName = "flowOrders",
                             SchemaResourceName = "flowOrders_Resource",
-                            IntegrationEntityName = EntityName.ExportFlowOrdersResource
+                            IntegrationEntityName = EntityType.Instance.ExportFlowOrdersResource()
                         }
                 },
                 {
                     "floworders.themebranch",
                     new FlowDescription
                         {
-                            EntityName = EntityName.ThemeOrganizationUnit,
+                            EntityName = EntityType.Instance.ThemeOrganizationUnit(),
                             FlowName = "flowOrders",
                             SchemaResourceName = "flowOrders_ThemeBranch",
-                            IntegrationEntityName = EntityName.ExportFlowOrdersThemeBranch
+                            IntegrationEntityName = EntityType.Instance.ExportFlowOrdersThemeBranch()
                         }
                 },
                 {
                     "flowfinancialdata.client",
                     new FlowDescription
                         {
-                            EntityName = EntityName.Client,
+                            EntityName = EntityType.Instance.Client(),
                             FlowName = "flowFinancialData",
                             SchemaResourceName = "flowFinancialData_Client",
-                            IntegrationEntityName = EntityName.ExportFlowFinancialDataClient
+                            IntegrationEntityName = EntityType.Instance.ExportFlowFinancialDataClient()
                         }
                 },
                 {
                     "flowfinancialdata.debitsinfoinitial",
                     new FlowDescription
                         {
-                            EntityName = EntityName.AccountDetail,
+                            EntityName = EntityType.Instance.AccountDetail(),
                             FlowName = "flowFinancialData",
                             SchemaResourceName = "flowFinancialData_DebitsInfoInitial",
-                            IntegrationEntityName = EntityName.ExportFlowFinancialDataDebitsInfoInitial
+                            IntegrationEntityName = EntityType.Instance.ExportFlowFinancialDataDebitsInfoInitial()
                         }
                 },
                 {
                     "flowpricelists.pricelist",
                     new FlowDescription
                         {
-                            EntityName = EntityName.Price,
+                            EntityName = EntityType.Instance.Price(),
                             FlowName = "flowPriceLists",
                             SchemaResourceName = "flowPriceLists_PriceList",
-                            IntegrationEntityName = EntityName.ExportFlowPriceListsPriceList
+                            IntegrationEntityName = EntityType.Instance.ExportFlowPriceListsPriceList()
                         }
                 },
                 {
                     "flowpricelists.pricelistposition",
                     new FlowDescription
                         {
-                            EntityName = EntityName.PricePosition,
+                            EntityName = EntityType.Instance.PricePosition(),
                             FlowName = "flowPriceLists",
                             SchemaResourceName = "flowPriceLists_PriceListPosition",
-                            IntegrationEntityName = EntityName.ExportFlowPriceListsPriceListPosition
+                            IntegrationEntityName = EntityType.Instance.ExportFlowPriceListsPriceListPosition()
                         }
                 },
                 {
                     "floworders.invoice",
                     new FlowDescription
                         {
-                            EntityName = EntityName.Order,
+                            EntityName = EntityType.Instance.Order(),
                             FlowName = "flowOrders",
                             SchemaResourceName = "flowOrders_Invoice",
-                            IntegrationEntityName = EntityName.ExportFlowOrdersInvoice
+                            IntegrationEntityName = EntityType.Instance.ExportFlowOrdersInvoice()
                         }
                 },
                 {
                     "flownomenclatures.nomenclatureelement",
                     new FlowDescription
                         {
-                            EntityName = EntityName.Position,
+                            EntityName = EntityType.Instance.Position(),
                             FlowName = "flowNomenclatures",
                             SchemaResourceName = "flowNomenclatures_NomenclatureElement",
-                            IntegrationEntityName = EntityName.ExportFlowNomenclaturesNomenclatureElement
+                            IntegrationEntityName = EntityType.Instance.ExportFlowNomenclaturesNomenclatureElement()
                         }
                 },
                 {
                     "flownomenclatures.nomenclatureelementrelation",
                     new FlowDescription
                         {
-                            EntityName = EntityName.PositionChildren,
+                            EntityName = EntityType.Instance.PositionChildren(),
                             FlowName = "flowNomenclatures",
                             SchemaResourceName = "flowNomenclatures_NomenclatureElementRelation",
-                            IntegrationEntityName = EntityName.ExportFlowNomenclaturesNomenclatureElementRelation
+                            IntegrationEntityName = EntityType.Instance.ExportFlowNomenclaturesNomenclatureElementRelation()
                         }
                 },
                 {
                     "flowdeliverydata.lettersendrequest",
                     new FlowDescription
                         {
-                            EntityName = EntityName.BirthdayCongratulation,
+                            EntityName = EntityType.Instance.BirthdayCongratulation(),
                             FlowName = "flowDeliveryData",
                             SchemaResourceName = "flowDeliveryData_LetterSendRequest",
-                            IntegrationEntityName = EntityName.ExportFlowDeliveryDataLetterSendRequest
+                            IntegrationEntityName = EntityType.Instance.ExportFlowDeliveryDataLetterSendRequest()
                         }
                 },
             };

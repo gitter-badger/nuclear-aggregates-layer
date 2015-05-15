@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -59,11 +61,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                            OrderNumber = x.OrderNumber,
                                                            MessageText = string.Format(BLResources.CategoryIsRestrictedForSpecifiedSalesModelError,
                                                                                        GenerateDescription(ruleContext.ValidationParams.IsMassValidation,
-                                                                                                           EntityName.OrderPosition,
+                                                                                                           EntityType.Instance.OrderPosition(),
                                                                                                            x.OrderPositionName,
                                                                                                            x.OrderPositionId),
                                                                                        GenerateDescription(ruleContext.ValidationParams.IsMassValidation,
-                                                                                                           EntityName.Category,
+                                                                                                           EntityType.Instance.Category(),
                                                                                                            x.CategoryName,
                                                                                                            x.CategoryId),
                                                                                        x.ProjectName)

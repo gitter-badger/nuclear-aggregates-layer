@@ -3,10 +3,12 @@
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
+
+using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 {
@@ -20,19 +22,19 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<LockDomainEntityDto>(dto => dto.BranchOfficeOrganizationUnitRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.BranchOfficeOrganizationUnit)
+                                      LookupPropertyFeature.Create(EntityType.Instance.BranchOfficeOrganizationUnit())
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BranchOfficeOrganizationUnit)),
 
                     EntityPropertyMetadata.Create<LockDomainEntityDto>(dto => dto.OrderRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.Order)
+                                      LookupPropertyFeature.Create(EntityType.Instance.Order())
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.OrderNumber)),
 
                     EntityPropertyMetadata.Create<LockDomainEntityDto>(dto => dto.LegalPersonRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.LegalPerson)
+                                      LookupPropertyFeature.Create(EntityType.Instance.LegalPerson())
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.LegalPerson)),
 
@@ -75,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<LockDomainEntityDto>(dto => dto.DebitAccountDetailRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.AccountDetail)
+                                      LookupPropertyFeature.Create(EntityType.Instance.AccountDetail())
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.OperationOnAccount)),
 
@@ -85,14 +87,14 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<LockDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
 
                     EntityPropertyMetadata.Create<LockDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 
