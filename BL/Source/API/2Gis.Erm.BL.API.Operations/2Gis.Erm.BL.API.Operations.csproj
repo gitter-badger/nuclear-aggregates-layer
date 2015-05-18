@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,6 +60,8 @@
     <Compile Include="Concrete\AdvertisementElements\AdvertisementElementDenyingWithoutReasonsException.cs" />
     <Compile Include="Concrete\AdvertisementElements\IApproveAdvertisementElementOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\IDenyAdvertisementElementOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementFileChangedOperationService.cs" />
+    <Compile Include="Concrete\AdvertisementElements\INotifyAboutAdvertisementElementValidationStatusChangedOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\IResetAdvertisementElementToDraftOperationService.cs" />
     <Compile Include="Concrete\AdvertisementElements\ITransferAdvertisementElementToReadyForValidationOpeationService.cs" />
     <Compile Include="Concrete\Orders\ISetOrderDocumentsDebtOperationService.cs" />
@@ -93,6 +99,9 @@
       <Project>{83F113B2-53E0-471C-BA04-189B85D90550}</Project>
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,12 +15,14 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 {
@@ -77,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             using (var operationScope = _scopeFactory.CreateNonCoupled<CopyOrderIdentity>())
             {
                 var hasAccess = _securityServiceEntityAccess.HasEntityAccess(RequiredAccess,
-                                                                             EntityName.Order,
+                                                                             EntityType.Instance.Order(),
                                                                              _userContext.Identity.Code,
                                                                              orderToCopy.Id,
                                                                              orderToCopy.OwnerCode,

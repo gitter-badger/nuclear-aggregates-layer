@@ -1,12 +1,14 @@
 ﻿using System.Linq;
 
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -61,23 +63,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override IDomainEntityDto<PricePosition> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<PricePosition> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             return new PricePositionDomainEntityDto();
         }
 
-        protected override void SetDtoProperties(
-            IDomainEntityDto<PricePosition> domainEntityDto, 
-            long entityId, 
-            bool readOnly, 
-            long? parentEntityId, 
-            EntityName parentEntityName, 
-            string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<PricePosition> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             long priceId;
             var modelDto = (PricePositionDomainEntityDto)domainEntityDto;
 
-            if (parentEntityName == EntityName.Price && parentEntityId.HasValue)
+            if (parentEntityName.Equals(EntityType.Instance.Price()) && parentEntityId.HasValue)
             {
                 priceId = parentEntityId.Value;
             }

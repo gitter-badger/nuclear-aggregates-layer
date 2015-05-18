@@ -2,7 +2,9 @@ using System;
 using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
 {
@@ -52,7 +54,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public byte[] Timestamp { get; set; }
 
         [DataMember]
-        public EntityName ParentTypeName { get; set; }
+        public IEntityType ParentTypeName { get; set; }
 
         [DataMember]
         public long FileContentLength { get; set; }

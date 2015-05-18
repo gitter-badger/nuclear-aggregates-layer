@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Roles;
 using DoubleGis.Erm.BLCore.API.Aggregates.Roles.Dto;
@@ -10,12 +9,14 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 {
@@ -83,11 +84,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
             var entityPrivilegeInfos = _finder.FindAll<Privilege>()
                                               .Where(x => x.EntityType != null)
                                               .GroupBy(x => x.EntityType)
-                                              .Select(x => new EntityPrivilegeInfo
+                                              .Select(x => new
                                                   {
-                                                      EntityName = (EntityName)x.Key,
+                                                      EntityType = x.Key.Value,
                                                       PrivilegeInfoList = x.Select(p => new PrivilegeDto
-                                                                                           {
+                                                          {
                                                               PrivilegeId = p.Id,
                                                               Operation = (EntityAccessTypes)p.Operation,
                                                               PrivilegeDepthMask = (EntityPrivilegeDepthState)p.RolePrivileges
@@ -95,6 +96,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
                                                                                                                .Select(rp => rp.Mask)
                                                                                                                .FirstOrDefault(),
                                                           })
+                                                  })
+                                              .AsEnumerable()
+                                              .Select(x => new EntityPrivilegeInfo
+                                                  {
+                                                      EntityName = EntityType.Instance.Parse(x.EntityType),
+                                                      PrivilegeInfoList = x.PrivilegeInfoList
                                                   })
                                               .ToArray();
 

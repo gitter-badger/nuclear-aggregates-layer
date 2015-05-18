@@ -8,7 +8,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
 using DoubleGis.Erm.Platform.DAL;
@@ -16,8 +16,10 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
 {
@@ -39,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
             _userContext = userContext;
         }
 
-        public ActionsHistoryDto GetActionHistory(EntityName entityName, long entityId)
+        public ActionsHistoryDto GetActionHistory(IEntityType entityName, long entityId)
         {
             if (!_metadataProvider.IsSupported<ActionHistoryIdentity>(entityName))
             {
@@ -49,7 +51,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
 
             var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
             var metadata = _metadataProvider.GetOperationMetadata<ActionHistoryMetadata, ActionHistoryIdentity>(entityName);
-            var actionsInfo = _finder.Find<ActionsHistory>(x => x.EntityType == (int)entityName && x.EntityId == entityId)
+            var entityTypeId = entityName.Id;
+            var actionsInfo = _finder.Find<ActionsHistory>(x => x.EntityType == entityTypeId && x.EntityId == entityId)
                                      .OrderByDescending(x => x.Id)
                                      .Select(item => new
                                      {
@@ -101,7 +104,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
             };
         }
 
-        private string ProcessValue(EntityName entityName, string propertyName, string value, CultureInfo userCultureInfo)
+        private string ProcessValue(IEntityType entityName, string propertyName, string value, CultureInfo userCultureInfo)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
@@ -125,13 +128,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
                         return EnumUtils.TryParseEnum(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, userCultureInfo) : value;
                     }
 
-                    if (entityName == EntityName.Limit)
+                    if (entityName.Equals(EntityType.Instance.Limit()))
                     {
                         LimitStatus status;
                         return EnumUtils.TryParseEnum(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, userCultureInfo) : value;
                     }
 
-                    if (entityName == EntityName.AdvertisementElementStatus)
+                    if (entityName.Equals(EntityType.Instance.AdvertisementElementStatus()))
                     {
                         AdvertisementElementStatusValue status;
                         return EnumUtils.TryParseEnum(value, out status) ? status.ToStringLocalized(EnumResources.ResourceManager, userCultureInfo) : value;

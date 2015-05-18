@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -9,9 +8,9 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.WCF.Metadata
@@ -70,7 +69,7 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
             }
         }
 
-        public OperationApplicability[] GetApplicableOperationsForContext(EntityName[] entityNames, long[] entityIds)
+        public OperationApplicability[] GetApplicableOperationsForContext(IEntityType[] entityNames, long[] entityIds)
         {
             try
             {
@@ -144,8 +143,8 @@ namespace DoubleGis.Erm.Platform.WCF.Metadata
         private bool NotRestrictedForClients(OperationApplicability operationApplicability)
         {
             // TODO {all, 24.04.2014}: пока примитивное ограничение для перечня операций - исключаем те которые непредназначены для remote клиента (например, потому что не помечены DataContractAttribute)
-            return operationApplicability.OperationIdentity.GetType().GetCustomAttributes<DataContractAttribute>().Any()
-                && operationApplicability.MetadataDetails.All(pair => pair.Value != null && pair.Value.GetType().GetCustomAttributes<DataContractAttribute>().Any());
+            return operationApplicability.OperationIdentity.GetType().GetCustomAttributes(typeof(DataContractAttribute), false).Any()
+                && operationApplicability.MetadataDetails.All(pair => pair.Value != null && pair.Value.GetType().GetCustomAttributes(typeof(DataContractAttribute), false).Any());
         }
 
         private FaultException<MetadataOperationErrorDescription> GetExceptionDescription(string operationSpecificMessage, Exception ex)

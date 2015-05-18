@@ -19,7 +19,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
@@ -27,6 +27,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -196,8 +197,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             {
                 ViewConfig =
                 {
-                    EntityName = EntityName.PositionSortingOrder,
-                    PType = EntityName.None
+                    EntityName = EntityType.Instance.PositionSortingOrder(),
+                    PType = EntityType.Instance.None()
                 }
             };
 
@@ -226,7 +227,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new CardStructure
             {
                 Icon = "en_ico_lrg_Category.gif",
-                EntityName = EntityName.PositionSortingOrder.ToString(),
+                EntityName = EntityType.Instance.PositionSortingOrder().Description,
                 EntityLocalizedName = ErmConfigLocalization.EnPositionSortingOrder,
                 Title = ErmConfigLocalization.EnPositionSortingOrder,
                 CardRelatedItems = new CardRelatedItemsGroupStructure[0],

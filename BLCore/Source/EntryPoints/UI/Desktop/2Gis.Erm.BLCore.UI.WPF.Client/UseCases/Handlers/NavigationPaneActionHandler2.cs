@@ -3,10 +3,6 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Grid;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
@@ -16,6 +12,11 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents.Contextual;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation;
+
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Handler;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Handlers
 {

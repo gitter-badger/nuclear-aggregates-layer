@@ -53,9 +53,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Shared.EditorTemplates
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/EditorTemplates/DateTimeViewModel.cshtml")]
-    public partial class _DateTimeViewModel : System.Web.Mvc.WebViewPage<DateTime?>
+    public partial class DateTimeViewModel_ : System.Web.Mvc.WebViewPage<DateTime?>
     {
-        public _DateTimeViewModel()
+        public DateTimeViewModel_()
         {
         }
         public override void Execute()
@@ -248,7 +248,7 @@ WriteLiteral("\',\r\n            step: ");
 
             
             #line 79 "..\..\Views\Shared\EditorTemplates\DateTimeViewModel.cshtml"
-             Write(time.Step.TotalMilliseconds);
+             Write(time.Step.TotalMinutes);
 
             
             #line default

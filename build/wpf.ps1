@@ -7,7 +7,6 @@ Import-Module "$BuildToolsRoot\modules\msbuild.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\msdeploy.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\web.psm1" -DisableNameChecking
 Import-Module "$BuildToolsRoot\modules\metadata.psm1" -DisableNameChecking
-Import-Module "$BuildToolsRoot\modules\versioning.psm1" -DisableNameChecking
 
 Properties { $OptionWpfClient = $true }
 
@@ -18,26 +17,18 @@ Task Build-WpfClient -Precondition { $false } -Depends Update-AssemblyInfo {
 	Build-WpfShell
 }
 
-Task Deploy-WpfClient -Precondition { $OptionWpfClient } {
-	$artifactName = Get-Artifacts '' '2Gis.Erm.UI.Desktop.WPF.zip'
-	
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Desktop.WPF'
-	foreach($targetHost in $EntryPointMetadata.TargetHosts){
-		Create-RemoteWebsite $targetHost $entryPointMetadata.IisAppPath
-
-		Invoke-MSDeploy `
-		-Source "package=""$artifactName""" `
-		-HostName $targetHost
-	}
+Task Deploy-WpfClient -Precondition { $false } {
+	Deploy-WebPackage '2Gis.Erm.UI.Desktop.WPF'
 }
 
 function Build-WpfShell {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.UI.Desktop.WPF'
 	
-	$version = Get-Version
-	$productName = "2GIS ERM WPF Client $($global:Context.EnvironmentName) $($version.SemanticVersion)"
+	$commonMetadata = Get-Metadata 'Common'
+
+	$productName = "2GIS ERM WPF Client $($commonMetadata.EnvironmentName) $($commonMetadata.Version.SemanticVersion)"
 	
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Desktop.WPF'
+	$entryPointMetadata = Get-Metadata '2Gis.Erm.UI.Desktop.WPF'
 	$installUrl = New-Object System.UriBuilder('https', $entryPointMetadata.IisAppPath)
 
 	$projectDir = Split-Path $projectFileName
@@ -47,7 +38,7 @@ function Build-WpfShell {
 	$configXml = Transform-Config $configFileName
 
 	$buildFileName = Create-BuildFile $projectFileName -Targets 'Publish' -Properties @{
-		'ApplicationVersion' = $version.NumericVersion
+		'ApplicationVersion' = $commonMetadata.Version.NumericVersion
 		'IsWebBootstrapper' = $true
 		'InstallUrl' = $installUrl
 		'UpdateUrl' = $installUrl
@@ -62,7 +53,7 @@ function Build-WpfShell {
 
 	# build zip package
 	$convensionalArtifactName = Create-ContentPackage $conventionalPublishDir $entryPointMetadata.IisAppPath
-	$artifactName = Join-Path $global:Context.Dir.Temp '2Gis.Erm.UI.Desktop.WPF.zip'
+	$artifactName = Join-Path $commonMetadata.Dir.Temp '2Gis.Erm.UI.Desktop.WPF.zip'
 	Copy-Item $convensionalArtifactName $artifactName
 	Publish-Artifacts $artifactName
 }

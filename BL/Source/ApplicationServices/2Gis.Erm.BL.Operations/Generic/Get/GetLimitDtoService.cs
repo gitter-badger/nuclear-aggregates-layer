@@ -4,14 +4,16 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BL.Operations.Generic.Get
 {
@@ -71,12 +73,12 @@ namespace DoubleGis.Erm.BL.Operations.Generic.Get
             return modelDto;
         }
 
-        protected override IDomainEntityDto<Limit> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Limit> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = new LimitDomainEntityDto();
             try
             {
-                if (parentEntityName == EntityName.Account && parentEntityId.HasValue)
+                if (parentEntityName.Equals(EntityType.Instance.Account()) && parentEntityId.HasValue)
                 {
                     var accountId = parentEntityId.Value;
                     var nextMonthDate = DateTime.UtcNow.Date.AddMonths(1);

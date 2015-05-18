@@ -40,9 +40,37 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Metamodeling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Metamodeling.1.5.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2Gis.NuClear.Metamodeling.Domain, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Metamodeling.Basics.1.5.2\lib\portable-net451+win81+wpa81\2Gis.NuClear.Metamodeling.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Metamodeling.UI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Metamodeling.Basics.1.5.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.ResourceUtilities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.ResourceUtilities.1.0.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.ResourceUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Tracing.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=343b5b3423ae5030, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -68,6 +96,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Discovery" />
@@ -87,12 +116,17 @@
     <Compile Include="EntityProjection\IAssignSpecification.cs" />
     <Compile Include="EntityProjection\IProjectSpecification.cs" />
     <Compile Include="EntityProjection\ProjectSpecification.cs" />
+    <Compile Include="Identities\AppLockIdentityServiceUniqueIdProvider.cs" />
     <Compile Include="Identities\BufferedIdentityRequestStrategy.cs" />
     <Compile Include="Identities\IdentityProviderBase.cs" />
     <Compile Include="Identities\IdentityRequestChecker.cs" />
     <Compile Include="Identities\IdentityServiceIdentityProvider.cs" />
     <Compile Include="Identities\NullIdentityRequestChecker.cs" />
     <Compile Include="Identities\NullIdentityRequestStrategy.cs" />
+    <Compile Include="Locking\ApplicationLocksManager.cs" />
+    <Compile Include="Locking\ApplicationLocksService.cs" />
+    <Compile Include="Locking\LockAcquirementResult.cs" />
+    <Compile Include="Locking\LockReleasingResult.cs" />
     <Compile Include="Messaging\Processing\Handlers\NullMessageAggregatedProcessingResultsHandler.cs" />
     <Compile Include="Messaging\Processing\Processors\Topologies\SequentialMessageFlowProcessingTopology.cs" />
     <Compile Include="Messaging\Processing\Processors\MessageFlowProcessorBase.Dispose.cs" />
@@ -128,6 +162,7 @@
     <Compile Include="Operations\Logging\Transports\DB\TrackedUseCase2PerfomedBusinessOperationsConverter.cs" />
     <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageReceiver.Dispose.cs" />
     <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageReceiver.cs" />
+    <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\Serialization\ProtoBuf\EntityTypeSurrogate.cs" />
     <Compile Include="Operations\Logging\Transports\ServiceBusForWindowsServer\ServiceBusLoggingSession.cs" />
     <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusMessageSender.Dispose.cs" />
     <Compile Include="Messaging\Transports\ServiceBusForWindowsServer\ServiceBusConnectionSlotPool.cs" />
@@ -190,6 +225,10 @@
     <ProjectReference Include="..\API\2Gis.Erm.Platform.API.Metadata\2Gis.Erm.Platform.API.Metadata.csproj">
       <Project>{D62C3159-8538-4398-9E7F-5BD2B48A6C20}</Project>
       <Name>2Gis.Erm.Platform.API.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\DAL\2Gis.Erm.Platform.DAL.AdoNet\2Gis.Erm.Platform.DAL.AdoNet.csproj">
+      <Project>{BCFC76BF-D41B-4CFA-A8AF-5EC82EC4A9CF}</Project>
+      <Name>2Gis.Erm.Platform.DAL.AdoNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\DAL\2Gis.Erm.Platform.DAL.PersistenceServices\2Gis.Erm.Platform.DAL.PersistenceServices.csproj">
       <Project>{5CA902E2-894D-48AB-9F1F-4B80D3E69A27}</Project>

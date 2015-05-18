@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents.Settings;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents
 {

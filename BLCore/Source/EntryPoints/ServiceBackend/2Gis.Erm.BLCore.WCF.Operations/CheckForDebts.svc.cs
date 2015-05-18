@@ -8,12 +8,12 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Activate;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.CheckForDebts;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
+using NuClear.ResourceUtilities;
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
@@ -34,10 +34,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public CheckForDebtsResult Execute(string specifiedEntityName, string specifiedEntityIds)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
             try
             {
-                if (!Enum.TryParse(specifiedEntityName, out entityName))
+                if (!EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        public CheckForDebtsResult Execute(EntityName entityName, IEnumerable<long> entityIds)
+        public CheckForDebtsResult Execute(IEntityType entityName, IEnumerable<long> entityIds)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        private CheckForDebtsResult ExecuteInternal(EntityName entityName, IEnumerable<long> entityIds)
+        private CheckForDebtsResult ExecuteInternal(IEntityType entityName, IEnumerable<long> entityIds)
         {
             var checkEntityForDebtsService = _operationServicesManager.GetCheckEntityForDebtsService(entityName);
             foreach (var entityId in entityIds)

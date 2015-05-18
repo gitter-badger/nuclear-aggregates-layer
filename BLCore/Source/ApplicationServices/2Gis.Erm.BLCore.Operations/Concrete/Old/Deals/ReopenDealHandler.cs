@@ -8,9 +8,11 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Deals
 {
@@ -52,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Deals
 
             // validate security
             if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                              EntityName.Deal,
+                                                              EntityType.Instance.Deal(),
                                                               _userContext.Identity.Code,
                                                               deal.Id,
                                                               deal.OwnerCode,

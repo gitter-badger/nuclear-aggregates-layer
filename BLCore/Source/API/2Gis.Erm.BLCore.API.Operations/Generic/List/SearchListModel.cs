@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-using DoubleGis.Erm.Platform.Model.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Generic.List
 {
@@ -12,7 +12,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.List
         public string FilterInput { get; set; }
 
         [DataMember]
-        public EntityName ParentEntityName { get; set; }
+        public IEntityType ParentEntityName { get; set; }
 
         [DataMember]
         public long? ParentEntityId { get; set; }

@@ -1,20 +1,39 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum FirmAggregate
+    public static class FirmAggregate
     {
-        Firm = EntityName.Firm,
-        FirmAddress = EntityName.FirmAddress,
-        FirmContact = EntityName.FirmContact,
-        Client = EntityName.Client, //
-        CategoryFirmAddress = EntityName.CategoryFirmAddress,
-        CityPhoneZone = EntityName.CityPhoneZone, 
-        Reference = EntityName.Reference, 
-        ReferenceItem = EntityName.ReferenceItem, 
-        CardRelation = EntityName.CardRelation,
-        Territory = EntityName.Territory,
-        DepCard = EntityName.DepCard,
-        HotClientRequest = EntityName.HotClientRequest
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Firm(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.FirmAddress(),
+                                    EntityType.Instance.FirmContact(),
+                                    EntityType.Instance.Client(),
+                                    EntityType.Instance.CategoryFirmAddress(),
+                                    EntityType.Instance.CityPhoneZone(),
+                                    EntityType.Instance.Reference(),
+                                    EntityType.Instance.ReferenceItem(),
+                                    EntityType.Instance.CardRelation(),
+                                    EntityType.Instance.Territory(),
+                                    EntityType.Instance.DepCard(),
+                                    EntityType.Instance.HotClientRequest()
+                                })
+                    .ToArray();
+            }
+        }
     }
 }

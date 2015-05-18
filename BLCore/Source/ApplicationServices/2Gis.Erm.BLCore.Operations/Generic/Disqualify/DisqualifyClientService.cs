@@ -15,10 +15,11 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
@@ -84,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
         {
             var client = _clientReadModel.GetClient(entityId);
             if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                              EntityName.Client,
+                                                              EntityType.Instance.Client(),
                                                               _userContext.Identity.Code,
                                                               client.Id,
                                                               client.OwnerCode,
@@ -98,7 +99,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
                 // Проверяем открытые связанные объекты:
                 // Проверяем наличие открытых Действий (Звонок, Встреча, Задача и пр.), связанных с данным Клиентом и его фирмами, 
                 // если есть открытые Действия, выдается сообщение "Необходимо закрыть все активные действия с данным Клиентом и его фирмами".
-                var hasRelatedOpenedActivities = _activityReadService.CheckIfOpenActivityExistsRegarding(EntityName.Client, entityId);
+                var hasRelatedOpenedActivities = _activityReadService.CheckIfOpenActivityExistsRegarding(EntityType.Instance.Client(), entityId);
                 if (hasRelatedOpenedActivities)
                 {
                     throw new NotificationException(BLResources.NeedToCloseAllActivities);
@@ -136,28 +137,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
 
         private void AssignRelatedActivities(long clientId, long newOwnerCode)
         {
-            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityName.Client, clientId))
+            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityType.Instance.Client(), clientId))
             {
                 var originalOwner = appointment.OwnerCode;
                 _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
                 _actionLogger.LogChanges(appointment, x => x.OwnerCode, originalOwner, appointment.OwnerCode);
             }
-
-            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityName.Client, clientId))
+            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityType.Instance.Client(), clientId))
             {
                 var originalOwner = letter.OwnerCode;
                 _assignLetterAggregateService.Assign(letter, newOwnerCode);
                 _actionLogger.LogChanges(letter, x => x.OwnerCode, originalOwner, letter.OwnerCode);
             }
-
-            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityName.Client, clientId))
+            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityType.Instance.Client(), clientId))
             {
                 var originalOwner = phonecall.OwnerCode;
                 _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
                 _actionLogger.LogChanges(phonecall, x => x.OwnerCode, originalOwner, phonecall.OwnerCode);
             }
-
-            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityName.Client, clientId))
+            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityType.Instance.Client(), clientId))
             {
                 var originalOwner = task.OwnerCode;
                 _assignTaskAggregateService.Assign(task, newOwnerCode);

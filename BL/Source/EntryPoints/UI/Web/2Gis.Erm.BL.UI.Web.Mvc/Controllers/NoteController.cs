@@ -8,12 +8,12 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
@@ -38,9 +38,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             _finder = finder;
         }
 
-        public JsonNetResult GetEntityNotes(EntityName entityType, long entityId)
+        public JsonNetResult GetEntityNotes(IEntityType entityType, long entityId)
         {
-            var data = _finder.Find<Note>(note => note.ParentType == (int)entityType && note.ParentId == entityId && note.IsDeleted == false)
+            var entityTypeId = entityType.Id;
+            var data = _finder.Find<Note>(note => note.ParentType == entityTypeId && note.ParentId == entityId && note.IsDeleted == false)
                               .Select(note => new
                                   {
                                       note.Id,

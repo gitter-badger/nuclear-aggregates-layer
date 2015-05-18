@@ -13,13 +13,15 @@ using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -60,7 +62,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             var query = _finder.FindAll<Client>();
-        
+
             bool excludeReserve;
             Expression<Func<Client, bool>> excludeReserveFilter = null;
             if (querySettings.TryGetExtendedProperty("ExcludeReserve", out excludeReserve))
@@ -84,31 +86,31 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var myTerritoryFilter = querySettings.CreateForExtendedProperty<Client, bool>(
                 "MyTerritory",
                 info =>
-                    {
-                        var userId = _userContext.Identity.Code;
-                        return x => x.Territory.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
-                    });
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.Territory.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+            });
 
             var myBranchFilter = querySettings.CreateForExtendedProperty<Client, bool>(
                 "MyBranch",
                 info =>
-                    {
-                        var userId = _userContext.Identity.Code;
-                        return x => x.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
-                    });
+            {
+                var userId = _userContext.Identity.Code;
+                return x => x.Territory.OrganizationUnit.UserTerritoriesOrganizationUnits.Any(y => y.UserId == userId);
+            });
 
             var debtFilter = querySettings.CreateForExtendedProperty<Client, bool>(
                 "WithDebt",
                 info =>
-                    {
-                        var minDebtAmount = _debtProcessingSettings.MinDebtAmount;
+            {
+                var minDebtAmount = _debtProcessingSettings.MinDebtAmount;
                         return
                             x =>
                             x.LegalPersons.Where(y => y.IsActive && !y.IsDeleted)
                              .SelectMany(y => y.Accounts)
                              .Where(y => y.IsActive && !y.IsDeleted)
-                             .Any(y => y.Balance < minDebtAmount);
-                    });
+                          .Any(y => y.Balance < minDebtAmount);
+            });
 
             var barterOrdersFilter = querySettings.CreateForExtendedProperty<Client, bool>(
                 "WithBarterOrders",
@@ -148,20 +150,22 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 return clients;
             }
 
+            var clientTypeId = EntityType.Instance.Client().Id;
+
             bool havingOnlyOneAppointment;
             if (querySettings.TryGetExtendedProperty("With1Appointment", out havingOnlyOneAppointment) && havingOnlyOneAppointment)
             {
                 var regardingObjects =
-                    from regardingObject in _compositeEntityDecorator.Find(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityName == EntityName.Client))
-                    join appointment in
-                        _compositeEntityDecorator.Find(Specs.Find.ActiveAndNotDeleted<Appointment>() && Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.Completed))
+                    from regardingObject in _compositeEntityDecorator.Find(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityTypeId == clientTypeId))
+                    join appointment in _compositeEntityDecorator.Find(Specs.Find.ActiveAndNotDeleted<Appointment>() &&
+                                                                       Specs.Find.Custom<Appointment>(x => x.Status == ActivityStatus.Completed))
                         on regardingObject.SourceEntityId equals appointment.Id
                     select regardingObject;
 
                 query = from client in query
                         where (from regardingObject in regardingObjects
-                               where regardingObject.TargetEntityId == client.Id
-                               select regardingObject).Count() == 1
+                            where regardingObject.TargetEntityId == client.Id
+                            select regardingObject).Count() == 1
                         select client;
             }
 
@@ -172,11 +176,10 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 outdated = querySettings.TryGetExtendedProperty("Outdated", out outdated) && outdated;
 
                 var clientIds =
-                    from task in
-                        _compositeEntityDecorator.Find(
-                            Specs.Find.ActiveAndNotDeleted<Task>() && Specs.Find.Custom<Task>(x => x.TaskType == TaskType.WarmClient && x.Status == ActivityStatus.InProgress))
-                    join regardingObject in _compositeEntityDecorator.Find(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityName == EntityName.Client)) on task.Id equals
-                        regardingObject.SourceEntityId
+                    from task in _compositeEntityDecorator.Find(Specs.Find.ActiveAndNotDeleted<Task>() &&
+                                                                Specs.Find.Custom<Task>(x => x.TaskType == TaskType.WarmClient && x.Status == ActivityStatus.InProgress))
+                    join regardingObject in _compositeEntityDecorator.Find(Specs.Find.Custom<TaskRegardingObject>(x => x.TargetEntityTypeId == clientTypeId))
+                        on task.Id equals regardingObject.SourceEntityId
                     let scheduleOn = task.ScheduledOn
                     let now = DateTime.Now
                     where !outdated || (scheduleOn.Year <= now.Year && scheduleOn.Month <= now.Month && scheduleOn.Day < now.Day) // неявно, задача планируется на один день

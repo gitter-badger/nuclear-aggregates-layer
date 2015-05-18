@@ -19,15 +19,17 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
+using NuClear.Security.API.UserContext;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLFlex.DI.Config
 {
@@ -93,7 +95,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             FilteredFieldsMetadata.RegisterFilteredFields<ChileListCommuneDto>(
                 x => x.Name);
 
-            RelationalMetadata.RegisterRelatedFilter<ChileListLegalPersonDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<ChileListLegalPersonDto>(EntityType.Instance.Client(), x => x.ClientId);
 
             var extendedInfoFilterMetadata = container.Resolve<IExtendedInfoFilterMetadata>();
 

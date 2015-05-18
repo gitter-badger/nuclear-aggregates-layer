@@ -1,15 +1,15 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Grid
 {
     public sealed class GridViewModelIdentity : IGridViewModelIdentity
     {
         private readonly Guid _id = Guid.NewGuid();
-        private readonly EntityName _entityName;
+        private readonly IEntityType _entityName;
 
-        public GridViewModelIdentity(EntityName entityName)
+        public GridViewModelIdentity(IEntityType entityName)
         {
             _entityName = entityName;
         }
@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Gri
             get { return _id; }
         }
 
-        public EntityName EntityName
+        public IEntityType EntityName
         {
             get { return _entityName; }
         }

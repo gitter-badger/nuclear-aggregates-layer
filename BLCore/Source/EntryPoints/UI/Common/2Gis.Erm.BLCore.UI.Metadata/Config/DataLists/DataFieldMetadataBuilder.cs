@@ -3,10 +3,11 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {
@@ -71,13 +72,13 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
             return this;
         }
 
-        public DataFieldMetadataBuilder ReferenceTo(string referencedPropertyName, EntityName entityName)
+        public DataFieldMetadataBuilder ReferenceTo(string referencedPropertyName, IEntityType entityName)
         {
             WithFeatures(new ReferenceDataFieldFeature(referencedPropertyName, entityName));
             return this;
         }
 
-        public DataFieldMetadataBuilder ReferenceTo<TContainer>(Expression<Func<TContainer, object>> referencedIdExpression, EntityName entityName)
+        public DataFieldMetadataBuilder ReferenceTo<TContainer>(Expression<Func<TContainer, object>> referencedIdExpression, IEntityType entityName)
         {
             return ReferenceTo(StaticReflection.GetMemberName(referencedIdExpression), entityName);
         }

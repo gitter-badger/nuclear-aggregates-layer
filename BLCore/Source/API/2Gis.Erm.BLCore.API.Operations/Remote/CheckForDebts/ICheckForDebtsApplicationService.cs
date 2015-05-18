@@ -3,7 +3,8 @@ using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.CheckForDebts;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.CheckForDebts
 {
@@ -12,6 +13,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.CheckForDebts
     {
         [OperationContract]
         [FaultContract(typeof(CheckForDebtsOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.CheckForDebts201303)]
-        CheckForDebtsResult Execute(EntityName entityName, IEnumerable<long> entityIds);
+        CheckForDebtsResult Execute(IEntityType entityName, IEnumerable<long> entityIds);
     }
 }

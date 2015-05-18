@@ -1,7 +1,8 @@
 using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Strategies;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.MsCRM;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
 {

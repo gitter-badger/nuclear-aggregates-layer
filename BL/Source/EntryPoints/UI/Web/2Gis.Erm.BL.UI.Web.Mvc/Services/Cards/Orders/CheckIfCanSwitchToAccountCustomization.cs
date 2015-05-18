@@ -6,9 +6,13 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Model.Common.Entities;
+
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
 {
@@ -42,13 +46,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders
                 return false;
             }
 
-            if (_userContext.Identity.SkipEntityAccessCheck)
+            var identitySecurityControlAspect = _userContext.Identity as IUserIdentitySecurityControl;
+            if (identitySecurityControlAspect != null && identitySecurityControlAspect.SkipEntityAccessCheck)
             {
                 return true;
             }
 
             return _entityAccessService.HasEntityAccess(EntityAccessTypes.Read,
-                                                        EntityName.Account,
+                                                        EntityType.Instance.Account(),
                                                         _userContext.Identity.Code,
                                                         accountInfo.AccountId.Value,
                                                         accountInfo.OwnerCode.Value,

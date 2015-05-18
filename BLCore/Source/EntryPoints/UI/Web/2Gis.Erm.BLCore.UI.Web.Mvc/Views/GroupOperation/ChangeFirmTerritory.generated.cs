@@ -28,29 +28,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 1 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/ChangeFirmTerritory.cshtml")]
-    public partial class ChangeFirmTerritory : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.ChangeTerritoryViewModel>
+    public partial class ChangeFirmTerritory : System.Web.Mvc.WebViewPage<ChangeTerritoryViewModel>
     {
         public ChangeFirmTerritory()
         {
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 3 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -72,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 7 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
             Write(BLResources.ChangeTerritory);
 
             
@@ -87,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 8 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
                   Write(BLResources.ChangeTerritory);
 
             
@@ -102,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 9 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -122,43 +122,43 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 541), Tuple.Create("\"", 589)
-, Tuple.Create(Tuple.Create("", 548), Tuple.Create("/Content/Progress.css?", 548), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 443), Tuple.Create("\"", 491)
+, Tuple.Create(Tuple.Create("", 450), Tuple.Create("/Content/Progress.css?", 450), true)
             
-            #line 14 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
-, Tuple.Create(Tuple.Create("", 570), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 13 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+, Tuple.Create(Tuple.Create("", 472), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 570), false)
+, 472), false)
 );
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 608), Tuple.Create("\"", 666)
-, Tuple.Create(Tuple.Create("", 614), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 614), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 510), Tuple.Create("\"", 568)
+, Tuple.Create(Tuple.Create("", 516), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 516), true)
             
-            #line 16 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
-, Tuple.Create(Tuple.Create("", 647), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 15 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+, Tuple.Create(Tuple.Create("", 549), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 647), false)
+, 549), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 713), Tuple.Create("\"", 779)
-, Tuple.Create(Tuple.Create("", 719), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 719), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 615), Tuple.Create("\"", 681)
+, Tuple.Create(Tuple.Create("", 621), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 621), true)
             
-            #line 17 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
-, Tuple.Create(Tuple.Create("", 760), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 16 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+, Tuple.Create(Tuple.Create("", 662), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 760), false)
+, 662), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -199,7 +199,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Firm\');\r\n\r\n    
 "ностей\r\n                OperationName: \'");
 
             
-            #line 80 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 79 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
                            Write(Model.OperationName);
 
             
@@ -221,13 +221,13 @@ WriteLiteral(@"', // тип операции - Qualify, Assign, ChangeTerritory
 ");
 
             
-            #line 93 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 92 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 93 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 92 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -262,7 +262,7 @@ WriteLiteral(" id=\"Notifications\"");
 WriteLiteral(">");
 
             
-            #line 103 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 102 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
                                                              Write(Model.Message);
 
             
@@ -286,7 +286,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 111 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 110 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
                    Write(BLResources.CrmTerritory);
 
             
@@ -301,7 +301,7 @@ WriteLiteral(">\r\n                        <label>\r\n");
 WriteLiteral("                            ");
 
             
-            #line 115 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 114 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
                        Write(BLResources.FirmTerritoryChangeLegend);
 
             
@@ -323,8 +323,8 @@ WriteLiteral(">\r\n                        <tbody>\r\n                          
 WriteLiteral("                                    ");
 
             
-            #line 121 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
-                               Write(Html.LookupFor(m => m.Territory, new LookupSettings { EntityName = EntityName.Territory, ExtendedInfo = "restrictToCurrentUser=true" }));
+            #line 120 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+                               Write(Html.LookupFor(m => m.Territory, new LookupSettings { EntityName = EntityType.Instance.Territory(), ExtendedInfo = "restrictToCurrentUser=true" }));
 
             
             #line default
@@ -344,8 +344,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 130 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
-               Write(Html.HiddenFor(m => m.EntityTypeName));
+            #line 129 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+               Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
@@ -369,7 +369,7 @@ WriteLiteral(">\r\n                        </div>\r\n                    </div>\
 "td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n");
 
             
-            #line 145 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
+            #line 144 "..\..\Views\GroupOperation\ChangeFirmTerritory.cshtml"
     }
 
             

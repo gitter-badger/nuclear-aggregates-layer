@@ -6,6 +6,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
     public static partial class CardMetadatas
@@ -23,15 +25,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Refresh<User>(),
                                 ToolbarElements.Additional(ToolbarElements.Users.Profile()),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.User)),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityType.Instance.User())),
                                           RelatedItems.RelatedItem
-                                                      .EntityGrid(EntityName.UserRole, () => ErmConfigLocalization.CrdRelUserRole)
+                                                      .EntityGrid(EntityType.Instance.UserRole(), () => ErmConfigLocalization.CrdRelUserRole)
                                                       .AppendapleEntity<Role>(),
                                           RelatedItems.RelatedItem
-                                                      .EntityGrid(EntityName.UserTerritory, () => ErmConfigLocalization.CrdRelUserTerritory)
+                                                      .EntityGrid(EntityType.Instance.UserTerritory(), () => ErmConfigLocalization.CrdRelUserTerritory)
                                                       .AppendapleEntity<Territory>(),
                                           RelatedItems.RelatedItem
-                                                      .EntityGrid(EntityName.UserOrganizationUnit, () => ErmConfigLocalization.CrdRelUserOrganizationUnit)
+                                                      .EntityGrid(EntityType.Instance.UserOrganizationUnit(), () => ErmConfigLocalization.CrdRelUserOrganizationUnit)
                                                       .AppendapleEntity<OrganizationUnit>());
     }
 }

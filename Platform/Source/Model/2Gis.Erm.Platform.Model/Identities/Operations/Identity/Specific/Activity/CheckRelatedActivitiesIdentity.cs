@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Activity
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Activity
 {
     public class CheckRelatedActivitiesIdentity : OperationIdentityBase<CheckRelatedActivitiesIdentity>, INonCoupledOperationIdentity
     {

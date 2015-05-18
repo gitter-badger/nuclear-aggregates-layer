@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLFlex.DI.Config
 {
@@ -56,12 +58,12 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 x => x.SourceOrganizationUnitName,
                 x => x.LegalPersonName);
 
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Account, x => x.AccountId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Client, x => x.ClientId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Deal, x => x.DealId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Firm, x => x.FirmId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.LegalPerson, x => x.LegalPersonId);
-            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityName.Bargain, x => x.BargainId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityType.Instance.Account(), x => x.AccountId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityType.Instance.Client(), x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityType.Instance.Deal(), x => x.DealId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityType.Instance.Firm(), x => x.FirmId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityType.Instance.LegalPerson(), x => x.LegalPersonId);
+            RelationalMetadata.RegisterRelatedFilter<MultiCultureListOrderDto>(EntityType.Instance.Bargain(), x => x.BargainId);
 
             var extendedInfoFilterMetadata = container.Resolve<IExtendedInfoFilterMetadata>();
 

@@ -4,10 +4,12 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -64,7 +66,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     CategoryOrganizationUnitIsDeleted = x.CategoryOrganizationUnit != null ? x.CategoryOrganizationUnit.IsDeleted : false,
                 });
 
-            if (querySettings.ParentEntityName == EntityName.Firm && querySettings.ParentEntityId.HasValue)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.Firm()) && querySettings.ParentEntityId.HasValue)
             {
                 long firmId = querySettings.ParentEntityId.Value;
                 data = data

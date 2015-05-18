@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-using DoubleGis.Erm.Platform.Model.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.API.Core.Exceptions
 {

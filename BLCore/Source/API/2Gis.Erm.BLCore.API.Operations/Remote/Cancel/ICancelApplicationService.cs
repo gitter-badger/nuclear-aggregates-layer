@@ -1,7 +1,8 @@
 ﻿using System.ServiceModel;
 
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Cancel
 {
@@ -10,6 +11,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Cancel
     {
         [OperationContract]
         [FaultContract(typeof(CancelOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.Cancel201502)]
-        void Execute(EntityName entityName, long entityId);
+        void Execute(IEntityType entityName, long entityId);
     }
 }

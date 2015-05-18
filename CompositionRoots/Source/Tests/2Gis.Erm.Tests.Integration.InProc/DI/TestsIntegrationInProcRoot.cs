@@ -24,9 +24,10 @@ using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
 using DoubleGis.Erm.Platform.Model.Metadata.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Zones;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Zones.Parts;
+
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 {
@@ -69,7 +70,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                             .UseAnchor<BlCoreApiOrderValidationAssembly>()
                                             .UseAnchor<BlCoreOrderValidationAssembly>()
                                       .RequireZone<MetadataZone>()
-                                            .UseAnchor<PlatformModelMetadataAssembly>()
                                             .UseAnchor<BlQueryingUIMetadataAssembly>()
                                             .UseAnchor<BLCore.UI.WPF.Client.DI.MetadataZonePartAssembly>()
                                             .UseAnchor<MetadataZonePartAssembly>()

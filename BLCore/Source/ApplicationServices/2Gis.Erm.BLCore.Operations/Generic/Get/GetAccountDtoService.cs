@@ -5,12 +5,15 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -77,8 +80,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             {
                 // Проверка: может ли текущий пользователь сменить текущего куратора.
                 // TODO {all}: Похоже на уг, нужно разобраться
-                dto.OwnerCanBeChanged = _userContext.Identity.SkipEntityAccessCheck || _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
-                                                                                                                            EntityName.Account,
+                // Проверка: может ли текущий пользователь сменить текущего куратора.
+                var securityControlAspect = _userContext.Identity as IUserIdentitySecurityControl;
+                dto.OwnerCanBeChanged = (securityControlAspect != null && securityControlAspect.SkipEntityAccessCheck) ||
+                                        _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
+                                                                             EntityType.Instance.Account(),
                                                                                                                             _userContext.Identity.Code,
                                                                                                                             dto.Id,
                                                                                                                             _userContext.Identity.Code,
@@ -88,7 +94,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override IDomainEntityDto<Account> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Account> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             if (parentEntityId == null)
             {
@@ -97,12 +103,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             var dto = new AccountDomainEntityDto();
 
-            switch (parentEntityName)
+            if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
             {
-                case EntityName.LegalPerson:
                     dto.LegalPersonRef = new EntityReference(parentEntityId.Value,
                                                              _finder.Find<LegalPerson>(x => x.Id == parentEntityId).Select(x => x.LegalName).SingleOrDefault());
-                    break;
             }
 
             return dto;

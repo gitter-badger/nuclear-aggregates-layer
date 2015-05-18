@@ -12,6 +12,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -74,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 {
                     if (orderPosition.BadPriceList)
                     {
-                        var orderPositionDescription = GenerateDescription(false, EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
+                        var orderPositionDescription = GenerateDescription(false, EntityType.Instance.OrderPosition(), orderPosition.PositionName, orderPosition.Id);
                         var messageType = orderInfo.WorkflowStepId == OrderState.Approved ? MessageType.Warning : MessageType.Error;
                         results.Add(new OrderValidationMessage
                         {
@@ -88,7 +90,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                     if (!orderPosition.BadPriceList && orderPosition.PricePositionIsNotActive)
                     {
-                        var orderPositionDescription = GenerateDescription(false, EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
+                        var orderPositionDescription = GenerateDescription(false, EntityType.Instance.OrderPosition(), orderPosition.PositionName, orderPosition.Id);
                         results.Add(new OrderValidationMessage
                         {
                             Type = MessageType.Error,

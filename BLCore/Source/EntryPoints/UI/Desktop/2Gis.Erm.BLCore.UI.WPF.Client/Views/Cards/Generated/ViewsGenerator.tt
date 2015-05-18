@@ -92,7 +92,7 @@ private void Process(string viewsNamespace, Manager manager)
 		
 		var entityProperties = entityMetadata.Elements<EntityPropertyMetadata>();
 
-        var metadataId = IdBuilder.For<MetadataCardsIdentity>(entityName.ToString());
+        var metadataId = IdBuilder.For<MetadataCardsIdentity>(EntityType.Instance.ToString());
 		CardMetadata cardMetadata;
         if (!metadataProvider.TryGetMetadata<CardMetadata>(metadataId, out cardMetadata))
         {	// FIXME {all, 17.04.2014}: кода появятся метаданные для всех карточек, нужно будет обработку вести от карточек (или даже документов), а не от сущностей

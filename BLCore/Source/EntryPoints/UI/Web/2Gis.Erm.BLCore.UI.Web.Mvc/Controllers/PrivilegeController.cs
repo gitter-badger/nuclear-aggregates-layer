@@ -14,13 +14,14 @@ using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -54,13 +55,20 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
             var permissions = _roleRepository.GetEntityPrivileges(roleId);
 
             // long PrivilegeId парсятся в js с потерей точности, заменяем их на строки.
-            var jsonPermissions = permissions.Select(
-                    x =>
-                    new
+            var jsonPermissions = permissions
+                .Select(x => new
                         {
-                            x.EntityName,
+                        x.EntityName.Description,
                             x.EntityNameLocalized,
-                            PrivilegeInfoList = x.PrivilegeInfoList.Select(y => new { y.NameLocalized, y.Operation, y.PrivilegeDepthMask, PrivilegeId = y.PrivilegeId.ToString() }).ToArray()
+                        PrivilegeInfoList = x.PrivilegeInfoList
+                                             .Select(y => new
+                                                 {
+                                                     y.NameLocalized,
+                                                     y.Operation,
+                                                     y.PrivilegeDepthMask,
+                                                     PrivilegeId = y.PrivilegeId.ToString()
+                                                 })
+                                             .ToArray()
                         });
 
             return new JsonNetResult(new { Data = jsonPermissions });
@@ -81,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         }
 
         [HttpPost]
-        public JsonNetResult SaveEntityPrivileges(long roleId, EntityName entityName, string data)
+        public JsonNetResult SaveEntityPrivileges(long roleId, IEntityType entityName, string data)
         {
             var entityPrivileges = JsonConvert.DeserializeObject<PrivilegeDto[]>(data);
 

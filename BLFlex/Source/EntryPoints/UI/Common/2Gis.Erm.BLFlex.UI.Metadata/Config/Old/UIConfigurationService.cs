@@ -12,7 +12,8 @@ using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Model;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 {
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
         private const string NavigationSettingsResourceEntryFormat = "NavigationSettings.{0}.xml";
 
         private static readonly Dictionary<BusinessModel, List<NavigationElementStructure>> NavigationSettings = ParseNavigationSettings();
-        private static readonly Dictionary<BusinessModel, Dictionary<EntityName, EntityDataListsContainer>> GridSettings = ParseGridSettings();
+        private static readonly Dictionary<BusinessModel, Dictionary<IEntityType, EntityDataListsContainer>> GridSettings = ParseGridSettings();
 
         private readonly IGlobalizationSettings _globalizationSettings;
 
@@ -94,9 +95,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
 
         #region DataList
 
-        public EntityDataListsContainer GetGridSettings(BusinessModel adaptation, EntityName entityName)
+        public EntityDataListsContainer GetGridSettings(BusinessModel adaptation, IEntityType entityName)
         {
-            Dictionary<EntityName, EntityDataListsContainer> container;
+            Dictionary<IEntityType, EntityDataListsContainer> container;
             if (!GridSettings.TryGetValue(adaptation, out container))
             {
                 throw new ArgumentException("Cannot find metadata for adaptation " + adaptation);
@@ -111,9 +112,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return entityViewSet;
         }
 
-        private static Dictionary<BusinessModel, Dictionary<EntityName, EntityDataListsContainer>> ParseGridSettings()
+        private static Dictionary<BusinessModel, Dictionary<IEntityType, EntityDataListsContainer>> ParseGridSettings()
         {
-            var result = new Dictionary<BusinessModel, Dictionary<EntityName, EntityDataListsContainer>>();
+            var result = new Dictionary<BusinessModel, Dictionary<IEntityType, EntityDataListsContainer>>();
 
             foreach (BusinessModel val in Enum.GetValues(typeof(BusinessModel)))
             {
@@ -126,16 +127,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return result;
         }
 
-        private static Dictionary<EntityName, EntityDataListsContainer> ParseGridSettings(XContainer container)
+        private static Dictionary<IEntityType, EntityDataListsContainer> ParseGridSettings(XContainer container)
         {
-            var dictionary = new Dictionary<EntityName, EntityDataListsContainer>();
+            var dictionary = new Dictionary<IEntityType, EntityDataListsContainer>();
 
             foreach (var entityEl in container.Elements("Entity"))
             {
                 var entityNameNonParsed = (string)entityEl.Attribute("Name");
 
-                EntityName entityName;
-                if (!Enum.TryParse(entityNameNonParsed, out entityName))
+                IEntityType entityName;
+                if (!EntityType.Instance.TryParse(entityNameNonParsed, out entityName))
                 {
                     throw new ArgumentException("Unrecognized entity type");
                 }
@@ -147,9 +148,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return dictionary;
         }
 
-        private static EntityDataListsContainer ParseEntityViewSet(XElement entityEl, EntityName entityName)
+        private static EntityDataListsContainer ParseEntityViewSet(XElement entityEl, IEntityType entityName)
         {
-            var entityViewSet = new EntityDataListsContainer { EntityName = entityName.ToString() };
+            var entityViewSet = new EntityDataListsContainer { EntityName = entityName.Description };
 
             var dataListsEl = entityEl.Element("DataLists");
             if (dataListsEl == null)
@@ -168,7 +169,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return entityViewSet;
         }
 
-        private static IEnumerable<DataListStructure> ParseDataViews(XContainer dataListsEl, EntityName entityName)
+        private static IEnumerable<DataListStructure> ParseDataViews(XContainer dataListsEl, IEntityType entityName)
         {
             var dataViews = new List<DataListStructure>();
             var dataLists = dataListsEl.Elements("DataList").ToList();
@@ -244,7 +245,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 }
                 else
                 {
-                    dataView = new DataListStructure { Name = entityName.ToString() };
+                    dataView = new DataListStructure { Name = entityName.Description };
                 }
 
                 // Далее получается, что в случае унаследованного дата листа перекрываем 
@@ -305,7 +306,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             {
                 return 1;
             }
-
+                
             if (basedOnAtt2.Value == dataListElement1.Attribute("NameLocaleResourceId").Value)
             {
                 return -1;
@@ -524,7 +525,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             return localizedNavigationSettings;
         }
 
-        public EntityDataListsContainer GetGridSettings(EntityName entityName, CultureInfo culture)
+        public EntityDataListsContainer GetGridSettings(IEntityType entityName, CultureInfo culture)
         {
             var gridSettings = GetGridSettings(_globalizationSettings.BusinessModel, entityName);
 
@@ -601,8 +602,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
                 return null;
             }
 
-            return ErmConfigLocalization.ResourceManager.GetString(resourceId, culture)
-                ?? MetadataResources.ResourceManager.GetString(resourceId, culture)
+            return ErmConfigLocalization.ResourceManager.GetString(resourceId, culture) 
+                ?? MetadataResources.ResourceManager.GetString(resourceId, culture) 
                 ?? resourceId;
         }
 
@@ -704,9 +705,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata.Config.Old
             if (targetResource == null)
             {
                 throw new InvalidOperationException(
-                    string.Format("Can't find in assembly {0} resource entry, which ends with substring {1}. Fallback resource {2} not found",
-                    targetAssembly.FullName,
-                    resourceEntryName,
+                    string.Format("Can't find in assembly {0} resource entry, which ends with substring {1}. Fallback resource {2} not found", 
+                    targetAssembly.FullName, 
+                    resourceEntryName, 
                     fallbackResourceEntryName));
             }
 

@@ -8,10 +8,13 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BL.Operations.Generic.Append
 {
@@ -48,7 +51,7 @@ namespace DoubleGis.Erm.BL.Operations.Generic.Append
                 throw new ParentOrChildIdsNotSpecifiedException(Resources.Server.Properties.Resources.ParentOrChildIdsNotSpecified);
             }
 
-            if (appendParams.ParentType != EntityName.Client || appendParams.AppendedType != EntityName.Client)
+            if (!appendParams.ParentType.Equals(EntityType.Instance.Client()) || !appendParams.AppendedType.Equals(EntityType.Instance.Client()))
             {
                 throw new InvalidEntityTypesForLinkingException(Resources.Server.Properties.Resources.InvalidEntityTypesForLinking);
             }
@@ -64,7 +67,7 @@ namespace DoubleGis.Erm.BL.Operations.Generic.Append
                 var childClient = _clientReadModel.GetClient(clientLink.ChildClientId);
                 if (
                     !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                  EntityName.Client,
+                                                                  EntityType.Instance.Client(),
                                                                   _userContext.Identity.Code,
                                                                   clientLink.ChildClientId,
                                                                   childClient.OwnerCode,

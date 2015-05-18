@@ -9,10 +9,11 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -42,8 +43,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
         [HttpGet]
         public ActionResult ChangeBindingObjects(long positionId)
         {
-            var service = _operationServicesManager.GetDomainEntityDtoService(EntityName.OrderPosition);
-            var domainEntityDto = service.GetDomainEntityDto(positionId, true, null, EntityName.None, null);
+            var service = _operationServicesManager.GetDomainEntityDtoService(EntityType.Instance.OrderPosition());
+            var domainEntityDto = service.GetDomainEntityDto(positionId, true, null, EntityType.Instance.None(), null);
 
             // TODO {all, 05.05.2014}: Поменять модель и перенести в BL
             var model = new OrderPositionViewModel();
