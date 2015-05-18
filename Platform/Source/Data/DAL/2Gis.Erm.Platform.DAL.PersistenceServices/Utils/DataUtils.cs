@@ -67,15 +67,23 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils
         private static TValue Column<TValue>(this DataRow dataRow, ColumnDescriptor columnDescriptor)
         {
             var targetType = typeof(TValue);
-            object rawValue = null;
+            string rawValue = null;
 
             try
             {
-                rawValue = dataRow[columnDescriptor.Index];
+                rawValue = dataRow[columnDescriptor.Index].ToString();
 
-                return targetType.IsEnum
-                    ? (TValue)Enum.Parse(targetType, rawValue.ToString())
-                    : (TValue)Convert.ChangeType(rawValue.ToString(), targetType);
+                if (targetType == typeof(IEntityType))
+                {
+                    return (TValue)EntityType.Instance.Parse(int.Parse(rawValue));
+                }
+
+                if (targetType.IsEnum)
+                {
+                    return (TValue)Enum.Parse(targetType, rawValue);
+                }
+
+                return (TValue)Convert.ChangeType(rawValue, targetType);
             }
             catch (Exception ex)
             {

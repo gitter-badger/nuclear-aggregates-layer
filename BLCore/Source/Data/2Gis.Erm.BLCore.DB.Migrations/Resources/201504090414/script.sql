@@ -1,4 +1,5 @@
-﻿declare @RussiaTimeZone1_Id uniqueidentifier = '78465910-6B41-4510-B20D-CC48792811F3'
+﻿set dateformat mdy
+declare @RussiaTimeZone1_Id uniqueidentifier = '78465910-6B41-4510-B20D-CC48792811F3'
 declare @RussiaTimeZone1_UserInterfaceName nvarchar(100) = '(GMT+02:00) Калининград (RTZ 1)'
 declare @RussiaTimeZone1_StandardName nvarchar(100) = 'Kaliningrad Standard Time'
 declare @RussiaTimeZone1_TimeZoneCode int = 1001
