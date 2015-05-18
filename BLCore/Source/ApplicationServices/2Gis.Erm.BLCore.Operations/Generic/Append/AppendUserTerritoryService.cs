@@ -7,6 +7,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
 {
     public class AppendUserTerritoryService : IAppendGenericEntityService<Territory, User>
@@ -25,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
                 throw new ArgumentException(BLResources.UserIdOtTerritoryIdIsNotSpecified);
             }
 
-            if (appendParams.ParentType != EntityName.User || appendParams.AppendedType != EntityName.Territory)
+            if (!appendParams.ParentType.Equals(EntityType.Instance.User()) || !appendParams.AppendedType.Equals(EntityType.Instance.Territory()))
             {
                 throw new ArgumentException(BLResources.EntityNamesShouldBeUserAndTerritory);
             }

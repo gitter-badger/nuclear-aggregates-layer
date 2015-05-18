@@ -7,12 +7,14 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Security.API.UserContext;
-using NuClear.Security.API.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -64,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     ScheduledOn = letter.ScheduledOn,
                     Priority = letter.Priority,
                     Status = letter.Status,
-                    RegardingObjects = GetRegardingObjects(EntityName.Letter, entityId),
+                    RegardingObjects = GetRegardingObjects(EntityType.Instance.Letter(), entityId),
                     SenderRef = sender != null ? EmbedEntityNameIfNeeded(sender.ToEntityReference<Letter>()) : null,
                     RecipientRef = recipient != null ? EmbedEntityNameIfNeeded(recipient.ToEntityReference<Letter>()) : null,
 
@@ -79,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 };
         }
 
-        protected override IDomainEntityDto<Letter> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Letter> CreateDto(long? parentEntityId, IEntityType parentEntityType, string extendedInfo)
         {
             var userInfo = UserContext.Identity as IUserInfo ?? UserInfo.Empty;
             return new LetterDomainEntityDto
@@ -87,10 +89,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                            ScheduledOn = DateTime.Now,
                            Priority = ActivityPriority.Average,
                            Status = ActivityStatus.InProgress,
-                           SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityName = EntityName.User },
+                           SenderRef = new EntityReference(userInfo.Code, userInfo.DisplayName) { EntityTypeId = EntityType.Instance.User().Id },
 
-                           RegardingObjects = GetRegardingObjects(parentEntityName, parentEntityId),
-                           RecipientRef = GetAttandees(parentEntityName, parentEntityId).FirstOrDefault(),
+                           RegardingObjects = GetRegardingObjects(parentEntityType, parentEntityId),
+                           RecipientRef = GetAttandees(parentEntityType, parentEntityId).FirstOrDefault(),
                        };
         }
         
@@ -98,29 +100,40 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             if (reference.Id != null && reference.Name == null)
             {
-                reference.Name = ReadEntityName(reference.EntityName, reference.Id.Value);
+                reference.Name = ReadEntityName(reference.EntityTypeId, reference.Id.Value);
             }
 
             return reference;
         }
 
-        private string ReadEntityName(EntityName entityName, long entityId)
+        private string ReadEntityName(int entityTypeId, long entityId)
         {
-            switch (entityName)
+            if (entityTypeId == EntityType.Instance.Client().Id)
             {
-                case EntityName.Client:
-                    return _clientReadModel.GetClientName(entityId);
-                case EntityName.Contact:
-                    return _clientReadModel.GetContactName(entityId);
-                case EntityName.Deal:
-                    return _dealReadModel.GetDeal(entityId).Name;
-                case EntityName.Firm:
-                    return _firmReadModel.GetFirmName(entityId);
-                case EntityName.User:
-                    return (_userIdentifier.GetUserInfo(entityId) ?? UserInfo.Empty).DisplayName;                    
-                default:
-                    throw new ArgumentOutOfRangeException("entityName");
+                return _clientReadModel.GetClientName(entityId);
             }
+
+            if (entityTypeId == EntityType.Instance.Contact().Id)
+            {
+                return _clientReadModel.GetContactName(entityId);
+            }
+
+            if (entityTypeId == EntityType.Instance.Deal().Id)
+            {
+                return _dealReadModel.GetDeal(entityId).Name;
+            }
+
+            if (entityTypeId == EntityType.Instance.Firm().Id)
+            {
+                return _firmReadModel.GetFirmName(entityId);
+            }
+
+            if (entityTypeId == EntityType.Instance.User().Id)
+            {
+                return (_userIdentifier.GetUserInfo(entityId) ?? UserInfo.Empty).DisplayName;
+            }
+
+            throw new ArgumentOutOfRangeException("entityTypeId");           
         }
     }
 }

@@ -4,6 +4,8 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
     public static partial class CardMetadatas
@@ -13,6 +15,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .WithDefaultIcon()
                         .CommonCardToolbar()
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.AssociatedPosition, () => ErmConfigLocalization.CrdRelAssociatedPosition));
+                                          RelatedItems.RelatedItem.EntityGrid(EntityType.Instance.AssociatedPosition(), () => ErmConfigLocalization.CrdRelAssociatedPosition));
     }
 }

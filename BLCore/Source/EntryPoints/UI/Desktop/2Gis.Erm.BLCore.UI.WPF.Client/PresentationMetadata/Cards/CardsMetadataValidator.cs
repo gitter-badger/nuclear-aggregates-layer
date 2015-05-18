@@ -3,13 +3,14 @@ using System.Linq;
 using System.Text;
 
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features;
+
+using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.Validators;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
 {
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards
             foreach (var cardStructure in targetMetadata.Metadata.Values.Cast<CardMetadata>().Where(cs => cs.Uses<DynamicPropertiesFeature>()))
             {
                 IMetadataElement propertiesContainer;
-                var entityMetadataId = IdBuilder.For<MetadataEntitiesIdentity>(cardStructure.Entity.ToString());
+                var entityMetadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataEntitiesIdentity>(cardStructure.Entity.Description);
                 if (!entitiesMetadata.Metadata.TryGetValue(entityMetadataId, out propertiesContainer) 
                     || !propertiesContainer.Elements<EntityPropertyMetadata>().Any())
                 {

@@ -6,10 +6,10 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Append;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Append;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+using NuClear.ResourceUtilities;
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
@@ -30,14 +30,14 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public void Execute(string specifiedEntityName, string specifiedEntityId, string specifiedAppendedEntityName, string specifiedAppendedEntityId)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
             var entityId = 0L;
-            var appenedEntityName = EntityName.None;
+            IEntityType appenedEntityName = EntityType.Instance.None();
             var appenedEntityId = 0L;
 
             try
             {
-                if (!Enum.TryParse(specifiedEntityName, out entityName))
+                if (!EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
                     throw new ArgumentException("Entity Id cannot be parsed");
                 }
 
-                if (!Enum.TryParse(specifiedAppendedEntityName, out appenedEntityName))
+                if (!EntityType.Instance.TryParse(specifiedAppendedEntityName, out appenedEntityName))
                 {
                     throw new ArgumentException("Appended Entity Name cannot be parsed");
                 }
@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        public void Execute(EntityName entityName, long entityId, EntityName appendedEntityName, long appendedEntityId)
+        public void Execute(IEntityType entityName, long entityId, IEntityType appendedEntityName, long appendedEntityId)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        private void ExecuteInternal(EntityName entityName, long entityId, EntityName appendedEntityName, long appendedEntityId)
+        private void ExecuteInternal(IEntityType entityName, long entityId, IEntityType appendedEntityName, long appendedEntityId)
         {
             var actionsHistoryService = _operationServicesManager.GetAppendEntityService(entityName, appendedEntityName);
             actionsHistoryService.Append(new AppendParams

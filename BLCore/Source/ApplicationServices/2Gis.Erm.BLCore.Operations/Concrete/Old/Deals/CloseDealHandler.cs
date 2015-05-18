@@ -1,6 +1,5 @@
 ﻿using System.Transactions;
 
-using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Deals;
@@ -13,7 +12,10 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL.Transactions;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Deals
 {
@@ -59,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Deals
             }
 
             // error if deal have open activities
-            if (_activityReadService.CheckIfOpenActivityExistsRegarding(Platform.Model.Entities.EntityName.Deal, deal.Id))
+            if (_activityReadService.CheckIfOpenActivityExistsRegarding(EntityType.Instance.Deal(), deal.Id))
             {
                 throw new NotificationException(BLResources.NeedToCloseAllActivities);
             }
@@ -71,8 +73,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Deals
 
             // validate security
             if (
-                !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update, Platform.Model.Entities.EntityName.Deal,
-                                                              _userContext.Identity.Code, deal.Id, deal.OwnerCode, null))
+                !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
+                                                              EntityType.Instance.Deal(),
+                                                              _userContext.Identity.Code,
+                                                              deal.Id,
+                                                              deal.OwnerCode,
+                                                              null))
             {
                 throw new NotificationException(BLResources.YouHasNoEntityAccessPrivilege);
             }

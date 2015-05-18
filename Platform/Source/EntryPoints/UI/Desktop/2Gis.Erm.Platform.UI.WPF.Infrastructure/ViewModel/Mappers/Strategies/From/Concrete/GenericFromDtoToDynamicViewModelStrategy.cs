@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Reflection;
 
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Platform.UI.WPF.Infrastructure.CustomTypeProvider;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 using Omu.ValueInjecter;
 

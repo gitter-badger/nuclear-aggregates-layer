@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements
             var firmOwnerCode = _firmReadModel.GetFirmOwnerCodeUnsecure(firmId);
 
             viewModel.ViewConfig.ReadOnly |= !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                           EntityName.Firm,
+                                                                                           EntityType.Instance.Firm(),
                                                                                            _userContext.Identity.Code,
                                                                                            firmId,
                                                                                            firmOwnerCode,

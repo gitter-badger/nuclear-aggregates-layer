@@ -28,6 +28,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Report
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
+    
+    #line 1 "..\..\Views\Report\Edit.cshtml"
+    using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Report;
+    
+    #line default
+    #line hidden
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
@@ -39,12 +45,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Report
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
-    #line 1 "..\..\Views\Report\Edit.cshtml"
-    using Models.Report;
-    
-    #line default
-    #line hidden
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Report/Edit.cshtml")]
     public partial class Edit : System.Web.Mvc.WebViewPage<ReportModel>
@@ -54,10 +54,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Report
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
             
-            #line 5 "..\..\Views\Report\Edit.cshtml"
+            #line 4 "..\..\Views\Report\Edit.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -71,7 +69,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\Report\Edit.cshtml"
+            #line 8 "..\..\Views\Report\Edit.cshtml"
             Write(Model.DisplayName);
 
             
@@ -86,7 +84,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\Report\Edit.cshtml"
+            #line 9 "..\..\Views\Report\Edit.cshtml"
                   Write(Model.DisplayName);
 
             
@@ -100,15 +98,15 @@ DefineSection("PageScript", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 222), Tuple.Create("\"", 283)
-, Tuple.Create(Tuple.Create("", 228), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Report.js?", 228), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 248), Tuple.Create("\"", 309)
+, Tuple.Create(Tuple.Create("", 254), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Report.js?", 254), true)
             
-            #line 13 "..\..\Views\Report\Edit.cshtml"
-, Tuple.Create(Tuple.Create("", 264), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 12 "..\..\Views\Report\Edit.cshtml"
+, Tuple.Create(Tuple.Create("", 290), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 264), false)
+, 290), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -128,13 +126,13 @@ WriteLiteral(" class=\"Tab\"");
 WriteLiteral(">\r\n");
 
             
-            #line 21 "..\..\Views\Report\Edit.cshtml"
+            #line 20 "..\..\Views\Report\Edit.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\Report\Edit.cshtml"
+            #line 20 "..\..\Views\Report\Edit.cshtml"
          using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" }, { "autocomplete", "off" }, { "target", "_blank" } }))
         {
             
@@ -142,13 +140,27 @@ WriteLiteral(">\r\n");
             #line default
             #line hidden
             
-            #line 23 "..\..\Views\Report\Edit.cshtml"
+            #line 22 "..\..\Views\Report\Edit.cshtml"
        Write(Html.HiddenFor(model => model.ReportName));
 
             
             #line default
             #line hidden
             
+            #line 22 "..\..\Views\Report\Edit.cshtml"
+                                                      
+            
+            
+            #line default
+            #line hidden
+            
+            #line 23 "..\..\Views\Report\Edit.cshtml"
+       Write(Html.HiddenFor(model => model.ReportType));
+
+            
+            #line default
+            #line hidden
+            
             #line 23 "..\..\Views\Report\Edit.cshtml"
                                                       
             
@@ -157,69 +169,55 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 24 "..\..\Views\Report\Edit.cshtml"
-       Write(Html.HiddenFor(model => model.ReportType));
-
-            
-            #line default
-            #line hidden
-            
-            #line 24 "..\..\Views\Report\Edit.cshtml"
-                                                      
-            
-            
-            #line default
-            #line hidden
-            
-            #line 25 "..\..\Views\Report\Edit.cshtml"
        Write(Html.HiddenFor(model => model.Format));
 
             
             #line default
             #line hidden
             
-            #line 25 "..\..\Views\Report\Edit.cshtml"
+            #line 24 "..\..\Views\Report\Edit.cshtml"
                                                   
             
             
             #line default
             #line hidden
             
-            #line 26 "..\..\Views\Report\Edit.cshtml"
+            #line 25 "..\..\Views\Report\Edit.cshtml"
        Write(Html.HiddenFor(model => model.HiddenField));
 
             
             #line default
             #line hidden
             
-            #line 26 "..\..\Views\Report\Edit.cshtml"
+            #line 25 "..\..\Views\Report\Edit.cshtml"
                                                        
             
             
             #line default
             #line hidden
             
-            #line 27 "..\..\Views\Report\Edit.cshtml"
+            #line 26 "..\..\Views\Report\Edit.cshtml"
        Write(Html.HiddenFor(model => model.ReportServerFormatParameter));
 
             
             #line default
             #line hidden
             
-            #line 27 "..\..\Views\Report\Edit.cshtml"
+            #line 26 "..\..\Views\Report\Edit.cshtml"
                                                                        
             
             
             #line default
             #line hidden
             
-            #line 28 "..\..\Views\Report\Edit.cshtml"
+            #line 27 "..\..\Views\Report\Edit.cshtml"
        Write(Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList));
 
             
             #line default
             #line hidden
             
-            #line 28 "..\..\Views\Report\Edit.cshtml"
+            #line 27 "..\..\Views\Report\Edit.cshtml"
                                                                                       
 
 
@@ -239,7 +237,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 31 "..\..\Views\Report\Edit.cshtml"
+            #line 30 "..\..\Views\Report\Edit.cshtml"
            Write(Model.Message);
 
             
@@ -248,7 +246,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n");
 
             
-            #line 33 "..\..\Views\Report\Edit.cshtml"
+            #line 32 "..\..\Views\Report\Edit.cshtml"
             
             foreach (var field in Model.Fields ?? new ReportModel.ReportFieldDefinition[0])
             {
@@ -265,7 +263,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 37 "..\..\Views\Report\Edit.cshtml"
+            #line 36 "..\..\Views\Report\Edit.cshtml"
                Write(Html.TemplateGenericField(field.GetExpression, field.Config));
 
             
@@ -274,7 +272,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </div>\r\n");
 
             
-            #line 39 "..\..\Views\Report\Edit.cshtml"
+            #line 38 "..\..\Views\Report\Edit.cshtml"
             }
         }
 
@@ -299,14 +297,14 @@ WriteLiteral(" id=\"Preview\"");
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 1521), Tuple.Create("\"", 1556)
+WriteAttribute("value", Tuple.Create(" value=\"", 1547), Tuple.Create("\"", 1582)
             
-            #line 46 "..\..\Views\Report\Edit.cshtml"
-   , Tuple.Create(Tuple.Create("", 1529), Tuple.Create<System.Object, System.Int32>(BLResources.GenerateReport
+            #line 45 "..\..\Views\Report\Edit.cshtml"
+   , Tuple.Create(Tuple.Create("", 1555), Tuple.Create<System.Object, System.Int32>(BLResources.GenerateReport
             
             #line default
             #line hidden
-, 1529), false)
+, 1555), false)
 );
 
 WriteLiteral(" />\r\n    <input");
@@ -319,14 +317,14 @@ WriteLiteral(" id=\"Download\"");
 
 WriteLiteral(" style=\"width: auto\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 1638), Tuple.Create("\"", 1673)
+WriteAttribute("value", Tuple.Create(" value=\"", 1664), Tuple.Create("\"", 1699)
             
-            #line 47 "..\..\Views\Report\Edit.cshtml"
-    , Tuple.Create(Tuple.Create("", 1646), Tuple.Create<System.Object, System.Int32>(BLResources.DownloadReport
+            #line 46 "..\..\Views\Report\Edit.cshtml"
+    , Tuple.Create(Tuple.Create("", 1672), Tuple.Create<System.Object, System.Int32>(BLResources.DownloadReport
             
             #line default
             #line hidden
-, 1646), false)
+, 1672), false)
 );
 
 WriteLiteral(" />\r\n");

@@ -28,29 +28,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 1 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/ChangeDealClient.cshtml")]
-    public partial class ChangeDealClient : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.ChangeClientViewModel>
+    public partial class ChangeDealClient : System.Web.Mvc.WebViewPage<ChangeClientViewModel>
     {
         public ChangeDealClient()
         {
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+            #line 3 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -72,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+            #line 7 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
             Write(BLResources.ChangeClient);
 
             
@@ -87,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+            #line 8 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
                   Write(BLResources.ChangeClient);
 
             
@@ -102,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+            #line 9 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -122,43 +122,43 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 532), Tuple.Create("\"", 580)
-, Tuple.Create(Tuple.Create("", 539), Tuple.Create("/Content/Progress.css?", 539), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 434), Tuple.Create("\"", 482)
+, Tuple.Create(Tuple.Create("", 441), Tuple.Create("/Content/Progress.css?", 441), true)
             
-            #line 14 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
-, Tuple.Create(Tuple.Create("", 561), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 13 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+, Tuple.Create(Tuple.Create("", 463), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 561), false)
+, 463), false)
 );
 
 WriteLiteral(" />\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 603), Tuple.Create("\"", 661)
-, Tuple.Create(Tuple.Create("", 609), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 609), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 505), Tuple.Create("\"", 563)
+, Tuple.Create(Tuple.Create("", 511), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 511), true)
             
-            #line 16 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
-, Tuple.Create(Tuple.Create("", 642), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 15 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+, Tuple.Create(Tuple.Create("", 544), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 642), false)
+, 544), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 708), Tuple.Create("\"", 774)
-, Tuple.Create(Tuple.Create("", 714), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 714), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 610), Tuple.Create("\"", 676)
+, Tuple.Create(Tuple.Create("", 616), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 616), true)
             
-            #line 17 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
-, Tuple.Create(Tuple.Create("", 755), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 16 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+, Tuple.Create(Tuple.Create("", 657), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 755), false)
+, 657), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -203,7 +203,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Deal\');\r\n\r\n    
 "tionName: \'");
 
             
-            #line 85 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+            #line 84 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
                            Write(Model.OperationName);
 
             
@@ -227,13 +227,13 @@ WriteLiteral(@"',
 ");
 
             
-            #line 100 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+            #line 99 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 100 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+            #line 99 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -268,7 +268,7 @@ WriteLiteral(" id=\"Notifications\"");
 WriteLiteral(">");
 
             
-            #line 110 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+            #line 109 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
                                                              Write(Model.Message);
 
             
@@ -278,7 +278,7 @@ WriteLiteral("</div>\r\n                </td>\r\n            </tr>\r\n          
 "   <td>");
 
             
-            #line 114 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+            #line 113 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
                Write(Html.LabelFor(m => m.Client));
 
             
@@ -300,8 +300,8 @@ WriteLiteral(">\r\n                        <tbody>\r\n                          
 WriteLiteral("                                    ");
 
             
-            #line 120 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
-                               Write(Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ForReserve=false" }));
+            #line 119 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+                               Write(Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "ForReserve=false" }));
 
             
             #line default
@@ -329,8 +329,8 @@ WriteLiteral(">\r\n                        </div>\r\n                    </div>\
 WriteLiteral("                    ");
 
             
-            #line 133 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
-               Write(Html.HiddenFor(m => m.EntityTypeName));
+            #line 132 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+               Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
@@ -338,7 +338,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n");
 
             
-            #line 138 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
+            #line 137 "..\..\Views\GroupOperation\ChangeDealClient.cshtml"
     }
 
             

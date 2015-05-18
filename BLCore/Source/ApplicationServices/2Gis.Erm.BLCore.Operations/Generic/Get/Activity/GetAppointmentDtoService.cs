@@ -7,7 +7,9 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 using NuClear.Security.API.UserContext;
 
@@ -50,8 +52,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Priority = appointment.Priority,
                     Purpose = appointment.Purpose,
                     Status = appointment.Status,
-                    RegardingObjects = GetRegardingObjects(EntityName.Appointment, entityId),
-                    Attendees = GetAttandees(EntityName.Appointment, entityId),
+                    RegardingObjects = GetRegardingObjects(EntityType.Instance.Appointment(), entityId),
+                    Attendees = GetAttandees(EntityType.Instance.Appointment(), entityId),
                     OwnerRef = new EntityReference { Id = appointment.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = appointment.CreatedBy, Name = null },
                     CreatedOn = appointment.CreatedOn,
@@ -63,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 };
         }
 
-        protected override IDomainEntityDto<Appointment> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Appointment> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var now = DateTime.Now;
             

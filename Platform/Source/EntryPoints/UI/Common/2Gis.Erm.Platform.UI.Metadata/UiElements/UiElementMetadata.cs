@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Name;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Handler;
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Images;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Name;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements
 {

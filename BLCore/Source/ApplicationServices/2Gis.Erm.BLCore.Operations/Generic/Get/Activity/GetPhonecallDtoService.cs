@@ -9,8 +9,9 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 
 // ReSharper disable once CheckNamespace
@@ -59,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Priority = phonecall.Priority,
                     Purpose = phonecall.Purpose,
                     Status = phonecall.Status,
-                    RegardingObjects = GetRegardingObjects(EntityName.Phonecall, entityId),
+                    RegardingObjects = GetRegardingObjects(EntityType.Instance.Phonecall(), entityId),
                     RecipientRef = recipient != null ? EmbedEntityNameIfNeeded(recipient.ToEntityReference<Phonecall>()) : null,
                     OwnerRef = new EntityReference { Id = phonecall.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = phonecall.CreatedBy, Name = null },
@@ -72,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 };
         }
 
-        protected override IDomainEntityDto<Phonecall> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Phonecall> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             return new PhonecallDomainEntityDto
                        {
@@ -89,27 +90,35 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             if (reference.Id != null && reference.Name == null)
             {
-                reference.Name = ReadEntityName(reference.EntityName, reference.Id.Value);
+                reference.Name = ReadEntityName(reference.EntityTypeId, reference.Id.Value);
             }
 
             return reference;
         }
 
-        private string ReadEntityName(EntityName entityName, long entityId)
+        private string ReadEntityName(long entityTypeId, long entityId)
         {
-            switch (entityName)
+            if (entityTypeId == EntityType.Instance.Client().Id)
             {
-                case EntityName.Client:
-                    return _clientReadModel.GetClientName(entityId);
-                case EntityName.Contact:
-                    return _clientReadModel.GetContactName(entityId);
-                case EntityName.Deal:
-                    return _dealReadModel.GetDeal(entityId).Name;
-                case EntityName.Firm:
-                    return _firmReadModel.GetFirmName(entityId);
-                default:
-                    throw new ArgumentOutOfRangeException("entityName");
+                return _clientReadModel.GetClientName(entityId);
             }
+
+            if (entityTypeId == EntityType.Instance.Contact().Id)
+            {
+                return _clientReadModel.GetContactName(entityId);
+            }
+
+            if (entityTypeId == EntityType.Instance.Deal().Id)
+            {
+                return _dealReadModel.GetDeal(entityId).Name;
+            }
+
+            if (entityTypeId == EntityType.Instance.Firm().Id)
+            {
+                return _firmReadModel.GetFirmName(entityId);
+            }
+
+            throw new ArgumentOutOfRangeException("entityTypeId");
         }
     }
 }

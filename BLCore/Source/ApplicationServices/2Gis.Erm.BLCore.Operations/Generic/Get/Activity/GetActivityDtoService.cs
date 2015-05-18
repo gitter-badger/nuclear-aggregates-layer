@@ -7,8 +7,9 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
@@ -18,8 +19,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
         private readonly IClientReadModel _clientReadModel;
         private readonly IFirmReadModel _firmReadModel;
         private readonly IDealReadModel _dealReadModel;
-        private readonly Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>> _lookupsForRegardingObjects;
-        private readonly Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>> _lookupsForAttendees;
+        private readonly Dictionary<IEntityType, Func<long, IEnumerable<EntityReference>>> _lookupsForRegardingObjects;
+        private readonly Dictionary<IEntityType, Func<long, IEnumerable<EntityReference>>> _lookupsForAttendees;
 
         protected GetActivityDtoService(IUserContext userContext,
                                         IAppointmentReadModel appointmentReadModel,
@@ -35,31 +36,31 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
             _firmReadModel = firmReadModel;
             _dealReadModel = dealReadModel;
 
-            _lookupsForRegardingObjects = new Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>>
+            _lookupsForRegardingObjects = new Dictionary<IEntityType, Func<long, IEnumerable<EntityReference>>>
             {
-                { EntityName.Appointment, entityId => appointmentReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Letter, entityId => letterReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Phonecall, entityId => phonecallReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Task, entityId => taskReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Client, ResolveRegardingObjectsFromClient },
-                { EntityName.Contact, ResolveRegardingObjectsFromContact },
-                { EntityName.Deal, ResolveRegardingObjectsFromDeal },
-                { EntityName.Firm, ResolveRegardingObjectsFromFirm },
+                { EntityType.Instance.Appointment(), entityId => appointmentReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityType.Instance.Letter(), entityId => letterReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityType.Instance.Phonecall(), entityId => phonecallReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityType.Instance.Task(), entityId => taskReadModel.GetRegardingObjects(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityType.Instance.Client(), ResolveRegardingObjectsFromClient },
+                { EntityType.Instance.Contact(), ResolveRegardingObjectsFromContact },
+                { EntityType.Instance.Deal(), ResolveRegardingObjectsFromDeal },
+                { EntityType.Instance.Firm(), ResolveRegardingObjectsFromFirm },
             };
 
-            _lookupsForAttendees = new Dictionary<EntityName, Func<long, IEnumerable<EntityReference>>>
+            _lookupsForAttendees = new Dictionary<IEntityType, Func<long, IEnumerable<EntityReference>>>
             {
-                { EntityName.Appointment, entityId => appointmentReadModel.GetAttendees(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Letter, entityId => letterReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Phonecall, entityId => phonecallReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
-                { EntityName.Client, ResolveContactsFromClient },
-                { EntityName.Contact, ResolveContactsFromContact },
-                { EntityName.Deal, ResolveContactsFromDeal },
-                { EntityName.Firm, ResolveContactsFromFirm },
+                { EntityType.Instance.Appointment(), entityId => appointmentReadModel.GetAttendees(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityType.Instance.Letter(), entityId => letterReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityType.Instance.Phonecall(), entityId => phonecallReadModel.GetRecipient(entityId).ToEntityReferences().Select(EmbedEntityNameIfNeeded) },
+                { EntityType.Instance.Client(), ResolveContactsFromClient },
+                { EntityType.Instance.Contact(), ResolveContactsFromContact },
+                { EntityType.Instance.Deal(), ResolveContactsFromDeal },
+                { EntityType.Instance.Firm(), ResolveContactsFromFirm },
             };
         }
 
-        protected IEnumerable<EntityReference> GetRegardingObjects(EntityName entityName, long? entityId)
+        protected IEnumerable<EntityReference> GetRegardingObjects(IEntityType entityName, long? entityId)
         {
             if (entityId != null && _lookupsForRegardingObjects.ContainsKey(entityName))
             {
@@ -69,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
             return Enumerable.Empty<EntityReference>();
         }
 
-        protected IEnumerable<EntityReference> GetAttandees(EntityName entityName, long? entityId)
+        protected IEnumerable<EntityReference> GetAttandees(IEntityType entityName, long? entityId)
         {
             if (entityId != null && _lookupsForAttendees.ContainsKey(entityName))
             {
@@ -83,27 +84,35 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
         {
             if (reference.Id != null && reference.Name == null)
             {
-                reference.Name = ReadEntityName(reference.EntityName, reference.Id.Value);
+                reference.Name = ReadEntityName(reference.EntityTypeId, reference.Id.Value);
             }
 
             return reference;
         }
 
-        private string ReadEntityName(EntityName entityName, long entityId)
+        private string ReadEntityName(int entityTypeId, long entityId)
         {
-            switch (entityName)
+            if (entityTypeId == EntityType.Instance.Client().Id)
             {
-                case EntityName.Client:
-                    return _clientReadModel.GetClientName(entityId);
-                case EntityName.Contact:
-                    return _clientReadModel.GetContactName(entityId);
-                case EntityName.Deal:
-                    return _dealReadModel.GetDeal(entityId).Name;
-                case EntityName.Firm:
-                    return _firmReadModel.GetFirmName(entityId);
-                default:
-                    throw new ArgumentOutOfRangeException("entityName");
+                return _clientReadModel.GetClientName(entityId);
             }
+
+            if (entityTypeId == EntityType.Instance.Contact().Id)
+            {
+                return _clientReadModel.GetContactName(entityId);
+            }
+
+            if (entityTypeId == EntityType.Instance.Deal().Id)
+            {
+                return _dealReadModel.GetDeal(entityId).Name;
+            }
+
+            if (entityTypeId == EntityType.Instance.Firm().Id)
+            {
+                return _firmReadModel.GetFirmName(entityId);
+            }
+            
+            throw new ArgumentOutOfRangeException("entityTypeId");            
         }
 
         private IEnumerable<EntityReference> ResolveRegardingObjectsFromClient(long clientId)
@@ -184,7 +193,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity
 
         private IEnumerable<EntityReference> ResolveContactsFromContact(long contactId)
         {
-            return new[] { new EntityReference { EntityName = EntityName.Contact, Id = contactId, Name = _clientReadModel.GetContactName(contactId) } };
+            return new[] { new EntityReference { EntityTypeId = EntityType.Instance.Contact().Id, Id = contactId, Name = _clientReadModel.GetContactName(contactId) } };
         }
 
         private IEnumerable<EntityReference> LookupFirmReferencesForClient(long clientId)

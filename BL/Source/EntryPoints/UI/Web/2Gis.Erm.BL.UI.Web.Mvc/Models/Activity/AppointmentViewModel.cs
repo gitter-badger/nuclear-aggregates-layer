@@ -11,11 +11,13 @@ using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 {
@@ -100,17 +102,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Location = modelDto.Location;
 
             var regardingObjects = (modelDto.RegardingObjects ?? Enumerable.Empty<EntityReference>()).ToList();
-            Client = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Client));
-            Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Deal));
-            Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityName == EntityName.Firm));
+            Client = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Client().Id));
+            Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Deal().Id));
+            Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Firm().Id));
 
-            var attendeeReference = (modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityName == EntityName.Contact);
-            Attendee = LookupField.FromReference(attendeeReference);
+            Attendee = LookupField.FromReference((modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityTypeId.Equals(EntityType.Instance.Contact().Id)));
 
-            FirmClientInitialization = regardingObjects.IsClientInitialization(EntityName.Firm);
-            DealClientInitialization = regardingObjects.IsClientInitialization(EntityName.Deal);
-            AttendeeClientInitialization = modelDto.Attendees.IsClientInitialization(EntityName.Contact);
-
+            FirmClientInitialization = regardingObjects.IsClientInitialization(EntityType.Instance.Firm().Id);
+            DealClientInitialization = regardingObjects.IsClientInitialization(EntityType.Instance.Deal().Id);
+            AttendeeClientInitialization = modelDto.Attendees.IsClientInitialization(EntityType.Instance.Contact().Id);
             
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be only there?
@@ -118,22 +118,22 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
-            Action<IList<EntityReference>, LookupField, EntityName> addIfSet = 
+            Action<IList<EntityReference>, LookupField, IEntityType> addIfSet = 
                 (references, field, entityName) =>
                 {
                     if (field.Key.HasValue)
                     {
-                        references.Add(new EntityReference(field.Key, field.Value) { EntityName = entityName });
+                        references.Add(new EntityReference(field.Key, field.Value) { EntityTypeId = entityName.Id });
                     }
                 };
 
             var regardingObjects = new List<EntityReference>();
-            addIfSet(regardingObjects, Client, EntityName.Client);
-            addIfSet(regardingObjects, Deal, EntityName.Deal);
-            addIfSet(regardingObjects, Firm, EntityName.Firm);
+            addIfSet(regardingObjects, Client, EntityType.Instance.Client());
+            addIfSet(regardingObjects, Deal, EntityType.Instance.Deal());
+            addIfSet(regardingObjects, Firm, EntityType.Instance.Firm());
 
             var attendees = new List<EntityReference>();
-            addIfSet(attendees, Attendee, EntityName.Contact);
+            addIfSet(attendees, Attendee, EntityType.Instance.Contact());
 
             return new AppointmentDomainEntityDto
                 {
@@ -148,8 +148,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
                     Location = Location,
                     RegardingObjects = regardingObjects,
                     Attendees = attendees,
-                    OwnerRef = Owner.ToReference(EntityName.User),    
-                    Organizer = Owner.ToReference(EntityName.User),
+                    OwnerRef = Owner.ToReference(EntityType.Instance.User()),
+                    Organizer = Owner.ToReference(EntityType.Instance.User()),
                     CreatedByRef = CreatedBy.ToReference(),
                     CreatedOn = CreatedOn,
                     ModifiedByRef = ModifiedBy.ToReference(),

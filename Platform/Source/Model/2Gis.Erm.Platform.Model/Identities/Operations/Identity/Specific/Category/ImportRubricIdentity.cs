@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Category
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Category
 {
     public class ImportRubricIdentity : OperationIdentityBase<ImportRubricIdentity>, INonCoupledOperationIdentity
     {

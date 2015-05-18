@@ -69,7 +69,6 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                                             .UseAnchor<BlCoreApiOrderValidationAssembly>()
                                             .UseAnchor<BlCoreOrderValidationAssembly>()
                                       .RequireZone<MetadataZone>()
-                                            .UseAnchor<PlatformModelMetadataAssembly>()
                                             .UseAnchor<BlQueryingUIMetadataAssembly>()
                                             .UseAnchor<BLCore.UI.WPF.Client.DI.MetadataZonePartAssembly>()
                                             .UseAnchor<MetadataZonePartAssembly>()

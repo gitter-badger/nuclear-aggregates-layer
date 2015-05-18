@@ -4,7 +4,9 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -14,22 +16,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         /// <summary>
         /// Returns a value indicating whether the entity could be treated as a regarding object.
         /// </summary>
-        public static bool CanBeRegardingObject(this EntityName entityName)
+        public static bool CanBeRegardingObject(this IEntityType entityName)
         {
-            return entityName == EntityName.Client || entityName == EntityName.Firm || entityName == EntityName.Deal;
+            return entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Firm()) || entityName.Equals(EntityType.Instance.Deal());
         }
 
         /// <summary>
         /// Returns a value indicating whether the entity could be treated as an attendee.
         /// </summary>
-        public static bool CanBeContacted(this EntityName entityName)
+        public static bool CanBeContacted(this IEntityType entityName)
         {
-            return entityName == EntityName.Contact;
+            return entityName.Equals(EntityType.Instance.Contact());
         }
 
-        public static bool IsActivity(this EntityName entityName)
+        public static bool IsActivity(this IEntityType entityName)
         {
-            return entityName == EntityName.Appointment || entityName == EntityName.Letter || entityName == EntityName.Phonecall || entityName == EntityName.Task;
+            return entityName.Equals(EntityType.Instance.Appointment()) ||
+                   entityName.Equals(EntityType.Instance.Letter()) ||
+                   entityName.Equals(EntityType.Instance.Phonecall()) ||
+                   entityName.Equals(EntityType.Instance.Task());
         }
         
         public static EntityReference ToEntityReference<TEntity>(this TEntity entity, Func<TEntity, string> getName = null)
@@ -37,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             return new EntityReference
                        {
-                           EntityName = typeof(TEntity).AsEntityName(), 
+                           EntityTypeId = typeof(TEntity).AsEntityName().Id, 
                            Id = entity.Id,
                            Name = getName != null ? getName(entity) : null, 
                        };
@@ -54,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return new EntityReference
             {
                 Id = reference.TargetEntityId,
-                EntityName = reference.TargetEntityName,
+                EntityTypeId = reference.TargetEntityTypeId,
             };
         }
 
@@ -73,11 +78,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         public static IEnumerable<EntityReference> ToEntityReferencesWithNoAmbiguity<TEntity>(this IEnumerable<TEntity> entities, Func<TEntity, string> getName)
             where TEntity : IEntity, IEntityKey
         {
-            var ambiguousEntity = new EntityReference { EntityName = typeof(TEntity).AsEntityName() };
+            var ambiguousEntity = new EntityReference { EntityTypeId = typeof(TEntity).AsEntityName().Id };
             var firstOrAmbiguous = (entities ?? Enumerable.Empty<TEntity>())
                 .Select((x, i) => new 
                     {
-                        Reference = i == 0 ? new EntityReference { EntityName = typeof(TEntity).AsEntityName(), Id = x.Id,  Name = getName(x) } : ambiguousEntity,
+                        Reference = i == 0 ? new EntityReference { EntityTypeId = typeof(TEntity).AsEntityName().Id, Id = x.Id,  Name = getName(x) } : ambiguousEntity,
                         Index = i
                     })
                 .Take(2)

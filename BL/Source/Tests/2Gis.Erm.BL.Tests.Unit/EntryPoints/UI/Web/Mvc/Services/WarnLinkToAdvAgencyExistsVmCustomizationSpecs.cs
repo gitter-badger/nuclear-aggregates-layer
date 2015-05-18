@@ -6,13 +6,14 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 using It = Machine.Specifications.It;
 using MessageType = DoubleGis.Erm.Platform.UI.Metadata.UIElements.MessageType;

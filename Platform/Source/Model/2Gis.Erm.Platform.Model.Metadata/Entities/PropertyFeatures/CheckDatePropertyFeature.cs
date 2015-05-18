@@ -4,6 +4,8 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 
+using NuClear.Metamodeling.Domain.Entities;
+
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures
 {
     public sealed class CheckDatePropertyFeature : IValidatablePropertyFeature

@@ -6,14 +6,14 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
 {
     public sealed class OperationsQueryBuilder<TEntity> : IQueryBuilder<TEntity> where TEntity : class, IEntityKey, IEntity
     {
-        private readonly IDictionary<StrictOperationIdentity, HashSet<long>> _entityNameToIds;
+        private readonly IDictionary<StrictOperationIdentity, HashSet<long>> _entityTypeToIds;
         private readonly IFinder _finder;
         private readonly QueryRuleContainer<TEntity> _container;
         private readonly IOldOperationContextParser _oldOperationContextParser;
@@ -28,12 +28,12 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
             _finder = finder;
             _container = container;
             _oldOperationContextParser = oldOperationContextParser;
-            _entityNameToIds = GetEntityNameToIds(performedBusinessOperations);
+            _entityTypeToIds = GetEntityTypeToIds(performedBusinessOperations);
         }
 
         public IQueryable<TEntity> Create(params IFindSpecification<TEntity>[] filterSpecifications)
         {
-            var curriedRules = from mapping in _entityNameToIds
+            var curriedRules = from mapping in _entityTypeToIds
                                join expressionEntry in _container.SelectExpressionsByEntity on mapping.Key equals expressionEntry.Key
                                select new Func<IFinder, IQueryable<TEntity>>(finder => expressionEntry.Value(finder, mapping.Value));
             
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
             return filterSpecifications.Aggregate(baseQ, (current, filter) => current.Where(filter));
         }
 
-        private Dictionary<StrictOperationIdentity, HashSet<long>> GetEntityNameToIds(IEnumerable<PerformedBusinessOperation> performedBusinessOperations)
+        private Dictionary<StrictOperationIdentity, HashSet<long>> GetEntityTypeToIds(IEnumerable<PerformedBusinessOperation> performedBusinessOperations)
         {
             var operationsToIds = new Dictionary<StrictOperationIdentity, HashSet<long>>();
 

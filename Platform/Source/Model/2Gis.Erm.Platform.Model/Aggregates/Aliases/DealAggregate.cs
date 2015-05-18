@@ -1,13 +1,32 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum DealAggregate
+    public static class DealAggregate
     {
-        Deal = EntityName.Deal,
-        Order = EntityName.Order,
-        OrderPosition = EntityName.OrderPosition,
-        FirmDeal = EntityName.FirmDeal,
-        LegalPersonDeal = EntityName.LegalPersonDeal
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Deal(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+    {
+                                    EntityType.Instance.Order(),
+                                    EntityType.Instance.OrderPosition(),
+                                    EntityType.Instance.FirmDeal(),
+                                    EntityType.Instance.LegalPersonDeal()
+                                })
+                    .ToArray();
+            }
+        }
     }
 }

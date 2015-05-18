@@ -5,13 +5,14 @@ using System.Data.Entity;
 using DoubleGis.Erm.Platform.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using Effort;
 
 using FluentAssertions;
 
 using Machine.Specifications;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 using It = Machine.Specifications.It;
 

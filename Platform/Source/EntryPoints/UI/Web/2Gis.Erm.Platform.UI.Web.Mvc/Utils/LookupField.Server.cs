@@ -4,6 +4,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 {
     public sealed partial class LookupField
@@ -51,13 +53,13 @@ namespace DoubleGis.Erm.Platform.UI.Web.Mvc.Utils
 
     public static class LookupFieldExtensions
     {
-        public static EntityReference ToReference(this LookupField lookupField, EntityName? entityName = null)
+        public static EntityReference ToReference(this LookupField lookupField, IEntityType entityName = null)
         {
-            return lookupField != null 
-                ? entityName.HasValue 
-                    ? new EntityReference(lookupField.Key, lookupField.Value) {EntityName = entityName.Value}
-                    : new EntityReference(lookupField.Key, lookupField.Value)
-                : new EntityReference();
+            return lookupField != null
+                       ? entityName != null
+                             ? new EntityReference(lookupField.Key, lookupField.Value) { EntityTypeId = entityName.Id }
+                             : new EntityReference(lookupField.Key, lookupField.Value)
+                       : new EntityReference();
         }
 
         public static LookupField ToLookupField(this EntityReference entityReference)

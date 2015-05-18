@@ -5,7 +5,9 @@ using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {
@@ -119,7 +121,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         {
             var entityType = typeof(TEntity);
 
-            EntityName entityName;
+            IEntityType entityName;
             if (entityType.TryGetEntityName(out entityName) && entityName.HasMapping())
             {
                 queryable = _compositeEntityDecorator.Find(findSpecification);

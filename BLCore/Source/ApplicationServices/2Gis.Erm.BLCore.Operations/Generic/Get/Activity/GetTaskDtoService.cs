@@ -7,8 +7,9 @@ using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 
 // ReSharper disable once CheckNamespace
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     TaskType = task.TaskType,
                     Priority = task.Priority,
                     Status = task.Status,
-                    RegardingObjects = this.GetRegardingObjects(EntityName.Task, entityId),
+                    RegardingObjects = GetRegardingObjects(EntityType.Instance.Task(), entityId),
 
                     OwnerRef = new EntityReference { Id = task.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = task.CreatedBy, Name = null },
@@ -60,8 +61,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Timestamp = task.Timestamp,
                 };
         }
-
-        protected override IDomainEntityDto<Task> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        
+        protected override IDomainEntityDto<Task> CreateDto(long? parentEntityId, IEntityType parentEntityType, string extendedInfo)
         {
             return new TaskDomainEntityDto
                        {
@@ -69,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                            Priority = ActivityPriority.Average,
                            Status = ActivityStatus.InProgress,
 
-                           RegardingObjects = this.GetRegardingObjects(parentEntityName, parentEntityId),
+                           RegardingObjects = GetRegardingObjects(parentEntityType, parentEntityId),
                        };
         }
     }

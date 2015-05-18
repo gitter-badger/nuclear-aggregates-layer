@@ -14,11 +14,13 @@ using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Provider.Sources;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
 {
@@ -78,7 +80,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Russia
                         CardMetadata.For<Order>()
                                     .RussiConfigOrderToolbarWithSpecificPrintActions(UIElementMetadata.Config.RussianOrderPrintActions())
                                     .WithRelatedItems(UIElementMetadata.Config.CommonOrderRelatedActions()
-                                                                       .With(RelatedItem.EntityGrid(EntityName.OrderProcessingRequest,
+                                                                       .With(RelatedItem.EntityGrid(EntityType.Instance.OrderProcessingRequest(),
                                                                                                      () => ErmConfigLocalization.CrdRelOrderProcessingRequests))),
 
                         CardMetadata.For<Bargain>()
