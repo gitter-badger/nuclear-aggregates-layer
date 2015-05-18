@@ -18,7 +18,7 @@
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Name, FieldFlex.twins, new Dictionary<string, object> {{"class", "inputfields"}})
-            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit })
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit() })
         </div>
     </div>
 }

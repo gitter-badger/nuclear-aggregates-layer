@@ -6,7 +6,8 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -17,9 +18,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                         .InfoOn<IDeletableAspect>(x => x.IsDeleted, StringResourceDescriptor.Create(() => BLResources.CantEditPriceWhenDeactivated))
                         .InfoOn<IPublishableAspect>(x => x.IsPublished, StringResourceDescriptor.Create(() => BLResources.CantEditPriceWhenPublished))
                         .WithEntityIcon()
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Price)),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.PricePosition,
-                                                                              Icons.Icons.Entity.Small(EntityName.PricePosition),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityType.Instance.Price())),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityType.Instance.PricePosition(),
+                                                                              Icons.Icons.Entity.Small(EntityType.Instance.PricePosition()),
                                                                               () => ErmConfigLocalization.CrdRelPricePosition))
                         .Actions
                         .Attach(ToolbarElements.Create<Price>(),

@@ -5,9 +5,11 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using Moq;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 using NUnit.Framework;
 
@@ -35,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Operations
         [Test]
         public void ShouldThrowExceptionIfNoEntity()
         {
-            var exception = Assert.Throws<ArgumentException>(() => _conveter.ConvertToEntityId(EntityName.Task, CrmId));
+            var exception = Assert.Throws<ArgumentException>(() => _conveter.ConvertToEntityId(EntityType.Instance.Task(), CrmId));
             Assert.That(exception.Message, Is.StringContaining("impossible to find the object").IgnoreCase);
         }
 
@@ -44,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Operations
         {
             SetupOne(_unsecureFinder, new Task());
 
-            var exception = Assert.Throws<ArgumentException>(() => _conveter.ConvertToEntityId(EntityName.Task, CrmId));
+            var exception = Assert.Throws<ArgumentException>(() => _conveter.ConvertToEntityId(EntityType.Instance.Task(), CrmId));
             Assert.That(exception.Message, Is.StringContaining("user has no rights").IgnoreCase);
         }
 
@@ -55,13 +57,13 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Operations
             SetupOne(_unsecureFinder, task);
             SetupOne(_secureFinder, task);
 
-            Assert.That(_conveter.ConvertToEntityId(EntityName.Task, CrmId), Is.EqualTo(ErmId));
+            Assert.That(_conveter.ConvertToEntityId(EntityType.Instance.Task(), CrmId), Is.EqualTo(ErmId));
         }
 
         [Test]
         public void ShouldThrowExceptionIfNoEntities()
         {
-            var exception = Assert.Throws<ArgumentException>(() => _conveter.ConvertToEntityIds(new[] { new CrmEntityInfo { EntityName = EntityName.Task, Id = CrmId } }));
+            var exception = Assert.Throws<ArgumentException>(() => _conveter.ConvertToEntityIds(new[] { new CrmEntityInfo { EntityName = EntityType.Instance.Task(), Id = CrmId } }));
             Assert.That(exception.Message, Is.StringContaining("cannot be converted").IgnoreCase);
         }
 
@@ -71,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Operations
             var task = new Task { Id = ErmId };
             SetupMany(_unsecureFinder, task);
 
-            Assert.That(_conveter.ConvertToEntityIds(new[] { new CrmEntityInfo { EntityName = EntityName.Task, Id = CrmId } }), Is.EquivalentTo(new[] { ErmId }));
+            Assert.That(_conveter.ConvertToEntityIds(new[] { new CrmEntityInfo { EntityName = EntityType.Instance.Task(), Id = CrmId } }), Is.EquivalentTo(new[] { ErmId }));
         }
 
         private static void SetupOne<TEntity>(Mock<IFinder> finder, TEntity entity)

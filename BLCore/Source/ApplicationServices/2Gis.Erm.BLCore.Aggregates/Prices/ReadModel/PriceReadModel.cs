@@ -63,9 +63,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             return _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId)).Select(x => x.Cost).Single();
         }
 
-        public PricePosition GetPricePosition(long priceId, long positionId)
+        public PricePosition GetActivePricePosition(long priceId, long positionId)
         {
-            return _finder.FindOne(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId));
+            return _finder.FindOne(Specs.Find.ActiveAndNotDeleted<PricePosition>() &&
+                                   PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId));
         }
 
         public bool IsDifferentPriceExistsForDate(long priceId, long organizationUnitId, DateTime beginDate)
@@ -231,31 +232,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
         {
             var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId))
                                            .Select(item => new
-                                                               {
+                                           {
                                                                    item.PositionId,
-                                                                   Platform = item.Position.Platform.Name,
-                                                                   item.RateType,
-                                                                   item.Amount,
-                                                                   item.AmountSpecificationMode,
-                                                                   PricePositionCost = item.Cost,
+                                               Platform = item.Position.Platform.Name,
+                                               item.RateType,
+                                               item.Amount,
+                                               item.AmountSpecificationMode,
+                                               PricePositionCost = item.Cost,
                                                                    item.Position.SalesModel,
-                                                                   item.Position.IsComposite,
+                                               item.Position.IsComposite,
                                                                    BindingObjectType = item.Position.BindingObjectTypeEnum
-                                                               })
+                                           })
                                            .Single();
 
             return new PricePositionDetailedInfo
-                       {
+            {
                            PositionId = pricePositionInfo.PositionId,
-                           Amount = pricePositionInfo.Amount,
-                           AmountSpecificationMode = (int)pricePositionInfo.AmountSpecificationMode,
-                           Platform = pricePositionInfo.Platform ?? string.Empty,
-                           PricePositionCost = pricePositionInfo.PricePositionCost,
-                           RateType = pricePositionInfo.RateType,
-                           SalesModel = pricePositionInfo.SalesModel,
+                Amount = pricePositionInfo.Amount,
+                AmountSpecificationMode = (int)pricePositionInfo.AmountSpecificationMode,
+                Platform = pricePositionInfo.Platform ?? string.Empty,
+                PricePositionCost = pricePositionInfo.PricePositionCost,
+                RateType = pricePositionInfo.RateType,
+                SalesModel = pricePositionInfo.SalesModel,
                            BindingObjectType = pricePositionInfo.BindingObjectType,
                            IsComposite = pricePositionInfo.IsComposite
-                       };
+            };
         }
 
         private static decimal GetCategoryRateInternal(IQueryable<Category> categoryQuery, long organizationUnitId)

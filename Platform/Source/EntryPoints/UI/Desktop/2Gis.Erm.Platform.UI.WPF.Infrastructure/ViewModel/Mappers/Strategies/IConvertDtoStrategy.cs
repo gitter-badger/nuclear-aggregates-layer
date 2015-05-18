@@ -1,4 +1,4 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+﻿using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Mappers.Strategies
 {

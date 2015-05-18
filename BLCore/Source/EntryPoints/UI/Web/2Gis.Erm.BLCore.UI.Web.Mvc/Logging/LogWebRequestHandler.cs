@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -11,10 +10,11 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
@@ -22,14 +22,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
     public sealed class LogWebRequestHandler : LoggingCallHandler
     {
         private readonly IActionLogger _actionLogger;
-        private readonly EntityName _entityType;
+        private readonly IEntityType _entityType;
         private readonly CompareObjectMode _compareObjectMode;
         private readonly IEnumerable<string> _elementsToIgnore;
         private readonly IFinder _finder;
 
         public LogWebRequestHandler(ITracer tracer,
                                     IActionLogger actionLogger,
-                                    EntityName entityType,
+                                    IEntityType entityType,
                                     CompareObjectMode compareObjectMode,
                                     IEnumerable<string> elementsToIgnore,
                                     IFinder finder)
@@ -85,24 +85,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
 
         private IEntityKey GetEntity(IEntityViewModelBase viewModel)
         {
-            // FIXME {a.rechkalov, 21.05.2014}: Давай будем пользоваться FindOne, если требуесть получить одну сущность, вне зависимости от ее типа. Текущая реализация вызывает вопросы "почему для Order используется Find, а для LegalPerson - FindOne"
-            switch (_entityType)
+            // FIXME {a.rechkalov, 21.05.2014}: Давай будем пользоваться FindOne, если требуесть получить одну сущность, вне зависимости от ее типа. 
+            // Текущая реализация вызывает вопросы "почему для Order используется Find, а для LegalPerson - FindOne"
+            if (_entityType.Equals(EntityType.Instance.Order()))
             {
-                case EntityName.Order:
                     return _finder.Find(Specs.Find.ById<Order>(viewModel.Id)).Single();
+            }
 
-                case EntityName.Client:
+            if (_entityType.Equals(EntityType.Instance.Client()))
+            {
                     return _finder.Find(Specs.Find.ById<Client>(viewModel.Id)).Single();
+            }
 
-                case EntityName.LegalPerson:
+            if (_entityType.Equals(EntityType.Instance.LegalPerson()))
+            {
                     return _finder.FindOne(Specs.Find.ById<LegalPerson>(viewModel.Id));
+            }
 
-                case EntityName.Deal:
+            if (_entityType.Equals(EntityType.Instance.Deal()))
+            {
                     return _finder.Find(Specs.Find.ById<Deal>(viewModel.Id)).Single();
+            }
 
-                default:
                     throw new ArgumentOutOfRangeException("Не работает журналирование для сущности " + _entityType);
             }
         }
     }
-}

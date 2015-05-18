@@ -48,10 +48,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
             
-            #line 4 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
+            #line 3 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -109,13 +107,13 @@ WriteLiteral(">\r\n        Ext.onReady(function ()\r\n        {\r\n\r\n         
 " </script>\r\n");
 
             
-            #line 58 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
+            #line 57 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 58 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
+            #line 57 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
      using (Html.BeginForm("ChangeStateOnTermination", null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -131,7 +129,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 61 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
+            #line 60 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
    Write(Html.HiddenFor(m => m.OrderId));
 
             
@@ -142,7 +140,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 62 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
+            #line 61 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
    Write(Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList));
 
             
@@ -161,7 +159,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 64 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
+            #line 63 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
        Write(Model.Message);
 
             
@@ -176,7 +174,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 67 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
+            #line 66 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
        Write(Html.TemplateField(m => m.TerminationReason, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
@@ -191,7 +189,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 70 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
+            #line 69 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
        Write(Html.TemplateField(m => m.TerminationReasonComment, FieldFlex.lone, new Dictionary<string, object> {{ "rows", "5" }}));
 
             
@@ -200,7 +198,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 73 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
+            #line 72 "..\..\Views\Order\ChangeStateOnTermination.cshtml"
     }
 
             

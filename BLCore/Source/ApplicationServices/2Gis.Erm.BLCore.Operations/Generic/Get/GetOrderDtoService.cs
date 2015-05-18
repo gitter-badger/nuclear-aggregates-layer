@@ -21,7 +21,9 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
@@ -89,9 +91,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
             return dto;
         }
 
-        protected override IDomainEntityDto<Order> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Order> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
-            if (parentEntityName != EntityName.Deal)
+            if (!parentEntityName.Equals(EntityType.Instance.Deal()))
             {
                 // Для создания заказа не из сделки нужен специальный пермишен!
                 var hasExtendedCreationPrivilege =
@@ -102,7 +104,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
                     throw new BusinessLogicException(BLResources.AccessDeniedCreateOrderFromList);
                 }
             }
-            else if (parentEntityName == EntityName.Deal && parentEntityId == null)
+            else if (parentEntityName.Equals(EntityType.Instance.Deal()) && parentEntityId == null)
             {
                 throw new BusinessLogicException(BLResources.DealNotSpecifiedDuringOrderCreation);
             }
@@ -163,14 +165,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
             }
         }
 
-        private void FillDtoWithParentEntityDefinedValues(OrderDomainEntityDto resultDto, EntityName parentEntityName, long? parentEntityId)
+        private void FillDtoWithParentEntityDefinedValues(OrderDomainEntityDto resultDto, IEntityType parentEntityName, long? parentEntityId)
         {
             if (!parentEntityId.HasValue)
             {
                 return;
             }
 
-            if (parentEntityName == EntityName.Firm && _firmReadModel.HasFirmClient(parentEntityId.Value) == false)
+            if (parentEntityName.Equals(EntityType.Instance.Firm()) && _firmReadModel.HasFirmClient(parentEntityId.Value) == false)
             {
                 throw new BusinessLogicException(BLResources.CannotCreateOrderForFirmWithoutClient);
             }

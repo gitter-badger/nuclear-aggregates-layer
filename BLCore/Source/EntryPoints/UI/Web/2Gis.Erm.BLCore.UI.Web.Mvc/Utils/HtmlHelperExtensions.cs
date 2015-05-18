@@ -14,12 +14,14 @@ using System.Web.Routing;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
+
+using NuClear.ResourceUtilities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
@@ -261,9 +263,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 sb.AppendFormat("defaultSortFieldsDirs:{0},", WriteJson(htmlHelper, lookupSettings.DefaultSortFields.Select(s => s.GetDirectionString()).ToArray()));
             }
             sb.AppendFormat("applyTo:\"{0}\", ", name);
-            sb.AppendFormat("entityName:\"{0}\", ", lookupSettings.EntityName);
+            sb.AppendFormat("entityName:\"{0}\", ", lookupSettings.EntityName.Description);
             sb.AppendFormat("extendedInfo:\"{0}\", ", lookupSettings.ExtendedInfo);
-            sb.AppendFormat("parentEntityName:\"{0}\", ", lookupSettings.ParentEntityName);
+            sb.AppendFormat("parentEntityName:\"{0}\", ", lookupSettings.ParentEntityName != null ? lookupSettings.ParentEntityName.Description : EntityType.Instance.None().Description);
             sb.AppendFormat("parentIdPattern:\"{0}\"", lookupSettings.ParentIdPattern);
             if (lookupSettings.Plugins != null && lookupSettings.Plugins.Any())
                 sb.AppendFormat(",plugins:[{0}] ", String.Join(",", lookupSettings.Plugins));

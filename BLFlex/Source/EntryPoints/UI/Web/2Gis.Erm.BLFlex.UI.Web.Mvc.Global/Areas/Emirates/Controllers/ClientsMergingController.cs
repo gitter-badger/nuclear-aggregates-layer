@@ -24,6 +24,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
@@ -127,9 +128,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
                 throw new NotificationException(BLResources.AccessDeniedMergeClients);
             }
 
-            var service = _operationServicesManager.GetDomainEntityDtoService(EntityName.Client);
-            var masterClientDto = (EmiratesClientDomainEntityDto)service.GetDomainEntityDto(masterId, false, null, EntityName.None, string.Empty);
-            var subordinateClientDto = (EmiratesClientDomainEntityDto)service.GetDomainEntityDto(subordinateId, false, null, EntityName.None, string.Empty);
+            var service = _operationServicesManager.GetDomainEntityDtoService(EntityType.Instance.Client());
+            var masterClientDto = (EmiratesClientDomainEntityDto)service.GetDomainEntityDto(masterId, false, null, EntityType.Instance.None(), string.Empty);
+            var subordinateClientDto = (EmiratesClientDomainEntityDto)service.GetDomainEntityDto(subordinateId, false, null, EntityType.Instance.None(), string.Empty);
 
             var masterClientModel = new EmiratesClientViewModel
                 {

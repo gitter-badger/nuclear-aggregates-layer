@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Cyprus
+namespace ASP
 {
     using System;
     using System.Collections.Generic;
@@ -37,12 +37,15 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Cyprus
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Cyprus/BranchOfficeOrganizationUnit.cshtml")]
-    public partial class BranchOfficeOrganizationUnit : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus.CyprusBranchOfficeOrganizationUnitViewModel>
+    public partial class _Views_CreateOrUpdate_Cyprus_BranchOfficeOrganizationUnit_cshtml : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus.CyprusBranchOfficeOrganizationUnitViewModel>
     {
-        public BranchOfficeOrganizationUnit()
+        public _Views_CreateOrUpdate_Cyprus_BranchOfficeOrganizationUnit_cshtml()
         {
         }
         public override void Execute()
@@ -180,7 +183,7 @@ WriteLiteral("            ");
 
             
             #line 35 "..\..\Views\CreateOrUpdate\Cyprus\BranchOfficeOrganizationUnit.cshtml"
-       Write(Html.TemplateField(m => m.BranchOffice, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOffice}));
+       Write(Html.TemplateField(m => m.BranchOffice, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOffice()}));
 
             
             #line default
@@ -195,7 +198,7 @@ WriteLiteral("            ");
 
             
             #line 38 "..\..\Views\CreateOrUpdate\Cyprus\BranchOfficeOrganizationUnit.cshtml"
-       Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit}));
+       Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit()}));
 
             
             #line default

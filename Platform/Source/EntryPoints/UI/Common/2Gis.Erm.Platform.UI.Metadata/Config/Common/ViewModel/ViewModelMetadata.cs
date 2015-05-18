@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.Actions;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Validator;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
+using NuClear.ResourceUtilities;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
 {
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public bool HasParts
+        public bool HasParts 
         {
             get
             {
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public UIElementMetadata[] RelatedItems
+        public UIElementMetadata[] RelatedItems 
         {
             get
             {
@@ -83,15 +84,15 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public IEnumerable<IValidatorViewModelFeature> Validators
+        public IEnumerable<IValidatorViewModelFeature> Validators 
         {
             get
             {
                 return _validatorsFeature.Value != null ? _validatorsFeature.Value.Validators : Enumerable.Empty<IValidatorViewModelFeature>();
             }
         }
-
-        public ITitleDescriptor TitleDescriptor
+        
+        public ITitleDescriptor TitleDescriptor 
         {
             get
             {
@@ -115,8 +116,8 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
                 return _operationFeature.Value != null ? _operationFeature.Value.OperationFeatures : Enumerable.Empty<OperationFeature>();
             }
         }
-
-        public bool HasActions
+        
+        public bool HasActions 
         {
             get
             {
@@ -124,7 +125,7 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
             }
         }
 
-        public UIElementMetadata[] ActionsDescriptors
+        public UIElementMetadata[] ActionsDescriptors 
         {
             get
             {
@@ -137,7 +138,8 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel
         where TElement : ViewModelMetadata<TElement, TBuilder>
         where TBuilder : ViewModelMetadataBuilder<TBuilder, TElement>, new()
     {
-        protected ViewModelMetadata(IEnumerable<IMetadataFeature> features) : base(features)
+        protected ViewModelMetadata(IEnumerable<IMetadataFeature> features)
+            : base(features)
         {
         }
 

@@ -4,15 +4,16 @@ using System.Windows.Controls;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations.Concrete;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Operations;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Utils;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 {
@@ -28,14 +29,14 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
                 };
         }
 
-        public IOperationConfiguratorViewModel Create<TOperationIdentity>(IUseCase useCase, EntityName entityName, long[] operationProcessingEntities) 
+        public IOperationConfiguratorViewModel Create<TOperationIdentity>(IUseCase useCase, IEntityType entityName, long[] operationProcessingEntities) 
             where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, new()
         {
             var targetOperationIdentity = new TOperationIdentity();
             return Create(useCase, targetOperationIdentity, entityName, operationProcessingEntities);
         }
 
-        public IOperationConfiguratorViewModel Create(IUseCase useCase, IOperationIdentity operationIdentity, EntityName entityName, long[] operationProcessingEntities)
+        public IOperationConfiguratorViewModel Create(IUseCase useCase, IOperationIdentity operationIdentity, IEntityType entityName, long[] operationProcessingEntities)
         {
             IViewModelViewTypeMapping concreteOperationConfiguratorMapping;
             if (!_concreteOperationManagersMap.TryGetValue(operationIdentity, out concreteOperationConfiguratorMapping))
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
                 concreteOperationConfiguratorMapping.ViewModelType,
                 new ResolverOverride[]
                     {
-                        new DependencyOverride(typeof(EntityName), entityName),
+                        new DependencyOverride(typeof(IEntityType), entityName),
                         new DependencyOverride(typeof(long[]), operationProcessingEntities),
                         new DependencyOverride(typeof(IMessageSink), messageSink),
                         new DependencyOverride(typeof(DataTemplateSelector), configuratorViewSelector)

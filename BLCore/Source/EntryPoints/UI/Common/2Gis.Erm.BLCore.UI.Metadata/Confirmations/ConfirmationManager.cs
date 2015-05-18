@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Confirmations
 {
@@ -19,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Confirmations
 
         private static readonly IReadOnlyDictionary<StrictOperationIdentity, Func<string>> OperationToConfirmationMap = new Dictionary<StrictOperationIdentity, Func<string>>
             {
-                { new StrictOperationIdentity(DeleteIdentity.Instance, new EntitySet(EntityName.CategoryGroup)), () => BLResources.DeleteCategoryGroupConfirmation }
+                { new StrictOperationIdentity(DeleteIdentity.Instance, new EntitySet(EntityType.Instance.CategoryGroup())), () => BLResources.DeleteCategoryGroupConfirmation }
             };
 
 
