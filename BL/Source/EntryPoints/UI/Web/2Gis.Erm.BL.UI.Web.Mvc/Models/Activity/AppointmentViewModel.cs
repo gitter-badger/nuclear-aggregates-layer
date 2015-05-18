@@ -102,11 +102,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Deal().Id));
             Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Firm().Id));
 
-            Attendee = LookupField.FromReference((modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityTypeId.Equals(EntityType.Instance.Contact())));
-
-            
-            // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
-            // TODO: should it be only there?
+            Attendee = LookupField.FromReference((modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Contact().Id));
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()
