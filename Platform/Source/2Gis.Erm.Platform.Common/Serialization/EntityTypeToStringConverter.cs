@@ -21,6 +21,11 @@ namespace DoubleGis.Erm.Platform.Common.Serialization
             }
         }
 
+        public override bool CanRead
+        {
+            get { return false; }
+        }
+
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             throw new NotSupportedException();
