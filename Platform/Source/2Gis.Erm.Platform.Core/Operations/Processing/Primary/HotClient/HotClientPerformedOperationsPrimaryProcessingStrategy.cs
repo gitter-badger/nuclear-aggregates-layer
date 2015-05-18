@@ -6,8 +6,9 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Processing.Strategies;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final.HotClient;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Primary;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient
 {
@@ -63,7 +64,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Primary.HotClient
                     {
                         MessageFlowId = MessageFlow.Id,
                         EntityId = changedEntityInfo.Key,
-                        EntityTypeId = (int)HotClientRequestType.AsEntityName(),
+                        EntityTypeId = HotClientRequestType.AsEntityName().Id,
                         OperationId = useCaseId
                     };
 

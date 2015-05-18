@@ -38,10 +38,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/AssociatedPositionsGroup.cshtml")]
-    public partial class AssociatedPositionsGroup : System.Web.Mvc.WebViewPage<Models.AssociatedPositionsGroupViewModel>
+    public partial class AssociatedPositionsGroup : System.Web.Mvc.WebViewPage<AssociatedPositionsGroupViewModel>
     {
         public AssociatedPositionsGroup()
         {
@@ -74,14 +77,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 187), Tuple.Create("\"", 223)
+WriteAttribute("title", Tuple.Create(" title=\"", 180), Tuple.Create("\"", 216)
             
             #line 13 "..\..\Views\CreateOrUpdate\AssociatedPositionsGroup.cshtml"
-, Tuple.Create(Tuple.Create("", 195), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 188), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 195), false)
+, 188), false)
 );
 
 WriteLiteral(">\r\n");
@@ -136,7 +139,7 @@ WriteLiteral("        ");
 
             
             #line 20 "..\..\Views\CreateOrUpdate\AssociatedPositionsGroup.cshtml"
-   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.twins, new LookupSettings { EntityName = EntityName.PricePosition, ReadOnly = true }));
+   Write(Html.TemplateField(m => m.PricePosition, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.PricePosition(), ReadOnly = true }));
 
             
             #line default

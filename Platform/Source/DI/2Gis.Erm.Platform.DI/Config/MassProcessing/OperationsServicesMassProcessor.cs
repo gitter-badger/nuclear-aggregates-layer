@@ -7,13 +7,13 @@ using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Core.Metadata;
 using DoubleGis.Erm.Platform.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 
 using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
 {
@@ -376,11 +376,10 @@ namespace DoubleGis.Erm.Platform.DI.Config.MassProcessing
                     processingType,
                     genericArguments.Length,
                     targetEntityOperationType,
-                    targetOperationEntitiesCount
-                ));
+                                  targetOperationEntitiesCount));
             }
 
-            var entityNames = new EntityName[targetOperationEntitiesCount];
+            var entityNames = new IEntityType[targetOperationEntitiesCount];
             for (int i = 0; i < targetOperationEntitiesCount; i++)
             {
                 var currentTypeParameter = genericArguments[i];

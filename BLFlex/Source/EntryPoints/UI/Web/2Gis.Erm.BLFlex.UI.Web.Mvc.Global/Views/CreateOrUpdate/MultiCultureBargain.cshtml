@@ -22,7 +22,7 @@
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Number, FieldFlex.twins, new Dictionary<string, object> { { "readonly", "readonly" }, { "class", "readonly" } })
-            @Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BargainType, ShowReadOnlyCard = true, ReadOnly = true })
+            @Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.BargainType(), ShowReadOnlyCard = true, ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.SignedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true, ShiftOffset = false })
@@ -37,10 +37,10 @@
             {
                 @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings
                     {
-                        EntityName = EntityName.LegalPerson,
+                        EntityName = EntityType.Instance.LegalPerson(),
                         ShowReadOnlyCard = true,
                         ExtendedInfo = "filterToParent=true",
-                        ParentEntityName = EntityName.Client,
+                        ParentEntityName = EntityType.Instance.Client(),
                         ParentIdPattern = "ClientId"
                     })
             }
@@ -48,13 +48,13 @@
             {
                 @Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings
                     {
-                        EntityName = EntityName.LegalPerson,
+                        EntityName = EntityType.Instance.LegalPerson(),
                         ShowReadOnlyCard = true
                     })
             }
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ShowReadOnlyCard = true })
+            @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit(), ShowReadOnlyCard = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "4" } })

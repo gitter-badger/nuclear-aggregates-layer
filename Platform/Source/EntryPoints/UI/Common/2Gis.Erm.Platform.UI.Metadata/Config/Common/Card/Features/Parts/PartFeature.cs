@@ -1,6 +1,5 @@
-﻿
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
+﻿using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card.Features.Parts
 {

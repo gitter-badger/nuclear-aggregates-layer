@@ -3,8 +3,9 @@ using System.Linq;
 using System.Text;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation.Metadata;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
+
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.Validators;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.Metadata
 {

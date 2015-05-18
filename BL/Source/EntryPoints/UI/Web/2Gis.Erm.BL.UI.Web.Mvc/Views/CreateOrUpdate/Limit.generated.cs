@@ -44,10 +44,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Limit.cshtml")]
-    public partial class Limit : System.Web.Mvc.WebViewPage<Models.LimitViewModel>
+    public partial class Limit : System.Web.Mvc.WebViewPage<LimitViewModel>
     {
         public Limit()
         {
@@ -70,15 +73,15 @@ DefineSection("CardScripts", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 186), Tuple.Create("\"", 246)
-, Tuple.Create(Tuple.Create("", 192), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Limit.js?", 192), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 179), Tuple.Create("\"", 239)
+, Tuple.Create(Tuple.Create("", 185), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Limit.js?", 185), true)
             
             #line 11 "..\..\Views\CreateOrUpdate\Limit.cshtml"
-, Tuple.Create(Tuple.Create("", 227), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 220), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 227), false)
+, 220), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -119,14 +122,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 413), Tuple.Create("\"", 449)
+WriteAttribute("title", Tuple.Create(" title=\"", 406), Tuple.Create("\"", 442)
             
             #line 18 "..\..\Views\CreateOrUpdate\Limit.cshtml"
-, Tuple.Create(Tuple.Create("", 421), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 414), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 421), false)
+, 414), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -139,7 +142,7 @@ WriteLiteral("            ");
 
             
             #line 20 "..\..\Views\CreateOrUpdate\Limit.cshtml"
-       Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName =  EntityName.LegalPerson, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName =  EntityType.Instance.LegalPerson(), ReadOnly = true }));
 
             
             #line default
@@ -154,7 +157,7 @@ WriteLiteral("            ");
 
             
             #line 23 "..\..\Views\CreateOrUpdate\Limit.cshtml"
-       Write(Html.TemplateField(m => m.BranchOffice, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOffice, ReadOnly = true}));
+       Write(Html.TemplateField(m => m.BranchOffice, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOffice(), ReadOnly = true}));
 
             
             #line default
@@ -210,7 +213,7 @@ WriteLiteral("            ");
 
             
             #line 33 "..\..\Views\CreateOrUpdate\Limit.cshtml"
-       Write(Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.LimitManagement + ("&userIdForOrgUnit=" + Model.Owner.Key) }));
+       Write(Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.LimitManagement + ("&userIdForOrgUnit=" + Model.Owner.Key) }));
 
             
             #line default
@@ -247,14 +250,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 2063), Tuple.Create("\"", 2106)
+WriteAttribute("title", Tuple.Create(" title=\"", 2089), Tuple.Create("\"", 2132)
             
             #line 40 "..\..\Views\CreateOrUpdate\Limit.cshtml"
-, Tuple.Create(Tuple.Create("", 2071), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+, Tuple.Create(Tuple.Create("", 2097), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 2071), false)
+, 2097), false)
 );
 
 WriteLiteral(">\r\n");
@@ -278,7 +281,7 @@ WriteLiteral("            ");
 
             
             #line 43 "..\..\Views\CreateOrUpdate\Limit.cshtml"
-       Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = true}));
+       Write(Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = true}));
 
             
             #line default
@@ -293,7 +296,7 @@ WriteLiteral("            ");
 
             
             #line 46 "..\..\Views\CreateOrUpdate\Limit.cshtml"
-       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = true}));
+       Write(Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = true}));
 
             
             #line default
@@ -319,7 +322,7 @@ WriteLiteral("            ");
 
             
             #line 50 "..\..\Views\CreateOrUpdate\Limit.cshtml"
-       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default

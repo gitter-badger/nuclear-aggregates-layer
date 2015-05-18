@@ -7,6 +7,8 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -59,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                     template = BLResources.OrderFirmHiddenForAscertainmentTemplate;
                 }
 
-                var firmDescription = GenerateDescription(ruleContext.IsMassValidation, EntityName.Firm, order.FirmName, order.FirmId);
+                var firmDescription = GenerateDescription(ruleContext.IsMassValidation, EntityType.Instance.Firm(), order.FirmName, order.FirmId);
                 results.Add(new OrderValidationMessage
                                {
                                    Type = MessageType.Error,

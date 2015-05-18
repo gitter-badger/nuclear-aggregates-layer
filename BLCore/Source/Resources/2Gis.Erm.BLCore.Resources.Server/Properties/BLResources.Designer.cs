@@ -2466,6 +2466,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CanNotChangeGroupForUpperLevelsCategory {
+            get {
+                return ResourceManager.GetString("CanNotChangeGroupForUpperLevelsCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CannotChangePositionAdvertisementTemplate {
             get {
                 return ResourceManager.GetString("CannotChangePositionAdvertisementTemplate", resourceCulture);
@@ -2650,6 +2659,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
             get {
                 return ResourceManager.GetString("CanNotDeleteAdsTemplatesAdsElementTemplateSinceThereIsAdvertisementMaterialsWithC" +
                         "ontent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CanNotDeleteDefaultCategoryGroup {
+            get {
+                return ResourceManager.GetString("CanNotDeleteDefaultCategoryGroup", resourceCulture);
             }
         }
         
@@ -5516,7 +5534,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to У Вас нет прав на совершение звонков..
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string DialingIsNotAllowed {
             get {
@@ -7532,7 +7550,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Телефон {0} имеет некорректный формат..
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string IncorrectPhoneNumber {
             get {
@@ -14148,7 +14166,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Данный тип {0} телефонии не поддерживается..
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string TelephonySchemeIsNotSupported {
             get {
@@ -14157,7 +14175,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to В данный момент сервис телефонии не доступен.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string TelephonyServiceInactive {
             get {
@@ -14166,7 +14184,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Адрес сервиса телефонии указан в некорректном формате.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string TelephonyUnitInIncorrectFormat {
             get {
@@ -14175,7 +14193,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to В профиле не указан адрес сервиса телефонии..
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string TelephonyUnitIsNotSelected {
             get {
@@ -15219,7 +15237,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to В вашем профиле не указан внутренний телефон, на который должны приходить звонки..
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string WorkPhoneIsNotSelected {
             get {

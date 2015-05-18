@@ -10,7 +10,6 @@ using DoubleGis.Erm.Platform.API.Core.Messaging.Receivers;
 using DoubleGis.Erm.Platform.API.Core.Operations.Processing.Final;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.DAL.Transactions;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports
@@ -60,7 +59,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.Transports
                         AttemptCount = 0,
                         Context = string.Empty,
                         EntityId = failedProcessing.EntityId,
-                        EntityTypeId = (int)failedProcessing.EntityName.AsEntityName(),
+                        EntityTypeId = failedProcessing.EntityName.Id,
                         MessageFlowId = failedProcessing.Flow.Id
                     };
 

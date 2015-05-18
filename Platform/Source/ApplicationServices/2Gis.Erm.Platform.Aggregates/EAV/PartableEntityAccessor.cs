@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.Aggregates.EAV
 {

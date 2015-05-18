@@ -8,10 +8,10 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.File;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.UploadBinary;
 using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.WCF.Infrastructure;
 
+using NuClear.Model.Common.Entities;
+using NuClear.ResourceUtilities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
@@ -35,10 +35,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public UploadFileResult Execute(string specifiedEntityName, string specifiedEntityId, string specifiedBinaryId, Stream multipartStream)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
             try
             {
-                if (!Enum.TryParse(specifiedEntityName, out entityName))
+                if (!EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }

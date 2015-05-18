@@ -13,12 +13,14 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categories
 {
     public sealed class CategoryService : ICategoryService
     {
+        private const long DefaultCategoryGroupId = 3;
+
         private readonly IRepository<CategoryGroup> _categoryGroupRepository;
         private readonly IRepository<CategoryOrganizationUnit> _categoryOrganizationUnitRepository;
         private readonly IRepository<Category> _categoryRepository;
@@ -75,47 +77,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             }
         }
 
-        public void SetCategoryGroupMembership(long organizationUnitId, IEnumerable<CategoryGroupMembershipDto> membership)
-        {
-            if (!membership.Any())
-            {
-                return;
-            }
-
-            var categoryOrgUnitIds = membership.Select(x => x.Id).Distinct().ToArray();
-            var categoryOrgUnits = _finder.Find<CategoryOrganizationUnit>(x => categoryOrgUnitIds.Contains(x.Id)).ToDictionary(x => x.Id, y => y);
-
-            if (categoryOrgUnits.Count == 0)
-            {
-                return;
-            }
-
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
-            {
-                foreach (var categoryGroupMembershipDto in membership)
-                {
-                    CategoryOrganizationUnit categoryOrgUnitToUpdate;
-                    if (categoryOrgUnits.TryGetValue(categoryGroupMembershipDto.Id, out categoryOrgUnitToUpdate))
-                    {
-                        categoryOrgUnitToUpdate.CategoryGroupId = categoryGroupMembershipDto.CategoryGroupId;
-                        _categoryOrganizationUnitRepository.Update(categoryOrgUnitToUpdate);
-                    }
-                }
-
-                _categoryOrganizationUnitRepository.Save();
-                scope.Complete();
-            }
-        }
-
         public void Delete(CategoryGroup categoryGroup)
         {
             var linkedCategories = _finder.Find<CategoryOrganizationUnit>(x => x.CategoryGroupId == categoryGroup.Id).ToArray();
+
+            if (categoryGroup.Id == DefaultCategoryGroupId)
+            {
+                throw new InvalidOperationException(BLResources.CanNotDeleteDefaultCategoryGroup);
+            }
 
             using (var scope = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
                 foreach (var category in linkedCategories)
                 {
-                    category.CategoryGroupId = null;
+                    category.CategoryGroupId = DefaultCategoryGroupId;
                     _categoryOrganizationUnitRepository.Update(category);
                 }
 
@@ -193,6 +168,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
                     var categoryOrganizationUnit = new CategoryOrganizationUnit
                         {
                             CategoryId = categoryId,
+                            CategoryGroupId = DefaultCategoryGroupId,
                             OrganizationUnitId = organizationUnitId,
                             IsActive = true
                         };

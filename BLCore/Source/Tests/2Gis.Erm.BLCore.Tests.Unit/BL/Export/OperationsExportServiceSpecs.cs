@@ -6,14 +6,15 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Processors;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 
 using It = Machine.Specifications.It;
 

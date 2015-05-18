@@ -3,9 +3,11 @@
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
+
+using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 {
@@ -16,20 +18,20 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                 {
                     EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.BranchOfficeOrganizationUnitRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.BranchOfficeOrganizationUnit),
+                                      LookupPropertyFeature.Create(EntityType.Instance.BranchOfficeOrganizationUnit()),
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BranchOfficeOrganizationUnit)),
 
                     EntityPropertyMetadata.Create<AccountDomainEntityDto>(dto => dto.LegalPersonRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.LegalPerson),
+                                      LookupPropertyFeature.Create(EntityType.Instance.LegalPerson()),
                                       new RequiredPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.LegalPerson)),
                                       /*
                     EntityProperty.Create<AccountDomainEntityDto>(dto => dto.CurrencyRef)
                                   .WithFeatures(
                                       new ReadOnlyPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.Currency),
+                                      LookupPropertyFeature.Create(EntityType.Instance.Currency()),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Currency)),
 
                     EntityProperty.Create<AccountDomainEntityDto>(dto => dto.AccountDetailBalance)
@@ -63,14 +65,14 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityProperty.Create<AccountDomainEntityDto>(dto => dto.OwnerRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Owner)),
 
                     EntityProperty.Create<AccountDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
@@ -83,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityProperty.Create<AccountDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 

@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 {
     public sealed class DeleteOrderBillsIdentity : OperationIdentityBase<DeleteOrderBillsIdentity>, INonCoupledOperationIdentity
     {

@@ -12,14 +12,14 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
         public static QuerySettings ToQuerySettings(this SearchListModel searchListModel)
         {
             var querySettings = new QuerySettings
-                                    {
-                                        SkipCount = searchListModel.Start,
-                                        TakeCount = searchListModel.Limit,
-                                        ParentEntityName = searchListModel.ParentEntityName,
-                                        ParentEntityId = searchListModel.ParentEntityId,
-                                        UserInputFilter = searchListModel.FilterInput,
-                                        FilterName = searchListModel.NameLocaleResourceId,
-                                        SearchListModel = searchListModel,
+            {
+                SkipCount = searchListModel.Start,
+                TakeCount = searchListModel.Limit,
+                ParentEntityName = searchListModel.ParentEntityName,
+                ParentEntityId = searchListModel.ParentEntityId,
+                UserInputFilter = searchListModel.FilterInput,
+                FilterName = searchListModel.NameLocaleResourceId,
+                SearchListModel = searchListModel,
                                         Sort = (searchListModel.Sort ?? string.Empty).Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                                                                            .Where(x => !string.IsNullOrEmpty(x))
                                                                            .Select(x =>
@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing
         }
 
         private static SortDirection GetSortDirection(string sortDirection)
-        {            
+        {
             if (string.IsNullOrEmpty(sortDirection) || string.Equals(sortDirection, "ASC", StringComparison.OrdinalIgnoreCase))
             {
                 return SortDirection.Ascending;

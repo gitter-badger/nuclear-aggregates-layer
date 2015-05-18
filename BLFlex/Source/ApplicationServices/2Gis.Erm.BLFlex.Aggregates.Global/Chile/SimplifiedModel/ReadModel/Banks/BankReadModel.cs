@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel.Banks
 {
     public sealed class BankReadModel : IBankReadModel
@@ -33,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel
 
         public bool IsBankUsed(long bankId)
         {
-            return _finder.Find(DictionaryEntitySpecs.DictionaryEntity.Find.ByEntityName(EntityName.Bank) &&
+            return _finder.Find(DictionaryEntitySpecs.DictionaryEntity.Find.ByEntityName(EntityType.Instance.Bank()) &&
                                 DictionaryEntitySpecs.DictionaryEntity.Find.ByPropertyValue(BankIdIdentity.Instance, bankId))
                           .Any();
         }

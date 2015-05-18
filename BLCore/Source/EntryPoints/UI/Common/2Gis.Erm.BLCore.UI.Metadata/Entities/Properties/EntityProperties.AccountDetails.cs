@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
+
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 {
@@ -20,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.OperationTypeRef)
                                   /*.WithFeatures(
                                       /*new RequiredPropertyFeature(),
-                                      LookupPropertyFeature.Create(EntityName.OperationType)
+                                      LookupPropertyFeature.Create(EntityType.Instance.OperationType())
                                                            .WithShowReadOnlyCard(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.OperationType))*/,
 
@@ -57,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.OwnerRef)
                                   /*.WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.Owner))*/,
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      //LookupPropertyFeature.Create(EntityName.User),
+                                      //LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature()//,
                                       //new ReadOnlyPropertyFeature(),
                                       //DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)
@@ -79,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<AccountDetailDomainEntityDto>(dto => dto.ModifiedByRef)
                                   /*.WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy))*/,
 

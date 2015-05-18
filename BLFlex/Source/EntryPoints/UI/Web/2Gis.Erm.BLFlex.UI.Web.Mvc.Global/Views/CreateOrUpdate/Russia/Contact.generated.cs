@@ -31,6 +31,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Russia
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
+    using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
     using DoubleGis.Erm.Platform.Common;
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -43,6 +44,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Russia
     
     #line default
     #line hidden
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Russia/Contact.cshtml")]
@@ -347,7 +351,7 @@ WriteLiteral("            ");
 
             
             #line 52 "..\..\Views\CreateOrUpdate\Russia\Contact.cshtml"
-       Write(Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ReadOnly = Model != null && Model.Client != null && !string.IsNullOrEmpty(Model.Client.Value) }));
+       Write(Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = Model != null && Model.Client != null && !string.IsNullOrEmpty(Model.Client.Value) }));
 
             
             #line default

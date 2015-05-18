@@ -7,9 +7,10 @@ using System.Xml.Linq;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.DB;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
 {
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
 
         private string ResolveOperationEntitiesDescription(StrictOperationIdentity operationIdentity)
         {
-            return operationIdentity.Entities.Contains(EntitySet.EmptySetIndicator) ? null : string.Join(";", operationIdentity.Entities.Cast<int>());
+            return operationIdentity.Entities.Contains(EntitySet.EmptySetIndicator) ? null : string.Join(";", operationIdentity.Entities.Select(x => x.Id));
         }
 
         private string SerializeOperationChanges(OperationScopeNode declaredChanges)
@@ -83,7 +84,7 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
         {
             foreach (var change in changes)
             {
-                var changedEntityName = (int)change.Key.AsEntityName();
+                var changedEntityName = change.Key.AsEntityName().Id;
                 foreach (var id in change.Value)
                 {
                     var entity = new XElement("entity",

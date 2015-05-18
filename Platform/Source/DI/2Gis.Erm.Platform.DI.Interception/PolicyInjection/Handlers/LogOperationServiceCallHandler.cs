@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
@@ -72,17 +73,23 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
             }
             catch (Exception ex)
             {
-                Tracer.Fatal(ex, "Критичная ошибка создания копии объекта до изменения");
+                Tracer.Fatal(ex, "Critical error occured during object copying before modification");
             }
 
             var result = getNext()(input, getNext);
+            
+            // Wrapping exception to prevent track trace loose
+            if (result.Exception != null)
+            {
+                result.Exception = new TargetInvocationException(result.Exception.Message, result.Exception);
+            }
 
             if (operationInterface != null && entities.Any() && originalEntities.Any() && result.Exception == null)
             {
                 try
                 {
                     var modifiedEntities = GetEntities(entityType, entityId);
-                    foreach (var pair in originalEntities.Zip(modifiedEntities, (o, m) => new { Original = o, Modified = m }))
+                    foreach (var pair in originalEntities.Join(modifiedEntities, o => o, m => m, (o, m) => new { Original = o, Modified = m }))
                     {
                         var differenceMap = CompareObjectsHelper.CompareObjects(_compareObjectMode,
                                                                                 pair.Original,
@@ -93,7 +100,7 @@ namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers
                 }
                 catch (Exception ex)
                 {
-                    Tracer.Fatal(ex, "Критичная ошибка журналирования операций");
+                    Tracer.Fatal(ex, "Critical error occured during object's changes evaluating and logging");
                 }
             }
 

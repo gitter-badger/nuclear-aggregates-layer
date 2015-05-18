@@ -38,10 +38,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/PricePosition.cshtml")]
-    public partial class PricePosition : System.Web.Mvc.WebViewPage<Models.PricePositionViewModel>
+    public partial class PricePosition : System.Web.Mvc.WebViewPage<PricePositionViewModel>
     {
         public PricePosition()
         {
@@ -112,14 +115,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1495), Tuple.Create("\"", 1531)
+WriteAttribute("title", Tuple.Create(" title=\"", 1488), Tuple.Create("\"", 1524)
             
             #line 47 "..\..\Views\CreateOrUpdate\PricePosition.cshtml"
-, Tuple.Create(Tuple.Create("", 1503), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 1496), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1503), false)
+, 1496), false)
 );
 
 WriteLiteral(">\r\n");
@@ -191,7 +194,7 @@ WriteLiteral("            ");
 
             
             #line 55 "..\..\Views\CreateOrUpdate\PricePosition.cshtml"
-       Write(Html.TemplateField(m => m.Price, FieldFlex.twins, new LookupSettings {EntityName = EntityName.Price }));
+       Write(Html.TemplateField(m => m.Price, FieldFlex.twins, new LookupSettings {EntityName = EntityType.Instance.Price() }));
 
             
             #line default
@@ -206,7 +209,7 @@ WriteLiteral("            ");
 
             
             #line 58 "..\..\Views\CreateOrUpdate\PricePosition.cshtml"
-       Write(Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings {EntityName = EntityName.Position, ExtendedInfo = "isSupportedByExport=true"}));
+       Write(Html.TemplateField(m => m.Position, FieldFlex.twins, new LookupSettings {EntityName = EntityType.Instance.Position(), ExtendedInfo = "isSupportedByExport=true"}));
 
             
             #line default
@@ -327,7 +330,7 @@ WriteLiteral("            ");
 
             
             #line 82 "..\..\Views\CreateOrUpdate\PricePosition.cshtml"
-       Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings {EntityName = EntityName.Currency, ReadOnly = true}));
+       Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings {EntityName = EntityType.Instance.Currency(), ReadOnly = true}));
 
             
             #line default

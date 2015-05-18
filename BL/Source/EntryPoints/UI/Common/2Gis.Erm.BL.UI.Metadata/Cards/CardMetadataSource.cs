@@ -12,10 +12,11 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BL.UI.Metadata.Cards
 {

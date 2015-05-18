@@ -38,10 +38,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/CurrencyRate.cshtml")]
-    public partial class CurrencyRate : System.Web.Mvc.WebViewPage<Models.CurrencyRateViewModel>
+    public partial class CurrencyRate : System.Web.Mvc.WebViewPage<CurrencyRateViewModel>
     {
         public CurrencyRate()
         {
@@ -76,14 +79,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 179), Tuple.Create("\"", 215)
+WriteAttribute("title", Tuple.Create(" title=\"", 172), Tuple.Create("\"", 208)
             
             #line 13 "..\..\Views\CreateOrUpdate\CurrencyRate.cshtml"
-, Tuple.Create(Tuple.Create("", 187), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 180), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 187), false)
+, 180), false)
 );
 
 WriteLiteral(">\r\n");
@@ -127,7 +130,7 @@ WriteLiteral("            ");
 
             
             #line 19 "..\..\Views\CreateOrUpdate\CurrencyRate.cshtml"
-       Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = !Model.IsNew }));
+       Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = !Model.IsNew }));
 
             
             #line default
@@ -138,7 +141,7 @@ WriteLiteral("            ");
 
             
             #line 20 "..\..\Views\CreateOrUpdate\CurrencyRate.cshtml"
-       Write(Html.TemplateField(m => m.BaseCurrency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.BaseCurrency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true }));
 
             
             #line default
