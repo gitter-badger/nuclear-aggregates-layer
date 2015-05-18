@@ -2,10 +2,11 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Operations;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
+
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Operations;
+using NuClear.Metamodeling.Elements;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
 {
@@ -13,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
     {
         private readonly OperationFeatureAspect<DataListMetadataBuilder, DataListMetadata> _operation;
         private readonly DataFieldsFeatureAspect<DataListMetadataBuilder, DataListMetadata> _dataFealds;
-        private EntityName _entityName;
+        private IEntityType _entityName;
 
         public DataListMetadataBuilder()
         {
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
             get { return _dataFealds; }
         }
 
-        public DataListMetadataBuilder For(EntityName entityName)
+        public DataListMetadataBuilder For(IEntityType entityName)
         {
             _entityName = entityName;
             return this;
@@ -78,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists
                 }
             }
 
-            if (_entityName == EntityName.None)
+            if (_entityName.Equals(EntityType.Instance.None()))
             {
                 _entityName = dataListMetadata.Entity;
             }

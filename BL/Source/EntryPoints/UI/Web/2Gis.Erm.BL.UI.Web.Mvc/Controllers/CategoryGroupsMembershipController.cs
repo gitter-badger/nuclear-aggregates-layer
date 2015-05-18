@@ -12,12 +12,10 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currenc
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Serialization;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
@@ -25,6 +23,8 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -35,7 +35,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     {
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
         private readonly ICategoryReadModel _categoryReadModel;
-        private readonly IUIConfigurationService _configurationService;
         private readonly IChangeCategoryGroupService _changeCategoryGroupService;
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
 
@@ -47,14 +46,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                                   ITracer tracer,
                                                   IGetBaseCurrencyService getBaseCurrencyService,
                                                   ISecurityServiceEntityAccess securityServiceEntityAccess,
-                                                  IUIConfigurationService configurationService,
                                                   IChangeCategoryGroupService changeCategoryGroupService,
                                                   ICategoryReadModel categoryReadModel,
                                                   IOrganizationUnitReadModel organizationUnitReadModel)
             : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _securityServiceEntityAccess = securityServiceEntityAccess;
-            _configurationService = configurationService;
             _changeCategoryGroupService = changeCategoryGroupService;
             _categoryReadModel = categoryReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
@@ -64,7 +61,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public ActionResult Manage(long organizationUnitId)
         {
             var hasClientPrivileges = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                   EntityName.OrganizationUnit,
+                                                                                   EntityType.Instance.OrganizationUnit(),
                                                                                    UserContext.Identity.Code,
                                                                                    organizationUnitId,
                                                                                    -1, // TODO {all}: Сделать с этим что-то порядочное
@@ -79,15 +76,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             cardSettings.Title = string.Format(BLResources.OrganizationUnitCategoryGroupsCardTitle, orgUnit.Name);
 
             var model = new CategoryGroupMembershipViewModel
+            {
+                OrganizationUnitId = organizationUnitId,
+                ViewConfig =
                 {
-                    OrganizationUnitId = organizationUnitId,
-                    ViewConfig =
-                        {
-                            EntityName = EntityName.CategoryGroupMembership, 
-                    PType = EntityName.None,
+                            EntityName = EntityType.Instance.CategoryGroupMembership(),
+                            PType = EntityType.Instance.None(),
                     CardSettings = cardSettings
-                        }
-                };
+                }
+            };
 
             return View(model);
         }
@@ -101,14 +98,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         [HttpGet]
         public JsonNetResult CategoryGroupsMembership(long organizationUnitId)
-            {
+        {
             var categoryDtos = _categoryReadModel.GetCategoryGroupMembership(organizationUnitId);
             return new JsonNetResult(new { categoryGroupsMembership = categoryDtos, success = true });
         }
 
         [HttpPost]
         public JsonNetResult CategoryGroupsMembership(long organizationUnitId, string categoryGroupsMembership)
-                                                                               {
+        {
             var serializerSettings = new JsonSerializerSettings { Converters = { new Int64ToStringConverter() } };
             var deserializedData = JsonConvert.DeserializeObject<CategoryGroupMembershipDto[]>(categoryGroupsMembership, serializerSettings);
             _changeCategoryGroupService.SetCategoryGroupMembership(deserializedData);
@@ -120,7 +117,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new CardStructure
                        {
                            Icon = "en_ico_lrg_Category.gif",
-                           EntityName = EntityName.CategoryGroupMembership.ToString(),
+                           EntityName = EntityType.Instance.CategoryGroupMembership().Description,
                            EntityLocalizedName = ErmConfigLocalization.EnCategoryGroups,
                            CardRelatedItems = new CardRelatedItemsGroupStructure[0],
                            CardToolbar = new[]

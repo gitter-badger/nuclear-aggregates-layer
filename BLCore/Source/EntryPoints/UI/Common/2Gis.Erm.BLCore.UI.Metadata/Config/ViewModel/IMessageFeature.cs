@@ -1,6 +1,7 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+﻿using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel
 {

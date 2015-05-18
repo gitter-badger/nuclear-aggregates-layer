@@ -5,6 +5,8 @@ using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 using NuClear.Jobs;
 using NuClear.Security.API;
 using NuClear.Tracing.API;
@@ -38,8 +40,8 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PostIntegrationActivities
         {
             var flowDescription = new FlowDescription
                 {
-                    EntityName = EntityName.FirmAddress,
-                    IntegrationEntityName = EntityName.ImportedFirmAddress
+                    EntityName = EntityType.Instance.FirmAddress(),
+                    IntegrationEntityName = EntityType.Instance.ImportedFirmAddress()
                 };
 
             SetFlowDescriptionContext(flowDescription);
@@ -58,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.TaskService.Jobs.PostIntegrationActivities
 
         private void SetFlowDescriptionContext(FlowDescription description)
         {
-            if (description.IntegrationEntityName == EntityName.ImportedFirmAddress)
+            if (description.IntegrationEntityName.Equals(EntityType.Instance.ImportedFirmAddress()))
             {
                 var context = new XElement("Localization");
                 context.Add(new XAttribute("Language", _integrationLocalizationSettings.BasicLanguage));

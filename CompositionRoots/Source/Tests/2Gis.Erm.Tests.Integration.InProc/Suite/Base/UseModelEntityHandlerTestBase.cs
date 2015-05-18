@@ -1,7 +1,8 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Base
 {

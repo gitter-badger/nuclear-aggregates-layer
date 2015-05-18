@@ -41,6 +41,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -460,9 +461,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         private ReportModel.ReportFieldDefinition BuildLookup(ReportFieldDto reportField)
         {
-            switch (reportField.LookupEntityName)
+            if (reportField.LookupEntityName.Equals(EntityType.Instance.User()))
             {
-                case EntityName.User:
                     var userExtendedInfo = _reportSimplifiedModel.IsUserFromHeadBranch(UserContext.Identity.Code)
                                                ? null
                                                : "subordinatesOf=" + UserContext.Identity.Code;
@@ -470,11 +470,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                         {
                             Type = typeof(LookupField),
                             Name = reportField.Name,
-                            Config = new LookupSettings { EntityName = EntityName.User, ExtendedInfo = userExtendedInfo },
+                    Config = new LookupSettings { EntityName = EntityType.Instance.User(), ExtendedInfo = userExtendedInfo },
                             DefaultValue = GetDefaultUserLookup(),
                         };
+            }
 
-                case EntityName.OrganizationUnit:
+            if (reportField.LookupEntityName.Equals(EntityType.Instance.OrganizationUnit()))
+            {
                     var organizationUnitExtendedInfo = _reportSimplifiedModel.IsUserFromHeadBranch(UserContext.Identity.Code)
                                                            ? new[] { reportField.LookupExtendedInfo }
                                                            : new[] { "userId=" + UserContext.Identity.Code, reportField.LookupExtendedInfo };
@@ -484,13 +486,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                             Name = reportField.Name,
                             Config = new LookupSettings
                                 {
-                                    EntityName = EntityName.OrganizationUnit,
+                        EntityName = EntityType.Instance.OrganizationUnit(),
                                     ExtendedInfo = string.Join("&", organizationUnitExtendedInfo.Where(s => !string.IsNullOrWhiteSpace(s)))
                                 },
                             DefaultValue = GetDefaultOrganizationUnitLookup(),
                         };
+            }
 
-                default:
                     return new ReportModel.ReportFieldDefinition
                     {
                         Type = typeof(LookupField),
@@ -499,7 +501,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                         DefaultValue = null,
                     };
             }
-        }
 
         private PeriodType GetDateTimePeriodType(ReportFieldDefault field)
         {

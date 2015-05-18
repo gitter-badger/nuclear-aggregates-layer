@@ -9,9 +9,10 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Clients;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.LegalPersonProfiles;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia.Orders;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Services.Cards.Russia
 {

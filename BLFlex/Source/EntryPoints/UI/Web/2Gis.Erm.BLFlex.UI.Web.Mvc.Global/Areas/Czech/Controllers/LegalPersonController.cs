@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
         }
 
         [HttpPost, UseDependencyFields, GetEntityStateToken]
-        [LogWebRequest(EntityName.LegalPerson, CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
+        [LogWebRequest("LegalPerson", CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
         public virtual ActionResult ChangeLegalPersonRequisites(CzechChangeLegalPersonRequisitesViewModel model)
         {
             if (!ModelUtils.CheckIsModelValid(this, model))

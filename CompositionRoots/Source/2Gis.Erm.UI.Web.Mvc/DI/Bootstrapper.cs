@@ -82,13 +82,12 @@ using DoubleGis.Erm.Platform.DAL.AdoNet;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
+using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Factories;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Migration.Core;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.DI.MassProcessing;
@@ -106,6 +105,8 @@ using NuClear.DI.Unity.Config;
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
+using NuClear.Metamodeling.Validators;
+using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 
@@ -120,6 +121,7 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
             
             var massProcessors = new IMassProcessor[]
                 {
+                    new CheckDomainModelEntitiesConsistencyMassProcessor(), 
                     new CheckApplicationServicesConventionsMassProcessor(), 
                     new MetadataSourcesMassProcessor(container), 
                     new AggregatesLayerMassProcessor(container),

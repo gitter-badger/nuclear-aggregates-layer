@@ -1,5 +1,4 @@
-﻿@using DoubleGis.Erm.Platform.Common.Utils
-@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.AssignViewModel
+﻿@model AssignViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -247,7 +246,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'" })
+                                        @Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.User(), ExtendedInfo = "'hideReserveUser=true'" })
                                     </td>
                                 </tr>
                             </tbody>
@@ -278,7 +277,7 @@
                 </tr>
             </tbody>
         </table>
-        @Html.HiddenFor(m => m.EntityTypeName)
+        @Html.Hidden("EntityType", Model.EntityTypeName.Description)
         @Html.HiddenFor(m => m.PartialAssignSupported)
     }
 }

@@ -1,13 +1,32 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum PriceAggregate
+    public static class PriceAggregate
     {
-        Price = EntityName.Price,
-        PricePosition = EntityName.PricePosition,
-        AssociatedPositionsGroup = EntityName.AssociatedPositionsGroup,
-        AssociatedPosition = EntityName.AssociatedPosition,
-        DeniedPosition = EntityName.DeniedPosition
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Price(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.PricePosition(),
+                                    EntityType.Instance.AssociatedPositionsGroup(),
+                                    EntityType.Instance.AssociatedPosition(),
+                                    EntityType.Instance.DeniedPosition()
+                                })
+                    .ToArray();
+            }
+        }
     }
 }

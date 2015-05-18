@@ -6,16 +6,16 @@ using System.Windows.Controls;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Dialogs;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.UseCases.Messages;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.UserInfo;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
+
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations
 {
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations
     {
         private readonly IMessageSink _messageSink;
         private readonly IUserInfo _userInfo;
-        private readonly EntityName _entityName;
+        private readonly IEntityType _entityName;
         private readonly long[] _operationProcessingEntities;
         private readonly TOperationIdentity _operationIdentity = new TOperationIdentity();
 
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations
         private double _progress;
 
         protected OperationConfiguratorViewModel(
-            EntityName entityName,
+            IEntityType entityName,
             long[] operationProcessingEntities,
             IMessageSink messageSink,
             ITitleProviderFactory titleProviderFactory,
@@ -190,7 +190,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations
             get { return _entityName.ToStringLocalized(EnumResources.ResourceManager, _userInfo.Culture); }
         }
 
-        protected EntityName EntityName
+        protected IEntityType EntityName
         {
             get { return _entityName; }
         }

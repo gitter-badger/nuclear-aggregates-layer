@@ -1,9 +1,9 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
     public interface IFinderBaseProvider
     {
-        IFinderBase GetFinderBase(EntityName entityName);
+        IFinderBase GetFinderBase(IEntityType entityName);
     }
 }

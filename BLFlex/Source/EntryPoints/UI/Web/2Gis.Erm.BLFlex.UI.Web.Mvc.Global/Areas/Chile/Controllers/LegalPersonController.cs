@@ -92,7 +92,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Chile.Controllers
         }
 
         [HttpPost, UseDependencyFields, GetEntityStateToken]
-        [LogWebRequest(EntityName.LegalPerson, CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
+        [LogWebRequest("LegalPerson", CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
         public virtual ActionResult ChangeLegalPersonRequisites(ChileChangeLegalPersonRequisitesViewModel model)
         {
             if (!ModelUtils.CheckIsModelValid(this, model))

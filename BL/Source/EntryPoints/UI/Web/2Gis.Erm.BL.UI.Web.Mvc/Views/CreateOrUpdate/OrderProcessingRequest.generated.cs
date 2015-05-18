@@ -38,10 +38,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/OrderProcessingRequest.cshtml")]
-    public partial class OrderProcessingRequest : System.Web.Mvc.WebViewPage<Models.OrderProcessingRequestViewModel>
+    public partial class OrderProcessingRequest : System.Web.Mvc.WebViewPage<OrderProcessingRequestViewModel>
     {
         public OrderProcessingRequest()
         {
@@ -64,15 +67,15 @@ DefineSection("CardScripts", () => {
 
 WriteLiteral("\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 142), Tuple.Create("\"", 205)
-, Tuple.Create(Tuple.Create("", 148), Tuple.Create("/Scripts/Ext.ux.RequestMessagesTab.js?", 148), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 135), Tuple.Create("\"", 198)
+, Tuple.Create(Tuple.Create("", 141), Tuple.Create("/Scripts/Ext.ux.RequestMessagesTab.js?", 141), true)
             
             #line 10 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-, Tuple.Create(Tuple.Create("", 186), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 179), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 186), false)
+, 179), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -85,58 +88,58 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 387), Tuple.Create("\"", 432)
-, Tuple.Create(Tuple.Create("", 394), Tuple.Create("/Content/order.css?", 394), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 380), Tuple.Create("\"", 425)
+, Tuple.Create(Tuple.Create("", 387), Tuple.Create("/Content/order.css?", 387), true)
             
             #line 12 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-, Tuple.Create(Tuple.Create("", 413), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 406), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 413), false)
+, 406), false)
 );
 
 WriteLiteral(" />\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 449), Tuple.Create("\"", 509)
-, Tuple.Create(Tuple.Create("", 455), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Order.js?", 455), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 442), Tuple.Create("\"", 502)
+, Tuple.Create(Tuple.Create("", 448), Tuple.Create("/Scripts/Ext.DoubleGis.UI.Order.js?", 448), true)
             
             #line 13 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-, Tuple.Create(Tuple.Create("", 490), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 483), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 490), false)
+, 483), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 556), Tuple.Create("\"", 633)
-, Tuple.Create(Tuple.Create("", 562), Tuple.Create("/Scripts/Ext.DoubleGis.Order.UpgradeResultWindow.js?", 562), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 549), Tuple.Create("\"", 626)
+, Tuple.Create(Tuple.Create("", 555), Tuple.Create("/Scripts/Ext.DoubleGis.Order.UpgradeResultWindow.js?", 555), true)
             
             #line 14 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-, Tuple.Create(Tuple.Create("", 614), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 607), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 614), false)
+, 607), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 686), Tuple.Create("\"", 763)
-, Tuple.Create(Tuple.Create("", 692), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderProcessingRequest.js?", 692), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 679), Tuple.Create("\"", 756)
+, Tuple.Create(Tuple.Create("", 685), Tuple.Create("/Scripts/Ext.DoubleGis.UI.OrderProcessingRequest.js?", 685), true)
             
             #line 16 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-, Tuple.Create(Tuple.Create("", 744), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 737), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 744), false)
+, 737), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -227,14 +230,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1210), Tuple.Create("\"", 1246)
+WriteAttribute("title", Tuple.Create(" title=\"", 1203), Tuple.Create("\"", 1239)
             
             #line 28 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-, Tuple.Create(Tuple.Create("", 1218), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 1211), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1218), false)
+, 1211), false)
 );
 
 WriteLiteral(">\r\n        <div");
@@ -292,7 +295,7 @@ WriteLiteral("            ");
 
             
             #line 39 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-       Write(Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), ReadOnly = true }));
 
             
             #line default
@@ -303,7 +306,7 @@ WriteLiteral("            ");
 
             
             #line 40 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-       Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ReadOnly = true }));
 
             
             #line default
@@ -318,7 +321,7 @@ WriteLiteral("            ");
 
             
             #line 43 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-       Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ReadOnly = true }));
 
             
             #line default
@@ -333,7 +336,7 @@ WriteLiteral("            ");
 
             
             #line 46 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-       Write(Html.TemplateField(m => m.BaseOrder, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Order, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.BaseOrder, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Order(), ReadOnly = true }));
 
             
             #line default
@@ -344,7 +347,7 @@ WriteLiteral("            ");
 
             
             #line 47 "..\..\Views\CreateOrUpdate\OrderProcessingRequest.cshtml"
-       Write(Html.TemplateField(m => m.RenewedOrder, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Order, ReadOnly = true }));
+       Write(Html.TemplateField(m => m.RenewedOrder, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Order(), ReadOnly = true }));
 
             
             #line default

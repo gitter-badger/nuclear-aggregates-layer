@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Building
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Building
 {
     public class ImportBuildingIdentity : OperationIdentityBase<ImportBuildingIdentity>, INonCoupledOperationIdentity
     {

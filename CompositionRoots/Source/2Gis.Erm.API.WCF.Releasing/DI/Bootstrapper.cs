@@ -60,7 +60,6 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
                     new CheckDomainModelEntitiesConsistencyMassProcessor(), 
-                    new MetadataSourcesMassProcessor(container),
                     new AggregatesLayerMassProcessor(container),
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 

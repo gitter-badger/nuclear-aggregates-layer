@@ -3,9 +3,10 @@ using System.Linq;
 using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.Model.Aggregates;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail;
+
+using NuClear.Metamodeling.Domain.Operations.Detail;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability
 {
@@ -18,9 +19,9 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability
         [DataMember]
         private readonly IOperationIdentity _operationIdentity;
         [DataMember]
-        private readonly EntityName[] _entities;
+        private readonly IEntityType[] _entities;
         [DataMember]
-        private readonly Dictionary<EntityName, EntityName[]> _entitiesByAggregates;
+        private readonly Dictionary<IEntityType, IEntityType[]> _entitiesByAggregates;
         [DataMember]
         private readonly Dictionary<EntitySet, IOperationMetadata> _metadataDetails;
         
@@ -29,8 +30,8 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability
             _operationIdentity = operationIdentity;
             _metadataDetails = metadataDetails.ToDictionary(c => c.SpecificTypes, c => c.MetadataDetail);
 
-            var entitiesFlatList = new HashSet<EntityName>();
-            var entitiesByAggregates = new Dictionary<EntityName, HashSet<EntityName>>();
+            var entitiesFlatList = new HashSet<IEntityType>();
+            var entitiesByAggregates = new Dictionary<IEntityType, HashSet<IEntityType>>();
 
             foreach (var operationEntitiesDescriptor in MetadataDetails.Keys)
             {
@@ -51,10 +52,10 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability
 
                     foreach (var aggregateRoot in aggregates)
                     {
-                        HashSet<EntityName> entities;
+                        HashSet<IEntityType> entities;
                         if (!entitiesByAggregates.TryGetValue(aggregateRoot, out entities))
                         {
-                            entities = new HashSet<EntityName>();
+                            entities = new HashSet<IEntityType>();
                             entitiesByAggregates.Add(aggregateRoot, entities);
                         }
 
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability
             _entities = entitiesFlatList.ToArray();
         }
 
-        public EntityName[] Entities
+        public IEntityType[] Entities
         {
             get
             {
@@ -83,7 +84,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability
             }
         }
 
-        public IReadOnlyDictionary<EntityName, EntityName[]> EntitiesByAggregates
+        public IReadOnlyDictionary<IEntityType, IEntityType[]> EntitiesByAggregates
         {
             get
             {

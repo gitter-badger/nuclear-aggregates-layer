@@ -1,5 +1,5 @@
 ﻿
-@model Models.NoteViewModel
+@model NoteViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -67,7 +67,7 @@
         {
             @Html.HiddenFor(m => m.Id)
             @Html.HiddenFor(m => m.ParentId)
-            @Html.HiddenFor(m => m.ParentTypeName)
+            @Html.Hidden("ParentTypeName", Model.ParentTypeName.Description)
             @Html.Hidden("FileExists", Model.FileId > 0)
         }
         <div class="row-wrapper">

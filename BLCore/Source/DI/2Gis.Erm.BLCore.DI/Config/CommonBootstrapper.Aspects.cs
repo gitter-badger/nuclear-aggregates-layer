@@ -28,7 +28,6 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
@@ -53,15 +52,17 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Metamodeling.Domain.Processors.Concrete;
+using NuClear.Metamodeling.Processors;
+using NuClear.Metamodeling.Processors.Concrete;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.Validators;
 using NuClear.DI.Unity.Config;
+using NuClear.ResourceUtilities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.DI.Config

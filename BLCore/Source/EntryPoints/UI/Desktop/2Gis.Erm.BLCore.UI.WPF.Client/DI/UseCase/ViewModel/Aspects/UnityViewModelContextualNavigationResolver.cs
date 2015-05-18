@@ -6,8 +6,6 @@ using System.Windows.Controls;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Navigation.ViewModels;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.UseCases.Messages;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.ViewModelViewMap;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
@@ -22,6 +20,9 @@ using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Navigation
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
 {
@@ -98,13 +99,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel.Aspects
             foreach (var resourceEntryKey in metadata.Parts)
             {
                 var item =
-                    new NavigationItem(IdBuilder.UniqueFor("CardMetadatas/Parts"), _titleProviderFactory.Create(new ResourceTitleDescriptor(resourceEntryKey)), partNavigateCommand);
+                    new NavigationItem(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Unique().For("CardMetadatas/Parts"), _titleProviderFactory.Create(new ResourceTitleDescriptor(resourceEntryKey)), partNavigateCommand);
                 cardPartsItems.Add(item);
                 partsMap.Add(resourceEntryKey.ResourceEntryName, item);
             }
 
             var cardPartsRootItem = new NavigationItem(
-                IdBuilder.UniqueFor("CardMetadatas/Parts"),
+                NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.Unique().For("CardMetadatas/Parts"),
                 _titleProviderFactory.Create(ResourceTitleDescriptor.Create(() => ErmConfigLocalization.CrdRelInformation)),
                 cardPartsRootNavigateCommand) { Items = cardPartsItems.ToArray() };
             items.Add(cardPartsRootItem);

@@ -4,10 +4,11 @@ using System.Linq;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Identities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+
+using NuClear.Model.Common;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Core.Metadata.Security
 {
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.Platform.Core.Metadata.Security
             get { return _requirements; }
         }
 
-        public OperationAccessRequirement<TConcreteIdentity> Require(EntityAccessTypes privelege, params EntityName[] names)
+        public OperationAccessRequirement<TConcreteIdentity> Require(EntityAccessTypes privelege, params IEntityType[] names)
         {
             var requirements = names.Select(name => new EntityAccessRequirement(privelege, name)).Where(requirement => !_requirements.Contains(requirement));
             foreach (var requirement in requirements)

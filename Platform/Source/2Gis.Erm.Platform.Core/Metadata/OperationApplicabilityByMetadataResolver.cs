@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Metadata;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail;
+
+using NuClear.Metamodeling.Domain.Operations.Detail;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Core.Metadata
 {

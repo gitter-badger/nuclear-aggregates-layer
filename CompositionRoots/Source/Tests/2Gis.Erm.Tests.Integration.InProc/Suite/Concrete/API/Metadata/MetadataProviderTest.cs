@@ -1,5 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
-using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
+﻿using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
+
+using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata
 {

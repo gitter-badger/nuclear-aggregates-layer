@@ -1,42 +1,124 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum ActivityAggregate
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public static class ActivityAggregate
     {
-        Activity = EntityName.Activity,
-        Appointment = EntityName.Appointment,
-        PhoneCall = EntityName.Phonecall,
-        Task = EntityName.Task,
-        Letter = EntityName.Letter,
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Activity(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.Appointment(),
+                                    EntityType.Instance.Phonecall(),
+                                    EntityType.Instance.Task(),
+                                    EntityType.Instance.Letter()
+                                })
+                    .ToArray();
+            }
+        }
     }
 
-	public enum AppointmentAggregate
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
+    public static class AppointmentAggregate
+    {
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Appointment(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.AppointmentRegardingObject(),
+                                    EntityType.Instance.AppointmentAttendee(),
+                                    EntityType.Instance.AppointmentOrganizer()
+                                })
+                    .ToArray();
+            }
+        }
+    }
+
+    public static class PhonecallAggregate
+    {
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Phonecall(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+    {
+                                    EntityType.Instance.PhonecallRegardingObject(),
+                                    EntityType.Instance.PhonecallRecipient()
+                                })
+                    .ToArray();
+    }
+        }
+    }
+
+    public static class TaskAggregate
 	{
-		Appointment = EntityName.Appointment,
-        AppointmentRegardingObject = EntityName.AppointmentRegardingObject,
-        AppointmentAttendee = EntityName.AppointmentAttendee,
-        AppointmentOrganizer = EntityName.AppointmentOrganizer,
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Task(); }
 	}
 	
-	public enum PhonecallAggregate
+        public static IEntityType[] Entities
 	{
-		Phonecall = EntityName.Phonecall,
-        PhonecallRegardingObject = EntityName.PhonecallRegardingObject,
-        PhonecallRecipient = EntityName.PhonecallRecipient,
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                        {
+                            EntityType.Instance.TaskRegardingObject()
+                        })
+                    .ToArray();
+            }
+        }
 	}
 	
-	public enum TaskAggregate
+    public static class LetterAggregate
+    {
+        public static IEntityType Root
 	{
-		Task = EntityName.Task,
-        TaskRegardingObject = EntityName.TaskRegardingObject,
+            get { return EntityType.Instance.Letter(); }
 	}
 
-	public enum LetterAggregate
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
 	{
-		Letter = EntityName.Letter,
-        LetterRegardingObject = EntityName.LetterRegardingObject,
-        LetterSender = EntityName.LetterSender,
-        LetterRecipient = EntityName.LetterRecipient,
+                            EntityType.Instance.LetterRegardingObject(),
+                            EntityType.Instance.LetterSender(),
+                            EntityType.Instance.LetterRecipient()
+                        })
+                    .ToArray();
+            }
+        }
     }
 }

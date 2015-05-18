@@ -3,7 +3,8 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -11,7 +12,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
     {
         public static readonly CardMetadata Advertisement =
             CardMetadata.For<Advertisement>()
-                        .Icon.Path(Icons.Icons.Entity.Small(EntityName.Advertisement))
+                        .Icon.Path(Icons.Icons.Entity.Small(EntityType.Instance.Advertisement()))
                         .InfoOn<ISelectableToWhiteListAspect>(x => x.IsSelectedToWhiteList,
                                                                              StringResourceDescriptor.Create(() => BLResources.AdvertisementIsSelectedToWhiteList));
     }

@@ -3,7 +3,8 @@ using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Assign
 {
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Generic.Assign
         [DataMember]
         public Guid OperationToken { get; private set; }
         [DataMember]
-        public EntityName EntityName { get; set; }
+        public IEntityType EntityName { get; set; }
         [DataMember]
         public long OwnerCode { get; set; }
         [DataMember]
