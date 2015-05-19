@@ -20,21 +20,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public int Delete(IEnumerable<DeniedPosition> deniedPositions)
+        public void Delete(IEnumerable<DeniedPosition> deniedPositions)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, DeniedPosition>())
             {
                 foreach (var deniedPosition in deniedPositions)
                 {
-                    deniedPosition.IsActive = false;
-                    _deniedPositionGenericRepository.Update(deniedPosition);
-                    operationScope.Updated<DeniedPosition>(deniedPosition.Id);
+                    _deniedPositionGenericRepository.Delete(deniedPosition);
+                    operationScope.Deleted(deniedPosition);
                 }
 
-                var count = _deniedPositionGenericRepository.Save();
+                _deniedPositionGenericRepository.Save();
 
                 operationScope.Complete();
-                return count;
             }
         }
     }

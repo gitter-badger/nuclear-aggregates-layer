@@ -2023,4 +2023,10 @@
   <data name="PositionsGroupNone" xml:space="preserve">
     <value />
   </data>
+  <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
+    <value>Reklamní agentura</value>
+  </data>
+  <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
+    <value>Změna typu objednávky Reklamní agentury</value>
+  </data>
 </root>

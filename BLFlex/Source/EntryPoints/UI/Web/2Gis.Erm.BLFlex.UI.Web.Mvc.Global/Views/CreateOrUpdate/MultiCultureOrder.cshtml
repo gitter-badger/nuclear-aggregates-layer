@@ -1,6 +1,6 @@
 ﻿@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
-@using NuClear.Security.API.FunctionalAccess
-@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureOrderViewModel
+@using DoubleGis.Erm.Platform.API.Security.FunctionalAccess
+@model MultiCultureOrderViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -66,6 +66,7 @@
         @Html.HiddenFor(m => m.VatPlan)
         @Html.HiddenFor(m => m.OrderValidationServiceUrl)
         @Html.HiddenFor(m => m.RegionalNumber)
+        @Html.HiddenFor(m => m.DisabledOrderTypes)
 
         @*Скрыты в международной версии*@
         @Html.HiddenFor(m => m.HasDocumentsDebt)

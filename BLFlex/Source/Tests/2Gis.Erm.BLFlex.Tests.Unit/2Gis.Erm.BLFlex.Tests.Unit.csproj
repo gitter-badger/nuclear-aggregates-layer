@@ -151,8 +151,6 @@
     <Compile Include="ApplicationServices\Operations.Global\Czech\Concrete\Old\Orders\PrintForms\CzechPrintOrderTerminationNoticeHandlerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Czech\Concrete\Old\Orders\PrintForms\CzechPrintLetterOfGuaranteeHandlerSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Czech\Generic\OrderPrintFormDataExtractorSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Concrete\RegionalNumberNotSupportedServiceSpecs.cs" />
-    <Compile Include="ApplicationServices\Operations.Global\MultiCulture\Concrete\EvaluateOrderNumberServiceSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Concrete\Old\Orders\PrintForms\PrintDataSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Russia\Generic\OrderPrintFormDataExtractorSpecs.cs" />
     <Compile Include="ApplicationServices\Operations.Global\Emirates\Concrete\Integration\Import\FlowCards\Deserializers\EmiratesDeserializeCardServiceSpecs.cs" />

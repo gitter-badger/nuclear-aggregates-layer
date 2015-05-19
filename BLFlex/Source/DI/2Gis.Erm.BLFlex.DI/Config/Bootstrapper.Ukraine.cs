@@ -10,8 +10,8 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Ukraine.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.DI.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
@@ -65,7 +65,9 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             return container
                 .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}", "АД_{0}-{1}-{2}"))
                 .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
-                .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "БЗ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia))
+                .RegisterType<IEvaluateOrderNumberService, UkraineEvaluateOrderNumberService>(Lifetime.Singleton,
+                                                                                              new InjectionConstructor(
+                                                                                                  OrderNumberGenerationStrategiesContainer.StrategiesForCyrillicAlphabetCountries))
                 .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 

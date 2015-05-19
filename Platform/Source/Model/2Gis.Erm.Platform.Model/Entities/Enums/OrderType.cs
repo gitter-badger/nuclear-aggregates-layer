@@ -10,6 +10,7 @@
         AdsBarter = 4,
         ProductBarter = 5,
         ServiceBarter = 6,
-        SocialAds = 7
+        SocialAds = 7,
+        AdvertisementAgency = 8
     }
 }

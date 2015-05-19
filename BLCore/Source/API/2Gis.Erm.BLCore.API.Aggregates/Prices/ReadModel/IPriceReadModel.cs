@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 using DoubleGis.Erm.Platform.Model.Aggregates;
@@ -14,15 +15,16 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
         PricePositionRateType GetPricePositionRateType(long pricePositionId);
         bool IsDifferentPriceExistsForDate(long priceId, long organizationUnitId, DateTime beginDate);
         PriceValidationDto GetPriceValidationDto(long priceId);
+        IsPricePublishedAndActiveDto IsPricePublishedAndActive(long priceId);
         long GetActualPriceId(long organizationUnitId);
         bool IsPriceActive(long priceId);
-        bool IsPriceExist(long priceId);
+        bool DoesPriceExist(long priceId);
         bool IsPriceLinked(long priceId);
         bool IsPricePublished(long priceId);
-        bool IsPriceContainsPosition(long priceId, long positionId);
-        bool IsPriceContainsPositionWithinNonDeleted(long priceId, long positionId);
-        bool IsPricePositionExist(long priceId, long positionId, long pricePositionId);
-        bool IsPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId);
+        bool DoesPriceContainPosition(long priceId, long positionId);
+        bool DoesPriceContainPositionWithinNonDeleted(long priceId, long positionId);
+        bool DoesPricePositionExist(long priceId, long positionId, long pricePositionId);
+        bool DoesPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId);
         AllPriceDescendantsDto GetAllPriceDescendantsDto(long priceId);
         AllPricePositionDescendantsDto GetAllPricePositionDescendantsDto(long pricePositionId, long positionId);
         PriceDto GetPriceDto(long priceId);
@@ -32,5 +34,13 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel
         decimal GetPricePositionCost(long pricePositionId);
         PricePosition GetActivePricePosition(long priceId, long positionId);
         PricePositionDetailedInfo GetPricePositionDetailedInfo(long pricePositionId);
+        DeniedPosition GetDeniedPosition(long deniedPositionId);
+
+        IReadOnlyCollection<DeniedPosition> GetDeniedPositions(long positionId, long priceId);
+        IReadOnlyCollection<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId);
+        IReadOnlyCollection<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType);
+        IReadOnlyCollection<DeniedPosition> GetInactiveDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType);
+        IReadOnlyCollection<DeniedPosition> GetDeniedPositionsOrSymmetric(long positionId, long priceId);
+        IReadOnlyCollection<DeniedPosition> GetDeniedPositionsOrSymmetric(long positionId, long positionDeniedId, long priceId, params long[] deniedPositionToExcludeIds);
     }
 }
