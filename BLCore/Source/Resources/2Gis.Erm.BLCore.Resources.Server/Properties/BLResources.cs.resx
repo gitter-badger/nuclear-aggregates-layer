@@ -953,9 +953,6 @@ Blokujících chyb:{2}</value>
   <data name="AdditionalStreet" xml:space="preserve">
     <value>Další ulice</value>
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value>Zakázaná položka je již deaktivována</value>
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value>Vybrán do Bílého seznamu</value>
   </data>
@@ -988,9 +985,6 @@ Blokujících chyb:{2}</value>
   </data>
   <data name="PricePositionsReferencesToInactivePositions" xml:space="preserve">
     <value>Seznam ceníkových položek obsahuje objekty, které odkazují na neaktivní položky</value>
-  </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>Není možné deaktivovat zakázanou položku z deaktivovaného ceníku</value>
   </data>
   <data name="SpecifyMonthAndOrganizationUnit" xml:space="preserve">
     <value>Uveďte oddělení organizace a měsíc</value>
@@ -2452,9 +2446,6 @@ Celkem záznamů: {2}, úspěšně zpracováno {3} záznamů.</value>
   <data name="AmountPlan" xml:space="preserve">
     <value>Počáteční částka</value>
   </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>Není možné deaktivovat zakázanou položku ze zveřejněného ceníku</value>
-  </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
     <value>Právnická osoba klienta: {0}.
 Právnická osoba zhotovitele: {1}.
@@ -3196,7 +3187,7 @@ Operace se uskutečnila: {6}.</value>
   <data name="ServerRuntimeError" xml:space="preserve">
     <value>Chyba při provádění {0} na serveru: '{1}'</value>
   </data>
-  <data name="OperationIsDiabled" xml:space="preserve">
+  <data name="OperationIsDisabled" xml:space="preserve">
     <value>Tato operace byla vypnuta</value>
   </data>
   <data name="NoFirmsSelected" xml:space="preserve">
@@ -5190,6 +5181,12 @@ Doba zveřejnění: {3}.</value>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>Operace změny klienta není určena pro zadaný typ entity</value>
   </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value>Vytváření regionálních objednávek není podporováno</value>
+  </data>
+  <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
+    <value>Nemáte práva pro vytvoření objednávky reklamní agentury</value>
+  </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Zadejte období, způsob evidence  poskytování služeb a oddělení organizace</value>
   </data>
@@ -5219,6 +5216,24 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Operace nemůže být provedena, jelikož je uskutečňována aktualizace</value>
+  </data>
+  <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
+    <value>Byly nalezeny duplicity pravidel zákazů pro následující pozice: {0}</value>
+  </data>
+  <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
+    <value>Nebylo nalezeno symetrické pravidlo zákazu pro: {0}</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Nelze vytvářet zakázanou pozici v deaktivovaném ceníku</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Nelze vytvářet zakázanou pozici v publikovaném ceníku</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Nelze editovat zakázanou pozici v deaktivovaném ceníku</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Nelze editovat zakázanou pozici v publikovaném ceníku</value>
   </data>
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>Pokusil jste se ukončit akci, která je naplánována na budoucí období, změňte dobu provedení akce nebo stornujte to, pokud akce nebyla provedena</value>

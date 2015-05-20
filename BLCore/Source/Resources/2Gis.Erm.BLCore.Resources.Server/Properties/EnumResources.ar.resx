@@ -2035,4 +2035,10 @@
   <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
     <value>Телефония</value>
   </data>
+  <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
+    <value>Advertising agency</value>
+  </data>
+  <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
+    <value>Changing Advertising Agency order type</value>
+  </data>
 </root>

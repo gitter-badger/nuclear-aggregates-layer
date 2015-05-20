@@ -73,6 +73,7 @@
     <Compile Include="..\..\..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Aspects\Entities\IDisabledOrderTypesAspect.cs" />
     <Compile Include="Aspects\Entities\IOrderDatesAspect.cs" />
     <Compile Include="Aspects\Entities\IOrderDirectionAspect.cs" />
     <Compile Include="Aspects\Entities\IInspectorAspect.cs" />

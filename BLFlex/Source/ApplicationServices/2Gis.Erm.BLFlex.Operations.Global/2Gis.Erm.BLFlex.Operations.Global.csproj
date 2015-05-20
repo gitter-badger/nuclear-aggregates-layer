@@ -158,9 +158,6 @@
     <Compile Include="BargainPrintFormReadModel.cs" />
     <Compile Include="Czech\Concrete\Old\Orders\PrintForms\CzechPrintHelper.cs" />
     <Compile Include="IBargainPrintFormReadModel.cs" />
-    <Compile Include="MultiCulture\Concrete\AbstractEvaluateOrderNumberService.cs" />
-    <Compile Include="MultiCulture\Concrete\EvaluateOrderNumberWithoutRegionalService.cs" />
-    <Compile Include="MultiCulture\Concrete\EvaluateOrderNumberService.cs" />
     <Compile Include="Chile\Generic\Modify\ChileBranchOfficeValidator.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderBargainHandler.cs" />
     <Compile Include="MultiCulture\Concrete\Old\Orders\PrintForms\PrintOrderWithGuarateeHandler.cs" />
@@ -289,7 +286,6 @@
     <Compile Include="Chile\Generic\OrderPrintFormDataExtractor.cs" />
     <Compile Include="OrderRelationsDto.cs" />
     <Compile Include="OrderPrintFormReadModel.cs" />
-    <Compile Include="MultiCulture\Concrete\Old\Orders\Number\OrderNumberGenerationStrategies.cs" />
     <Compile Include="MultiCulture\Generic\Deactivate\DeactivateBranchOfficeOrganizationUnitService.cs" />
     <Compile Include="MultiCulture\Generic\Delete\DeleteLegalPersonProfileService.cs" />
     <Compile Include="MultiCulture\Generic\List\MultiCultureListBranchOfficeService.cs" />

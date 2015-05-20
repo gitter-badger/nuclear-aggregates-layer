@@ -49,6 +49,7 @@ namespace DoubleGis.Erm.Platform.API.Security.FunctionalAccess
         AdvertisementAgencyManagement = 648,
         HotClientTelemarketingProcessingBranch = 649,
         LegalPersonDeactivationOrActivation = 650,
-        TelephonyAccess = 651, 
+        TelephonyAccess = 652, 
+        EditAdvertisementAgencyOrderType = 651,
     }
 }

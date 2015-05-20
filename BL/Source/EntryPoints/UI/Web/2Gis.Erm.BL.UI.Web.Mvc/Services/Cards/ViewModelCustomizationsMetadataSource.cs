@@ -94,6 +94,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .Use<CheckIfCanSwitchToAccountCustomization>()
                                                        .Use<OrderValidationCustomization>()
                                                        .Use<InspectorNameCustomization>()
+                                                       .Use<DisableOrderTypesOptionsCustomization>()
                                                        .Use<PrivilegesCustomization>()
                                                        .Use<WorkflowStepsCustomization>()
                                                        .Use<LockOrderByReleaseCustomization>()

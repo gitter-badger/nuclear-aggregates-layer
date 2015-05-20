@@ -11,7 +11,7 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
     [Migration(201521041051, "Добавление функциональной привилегии Телефония", "a.pashkin")]
     public class Migration201521041051 : TransactedMigration
     {
-        private const int TelephonyAccess = 651;
+        private const int TelephonyAccess = 652;
         private const string FunctionalPrivelegeGranted = "FPrvDpthGranted";
 
         private static readonly IDictionary<int, long> PrivelegeIds = new Dictionary<int, long>
