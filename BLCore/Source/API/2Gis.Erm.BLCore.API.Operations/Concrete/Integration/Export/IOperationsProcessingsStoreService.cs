@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export

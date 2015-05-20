@@ -9,6 +9,8 @@ using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
 {
     public class BargainGridViewService : GenericEntityGridViewService<Bargain>
@@ -27,12 +29,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
             _securityServiceFunctionalAccess = functionalAccessService;
         }
 
-        protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings,
-                                                                     long? parentEntityId,
-                                                                     EntityName parentEntityName,
-                                                                     string parentEntityState)
+        protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings, long? parentEntityId, IEntityType parentEntityName, string parentEntityState)
         {
-            if (parentEntityName != EntityName.None ||
+            if (!parentEntityName.Equals(EntityType.Instance.None()) ||
                 !_securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.CloseBargainOperationalPeriod,
                                                                                 _userContext.Identity.Code))
             {

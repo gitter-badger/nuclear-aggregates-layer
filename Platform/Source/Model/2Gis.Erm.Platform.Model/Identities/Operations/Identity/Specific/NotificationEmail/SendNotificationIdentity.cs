@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.NotificationEmail
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.NotificationEmail
 {
     public class SendNotificationIdentity : OperationIdentityBase<SendNotificationIdentity>, INonCoupledOperationIdentity
     {

@@ -28,29 +28,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 1 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/DeactivateTerritory.cshtml")]
-    public partial class DeactivateTerritory : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.DeactivateTerritoryViewModel>
+    public partial class DeactivateTerritory : System.Web.Mvc.WebViewPage<DeactivateTerritoryViewModel>
     {
         public DeactivateTerritory()
         {
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+            #line 3 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -72,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+            #line 7 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
             Write(BLResources.DeactivateConfirmation);
 
             
@@ -87,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+            #line 8 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
                   Write(BLResources.DeactivateConfirmation);
 
             
@@ -102,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+            #line 9 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -118,23 +118,23 @@ DefineSection("PageContent", () => {
 
 WriteLiteral("\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 534), Tuple.Create("\"", 661)
-, Tuple.Create(Tuple.Create("", 540), Tuple.Create("/Scripts/", 540), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 436), Tuple.Create("\"", 563)
+, Tuple.Create(Tuple.Create("", 442), Tuple.Create("/Scripts/", 442), true)
             
-            #line 15 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-, Tuple.Create(Tuple.Create("", 549), Tuple.Create<System.Object, System.Int32>("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js"
-            
-            #line default
-            #line hidden
-, 549), false)
-, Tuple.Create(Tuple.Create("", 641), Tuple.Create("?", 641), true)
-            
-            #line 15 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-                                        , Tuple.Create(Tuple.Create("", 642), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 14 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+, Tuple.Create(Tuple.Create("", 451), Tuple.Create<System.Object, System.Int32>("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js"
             
             #line default
             #line hidden
-, 642), false)
+, 451), false)
+, Tuple.Create(Tuple.Create("", 543), Tuple.Create("?", 543), true)
+            
+            #line 14 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+                                        , Tuple.Create(Tuple.Create("", 544), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 544), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -145,58 +145,58 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 745), Tuple.Create("\"", 793)
-, Tuple.Create(Tuple.Create("", 752), Tuple.Create("/Content/Progress.css?", 752), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 647), Tuple.Create("\"", 695)
+, Tuple.Create(Tuple.Create("", 654), Tuple.Create("/Content/Progress.css?", 654), true)
             
-            #line 17 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-, Tuple.Create(Tuple.Create("", 774), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 16 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+, Tuple.Create(Tuple.Create("", 676), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 774), false)
+, 676), false)
 );
 
 WriteLiteral(" />\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 816), Tuple.Create("\"", 874)
-, Tuple.Create(Tuple.Create("", 822), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 822), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 718), Tuple.Create("\"", 776)
+, Tuple.Create(Tuple.Create("", 724), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 724), true)
+            
+            #line 18 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+, Tuple.Create(Tuple.Create("", 757), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 757), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 823), Tuple.Create("\"", 889)
+, Tuple.Create(Tuple.Create("", 829), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 829), true)
             
             #line 19 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-, Tuple.Create(Tuple.Create("", 855), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 870), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 855), false)
+, 870), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 921), Tuple.Create("\"", 987)
-, Tuple.Create(Tuple.Create("", 927), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 927), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 936), Tuple.Create("\"", 981)
+, Tuple.Create(Tuple.Create("", 942), Tuple.Create("/Scripts/Tooltip.js?", 942), true)
             
             #line 20 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-, Tuple.Create(Tuple.Create("", 968), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 962), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 968), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 1034), Tuple.Create("\"", 1079)
-, Tuple.Create(Tuple.Create("", 1040), Tuple.Create("/Scripts/Tooltip.js?", 1040), true)
-            
-            #line 21 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-, Tuple.Create(Tuple.Create("", 1060), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 1060), false)
+, 962), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -237,7 +237,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Deactivate\');\r\n  
 "ame: \'");
 
             
-            #line 77 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+            #line 76 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
                            Write(Model.OperationName);
 
             
@@ -259,13 +259,13 @@ WriteLiteral(@"', // тип операции - Qualify, Assign, ChangeTerritory
 ");
 
             
-            #line 90 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+            #line 89 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 90 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+            #line 89 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> {{"id", "EntityForm"}}))
     {
 
@@ -299,16 +299,16 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create(" \r\n                             onmouseover=\"", 4970), Tuple.Create("\"", 5042)
-, Tuple.Create(Tuple.Create("", 5015), Tuple.Create("AddTooltip(", 5015), true)
+WriteAttribute("onmouseover", Tuple.Create(" \r\n                             onmouseover=\"", 4872), Tuple.Create("\"", 4944)
+, Tuple.Create(Tuple.Create("", 4917), Tuple.Create("AddTooltip(", 4917), true)
             
-            #line 101 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-, Tuple.Create(Tuple.Create("", 5026), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 100 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+, Tuple.Create(Tuple.Create("", 4928), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 5026), false)
-, Tuple.Create(Tuple.Create("", 5040), Tuple.Create(");", 5040), true)
+, 4928), false)
+, Tuple.Create(Tuple.Create("", 4942), Tuple.Create(");", 4942), true)
 );
 
 WriteLiteral(" \r\n                             onmouseout=\"RemoveTooltip();\"");
@@ -318,7 +318,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 103 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+            #line 102 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
                        Write(Model.Message);
 
             
@@ -333,7 +333,7 @@ WriteLiteral(" style=\"font-weight: bold\"");
 WriteLiteral(">");
 
             
-            #line 109 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+            #line 108 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
                                                     Write(BLResources.AssignToOtherTerritory);
 
             
@@ -355,8 +355,8 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 WriteLiteral("                                        ");
 
             
-            #line 114 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-                                   Write(Html.LookupFor(k => k.NewTerritoryId, new LookupSettings {EntityName = EntityName.Territory}));
+            #line 113 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+                                   Write(Html.LookupFor(k => k.NewTerritoryId, new LookupSettings {EntityName = EntityType.Instance.Territory()}));
 
             
             #line default
@@ -383,21 +383,21 @@ WriteLiteral(">\r\n                            </div>\r\n                       
 "");
 
             
-            #line 131 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+            #line 130 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 131 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-   Write(Html.HiddenFor(x => x.EntityTypeName));
+            #line 130 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+   Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
             #line hidden
             
-            #line 131 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
-                                              
+            #line 130 "..\..\Views\GroupOperation\DeactivateTerritory.cshtml"
+                                                                    
     }
 
             

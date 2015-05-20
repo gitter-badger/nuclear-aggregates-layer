@@ -1,8 +1,4 @@
-﻿@using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations
-@using DoubleGis.Erm.Platform.Common.Utils
-@using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
-@using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel
-@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel
+﻿@model GroupOperationViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -143,9 +139,10 @@
         </tr>
         <tr>
             <td>
-                <span id="bodyMessage" style="display: none"></span><span>
-                                                                        @ConfirmationManager.GetConfirmation(new StrictOperationIdentity(CancelIdentity.Instance, new EntitySet(Model.EntityTypeName)))
-                                                                    </span>
+                <span id="bodyMessage" style="display: none"></span>
+                <span>
+                    @ConfirmationManager.GetConfirmation(new StrictOperationIdentity(CancelIdentity.Instance, new EntitySet(Model.EntityTypeName)))
+                </span>
             </td>
         </tr>
         <tr>

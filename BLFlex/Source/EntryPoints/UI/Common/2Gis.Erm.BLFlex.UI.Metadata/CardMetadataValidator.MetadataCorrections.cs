@@ -8,16 +8,18 @@ using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLFlex.UI.Metadata
 {
     public sealed partial class CardMetadataValidator
     {
-        private readonly IDictionary<EntityName, IDictionary<string, IDictionary<string, Tuple<object, object>>>> _cardMetadataCorrections =
-            new Dictionary<EntityName, IDictionary<string, IDictionary<string, Tuple<object, object>>>>
+        private readonly IDictionary<IEntityType, IDictionary<string, IDictionary<string, Tuple<object, object>>>> _cardMetadataCorrections =
+            new Dictionary<IEntityType, IDictionary<string, IDictionary<string, Tuple<object, object>>>>
                 {
                     #region Order
                     {
-                        EntityName.Order,
+                        EntityType.Instance.Order(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                  {
@@ -147,7 +149,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region LegalPerson
                     {
-                        EntityName.LegalPerson,
+                        EntityType.Instance.LegalPerson(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -177,7 +179,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Bargain
                     {
-                        EntityName.Bargain,
+                        EntityType.Instance.Bargain(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -197,7 +199,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Bank
                     {
-                        EntityName.Bank,
+                        EntityType.Instance.Bank(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -221,7 +223,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Contact
                     {
-                        EntityName.Contact,
+                        EntityType.Instance.Contact(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -241,7 +243,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Deal
                     {
-                        EntityName.Deal,
+                        EntityType.Instance.Deal(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -281,7 +283,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Client
                     {
-                        EntityName.Client,
+                        EntityType.Instance.Client(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -349,7 +351,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region OrderProcessingRequest
                     {
-                        EntityName.OrderProcessingRequest,
+                        EntityType.Instance.OrderProcessingRequest(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -391,7 +393,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Firm
                     {
-                        EntityName.Firm,
+                        EntityType.Instance.Firm(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -434,7 +436,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                         {
                                             {
                                                 "ExtendedInfo",
-                                                new Tuple<object, object>("firmId={Id}", "filterToParent=true")
+                                                new Tuple<object, object>("firmId={Id}", null)
                                             },
                                         }
                                 },
@@ -469,7 +471,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region FirmAddress
                     {
-                        EntityName.FirmAddress,
+                        EntityType.Instance.FirmAddress(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -499,7 +501,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region AdvertisementElementStatus
                     {
-                        EntityName.AdvertisementElementStatus,
+                        EntityType.Instance.AdvertisementElementStatus(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -523,7 +525,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region AdvertisementTemplate
                     {
-                        EntityName.AdvertisementTemplate,
+                        EntityType.Instance.AdvertisementTemplate(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -553,7 +555,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region User
                     {
-                        EntityName.User,
+                        EntityType.Instance.User(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -583,7 +585,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Territory
                     {
-                        EntityName.Territory,
+                        EntityType.Instance.Territory(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -613,7 +615,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Theme
                     {
-                        EntityName.Theme,
+                        EntityType.Instance.Theme(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -655,7 +657,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region ReleaseInfo
                     {
-                        EntityName.ReleaseInfo,
+                        EntityType.Instance.ReleaseInfo(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -685,7 +687,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Project
                     {
-                        EntityName.Project,
+                        EntityType.Instance.Project(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -725,7 +727,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Currency
                     {
-                        EntityName.Currency,
+                        EntityType.Instance.Currency(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -747,7 +749,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region CurrencyRate
                     {
-                        EntityName.CurrencyRate,
+                        EntityType.Instance.CurrencyRate(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -767,7 +769,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Lock
                     {
-                        EntityName.Lock,
+                        EntityType.Instance.Lock(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -787,7 +789,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region LockDetail
                     {
-                        EntityName.LockDetail,
+                        EntityType.Instance.LockDetail(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -807,7 +809,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Role
                     {
-                        EntityName.Role,
+                        EntityType.Instance.Role(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -827,7 +829,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region RolePrivilege
                     {
-                        EntityName.RolePrivilege,
+                        EntityType.Instance.RolePrivilege(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -851,7 +853,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region OrderPosition
                     {
-                        EntityName.OrderPosition,
+                        EntityType.Instance.OrderPosition(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -871,7 +873,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region PricePosition
                     {
-                        EntityName.PricePosition,
+                        EntityType.Instance.PricePosition(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -926,7 +928,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Position
                     {
-                        EntityName.Position,
+                        EntityType.Instance.Position(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -948,7 +950,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region PositionChildren
                     {
-                        EntityName.PositionChildren,
+                        EntityType.Instance.PositionChildren(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -968,7 +970,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region DeniedPosition
                     {
-                        EntityName.DeniedPosition,
+                        EntityType.Instance.DeniedPosition(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -988,7 +990,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region LocalMessage
                     {
-                        EntityName.LocalMessage,
+                        EntityType.Instance.LocalMessage(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -1018,7 +1020,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region AssociatedPosition
                     {
-                        EntityName.AssociatedPosition,
+                        EntityType.Instance.AssociatedPosition(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -1038,7 +1040,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region BranchOfficeOrganizationUnit
                     {
-                        EntityName.BranchOfficeOrganizationUnit,
+                        EntityType.Instance.BranchOfficeOrganizationUnit(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -1078,7 +1080,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region Bill
                     {
-                        EntityName.Bill,
+                        EntityType.Instance.Bill(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -1118,7 +1120,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region AdsTemplatesAdsElementTemplate
                     {
-                        EntityName.AdsTemplatesAdsElementTemplate,
+                        EntityType.Instance.AdsTemplatesAdsElementTemplate(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -1148,7 +1150,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region WithdrawalInfo
                     {
-                        EntityName.WithdrawalInfo,
+                        EntityType.Instance.WithdrawalInfo(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {
@@ -1178,7 +1180,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
                     #region UserProfile
                     {
-                        EntityName.UserProfile,
+                        EntityType.Instance.UserProfile(),
                         new Dictionary<string, IDictionary<string, Tuple<object, object>>>
                             {
                                 {

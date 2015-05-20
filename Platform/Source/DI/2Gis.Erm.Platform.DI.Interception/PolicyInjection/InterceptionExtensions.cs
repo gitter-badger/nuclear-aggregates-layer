@@ -5,10 +5,11 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Entities;
 
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.DI.Interception.PolicyInjection
 {

@@ -1,5 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+﻿using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+
+using NuClear.Metamodeling.Elements;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems
 {

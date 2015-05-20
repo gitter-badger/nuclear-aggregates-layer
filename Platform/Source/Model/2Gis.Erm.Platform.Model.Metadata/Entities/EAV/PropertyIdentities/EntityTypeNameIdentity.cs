@@ -1,7 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Identities.Properties;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities
 {
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities
 
         public override Type PropertyType
         {
-            get { return typeof(EntityName); }
+            get { return typeof(IEntityType); }
         }
     }
 }

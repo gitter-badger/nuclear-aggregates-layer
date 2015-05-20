@@ -1,23 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security;
+﻿using System.Security;
 using System.Web.Mvc;
 
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
+using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Serialization;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
@@ -25,6 +23,8 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -34,130 +34,82 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
     public class CategoryGroupsMembershipController : ControllerBase
     {
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
-        private readonly IUserRepository _userRepository;
-        private readonly ICategoryService _categoryService;
+        private readonly ICategoryReadModel _categoryReadModel;
+        private readonly IChangeCategoryGroupService _changeCategoryGroupService;
+        private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
 
         public CategoryGroupsMembershipController(IMsCrmSettings msCrmSettings,
-                                                  IUserContext userContext,
-                                                  ITracer tracer,
-                                                  ISecurityServiceEntityAccess securityServiceEntityAccess,
-                                                  IUserRepository userRepository,
                                                   IAPIOperationsServiceSettings operationsServiceSettings,
                                                   IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                                  IGetBaseCurrencyService getBaseCurrencyService,
                                                   IAPIIdentityServiceSettings identityServiceSettings,
-                                                  ICategoryService categoryService)
-            : base(msCrmSettings,
-                   operationsServiceSettings,
-                   specialOperationsServiceSettings,
-                   identityServiceSettings,
-                   userContext,
-                   tracer,
-                   getBaseCurrencyService)
+                                                  IUserContext userContext,
+                                                  ITracer tracer,
+                                                  IGetBaseCurrencyService getBaseCurrencyService,
+                                                  ISecurityServiceEntityAccess securityServiceEntityAccess,
+                                                  IChangeCategoryGroupService changeCategoryGroupService,
+                                                  ICategoryReadModel categoryReadModel,
+                                                  IOrganizationUnitReadModel organizationUnitReadModel)
+            : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _securityServiceEntityAccess = securityServiceEntityAccess;
-            _userRepository = userRepository;
-            _categoryService = categoryService;
+            _changeCategoryGroupService = changeCategoryGroupService;
+            _categoryReadModel = categoryReadModel;
+            _organizationUnitReadModel = organizationUnitReadModel;
         }
 
         [HttpGet]
         public ActionResult Manage(long organizationUnitId)
         {
-            var orgUnit = _userRepository.GetOrganizationUnit(organizationUnitId);
-            if (orgUnit == null)
-            {
-                throw new NotificationException(BLResources.EntityNotFound);
-            }
-
             var hasClientPrivileges = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                   EntityName.OrganizationUnit,
+                                                                                   EntityType.Instance.OrganizationUnit(),
                                                                                    UserContext.Identity.Code,
                                                                                    organizationUnitId,
-                                                                                   -1,
-                                                                                   //TODO: Сделать с этим что-то порядочное
+                                                                                   -1, // TODO {all}: Сделать с этим что-то порядочное
                                                                                    null);
             if (!hasClientPrivileges)
             {
                 throw new SecurityException(BLResources.YouHasNoEntityAccessPrivilege);
             }
 
+            var orgUnit = _organizationUnitReadModel.GetOrganizationUnit(organizationUnitId);
+            var cardSettings = GetCategoryGroupMembershipSettings();
+            cardSettings.Title = string.Format(BLResources.OrganizationUnitCategoryGroupsCardTitle, orgUnit.Name);
+
             var model = new CategoryGroupMembershipViewModel
                 {
                     OrganizationUnitId = organizationUnitId,
                     ViewConfig =
                         {
-                            EntityName = EntityName.CategoryGroupMembership, 
-                            PType = EntityName.None
+                            EntityName = EntityType.Instance.CategoryGroupMembership(),
+                            PType = EntityType.Instance.None(),
+                            CardSettings = cardSettings
                         }
                 };
-
-            var cardSettings = GetCategoryGroupMembershipSettings();
-            cardSettings.Title = string.Format(BLResources.OrganizationUnitCategoryGroupsCardTitle, orgUnit.Name);
-            model.ViewConfig.CardSettings = cardSettings;
 
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult Manage(CategoryGroupMembershipViewModel model)
+        [HttpGet]
+        public JsonNetResult CategoryGroups()
         {
-            model.ViewConfig.EntityName = EntityName.CategoryGroupMembership;
-            model.ViewConfig.PType = EntityName.None;
-
-            var cardSettings = GetCategoryGroupMembershipSettings();
-            model.ViewConfig.CardSettings = cardSettings;
-
-            return new JsonNetResult(model);
+            var allCategoryGroups = _categoryReadModel.GetCategoryGroups();
+            return new JsonNetResult(allCategoryGroups);
         }
 
         [HttpGet]
-        public JsonNetResult GetCategoryGroupsMembership(long organizationUnitId)
-        {
-            IEnumerable<CategoryGroupMembershipDto> categoriesDtos = _userRepository.GetCategoryGroupMembership(organizationUnitId);
-            var allCategoryGroups = _userRepository.GetCategoryGroups();
-
-            var categoryGroupsMembership = categoriesDtos.Select(x => new
+        public JsonNetResult CategoryGroupsMembership(long organizationUnitId)
             {
-                Id = x.Id,
-                CategoryId = x.CategoryId,
-                CategoryName = x.CategoryName,
-                CategoryGroupId = x.CategoryGroupId,
-                CategoryLevel = x.CategoryLevel
-            }).ToArray();
-
-            return new JsonNetResult(new { categoryGroupsMembership = categoryGroupsMembership, AllCategoryGroups = allCategoryGroups });
+            var categoryDtos = _categoryReadModel.GetCategoryGroupMembership(organizationUnitId);
+            return new JsonNetResult(new { categoryGroupsMembership = categoryDtos, success = true });
         }
 
         [HttpPost]
-        public JsonNetResult SetCategoryGroupsMembership(long organizationUnitId, string categoryGroupsMembership)
-        {
-            var deserializedData =
-                JsonConvert.DeserializeAnonymousType(
-                                                     categoryGroupsMembership,
-                                                     new[]
-                                                         {
-                                                             new
-                                                                 {
-                                                                     Id = -1L,
-                                                                     CategoryId = -1L,
-                                                                     CategoryName = string.Empty,
-                                                                     CategoryGroupId = (long?)-1
-                                                                 }
-                                                         },
-                                                     new JsonSerializerSettings { Converters = { new Int64ToStringConverter() } });
-
-            var categoryGroupMembershipDtos = deserializedData.Select(x => new CategoryGroupMembershipDto
+        public JsonNetResult CategoryGroupsMembership(long organizationUnitId, string categoryGroupsMembership)
                                                                                {
-                                                                                   Id = x.Id,
-                                                                                   CategoryId = x.CategoryId,
-                                                                                   CategoryName = x.CategoryName,
-                                                                                   CategoryGroupId = x.CategoryGroupId
-                                                                               });
-
-            _categoryService.SetCategoryGroupMembership(organizationUnitId, categoryGroupMembershipDtos);
-
-            // javascript requires to return boolean property success=true
-            return new JsonNetResult(new { success = true });
+            var serializerSettings = new JsonSerializerSettings { Converters = { new Int64ToStringConverter() } };
+            var deserializedData = JsonConvert.DeserializeObject<CategoryGroupMembershipDto[]>(categoryGroupsMembership, serializerSettings);
+            _changeCategoryGroupService.SetCategoryGroupMembership(deserializedData);
+            return new JsonNetResult(new { categoryGroupsMembership = deserializedData, success = true });
         }
 
         private CardStructure GetCategoryGroupMembershipSettings()
@@ -165,7 +117,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             return new CardStructure
                        {
                            Icon = "en_ico_lrg_Category.gif",
-                           EntityName = EntityName.CategoryGroupMembership.ToString(),
+                           EntityName = EntityType.Instance.CategoryGroupMembership().Description,
                            EntityLocalizedName = ErmConfigLocalization.EnCategoryGroups,
                            CardRelatedItems = new CardRelatedItemsGroupStructure[0],
                            CardToolbar = new[]
@@ -257,5 +209,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                                              }
                        };
         }
+
     }
 }

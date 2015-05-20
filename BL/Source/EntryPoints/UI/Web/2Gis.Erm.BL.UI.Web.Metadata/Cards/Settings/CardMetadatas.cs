@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
+
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {

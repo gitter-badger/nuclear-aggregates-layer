@@ -1,5 +1,5 @@
 ﻿
-@model Models.LockDetailViewModel
+@model LockDetailViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -20,10 +20,10 @@
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.CreateDate, FieldFlex.twins, new DateTimeSettings{ReadOnly = true})
-            @Html.TemplateField(m => m.Price, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Price, ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.Price.Value), })
+            @Html.TemplateField(m => m.Price, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Price(), ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.Price.Value), })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrderPosition, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrderPosition, ReadOnly = true })
+            @Html.TemplateField(m => m.OrderPosition, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrderPosition(), ReadOnly = true })
         </div>
     </div>
 }

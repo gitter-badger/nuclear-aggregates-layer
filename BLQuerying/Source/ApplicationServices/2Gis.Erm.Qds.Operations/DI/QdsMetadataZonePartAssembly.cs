@@ -1,7 +1,7 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
-using DoubleGis.Erm.Platform.Model.Metadata.DI;
-
+﻿using DoubleGis.Erm.Platform.Model.Metadata.DI;
 using NuClear.Assembling.Zones;
+
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.Qds.Operations.DI
 {

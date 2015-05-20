@@ -14,6 +14,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
 {
     public sealed class CzechListLegalPersonService : ListEntityDtoServiceBase<LegalPerson, CzechListLegalPersonDto>, ICzechAdapted
@@ -46,13 +48,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.List
                 query = _filterHelper.ForSubordinates(query);
             }
 
-            if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.Deal()) && querySettings.ParentEntityId.HasValue)
             {
                 var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
-            if (querySettings.ParentEntityName == EntityName.Client && querySettings.ParentEntityId.HasValue)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.Client()) && querySettings.ParentEntityId.HasValue)
             {
                 query = _filterHelper.ForClientAndItsDescendants(query, querySettings.ParentEntityId.Value);
             }

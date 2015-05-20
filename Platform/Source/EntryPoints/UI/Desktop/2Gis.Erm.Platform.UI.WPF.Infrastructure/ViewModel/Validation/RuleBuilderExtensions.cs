@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
-
 using FluentValidation;
+
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation
 {

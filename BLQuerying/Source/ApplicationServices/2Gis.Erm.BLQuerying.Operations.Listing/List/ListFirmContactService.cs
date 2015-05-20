@@ -9,6 +9,8 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListFirmContactService : ListEntityDtoServiceBase<FirmContact, ListFirmContactDto>
@@ -30,7 +32,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             IQueryable<FirmContact> query;
-            if (querySettings.ParentEntityName == EntityName.FirmAddress && querySettings.ParentEntityId != null)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.FirmAddress()) && querySettings.ParentEntityId != null)
             {
                 query = _firmReadModel.GetContacts(querySettings.ParentEntityId.Value).AsQueryable();
             }

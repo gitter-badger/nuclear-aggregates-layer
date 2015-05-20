@@ -28,9 +28,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.LocalMessage
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -41,6 +44,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.LocalMessage
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/LocalMessage/ImportFromFile.cshtml")]
@@ -210,7 +216,7 @@ WriteLiteral("                ");
 
             
             #line 64 "..\..\Views\LocalMessage\ImportFromFile.cshtml"
-           Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit }));
+           Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit() }));
 
             
             #line default
@@ -290,14 +296,14 @@ WriteLiteral(" type=\"hidden\"");
 
 WriteLiteral(" name=\"errors\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 3687), Tuple.Create("\"", 3715)
+WriteAttribute("value", Tuple.Create(" value=\"", 3698), Tuple.Create("\"", 3726)
             
             #line 84 "..\..\Views\LocalMessage\ImportFromFile.cshtml"
-, Tuple.Create(Tuple.Create("", 3695), Tuple.Create<System.Object, System.Int32>(Model.MessageErrors
+, Tuple.Create(Tuple.Create("", 3706), Tuple.Create<System.Object, System.Int32>(Model.MessageErrors
             
             #line default
             #line hidden
-, 3695), false)
+, 3706), false)
 );
 
 WriteLiteral(" />\r\n");
@@ -308,14 +314,14 @@ WriteLiteral(" type=\"submit\"");
 
 WriteLiteral(" name=\"button\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 3770), Tuple.Create("\"", 3797)
+WriteAttribute("value", Tuple.Create(" value=\"", 3781), Tuple.Create("\"", 3808)
             
             #line 85 "..\..\Views\LocalMessage\ImportFromFile.cshtml"
-, Tuple.Create(Tuple.Create("", 3778), Tuple.Create<System.Object, System.Int32>(BLResources.Errors
+, Tuple.Create(Tuple.Create("", 3789), Tuple.Create<System.Object, System.Int32>(BLResources.Errors
             
             #line default
             #line hidden
-, 3778), false)
+, 3789), false)
 );
 
 WriteLiteral(" />\r\n");

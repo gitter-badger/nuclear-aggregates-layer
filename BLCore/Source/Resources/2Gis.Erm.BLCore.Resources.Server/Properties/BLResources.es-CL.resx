@@ -953,9 +953,6 @@ Errores de bloqueo:{2}</value>
   <data name="AdditionalStreet" xml:space="preserve">
     <value>Calle adicional</value>
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value>La posición bloqueada ya ha sido desactivada</value>
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value>Seleccionado para la lista blanca</value>
   </data>
@@ -988,9 +985,6 @@ Errores de bloqueo:{2}</value>
   </data>
   <data name="PricePositionsReferencesToInactivePositions" xml:space="preserve">
     <value>Entre los componentes de la lista de precios se encuentran los referentes a posiciones inactivas</value>
-  </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>No se puede desactivar la posición bloqueada de una lista de precios desactivada</value>
   </data>
   <data name="SpecifyMonthAndOrganizationUnit" xml:space="preserve">
     <value>Especifique la sucursal de la entidad y el mes</value>
@@ -2452,9 +2446,6 @@ Número total de registros: {2}, procesados con éxito {3} mensajes.</value>
   <data name="AmountPlan" xml:space="preserve">
     <value>Importe inicial</value>
   </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>No se puede desactivar la posición bloqueada de una lista de precios publicada</value>
-  </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
     <value>Razón social del cliente: {0}.
 Razón social del ejecutor: {1}.
@@ -3196,7 +3187,7 @@ Operación realizada con éxito: {6}.</value>
   <data name="ServerRuntimeError" xml:space="preserve">
     <value>Error de ejecución {0} en el servidor: '{1}'</value>
   </data>
-  <data name="OperationIsDiabled" xml:space="preserve">
+  <data name="OperationIsDisabled" xml:space="preserve">
     <value>Esta operación se ha desactivado</value>
   </data>
   <data name="NoFirmsSelected" xml:space="preserve">
@@ -5191,6 +5182,12 @@ Periodo de la publicación: {3}.</value>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>Operación de cambio de cliente no está especificada para el tipo de entidad indicado</value>
   </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value>No se permite crear las ordenes regionales</value>
+  </data>
+  <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
+    <value>No hay permisos suficientes para crear la orden de la agencia publicitaria</value>
+  </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Indique el período, modo para contabilizar la prestación de servicios y departamento de la empresa</value>
   </data>
@@ -5221,10 +5218,34 @@ Periodo de la publicación: {3}.</value>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Operación no puede llevarse a cabo, ya que se está realizando recopilación</value>
   </data>
+  <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
+    <value>Fueron encontrados los dobles de reglas de prohibición para las siguientes posiciones: {0}</value>
+  </data>
+  <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
+    <value>No fue encontrada la regla simétrica de prohibición para: {0}</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>No se permite crear la posición prohibida en la lista de precios desactivada</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>No se permite crear la posición prohibida en la lista de precios publicada</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>No se permite editar la posición prohibida en la lista de precios desactivada</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>No se permite editar la posición prohibida en la lista de precios publicada</value>
+  </data>
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>Ud. está intentando de finalizar una acción planificada para el futuro, cambie el plazo o cancele, si la acción no fue cumplidaо</value>
   </data>
   <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
     <value>You can't pick more than one reference object for the following positions: {0}</value>
+  </data>
+  <data name="CanNotChangeGroupForUpperLevelsCategory" xml:space="preserve">
+    <value>Ценовая группа рубрики первого или второго уровня не может быть задана</value>
+  </data>
+  <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
+    <value>Нельзя удалить ценовую группу по умолчанию</value>
   </data>
 </root>

@@ -7,8 +7,6 @@ using AutoMapper;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 
 using Effort;
@@ -19,6 +17,8 @@ using Machine.Specifications;
 
 using Moq;
 
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 using NuClear.Tracing.API;
 
 using It = Machine.Specifications.It;
@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 modifiableDomainContextProviderMock.Setup(p => p.Get<TEntity>()).Returns(domainContext);
 
                 GenericRepository = new EFGenericRepository<TEntity>(new StubUserContext(),
-                                                                                                             modifiableDomainContextProviderMock.Object,
+                                                                     modifiableDomainContextProviderMock.Object,
                                                                      new NullPersistenceChangesRegistryProvider(),
                                                                      Mock.Of<IMappingEngine>());
             };
@@ -124,10 +124,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         class When_call_Update_to_update_an_IAuditableEntity_entity : StubEFGenericRepositoryContext<AuditableEntity>
         {
             Establish context = () =>
-                {
+                                    {
                                         Entity.CreatedBy = 1234;
                                         Entity.CreatedOn = new DateTime(2000, 01, 01);
-                };
+                                    };
 
             Because of = () => GenericRepository.Update(Entity);
 
@@ -147,9 +147,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         class When_call_Update_to_update_an_IReplicableEntity_entity : StubEFGenericRepositoryContext<ReplicableEntity>
         {
             Establish context = () =>
-            {
+                                    {
                                         Entity.ReplicationCode = new Guid("FE2DCB8F-4D29-4164-B826-C2A94A2A1AAB");
-            };
+                                    };
 
             Because of = () => GenericRepository.Update(Entity);
 

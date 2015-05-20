@@ -953,9 +953,6 @@ Locking errors:{2}</value>
   <data name="AdditionalStreet" xml:space="preserve">
     <value>Additional street</value>
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value>Prohibited item has been deactivated</value>
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value>Selected to white list</value>
   </data>
@@ -988,9 +985,6 @@ Locking errors:{2}</value>
   </data>
   <data name="PricePositionsReferencesToInactivePositions" xml:space="preserve">
     <value>In the list of price items, there are objects linked to inactive items</value>
-  </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>You cannot deactivate a prohibited item from a deactivated price-list</value>
   </data>
   <data name="SpecifyMonthAndOrganizationUnit" xml:space="preserve">
     <value>Specify company division and month</value>
@@ -2452,9 +2446,6 @@ Total number of records: {2}, {3} records processed successfully.</value>
   <data name="AmountPlan" xml:space="preserve">
     <value>Initial amount</value>
   </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>Cannot deactivate a prohibited item from a published price-list</value>
-  </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
     <value>Legal entity of the client: {0}.
 Legal entity of the contractor: {1}.
@@ -3196,7 +3187,7 @@ The operation has been executed: {6}.</value>
   <data name="ServerRuntimeError" xml:space="preserve">
     <value>Execution error {0} on the server: '{1}'</value>
   </data>
-  <data name="OperationIsDiabled" xml:space="preserve">
+  <data name="OperationIsDisabled" xml:space="preserve">
     <value>This operation has been disabled</value>
   </data>
   <data name="NoFirmsSelected" xml:space="preserve">
@@ -5187,6 +5178,12 @@ Placement period: {3}.</value>
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>Client change operation is not specified for the selected type of entity</value>
   </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value>Creation of regional orders is not supported</value>
+  </data>
+  <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
+    <value>You do not have enough rights to create an advertising agency order</value>
+  </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Please specify the period, service accounting method, and company branch</value>
   </data>
@@ -5217,10 +5214,34 @@ Placement period: {3}.</value>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Operation cannot be performed because a build is in progress</value>
   </data>
+  <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
+    <value>Duplicate rules of prohibition found for the following items: {0}</value>
+  </data>
+  <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
+    <value>Cannot find a symmetrical rule of prohibition for: {0}</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>You cannot create a prohibited item in a deactivated price-list</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>You cannot create a prohibited item in a published price-list</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>You cannot edit a prohibited item in a deactivated price-list</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>You cannot edit a prohibited item in a published price-list</value>
+  </data>
   <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value>You are attempting to complete an action scheduled for a future period. Change the action time or cancel the action if it has not been performed</value>
   </data>
    <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
     <value>You can't pick more than one reference object for the following positions: {0}</value>
+  </data>
+  <data name="CanNotChangeGroupForUpperLevelsCategory" xml:space="preserve">
+    <value>Ценовая группа рубрики первого или второго уровня не может быть задана</value>
+  </data>
+  <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
+    <value>Нельзя удалить ценовую группу по умолчанию</value>
   </data>
 </root>

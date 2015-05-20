@@ -6,11 +6,11 @@ using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.Model.Entities;
 
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
@@ -19,13 +19,13 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
     [Obsolete("Нужно перенести логирование изменений с уровня entrypoint на уровень ApplicationServices")]
     public sealed class LogWebRequestAttribute : HandlerAttribute
     {
-        private readonly EntityName _entityType;
+        private readonly IEntityType _entityType;
         private string _elementsToIgnore;
         private IEnumerable<string> _elementsToIgnoreCollection = Enumerable.Empty<string>();
 
-        public LogWebRequestAttribute(EntityName entityType)
+        public LogWebRequestAttribute(string entityType)
         {
-            _entityType = entityType;
+            EntityType.Instance.TryParse(entityType, out _entityType);
         }
 
         public string ElementsToIgnore

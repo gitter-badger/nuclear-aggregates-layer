@@ -6,7 +6,8 @@ using DevUtils.ETWIMBA.Diagnostics.Counters;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Metadata;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+
+using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Performance.Sessions.DiagnosticStorage
 {

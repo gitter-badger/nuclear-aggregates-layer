@@ -9,6 +9,8 @@ using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
 {
     public class OrderGridViewService : GenericEntityGridViewService<Order>
@@ -22,12 +24,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
         {
         }
 
-        protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings,
-                                                                     long? parentEntityId,
-                                                                     EntityName parentEntityName,
-                                                                     string parentEntityState)
+        protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings, long? parentEntityId, IEntityType parentEntityName, string parentEntityState)
         {
-            if (parentEntityName == EntityName.Bargain)
+            if (parentEntityName.Equals(EntityType.Instance.Bargain()))
             {
                 foreach (var dataView in gridViewSettings.DataViews)
                 {

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils
 {
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils
             foreach (DataRow rowData in dataTable.Rows)
             {
                 var entityId = rowData.Column<long>(idColumn);
-                var entityType = rowData.Column<EntityName>(entityNameColumn).AsEntityType();
+                var entityType = rowData.Column<IEntityType>(entityNameColumn).AsEntityType();
                 var changesType = rowData.Column<ChangesType>(changeTypeColumn);
 
                 switch (changesType)
@@ -66,15 +67,23 @@ namespace DoubleGis.Erm.Platform.DAL.PersistenceServices.Utils
         private static TValue Column<TValue>(this DataRow dataRow, ColumnDescriptor columnDescriptor)
         {
             var targetType = typeof(TValue);
-            object rawValue = null;
+            string rawValue = null;
 
             try
             {
-                rawValue = dataRow[columnDescriptor.Index];
+                rawValue = dataRow[columnDescriptor.Index].ToString();
 
-                return targetType.IsEnum
-                    ? (TValue)Enum.Parse(targetType, rawValue.ToString())
-                    : (TValue)Convert.ChangeType(rawValue.ToString(), targetType);
+                if (targetType == typeof(IEntityType))
+                {
+                    return (TValue)EntityType.Instance.Parse(int.Parse(rawValue));
+                }
+
+                if (targetType.IsEnum)
+                {
+                    return (TValue)Enum.Parse(targetType, rawValue);
+                }
+
+                return (TValue)Convert.ChangeType(rawValue, targetType);
             }
             catch (Exception ex)
             {

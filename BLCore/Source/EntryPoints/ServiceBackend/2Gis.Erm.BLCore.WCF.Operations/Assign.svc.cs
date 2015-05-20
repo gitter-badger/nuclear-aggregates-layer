@@ -6,10 +6,10 @@ using System.ServiceModel.Web;
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Assign;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+using NuClear.ResourceUtilities;
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public AssignResult Execute(string specifiedEntityName, string specifiedEntityId, string specifiedOwnerCode, string specifiedIsPartialAssign, string specifiedBypassValidation)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
 
             long ownerCode;
             if (!long.TryParse(specifiedOwnerCode, out ownerCode))
@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
             try
             {
-                if (!Enum.TryParse(specifiedEntityName, out entityName))
+                if (!EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }
@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        public AssignResult Execute(EntityName entityName, long entityId, long? ownerCode, bool? isPartialAssign, bool? bypassValidation)
+        public AssignResult Execute(IEntityType entityName, long entityId, long? ownerCode, bool? isPartialAssign, bool? bypassValidation)
         {
             var actualOwnerCode = ownerCode ?? _userContext.Identity.Code;
             var actualIsPartialAssign = isPartialAssign ?? false;
@@ -93,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             }
         }
 
-        private AssignResult ExecuteInternal(EntityName entityName, long entityId, long ownerCode, bool isPartialAssign, bool bypassValidation)
+        private AssignResult ExecuteInternal(IEntityType entityName, long entityId, long ownerCode, bool isPartialAssign, bool bypassValidation)
         {
             var assignEntityService = _operationServicesManager.GetAssignEntityService(entityName);
             return assignEntityService.Assign(entityId, ownerCode, bypassValidation, isPartialAssign);

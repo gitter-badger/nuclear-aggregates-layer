@@ -73,7 +73,6 @@ namespace DoubleGis.Erm.UI.Web.Mvc.DI
                                           .UseAnchor<PlatformCoreAssembly>()
                                           .UseAnchor<PlatformModelEntityFrameworkAssembly>()
                                       .RequireZone<MetadataZone>()
-                                          .UseAnchor<PlatformModelMetadataAssembly>()
                                           .UseAnchor<BlUIMetadataAssembly>()
                                           .UseAnchor<BlUIWebMetadataAssembly>()
                                           .UseAnchor<BlFlexUIWebMetadataAssembly>()

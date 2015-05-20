@@ -1,6 +1,5 @@
-﻿
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
+﻿using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
+using NuClear.Metamodeling.Elements.Identities.Builder;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Settings
 {
@@ -12,7 +11,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Navigation.Set
         {
             CachedSettings = 
                 HierarchyMetadata.Config
-                    .Id.Is(IdBuilder.For<MetadataNavigationIdentity>())
+                    .Id.Is(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataNavigationIdentity>())
                     .Childs(Billing, Reports, Administration);
 
                 //автоматически не заполняем, т.к. нарушается сортировка - элементов немного пока заполняем вручную 

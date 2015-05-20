@@ -4,9 +4,9 @@ using System.Runtime.CompilerServices;
 
 using AutoMapper;
 
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
