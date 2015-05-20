@@ -22,7 +22,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 {
@@ -106,7 +106,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Create(Lock @lock)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity>(EntityName.Lock))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, Lock>())
             {
                 _identityProvider.SetFor(@lock);
                 _lockGenericRepository.Add(@lock);
@@ -123,7 +123,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Update(AccountDetail accountDetail)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity>(EntityName.AccountDetail))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, AccountDetail>())
             {
                 _accountDetailGenericSecureRepository.Update(accountDetail);
                 count = _accountDetailGenericSecureRepository.Save();
@@ -139,7 +139,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Update(Lock @lock)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity>(EntityName.Lock))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Lock>())
             {
                 _lockGenericRepository.Update(@lock);
                 count = _lockGenericRepository.Save();
@@ -153,7 +153,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Update(LockDetail lockDetail)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity>(EntityName.LockDetail))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, LockDetail>())
             {
                 _lockDetailGenericRepository.Update(lockDetail);
                 count = _lockDetailGenericRepository.Save();
@@ -184,7 +184,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Create(OperationType operationType)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity>(EntityName.OperationType))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, OperationType>())
             {
                 _operationTypeGenericRepository.Add(operationType);
 
@@ -201,7 +201,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Update(OperationType operationType)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity>(EntityName.OperationType))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, OperationType>())
             {
                 _operationTypeGenericRepository.Update(operationType);
                 count = _operationTypeGenericRepository.Save();
@@ -217,7 +217,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Delete(LockDetail entity)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity>(EntityName.LockDetail))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity, LockDetail>())
             {
                 _lockDetailGenericRepository.Delete(entity);
                 count = _lockDetailGenericRepository.Save();
@@ -233,7 +233,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Delete(Lock entity)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity>(EntityName.Lock))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Lock>())
             {
                 _lockGenericRepository.Delete(entity);
                 count = _lockGenericRepository.Save();
@@ -266,7 +266,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Create(AccountDetail accountDetail)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity>(EntityName.AccountDetail))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, AccountDetail>())
             {
                 _identityProvider.SetFor(accountDetail);
                 accountDetail.OwnerCode = FindAccount(accountDetail.AccountId).OwnerCode;   // как куратор операции выставляется куратор родительского лицевого счёта. Куратор выставляется только при создании операции по лицевому счету
@@ -286,7 +286,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             int count;
 
             // TODO {all, 11.09.2013}: В процессе рефакторинга перевести на операцию c bulk*identity
-            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity>(EntityName.AccountDetail))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, AccountDetail>())
             {
                 foreach (var accountDetail in accountDetails)
                 {
@@ -306,7 +306,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Update(Account account)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity>(EntityName.Account))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Account>())
             {
                 _accountGenericSecureRepository.Update(account);
                 count = _accountGenericSecureRepository.Save();
@@ -327,7 +327,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Delete(Account account)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity>(EntityName.Account))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Account>())
             {
                 _accountGenericSecureRepository.Delete(account);
                 count = _accountGenericSecureRepository.Save();
@@ -343,7 +343,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Delete(AccountDetail accountDetail)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity>(EntityName.AccountDetail))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity, AccountDetail>())
             {
                 _accountDetailGenericSecureRepository.Delete(accountDetail);
                 count = _accountDetailGenericSecureRepository.Save();
@@ -359,7 +359,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Delete(IEnumerable<AccountDetail> accountDetails)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity>(EntityName.AccountDetail))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity, AccountDetail>())
             {
                 foreach (var accountDetail in accountDetails)
                 {
@@ -377,7 +377,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public int Delete(OperationType entity)
         {
             int count;
-            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity>(EntityName.OperationType))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<DeleteIdentity, OperationType>())
             {
                 _operationTypeGenericRepository.Delete(entity);
                 count = _operationTypeGenericRepository.Save();
@@ -397,7 +397,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public void UpdateAccountBalance(IEnumerable<long> accountIds)
         {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity>(EntityName.Account))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Account>())
             {
                 var accountInfos = _finder.Find<Account>(x => accountIds.Contains(x.Id))
                                           .Select(x => new
@@ -548,7 +548,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         int IAssignAggregateRepository<Account>.Assign(long entityId, long ownerCode)
         {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity>(EntityName.Account))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Account>())
             {
                 var limits = 
                     _secureFinder
@@ -580,7 +580,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         int IAssignAggregateRepository<AccountDetail>.Assign(long entityId, long ownerCode)
         {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity>(EntityName.AccountDetail))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, AccountDetail>())
             {
                 var entity = _secureFinder.Find(Specs.Find.ById<AccountDetail>(entityId)).Single();
                 entity.OwnerCode = ownerCode;
@@ -597,7 +597,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         int IAssignAggregateRepository<Limit>.Assign(long entityId, long ownerCode)
         {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity>(EntityName.Limit))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Limit>())
             {
                 var entity = _secureFinder.Find(Specs.Find.ById<Limit>(entityId)).Single();
                 entity.OwnerCode = ownerCode;
@@ -666,7 +666,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         private Account CreateAccountImpl(long legalPersonId, long branchOfficeOrganizationUnitId)
         {
-            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity>(EntityName.Account))
+            using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, Account>())
             {
                 // Проверяем, есть ли ДРУГОЕ юр.лицо клиента с такими же ИНН/КПП, но имеющее лицевой счет
                 var legalPersonInfo = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))

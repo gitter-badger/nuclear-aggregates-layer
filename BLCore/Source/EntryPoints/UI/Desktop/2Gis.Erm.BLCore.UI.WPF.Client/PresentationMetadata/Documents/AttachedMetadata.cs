@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Conditions;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel;
+
+using NuClear.Metamodeling.Domain.Elements.Aspects.Features.Handler;
+using NuClear.Metamodeling.Elements.Aspects.Conditions;
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.Elements.Identities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents
 {

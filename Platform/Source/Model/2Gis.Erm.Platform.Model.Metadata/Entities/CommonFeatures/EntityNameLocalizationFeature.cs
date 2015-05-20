@@ -1,5 +1,5 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
+﻿using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures
 {

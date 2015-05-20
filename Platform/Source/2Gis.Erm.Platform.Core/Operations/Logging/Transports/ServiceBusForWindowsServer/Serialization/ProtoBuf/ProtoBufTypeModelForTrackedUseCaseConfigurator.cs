@@ -1,6 +1,7 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 
 using ProtoBuf.Meta;
 
@@ -41,6 +42,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.ServiceBusFo
                      .UseConstructor = false;
             typeModel.Add(typeof(IOperationIdentity), false)
                      .SetSurrogate(typeof(OperationIdentitySurrogate));
+            typeModel.Add(typeof(IEntityType), false)
+                    .SetSurrogate(typeof(EntityTypeSurrogate));
 
             return typeModel;
         }

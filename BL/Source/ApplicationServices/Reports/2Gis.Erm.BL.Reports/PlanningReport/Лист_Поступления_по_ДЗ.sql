@@ -3,7 +3,7 @@
 --	, @city int = 1
 
 DECLARE
-	@DZCheckPoint date = '20111201'
+	@DZCheckPoint date = '20141201'
 
 SELECT
 	[Куратор] = u.DisplayName

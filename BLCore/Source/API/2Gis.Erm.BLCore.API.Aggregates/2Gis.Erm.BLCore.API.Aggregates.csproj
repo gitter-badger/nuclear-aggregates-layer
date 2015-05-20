@@ -41,6 +41,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
     </Reference>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
@@ -279,6 +283,7 @@
     <Compile Include="Orders\IOrderRepository.cs" />
     <Compile Include="Orders\Operations\Bargains\ICloseClientBargainsAggregateService.cs" />
     <Compile Include="Orders\Operations\Crosscutting\IEvaluateBillDateService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\IOrderNumberGenerationStrategy.cs" />
     <Compile Include="Orders\Operations\IOrderActualizeAmountToWithdrawAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IBulkDeleteBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\IBulkCreateBillAggregateService.cs" />
@@ -319,6 +324,9 @@
     <Compile Include="Prices\Dto\AllPriceDescendantsDto.cs" />
     <Compile Include="Prices\Dto\AllPricePositionDescendantsDto.cs" />
     <Compile Include="Prices\Dto\CategoryWithPositionsDto.cs" />
+    <Compile Include="Prices\Dto\DeniedPositionToCopyDto.cs" />
+    <Compile Include="Prices\Dto\DeniedPositionToCreateDto.cs" />
+    <Compile Include="Prices\Dto\IsPricePublishedAndActiveDto.cs" />
     <Compile Include="Prices\Dto\PriceDto.cs" />
     <Compile Include="Prices\Dto\PricePositionDetailedInfo.cs" />
     <Compile Include="Prices\Dto\PricePositionDto.cs" />
@@ -330,18 +338,27 @@
     <Compile Include="Prices\Operations\IBulkActivatePricePositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkCreateAssociatedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkCreateAssociatedPositionsGroupsAggregateService.cs" />
-    <Compile Include="Prices\Operations\IBulkCreateDeniedPositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\ICopyDeniedPositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\ICreateDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeactivateDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeactivatePricePositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeleteDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\IBulkDeletePricePositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\IReplaceDeniedPositionAggregateService.cs" />
+    <Compile Include="Prices\Operations\IDeleteDeniedPositionAggregateService.cs" />
+    <Compile Include="Prices\Operations\IChangeDeniedPositionObjectBindingTypeAggregateService.cs" />
     <Compile Include="Prices\Operations\IUpdatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\ICreatePricePositionAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeactivatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\IDeletePriceAggregateService.cs" />
+    <Compile Include="Prices\Operations\SymmetricDeniedPositionExpectedException.cs" />
+    <Compile Include="Prices\Operations\NonSelfDeniedPositionExpectedException.cs" />
+    <Compile Include="Prices\Operations\SelfDeniedPositionExpectedException.cs" />
+    <Compile Include="Prices\Operations\SymmetricDeniedPositionIsMissingException.cs" />
     <Compile Include="Prices\ReadModel\IPriceReadModel.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.Positions.cs" />
+    <Compile Include="Prices\ReadModel\PriceSpecs.DeniedPositions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.PricePositions.cs" />
     <Compile Include="Prices\ReadModel\PriceSpecs.Prices.cs" />
     <Compile Include="ProcessAccountsWithDebtsException.cs" />

@@ -44,6 +44,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
     </Reference>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
@@ -220,6 +224,8 @@
     <Compile Include="Orders\Operations\Bills\BulkDeleteBillAggregateService.cs" />
     <Compile Include="Orders\Operations\Bills\UpdateBillAggregateService.cs" />
     <Compile Include="Orders\Operations\SetOrderDocumentsDebtAggregateService.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\UseExistingOrderNumberGenerationStrategy.cs" />
+    <Compile Include="Orders\Operations\Crosscutting\UseReservedNumberOrderNumberGenerationStrategy.cs" />
     <Compile Include="Orders\Operations\OrderCreateReleaseTotalsAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderCreateReleaseWithdrawalsAggregateService.cs" />
     <Compile Include="Orders\Operations\OrderDeleteReleaseTotalsAggregateService.cs" />
@@ -235,6 +241,11 @@
     <Compile Include="Orders\OrderRepository.cs" />
     <Compile Include="Positions\Operations\ChangePositionSortingOrderAggregateService.cs" />
     <Compile Include="Positions\SalesModelUtil.cs" />
+    <Compile Include="Prices\DeniedPositionExtensions.cs" />
+    <Compile Include="Prices\Operations\CopyDeniedPositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\DeleteDeniedPositionAggregateService.cs" />
+    <Compile Include="Prices\Operations\ReplaceDeniedPositionAggregateService.cs" />
+    <Compile Include="Prices\Operations\ChangeDeniedPositionObjectBindingTypeAggregateService.cs" />
     <Compile Include="SimplifiedModel\Categories\BulkCreateSalesModelCategoryRestrictionsService.cs" />
     <Compile Include="SimplifiedModel\Categories\Operations\ChangeCategoryGroupAggregateService.cs" />
     <Compile Include="SimplifiedModel\Categories\ReadModel\SalesModelCategoryRestrictionReadModel.cs" />
@@ -252,14 +263,13 @@
     <Compile Include="Prices\Operations\BulkActivateDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\BulkActivatePricePositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\BulkCreateAssociatedPositionsAggregateService.cs" />
-    <Compile Include="Prices\Operations\BulkCreateDeniedPositionsAggregateService.cs" />
+    <Compile Include="Prices\Operations\CreateDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\BulkDeactivateDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\BulkDeactivatePricePositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\BulkDeleteDeniedPositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\BulkDeletePricePositionsAggregateService.cs" />
     <Compile Include="Prices\Operations\CreateAssociatedPositionService.cs" />
     <Compile Include="Prices\Operations\BulkCreateAssociatedPositionsGroupsAggregateService.cs" />
-    <Compile Include="Prices\Operations\CreateDeniedPositionAggregateService.cs" />
     <Compile Include="Prices\Operations\CreatePriceAggregateService.cs" />
     <Compile Include="Prices\Operations\CreatePricePositionAggregateService.cs" />
     <Compile Include="Prices\Operations\DeactivatePriceAggregateService.cs" />

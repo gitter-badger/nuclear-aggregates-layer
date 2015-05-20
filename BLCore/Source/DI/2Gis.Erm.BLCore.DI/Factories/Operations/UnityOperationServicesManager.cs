@@ -27,14 +27,13 @@ using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Cancel;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Reopen;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
 {
@@ -51,109 +50,109 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
             _metadataProvider = metadataProvider;
         }
 
-        public IIntegrationProcessorOperationService GetOperationsExportService(EntityName entityName, EntityName integrationEntityName)
+        public IIntegrationProcessorOperationService GetOperationsExportService(IEntityType entityName, IEntityType integrationEntityName)
         {
             var entities = new[] { entityName, integrationEntityName };
             return GetEntitySpecificOperation<IIntegrationProcessorOperationService, ExportIdentity>(new EntitySet(entities), null);
         }
 
-        public ICancelOperationService GetCancelService(EntityName entityName)
+        public ICancelOperationService GetCancelService(IEntityType entityName)
         {            
             CheckOperationAvailability<CancelIdentity>(entityName);
             return GetEntitySpecificOperation<ICancelOperationService, CancelIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public ICompleteOperationService GetCompleteService(EntityName entityName)
+        public ICompleteOperationService GetCompleteService(IEntityType entityName)
         {
             CheckOperationAvailability<CompleteIdentity>(entityName);
             return GetEntitySpecificOperation<ICompleteOperationService, CompleteIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public IReopenOperationService GetReopenService(EntityName entityName)
+        public IReopenOperationService GetReopenService(IEntityType entityName)
         {
             CheckOperationAvailability<ReopenIdentity>(entityName);
             return GetEntitySpecificOperation<IReopenOperationService, ReopenIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public IListEntityService GetListEntityService(EntityName entityName)
+        public IListEntityService GetListEntityService(IEntityType entityName)
         {
             // пока не поддерживается CheckOperationAvailability<ListingMetadata, IListEntityService>(entityName);
             return GetEntitySpecificOperation<IListEntityService, ListIdentity>(entityName.ToEntitySet(), null);
         }
         
-        public IDeleteEntityService GetDeleteEntityService(EntityName entityName)
+        public IDeleteEntityService GetDeleteEntityService(IEntityType entityName)
         {
             // пока не поддерживается CheckOperationAvailability<DeleteMetadata, IDeleteEntityService>(entityName);
             return GetEntitySpecificOperation<IDeleteEntityService, DeleteIdentity>(entityName.ToEntitySet(), typeof(IDeleteAggregateRepository<>));
         }
 
-        public IAssignEntityService GetAssignEntityService(EntityName entityName)
+        public IAssignEntityService GetAssignEntityService(IEntityType entityName)
         {
             CheckOperationAvailability<AssignIdentity>(entityName);
             return GetEntitySpecificOperation<IAssignEntityService, AssignIdentity>(entityName.ToEntitySet(), typeof(IAssignAggregateRepository<>));
         }
 
-        public IDeactivateEntityService GetDeactivateEntityService(EntityName entityName)
+        public IDeactivateEntityService GetDeactivateEntityService(IEntityType entityName)
         {
             // пока не поддерживается CheckOperationAvailability<DeactivateMetadata, IDeactivateEntityService>(entityName);
             return GetEntitySpecificOperation<IDeactivateEntityService, DeactivateIdentity>(entityName.ToEntitySet(), typeof(IDeactivateAggregateRepository<>));
         }
 
-        public IActivateEntityService GetActivateEntityService(EntityName entityName)
+        public IActivateEntityService GetActivateEntityService(IEntityType entityName)
         {
             // пока не поддерживается CheckOperationAvailability<ActivateMetadata, IActivateEntityService>(entityName);
             return GetEntitySpecificOperation<IActivateEntityService, ActivateIdentity>(entityName.ToEntitySet(), typeof(IActivateAggregateRepository<>));
         }
 
-        public IQualifyEntityService GetQualifyEntityService(EntityName entityName)
+        public IQualifyEntityService GetQualifyEntityService(IEntityType entityName)
         {
             CheckOperationAvailability<QualifyIdentity>(entityName);
             return GetEntitySpecificOperation<IQualifyEntityService, QualifyIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public IDisqualifyEntityService GetDisqualifyEntityService(EntityName entityName)
+        public IDisqualifyEntityService GetDisqualifyEntityService(IEntityType entityName)
         {
             CheckOperationAvailability<DisqualifyIdentity>(entityName);
             return GetEntitySpecificOperation<IDisqualifyEntityService, DisqualifyIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public ICheckEntityForDebtsService GetCheckEntityForDebtsService(EntityName entityName)
+        public ICheckEntityForDebtsService GetCheckEntityForDebtsService(IEntityType entityName)
         {
             CheckOperationAvailability<CheckForDebtsIdentity>(entityName);
             return GetEntitySpecificOperation<ICheckEntityForDebtsService, CheckForDebtsIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public IChangeEntityTerritoryService GetChangeEntityTerritoryService(EntityName entityName)
+        public IChangeEntityTerritoryService GetChangeEntityTerritoryService(IEntityType entityName)
         {
             CheckOperationAvailability<ChangeTerritoryIdentity>(entityName);
             return GetEntitySpecificOperation<IChangeEntityTerritoryService, ChangeTerritoryIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public IChangeEntityClientService GetChangeEntityClientService(EntityName entityName)
+        public IChangeEntityClientService GetChangeEntityClientService(IEntityType entityName)
         {
             CheckOperationAvailability<ChangeClientIdentity>(entityName);
             return GetEntitySpecificOperation<IChangeEntityClientService, ChangeClientIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public IAppendEntityService GetAppendEntityService(EntityName parentType, EntityName appendedType)
+        public IAppendEntityService GetAppendEntityService(IEntityType parentType, IEntityType appendedType)
         {
             var entities = new[] { appendedType, parentType };
             CheckOperationAvailability<AppendIdentity>(entities);
             return GetEntitySpecificOperation<IAppendEntityService, AppendIdentity>(new EntitySet(entities), null);
         }
 
-        public IActionsHistoryService GetActionHistoryService(EntityName entityName)
+        public IActionsHistoryService GetActionHistoryService(IEntityType entityName)
         {
             CheckOperationAvailability<ActionHistoryIdentity>(entityName);
             return GetNotCoupledOperation<IActionsHistoryService, ActionHistoryIdentity>();
         }
 
-        public IGetDomainEntityDtoService GetDomainEntityDtoService(EntityName entityName)
+        public IGetDomainEntityDtoService GetDomainEntityDtoService(IEntityType entityName)
         {
             return GetEntitySpecificOperation<IGetDomainEntityDtoService, GetDomainEntityDtoIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public IModifyDomainEntityService GetModifyDomainEntityService(EntityName entityName)
+        public IModifyDomainEntityService GetModifyDomainEntityService(IEntityType entityName)
         {
             IModifyDomainEntityService modifyDomainEntityService;
             if (SimplifiedEntities.Entities.Any(x => x == entityName))
@@ -181,13 +180,13 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
             return modifyDomainEntityService;
         }
 
-        public IDownloadFileService GetDownloadFileService(EntityName entityName)
+        public IDownloadFileService GetDownloadFileService(IEntityType entityName)
         {
             CheckOperationAvailability<DownloadIdentity>(entityName);
             return GetEntitySpecificOperation<IDownloadFileService, DownloadIdentity>(entityName.ToEntitySet(), null);
         }
 
-        public IUploadFileService GetUploadFileService(EntityName entityName)
+        public IUploadFileService GetUploadFileService(IEntityType entityName)
         {
             CheckOperationAvailability<UploadIdentity>(entityName);
             return GetEntitySpecificOperation<IUploadFileService, UploadIdentity>(entityName.ToEntitySet(), null);
@@ -251,7 +250,7 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
             return (TOperation)_container.Resolve(resolvedImplementationType);
         }
 
-        private void CheckOperationAvailability<TOperationIdentity>(params EntityName[] operationProcessingEntities)
+        private void CheckOperationAvailability<TOperationIdentity>(params IEntityType[] operationProcessingEntities)
             where TOperationIdentity : IOperationIdentity, new()
         {
             if (!_metadataProvider.IsSupported<TOperationIdentity>(operationProcessingEntities))

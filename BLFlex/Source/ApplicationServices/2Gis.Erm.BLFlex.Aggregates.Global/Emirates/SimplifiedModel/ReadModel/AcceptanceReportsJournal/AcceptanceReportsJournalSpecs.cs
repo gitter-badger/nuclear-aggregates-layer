@@ -6,6 +6,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.SimplifiedModel.ReadModel.AcceptanceReportsJournal
 {
     public static class AcceptanceReportsJournalSpecs
@@ -16,10 +18,10 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.SimplifiedModel.ReadMo
             {
                 get
                 {
+                    var entityTypeId = EntityType.Instance.AcceptanceReportsJournalRecord().Id;
                     return new FindSpecification<DictionaryEntityInstance>(
-                        entity =>
-                        entity.DictionaryEntityPropertyInstances.Any(property => property.PropertyId == EntityTypeNameIdentity.Instance.Id &&
-                                                                                 property.NumericValue == (int)EntityName.AcceptanceReportsJournalRecord));
+                        entity => entity.DictionaryEntityPropertyInstances.Any(property => property.PropertyId == EntityTypeNameIdentity.Instance.Id &&
+                                                                                           property.NumericValue == entityTypeId));
                 }
             }
         }

@@ -6,6 +6,8 @@ using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
     public static partial class CardMetadatas
@@ -28,10 +30,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Close())
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
                                           RelatedItems.RelatedItem
-                                                      .EntityGrid(EntityName.ThemeOrganizationUnit, () => ErmConfigLocalization.CrdRelThemeOrganizationUnit)
+                                                      .EntityGrid(EntityType.Instance.ThemeOrganizationUnit(), () => ErmConfigLocalization.CrdRelThemeOrganizationUnit)
                                                       .AppendapleEntity<OrganizationUnit>(),
                                           RelatedItems.RelatedItem
-                                                      .EntityGrid(EntityName.ThemeCategory, () => ErmConfigLocalization.CrdRelThemeCategory)
+                                                      .EntityGrid(EntityType.Instance.ThemeCategory(), () => ErmConfigLocalization.CrdRelThemeCategory)
                                                       .DisableOn<IOrganizationUnitCountAspect>(x => x.OrganizationUnitCount == 0)
                                                       .AppendapleEntity<Category>());
     }

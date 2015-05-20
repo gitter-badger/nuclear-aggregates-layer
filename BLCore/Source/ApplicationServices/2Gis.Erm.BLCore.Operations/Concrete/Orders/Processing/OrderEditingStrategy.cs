@@ -154,7 +154,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             order.Number = _numberService.Evaluate(order.Number,
                                                    syncCodes[order.SourceOrganizationUnitId],
                                                    syncCodes[order.DestOrganizationUnitId],
-                                                   reservedNumberDigit);
+                                                   reservedNumberDigit,
+                                                   order.OrderType);
             order.RegionalNumber = null;
 
             if (order.SourceOrganizationUnitId == order.DestOrganizationUnitId)

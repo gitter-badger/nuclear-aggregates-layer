@@ -1,8 +1,9 @@
 ﻿using System.ServiceModel;
 
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.CreateOrUpdate
 {
@@ -11,6 +12,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.CreateOrUpdate
     {
         [OperationContract]
         [FaultContract(typeof(CreateOrUpdateOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.CreateOrUpdate201304)]
-        long Execute(EntityName entityName, IDomainEntityDto dto);
+        long Execute(IEntityType entityName, IDomainEntityDto dto);
     }
 }

@@ -1,5 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
+﻿using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Metadata
 {

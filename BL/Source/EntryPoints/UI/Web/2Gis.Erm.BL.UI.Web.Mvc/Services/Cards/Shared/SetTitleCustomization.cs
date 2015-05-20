@@ -6,12 +6,12 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
-using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Provider;
+using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
         public void Customize(IEntityViewModelBase viewModel, ModelStateDictionary modelState)
         {
             CardMetadata metadata;
-            var metadataId = IdBuilder.For<MetadataCardsIdentity>(viewModel.ViewConfig.EntityName.ToString()).AsIdentity();
+            var metadataId = NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(viewModel.ViewConfig.EntityName.Description).Build().AsIdentity();
             if (!_metadataProvider.TryGetMetadata(metadataId.Id, out metadata))
             {
                 throw new MetadataNotFoundException(metadataId);

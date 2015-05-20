@@ -1,10 +1,10 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.HotClients
 {
     public sealed class RegardingObject
     {
-        public EntityName EntityName { get; set; }
+        public IEntityType EntityName { get; set; }
         public long EntityId { get; set; }
     }
 }

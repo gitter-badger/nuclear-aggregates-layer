@@ -28,47 +28,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-    
-    #line 1 "..\..\Views\GroupOperation\Delete.cshtml"
     using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 2 "..\..\Views\GroupOperation\Delete.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
-    
-    #line 3 "..\..\Views\GroupOperation\Delete.cshtml"
-    using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\Views\GroupOperation\Delete.cshtml"
-    using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/Delete.cshtml")]
-    public partial class Delete : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel>
+    public partial class Delete : System.Web.Mvc.WebViewPage<GroupOperationViewModel>
     {
         public Delete()
         {
@@ -76,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 7 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 3 "..\..\Views\GroupOperation\Delete.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -90,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 11 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 7 "..\..\Views\GroupOperation\Delete.cshtml"
             Write(BLResources.DeleteConfirmation);
 
             
@@ -105,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 12 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 8 "..\..\Views\GroupOperation\Delete.cshtml"
                   Write(BLResources.DeleteConfirmation);
 
             
@@ -120,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 13 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 9 "..\..\Views\GroupOperation\Delete.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -140,58 +122,58 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 745), Tuple.Create("\"", 793)
-, Tuple.Create(Tuple.Create("", 752), Tuple.Create("/Content/Progress.css?", 752), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 448), Tuple.Create("\"", 496)
+, Tuple.Create(Tuple.Create("", 455), Tuple.Create("/Content/Progress.css?", 455), true)
             
-            #line 17 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 774), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 13 "..\..\Views\GroupOperation\Delete.cshtml"
+, Tuple.Create(Tuple.Create("", 477), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 774), false)
+, 477), false)
 );
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 812), Tuple.Create("\"", 870)
-, Tuple.Create(Tuple.Create("", 818), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 818), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 515), Tuple.Create("\"", 573)
+, Tuple.Create(Tuple.Create("", 521), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 521), true)
             
-            #line 19 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 851), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 15 "..\..\Views\GroupOperation\Delete.cshtml"
+, Tuple.Create(Tuple.Create("", 554), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 851), false)
+, 554), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 917), Tuple.Create("\"", 983)
-, Tuple.Create(Tuple.Create("", 923), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 923), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 620), Tuple.Create("\"", 686)
+, Tuple.Create(Tuple.Create("", 626), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 626), true)
             
-            #line 20 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 964), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 16 "..\..\Views\GroupOperation\Delete.cshtml"
+, Tuple.Create(Tuple.Create("", 667), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 964), false)
+, 667), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 1030), Tuple.Create("\"", 1075)
-, Tuple.Create(Tuple.Create("", 1036), Tuple.Create("/Scripts/Tooltip.js?", 1036), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 733), Tuple.Create("\"", 778)
+, Tuple.Create(Tuple.Create("", 739), Tuple.Create("/Scripts/Tooltip.js?", 739), true)
             
-            #line 21 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 1056), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 17 "..\..\Views\GroupOperation\Delete.cshtml"
+, Tuple.Create(Tuple.Create("", 759), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 1056), false)
+, 759), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -224,7 +206,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Delete\');\r\n      
 "es: ids, // массив id сущностейsss\r\n                OperationName: \'");
 
             
-            #line 65 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 61 "..\..\Views\GroupOperation\Delete.cshtml"
                            Write(Model.OperationName);
 
             
@@ -263,27 +245,26 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create(" \r\n\t\t\t\t     onmouseover=\"", 4028), Tuple.Create("\"", 4082)
-, Tuple.Create(Tuple.Create(" ", 4053), Tuple.Create("AddTooltip(", 4054), true)
+WriteAttribute("onmouseover", Tuple.Create(" onmouseover=\"", 3731), Tuple.Create("\"", 3772)
+, Tuple.Create(Tuple.Create("", 3745), Tuple.Create("AddTooltip(", 3745), true)
             
-            #line 82 "..\..\Views\GroupOperation\Delete.cshtml"
-, Tuple.Create(Tuple.Create("", 4065), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 77 "..\..\Views\GroupOperation\Delete.cshtml"
+      , Tuple.Create(Tuple.Create("", 3756), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 4065), false)
-, Tuple.Create(Tuple.Create("", 4079), Tuple.Create(");", 4079), true)
-, Tuple.Create(Tuple.Create(" ", 4081), Tuple.Create("", 4081), true)
+, 3756), false)
+, Tuple.Create(Tuple.Create("", 3770), Tuple.Create(");", 3770), true)
 );
 
-WriteLiteral(" \r\n\t\t\t\t     onmouseout=\" RemoveTooltip(); \"");
+WriteLiteral(" onmouseout=\"RemoveTooltip();\"");
 
 WriteLiteral(">\r\n");
 
 WriteLiteral("                    ");
 
             
-            #line 84 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 78 "..\..\Views\GroupOperation\Delete.cshtml"
                Write(Model.Message);
 
             
@@ -299,7 +280,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 91 "..\..\Views\GroupOperation\Delete.cshtml"
+            #line 85 "..\..\Views\GroupOperation\Delete.cshtml"
                Write(ConfirmationManager.GetConfirmation(new StrictOperationIdentity(DeleteIdentity.Instance, new EntitySet(Model.EntityTypeName))));
 
             
@@ -320,8 +301,8 @@ WriteLiteral(">\r\n                    </div>\r\n                </div>\r\n     
 WriteLiteral("    ");
 
             
-            #line 104 "..\..\Views\GroupOperation\Delete.cshtml"
-Write(Html.HiddenFor(x => x.EntityTypeName));
+            #line 98 "..\..\Views\GroupOperation\Delete.cshtml"
+Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
