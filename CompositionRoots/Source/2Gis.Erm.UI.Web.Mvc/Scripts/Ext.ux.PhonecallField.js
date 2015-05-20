@@ -57,7 +57,11 @@ Ext.ux.PhonecallField = Ext.extend(Ext.Component, {
 	    }
 	},
 	Call: function (number) {
-	    Ext.Msg.alert('', Ext.LocalizedResources.StartCalling);
+	    Ext.Msg.show({
+	        msg: Ext.LocalizedResources.StartCalling,
+            buttons: Ext.Msg.OK,
+            icon: Ext.MessageBox.INFO
+	    });
 	    var url = Ext.urlAppend(Ext.SpecialOperationsServiceRestUrl + "Dial.svc/Rest/dial/" );
 	    Ext.Ajax.request(
 	    {
