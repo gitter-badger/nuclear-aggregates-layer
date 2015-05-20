@@ -29,6 +29,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                                          IOrderValidationServiceAspect,
                                          IOrderSecurityAspect, 
                                          ITerminatableAspect,
+                                         IDisabledOrderTypesAspect,
                                          IRussiaAdapted
     {
         long? IOrderDirectionAspect.SourceOrganizationUnitKey
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         }
 
         OrderState IOrderWorkflowAspect.WorkflowStepId
-        {
+    {
             get { return (OrderState)WorkflowStepId; }
         }
 
@@ -257,6 +258,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public string DocumentsComment { get; set; }
 
         public long? AccountId { get; set; }
+
+        public string DisabledOrderTypes { get; set; }
 
         public override bool IsSecurityRoot
         {

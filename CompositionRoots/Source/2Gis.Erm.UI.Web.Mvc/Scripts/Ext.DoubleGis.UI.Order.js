@@ -740,6 +740,13 @@ window.InitPage = function () {
             }
         },
 
+        disableOrderTypeValues: function () {
+            var disabledValues = Ext.decode(document.getElementById('DisabledOrderTypes').value);
+
+            var orderTypesCombobox = document.getElementById('OrderType');
+            Ext.DoubleGis.Global.Helpers.DisableComboBoxItemsByValues(orderTypesCombobox, disabledValues);
+        },
+
         refreshDiscountRelatedAvailability: function () {
             // Блокируем поля "причина скидки", "комментарий по скидке", если скидка не задана
             var discountReason = Ext.get('DiscountReason');
@@ -874,6 +881,7 @@ window.InitPage = function () {
 
     this.on("afterbuild", this.initEventListeners, this);
     this.on("afterbuild", this.fillAutocalculatedValues, this);
+    this.on("afterbuild", this.disableOrderTypeValues, this);
 
     this.on("afterrelatedlistready", function (card, details) {
         var dataListName = details.dataList.currentSettings.Name;
