@@ -212,9 +212,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
             #endregion
 
             private static readonly Regex RegStatusNumberPattern = new Regex(@"Status=""(\d)""", RegexOptions.Compiled);
-            private static readonly Regex RegLineNumberPattern = new Regex(@"Line=""(\d+)""", RegexOptions.Compiled);
-            private static readonly Regex RegAddressNumberPattern = new Regex(@"Address=""(\w+)""", RegexOptions.Compiled);
-            private static readonly Regex RegTextNumberPattern = new Regex(@"Text=""(\w+)""", RegexOptions.Compiled);
+            private static readonly Regex RegLineNumberPattern = new Regex(@"Line=""(.*?)""", RegexOptions.Compiled);
+            private static readonly Regex RegAddressNumberPattern = new Regex(@"Address=""(.*?)""", RegexOptions.Compiled);
+            private static readonly Regex RegTextNumberPattern = new Regex(@"Text=""(.*?)""", RegexOptions.Compiled);
 
             public Response(string message)
             {                
