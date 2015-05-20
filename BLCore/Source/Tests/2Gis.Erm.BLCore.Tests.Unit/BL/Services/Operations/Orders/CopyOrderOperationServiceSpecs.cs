@@ -160,7 +160,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                 var service = Mock.Of<IEvaluateOrderNumberService>();
 
                 Mock.Get(service)
-                    .Setup(s => s.Evaluate(Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<long?>()))
+                    .Setup(s => s.Evaluate(Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<long?>(), Moq.It.IsAny<OrderType>()))
                     .Returns(string.Empty);
 
                 Mock.Get(service)

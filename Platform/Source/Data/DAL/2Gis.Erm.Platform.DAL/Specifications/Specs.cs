@@ -113,6 +113,11 @@ namespace DoubleGis.Erm.Platform.DAL.Specifications
             {
                 return new FindSpecification<TEntity>(x => x.Id != id);
             }
+
+            public static FindSpecification<TEntity> ExceptByIds<TEntity>(IEnumerable<long> ids) where TEntity : class, IEntity, IEntityKey
+            {
+                return new FindSpecification<TEntity>(x => !ids.Contains(x.Id));
+            }
         }
 
         public static class Select

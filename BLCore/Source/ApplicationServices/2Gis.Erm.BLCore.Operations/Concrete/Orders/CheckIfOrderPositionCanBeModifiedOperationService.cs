@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         // Является частным случаем проверки AllRequiredAdvertisementsAreSpecified, которая появилась в рамках фикса бага ERM-6151. Есть опасение, что новая общая проверка ломает какой-то кейс. 
         // Если жалоб на нее не будет, то эту частную проверку (AllRequiredAdvertisementsAreSpecifiedForCompositePosition) можно будет удалить
         private bool AllRequiredAdvertisementsAreSpecifiedForCompositePosition(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
-                                                                               out string report)
+                                              out string report)
         {
             report = null;
             if (!orderPositionAdvertisements.Any())

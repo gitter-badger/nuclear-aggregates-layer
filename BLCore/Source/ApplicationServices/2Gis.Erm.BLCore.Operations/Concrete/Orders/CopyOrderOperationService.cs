@@ -198,7 +198,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         private string GenerateOrderNumber(Order order, long reservedNumber)
         {
             var syncCodes = _orderReadModel.GetOrderOrganizationUnitsSyncCodes(order.SourceOrganizationUnitId, order.DestOrganizationUnitId);
-            return _numberService.Evaluate(order.Number, syncCodes[order.SourceOrganizationUnitId], syncCodes[order.DestOrganizationUnitId], reservedNumber);
+            return _numberService.Evaluate(order.Number, syncCodes[order.SourceOrganizationUnitId], syncCodes[order.DestOrganizationUnitId], reservedNumber, order.OrderType);
         }
 
         private string GenerateRegionalOrderNumber(Order order, long reservedNumber)

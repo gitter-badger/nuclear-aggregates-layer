@@ -297,6 +297,7 @@
     <Compile Include="Services\Cards\LockDetails\LocalizeLockDetailsPriceCustomization.cs" />
     <Compile Include="Services\Cards\Locks\LocalizeLockStatusCustomization.cs" />
     <Compile Include="Services\Cards\Orders\CheckIfCanSwitchToAccountCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\DisableOrderTypesOptionsCustomization.cs" />
     <Compile Include="Services\Cards\Shared\EntityIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\Shared\SetMessagesCustomization.cs" />
     <Compile Include="Services\Cards\Shared\UIElementAvailabilityHelper.cs" />
