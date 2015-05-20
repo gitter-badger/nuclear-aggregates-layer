@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.ServiceBusFo
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 
 using NuClear.Settings.API;
 
@@ -26,10 +26,9 @@ namespace DoubleGis.Erm.API.WCF.Releasing.Settings
                .Use<IntegrationSettingsAspect>()
                .Use<CachingSettingsAspect>()
                .Use<OperationLoggingSettingsAspect>()
+               .Use<IdentityServiceClientSettingsAspect>()
                .IfRequiredUseOperationLogging2ServiceBus()
-               .Use(RequiredServices
-                       .Is<APIOrderValidationServiceSettingsAspect>()
-                       .Is<APIIdentityServiceSettingsAspect>());
+               .Use(RequiredServices.Is<APIOrderValidationServiceSettingsAspect>());
         }
     }
 }
