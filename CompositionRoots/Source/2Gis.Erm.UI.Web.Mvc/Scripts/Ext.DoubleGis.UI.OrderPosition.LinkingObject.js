@@ -358,9 +358,8 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
                                 opt.linkingObjectNode.checkbox.click();
 
                                 // этот WTF является workaround'ом для бага ERM-6593
-                                if (!opt.linkingObjectNode.checkbox.checked) {
-                                    opt.linkingObjectNode.checkbox.checked = true;
-                                }
+                                // Суть бага - в редких случаях checked остается false.
+                                opt.linkingObjectNode.checkbox.checked = true;
                             }
                         } else {
                             opt.linkingObjectNode.isDummyCheckBox.checked = false;
