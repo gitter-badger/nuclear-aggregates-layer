@@ -1,0 +1,2028 @@
+<ImportExportXml version="4.0.0.0" languagecode="1049" generatedBy="OnPremise">
+  <Entities>
+    <Entity>
+      <Name LocalizedName="Заказ" OriginalName="">Dg_order</Name>
+      <ObjectTypeCode>10014</ObjectTypeCode>
+      <EntityInfo>
+        <entity Name="Dg_order">
+          <HasRelatedNotes>True</HasRelatedNotes>
+          <HasRelatedActivities>True</HasRelatedActivities>
+          <ObjectTypeCode>10014</ObjectTypeCode>
+          <CollectionName>Dg_orders</CollectionName>
+          <LogicalCollectionName>dg_orders</LogicalCollectionName>
+          <BaseTableName>Dg_orderBase</BaseTableName>
+          <WorkflowEventMask>-1</WorkflowEventMask>
+          <IsCustomizable>1</IsCustomizable>
+          <IsMappable>1</IsMappable>
+          <IsImportable>1</IsImportable>
+          <IsDuplicateCheckSupported>1</IsDuplicateCheckSupported>
+          <OwnershipTypeMask>UserOwned</OwnershipTypeMask>
+          <IsAudited>1</IsAudited>
+          <EntityMask>ActivityPointer</EntityMask>
+          <IsCustomEntity>1</IsCustomEntity>
+          <IsValidForAdvancedFind>1</IsValidForAdvancedFind>
+          <ExtensionTableName>Dg_orderExtensionBase</ExtensionTableName>
+          <ReportViewName>FilteredDg_order</ReportViewName>
+          <IsRenameable>1</IsRenameable>
+          <CanTriggerWorkflow>1</CanTriggerWorkflow>
+          <CanBeChildInCustomRelationship>1</CanBeChildInCustomRelationship>
+          <CanBeInCustomEntityAssociation>1</CanBeInCustomEntityAssociation>
+          <CanBeInCustomReflexiveRelationship>1</CanBeInCustomReflexiveRelationship>
+          <IsMailMergeEnabled>1</IsMailMergeEnabled>
+          <EntityClassName>Microsoft.Crm.Entities.CustomBusinessEntity</EntityClassName>
+          <EntityAssembly>Microsoft.Crm.Entities</EntityAssembly>
+          <ServiceClassName>Microsoft.Crm.ObjectModel.CustomBusinessEntityService</ServiceClassName>
+          <ServiceAssembly>Microsoft.Crm.ObjectModel</ServiceAssembly>
+          <WorkflowSupport>15</WorkflowSupport>
+          <LocalizedNames>
+            <LocalizedName description="Заказ" languagecode="1049" />
+          </LocalizedNames>
+          <LocalizedCollectionNames>
+            <LocalizedCollectionName description="Заказы" languagecode="1049" />
+          </LocalizedCollectionNames>
+          <Descriptions>
+            <Description description="Реплика объекта из Billing" languagecode="1049" />
+          </Descriptions>
+          <attributes>
+            <attribute PhysicalName="CreatedBy">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Уникальный идентификатор пользователя, создавшего запись." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupClass>SystemUsers</LookupClass>
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes />
+              <displaynames>
+                <displayname description="Создано" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="CreatedOn">
+              <Type>datetime</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата и время создания записи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Дата создания" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="DeletionStateCode">
+              <Type>int</Type>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+            </attribute>
+            <attribute PhysicalName="Dg_amounttowithdraw">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Сумма к списанию" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="К списанию" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_amountwithdrawn">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Списано" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="Списано" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_begindistributiondate">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата начала размещения" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Начало размещения" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_discountcomment">
+              <Type>nvarchar</Type>
+              <Length>600</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Комментарий по скидке" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>300</MaxLength>
+              <displaynames>
+                <displayname description="Комментарий по скидке" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_discountpercent">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Процент скидки" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="Скидка (%)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_DiscountReason">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Причина скидки" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>-1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Рекламная акция" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="Торг" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="Другая" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Причина скидки" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_discountreasonName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_DiscountReason</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_discountvalue">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Значение скидки в рублях" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="Скидка (руб)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_documentscomment">
+              <Type>nvarchar</Type>
+              <Length>600</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>300</MaxLength>
+              <displaynames>
+                <displayname description="Комментарий по документам" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_documentsdebt">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Отсутствуют" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="Оригинал" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="Факс" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="4">
+                  <labels>
+                    <label description="Служебная записка" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="5">
+                  <labels>
+                    <label description="Другое" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Наличие документов" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_documentsdebtName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_documentsdebt</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_enddistributiondatefact">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата оконания размещения (факт)" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Окончание размещения факт" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_enddistributiondateplan">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата оконания размещения (план)" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Окончание размещения" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_isterminated">
+              <Type>bit</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000013</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Признак расторжения" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>0</AppDefaultValue>
+              <options>
+                <option value="0">
+                  <labels>
+                    <label description="Нет" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="1">
+                  <labels>
+                    <label description="Да" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Расторгнут" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_isterminatedName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_isterminated</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_number">
+              <Type>nvarchar</Type>
+              <Length>400</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ActivityPointerRegardingName|PrimaryName|ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="The name of the custom entity." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>required</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>200</MaxLength>
+              <displaynames>
+                <displayname description="Номер бланка заказа" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_orderId">
+              <Type>primarykey</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsPKAttribute>1</IsPKAttribute>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000032</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|RequiredForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Уникальный идентификатор экземпляров объекта" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <displaynames>
+                <displayname description="Бланк заказа" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_ordertype">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Типы заказа" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>-1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Продажи" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="Самореклама" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="ТРУ (товары, реклама, услуги)" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="4">
+                  <labels>
+                    <label description="Рекламный бартер" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="5">
+                  <labels>
+                    <label description="Товарный бартер" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="6">
+                  <labels>
+                    <label description="Бартер на услуги" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="7">
+                  <labels>
+                    <label description="Социальная реклама" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="8">
+                  <labels>
+                    <label description="Рекламное агентство" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Тип заказа" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_ordertypeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_ordertype</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_payablefact">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="К оплате факт" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_payablefactbudget">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="К оплате факт (бюджет)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_payablefactpositions">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="К оплате факт (позиции)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_payableplan">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Итог" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="К оплате план (итого)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_payableplanbudget">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="К оплате план (бюджет)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_payableplanpositions">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="К оплате план (позиции)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_payableprice">
+              <Type>decimal</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000016</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <MinValue>0</MinValue>
+              <MaxValue>1000000000</MaxValue>
+              <Accuracy>4</Accuracy>
+              <displaynames>
+                <displayname description="К оплате прайс" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_regionalnumber">
+              <Type>nvarchar</Type>
+              <Length>800</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>400</MaxLength>
+              <displaynames>
+                <displayname description="Региональный номер бланка заказа" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_release_count_fact">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>0</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <displaynames>
+                <displayname description="Количество выпусков (факт)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_release_count_plan">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>0</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <displaynames>
+                <displayname description="Количество выпусков (план)" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_signupdate">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Дата подписания" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_terminationcomment">
+              <Type>nvarchar</Type>
+              <Length>600</Length>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Комментарий к расторжению" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>300</MaxLength>
+              <displaynames>
+                <displayname description="Комментарий к расторжению" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="Dg_terminationreason">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Причина расторжения" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>-1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="Временный отказ. Не устраивают условия" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="Временный отказ. Не сезон" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="Временный отказ. Выбран другой источник" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="4">
+                  <labels>
+                    <label description="Временный отказ. Не устраивают РМ" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="5">
+                  <labels>
+                    <label description="Временный отказ. Другое (указать в комментарии)" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="6">
+                  <labels>
+                    <label description="Категорический отказ. Низкая эффективность" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="7">
+                  <labels>
+                    <label description="Категорический отказ. Смена ЛПР" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="8">
+                  <labels>
+                    <label description="Категорический отказ. Ошибка сервиса" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="9">
+                  <labels>
+                    <label description="Категорический отказ. Закрытие предприятия" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="10">
+                  <labels>
+                    <label description="Категорический отказ. Списание дебиторки" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="11">
+                  <labels>
+                    <label description="Категорический отказ. Другое (указать в комментарии)" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="12">
+                  <labels>
+                    <label description="Техническое расторжение. Смена позиций" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Причина расторжения" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_terminationreasonName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_terminationreason</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="Dg_workflowstep">
+              <Type>picklist</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000030</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <AppDefaultValue>1</AppDefaultValue>
+              <options>
+                <option value="1">
+                  <labels>
+                    <label description="На оформлении" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="2">
+                  <labels>
+                    <label description="На утверждении" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="3">
+                  <labels>
+                    <label description="Отклонено" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="4">
+                  <labels>
+                    <label description="На расторжении" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="5">
+                  <labels>
+                    <label description="Одобрен" languagecode="1049" />
+                  </labels>
+                </option>
+                <option value="6">
+                  <labels>
+                    <label description="Архив" languagecode="1049" />
+                  </labels>
+                </option>
+              </options>
+              <displaynames>
+                <displayname description="Статус бланка заказа" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="dg_workflowstepName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsCustomField>1</IsCustomField>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>Dg_workflowstep</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="ImportSequenceNumber">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <Descriptions>
+                <Description description="Порядковый номер импорта, в результате которого была создана эта запись." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <displaynames>
+                <displayname description="Порядковый номер импорта" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ModifiedBy">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Уникальный идентификатор пользователя, изменившего запись." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupClass>SystemUsers</LookupClass>
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes />
+              <displaynames>
+                <displayname description="Изменено" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="ModifiedOn">
+              <Type>datetime</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата и время изменения записи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Дата изменения" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OverriddenCreatedOn">
+              <Type>datetime</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000015</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Дата и время переноса записи." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>inactive</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>date</Format>
+              <displaynames>
+                <displayname description="Запись создана" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OwnerId">
+              <Type>owner</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000035</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Идентификатор владельца" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes />
+              <displaynames>
+                <displayname description="Куратор" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OwnerIdDsc">
+              <Type>int</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>dsc</XmlAbbreviation>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+            </attribute>
+            <attribute PhysicalName="OwnerIdName">
+              <Type>nvarchar</Type>
+              <Length>320</Length>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-11000000001e</AttributeTypeId>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <IsSortAttribute>1</IsSortAttribute>
+              <Descriptions>
+                <Description description="Имя владельца" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+            </attribute>
+            <attribute PhysicalName="OwnerIdType">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <DisplayMask>ObjectTypeCode</DisplayMask>
+              <AttributeOf>OwnerId</AttributeOf>
+              <XmlAbbreviation>type</XmlAbbreviation>
+              <Descriptions>
+                <Description description="Тип идентификатора владельца" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>disabled</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-2147483648</MinValue>
+              <MaxValue>2147483647</MaxValue>
+            </attribute>
+            <attribute PhysicalName="OwningBusinessUnit">
+              <Type>lookup</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>10</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <Descriptions>
+                <Description description="Уникальный идентификатор подразделения, владеющего этой записью" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes />
+              <displaynames>
+                <displayname description="Подразделение-владелец" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="OwningUser">
+              <Type>lookup</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ReferencedEntityObjectTypeCode>8</ReferencedEntityObjectTypeCode>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000031</AttributeTypeId>
+              <AggregateOf>OwnerId</AggregateOf>
+              <Descriptions>
+                <Description description="Уникальный идентификатор пользователя, владеющего этой записью." languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes />
+            </attribute>
+            <attribute PhysicalName="statecode">
+              <Type>state</Type>
+              <IsNullable>0</IsNullable>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000036</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Состояние Бланк заказа" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <states>
+                <state value="0" defaultstatus="1" invariantname="Active">
+                  <labels>
+                    <label description="Активный" languagecode="1049" />
+                  </labels>
+                </state>
+                <state value="1" defaultstatus="2" invariantname="Inactive">
+                  <labels>
+                    <label description="Неактивные" languagecode="1049" />
+                  </labels>
+                </state>
+              </states>
+              <displaynames>
+                <displayname description="Состояние" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="statecodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>statecode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="statuscode">
+              <Type>status</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000037</AttributeTypeId>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <Descriptions>
+                <Description description="Причина состояния Бланк заказа" languagecode="1049" />
+              </Descriptions>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <statuses>
+                <status value="1" state="0">
+                  <labels>
+                    <label description="Активный" languagecode="1049" />
+                  </labels>
+                </status>
+                <status value="2" state="1">
+                  <labels>
+                    <label description="Неактивные" languagecode="1049" />
+                  </labels>
+                </status>
+              </statuses>
+              <displaynames>
+                <displayname description="Причина состояния" languagecode="1049" />
+              </displaynames>
+            </attribute>
+            <attribute PhysicalName="statuscodeName">
+              <Type>virtual</Type>
+              <ValidForReadApi>1</ValidForReadApi>
+              <IsLogical>1</IsLogical>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000033</AttributeTypeId>
+              <AttributeOf>statuscode</AttributeOf>
+              <XmlAbbreviation>name</XmlAbbreviation>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+            <attribute PhysicalName="TimeZoneRuleVersionNumber">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-1</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="UTCConversionTimeZoneCode">
+              <Type>int</Type>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000019</AttributeTypeId>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+              <Format />
+              <MinValue>-1</MinValue>
+              <MaxValue>2147483647</MaxValue>
+              <Accuracy>0</Accuracy>
+            </attribute>
+            <attribute PhysicalName="VersionNumber">
+              <Type>timestamp</Type>
+              <AttributeTypeId>00000000-0000-0000-00aa-110000000025</AttributeTypeId>
+              <ImeMode>auto</ImeMode>
+              <RequiredLevel>none</RequiredLevel>
+            </attribute>
+          </attributes>
+        </entity>
+      </EntityInfo>
+      <FormXml id="{CBB55D8E-ACD2-4FD9-B63A-561F9EFE8D70}">
+        <forms>
+          <entity name="dg_order" objecttypecode="10014">
+            <form type="main" enablerelatedinformation="true" relatedInformationCollapsed="true" id="{782e84f8-0e7f-4b74-bcd1-f1249d803782}">
+              <tabs>
+                <tab verticallayout="true" id="{a4524f47-ccfe-4983-adfb-8ce757dc03ae}" IsUserDefined="1">
+                  <labels>
+                    <label description="Общие" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="false" showbar="false" IsUserDefined="0" id="{b4514a8a-3a4a-44d4-9f46-35fd59a2fd8c}">
+                      <labels>
+                        <label description="Общие" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell id="{ccfbc516-44ad-4cd5-b074-3dc935fb9ae7}">
+                            <labels>
+                              <label description="Номер бланка заказа" languagecode="1049" />
+                            </labels>
+                            <control id="dg_number" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="dg_number" />
+                          </cell>
+                          <cell id="{e3bd3def-2716-44f2-aaa5-631deb0af0d8}">
+                            <labels>
+                              <label description="Куратор" languagecode="1049" />
+                            </labels>
+                            <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+                <tab id="{492d4650-9a04-4a08-85d9-63794bb41bea}" IsUserDefined="0">
+                  <labels>
+                    <label description="Заметки" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="true" showbar="true" locklevel="1" id="{00b232a1-7548-4bdd-9a6b-23fd01884f27}" IsUserDefined="0" height="auto">
+                      <labels>
+                        <label description="Заметки" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="2" showlabel="false" rowspan="5" auto="true" id="{12e25e2f-b8e0-4a7b-ab94-f5200b1a067b}">
+                            <labels>
+                              <label description="Текст заметок" languagecode="1049" />
+                            </labels>
+                            <control id="notescontrol" classid="{06375649-c143-495e-a496-c962e5b4488e}" />
+                          </cell>
+                        </row>
+                        <row />
+                        <row />
+                        <row />
+                        <row height="auto" />
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+              </tabs>
+            </form>
+          </entity>
+          <entity name="dg_order" objecttypecode="10014">
+            <form type="preview" id="{4d543d31-c784-4c77-8a36-bbc62c8e74fb}">
+              <tabs>
+                <tab verticallayout="true" id="{08eb2b6d-c9bb-42bd-876e-026b7c93b645}" IsUserDefined="1">
+                  <labels>
+                    <label description="Общие" languagecode="1049" />
+                  </labels>
+                  <sections>
+                    <section showlabel="false" showbar="false" IsUserDefined="1" id="{e5f6c20f-0831-4eaf-aba8-3c66de4d0c21}">
+                      <labels>
+                        <label description="Сведения" languagecode="1049" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{63f6af98-59ca-4dd2-8738-7c95912ea4a2}">
+                            <labels>
+                              <label description="Город источник" languagecode="1049" />
+                            </labels>
+                            <control id="dg_source_organizationunit" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="dg_source_organizationunit" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{b8b02eda-9c24-4b58-b5f1-1ca7698ea285}">
+                            <labels>
+                              <label description="Город назначения" languagecode="1049" />
+                            </labels>
+                            <control id="dg_dest_organizationunit" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="dg_dest_organizationunit" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{405d46fc-e848-4652-95bc-9ba8c320eaf6}">
+                            <labels>
+                              <label description="Окончание размещения" languagecode="1049" />
+                            </labels>
+                            <control id="dg_enddistributiondateplan" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="dg_enddistributiondateplan" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{d06bf166-2921-4a83-8444-2c0912881007}">
+                            <labels>
+                              <label description="Окончание размещения факт" languagecode="1049" />
+                            </labels>
+                            <control id="dg_enddistributiondatefact" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="dg_enddistributiondatefact" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{c4d7ffa9-a5a1-4b61-bd57-a0358ae9ef4b}">
+                            <labels>
+                              <label description="К оплате план (бюджет)" languagecode="1049" />
+                            </labels>
+                            <control id="dg_payableplanbudget" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="dg_payableplanbudget" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{e983818b-9825-4543-acd7-dc1c78a7e046}">
+                            <labels>
+                              <label description="К оплате план (итого)" languagecode="1049" />
+                            </labels>
+                            <control id="dg_payableplan" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="dg_payableplan" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{b3da9dfa-b261-4c70-b84f-742d0fabfd0e}">
+                            <labels>
+                              <label description="К оплате план (позиции)" languagecode="1049" />
+                            </labels>
+                            <control id="dg_payableplanpositions" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="dg_payableplanpositions" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{b1668780-6035-4155-8615-31078b673bbe}">
+                            <labels>
+                              <label description="К оплате прайс" languagecode="1049" />
+                            </labels>
+                            <control id="dg_payableprice" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="dg_payableprice" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{ac2a6d6a-feb5-4758-a4de-ac42f20ef91b}">
+                            <labels>
+                              <label description="К оплате факт (бюджет)" languagecode="1049" />
+                            </labels>
+                            <control id="dg_payablefactbudget" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="dg_payablefactbudget" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{a728ca7e-dcb4-425a-91f5-15c29d2b30a0}">
+                            <labels>
+                              <label description="К оплате факт" languagecode="1049" />
+                            </labels>
+                            <control id="dg_payablefact" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="dg_payablefact" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{744ecb2b-5834-4846-91ab-59a48769b293}">
+                            <labels>
+                              <label description="К оплате факт (позиции)" languagecode="1049" />
+                            </labels>
+                            <control id="dg_payablefactpositions" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="dg_payablefactpositions" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{1e4e87ed-4b2e-474d-b5ab-28852f9b1689}">
+                            <labels>
+                              <label description="К списанию" languagecode="1049" />
+                            </labels>
+                            <control id="dg_amounttowithdraw" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="dg_amounttowithdraw" disabled="false" />
+                          </cell>
+                        </row>
+                        <row>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{ef9634f4-e928-4069-a6e1-d2024eb0c27a}">
+                            <labels>
+                              <label description="Начало размещения" languagecode="1049" />
+                            </labels>
+                            <control id="dg_begindistributiondate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="dg_begindistributiondate" disabled="false" />
+                          </cell>
+                          <cell auto="false" showlabel="true" locklevel="0" rowspan="1" colspan="1" id="{2555056c-2652-4d6b-8862-9f6683eb2462}">
+                            <labels>
+                              <label description="Проверяющий" languagecode="1049" />
+                            </labels>
+                            <control id="dg_inspector" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="dg_inspector" disabled="false" />
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                  </sections>
+                </tab>
+              </tabs>
+            </form>
+          </entity>
+        </forms>
+      </FormXml>
+      <SavedQueries>
+        <savedqueries entity="SavedQuery" morerecords="0" paging-cookie="" version="3.0">
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="10 014">10014</returnedtypecode>
+            <savedqueryid>{F086AFA8-5916-4647-A63A-683ED75C838B}</savedqueryid>
+            <savedqueryidunique>{ACC51D9B-5A57-434D-AAE4-DAF2F16172BC}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="10014" jump="dg_number" select="1" icon="1" preview="1">
+                <row name="result" id="dg_orderid">
+                  <cell name="dg_number" width="125" />
+                  <cell name="dg_firmid" width="150" />
+                  <cell name="ownerid" width="125" />
+                  <cell name="dg_source_organizationunit" width="125" />
+                  <cell name="dg_dest_organizationunit" width="125" />
+                  <cell name="dg_ordertype" width="100" />
+                  <cell name="dg_begindistributiondate" width="100" />
+                  <cell name="dg_enddistributiondateplan" width="100" />
+                  <cell name="dg_legalperson" width="200" />
+                  <cell name="dg_workflowstep" width="100" />
+                  <cell name="createdon" width="100" />
+                  <cell name="dg_payablefact" width="100" />
+                  <cell name="dg_discountpercent" width="75" />
+                  <cell name="dg_amountwithdrawn" width="100" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="0">0</querytype>
+            <fetchxml>
+              <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+                <entity name="dg_order">
+                  <attribute name="dg_number" />
+                  <attribute name="dg_legalperson" />
+                  <attribute name="dg_firmid" />
+                  <attribute name="dg_workflowstep" />
+                  <attribute name="dg_begindistributiondate" />
+                  <attribute name="dg_amountwithdrawn" />
+                  <attribute name="ownerid" />
+                  <attribute name="dg_source_organizationunit" />
+                  <attribute name="dg_ordertype" />
+                  <attribute name="dg_enddistributiondateplan" />
+                  <attribute name="dg_payablefact" />
+                  <attribute name="dg_discountpercent" />
+                  <order attribute="dg_begindistributiondate" descending="true" />
+                  <filter type="and">
+                    <filter type="and">
+                      <condition attribute="statecode" operator="eq" value="0" />
+                      <condition attribute="dg_workflowstep" operator="in">
+                        <value>1</value>
+                        <value>2</value>
+                        <value>3</value>
+                        <value>5</value>
+                      </condition>
+                    </filter>
+                  </filter>
+                  <attribute name="dg_dest_organizationunit" />
+                  <attribute name="createdon" />
+                  <attribute name="dg_orderid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Все активные Бланки заказа" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset>
+                <column>dg_number</column>
+                <column>createdon</column>
+                <ascend>dg_number</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="10 014">10014</returnedtypecode>
+            <savedqueryid>{63143376-25D1-4803-A25A-6EDF463F4CA6}</savedqueryid>
+            <savedqueryidunique>{0988CEB6-F061-493D-99F8-E0170772F26B}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="10014" jump="dg_number" select="1" icon="1" preview="1">
+                <row name="result" id="dg_orderid">
+                  <cell name="dg_number" width="300" />
+                  <cell name="createdon" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="1">1</querytype>
+            <fetchxml>
+              <fetch version="1.0" mapping="logical">
+                <entity name="dg_order">
+                  <attribute name="dg_orderid" />
+                  <attribute name="dg_number" />
+                  <attribute name="createdon" />
+                  <order attribute="dg_number" descending="false" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Бланк заказа представление расширенного поиска" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset>
+                <filter type="and">
+                  <condition column="statecode" operator="eq" value="0" />
+                </filter>
+                <column>dg_number</column>
+                <column>createdon</column>
+                <ascend>dg_number</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="10 014">10014</returnedtypecode>
+            <savedqueryid>{D8F30E98-0212-4E9D-B54F-B0B8332FF813}</savedqueryid>
+            <queryapi>AUTO</queryapi>
+            <savedqueryidunique>{73686ED1-9E6C-4192-967F-1E4F52448181}</savedqueryidunique>
+            <layoutxml>
+              <grid name="dg_orders" object="10014" jump="dg_number" select="1" icon="1" preview="1">
+                <row name="dg_order" id="dg_orderid">
+                  <cell name="dg_number" width="300" />
+                  <cell name="createdon" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="2">2</querytype>
+            <LocalizedNames>
+              <LocalizedName description="Бланк заказа связанное представление" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Да">1</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="10 014">10014</returnedtypecode>
+            <savedqueryid>{5C1B45BA-3523-4F96-8757-88177725C5CB}</savedqueryid>
+            <savedqueryidunique>{E1ADC723-6C61-4386-81A6-FAAE0C3E3713}</savedqueryidunique>
+            <layoutxml>
+              <grid name="resultset" object="10014" jump="dg_number" select="1" icon="1" preview="1">
+                <row name="result" id="dg_orderid">
+                  <cell name="dg_number" width="125" />
+                  <cell name="dg_firmid" width="150" />
+                  <cell name="ownerid" width="125" />
+                  <cell name="dg_source_organizationunit" width="125" />
+                  <cell name="dg_dest_organizationunit" width="125" />
+                  <cell name="dg_ordertype" width="100" />
+                  <cell name="dg_begindistributiondate" width="100" />
+                  <cell name="dg_enddistributiondateplan" width="100" />
+                  <cell name="dg_legalperson" width="200" />
+                  <cell name="dg_workflowstep" width="100" />
+                  <cell name="createdon" width="100" />
+                  <cell name="dg_payablefact" width="100" />
+                  <cell name="dg_discountpercent" width="75" />
+                  <cell name="dg_amountwithdrawn" width="100" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="4">4</querytype>
+            <fetchxml>
+              <fetch version="1.0" mapping="logical">
+                <entity name="dg_order">
+                  <attribute name="dg_number" />
+                  <attribute name="createdon" />
+                  <order attribute="dg_number" descending="false" />
+                  <filter type="and">
+                    <condition attribute="statecode" operator="eq" value="0" />
+                  </filter>
+                  <filter type="or" isquickfindfields="1">
+                    <condition attribute="dg_firmid" operator="like" value="{0}" />
+                    <condition attribute="dg_inspector" operator="like" value="{0}" />
+                    <condition attribute="dg_number" operator="like" value="{0}" />
+                    <condition attribute="ownerid" operator="like" value="{0}" />
+                  </filter>
+                  <attribute name="dg_legalperson" />
+                  <attribute name="dg_firmid" />
+                  <attribute name="dg_ordertype" />
+                  <attribute name="dg_workflowstep" />
+                  <attribute name="dg_amountwithdrawn" />
+                  <attribute name="dg_discountpercent" />
+                  <attribute name="dg_enddistributiondateplan" />
+                  <attribute name="dg_begindistributiondate" />
+                  <attribute name="ownerid" />
+                  <attribute name="dg_payablefact" />
+                  <attribute name="dg_dest_organizationunit" />
+                  <attribute name="dg_source_organizationunit" />
+                  <attribute name="dg_orderid" />
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Быстрый поиск активных Бланки заказа" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+          <savedquery>
+            <columnsetxml>
+              <columnset>
+                <column>dg_number</column>
+                <column>createdon</column>
+                <ascend>dg_number</ascend>
+              </columnset>
+            </columnsetxml>
+            <iscustomizable name="Да">1</iscustomizable>
+            <isquickfindquery name="Нет">0</isquickfindquery>
+            <isuserdefined name="Да">1</isuserdefined>
+            <isprivate>0</isprivate>
+            <isdefault name="Да">1</isdefault>
+            <returnedtypecode formattedvalue="10 014">10014</returnedtypecode>
+            <savedqueryid>{6AE5FD51-4D11-487A-9972-796601FE53F4}</savedqueryid>
+            <savedqueryidunique>{19DB8CD2-1F1C-49D9-B077-CE36D8E7E1D9}</savedqueryidunique>
+            <layoutxml>
+              <grid name="dg_orders" object="10014" jump="dg_number" select="1" icon="1" preview="0">
+                <row name="dg_order" id="dg_orderid">
+                  <cell name="dg_number" width="300" />
+                  <cell name="createdon" width="125" />
+                </row>
+              </grid>
+            </layoutxml>
+            <customizationlevel formattedvalue="1">1</customizationlevel>
+            <querytype formattedvalue="64">64</querytype>
+            <fetchxml>
+              <fetch version="1.0" mapping="logical">
+                <entity name="dg_order">
+                  <attribute name="dg_orderid" />
+                  <attribute name="dg_number" />
+                  <attribute name="createdon" />
+                  <filter type="or" isquickfindfields="1">
+                    <condition attribute="dg_number" operator="like" value="{0}" />
+                  </filter>
+                </entity>
+              </fetch>
+            </fetchxml>
+            <LocalizedNames>
+              <LocalizedName description="Бланк заказа представление поиска" languagecode="1049" />
+            </LocalizedNames>
+          </savedquery>
+        </savedqueries>
+      </SavedQueries>
+      <Icons>
+        <Icon type="GridIcon">R0lGODlhEAAQAPcAAP/7+sH/wf///53alfr/+kByM9//38j/ydL/09D/z8P/w9T/1NX/1XWfapj+mYLsgWmWX8b/xur/6kZ4O5fTjmKQVzhqIXarZ53+nnivbOL/4qPJnCtcE4SufPT/9VmNR5zZlPP/9M//z0Z5MTxuJTRmHoCsePj/+Xyyb5K5iHajbMv/y8r/y9n/2Yu1g3ahauD/4GidV9n/2ilaEHuxbrT+tMT/xb3/v37yfuX/5WKWUZXtlk6BOcX/xZW8jML/w/D/8G+kX83/zmmeWev/7DFiGOb/5lSHQY/skEh8NEBzKvb/9l6OUu//78f/yNf/19H/0lqOSI7IhGCUT1KCRp3DlXClYJTQi4G5dpjVkJrAktH/0PP/897/3u3/7JXRjXWqZo3Hg0ByKtz/20R3L462hMr/ysT/xJrWktj/2TRmHZ/tn+7/7pHMh4O9eYO7ePH/8cv/zCxdE9Xs01KGP2uYYDpsJFWFSYjCforri/f/94CqduP/5Hy1cZ3ZlC5fFoXrhpLMiIjAfUl7PN3/3oexgDFiGdz/3Zvwmuf/6N7/3Mn/yqT/pqv+q02AObj8uv///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAJAALAAAAAAQABAAAAjhACFBGkDQDxoKV9pIEchQ4AAAAiJKxOOmoUAQAAgQOLEkBJA3c2hYzJJxQxUfLrz0yQDGSsMvAPR4gMNGghENXRQNaRgIABctKQrteVGnQgIdDcMAaEIkER8DY54g6BGloSAAEsp0ICSDAZM7N440xAIgB4xDaRZsiXOghqOGKAAYMKECQQIWVAY1GtHwAoAWDKAIWRThzA9GShoGAbCgAYQDERRMKIDBTsMYAESscGJDQYDPDko0nALAjOPPASY7KNLww6M1iHYgyQPowQMcchrS4ZGEjBgSFtQY+sNhhsCAADs=</Icon>
+        <Icon type="OutlookShortcutIcon">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lf+DtYv/g7WL/+z/7f/s/+3/cbV8/3G1fP9sr3j/bK94/2aqdf9mqnX/YKVw/2ClcP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJTZnP+U2Zz/+vv///r7///6//r/+v/6//r/+v/6//r/+f/4//n/+P/2//b/9v/2//T/8//0//P/8P/w//D/8P94u4P/eLuD/9Ps1f/T7NX/brF7/26xe/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlNmc/5TZnP/6+///+vv///r/+v/6//r/+v/6//r/+v/5//j/+f/4//b/9v/2//b/9P/z//T/8//w//D/8P/w/3i7g/94u4P/0+zV/9Ps1f9usXv/brF7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACV2p3/ldqd//r7///6+///////////////////////////////////////////////////////////////////fsKI/37CiP95vYP/eb2D/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJXanf+V2p3/+vv///r7//////////////////////////////////////////////////////////////////9+woj/fsKI/3m9g/95vYP/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAldqd/5Xanf+V2p3/ldqd/5Xanf+V2p3/lNmd/5TZnf+S1pr/ktaa/47Tl/+O05f/i9CU/4vQlP+HzJH/h8yR/4TIjv+EyI7/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACV2p3/ldqd/5Xanf+V2p3/ldqd/5Xanf+U2Z3/lNmd/5LWmv+S1pr/jtOX/47Tl/+L0JT/i9CU/4fMkf+HzJH/hMiO/4TIjv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAA/8AAAP/AAAP/wAAD/8AAD//AAA/8=</Icon>
+        <Icon type="LargeEntityIcon">R0lGODlhQgAwAPcAAAAAAP///766vq6rsN/f6M3N0ePk7Pb5/+3y+/L2/czd88vc8srb8cHR5rbF2dPk+83e9MTU6bjH29bo/9Tm/dHj+cfY7b3O4rrK3rLB1K690MjZ7tfo/dnp/d3r/OHs+s7h9tzr++jv99Tn+tfp+9Pn+trr+9Ln+c7l9t7t+O3y9urv89jp9eLt9dDn9eHs887l8s/m883l8s3l8ebw9dvr8cTh67/Z4srl7OPv8snk6djq7cbj5+Tr7LDP07fT1KGjo57Ev8Dh3ZCXltHp5Lvg2KjXy+/z8s3o4Yy4qszn3qnKvrHeysTl19bk3urx7pvUuIrMqqrcw8ze1eHr5rPEu628tIXMpbTMv2egf6bbu+nz7Uina3fFlJTUrKK1qYyakX+ii2fDhOLv5kauZE+1aVaQZSh6Oyp8PSt5PUi1YU61Zk6zZlO1aly1cly1cUmPWV+1dF+1c2K1dWi1ekR1UGuUdeHu5CZ8OSx9PkW1XUW1Xi98Py92PjN7QzqHS061ZE61Y1K0aDZyQ1q1bTlvRV61cWy1e2qyem21fG2yfNrq3ejy6ufx6e3z7sHgxevz7IHXiYPYi4nakJ3Wop3Voqbgq6vgsNbt2JbTmp/co6LepqTfqZ7WoqDWpMzpzuPx5OHt4l3IYmXJamzMcXHQdXnUfX7VgoLPhozRj47RkZHSlJPTl5XTmJjTm5vVnp3WoKLYpaPYpqbaqanbq6/dsa3br7Hes7Hds7TetrfeubrgvLzgvr/iwcfpydvt3N7v30a/SFDDU3nMfJPYlZrbnJnVm6Hdo6LYo6XapqjaqavbrLPetLbgt77hvzu6PJbYl6zdrKvbq7betrngubrgurzgvMLhwsXjxcThxMfjx8/mz9ro2t7r3ubv5unv6cjjx8rkycnjyNDnz83kzNPo0tPm0tbo1cThwsfjxczkytzp28/mzc/kzdLm0NXo0+jx59jo1u7z6+3v6+zu5PLz7vPz8fPz8/Hx8e7u7urq6uLi4p+fn5ycnJqamv///yH5BAEAAP8ALAAAAABCADAAAAj/ACcIHEiQoBw5iBAponOoocOHDxNJ/FGwosWLGC0evMexo8ePHvUl0rMko8mTFzeCXPlR36F9ZEqinHlSJcubLu/BvEGzZ0o5HoEI5UeUaL+jR/3ty6mTDEWfUAXavGfP3s2Qhzru4/I0as85QK/ew0e27L18dDraK8DV69ewHIsaRdrPn12laDvmoyKgrVuUhuCKBZkWpN+/GQkJ7lgWX758K+nomUyZMmKThArH5UcX6dXHoI/wuZx4zuDTHI/UG036YhvTqFGzbl2xTRyPkzZZ2s3bEidOm45pKlYMGjRiqiaR6jibNsE2bjxGOsetOrd42OOd2/6unDt329iR/1M3irnzimveSH+3vb37d+/MgW83Xpw2UebPEwREaL379vDJtw055IQDjjbYZIMfR83pF0h/HUXC3nvxgUeggQiic80jC97T4HlqQMhRJOUAaI6AFx6IjYaPOGNNhx86p0YbHp0yzjnxoVigiug80qI1uzSDn1Ux0jajR6ZsI5+FO6aTzYa9OMMLNdNMwwyM+hF0ZITbdJmik1BKSaWVuNSCZZYC7UFjPd+AEol46hiY4DXXRFkNlbkwU6YttAiTH5p7lHEPPHe4qY59c9bpzJ265FlLLXwqM4ufDKKZ5hr2EBpKJOAk2os1d07jqC3S0KJMMrLEQqmHlk6wB6aEjv8hCTZQgornnsuYimosnnQijFWsWvrqPY0UKsk1LlbTjKi40jLLLKn2WokxwfyZ5av2eEPFHZL0EiSZkOb6bLSdTGtMJqsW2dqw3oRyRyTVgGvLMpLOggyvnbxizLmtsFJtpWhSgC0ooYxxSjO41nuvJ7Doyy8rq6xSLZFePfBABRiDoDEECiiwwAIMDNxNKKbcYosyksaCb8P7upJJKxGrokowjjgSLFQVcOwxAzwzsMHPFljwaj1j/BJKKdGkrHInDb/iisv9rqJKKlTTDMnNUFEAwQZBWxDB12A3MPQY3XRTijLkNu1K1BBPPXXVkFyt7kwPbBBBA3g3cMHeF4z/vUg3pCDjiSeUvCJ1KqigMgwpo4giTDDPRP5MMIwwgrVbFUTANwacYzB0KIsswvgopJRiyimoEFPMJpfk0osvn2ASCiiNMLLFE5bP7ZMCGEjgwO8O7MFGPXcsss7II98x+xjefNPIN4w88cQW1EsfPSPfXH7ZBg5k4P2r89zRzR3kj1G59HHLc8QRp+keFQUNaKDBHoLQE5s+BQgwABBhhGGHGWaAwx/+4L6K9U0QXxhA/oAABv8BUIADzAMa0JCGNJyhgmnowyA2WIgOWooDF+DDIPzgBz7kAQ94uGAGB1GIOpjBDnYAAxiGAAQrVAELWHjEFJzQAzi0SgxdKEAB/wxAgAIQwAA9UEECDsDEAyQAAQhYwQqUmIAqPlEFUzRDq7rQBRoggAZgzIEYc/CCFoBRBGhEYwvESAMRQBEBL8iBCLLQqitE4QU12MEOyvgCPO6ACERAghIGiQRACrIJRWCCFrTQghaIIAytggIUWpDHHSRSCpjMJBM2yQRMagEKXgilF0CZghR8IAmtMoIRUsCCVjJBCLCMJSyLQMtayhKWWijlB4LQKlqawAStFAIOhqmDYhrTmDxIpjKTWQQThMADPrAUBWxggw50gAQkwIELYrDNGHgzBjAIpzhlMINylpMH1uwATyyFAhR0gAPwdMEISkDPetqzBCfIpz7zKQgDDlgTBF4JCAA7</Icon>
+      </Icons>
+    </Entity>
+  </Entities>
+  <Roles>
+  </Roles>
+  <Workflows>
+  </Workflows>
+  <EntityMaps>
+    <EntityMap>
+      <EntitySource>opportunity</EntitySource>
+      <EntityTarget>dg_order</EntityTarget>
+      <AttributeMaps />
+    </EntityMap>
+    <EntityMap>
+      <EntitySource>systemuser</EntitySource>
+      <EntityTarget>dg_order</EntityTarget>
+      <AttributeMaps />
+    </EntityMap>
+  </EntityMaps>
+  <EntityRelationships>
+    <EntityRelationship Name="lk_dg_order_createdby">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Dg_order</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>createdby</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор пользователя, создавшего запись." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="createdby" requiredlevel="none" imemode="auto" lookupclass="SystemUsers" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Создано" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="lk_dg_order_modifiedby">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Dg_order</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>modifiedby</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор пользователя, изменившего запись." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="modifiedby" requiredlevel="none" imemode="auto" lookupclass="SystemUsers" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Изменено" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="user_dg_order">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Dg_order</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <ReferencingAttributeName>owninguser</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор пользователя, владеющего этой записью." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="owninguser" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames />
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="business_unit_dg_order">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Dg_order</ReferencingEntityName>
+      <ReferencedEntityName>BusinessUnit</ReferencedEntityName>
+      <ReferencingAttributeName>owningbusinessunit</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор подразделения, владеющего этой записью" languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="owningbusinessunit" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Подразделение-владелец" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_ActivityPointers">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>ActivityPointer</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+      <EntityRelationshipRoles>
+        <EntityRelationshipRole>
+          <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
+          <NavPaneArea>Details</NavPaneArea>
+        </EntityRelationshipRole>
+      </EntityRelationshipRoles>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_Appointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Appointment</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана встреча." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_Emails">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Email</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the object with which the e-mail is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_Faxes">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Fax</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие факса." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_Letters">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Letter</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие письма." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_PhoneCalls">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>PhoneCall</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие звонка." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_ServiceAppointments">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>ServiceAppointment</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано действие сервиса." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_Tasks">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Task</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связана задача." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegardingForTask" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_Annotations">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Annotation</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <CascadeAssign>Cascade</CascadeAssign>
+      <CascadeDelete>Cascade</CascadeDelete>
+      <CascadeReparent>Cascade</CascadeReparent>
+      <CascadeShare>Cascade</CascadeShare>
+      <CascadeUnshare>Cascade</CascadeUnshare>
+      <ReferencingAttributeName>objectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Unique identifier of the object with which the note is associated." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="objectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_AsyncOperations">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>AsyncOperation</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор объекта, с которым связано это системное задание." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupclass="ActivityRegarding" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="В отношении" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_BulkDeleteFailures">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>BulkDeleteFailure</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <ReferencingAttributeName>regardingobjectid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор записи, которая не может быть удалена." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="regardingobjectid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0" format="regarding">
+        <displaynames>
+          <displayname description="Имя" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_DuplicateMatchingRecord">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>DuplicateRecord</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <ReferencingAttributeName>duplicaterecordid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор возможной повторной записи." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="duplicaterecordid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Идентификатор повторной записи" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_order_DuplicateBaseRecord">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>DuplicateRecord</ReferencingEntityName>
+      <ReferencedEntityName>Dg_order</ReferencedEntityName>
+      <ReferencingAttributeName>baserecordid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор базовой записи." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="baserecordid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Идентификатор базовой записи" languagecode="1049" />
+        </displaynames>
+      </field>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_systemuser_dg_order">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Dg_order</ReferencingEntityName>
+      <ReferencedEntityName>SystemUser</ReferencedEntityName>
+      <CascadeAssign>NoCascade</CascadeAssign>
+      <CascadeDelete>RemoveLink</CascadeDelete>
+      <CascadeReparent>NoCascade</CascadeReparent>
+      <CascadeShare>NoCascade</CascadeShare>
+      <CascadeUnshare>NoCascade</CascadeUnshare>
+      <ReferencingAttributeName>dg_inspector</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Проверяющий" languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="dg_inspector" requiredlevel="none" imemode="auto" lookupclass="SystemUsers" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Проверяющий" languagecode="1049" />
+        </displaynames>
+      </field>
+      <EntityRelationshipRoles>
+        <EntityRelationshipRole>
+          <NavPaneDisplayOption>DoNotDisplay</NavPaneDisplayOption>
+          <NavPaneArea>Details</NavPaneArea>
+          <NavPaneOrder>10000</NavPaneOrder>
+          <CustomLabels>
+            <CustomLabel description="" languagecode="1049" />
+          </CustomLabels>
+        </EntityRelationshipRole>
+      </EntityRelationshipRoles>
+    </EntityRelationship>
+    <EntityRelationship Name="dg_opportunity_dg_order">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <ReferencingEntityName>Dg_order</ReferencingEntityName>
+      <ReferencedEntityName>Opportunity</ReferencedEntityName>
+      <CascadeAssign>NoCascade</CascadeAssign>
+      <CascadeDelete>RemoveLink</CascadeDelete>
+      <CascadeReparent>NoCascade</CascadeReparent>
+      <CascadeShare>NoCascade</CascadeShare>
+      <CascadeUnshare>NoCascade</CascadeUnshare>
+      <ReferencingAttributeName>dg_opportunityid</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="Уникальный идентификатор для объекта Сделка, связанного с объектом Бланк заказа." languagecode="1049" />
+        </Descriptions>
+      </RelationshipDescription>
+      <field name="dg_opportunityid" requiredlevel="none" imemode="auto" lookupstyle="single" lookupbrowse="0">
+        <displaynames>
+          <displayname description="Сделка" languagecode="1049" />
+        </displaynames>
+      </field>
+      <EntityRelationshipRoles>
+        <EntityRelationshipRole>
+          <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
+          <NavPaneArea>Details</NavPaneArea>
+          <NavPaneOrder>10000</NavPaneOrder>
+          <CustomLabels>
+            <CustomLabel description="" languagecode="1049" />
+          </CustomLabels>
+        </EntityRelationshipRole>
+      </EntityRelationshipRoles>
+    </EntityRelationship>
+  </EntityRelationships>
+  <Languages>
+    <Language>1049</Language>
+  </Languages>
+</ImportExportXml>

@@ -433,9 +433,6 @@ SWIFT {5}
     <value>Действие с ID {0} не найдено.</value>
     <comment>Действие с ID {0} не найдено.</comment>
   </data>
-  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
-    <value>Создание региональных заказов не поддерживается</value>
-  </data>
   <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
     <value>Смена реквизитов скрытого юр. лица запрещена</value>
   </data>

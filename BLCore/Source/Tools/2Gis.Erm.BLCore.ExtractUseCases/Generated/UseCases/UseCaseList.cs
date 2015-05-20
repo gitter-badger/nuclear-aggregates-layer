@@ -330,16 +330,6 @@ namespace DoubleGis.Erm.BLCore.ExtractUseCases.Generated.UseCases
                     MaxUseCaseDepth = 0,
                     Root = new UseCaseNode(0)
                     {
-                        ContainingClass = typeof(EditDeniedPositionHandler),
-                        Request = typeof(EditRequest<DeniedPosition>)
-                    }
-                },
-                new UseCase
-                {
-                    Description = @"PublicService_Explicitly. DoubleGis.Erm.UI.Web.Mvc.Controllers.Base.EntityControllerBase<TEntity, TModel>\EditInternal",
-                    MaxUseCaseDepth = 0,
-                    Root = new UseCaseNode(0)
-                    {
                         ContainingClass = typeof(EditPricePositionHandler),
                         Request = typeof(EditRequest<PricePosition>)
                     }

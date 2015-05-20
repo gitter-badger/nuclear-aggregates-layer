@@ -76,7 +76,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         // Является частным случаем проверки AllRequiredAdvertisementsAreSpecified, которая появилась в рамках фикса бага ERM-6151. Есть опасение, что новая общая проверка ломает какой-то кейс. 
         // Если жалоб на нее не будет, то эту частную проверку (AllRequiredAdvertisementsAreSpecifiedForCompositePosition) можно будет удалить
         private bool AtLeastOneLinkingObjectIsSpecifiedForCompositePosition(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
-                                                                            out string report)
+                                                                               out string report)
         {
             report = null;
             if (!orderPositionAdvertisements.Any())
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         }
 
         private bool AtLeastOneLinkingObjectIsSpecified(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
-                                                        out string report)
+                                                           out string report)
         {
             report = null;
             if (!orderPositionAdvertisements.Any())
@@ -163,15 +163,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 var positionsWithCategoriesToCheck = positionsWithCategories.Where(x => bindingType.Value.Contains(x.Key));
 
                 if (positionsWithCategoriesToCheck.Any(positionWithCategories =>
-                                                       positionWithCategories.Value
-                                                                             .Any(category =>
+                                            positionWithCategories.Value
+                                                                  .Any(category =>
                                                                                   positionsWithCategoriesToCheck
-                                                                                      .Any(x => x.Key != positionWithCategories.Key && !x.Value.Contains(category)))))
-                {
+                                                                           .Any(x => x.Key != positionWithCategories.Key && !x.Value.Contains(category)))))
+            {
                     var positionNames = _positionReadModel.GetPositionNames(positionsWithCategoriesToCheck.Select(x => x.Key));
                     report = string.Format(BLResources.CategoriesSetForPositionsMustBeTheSame, string.Join(",", positionNames.Select(x => string.Format(@"'{0}'", x.Value))));
-                    return false;
-                }
+                return false;
+            }
             }
 
             return true;

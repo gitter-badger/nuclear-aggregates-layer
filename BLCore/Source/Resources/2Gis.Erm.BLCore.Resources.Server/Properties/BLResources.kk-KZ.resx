@@ -953,9 +953,6 @@
   <data name="AdditionalStreet" xml:space="preserve">
     <value>Улица дополнительная</value>
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value>Запрещенная позиция уже деактивирована</value>
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value>Выбран в белый список</value>
   </data>
@@ -988,9 +985,6 @@
   </data>
   <data name="PricePositionsReferencesToInactivePositions" xml:space="preserve">
     <value>В списке позиций прайса присутствуют объекты, ссылающиеся на неактивные позиции</value>
-  </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>Нельзя дективировать запрещенную позицию из деактивированного прайс-листа</value>
   </data>
   <data name="SpecifyMonthAndOrganizationUnit" xml:space="preserve">
     <value>Укажите отделение организации и месяц</value>
@@ -2452,9 +2446,6 @@
   <data name="AmountPlan" xml:space="preserve">
     <value>Изначальная сумма</value>
   </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>Нельзя дективировать запрещенную позицию из опубликованного прайс-листа</value>
-  </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
     <value>Юридическое лицо клиента: {0}.
 Юридическое лицо исполнителя: {1}.
@@ -3196,7 +3187,7 @@ Cумма по операции: {5}.
   <data name="ServerRuntimeError" xml:space="preserve">
     <value>Ошибка выполнения {0} на сервере: '{1}'</value>
   </data>
-  <data name="OperationIsDiabled" xml:space="preserve">
+  <data name="OperationIsDisabled" xml:space="preserve">
     <value>Данная операция была отключена</value>
   </data>
   <data name="NoFirmsSelected" xml:space="preserve">
@@ -5188,6 +5179,9 @@ Cумма по операции: {5}.
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>Операция смены клиента не определена для указанного типа сущности</value>
   </data>
+  <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
+    <value>Недостаточно прав для создания заказа рекламного агентства</value>
+  </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Укажите период, способ учета оказания услуг и отделение организации</value>
   </data>
@@ -5217,6 +5211,30 @@ Cумма по операции: {5}.
   </data>
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Операция не может быть проведена т.к. выполняется сборка</value>
+  </data>
+  <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
+    <value>Необходимо указать хотя бы одну привязку</value>
+  </data>
+  <data name="PublishedPriceCannotBeModified" xml:space="preserve">
+    <value>Опубликованный прайс не может быть отредактирован</value>
+  </data>
+  <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
+    <value>Найдены дубли правил запрещения для следующих позиций: {0}</value>
+  </data>
+  <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
+    <value>Не найдено симметричное правило запрещения для: {0}</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя создавать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя создавать запрещенную позицию в опубликованном прайс-листе</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя редактирвать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя редактирвать запрещенную позицию в опубликованном прайс-листе</value>
   </data>
   <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
     <value>Для следующих позиций можно указать только одну привязку: {0}</value>
