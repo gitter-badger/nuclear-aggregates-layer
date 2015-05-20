@@ -32,7 +32,6 @@ using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Resources.Server;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
@@ -44,6 +43,7 @@ using Microsoft.Practices.Unity;
 
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
+using NuClear.Metamodeling.Validators;
 using NuClear.Security;
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext;

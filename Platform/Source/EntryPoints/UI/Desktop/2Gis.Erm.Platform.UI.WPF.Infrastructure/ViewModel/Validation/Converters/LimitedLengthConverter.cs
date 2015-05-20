@@ -3,12 +3,13 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
 
 using FluentValidation.Validators;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation.Converters
 {

@@ -3,9 +3,11 @@
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.PropertyFeatures;
+
+using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 {
@@ -16,12 +18,12 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                 {
                     EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.BranchOfficeRef)
                                   .WithFeatures(new RequiredPropertyFeature(),
-                                                LookupPropertyFeature.Create(EntityName.BranchOffice),
+                                                LookupPropertyFeature.Create(EntityType.Instance.BranchOffice()),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.BranchOfficeName)),
 
                     EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.OrganizationUnitRef)
                                   .WithFeatures(new RequiredPropertyFeature(),
-                                                LookupPropertyFeature.Create(EntityName.OrganizationUnit),
+                                                LookupPropertyFeature.Create(EntityType.Instance.OrganizationUnit()),
                                                 DisplayNameLocalizedFeature.Create(() => MetadataResources.OrganizationUnit)),
 
                     EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ShortLegalName)
@@ -123,7 +125,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.CreatedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new RequiredPropertyFeature(),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.CreatedBy)),
@@ -136,7 +138,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
 
                     EntityPropertyMetadata.Create<BranchOfficeOrganizationUnitDomainEntityDto>(dto => dto.ModifiedByRef)
                                   .WithFeatures(
-                                      LookupPropertyFeature.Create(EntityName.User),
+                                      LookupPropertyFeature.Create(EntityType.Instance.User()),
                                       new ReadOnlyPropertyFeature(),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.ModifiedBy)),
 

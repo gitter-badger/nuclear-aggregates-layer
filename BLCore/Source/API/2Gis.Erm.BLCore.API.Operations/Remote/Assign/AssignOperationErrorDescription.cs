@@ -1,16 +1,17 @@
 ﻿using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Assign
 {
     [DataContract(Namespace = ServiceNamespaces.BasicOperations.Assign201303)]
     public class AssignOperationErrorDescription : IBasicOperationErrorDescription
     {
-        public AssignOperationErrorDescription(EntityName entityName, string message, long ownerCode, bool bypassValidation, bool isPartialAssign)
+        public AssignOperationErrorDescription(IEntityType entityName, string message, long ownerCode, bool bypassValidation, bool isPartialAssign)
         {
-            EntityName = entityName;
+            EntityName = entityName.Description;
             Message = message;
             OwnerCode = ownerCode;
             BypassValidation = bypassValidation;
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Assign
         }
 
         [DataMember]
-        public EntityName EntityName { get; private set; }
+        public string EntityName { get; private set; }
         [DataMember]
         public string Message { get; private set; }
         [DataMember]

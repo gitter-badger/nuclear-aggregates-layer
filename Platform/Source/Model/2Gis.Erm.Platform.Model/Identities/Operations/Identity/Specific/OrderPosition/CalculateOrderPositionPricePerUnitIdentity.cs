@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderPosition
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderPosition
 {
     public class CalculateOrderPositionPricePerUnitIdentity : OperationIdentityBase<CalculateOrderPositionPricePerUnitIdentity>, INonCoupledOperationIdentity
     {

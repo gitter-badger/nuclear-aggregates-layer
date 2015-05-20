@@ -1,10 +1,11 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -14,9 +15,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Currency>()
                         .WithEntityIcon()
                         .CommonCardToolbar()
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Currency)),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.CurrencyRate, () => ErmConfigLocalization.CrdRelCurrencyRate)
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityType.Instance.Currency())),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityType.Instance.CurrencyRate(), () => ErmConfigLocalization.CrdRelCurrencyRate)
                                                       .DisableOn<IBaseCurrencyAspect>(x => x.IsBase),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.Country, Icons.Icons.Entity.Small(EntityName.Country), () => ErmConfigLocalization.CrdRelCountry));
+                                          RelatedItems.RelatedItem.EntityGrid(EntityType.Instance.Country(), Icons.Icons.Entity.Small(EntityType.Instance.Country()), () => ErmConfigLocalization.CrdRelCountry));
     }
 }

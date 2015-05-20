@@ -9,7 +9,7 @@ SELECT
 	, [Юр.лицо исполнителя] = bou.ShortLegalName
 	, [Клиент] = c.Name
 	, [Планируемый объем оплат] = bills.PayPlan
-	, [Прогнозируемый объем оплат (кроме ДЗ до 01.12)] = CASE WHEN bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast - ISNULL(locks2.Amount, 0)) > 0 then bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast - ISNULL(locks2.Amount, 0)) ELSE 0 END
+	, [Прогнозируемый объем оплат (кроме ДЗ до 01.12.2014)] = CASE WHEN bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast - ISNULL(locks2.Amount, 0)) > 0 then bills.PayPlan - (ISNULL(payments.Balance, 0) + ISNULL(withdraw.Amount, 0) - bills.PayPast - ISNULL(locks2.Amount, 0)) ELSE 0 END
 	, [Баланс клиента на начало прогнозируемого периода] = ISNULL(payments.Balance2, 0) - ISNULL(locks.Amount, 0)
 	, [Корректировка РГ] = NULL
 	, [Примечание] = NULL

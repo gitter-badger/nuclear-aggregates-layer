@@ -28,29 +28,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 1 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/DeactivateUser.cshtml")]
-    public partial class DeactivateUser : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.OwnerGroupOperationViewModel>
+    public partial class DeactivateUser : System.Web.Mvc.WebViewPage<OwnerGroupOperationViewModel>
     {
         public DeactivateUser()
         {
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 3 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -72,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 7 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
             Write(BLResources.DeactivateConfirmation);
 
             
@@ -87,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 8 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
                   Write(BLResources.DeactivateConfirmation);
 
             
@@ -102,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 9 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -118,23 +118,23 @@ DefineSection("PageContent", () => {
 
 WriteLiteral("\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 534), Tuple.Create("\"", 661)
-, Tuple.Create(Tuple.Create("", 540), Tuple.Create("/Scripts/", 540), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 436), Tuple.Create("\"", 563)
+, Tuple.Create(Tuple.Create("", 442), Tuple.Create("/Scripts/", 442), true)
             
-            #line 15 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-, Tuple.Create(Tuple.Create("", 549), Tuple.Create<System.Object, System.Int32>("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js"
-            
-            #line default
-            #line hidden
-, 549), false)
-, Tuple.Create(Tuple.Create("", 641), Tuple.Create("?", 641), true)
-            
-            #line 15 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-                                        , Tuple.Create(Tuple.Create("", 642), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 14 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+, Tuple.Create(Tuple.Create("", 451), Tuple.Create<System.Object, System.Int32>("Ext.LocalizedResources." + ViewData.GetUserLocaleInfo().TwoLetterISOLanguageName + ".js"
             
             #line default
             #line hidden
-, 642), false)
+, 451), false)
+, Tuple.Create(Tuple.Create("", 543), Tuple.Create("?", 543), true)
+            
+            #line 14 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+                                        , Tuple.Create(Tuple.Create("", 544), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 544), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -145,58 +145,58 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 745), Tuple.Create("\"", 793)
-, Tuple.Create(Tuple.Create("", 752), Tuple.Create("/Content/Progress.css?", 752), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 647), Tuple.Create("\"", 695)
+, Tuple.Create(Tuple.Create("", 654), Tuple.Create("/Content/Progress.css?", 654), true)
             
-            #line 17 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-, Tuple.Create(Tuple.Create("", 774), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 16 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+, Tuple.Create(Tuple.Create("", 676), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 774), false)
+, 676), false)
 );
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 812), Tuple.Create("\"", 870)
-, Tuple.Create(Tuple.Create("", 818), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 818), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 714), Tuple.Create("\"", 772)
+, Tuple.Create(Tuple.Create("", 720), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 720), true)
+            
+            #line 18 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+, Tuple.Create(Tuple.Create("", 753), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            
+            #line default
+            #line hidden
+, 753), false)
+);
+
+WriteLiteral(" type=\"text/javascript\"");
+
+WriteLiteral("></script>\r\n    <script");
+
+WriteAttribute("src", Tuple.Create(" src=\"", 819), Tuple.Create("\"", 885)
+, Tuple.Create(Tuple.Create("", 825), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 825), true)
             
             #line 19 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-, Tuple.Create(Tuple.Create("", 851), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 866), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 851), false)
+, 866), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 917), Tuple.Create("\"", 983)
-, Tuple.Create(Tuple.Create("", 923), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 923), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 932), Tuple.Create("\"", 977)
+, Tuple.Create(Tuple.Create("", 938), Tuple.Create("/Scripts/Tooltip.js?", 938), true)
             
             #line 20 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-, Tuple.Create(Tuple.Create("", 964), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+, Tuple.Create(Tuple.Create("", 958), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 964), false)
-);
-
-WriteLiteral(" type=\"text/javascript\"");
-
-WriteLiteral("></script>\r\n    <script");
-
-WriteAttribute("src", Tuple.Create(" src=\"", 1030), Tuple.Create("\"", 1075)
-, Tuple.Create(Tuple.Create("", 1036), Tuple.Create("/Scripts/Tooltip.js?", 1036), true)
-            
-            #line 21 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-, Tuple.Create(Tuple.Create("", 1056), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
-            
-            #line default
-            #line hidden
-, 1056), false)
+, 958), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -249,7 +249,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Deactivate\');\r\n  
 "e: \'");
 
             
-            #line 97 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 96 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
                            Write(Model.OperationName);
 
             
@@ -271,13 +271,13 @@ WriteLiteral(@"', // тип операции - Qualify, Assign, ChangeTerritory
 ");
 
             
-            #line 110 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 109 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 110 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 109 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -311,16 +311,16 @@ WriteLiteral(" style=\"height: 30px;\"");
 
 WriteLiteral(" id=\"Notifications\"");
 
-WriteAttribute("onmouseover", Tuple.Create(" \r\n                             onmouseover=\"", 5924), Tuple.Create("\"", 5996)
-, Tuple.Create(Tuple.Create("", 5969), Tuple.Create("AddTooltip(", 5969), true)
+WriteAttribute("onmouseover", Tuple.Create(" \r\n                             onmouseover=\"", 5826), Tuple.Create("\"", 5898)
+, Tuple.Create(Tuple.Create("", 5871), Tuple.Create("AddTooltip(", 5871), true)
             
-            #line 121 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-, Tuple.Create(Tuple.Create("", 5980), Tuple.Create<System.Object, System.Int32>(Model.Message
+            #line 120 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+, Tuple.Create(Tuple.Create("", 5882), Tuple.Create<System.Object, System.Int32>(Model.Message
             
             #line default
             #line hidden
-, 5980), false)
-, Tuple.Create(Tuple.Create("", 5994), Tuple.Create(");", 5994), true)
+, 5882), false)
+, Tuple.Create(Tuple.Create("", 5896), Tuple.Create(");", 5896), true)
 );
 
 WriteLiteral(" \r\n                             onmouseout=\"RemoveTooltip();\"");
@@ -330,7 +330,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 123 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 122 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
                        Write(Model.Message);
 
             
@@ -368,7 +368,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 133 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 132 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
                        Write(BLResources.AssignAssignToMe);
 
             
@@ -383,7 +383,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 136 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 135 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
                        Write(BLResources.DeactivateUserAssignToMeLegend);
 
             
@@ -422,7 +422,7 @@ WriteLiteral(" for=\"rdoAssignToUser\"");
 WriteLiteral(">");
 
             
-            #line 150 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 149 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
                                                                           Write(BLResources.AssignAssignToOther);
 
             
@@ -439,7 +439,7 @@ WriteLiteral(" for=\"rdoAssignToUser\"");
 WriteLiteral(">");
 
             
-            #line 153 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 152 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
                                                     Write(BLResources.DeactivateUserAssignToOtherLegend);
 
             
@@ -461,8 +461,8 @@ WriteLiteral(">\r\n                            <tbody>\r\n                      
 WriteLiteral("                                        ");
 
             
-            #line 159 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-                                   Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityName.User, ExtendedInfo = "'hideReserveUser=true'"}));
+            #line 158 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+                                   Write(Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.User(), ExtendedInfo = "'hideReserveUser=true'"}));
 
             
             #line default
@@ -489,21 +489,21 @@ WriteLiteral(">\r\n                            </div>\r\n                       
 "");
 
             
-            #line 176 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+            #line 175 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
         
             
             #line default
             #line hidden
             
-            #line 176 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-   Write(Html.HiddenFor(x => x.EntityTypeName));
+            #line 175 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+   Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
             #line hidden
             
-            #line 176 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
-                                              
+            #line 175 "..\..\Views\GroupOperation\DeactivateUser.cshtml"
+                                                                    
     }
 
             

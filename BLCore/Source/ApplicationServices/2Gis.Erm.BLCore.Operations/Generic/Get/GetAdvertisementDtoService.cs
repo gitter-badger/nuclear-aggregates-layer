@@ -7,7 +7,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -58,83 +60,74 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dto;
         }
 
-        protected override IDomainEntityDto<Advertisement> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<Advertisement> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = new AdvertisementDomainEntityDto();
 
-            switch (parentEntityName)
+            if (parentEntityName.Equals(EntityType.Instance.Firm()))
             {
-                case EntityName.Firm:
+                var firmName = _firmReadModel.GetFirmName(parentEntityId.Value);
+                dto.FirmRef = new EntityReference
                 {
-                    var firmName = _firmReadModel.GetFirmName(parentEntityId.Value);
+                    Id = parentEntityId.Value,
+                    Name = firmName
+                };
+
+            }
+
+            if (parentEntityName.Equals(EntityType.Instance.OrderPosition()))
+            {
+                long firmId;
+                if (!string.IsNullOrEmpty(extendedInfo) &&
+                    long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)").Groups[1].Value, out firmId))
+                {
+                    var firmName = _firmReadModel.GetFirmName(firmId);
                     dto.FirmRef = new EntityReference
                         {
-                            Id = parentEntityId.Value,
+                            Id = firmId,
                             Name = firmName
                         };
-
-                    break;
                 }
 
-                case EntityName.OrderPosition:
+                long advertisementTemplateId;
+                if (!string.IsNullOrEmpty(extendedInfo) &&
+                    long.TryParse(Regex.Match(extendedInfo, @"AdvertisementTemplateId=(\d+)").Groups[1].Value, out advertisementTemplateId))
                 {
-                    long firmId;
-                    if (!string.IsNullOrEmpty(extendedInfo) &&
-                        long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)").Groups[1].Value, out firmId))
-                    {
-                        var firmName = _firmReadModel.GetFirmName(firmId);
-                        dto.FirmRef = new EntityReference
-                            {
-                                Id = firmId,
-                                Name = firmName
-                            };
-                    }
-
-                    long advertisementTemplateId;
-                    if (!string.IsNullOrEmpty(extendedInfo) &&
-                        long.TryParse(Regex.Match(extendedInfo, @"AdvertisementTemplateId=(\d+)").Groups[1].Value, out advertisementTemplateId))
-                    {
-                        dto.AdvertisementTemplateRef = new EntityReference
-                            {
-                                Id = advertisementTemplateId,
-                                Name = _secureFinder.Find<AdvertisementTemplate>(x => x.Id == advertisementTemplateId).Select(x => x.Name).Single()
-                            };
-                    }
-
-                    break;
+                    dto.AdvertisementTemplateRef = new EntityReference
+                        {
+                            Id = advertisementTemplateId,
+                            Name = _secureFinder.Find<AdvertisementTemplate>(x => x.Id == advertisementTemplateId).Select(x => x.Name).Single()
+                        };
                 }
+            }
                     
-                case EntityName.None:
+            if (parentEntityName.Equals(EntityType.Instance.None()))
+            {
+                long firmId;
+                if (!string.IsNullOrEmpty(extendedInfo) &&
+                    long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)", RegexOptions.IgnoreCase).Groups[1].Value, out firmId))
                 {
-                    long firmId;
-                    if (!string.IsNullOrEmpty(extendedInfo) &&
-                        long.TryParse(Regex.Match(extendedInfo, @"FirmId=(\d+)", RegexOptions.IgnoreCase).Groups[1].Value, out firmId))
-                    {
-                        dto.FirmRef = new EntityReference
-                            {
-                                Id = firmId,
-                                Name = _secureFinder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
-                            };
-                    }
-
-                    break;
+                    dto.FirmRef = new EntityReference
+                        {
+                            Id = firmId,
+                            Name = _secureFinder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
+                        };
                 }
             }
 
             return dto;
         }
 
-        protected override void SetDtoProperties(
-            IDomainEntityDto<Advertisement> domainEntityDto, 
+        protected override void SetDtoProperties(IDomainEntityDto<Advertisement> domainEntityDto,
             long entityId, 
             bool readOnly, 
             long? parentEntityId, 
-            EntityName parentEntityName, 
+                                                 IEntityType parentEntityName,
             string extendedInfo)
         {
             var dto = (AdvertisementDomainEntityDto)domainEntityDto;
 
-            if (parentEntityName == EntityName.OrderPosition && dto.AdvertisementTemplateRef.Id.HasValue)
+            if (parentEntityName.Equals(EntityType.Instance.OrderPosition()) && dto.AdvertisementTemplateRef.Id.HasValue)
             {
                 dto.IsReadOnlyTemplate = true;
             }

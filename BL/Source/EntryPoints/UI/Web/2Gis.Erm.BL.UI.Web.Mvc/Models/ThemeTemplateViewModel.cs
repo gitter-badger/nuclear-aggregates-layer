@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 using MessageType = DoubleGis.Erm.Platform.UI.Metadata.UIElements.MessageType;
 

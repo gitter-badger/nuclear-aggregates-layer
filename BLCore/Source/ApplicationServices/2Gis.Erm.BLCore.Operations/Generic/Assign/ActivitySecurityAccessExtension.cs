@@ -1,7 +1,8 @@
 ﻿using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 using NuClear.Security.API.UserContext.Identity;
 

@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.Platform.Common.Prerequisites;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Kinds;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Metamodeling.Kinds;
+using NuClear.Metamodeling.Processors;
+using NuClear.Metamodeling.Processors.Concrete;
+using NuClear.Metamodeling.Provider;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Documents.Processors
 {

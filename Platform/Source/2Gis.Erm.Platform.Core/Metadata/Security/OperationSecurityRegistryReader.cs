@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Core.Metadata.Security
 {

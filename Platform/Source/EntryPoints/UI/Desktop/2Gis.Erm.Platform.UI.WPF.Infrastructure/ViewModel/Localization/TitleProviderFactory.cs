@@ -1,8 +1,9 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.UserInfo;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
+
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization
 {

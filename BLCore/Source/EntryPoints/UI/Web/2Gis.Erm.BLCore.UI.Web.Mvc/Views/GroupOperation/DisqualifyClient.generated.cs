@@ -28,29 +28,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 1 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/DisqualifyClient.cshtml")]
-    public partial class DisqualifyClient : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel>
+    public partial class DisqualifyClient : System.Web.Mvc.WebViewPage<GroupOperationViewModel>
     {
         public DisqualifyClient()
         {
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+            #line 3 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -72,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+            #line 7 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
             Write(BLResources.Disqualify);
 
             
@@ -87,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+            #line 8 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
                   Write(BLResources.DisqualifyClient);
 
             
@@ -102,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+            #line 9 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -122,43 +122,43 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 536), Tuple.Create("\"", 584)
-, Tuple.Create(Tuple.Create("", 543), Tuple.Create("/Content/Progress.css?", 543), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 438), Tuple.Create("\"", 486)
+, Tuple.Create(Tuple.Create("", 445), Tuple.Create("/Content/Progress.css?", 445), true)
             
-            #line 14 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
-, Tuple.Create(Tuple.Create("", 565), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 13 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+, Tuple.Create(Tuple.Create("", 467), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 565), false)
+, 467), false)
 );
 
 WriteLiteral(" />\r\n    \r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 607), Tuple.Create("\"", 665)
-, Tuple.Create(Tuple.Create("", 613), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 613), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 509), Tuple.Create("\"", 567)
+, Tuple.Create(Tuple.Create("", 515), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 515), true)
             
-            #line 16 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
-, Tuple.Create(Tuple.Create("", 646), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 15 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+, Tuple.Create(Tuple.Create("", 548), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 646), false)
+, 548), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 712), Tuple.Create("\"", 778)
-, Tuple.Create(Tuple.Create("", 718), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 718), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 614), Tuple.Create("\"", 680)
+, Tuple.Create(Tuple.Create("", 620), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 620), true)
             
-            #line 17 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
-, Tuple.Create(Tuple.Create("", 759), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 16 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+, Tuple.Create(Tuple.Create("", 661), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 759), false)
+, 661), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -194,7 +194,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Client\');\r\n      
 " ids, // массив id сущностей\r\n                OperationName: \'");
 
             
-            #line 65 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+            #line 64 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
                            Write(Model.OperationName);
 
             
@@ -218,13 +218,13 @@ WriteLiteral(@"', // тип операции - Qualify, Assign, ChangeTerritory
 ");
 
             
-            #line 80 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+            #line 79 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 80 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+            #line 79 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -259,7 +259,7 @@ WriteLiteral(" id=\"Notifications\"");
 WriteLiteral(">");
 
             
-            #line 90 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+            #line 89 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
                                                              Write(Model.Message);
 
             
@@ -278,7 +278,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 95 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+            #line 94 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
            Write(BLResources.DisqualifyQuestion);
 
             
@@ -297,8 +297,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 100 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
-               Write(Html.HiddenFor(m => m.EntityTypeName));
+            #line 99 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+               Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
@@ -322,7 +322,7 @@ WriteLiteral(">\r\n                        </div>\r\n                    </div>\
 "d>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n");
 
             
-            #line 115 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
+            #line 114 "..\..\Views\GroupOperation\DisqualifyClient.cshtml"
     }
 
             

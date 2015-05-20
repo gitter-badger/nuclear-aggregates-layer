@@ -14,8 +14,10 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
 {
@@ -95,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
 
         private void ChangeRelatedActivities(long newClientId, long appendedClientId, long newOwnerCode, bool reassign)
         {
-            foreach (var appointment in _appointmentReadModel.LookupAppointmentsRegarding(EntityName.Client, appendedClientId))
+            foreach (var appointment in _appointmentReadModel.LookupAppointmentsRegarding(EntityType.Instance.Client(), appendedClientId))
             {
                 if (reassign && appointment.Status == ActivityStatus.InProgress)
                 {
@@ -110,8 +112,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
                                                                           regardingObjects,
                                                                           ReplaceClient<Appointment, AppointmentRegardingObject>(regardingObjects, newClientId));
             }
-
-            foreach (var letter in _letterReadModel.LookupLettersRegarding(EntityName.Client, appendedClientId))
+            foreach (var letter in _letterReadModel.LookupLettersRegarding(EntityType.Instance.Client(), appendedClientId))
             {
                 if (reassign && letter.Status == ActivityStatus.InProgress)
                 {
@@ -126,8 +127,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
                                                                      regardingObjects,
                                                                      ReplaceClient<Letter, LetterRegardingObject>(regardingObjects, newClientId));
             }
-
-            foreach (var phonecall in _phonecallReadModel.LookupPhonecallsRegarding(EntityName.Client, appendedClientId))
+            foreach (var phonecall in _phonecallReadModel.LookupPhonecallsRegarding(EntityType.Instance.Client(), appendedClientId))
             {
                 if (reassign && phonecall.Status == ActivityStatus.InProgress)
                 {
@@ -142,8 +142,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
                                                                         regardingObjects,
                                                                         ReplaceClient<Phonecall, PhonecallRegardingObject>(regardingObjects, newClientId));
             }
-
-            foreach (var task in _taskReadModel.LookupTasksRegarding(EntityName.Client, appendedClientId))
+            foreach (var task in _taskReadModel.LookupTasksRegarding(EntityType.Instance.Client(), appendedClientId))
             {
                 if (reassign && task.Status == ActivityStatus.InProgress)
                 {
@@ -162,12 +161,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
         {
             foreach (var regardingObject in regardingObjects)
             {
-                if (regardingObject.TargetEntityName == EntityName.Client)
+                if (regardingObject.TargetEntityTypeId.Equals(EntityType.Instance.Client()))
                 {
                     yield return new TEntityReference
                                      {
                                          SourceEntityId = regardingObject.SourceEntityId,
-                                         TargetEntityName = regardingObject.TargetEntityName, 
+                                         TargetEntityTypeId = regardingObject.TargetEntityTypeId, 
                                          TargetEntityId = newClientId
                                      };
                 }

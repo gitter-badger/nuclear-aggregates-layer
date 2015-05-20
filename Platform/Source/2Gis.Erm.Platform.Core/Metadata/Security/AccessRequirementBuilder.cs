@@ -1,8 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Core.Metadata.Security
 {
@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Platform.Core.Metadata.Security
         public static IOperationAccessRequirement ForOperation<TIdentity, TEntity>(Action<OperationAccessRequirement<TIdentity>> action)
             where TIdentity : OperationIdentityBase<TIdentity>, IEntitySpecificOperationIdentity, new() where TEntity : IEntity, IEntityKey
         {
-            var entities = new EntitySet(new[] { typeof(TEntity) }.AsEntityNames());
+            var entities = new EntitySet(new[] { typeof(TEntity) }.AsEntityTypes());
 
             return BuildOperationAccessRequirement(action, entities);
         }
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.Core.Metadata.Security
             where TIdentity : OperationIdentityBase<TIdentity>, IEntitySpecificOperationIdentity, new() where TEntity1 : IEntity, IEntityKey
             where TEntity2 : IEntity, IEntityKey
         {
-            var entities = new EntitySet(new[] { typeof(TEntity1), typeof(TEntity2) }.AsEntityNames());
+            var entities = new EntitySet(new[] { typeof(TEntity1), typeof(TEntity2) }.AsEntityTypes());
 
             return BuildOperationAccessRequirement(action, entities);
         }

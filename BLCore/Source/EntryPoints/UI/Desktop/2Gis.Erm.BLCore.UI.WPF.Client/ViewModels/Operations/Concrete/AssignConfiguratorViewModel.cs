@@ -5,13 +5,14 @@ using System.Windows.Controls;
 using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Messaging;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.UserInfo;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
+
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations.Concrete
 {
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Operations.Concrete
         private bool _isPartialAssign;
 
         public AssignConfiguratorViewModel(
-            EntityName entityName,
+            IEntityType entityName,
             long[] operationProcessingEntities,
             IMessageSink messageSink,
             ITitleProviderFactory titleProviderFactory,

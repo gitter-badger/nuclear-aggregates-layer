@@ -1,10 +1,11 @@
 ﻿using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Titles;
 using DoubleGis.Erm.Platform.UI.Metadata.Indicators;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Localization;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
+
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Titles;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls.Dialogs
 {

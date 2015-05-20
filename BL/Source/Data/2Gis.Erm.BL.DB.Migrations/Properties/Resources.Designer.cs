@@ -147,6 +147,26 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
         ///  &lt;Entities&gt;
         ///    &lt;Entity&gt;
+        ///      &lt;Name LocalizedName=&quot;Заказ&quot; OriginalName=&quot;&quot;&gt;Dg_order&lt;/Name&gt;
+        ///      &lt;ObjectTypeCode&gt;10014&lt;/ObjectTypeCode&gt;
+        ///      &lt;EntityInfo&gt;
+        ///        &lt;entity Name=&quot;Dg_order&quot;&gt;
+        ///          &lt;HasRelatedNotes&gt;True&lt;/HasRelatedNotes&gt;
+        ///          &lt;HasRelatedActivities&gt;True&lt;/HasRelatedActivities&gt;
+        ///          &lt;ObjectTypeCode&gt;10014&lt;/ObjectTypeCode&gt;
+        ///          &lt;CollectionName&gt;Dg_orders&lt;/CollectionName&gt;
+        ///          &lt;LogicalCo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string customizations_201503240347 {
+            get {
+                return ResourceManager.GetString("customizations_201503240347", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;ImportExportXml version=&quot;4.0.0.0&quot; languagecode=&quot;1049&quot; generatedBy=&quot;OnPremise&quot;&gt;
+        ///  &lt;Entities&gt;
+        ///    &lt;Entity&gt;
         ///      &lt;Name LocalizedName=&quot;Договор&quot; OriginalName=&quot;&quot;&gt;Dg_bargain&lt;/Name&gt;
         ///      &lt;ObjectTypeCode&gt;10010&lt;/ObjectTypeCode&gt;
         ///      &lt;EntityInfo&gt;
@@ -386,6 +406,32 @@ namespace DoubleGis.Erm.BL.DB.Migrations.Properties {
         internal static string Migration23100 {
             get {
                 return ResourceManager.GetString("Migration23100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to begin tran
+        ///
+        ///ALTER TABLE BusinessDirectory.CategoryOrganizationUnits NOCHECK CONSTRAINT FK_CategoryOrganizationUnits_CategoryGroups
+        ///
+        ///update BusinessDirectory.CategoryGroups
+        ///set ModifiedBy = 1,
+        ///	ModifiedOn = GETDATE(),
+        ///	Id = CASE WHEN Id = 1 THEN 5
+        ///		WHEN Id = 2 THEN 4
+        ///		WHEN Id = 3 THEN 2      
+        ///		WHEN Id = 4 THEN 1
+        ///	END
+        ///	
+        ///update BusinessDirectory.CategoryOrganizationUnits
+        ///set ModifiedBy = 1,
+        ///	ModifiedOn = GETDATE(),
+        ///	CategoryGroupId = CASE WHEN CategoryGroupId = 1 THEN 5
+        ///		WHEN CategoryGroup [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string script_201504011053 {
+            get {
+                return ResourceManager.GetString("script_201504011053", resourceCulture);
             }
         }
     }

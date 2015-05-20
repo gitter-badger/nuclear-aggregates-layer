@@ -1,10 +1,11 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs.Infrastructure;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Mappers;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
 {
@@ -19,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.DI.UseCase.ViewModel
             _domainEntityDtoRegistry = domainEntityDtoRegistry;
         }
 
-        public IViewModelMapper GetMapper(EntityName entityName)
+        public IViewModelMapper GetMapper(IEntityType entityName)
         {
             Type domainEntityDtoType;
             if (!_domainEntityDtoRegistry.TryGetDomainEntityDto(entityName, out domainEntityDtoType))

@@ -3,8 +3,9 @@
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Users
 {
@@ -28,9 +29,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Users
             return _userEntityGenericRepository.Save();
         }
 
-        public int DeleteSharings(EntityName entityName, long entityId)
+        public int DeleteSharings(IEntityType entityName, long entityId)
         {
-            var sharingsToDelete = _finder.Find<UserEntity>(x => x.EntityId == entityId && x.Privilege.EntityType == (int)entityName)
+            var entityTypeId = entityName.Id;
+            var sharingsToDelete = _finder.Find<UserEntity>(x => x.EntityId == entityId && x.Privilege.EntityType == entityTypeId)
                 .ToArray();
             foreach (var userEntity in sharingsToDelete)
             {

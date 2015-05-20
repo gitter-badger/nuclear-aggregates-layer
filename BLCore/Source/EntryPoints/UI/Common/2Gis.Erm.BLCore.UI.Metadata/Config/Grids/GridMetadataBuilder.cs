@@ -1,15 +1,16 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.DataLists;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.Grids
 {
     public sealed class GridMetadataBuilder : MetadataElementBuilder<GridMetadataBuilder, GridMetadata>
     {
-        private EntityName _entityName;
+        private IEntityType _entityName;
 
         public GridMetadataBuilder For<TEntity>()
             where TEntity : class, IEntity
