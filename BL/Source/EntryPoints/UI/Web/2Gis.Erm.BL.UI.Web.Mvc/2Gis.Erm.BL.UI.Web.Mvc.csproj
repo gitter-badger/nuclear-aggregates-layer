@@ -61,9 +61,17 @@
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.ResourceUtilities.1.0.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.ResourceUtilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="2GIS.NuClear.IdentityService.Client, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b743d84006fae806, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.IdentityService.Client.1.0.5\lib\net451\2GIS.NuClear.IdentityService.Client.dll</HintPath>
+    </Reference>
     <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.1.0\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -190,6 +198,7 @@
     <Compile Include="Models\Activity\AppointmentViewModel.cs" />
     <Compile Include="Models\Activity\LetterViewModel.cs" />
     <Compile Include="Models\Activity\PhonecallViewModel.cs" />
+    <Compile Include="Models\Activity\LookupAutoUpdateExtension.cs" />
     <Compile Include="Models\Activity\TaskViewModel.cs" />
     <Compile Include="Models\AdsTemplatesAdsElementTemplateViewModel.cs" />
     <Compile Include="Models\AdvertisementElementPreviewModel.cs" />
@@ -289,6 +298,7 @@
     <Compile Include="Services\Cards\LockDetails\LocalizeLockDetailsPriceCustomization.cs" />
     <Compile Include="Services\Cards\Locks\LocalizeLockStatusCustomization.cs" />
     <Compile Include="Services\Cards\Orders\CheckIfCanSwitchToAccountCustomization.cs" />
+    <Compile Include="Services\Cards\Orders\DisableOrderTypesOptionsCustomization.cs" />
     <Compile Include="Services\Cards\Shared\EntityIsInactiveCustomization.cs" />
     <Compile Include="Services\Cards\Shared\SetMessagesCustomization.cs" />
     <Compile Include="Services\Cards\Shared\UIElementAvailabilityHelper.cs" />

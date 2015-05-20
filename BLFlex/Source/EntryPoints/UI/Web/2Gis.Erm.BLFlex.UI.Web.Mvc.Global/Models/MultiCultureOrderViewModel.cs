@@ -29,6 +29,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
                                                      IOrderValidationServiceAspect,
                                                      IOrderSecurityAspect,
                                                      ITerminatableAspect,
+                                                     IDisabledOrderTypesAspect,
                                                      ICzechAdapted,
                                                      ICyprusAdapted,
                                                      IChileAdapted,
@@ -71,7 +72,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         }
 
         OrderState IOrderWorkflowAspect.WorkflowStepId
-        {
+    {
             get { return (OrderState)WorkflowStepId; }
         }
 
@@ -266,6 +267,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
 
         public long? AccountId { get; set; }
 
+        public string DisabledOrderTypes { get; set; }
+
         public override bool IsSecurityRoot
         {
             get { return true; }
@@ -335,58 +338,58 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
             var dto = new OrderDomainEntityDto
-                          {
-                              Id = Id,
+                {
+                    Id = Id,
                               Number = Number,
-                              RegionalNumber = RegionalNumber,
-                              FirmRef = Firm.ToReference(),
-                              ClientRef = new EntityReference(ClientId),
-                              DgppId = DgppId,
-                              HasAnyOrderPosition = HasAnyOrderPosition,
-                              HasDestOrganizationUnitPublishedPrice = HasDestOrganizationUnitPublishedPrice,
-                              BranchOfficeOrganizationUnitRef = BranchOfficeOrganizationUnit.ToReference(),
-                              LegalPersonRef = LegalPerson.ToReference(),
-                              DealRef = Deal.ToReference(),
-                              DealCurrencyId = DealCurrencyId,
-                              LegalPersonProfileRef = LegalPersonProfile.ToReference(),
-                              CurrencyRef = Currency.ToReference(),
-                              BeginDistributionDate = BeginDistributionDate,
-                              EndDistributionDatePlan = EndDistributionDatePlan,
-                              EndDistributionDateFact = EndDistributionDateFact,
-                              BeginReleaseNumber = BeginReleaseNumber,
-                              EndReleaseNumberPlan = EndReleaseNumberPlan,
-                              EndReleaseNumberFact = EndReleaseNumberFact,
-                              SignupDate = SignupDate,
-                              ReleaseCountPlan = ReleaseCountPlan,
-                              ReleaseCountFact = ReleaseCountFact,
-                              PreviousWorkflowStepId = (OrderState)PreviousWorkflowStepId,
-                              WorkflowStepId = (OrderState)WorkflowStepId,
-                              PayablePlan = PayablePlan,
-                              PayableFact = PayableFact,
-                              PayablePrice = PayablePrice,
-                              VatPlan = VatPlan,
-                              AmountToWithdraw = AmountToWithdraw,
-                              AmountWithdrawn = AmountWithdrawn,
-                              DiscountSum = DiscountSum,
-                              DiscountPercent = DiscountPercent,
-                              DiscountReasonEnum = DiscountReason,
-                              DiscountComment = DiscountComment,
-                              DiscountPercentChecked = DiscountPercentChecked,
-                              Comment = Comment,
-                              IsTerminated = IsTerminated,
-                              TerminationReason = TerminationReason,
-                              OrderType = OrderType,
-                              InspectorRef = Inspector.ToReference(),
-                              BargainRef = Bargain.ToReference(),
-                              Platform = Platform,
-                              PlatformRef = new EntityReference(PlatformId),
-                              HasDocumentsDebt = HasDocumentsDebt,
-                              DocumentsComment = DocumentsComment,
-                              AccountRef = new EntityReference(AccountId),
-                              PaymentMethod = PaymentMethod,
-                              OwnerRef = Owner.ToReference(),
-                              Timestamp = Timestamp,
-                          };
+                    RegionalNumber = RegionalNumber,
+                    FirmRef = Firm.ToReference(),
+                    ClientRef = new EntityReference(ClientId),
+                    DgppId = DgppId,
+                    HasAnyOrderPosition = HasAnyOrderPosition,
+                    HasDestOrganizationUnitPublishedPrice = HasDestOrganizationUnitPublishedPrice,
+                    BranchOfficeOrganizationUnitRef = BranchOfficeOrganizationUnit.ToReference(),
+                    LegalPersonRef = LegalPerson.ToReference(),
+                    DealRef = Deal.ToReference(),
+                    DealCurrencyId = DealCurrencyId,
+                    LegalPersonProfileRef = LegalPersonProfile.ToReference(),
+                    CurrencyRef = Currency.ToReference(),
+                    BeginDistributionDate = BeginDistributionDate,
+                    EndDistributionDatePlan = EndDistributionDatePlan,
+                    EndDistributionDateFact = EndDistributionDateFact,
+                    BeginReleaseNumber = BeginReleaseNumber,
+                    EndReleaseNumberPlan = EndReleaseNumberPlan,
+                    EndReleaseNumberFact = EndReleaseNumberFact,
+                    SignupDate = SignupDate,
+                    ReleaseCountPlan = ReleaseCountPlan,
+                    ReleaseCountFact = ReleaseCountFact,
+                    PreviousWorkflowStepId = (OrderState)PreviousWorkflowStepId,
+                    WorkflowStepId = (OrderState)WorkflowStepId,
+                    PayablePlan = PayablePlan,
+                    PayableFact = PayableFact,
+                    PayablePrice = PayablePrice,
+                    VatPlan = VatPlan,
+                    AmountToWithdraw = AmountToWithdraw,
+                    AmountWithdrawn = AmountWithdrawn,
+                    DiscountSum = DiscountSum,
+                    DiscountPercent = DiscountPercent,
+                    DiscountReasonEnum = DiscountReason,
+                    DiscountComment = DiscountComment,
+                    DiscountPercentChecked = DiscountPercentChecked,
+                    Comment = Comment,
+                    IsTerminated = IsTerminated,
+                    TerminationReason = TerminationReason,
+                    OrderType = OrderType,
+                    InspectorRef = Inspector.ToReference(),
+                    BargainRef = Bargain.ToReference(),
+                    Platform = Platform,
+                    PlatformRef = new EntityReference(PlatformId),
+                    HasDocumentsDebt = HasDocumentsDebt,
+                    DocumentsComment = DocumentsComment,
+                    AccountRef = new EntityReference(AccountId),
+                    PaymentMethod = PaymentMethod,
+                    OwnerRef = Owner.ToReference(),
+                    Timestamp = Timestamp,
+                };
 
             if (SourceOrganizationUnit.Key.HasValue)
             {

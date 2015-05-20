@@ -34,7 +34,6 @@ namespace DoubleGis.Erm.API.WCF.Metadata.Settings
                 .Use(RequiredServices
                         .Is<APIIntrospectionServiceSettingsAspect>()
                         .Is<APIOrderValidationServiceSettingsAspect>()
-                        .Is<APIIdentityServiceSettingsAspect>()
                         .Is<APIOperationsServiceSettingsAspect>()
                         .Is<APIMoDiServiceSettingsAspect>()
                         .Is<APIReleasingServiceSettingsAspect>()

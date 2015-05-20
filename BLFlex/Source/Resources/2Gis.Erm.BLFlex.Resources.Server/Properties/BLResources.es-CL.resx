@@ -415,9 +415,6 @@
     <value>Actividad con ID {0} no fue encontrada..</value>
     <comment>Действие с ID {0} не найдено.</comment>
   </data>
-  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
-    <value>No se permite crear las ordenes regionales</value>
-  </data>
   <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
     <value>El cambio de los requisitos de la razón social oculta está prohibido</value>
   </data>

@@ -122,7 +122,15 @@ namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
         public const int UnpublishPriceIdentity = 15504;
         public const int ReplacePriceIdentity = 15505;
 
-        // EntityType.Instance.Price = 154
+        // EntityName.DeniedPosition = 180
+        public const int GetSymmetricDeniedPositionIdentity = 18001;
+        public const int ReplaceDeniedPositionIdentity = 18002;
+        public const int ChangeDeniedPositionObjectBindingTypeIdentity = 18003;
+        public const int CopyDeniedPositionsIdentity = 18004;
+        public const int VerifyDeniedPositionsForDuplicatesIdentity = 18005;
+        public const int VerifyDeniedPositionsForSymmetryIdentity = 18006;
+
+        // EntityName.Price = 154
         public const int CopyPricePositionIdentity = 15401;
 
         // EntityType.Instance.Limit = 192

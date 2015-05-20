@@ -8,7 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
         public ChangeBindingObjectsController(IMsCrmSettings msCrmSettings,
                                               IAPIOperationsServiceSettings operationsServiceSettings,
                                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                              IAPIIdentityServiceSettings identityServiceSettings,
+                                              IIdentityServiceClientSettings identityServiceSettings,
                                               IUserContext userContext,
                                               ITracer tracer,
                                               IGetBaseCurrencyService getBaseCurrencyService,
