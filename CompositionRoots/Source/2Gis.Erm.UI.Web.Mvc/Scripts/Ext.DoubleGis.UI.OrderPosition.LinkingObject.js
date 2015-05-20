@@ -356,6 +356,11 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
                             opt.linkingObjectNode.advertisementLookup.setValue({ id: opt.linkingObjectNode.position.DummyAdvertisementId, name: Ext.LocalizedResources.DummyValue }, true);
                             if (!opt.linkingObjectNode.checkbox.checked && !opt.linkingObjectNode.checkbox.disabled) {
                                 opt.linkingObjectNode.checkbox.click();
+
+                                // этот WTF является workaround'ом для бага ERM-6593
+                                if (!opt.linkingObjectNode.checkbox.checked) {
+                                    opt.linkingObjectNode.checkbox.checked = true;
+                                }
                             }
                         } else {
                             opt.linkingObjectNode.isDummyCheckBox.checked = false;
