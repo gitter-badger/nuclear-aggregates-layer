@@ -32,8 +32,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations._2._1
                     "ON (users.DepartmentId = departments.Id) " + 
                     "WHERE departments.Name LIKE '{1}' OR departments.Name = '{2}'",
                     NovosibirskTelephonyUnit,
-                    Match2GisName,
-                    MatchNskPattern);
+                    MatchNskPattern,
+                    Match2GisName);
             context.Connection.ExecuteNonQuery(updateQuery);
         }
     }
