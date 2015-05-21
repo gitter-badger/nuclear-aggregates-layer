@@ -5212,7 +5212,7 @@ Doba zveřejnění: {3}.</value>
     <value>Technická podpora</value>
   </data>
   <data name="PositionAccessDenied" xml:space="preserve">
-    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+    <value>Tomuto uživateli je zakázáno editovat pozice</value>
   </data>
   <data name="ManageDocumentsDebt" xml:space="preserve">
     <value>Správa dokumentů</value>
@@ -5236,6 +5236,6 @@ Doba zveřejnění: {3}.</value>
     <value>Uživatel {0} již je spojení s právnickou osobou {1}</value>
   </data>
   <data name="UserDoesntHaveSharedWithBranchOfficeOrganizationUnits" xml:space="preserve">
-    <value>У пользователя {0} нет общих отделений организации с юр. лицом {1}</value>
+    <value>Uživatel {0} nemá oddělení organizace sdílená s právnickou osobou {1}</value>
   </data>
 </root>
