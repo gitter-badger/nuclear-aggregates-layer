@@ -21,6 +21,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
 {
     public class DialOperationService : IDialOperationService
     {
+        private static readonly Regex PhoneMatchPatter = new Regex(@"^\d{1,5}$", RegexOptions.Compiled);
+
         private readonly IUserContext _userContext;
         private readonly ITracer _tracer;        
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -50,9 +52,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
             {
                 throw new Exception(BLResources.WorkPhoneIsNotSelected);
             }
-
-            short workPhoneLine;
-            if (!short.TryParse(userProfile.Phone, out workPhoneLine))
+            
+            if (!PhoneMatchPatter.IsMatch(userProfile.Phone))
             {
                 throw new Exception(string.Format(BLResources.IncorrectPhoneNumber, userProfile.Phone));
             }
