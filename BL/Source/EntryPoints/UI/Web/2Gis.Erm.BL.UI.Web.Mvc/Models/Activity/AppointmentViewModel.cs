@@ -83,6 +83,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         [StringLengthLocalized(256)]
         public string Location { get; set; }
 
+        public bool AttendeeClientInitialization { get; set; }
+        public bool FirmClientInitialization { get; set; }
+        public bool DealClientInitialization { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (AppointmentDomainEntityDto)domainEntityDto;
@@ -103,6 +107,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Firm().Id));
 
             Attendee = LookupField.FromReference((modelDto.Attendees ?? Enumerable.Empty<EntityReference>()).FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Contact().Id));
+            FirmClientInitialization = regardingObjects.IsClientInitialization(EntityType.Instance.Firm().Id);
+            DealClientInitialization = regardingObjects.IsClientInitialization(EntityType.Instance.Deal().Id);
+            AttendeeClientInitialization = modelDto.Attendees.IsClientInitialization(EntityType.Instance.Contact().Id);
         }
 
         public override IDomainEntityDto TransformToDomainEntityDto()

@@ -18,6 +18,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel
                     return new FindSpecification<Deal>(x => x.ClientId == clientId);
                 }
 
+                public static FindSpecification<Deal> ByClientIds(IEnumerable<long?> clientAndChild)
+                {
+                    return new FindSpecification<Deal>(x => clientAndChild.Contains(x.ClientId));
+                }
+
                 public static FindSpecification<Deal> ByMainFirms(IEnumerable<long> mainFirmIds)
                 {
                     return new FindSpecification<Deal>(x => x.MainFirmId.HasValue && mainFirmIds.Contains(x.MainFirmId.Value));

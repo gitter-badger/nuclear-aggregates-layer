@@ -1,4 +1,0 @@
-﻿<%@ ServiceHost Language="C#" 
-                Debug="true" 
-                Service="DoubleGis.Erm.Platform.WCF.Metadata.IdentityProviderApplicationService" 
-                Factory="DoubleGis.Erm.API.WCF.Metadata.UnityServiceHostFactory" %>

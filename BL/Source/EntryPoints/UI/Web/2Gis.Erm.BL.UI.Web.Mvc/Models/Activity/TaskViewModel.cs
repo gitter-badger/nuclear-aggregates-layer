@@ -66,6 +66,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         public LookupField Deal { get; set; }
         public LookupField Firm { get; set; }
 
+        public bool DealClientInitialization { get; set; }
+        public bool FirmClientInitialization { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (TaskDomainEntityDto)domainEntityDto;
@@ -83,10 +86,13 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
             Deal = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Deal().Id));
             Firm = LookupField.FromReference(regardingObjects.FirstOrDefault(x => x.EntityTypeId == EntityType.Instance.Firm().Id));
 
+            FirmClientInitialization = regardingObjects.IsClientInitialization(EntityType.Instance.Firm().Id);
+            DealClientInitialization = regardingObjects.IsClientInitialization(EntityType.Instance.Deal().Id);            
+
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be it there anyway?
         }
-
+        
         public override IDomainEntityDto TransformToDomainEntityDto()
         {
             Action<IList<EntityReference>, LookupField, IEntityType> addIfSet =
