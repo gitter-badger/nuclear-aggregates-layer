@@ -13,7 +13,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Common.Serialization;
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public CategoryGroupsMembershipController(IMsCrmSettings msCrmSettings,
                                                   IAPIOperationsServiceSettings operationsServiceSettings,
                                                   IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                                  IAPIIdentityServiceSettings identityServiceSettings,
+                                                  IIdentityServiceClientSettings identityServiceSettings,
                                                   IUserContext userContext,
                                                   ITracer tracer,
                                                   IGetBaseCurrencyService getBaseCurrencyService,
@@ -76,15 +76,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             cardSettings.Title = string.Format(BLResources.OrganizationUnitCategoryGroupsCardTitle, orgUnit.Name);
 
             var model = new CategoryGroupMembershipViewModel
+            {
+                OrganizationUnitId = organizationUnitId,
+                ViewConfig =
                 {
-                    OrganizationUnitId = organizationUnitId,
-                    ViewConfig =
-                        {
                             EntityName = EntityType.Instance.CategoryGroupMembership(),
                             PType = EntityType.Instance.None(),
-                            CardSettings = cardSettings
-                        }
-                };
+                    CardSettings = cardSettings
+                }
+            };
 
             return View(model);
         }
@@ -98,14 +98,14 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         [HttpGet]
         public JsonNetResult CategoryGroupsMembership(long organizationUnitId)
-            {
+        {
             var categoryDtos = _categoryReadModel.GetCategoryGroupMembership(organizationUnitId);
             return new JsonNetResult(new { categoryGroupsMembership = categoryDtos, success = true });
         }
 
         [HttpPost]
         public JsonNetResult CategoryGroupsMembership(long organizationUnitId, string categoryGroupsMembership)
-                                                                               {
+        {
             var serializerSettings = new JsonSerializerSettings { Converters = { new Int64ToStringConverter() } };
             var deserializedData = JsonConvert.DeserializeObject<CategoryGroupMembershipDto[]>(categoryGroupsMembership, serializerSettings);
             _changeCategoryGroupService.SetCategoryGroupMembership(deserializedData);

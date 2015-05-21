@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific;
+using NuClear.IdentityService.Client.Interaction;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Tracing.API;
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
         private readonly int _processorId;
         private readonly BlockingCollection<PerformedOperationsWorkItem> _workItemsSource;
         private readonly IOperationScopeDisposableFactoryAccessor _operationScopeFactoryAccessor;
-        private readonly IIdentityRequestStrategy _identityRequestStrategy;
+        private readonly IIdentityServiceClient _identityServiceClient;
         private readonly CancellationToken _cancellationToken;
         private readonly ITracer _tracer;
         private readonly Task _worker;
@@ -27,14 +28,14 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
             int processorId,
             BlockingCollection<PerformedOperationsWorkItem> workItemsSource,
             IOperationScopeDisposableFactoryAccessor operationScopeFactoryAccessor, 
-            IIdentityRequestStrategy identityRequestStrategy,
+            IIdentityServiceClient identityServiceClient,
             CancellationToken cancellationToken,
             ITracer tracer)
         {
             _processorId = processorId;
             _workItemsSource = workItemsSource;
             _operationScopeFactoryAccessor = operationScopeFactoryAccessor;
-            _identityRequestStrategy = identityRequestStrategy;
+            _identityServiceClient = identityServiceClient;
             _cancellationToken = cancellationToken;
             _tracer = tracer;
 
@@ -139,7 +140,7 @@ namespace DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsPr
                 {
                     using (var nestedScope = scopeFactory.CreateSpecificFor<CreateIdentity, PerformedOperationPrimaryProcessing>())
                     {
-                        var generatedIds = _identityRequestStrategy.Request(affectedEntitiesCount);
+                        var generatedIds = _identityServiceClient.GetIdentities(affectedEntitiesCount);
                         nestedScope.Updated<PerformedOperationPrimaryProcessing>(generatedIds)
                                     .Complete();
                     }

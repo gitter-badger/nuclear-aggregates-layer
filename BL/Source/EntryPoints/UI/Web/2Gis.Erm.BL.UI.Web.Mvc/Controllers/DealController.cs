@@ -11,7 +11,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public DealController(IMsCrmSettings msCrmSettings,
                               IAPIOperationsServiceSettings operationsServiceSettings,
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                              IAPIIdentityServiceSettings identityServiceSettings,
+                              IIdentityServiceClientSettings identityServiceSettings,
                               IUserContext userContext,
                               ITracer tracer,
                               IGetBaseCurrencyService getBaseCurrencyService,

@@ -12,7 +12,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         public UploadController(IMsCrmSettings msCrmSettings,
                                 IAPIOperationsServiceSettings operationsServiceSettings,
                                 IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                IAPIIdentityServiceSettings identityServiceSettings,
+                                IIdentityServiceClientSettings identityServiceSettings,
                                 IUserContext userContext,
                                 ITracer tracer,
                                 IGetBaseCurrencyService getBaseCurrencyService,

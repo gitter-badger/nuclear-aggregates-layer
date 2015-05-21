@@ -263,16 +263,23 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 sb.AppendFormat("defaultSortFieldsDirs:{0},", WriteJson(htmlHelper, lookupSettings.DefaultSortFields.Select(s => s.GetDirectionString()).ToArray()));
             }
             sb.AppendFormat("applyTo:\"{0}\", ", name);
+            sb.AppendFormat("clientInitialization: {0},", lookupSettings.ClientInitialization.ToString(CultureInfo.InvariantCulture).ToLower());
             sb.AppendFormat("entityName:\"{0}\", ", lookupSettings.EntityName.Description);
             sb.AppendFormat("extendedInfo:\"{0}\", ", lookupSettings.ExtendedInfo);
             sb.AppendFormat("parentEntityName:\"{0}\", ", lookupSettings.ParentEntityName != null ? lookupSettings.ParentEntityName.Description : EntityType.Instance.None().Description);
             sb.AppendFormat("parentIdPattern:\"{0}\"", lookupSettings.ParentIdPattern);
             if (lookupSettings.Plugins != null && lookupSettings.Plugins.Any())
-                sb.AppendFormat(",plugins:[{0}] ", String.Join(",", lookupSettings.Plugins));
+            {
+                sb.AppendFormat(",plugins:[{0}] ", string.Join(",", lookupSettings.Plugins));
+            }
             if (lookupSettings.DataFields != null && lookupSettings.DataFields.Any())
+            {
                 sb.AppendFormat(",tplFields:{0}", WriteJson(htmlHelper, lookupSettings.DataFields));
-            if(!string.IsNullOrEmpty(lookupSettings.HeaderTextTemplate))
+            }
+            if (!string.IsNullOrEmpty(lookupSettings.HeaderTextTemplate))
+            {
                 sb.AppendFormat(",tplHeaderTextTemplate:{0}", lookupSettings.HeaderTextTemplate);
+            }
             sb.Append("});</script>");
             sb.Append(htmlHelper.TextBoxFor(field).ToString());
 
@@ -581,7 +588,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
         public static MvcHtmlString SectionHead<TModel>(this HtmlHelper<TModel> htmlHelper, string id, string title)
         {
-            return new MvcHtmlString(String.Format("<div id='{0}' class='section-bar'><span>{1}</span></div><br/>", id, title));
+            return new MvcHtmlString(string.Format("<div id='{0}' class='section-bar'><span>{1}</span></div><br/>", id, title));
         }
 
         public static MvcHtmlString SectionRow<TModel>(this HtmlHelper<TModel> htmlHelper, params MvcHtmlString[] content)
@@ -603,7 +610,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             return Section(htmlHelper, tagName, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), content);
         }
 
-        public static MvcHtmlString Section<TModel>(this HtmlHelper<TModel> htmlHelper, string tagName, IDictionary<string,object> htmlAttributes = null, params MvcHtmlString[] content)
+        public static MvcHtmlString Section<TModel>(this HtmlHelper<TModel> htmlHelper, string tagName, IDictionary<string, object> htmlAttributes = null, params MvcHtmlString[] content)
         {
             var builder = new TagBuilder(tagName);
             builder.MergeAttributes(htmlAttributes);
@@ -613,7 +620,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
         public static MvcHtmlString EmptyBlock<TModel>(this HtmlHelper<TModel> htmlHelper, FieldFlex wrapperCls)
         {
-            return new MvcHtmlString(String.Format("<div class=\"display-wrapper field-wrapper {0}\"></div>", wrapperCls));
+            return new MvcHtmlString(string.Format("<div class=\"display-wrapper field-wrapper {0}\"></div>", wrapperCls));
         }
 
         #endregion
@@ -632,7 +639,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
         public static MvcHtmlString MergeDataSectionHeader<TModel>(this HtmlHelper<TModel> htmlHelper, string sectionId, string title, bool isDisabled = false)
         {
-            return new MvcHtmlString(String.Format("<tr class=\"section-header\" height=" + (isDisabled ? "\"1\"" : "\"23\"") + (isDisabled ? "disabled=\"true\"" : string.Empty) + "  >" +
+            return new MvcHtmlString(string.Format("<tr class=\"section-header\" height=" + (isDisabled ? "\"1\"" : "\"23\"") + (isDisabled ? "disabled=\"true\"" : string.Empty) + "  >" +
             "<td>&nbsp;</td><td class=\"datacell\">"+
                 "<input  type=\"radio\" name=\"{0}\" id=\"{0}_1\" checked=\"checked\" class=\"rad section left\"/>" +
             "</td><td class=\"datacell\"><label for=\"{0}_1\">{1}</label>"+

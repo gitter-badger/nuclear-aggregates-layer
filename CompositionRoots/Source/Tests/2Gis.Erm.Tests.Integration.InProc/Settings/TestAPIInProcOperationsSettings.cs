@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Processing;
 using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 
 using NuClear.Settings;
 using NuClear.Settings.API;
@@ -42,12 +42,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Settings
                 .Use<IntegrationSettingsAspect>()
                 .Use<NotificationsSettingsAspect>()
                 .Use<OperationLoggingSettingsAspect>()
+                .Use<IdentityServiceClientSettingsAspect>()
                 .IfRequiredUseOperationLogging2ServiceBus()
                 .Use<PerformedOperationsTransportSettingsAspect>()
                 .IfRequiredUsePerformedOperationsFromServiceBusAspect()
                 .Use(RequiredServices
                         .Is<APIOrderValidationServiceSettingsAspect>()
-                        .Is<APIIdentityServiceSettingsAspect>()
                         .Is<APIMoDiServiceSettingsAspect>());
         }
 
