@@ -77,10 +77,24 @@ namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements
             return this;
         }
 
+        [Obsolete("Данный подход не удовлетворяет бизнес-логике валидации прав. Нужно использовать AccessWithEntityTypePrivilege если нужна проверка прав в рамках сущности и AccessWithEntityInstancePrivilege если нужна проверка прав в рамках экземпляра сущности.")]
         public UIElementMetadataBuilder AccessWithPrivelege<TEntity>(EntityAccessTypes privilege)
             where TEntity : IEntity
         {
             AddFeatures(new SecuredByEntityPrivelegeFeature(privilege, typeof(TEntity).AsEntityName()));
+            return this;
+        }
+
+        public UIElementMetadataBuilder AccessWithEntityTypePrivilege<TEntity>(EntityAccessTypes privilege)
+            where TEntity : IEntity
+        {
+            AddFeatures(new SecuredByEntityTypePrivilegeFeature(privilege, typeof(TEntity).AsEntityName()));
+            return this;
+        }
+        public UIElementMetadataBuilder AccessWithEntityInstancePrivilege<TEntity>(EntityAccessTypes privilege)
+            where TEntity : IEntity
+        {
+            AddFeatures(new SecuredByEntityInstancePrivilegeFeature(privilege, typeof(TEntity).AsEntityName()));
             return this;
         }
 
