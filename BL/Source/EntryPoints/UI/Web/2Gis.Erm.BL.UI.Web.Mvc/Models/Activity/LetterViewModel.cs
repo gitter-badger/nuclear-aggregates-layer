@@ -11,13 +11,13 @@ using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-
-using NuClear.Model.Common.Entities;
-using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 {
@@ -64,6 +64,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
         public LookupField Sender { get; set; }
         public LookupField Recipient { get; set; }
 
+        public bool FirmClientInitialization { get; set; }
+        public bool DealClientInitialization { get; set; }
+        public bool RecipientClientInitialization { get; set; }
+
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
             var modelDto = (LetterDomainEntityDto)domainEntityDto;
@@ -82,6 +86,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity
 
             Sender = LookupField.FromReference(modelDto.SenderRef);
             Recipient = LookupField.FromReference(modelDto.RecipientRef);
+
+            FirmClientInitialization = regardingObjects.IsClientInitialization(EntityType.Instance.Firm().Id);
+            DealClientInitialization = regardingObjects.IsClientInitialization(EntityType.Instance.Deal().Id);
+            RecipientClientInitialization = modelDto.RecipientRef.IsClientInitialization(EntityType.Instance.Contact().Id);
 
             // NOTE: Owner, CreatedBy, CreatedOn, ModifiedBy, ModifiedOn, IsActive, IsDeleted and Timestamp fields are set in CreateOrUpdateController.GetViewModel
             // TODO: should it be only there?

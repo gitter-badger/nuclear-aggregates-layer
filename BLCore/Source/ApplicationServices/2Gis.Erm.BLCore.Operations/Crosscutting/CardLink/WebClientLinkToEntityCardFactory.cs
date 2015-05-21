@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.CardLink
         
         public Uri CreateLink<TEntity>(long entityId) where TEntity : class, IEntity
         {
-            return new Uri(_webClientServiceSettings.Url, string.Format(CardUrlTemplate, typeof(TEntity).AsEntityName(), entityId));
+            return new Uri(_webClientServiceSettings.Url, string.Format(CardUrlTemplate, typeof(TEntity).AsEntityName().Description, entityId));
         }
     }
 }
