@@ -21,6 +21,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
 {
     public class DialOperationService : IDialOperationService
     {
+        private static readonly Regex PhonePattern = new Regex(@"^\d{1,5}$", RegexOptions.Compiled);
+
         private readonly IUserContext _userContext;
         private readonly ITracer _tracer;        
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
@@ -50,19 +52,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
             {
                 throw new Exception(BLResources.WorkPhoneIsNotSelected);
             }
+            
+            if (!PhonePattern.IsMatch(userProfile.Phone))
+            {
+                throw new Exception(string.Format(BLResources.IncorrectPhoneNumber, userProfile.Phone));
+            }
 
-            var department = _userReadModel.GetTelephonyServerAddress(_userContext.Identity.Code);
-            if (department == null)
+            var telephonyServerAddress = _userReadModel.GetTelephonyServerAddress(_userContext.Identity.Code);
+            if (telephonyServerAddress == null)
             {
                 throw new Exception(BLResources.TelephonyUnitIsNotSelected);
             }
 
-            if (string.IsNullOrEmpty(department.Scheme) || string.IsNullOrEmpty(department.Host) || department.Port == 0)
+            if (string.IsNullOrEmpty(telephonyServerAddress.Scheme) || string.IsNullOrEmpty(telephonyServerAddress.Host) || telephonyServerAddress.Port == 0)
             {
                 throw new ArgumentException(BLResources.TelephonyUnitInIncorrectFormat);
             }
 
-            InvokeDialing(department, userProfile.Phone, number);
+            InvokeDialing(telephonyServerAddress, userProfile.Phone, number);
         }
 
         private static async Task<TcpClient> ConnectAsync(Uri endpointUri)
