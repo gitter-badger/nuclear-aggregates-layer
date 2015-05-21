@@ -5,7 +5,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
+using NuClear.Security.API.UserContext;
+using DoubleGis.Erm.Platform.Model.Entities;
 
 using NuClear.Security.API.UserContext;
 using NuClear.Model.Common.Entities;
@@ -23,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.UI
         public GridController(IMsCrmSettings msCrmSettings,
                               IAPIOperationsServiceSettings operationsServiceSettings,
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                              IAPIIdentityServiceSettings identityServiceSettings,
+                              IIdentityServiceClientSettings identityServiceSettings,
                               IUserContext userContext,
                               ITracer tracer,
                               IGetBaseCurrencyService getBaseCurrencyService,

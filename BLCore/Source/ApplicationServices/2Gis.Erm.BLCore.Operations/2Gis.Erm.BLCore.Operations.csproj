@@ -383,6 +383,7 @@
     <Compile Include="Generic\File\UploadPrintFormTemplateFileService.cs" />
     <Compile Include="Generic\File\ValidateFileService.cs" />
     <Compile Include="Generic\Get\Activity\ActivityUtilityExtensions.cs" />
+    <Compile Include="Generic\Get\Activity\GetActivityDtoService.cs" />
     <Compile Include="Generic\Get\Activity\GetAppointmentDtoService.cs" />
     <Compile Include="Generic\Get\Activity\GetLetterDtoService.cs" />
     <Compile Include="Generic\Get\Activity\GetPhonecallDtoService.cs" />

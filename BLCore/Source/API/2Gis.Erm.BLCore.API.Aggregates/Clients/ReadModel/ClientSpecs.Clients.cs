@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -35,6 +36,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel
                 public static FindSpecification<Client> ByTerritory(long territoryId)
                 {
                     return new FindSpecification<Client>(x => x.TerritoryId == territoryId);
+                }
+
+                public static IFindSpecification<Client> ByDeal(long dealId)
+                {
+                    return new FindSpecification<Client>(x => x.Deals.Any(y => y.Id == dealId));
                 }
             }
 
