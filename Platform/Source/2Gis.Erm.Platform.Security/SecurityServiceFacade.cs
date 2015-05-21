@@ -262,7 +262,7 @@ namespace DoubleGis.Erm.Platform.Security
                     return _query.For<SecurityAccelerator>().Where(accelerator => accelerator.UserId == userCode).Select(accelerator => accelerator.UserId);
 
                 case EntityPrivilegeDepthState.Department:
-                    var department = _query.For<User>().Where(Specs.Find.ById<User>(userCode).Predicate).Select(user => user.DepartmentId).SingleOrDefault();
+                    var department = _query.For(Specs.Find.ById<User>(userCode)).Select(user => user.DepartmentId).SingleOrDefault();
                     return _query.For<SecurityAccelerator>().Where(accelerator => accelerator.DepartmentId == department).Select(accelerator => accelerator.UserId);
 
                 case EntityPrivilegeDepthState.DepartmentAndChilds:

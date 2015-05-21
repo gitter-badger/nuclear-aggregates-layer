@@ -2,7 +2,6 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -12,6 +11,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 {
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
         protected override IDomainEntityDto<Client> GetDto(long entityId)
         {
-            var modelDto = _finder.Find<Client>(x => x.Id == entityId)
+            var modelDto = _finder.Find(new FindSpecification<Client>(x => x.Id == entityId))
                                   .Select(entity => new ClientDomainEntityDto
                                       {
                                           Id = entity.Id,

@@ -18,16 +18,17 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// </summary>
     public sealed class BillsSumsOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public BillsSumsOrderValidationRule(IFinder finder)
+        public BillsSumsOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var orderDetails = _finder.Find(ruleContext.OrdersFilterPredicate)
+            var orderDetails = _query.For<Order>()
+                .Where(ruleContext.OrdersFilterPredicate)
                 .Select(order => new
                                      {
                                          OrderId = order.Id,

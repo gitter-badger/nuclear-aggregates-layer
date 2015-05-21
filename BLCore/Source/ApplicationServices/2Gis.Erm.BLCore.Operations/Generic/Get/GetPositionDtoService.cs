@@ -3,7 +3,6 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -12,6 +11,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Position> GetDto(long entityId)
         {
-            var dto = _finder.Find<Position>(x => x.Id == entityId)
+            var dto = _finder.Find(new FindSpecification<Position>(x => x.Id == entityId))
                              .Select(entity => new PositionDomainEntityDto
                                  {
                                      Id = entity.Id,

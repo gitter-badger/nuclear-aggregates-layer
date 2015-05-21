@@ -82,20 +82,24 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
                     FinderMock = new Mock<IFinder>();
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Advertisement>>()))
                               .Returns(
-                                  (FindSpecification<Advertisement> x) =>
-                                  new[]
-                                      {
-                                          AdvertisementWithFirstTemplate,
-                                          AdvertisementWithSecondTemplate
-                                      }.AsQueryable().Where(x.Predicate));
+                                       (FindSpecification<Advertisement> x) =>
+                                       new[]
+                                           {
+                                               AdvertisementWithFirstTemplate,
+                                               AdvertisementWithSecondTemplate
+                                           }
+                                           .AsQueryable()
+                                           .Where(x));
 
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Position>>()))
                               .Returns(
-                                  (FindSpecification<Position> x) =>
-                                  new[]
-                                      {
-                                          PositionWithFirstTemplate
-                                      }.AsQueryable().Where(x.Predicate));
+                                       (FindSpecification<Position> x) =>
+                                       new[]
+                                           {
+                                               PositionWithFirstTemplate
+                                           }
+                                           .AsQueryable()
+                                           .Where(x));
 
                     ValidationRule = new AdvertisementTemplateMatchesPositionTemplateOrderPositionAdvertisementValidationRule(FinderMock.Object);
                 };

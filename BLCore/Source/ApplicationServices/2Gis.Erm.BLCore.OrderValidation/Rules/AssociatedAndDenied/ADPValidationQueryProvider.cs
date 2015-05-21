@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
                                      || (orderInfo.BeginReleaseNumber >= order.BeginReleaseNumber && orderInfo.BeginReleaseNumber <= order.EndReleaseNumberFact)
                                      || (orderInfo.EndReleaseNumber >= order.BeginReleaseNumber && orderInfo.EndReleaseNumber <= order.EndReleaseNumberFact));
 
-                    return _finder.Find(orderFilter);
+                    return _query.For<Order>().Where(orderFilter);
 
                 case ADPCheckMode.Massive:
                     // Находим заказы, для фирм которых оформлено больше одного заказа,
@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
                                                        from orderId in orderIdsByFirm
                                                        select orderId;
                     // Берем для проверки только те заказы, для фирм которых оформлено больше одного заказа
-                    return from order in _finder.Find(_filterExpression)
+                    return from order in _query.For<Order>().Where(_filterExpression)
                            join orderId in moreThanOneOrderForFirmQuery on order.Id equals orderId
                            select order;
                 default:
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
 
         public IQueryable<OrderPosition> GetOrderPositionsQuery()
         {
-            return _query.For<OrderPosition>().Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>().Predicate);
+            return _query.For(Specs.Find.ActiveAndNotDeleted<OrderPosition>());
         }
 
         public IQueryable<Category> GetCategoryQuery()

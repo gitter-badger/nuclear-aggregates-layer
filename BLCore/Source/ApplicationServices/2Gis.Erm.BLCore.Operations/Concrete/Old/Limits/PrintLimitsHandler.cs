@@ -18,6 +18,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
 {
@@ -105,7 +106,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
         private PrintData GetPrintData(IEnumerable<long> limitIds, long branchOfficeOrgUnitId)
         {
             var limits = limitIds.Select((id, index) =>
-                                        _finder.Find<Limit>(limit => limit.Id == id && limit.Account.BranchOfficeOrganizationUnitId == branchOfficeOrgUnitId)
+                                        _finder.Find(new FindSpecification<Limit>(limit => limit.Id == id && limit.Account.BranchOfficeOrganizationUnitId == branchOfficeOrgUnitId))
                                              .Select(limit => new
                                                           {
                                                               ClientName = limit.Account.LegalPerson.Client.Name,

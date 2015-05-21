@@ -14,16 +14,16 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
     public sealed class ConsistentSecureFinderDecorator : ISecureFinder
     {
         private readonly ISecureFinder _secureFinder;
-        private readonly ICompositeEntityDecorator _compositeEntityDecorator;
+        private readonly ICompositeEntityQuery _compositeEntityQuery;
         private readonly DynamicStorageFinderWrapper _dynamicStorageFinderWrapper;
 
         public ConsistentSecureFinderDecorator(ISecureFinder secureFinder,
                                                IDynamicStorageFinder dynamicStorageFinder,
-                                               ICompositeEntityDecorator compositeEntityDecorator,
+                                               ICompositeEntityQuery compositeEntityQuery,
                                                IDynamicEntityMetadataProvider dynamicEntityMetadataProvider)
         {
             _secureFinder = secureFinder;
-            _compositeEntityDecorator = compositeEntityDecorator;
+            _compositeEntityQuery = compositeEntityQuery;
             _dynamicStorageFinderWrapper = new DynamicStorageFinderWrapper(dynamicStorageFinder, dynamicEntityMetadataProvider);
         }
 
@@ -60,14 +60,19 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 
             if (typeof(TEntity).AsEntityName().HasMapping())
             {
-                return _compositeEntityDecorator.Find(findSpecification).SingleOrDefault();
+                return _compositeEntityQuery.For(findSpecification).SingleOrDefault();
             }
 
             return Find(findSpecification).SingleOrDefault();
         }
 
-        public IEnumerable<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification)
+        public TOutput FindOne<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) 
             where TEntity : class, IEntity
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyCollection<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
             if (typeof(IPartable).IsAssignableFrom(typeof(TEntity)))
             {
@@ -83,10 +88,21 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 
             if (typeof(TEntity).AsEntityName().HasMapping())
             {
-                return _compositeEntityDecorator.Find(findSpecification).AsEnumerable();
+                return _compositeEntityQuery.For(findSpecification).ToArray();
             }
 
             return Find(findSpecification).ToArray();
+        }
+
+        public IReadOnlyCollection<TOutput> FindMany<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) 
+            where TEntity : class, IEntity
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool FindAny<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        {
+            throw new NotImplementedException();
         }
     }
 }

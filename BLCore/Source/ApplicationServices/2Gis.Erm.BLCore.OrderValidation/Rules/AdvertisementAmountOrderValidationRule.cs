@@ -21,12 +21,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     public sealed class AdvertisementAmountOrderValidationRule : OrderValidationRuleBase<BrowsableResultsValidationRuleContext>
     {
+        private readonly IQuery _query;
         private readonly IFinder _finder;
         private readonly IPriceRepository _priceRepository;
         private readonly ITracer _tracer;
 
-        public AdvertisementAmountOrderValidationRule(IFinder finder, IPriceRepository priceRepository, ITracer tracer)
+        public AdvertisementAmountOrderValidationRule(IQuery query, IFinder finder, IPriceRepository priceRepository, ITracer tracer)
         {
+            _query = query;
             _finder = finder;
             _priceRepository = priceRepository;
             _tracer = tracer;
@@ -42,25 +44,24 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             if (!ruleContext.ValidationParams.IsMassValidation)
             {
                 long? firmId;
-                orderFilter = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
+                orderFilter = GetFilterPredicateToGetLinkedOrders(_query, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
 
                 var singleOrderCategoryPositionIds =
-                    _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId))
-                
-                           .SelectMany(x => x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted).SelectMany(y => y.OrderPositionAdvertisements))
-                           .Select(x => x.Position.CategoryId)
-                           .Distinct();
+                    _query.For(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId))
+                          .SelectMany(x => x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted).SelectMany(y => y.OrderPositionAdvertisements))
+                          .Select(x => x.Position.CategoryId)
+                          .Distinct();
 
                 pricePositionFilter =
                     x => x.IsActive && x.IsDeleted == false && x.Position.IsControlledByAmount && singleOrderCategoryPositionIds.Contains(x.Position.CategoryId);
 
                 // Для единичной проверки берём прайс-лист, связанный с позициями проверяемого заказа
-                var prices = _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId))
-                                    .SelectMany(order => order.OrderPositions)
-                                    .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
-                                    .Select(orderPosition => orderPosition.PricePosition.PriceId)
-                                    .Distinct()
-                                    .ToArray();
+                var prices = _query.For(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId))
+                                   .SelectMany(order => order.OrderPositions)
+                                   .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                                   .Select(orderPosition => orderPosition.PricePosition.PriceId)
+                                   .Distinct()
+                                   .ToArray();
 
                 // Если не найдено прайс-листа для проверки, то и проверять нечего
                 if (prices.Length == 0)
@@ -98,52 +99,51 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 _tracer.InfoFormat("Для массовой проверки по городу {0} за {1} выбран прайс-лист {2}", organizationUnitId, ruleContext.ValidationParams.Mass.Period.Start, actualPriceId);
             }
 
-            var pricePositions = _finder.Find(Specs.Find.ById<Price>(actualPriceId))
-                                        .SelectMany(x => x.PricePositions)
-                                        .Where(pricePositionFilter)
-                                        .OrderBy(x => x.PositionId)
-                                        .Select(
-                                            x =>
-                                            new
-                                                {
-                                                    x.MinAdvertisementAmount,
-                                                    x.MaxAdvertisementAmount,
-                                                    x.Position.PositionCategory.Name,
-                                                    x.Position.CategoryId
-                                                })
-                                        .GroupBy(x => x.CategoryId)
-                                        .ToDictionary(x => x.Key, x => x.ToList())
-                                        .Select(x => new
-                                            {
-                                                CategoryId = x.Key,
-                                                Name = x.Value.First().Name,
-                                                MinAdvertisementAmount = x.Value.Max(y => y.MinAdvertisementAmount),
-                                                MaxAdvertisementAmount = x.Value.Min(y => y.MaxAdvertisementAmount)
-                                            })
-                                        .ToArray();
+            var pricePositions = _query.For(Specs.Find.ById<Price>(actualPriceId))
+                                       .SelectMany(x => x.PricePositions)
+                                       .Where(pricePositionFilter)
+                                       .OrderBy(x => x.PositionId)
+                                       .Select(
+                                               x =>
+                                               new
+                                                   {
+                                                       x.MinAdvertisementAmount,
+                                                       x.MaxAdvertisementAmount,
+                                                       x.Position.PositionCategory.Name,
+                                                       x.Position.CategoryId
+                                                   })
+                                       .GroupBy(x => x.CategoryId)
+                                       .ToDictionary(x => x.Key, x => x.ToList())
+                                       .Select(x => new
+                                           {
+                                               CategoryId = x.Key,
+                                               Name = x.Value.First().Name,
+                                               MinAdvertisementAmount = x.Value.Max(y => y.MinAdvertisementAmount),
+                                               MaxAdvertisementAmount = x.Value.Min(y => y.MaxAdvertisementAmount)
+                                           })
+                                       .ToArray();
 
             var categoryIds = pricePositions.Select(x => x.CategoryId).ToArray();
 
-            var orderPositions = _finder.Find(orderFilter)
-                                        .Where(x => x.DestOrganizationUnitId == organizationUnitId)
-                                        .SelectMany(order => order.OrderPositions)
-                                        .Where(
-                                            orderPosition =>
-                                            orderPosition.IsActive && !orderPosition.IsDeleted)
-                                        .SelectMany(x => x.OrderPositionAdvertisements)
-                                        .Where(x => categoryIds.Contains(x.Position.CategoryId))
-                                        .Select(x =>
-                                                new OrderPositionDto
-                                                    {
-                                                        OrderPositionId = x.OrderPosition.Id,
-                                                        PositionName = x.Position.Name,
-                                                        OrderId = x.OrderPosition.Order.Id,
-                                                        CategoryId = x.Position.CategoryId,
-                                                        BeginDistributionDate = x.OrderPosition.Order.BeginDistributionDate,
-                                                        EndDistributionDateFact = x.OrderPosition.Order.EndDistributionDateFact,
-                                                    })
-                                        .GroupBy(x => x.CategoryId)
-                                        .ToDictionary(x => x.Key, x => x.ToList());
+            var orderPositions = _query.For<Order>()
+                                       .Where(orderFilter)
+                                       .Where(x => x.DestOrganizationUnitId == organizationUnitId)
+                                       .SelectMany(order => order.OrderPositions)
+                                       .Where(orderPosition => orderPosition.IsActive && !orderPosition.IsDeleted)
+                                       .SelectMany(x => x.OrderPositionAdvertisements)
+                                       .Where(x => categoryIds.Contains(x.Position.CategoryId))
+                                       .Select(x =>
+                                               new OrderPositionDto
+                                                   {
+                                                       OrderPositionId = x.OrderPosition.Id,
+                                                       PositionName = x.Position.Name,
+                                                       OrderId = x.OrderPosition.Order.Id,
+                                                       CategoryId = x.Position.CategoryId,
+                                                       BeginDistributionDate = x.OrderPosition.Order.BeginDistributionDate,
+                                                       EndDistributionDateFact = x.OrderPosition.Order.EndDistributionDateFact,
+                                                   })
+                                       .GroupBy(x => x.CategoryId)
+                                       .ToDictionary(x => x.Key, x => x.ToList());
 
             DateTime beginCheckPeriod;
             DateTime endCheckPeriod;
@@ -154,7 +154,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             }
             else
             {
-                var orderToCheck = _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)).Single();
+                var orderToCheck = _finder.FindOne(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId));
                 beginCheckPeriod = orderToCheck.BeginDistributionDate;
                 endCheckPeriod = orderToCheck.EndDistributionDateFact;
             }

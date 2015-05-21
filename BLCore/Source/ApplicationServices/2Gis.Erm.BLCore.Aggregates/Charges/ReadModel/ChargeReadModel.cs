@@ -8,11 +8,11 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
@@ -28,12 +28,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
 
         public string GetChargesHistoryMessage(Guid sessionId, ChargesHistoryStatus status)
         {
-            return _finder.Find<ChargesHistory>(x => x.SessionId == sessionId && x.Status == (int)status).Select(x => x.Message).Single();
+            return _finder.Find(new FindSpecification<ChargesHistory>(x => x.SessionId == sessionId && x.Status == (int)status)).Select(x => x.Message).Single();
         }
 
         public IReadOnlyCollection<Charge> GetChargesToDelete(long projectId, TimePeriod timePeriod)
         {
-            return _finder.Find<Charge>(x => x.ProjectId == projectId && x.PeriodStartDate == timePeriod.Start && x.PeriodEndDate == timePeriod.End).ToArray();
+            return _finder.Find(new FindSpecification<Charge>(x => x.ProjectId == projectId && x.PeriodStartDate == timePeriod.Start && x.PeriodEndDate == timePeriod.End)).ToArray();
         }
 
         public bool TryGetLastChargeHistoryId(long projectId, TimePeriod period, ChargesHistoryStatus status, out Guid id)
@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
 
         public IReadOnlyDictionary<long, Guid?> GetActualChargesByProject(TimePeriod period)
         {
-            var chargesHistoryQuery = _finder.Find<ChargesHistory>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
+            var chargesHistoryQuery = _finder.Find(new FindSpecification<ChargesHistory>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End));
 
             return _finder.Find(Specs.Find.Active<Project>() && new FindSpecification<Project>(x => x.OrganizationUnitId != null))
                           .GroupJoin(chargesHistoryQuery,
@@ -102,7 +102,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
 
         public IReadOnlyCollection<OrderPositionWithChargeInfoDto> GetPlannedOrderPositionsWithChargesInfo(long organizationUnitId, TimePeriod period)
         {
-            var chargesQuery = _finder.Find<Charge>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End);
+            var chargesQuery = _finder.Find(new FindSpecification<Charge>(x => x.PeriodStartDate == period.Start && x.PeriodEndDate == period.End));
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
                                 AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
                                 AccountSpecs.Locks.Find.ForPeriod(period.Start, period.End))

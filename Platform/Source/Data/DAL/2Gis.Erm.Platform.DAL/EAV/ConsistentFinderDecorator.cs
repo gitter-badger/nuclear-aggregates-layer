@@ -16,15 +16,15 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
     {
         private readonly IFinder _finder;
         private readonly DynamicStorageFinderWrapper _dynamicStorageFinderWrapper;
-        private readonly ICompositeEntityDecorator _compositeEntityDecorator;
+        private readonly ICompositeEntityQuery _compositeEntityQuery;
 
         public ConsistentFinderDecorator(IFinder finder,
                                          IDynamicStorageFinder dynamicStorageFinder,
-                                         ICompositeEntityDecorator compositeEntityDecorator,
+                                         ICompositeEntityQuery compositeEntityQuery,
                                          IDynamicEntityMetadataProvider dynamicEntityMetadataProvider)
         {
             _finder = finder;
-            _compositeEntityDecorator = compositeEntityDecorator;
+            _compositeEntityQuery = compositeEntityQuery;
             _dynamicStorageFinderWrapper = new DynamicStorageFinderWrapper(dynamicStorageFinder, dynamicEntityMetadataProvider);
         }
 
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             IQueryable<TEntity> mappedQueryable;
             if (TryFindMapped(findSpecification, out mappedQueryable))
             {
-                return mappedQueryable.Select(selectSpecification.Selector);
+                return mappedQueryable.Select(selectSpecification);
             }
 
             return _finder.Find(selectSpecification, findSpecification).ValidateQueryCorrectness();
@@ -85,8 +85,13 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return Find(findSpecification).SingleOrDefault();
         }
 
-        public IEnumerable<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification)
+        public TOutput FindOne<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) 
             where TEntity : class, IEntity
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyCollection<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
             if (typeof(IPartable).IsAssignableFrom(typeof(TEntity)))
             {
@@ -108,6 +113,16 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return Find(findSpecification).ToArray();
         }
 
+        public IReadOnlyCollection<TOutput> FindMany<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool FindAny<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        {
+            throw new NotImplementedException();
+        }
+
         private bool TryFindMapped<TEntity>(FindSpecification<TEntity> findSpecification, out IQueryable<TEntity> queryable) where TEntity : class
         {
             var entityType = typeof(TEntity);
@@ -115,7 +130,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             IEntityType entityName;
             if (entityType.TryGetEntityName(out entityName) && entityName.HasMapping())
             {
-                queryable = _compositeEntityDecorator.Find(findSpecification);
+                queryable = _compositeEntityQuery.For(findSpecification);
                 return true;
             }
 

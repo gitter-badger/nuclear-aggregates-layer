@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export
 {
@@ -26,6 +26,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export
         int SaveProcessedOperations(IEnumerable<PerformedBusinessOperation> operations,
                                    Func<PerformedBusinessOperation, TProcessedOperationEntity> processedOperationEntityCreator,
                                    Action<TProcessedOperationEntity> processedOperationEntityUpdater);
-        DateTime GetLastProcessedOperationPerformDate(SelectSpecification<TProcessedOperationEntity, DateTime> selectSortFieldSpecification);
+        DateTime GetLastProcessedOperationPerformDate(Expression<Func<TProcessedOperationEntity, DateTime>> selectSortFieldExpression);
     }
 }

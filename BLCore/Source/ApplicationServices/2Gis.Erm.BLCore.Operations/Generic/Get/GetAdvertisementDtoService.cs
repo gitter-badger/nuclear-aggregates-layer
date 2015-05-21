@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Advertisement> GetDto(long entityId)
         {
-            var dto = _secureFinder.Find<Advertisement>(x => x.Id == entityId)
+            var dto = _secureFinder.Find(new FindSpecification<Advertisement>(x => x.Id == entityId))
                              .Select(entity => new AdvertisementDomainEntityDto
                                  {
                                      Id = entity.Id,
@@ -96,7 +97,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     dto.AdvertisementTemplateRef = new EntityReference
                         {
                             Id = advertisementTemplateId,
-                            Name = _secureFinder.Find<AdvertisementTemplate>(x => x.Id == advertisementTemplateId).Select(x => x.Name).Single()
+                            Name = _secureFinder.Find(new FindSpecification<AdvertisementTemplate>(x => x.Id == advertisementTemplateId)).Select(x => x.Name).Single()
                         };
                 }
             }
@@ -110,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     dto.FirmRef = new EntityReference
                         {
                             Id = firmId,
-                            Name = _secureFinder.Find<Firm>(x => x.Id == firmId).Select(x => x.Name).Single()
+                            Name = _secureFinder.Find(new FindSpecification<Firm>(x => x.Id == firmId)).Select(x => x.Name).Single()
                         };
                 }
             }

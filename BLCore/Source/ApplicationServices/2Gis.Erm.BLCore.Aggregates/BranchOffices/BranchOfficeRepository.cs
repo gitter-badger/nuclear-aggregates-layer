@@ -9,14 +9,13 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
-
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using NuClear.Model.Common.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.BranchOfficeOrganizationUnit;
 
+using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage;
 using NuClear.Storage.Specifications;
 
 // ReSharper disable CheckNamespace
@@ -48,14 +47,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
 
         public IEnumerable<long> GetOrganizationUnitTerritories(long organizationUnitId)
         {
-            return _finder.Find<Territory>(territory => territory.OrganizationUnitId == organizationUnitId)
+            return _finder.Find(new FindSpecification<Territory>(territory => territory.OrganizationUnitId == organizationUnitId))
                           .Select(territory => territory.Id)
                           .ToArray();
         }
 
         public BranchOfficeOrganizationShortInformationDto GetBranchOfficeOrganizationUnitShortInfo(long organizationUnitId)
         {
-            return _finder.Find<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId)
+            return _finder.Find(new FindSpecification<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId))
                           .Where(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
                           .Where(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
                           .Select(x => new BranchOfficeOrganizationShortInformationDto
@@ -190,7 +189,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
 
         public long? GetPrintFormTemplateId(long branchOfficeOrganizationUnitId, TemplateCode templateCode)
         {
-            var templates = _finder.Find<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == templateCode)
+            var templates = _finder.Find(new FindSpecification<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == templateCode))
                                    .OrderByDescending(x => x.Id);
 
             var templateId = templates

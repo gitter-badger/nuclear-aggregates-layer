@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -116,25 +117,24 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                                                                   if (!querySettings.TryGetExtendedProperty("OrganizationUnitId",
                                                                                       out organizationUnitId))
                                                                                   {
-                                                                                      return x => false;
+                                                                                      return new FindSpecification<Category>(x => false);
                                                                                   }
 
                                                                                   if (querySettings.TryGetExtendedProperty("PositionsGroup", out positionsGroup) &&
                                                                                       (PositionsGroup)positionsGroup == PositionsGroup.Media)
                                                                                   {
-                                                                                      return x => true;
+                                                                                      return new FindSpecification<Category>(x => true);
                                                                                   }
 
-                                                                                  var specification = CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit((SalesModel)salesModel, organizationUnitId);
-                                                                                  return specification.Predicate;
+                                                                                  return CategorySpecs.Categories.Find.ActiveCategoryForSalesModelInOrganizationUnit((SalesModel)salesModel, organizationUnitId);
                                                                               });
 
             return query
                 .Where(x => !x.IsDeleted)
-                .Filter(_filterHelper
-                , firmIdFilter
-                , firmAddressIdFilter
-                , organizationUnitIdFilter
+                .FilterBySpec(_filterHelper
+                , new FindSpecification<Category>(firmIdFilter)
+                , new FindSpecification<Category>(firmAddressIdFilter)
+                , new FindSpecification<Category>(organizationUnitIdFilter)
                 , salesModelFilter)
                 .Select(x => new ListCategoryDto
                 {

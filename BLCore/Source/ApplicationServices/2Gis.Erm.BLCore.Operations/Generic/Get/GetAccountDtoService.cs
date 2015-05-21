@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Account> GetDto(long id)
         {
-            var dto = _finder.Find<Account>(x => x.Id == id)
+            var dto = _finder.Find(new FindSpecification<Account>(x => x.Id == id))
                              .Select(entity => new AccountDomainEntityDto
                                  {
                                      Id = entity.Id,
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 throw new NotificationException(BLResources.CurrentUserHasNoReadEntityPermission);
             }
 
-            var lockDeatilCost = _finder.Find<Account>(x => x.Id == dto.Id)
+            var lockDeatilCost = _finder.Find(new FindSpecification<Account>(x => x.Id == dto.Id))
                                         .SelectMany(x => x.Locks)
                                         .Where(x => !x.IsDeleted && x.IsActive)
                                         .Sum(x => (decimal?)x.PlannedAmount) ?? 0;
@@ -106,7 +107,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
             {
                     dto.LegalPersonRef = new EntityReference(parentEntityId.Value,
-                                                             _finder.Find<LegalPerson>(x => x.Id == parentEntityId).Select(x => x.LegalName).SingleOrDefault());
+                                                             _finder.Find(new FindSpecification<LegalPerson>(x => x.Id == parentEntityId)).Select(x => x.LegalName).SingleOrDefault());
             }
 
             return dto;

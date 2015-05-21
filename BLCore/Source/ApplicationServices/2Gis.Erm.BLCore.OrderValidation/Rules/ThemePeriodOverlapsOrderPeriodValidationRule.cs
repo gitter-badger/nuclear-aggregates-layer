@@ -5,24 +5,28 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     public sealed class ThemePeriodOverlapsOrderPeriodValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public ThemePeriodOverlapsOrderPeriodValidationRule(IFinder finder)
+        public ThemePeriodOverlapsOrderPeriodValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var invalidOrders = _finder.Find(ruleContext.OrdersFilterPredicate)
+            var invalidOrders = _query.For<Order>()
+                .Where(ruleContext.OrdersFilterPredicate)
                 .Select(order => new
                     {
                         Order = order,

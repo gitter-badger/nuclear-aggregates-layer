@@ -5,9 +5,10 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
@@ -41,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 
         private void ProcessReferenceDto(ReferenceServiceBusDto referenceDto)
         {
-            var referenceExists = _finder.Find<Reference>(x => x.CodeName == referenceDto.Code).Any();
+            var referenceExists = _finder.Find(new FindSpecification<Reference>(x => x.CodeName == referenceDto.Code)).Any();
             if (referenceExists)
             {
                 return;

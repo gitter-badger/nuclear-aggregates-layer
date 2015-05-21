@@ -43,6 +43,7 @@ namespace NuClear.Storage
             {
                 throw new ArgumentNullException("selectSpecification");
             }
+
             if (findSpecification == null)
             {
                 throw new ArgumentNullException("findSpecification");
@@ -67,13 +68,70 @@ namespace NuClear.Storage
         public TEntity FindOne<TEntity>(FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
-            throw new NotSupportedException("ConsistentFinderDecorator should be used");
+            if (findSpecification == null)
+            {
+                throw new ArgumentNullException("findSpecification");
+            }
+
+            var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TEntity>();
+            return queryableSource.Where(findSpecification.Predicate).SingleOrDefault();
         }
 
-        public IEnumerable<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification)
+        public TOutput FindOne<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) 
             where TEntity : class, IEntity
         {
-            throw new NotSupportedException("ConsistentFinderDecorator should be used");
+            if (selectSpecification == null)
+            {
+                throw new ArgumentNullException("selectSpecification");
+            }
+
+            if (findSpecification == null)
+            {
+                throw new ArgumentNullException("findSpecification");
+            }
+
+            var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TEntity>();
+            return queryableSource.Where(findSpecification.Predicate).Select(selectSpecification.Selector).SingleOrDefault();
+        }
+
+        public IReadOnlyCollection<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification)
+            where TEntity : class, IEntity
+        {
+            if (findSpecification == null)
+            {
+                throw new ArgumentNullException("findSpecification");
+            }
+
+            var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TEntity>();
+            return queryableSource.Where(findSpecification.Predicate).ToArray();
+        }
+
+        public IReadOnlyCollection<TOutput> FindMany<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) 
+            where TEntity : class, IEntity
+        {
+            if (selectSpecification == null)
+            {
+                throw new ArgumentNullException("selectSpecification");
+            }
+
+            if (findSpecification == null)
+            {
+                throw new ArgumentNullException("findSpecification");
+            }
+
+            var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TEntity>();
+            return queryableSource.Where(findSpecification.Predicate).Select(selectSpecification.Selector).ToArray();
+        }
+
+        public bool FindAny<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        {
+            if (findSpecification == null)
+            {
+                throw new ArgumentNullException("findSpecification");
+            }
+
+            var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TEntity>();
+            return queryableSource.Any(findSpecification.Predicate);
         }
     }
 }

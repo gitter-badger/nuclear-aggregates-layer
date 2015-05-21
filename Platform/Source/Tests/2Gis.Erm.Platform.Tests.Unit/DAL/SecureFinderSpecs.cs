@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
@@ -23,29 +21,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
     public class SecureFinderSpecs
     {
-        class FindByExprContext : SecureFinderContext
-        {
-            static Expression<Func<Deal, bool>> _expression;
-
-            Establish context = () =>
-                {
-                    _expression = e => true;
-                    Finder.Setup(f => f.Find(_expression)).Returns(_finderEntities.Cast<Deal>());
-                };
-
-            Because of = () => _result = Target.Find(_expression);
-        }
-
         class FindBySelectorContext : FindBySpecContext
         {
             protected static SelectSpecification<Deal, Deal> _selectSpec;
 
             Establish context = () =>
                 {
-                    var selectSpecMock = new Mock<SelectSpecification<Deal, Deal>>();
-                    selectSpecMock.SetupGet(s => s.Selector).Returns(e => e);
-
-                    _selectSpec = selectSpecMock.Object;
+                    _selectSpec = new SelectSpecification<Deal, Deal>(e => e);
                 };
         }
 
@@ -55,9 +37,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
             Establish context = () =>
                 {
-                    var specMock = new Mock<FindSpecification<Deal>>();
-                    specMock.SetupGet(s => s.Predicate).Returns(e => true);
-                    _findSpec = specMock.Object;
+                    _findSpec = new FindSpecification<Deal>(e => true);
                     Finder.Setup(f => f.Find(_findSpec)).Returns(_finderEntities.Cast<Deal>());
                 };
         }
@@ -131,31 +111,6 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             protected static IQueryable _result;
 
             It should_return_same_result_as_Finder = () => _result.Should().Contain(_finderEntities, "Коллекции элементов должны совпадать.");
-        }
-
-
-        /// <summary>
-        ///     Запрос по выражению, с ограничением вызова.
-        /// </summary>
-        [Tags("DAL")]
-        [Subject(typeof(SecureFinder))]
-        class When_Find_by_expression_access_check : FindByExprContext
-        {
-            Establish context = () => SetUpRestrictQuery();
-
-            Behaves_like<RestrictAccessBehavior> restrict_query;
-        }
-
-        /// <summary>
-        ///     Запрос по выражению без ограничения вызова.
-        /// </summary>
-        [Tags("DAL")]
-        [Subject(typeof(SecureFinder))]
-        class When_Find_by_expression_skip_access_check : FindByExprContext
-        {
-            Establish context = () => SkipEntityAccess(true);
-
-            Behaves_like<SkipEntityAccessCheckBehavior> skip_entity_access;
         }
 
         /// <summary>

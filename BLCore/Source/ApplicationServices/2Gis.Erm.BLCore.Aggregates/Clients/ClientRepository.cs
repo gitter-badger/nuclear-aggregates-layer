@@ -34,6 +34,7 @@ using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 {
@@ -689,7 +690,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         public int HideFirm(long firmId)
         {
             var clients = _finder.FindMany(ClientSpecs.Clients.Find.ByMainFirm(firmId)).ToArray();
-            var deals = _finder.Find<Deal>(deal => deal.MainFirmId == firmId).ToArray();
+            var deals = _finder.Find(new FindSpecification<Deal>(deal => deal.MainFirmId == firmId)).ToArray();
 
             foreach (var client in clients)
             {

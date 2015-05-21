@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
         public void Delete(CategoryGroup categoryGroup)
         {
-            var linkedCategories = _finder.Find<CategoryOrganizationUnit>(x => x.CategoryGroupId == categoryGroup.Id).ToArray();
+            var linkedCategories = _finder.Find(new FindSpecification<CategoryOrganizationUnit>(x => x.CategoryGroupId == categoryGroup.Id)).ToArray();
 
             if (categoryGroup.Id == DefaultCategoryGroupId)
             {
@@ -121,7 +121,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
         private IEnumerable<long> ResolveParentIds(IEnumerable<long> categoryIds)
         {
-            return _finder.Find<Category>(category => categoryIds.Contains(category.Id))
+            return _finder.Find(new FindSpecification<Category>(category => categoryIds.Contains(category.Id)))
                           .Where(category => category.ParentId.HasValue)
                           .Select(category => category.ParentId.Value)
                           .Distinct()
@@ -144,7 +144,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
         {
             // В оригинальном коде использовался такой-же подход, возможно от того, что при удалении записи только помечаются удалёнными, 
             // этот подход позволяет избежать дублирования одинаковых записей, различающихся флагом удалённости.
-            var categoryUnits = _finder.Find<CategoryOrganizationUnit>(link => link.CategoryId == categoryId);
+            var categoryUnits = _finder.Find(new FindSpecification<CategoryOrganizationUnit>(link => link.CategoryId == categoryId));
 
             // Записи, которые должны быть, которые есть, но помечены удаленными.
             var linksToRestore = categoryUnits.Where(link => organizationUnitIds.Contains(link.OrganizationUnitId) && (!link.IsActive || link.IsDeleted));
@@ -211,7 +211,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
         private void ImportCategory(RubricServiceBusDto dto, CategoryImportContext context)
         {
-            var category = _finder.Find<Category>(x => x.Id == dto.Id)
+            var category = _finder.Find(new FindSpecification<Category>(x => x.Id == dto.Id))
                                   .SingleOrDefault() ??
                            new Category { Id = dto.Id };
 
@@ -328,7 +328,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
                 return result;
             }
 
-            var resolvedFromDb = _finder.Find<OrganizationUnit>(unit => unit.DgppId.HasValue && unresolved.Contains(unit.DgppId.Value))
+            var resolvedFromDb = _finder.Find(new FindSpecification<OrganizationUnit>(unit => unit.DgppId.HasValue && unresolved.Contains(unit.DgppId.Value)))
                                         .Select(unit => new { ErmId = unit.Id, DgppId = unit.DgppId.Value })
                                         .ToArray();
 

@@ -64,7 +64,7 @@
     <Compile Include="EAV\IDynamicStorageFinder.cs" />
     <Compile Include="EAV\DynamicStorageFinder.cs" />
     <Compile Include="ForcePendingChangesHandlingStrategy.cs" />
-    <Compile Include="ICompositeEntityDecorator.cs" />
+    <Compile Include="ICompositeEntityQuery.cs" />
     <Compile Include="EAV\SpecsBundle.cs" />
     <Compile Include="IFileContentFinder.cs" />
     <Compile Include="IDynamicEntityRepository.cs" />

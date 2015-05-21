@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var bmp = ImageFormat.Bmp.ToString().ToLowerInvariant();
             const string chm = "chm";
 
-            var dto = (from template in _finder.Find<AdvertisementElementTemplate>(x => x.Id == entityId)
+            var dto = (from template in _finder.Find(new FindSpecification<AdvertisementElementTemplate>(x => x.Id == entityId))
                        let dummyAdsElementId = template.AdvertisementElements
                                                        .Where(y => y.Advertisement.FirmId == null && !y.IsDeleted && !y.Advertisement.IsDeleted)
                                                        .Select(y => y.Id)

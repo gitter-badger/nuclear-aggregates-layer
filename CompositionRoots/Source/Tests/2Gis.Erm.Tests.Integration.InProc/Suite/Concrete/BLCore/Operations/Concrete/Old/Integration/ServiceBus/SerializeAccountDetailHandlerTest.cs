@@ -11,6 +11,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using FluentAssertions;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLCore.Operations.Concrete.Old.Integration.ServiceBus
 {
@@ -33,12 +34,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLCore.Operation
         protected override bool TryCreateRequest(AccountDetail modelEntity, out SerializeObjectsRequest<AccountDetail, ExportFlowFinancialDataDebitsInfoInitial> request)
         {
             var withdrawOperation =
-                _finder.Find<PerformedBusinessOperation>(operation => operation.Operation == WithdrawFromAccountsIdentity.Instance.Id)
+                _finder.Find(new FindSpecification<PerformedBusinessOperation>(operation => operation.Operation == WithdrawFromAccountsIdentity.Instance.Id))
                        .OrderByDescending(operation => operation.Date)
                        .FirstOrDefault();
 
             var revertWithdrawOperation =
-                _finder.Find<PerformedBusinessOperation>(operation => operation.Operation == RevertWithdrawFromAccountsIdentity.Instance.Id)
+                _finder.Find(new FindSpecification<PerformedBusinessOperation>(operation => operation.Operation == RevertWithdrawFromAccountsIdentity.Instance.Id))
                        .OrderByDescending(operation => operation.Date)
                        .FirstOrDefault();
 

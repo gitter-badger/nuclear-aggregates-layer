@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BL.Operations.Generic.Get
 
         protected override IDomainEntityDto<Limit> GetDto(long entityId)
         {
-            var modelDto = _finder.Find<Limit>(x => x.Id == entityId)
+            var modelDto = _finder.Find(Specs.Find.ById<Limit>(entityId))
                                   .Select(entity => new LimitDomainEntityDto
                                   {
                                       Id = entity.Id,

@@ -5,9 +5,13 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
@@ -25,19 +29,17 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            return _finder.Find(ruleContext.OrdersFilterPredicate)
+            return _finder.FindMany(new FindSpecification<Order>(ruleContext.OrdersFilterPredicate))
                           .Where(o => o.AccountId == null || (!o.Account.IsActive && o.Account.IsDeleted))
                           .Select(o => new { o.Id, o.Number })
-                          .AsEnumerable()
                           .Select(o => new OrderValidationMessage
-                                           {
-                                               Type = MessageType.Error,
-                                               MessageText =
-                                                   string.Format(BLResources.OrdersCheckOrderHasNoAccount,
-                                                                 GenerateDescription(ruleContext.IsMassValidation, EntityType.Instance.Order(), o.Number, o.Id)),
-                                               OrderId = o.Id,
-                                               OrderNumber = o.Number
-                                           });
+                              {
+                                  Type = MessageType.Error,
+                                  MessageText = string.Format(BLResources.OrdersCheckOrderHasNoAccount,
+                                                              GenerateDescription(ruleContext.IsMassValidation, EntityType.Instance.Order(), o.Number, o.Id)),
+                                  OrderId = o.Id,
+                                  OrderNumber = o.Number
+                              });
         }
     }
 }

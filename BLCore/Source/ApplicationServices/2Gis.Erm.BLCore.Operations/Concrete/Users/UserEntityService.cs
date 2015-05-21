@@ -6,6 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Users
 {
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Users
         public int DeleteSharings(IEntityType entityName, long entityId)
         {
             var entityTypeId = entityName.Id;
-            var sharingsToDelete = _finder.Find<UserEntity>(x => x.EntityId == entityId && x.Privilege.EntityType == entityTypeId)
+            var sharingsToDelete = _finder.Find(new FindSpecification<UserEntity>(x => x.EntityId == entityId && x.Privilege.EntityType == entityTypeId))
                 .ToArray();
             foreach (var userEntity in sharingsToDelete)
             {

@@ -5,9 +5,12 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
@@ -15,11 +18,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     {
         // Выгодные покупки с 2ГИС
         private const int BargainWith2GisPositionCategoryId = 14;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public CouponIsUniqueForFirmOrderValidationRule(IFinder finder)
+        public CouponIsUniqueForFirmOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
@@ -29,10 +32,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             if (!ruleContext.ValidationParams.IsMassValidation)
             {
                 long organizationUnitId;
-                predicate = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
+                predicate = GetFilterPredicateToGetLinkedOrders(_query, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
             }
 
-            var couponFails = _finder.Find(predicate)
+            var couponFails = _query.For<Order>()
+                                    .Where(predicate)
                                     .Where(x => ruleContext.ValidationParams.IsMassValidation || (firmId.HasValue && x.FirmId == firmId.Value))
                                     .SelectMany(x => x.OrderPositions)
                                     .Where(x => x.IsActive && !x.IsDeleted)

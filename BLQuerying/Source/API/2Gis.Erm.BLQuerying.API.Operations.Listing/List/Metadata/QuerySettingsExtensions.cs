@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Linq.Expressions;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 {
     public static class QuerySettingsExtensions
@@ -26,6 +28,23 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             this QuerySettings querySettings,
             string parameterName,
             Func<TParam, Expression<Func<T, bool>>> action)
+            where TParam : IConvertible
+        {
+            TParam param;
+            if (!TryGetExtendedProperty(querySettings, parameterName, out param))
+            {
+                return null;
+            }
+
+            var expression = action(param);
+            return expression;
+        }
+
+        public static FindSpecification<T> CreateForExtendedProperty<T, TParam>(
+            this QuerySettings querySettings,
+            string parameterName,
+            Func<TParam, FindSpecification<T>> action)
+            where T : class
             where TParam : IConvertible
         {
             TParam param;

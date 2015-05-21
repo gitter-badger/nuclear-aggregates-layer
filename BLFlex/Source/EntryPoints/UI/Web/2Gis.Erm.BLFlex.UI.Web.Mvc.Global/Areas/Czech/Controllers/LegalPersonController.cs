@@ -25,6 +25,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -68,7 +69,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
             }
 
             // TODO {01.02.2013}: Убрать получение DTO-объекта в агрегирующий репозиторий
-            var model = _finder.Find<LegalPerson>(x => x.Id == id)
+            var model = _finder.Find(new FindSpecification<LegalPerson>(x => x.Id == id))
             .Select(legalPerson => new CzechChangeLegalPersonRequisitesViewModel
             {
                 Id = legalPerson.Id,

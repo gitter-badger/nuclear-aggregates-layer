@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules;
@@ -15,7 +14,7 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Storage;
-using NuClear.Storage.Specifications;
+using NuClear.Storage.Core;
 
 using It = Machine.Specifications.It;
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
@@ -116,15 +115,15 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
 
             Establish context = () =>
                 {
-                    var finderMock = new Mock<IFinder>();
+                    var readDomainContextMock = new Mock<IReadDomainContext>();
+                    readDomainContextMock.Setup(x => x.GetQueryableSource<Order>()).Returns(Orders.AsQueryable());
+                    readDomainContextMock.Setup(x => x.GetQueryableSource<Firm>()).Returns(Firms.AsQueryable());
 
-                    finderMock.Setup(ld => ld.Find(Moq.It.IsAny<Expression<Func<Order, bool>>>()))
-                              .Returns((Expression<Func<Order, bool>> predicate) => Orders.Where(predicate.Compile()).AsQueryable());
-                    
-                    finderMock.Setup(ld => ld.Find(Moq.It.IsAny<FindSpecification<Order>>()))
-                              .Returns((FindSpecification<Order> predicate) => Orders.Where(predicate.Predicate.Compile()).AsQueryable());
+                    var readDomainContextProviderMock = new Mock<IReadDomainContextProvider>();
+                    readDomainContextProviderMock.Setup(x => x.Get()).Returns(readDomainContextMock.Object);
 
-                    _orderValidationRule = new IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule(finderMock.Object);
+                    var query = new Query(readDomainContextProviderMock.Object);
+                    _orderValidationRule = new IsBanerForAdvantageousPurchasesPositionCategoryLinkedWithAdvantageousPurchasesCategoryOrderValidationRule(query);
                 };
 
             Because of = () => Messages = _orderValidationRule.Validate(ValidationParams, new OrderValidationPredicate(x => true, null, null), null);

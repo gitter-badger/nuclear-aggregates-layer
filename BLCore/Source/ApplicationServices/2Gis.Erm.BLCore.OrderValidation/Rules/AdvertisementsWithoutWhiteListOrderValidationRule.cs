@@ -7,26 +7,31 @@ using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     public sealed class AdvertisementsWithoutWhiteListOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public AdvertisementsWithoutWhiteListOrderValidationRule(IFinder finder)
+        public AdvertisementsWithoutWhiteListOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
             const int AdditionalPackageDgppId = 11572; // ДгппИд элемента номенклатуры "пакет "Дополнительный"" нужен для костыля-исключения на 2+2 месяца (до Июля)
 
-            var orderInfos = _finder.Find(ruleContext.OrdersFilterPredicate).Select(x => new
+            var orderInfos = _query.For<Order>()
+                .Where(ruleContext.OrdersFilterPredicate)
+                .Select(x => new
             {
                 x.Id,
                 x.Number,

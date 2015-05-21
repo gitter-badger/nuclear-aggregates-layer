@@ -109,7 +109,7 @@
     <Compile Include="Activity\TaskReferenceType.cs" />
     <Compile Include="EFFileRepository.cs" />
     <Compile Include="EFSecureGenericRepository.cs" />
-    <Compile Include="CompositeEntityDecorator.cs" />
+    <Compile Include="CompositeEntityQuery.cs" />
     <Compile Include="MappingRegistry.cs" />
   </ItemGroup>
   <ItemGroup>

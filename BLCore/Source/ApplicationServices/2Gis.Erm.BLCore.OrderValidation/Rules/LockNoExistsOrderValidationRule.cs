@@ -4,8 +4,11 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
@@ -14,16 +17,17 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// </summary>
     public sealed class LockNoExistsOrderValidationRule : OrderValidationRuleBase<MassOverridibleValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public LockNoExistsOrderValidationRule(IFinder finder)
+        public LockNoExistsOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(MassOverridibleValidationRuleContext ruleContext)
         {
-            return _finder.Find(ruleContext.CombinedPredicate.GetCombinedPredicate())
+            return _query.For<Order>()
+                          .Where(ruleContext.CombinedPredicate.GetCombinedPredicate())
                           .Where(x => x.DestOrganizationUnitId == ruleContext.ValidationParams.OrganizationUnitId)
                           .Where(o => o.Locks.Any(l => l.IsActive && !l.IsDeleted && l.PeriodStartDate == ruleContext.ValidationParams.Period.Start
                                                         && l.PeriodEndDate == ruleContext.ValidationParams.Period.End))

@@ -37,17 +37,6 @@ namespace NuClear.Storage.Specifications
         }
 
         /// <summary>
-        /// Replaces type of argument of expression.
-        /// </summary>
-        public static Expression<Func<T2, bool>> ReplaceParameterType<T1, T2>(this Expression<Func<T1, bool>> expression)
-            where T1 : class
-            where T2 : class
-        {
-            var rebinder = new ParameterTypeRebinder<T1, T2>();
-            return rebinder.ReplaceParameters(expression);
-        }
-
-        /// <summary>
         /// Combines the first expression with the second using the specified merge function.
         /// </summary>
         private static Expression<T> Compose<T>(
@@ -89,63 +78,6 @@ namespace NuClear.Storage.Specifications
                 }
 
                 return base.VisitParameter(p);
-            }
-        }
-
-        private class ParameterTypeRebinder<T1, T2> : ExpressionVisitor
-        {
-            private readonly Dictionary<string, ParameterExpression> _parametersMapping = new Dictionary<string, ParameterExpression>();
-
-            public Expression<Func<T2, bool>> ReplaceParameters(Expression<Func<T1, bool>> exp)
-            {
-                var newParameters = exp.Parameters.Select(ConvertParameterExpression).ToArray();
-
-                return Expression.Lambda<Func<T2, bool>>(Visit(exp.Body), newParameters);
-            }
-
-            protected override Expression VisitMember(MemberExpression node)
-            {
-                var propertyInfo = node.Member as PropertyInfo;
-                if (propertyInfo != null)
-                {
-                    if (propertyInfo.PropertyType == typeof(T1))
-                    {
-                        var parameterExpression = (ParameterExpression)node.Expression;
-                        var replacementParameterExpression = _parametersMapping[parameterExpression.Name];
-
-                        var replacementPropery = typeof(T2).GetRuntimeProperty(node.Member.Name);
-                        var newNode = Expression.MakeMemberAccess(replacementParameterExpression, replacementPropery);
-                        return base.VisitMember(newNode);
-                    }
-
-                    if (node.Expression is ParameterExpression)
-                    {
-                        // Если стучимся к свойству через интерфейс (например, IEntityKey.Id)
-                        var parameterExpression = (ParameterExpression)node.Expression;
-                        ParameterExpression replacementParameterExpression;
-                        if (_parametersMapping.TryGetValue(parameterExpression.Name, out replacementParameterExpression))
-                        {
-                            // Свойство ищем на самом классе - для явно реализованных интерфейсов может и сломаться.
-                            var replacementPropery = typeof(T2).GetRuntimeProperty(node.Member.Name);
-                            var newNode = Expression.MakeMemberAccess(replacementParameterExpression, replacementPropery);
-                            return base.VisitMember(newNode);
-                        }
-                    }
-                }
-
-                return base.VisitMember(node);
-            }
-
-            private ParameterExpression ConvertParameterExpression(ParameterExpression parameterExpression)
-            {
-                if (parameterExpression.Type == typeof(T1))
-                {
-                    var newParameter = Expression.Parameter(typeof(T2), parameterExpression.Name);
-                    _parametersMapping[parameterExpression.Name] = newParameter;
-                    return newParameter;
-                }
-
-                return parameterExpression;
             }
         }
     }

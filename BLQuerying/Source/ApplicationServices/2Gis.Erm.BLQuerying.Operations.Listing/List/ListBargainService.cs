@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -90,12 +91,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         }
                         else
                         {
-                            var childClients = _finder.Find<DenormalizedClientLink>(link => link.MasterClientId == filterInfo.ClientId)
+                            var childClients = _finder.Find(new FindSpecification<DenormalizedClientLink>(link => link.MasterClientId == filterInfo.ClientId))
                                                       .Select(link => link.ChildClientId)
                                                       .ToList();
                             childClients.Add(filterInfo.ClientId);
 
-                            legalPersons = _finder.Find<LegalPerson>(person => childClients.Contains(person.ClientId.Value))
+                            legalPersons = _finder.Find(new FindSpecification<LegalPerson>(person => childClients.Contains(person.ClientId.Value)))
                                                   .Select(person => person.Id)
                                                   .ToArray();
                         }

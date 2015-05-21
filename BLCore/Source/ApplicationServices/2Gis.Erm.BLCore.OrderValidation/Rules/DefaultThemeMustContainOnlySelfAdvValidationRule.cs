@@ -30,12 +30,15 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// </summary>
     public sealed class DefaultThemeMustContainOnlySelfAdvValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
+        private readonly IQuery _query;
         private readonly IFinder _finder;
 
-        public DefaultThemeMustContainOnlySelfAdvValidationRule(IFinder finder)
+        public DefaultThemeMustContainOnlySelfAdvValidationRule(IQuery query, IFinder finder)
         {
+            _query = query;
             _finder = finder;
         }
+
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
             var defaultThemeId = ruleContext.ValidationParams.IsMassValidation
@@ -43,7 +46,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                          : GetDefaultThemeId(ruleContext.ValidationParams.Single.OrderId);
             var filterByThemeUsage = GetFilterByThemeUsagePredicate(defaultThemeId);
 
-            var existsInvalid = _finder.Find(ruleContext.OrdersFilterPredicate)
+            var existsInvalid = _query.For<Order>()
+                                      .Where(ruleContext.OrdersFilterPredicate)
                                       .Where(filterByThemeUsage)
                                       .Any(order => order.OrderType != OrderType.SelfAds);
 
@@ -55,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             var themeLabel = GetThemeDescription(ruleContext.ValidationParams.IsMassValidation, defaultThemeId);
             var orderInfo = ruleContext.ValidationParams.IsMassValidation
                                 ? null
-                                : _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)) // для не массовых проверок идентификатор присутствует
+                                : _query.For(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)) // для не массовых проверок идентификатор присутствует
                                         .Select(order => new { order.Id, order.Number })
                                         .SingleOrDefault();
             return new[]
@@ -77,9 +81,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 throw new ArgumentNullException("themeId");
             }
 
-            var name = _finder.Find(Specs.Find.ById<Theme>(themeId.Value))
-                         .Select(theme => theme.Name)
-                         .SingleOrDefault();
+            var name = _finder.FindOne(new SelectSpecification<Theme, string>(x => x.Name), Specs.Find.ById<Theme>(themeId.Value));
 
             return GenerateDescription(isMassValidation, EntityType.Instance.Theme(), name, themeId.Value);
         }
@@ -105,7 +107,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 throw new ArgumentNullException("orderId");
             }
 
-            return _finder.Find(Specs.Find.ById<Order>(orderId.Value))
+            return _query.For(Specs.Find.ById<Order>(orderId.Value))
                          .SelectMany(order => order.OrderPositions)
                          .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
                          .SelectMany(position => position.OrderPositionAdvertisements)
@@ -127,7 +129,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 throw new ArgumentNullException("period");
             }
 
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
+            return _query.For(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
                          .Where(link => link.OrganizationUnitId == organizationUnitId)
                          .Select(link => link.Theme)
                          .Where(Specs.Find.ActiveAndNotDeleted<Theme>())

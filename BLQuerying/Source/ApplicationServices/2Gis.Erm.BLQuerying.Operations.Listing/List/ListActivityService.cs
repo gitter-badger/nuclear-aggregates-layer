@@ -18,23 +18,24 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
     public sealed class ListActivityService : ListEntityDtoServiceBase<Activity, ListActivityDto>
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
-        private readonly ICompositeEntityDecorator _compositeEntityDecorator;
+        private readonly ICompositeEntityQuery _compositeEntityQuery;
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
         public ListActivityService(ISecurityServiceUserIdentifier userIdentifierService,
-                                   ICompositeEntityDecorator compositeEntityDecorator,
+                                   ICompositeEntityQuery compositeEntityQuery,
                                    IFinder finder,
                                    FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
-            _compositeEntityDecorator = compositeEntityDecorator;
+            _compositeEntityQuery = compositeEntityQuery;
             _finder = finder;
             _filterHelper = filterHelper;
         }
@@ -86,7 +87,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 }
             }
 
-            var appointments = _compositeEntityDecorator.Find(Specs.Find.Active<Appointment>());
+            var appointments = _compositeEntityQuery.For(Specs.Find.Active<Appointment>());
 
             return from appointment in appointments.Where(filter)
                 select new ListActivityDto
@@ -127,7 +128,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 }
             }
 
-            var letters = _compositeEntityDecorator.Find(Specs.Find.Active<Letter>());
+            var letters = _compositeEntityQuery.For(Specs.Find.Active<Letter>());
 
             return from letter in letters.Where(filter)
                 select new ListActivityDto
@@ -168,7 +169,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 }
             }
 
-            var phonecalls = _compositeEntityDecorator.Find(Specs.Find.Active<Phonecall>());
+            var phonecalls = _compositeEntityQuery.For(Specs.Find.Active<Phonecall>());
 
             return from phonecall in phonecalls.Where(filter)
                 select new ListActivityDto
@@ -209,7 +210,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 }
             }
 
-            var tasks = _compositeEntityDecorator.Find(Specs.Find.Active<Task>());
+            var tasks = _compositeEntityQuery.For(Specs.Find.Active<Task>());
 
             return from task in tasks.Where(filter)
                 select new ListActivityDto
@@ -240,9 +241,9 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var dealTypeId = EntityType.Instance.Deal().Id;
             if (entityName.Equals(EntityType.Instance.Client()))
             {
-                var regardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityTypeId == clientTypeId));
-                var regardingFirms = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityTypeId == firmTypeId));
-                var regardingDeals = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityTypeId == dealTypeId));
+                var regardingClients = _compositeEntityQuery.For(new FindSpecification<TEntityReference>(x => x.TargetEntityTypeId == clientTypeId));
+                var regardingFirms = _compositeEntityQuery.For(new FindSpecification<TEntityReference>(x => x.TargetEntityTypeId == firmTypeId));
+                var regardingDeals = _compositeEntityQuery.For(new FindSpecification<TEntityReference>(x => x.TargetEntityTypeId == dealTypeId));
                 var firms = _finder.Find(Specs.Find.Active<Firm>());
                 var deals = _finder.Find(Specs.Find.Active<Deal>());
 
@@ -262,7 +263,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 
             if (entityName.Equals(EntityType.Instance.Deal()) || entityName.Equals(EntityType.Instance.Firm()) || entityName.Equals(EntityType.Instance.Contact()))
             {
-                var activities = _compositeEntityDecorator.Find(ActivitySpecs.Find.ByReferencedObject<TActivity, TEntityReference>(entityName, entityId));
+                var activities = _compositeEntityQuery.For(ActivitySpecs.Find.ByReferencedObject<TActivity, TEntityReference>(entityName, entityId));
                 return activity => (from referencedEntity in activities select referencedEntity.SourceEntityId).Contains(activity.Id);
             }
 

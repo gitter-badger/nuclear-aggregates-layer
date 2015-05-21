@@ -23,6 +23,7 @@ using Newtonsoft.Json;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -79,7 +80,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
         [HttpGet]
         public JsonNetResult GetRelatedOrdersInfoForPrintJointBill(long orderId)
         {
-            var orderInfo = _secureFinder.Find<Order>(o => o.Id == orderId && o.IsActive && !o.IsDeleted).FirstOrDefault();
+            var orderInfo = _secureFinder.FindOne(new FindSpecification<Order>(o => o.Id == orderId && o.IsActive && !o.IsDeleted));
             if (orderInfo == null)
             {
                 return new JsonNetResult(null);

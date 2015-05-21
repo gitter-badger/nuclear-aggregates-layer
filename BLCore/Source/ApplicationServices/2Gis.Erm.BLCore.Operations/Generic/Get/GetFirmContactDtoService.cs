@@ -8,6 +8,7 @@ using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -22,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<FirmContact> GetDto(long entityId)
         {
-            return _finder.Find<FirmContact>(x => x.Id == entityId)
+            return _finder.Find(new FindSpecification<FirmContact>(x => x.Id == entityId))
                           .Select(entity => new FirmContactDomainEntityDto
                               {
                                   IsFirmAddressDeleted = entity.FirmAddress.IsDeleted,

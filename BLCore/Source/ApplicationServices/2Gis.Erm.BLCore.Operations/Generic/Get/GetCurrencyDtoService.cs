@@ -8,6 +8,7 @@ using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -22,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Currency> GetDto(long entityId)
         {
-            return _finder.Find<Currency>(x => x.Id == entityId)
+            return _finder.Find(new FindSpecification<Currency>(x => x.Id == entityId))
                           .Select(entity => new CurrencyDomainEntityDto
                                                 {
                                                     Id = entity.Id,

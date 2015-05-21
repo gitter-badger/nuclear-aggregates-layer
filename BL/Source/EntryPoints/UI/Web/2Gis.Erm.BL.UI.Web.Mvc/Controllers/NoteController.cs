@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
@@ -41,7 +42,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public JsonNetResult GetEntityNotes(IEntityType entityType, long entityId)
         {
             var entityTypeId = entityType.Id;
-            var data = _finder.Find<Note>(note => note.ParentType == entityTypeId && note.ParentId == entityId && note.IsDeleted == false)
+            var data = _finder.Find(new FindSpecification<Note>(note => note.ParentType == entityTypeId && note.ParentId == entityId && note.IsDeleted == false))
                               .Select(note => new
                                   {
                                       note.Id,

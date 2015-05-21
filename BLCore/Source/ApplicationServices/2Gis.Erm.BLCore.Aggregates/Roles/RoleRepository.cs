@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 {
@@ -147,7 +148,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
             {
                 var privilegeId = privilegeInfo.PrivilegeId;
 
-                var rolePrivilege = _finder.Find<RolePrivilege>(x => x.RoleId == roleId && x.PrivilegeId == privilegeId).SingleOrDefault();
+                var rolePrivilege = _finder.Find(new FindSpecification<RolePrivilege>(x => x.RoleId == roleId && x.PrivilegeId == privilegeId)).SingleOrDefault();
                 if (rolePrivilege == null)
                 {
                     if (privilegeInfo.PrivilegeDepthMask == EntityPrivilegeDepthState.None)
@@ -191,7 +192,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
             {
                 var privilegeId = privilegeInfo.PrivilegeId;
 
-                var rolePrivilege = _finder.Find<RolePrivilege>(x => x.RoleId == roleId && x.PrivilegeId == privilegeId).SingleOrDefault();
+                var rolePrivilege = _finder.Find(new FindSpecification<RolePrivilege>(x => x.RoleId == roleId && x.PrivilegeId == privilegeId)).SingleOrDefault();
                 if (rolePrivilege == null)
                 {
                     if (privilegeInfo.Mask == 0)
@@ -230,7 +231,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 
         public void CreateOrUpdate(Role role)
         {
-            var roleExists = _finder.Find<Role>(x => x.Name == role.Name && x.Id != role.Id).Any();
+            var roleExists = _finder.Find(new FindSpecification<Role>(x => x.Name == role.Name && x.Id != role.Id)).Any();
             if (roleExists)
             {
                 throw new NotificationException(BLResources.RecordAlreadyExists);
@@ -250,7 +251,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 
         public bool HasUsers(long roleId)
         {
-            var hasUsers = _finder.Find<Role>(x => x.Id == roleId).SelectMany(x => x.UserRoles).Select(x => x.User).Distinct().Any(x => x.IsActive && !x.IsDeleted);
+            var hasUsers = _finder.Find(new FindSpecification<Role>(x => x.Id == roleId)).SelectMany(x => x.UserRoles).Select(x => x.User).Distinct().Any(x => x.IsActive && !x.IsDeleted);
             return hasUsers;
         }
 

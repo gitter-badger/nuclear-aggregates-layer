@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -9,7 +8,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 using TimeZone = DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone;
 
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<OrganizationUnit> GetDto(long entityId)
         {
-            var dto = _secureFinder.Find<OrganizationUnit>(x => x.Id == entityId)
+            var dto = _secureFinder.Find(new FindSpecification<OrganizationUnit>(x => x.Id == entityId))
                                    .Select(entity => new OrganizationUnitDomainEntityDto
                                                          {
                                                              Id = entity.Id,
@@ -53,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                                          })
                                    .Single();
 
-            dto.TimeZoneRef.Name = _finder.Find<TimeZone>(tz => tz.Id == dto.TimeZoneRef.Id).Select(tz => tz.TimeZoneId).FirstOrDefault();
+            dto.TimeZoneRef.Name = _finder.Find(new FindSpecification<TimeZone>(tz => tz.Id == dto.TimeZoneRef.Id)).Select(tz => tz.TimeZoneId).FirstOrDefault();
 
             return dto;
         }

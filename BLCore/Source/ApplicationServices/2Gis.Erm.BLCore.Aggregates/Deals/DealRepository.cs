@@ -9,7 +9,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
@@ -22,6 +21,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 {
@@ -113,7 +113,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
         {
             var releaseInfoQuery = _secureQuery.For<ReleaseInfo>();
 
-            return _secureFinder.Find<Order>(x => x.DealId == dealId && !x.IsDeleted && x.IsActive)
+            return _secureFinder.Find(new FindSpecification<Order>(x => x.DealId == dealId && !x.IsDeleted && x.IsActive))
                 .Any(o => o.WorkflowStepId != OrderState.Rejected
                           && o.WorkflowStepId != OrderState.Archive
                           && !(o.WorkflowStepId == OrderState.OnTermination &&
@@ -260,7 +260,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             //    если при этом в коде вышестоящего по controlflow operationsservice не останется ничего кроме вызова разлиных aggregate service - пусть так, возможно, позднее решим избавится от необходимости создавать operationservice и aggregate service, если первый фактически ничего не делает
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Order>())
             {
-                var orders = _secureFinder.Find<Order>(x => x.DealId == entityId).ToArray();
+                var orders = _secureFinder.Find(new FindSpecification<Order>(x => x.DealId == entityId)).ToArray();
                 foreach (var order in orders)
                 {
                     order.OwnerCode = client.OwnerCode;
@@ -282,7 +282,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         public DealLegalPersonDto GetDealLegalPerson(long dealId)
         {
-            var dealInfo = _secureFinder.Find<Deal>(deal => deal.Id == dealId && !deal.IsDeleted)
+            var dealInfo = _secureFinder.Find(new FindSpecification<Deal>(deal => deal.Id == dealId && !deal.IsDeleted))
                 .Select(x => new DealLegalPersonDto
                     {
                         Id = x.Id, 

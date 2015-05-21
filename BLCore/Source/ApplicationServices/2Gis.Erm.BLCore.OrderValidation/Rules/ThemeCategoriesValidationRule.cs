@@ -18,17 +18,18 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     public sealed class ThemeCategoriesValidationRule : OrderValidationRuleBase<MassOverridibleValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public ThemeCategoriesValidationRule(IFinder finder)
+        public ThemeCategoriesValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(MassOverridibleValidationRuleContext ruleContext)
         {
             // Все тематики, использованные в заказах, которые удовлетворяют фильтру, переданному нам свыше
-            var themes = _finder.Find(ruleContext.CombinedPredicate.GetCombinedPredicate())
+            var themes = _query.For<Order>()
+                               .Where(ruleContext.CombinedPredicate.GetCombinedPredicate())
                                .SelectMany(order => order.OrderPositions)
                                .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
                                .SelectMany(position => position.OrderPositionAdvertisements)
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                .ToArray();
 
             // Линки на невалидные рубрики для тематик, использованных в заказах
-            var invalidCategories = _finder.Find<ThemeCategory>(link => !link.IsDeleted && themes.Contains(link.ThemeId))
+            var invalidCategories = _query.For(new FindSpecification<ThemeCategory>(link => !link.IsDeleted && themes.Contains(link.ThemeId)))
                           .Where(link => !link.Category.IsActive || link.Category.IsDeleted)
                           .Select(link => new { link.Theme, link.Category })
                           .ToArray();

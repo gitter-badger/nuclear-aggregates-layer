@@ -10,7 +10,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.MsCRM;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -18,20 +17,21 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using NuClear.Model.Common.Operations.Identity.Generic;
 
 using Microsoft.Crm.SdkTypeProxy;
 using Microsoft.Xrm.Client.Data.Services;
 
+using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext.Profile;
+using NuClear.Storage;
 using NuClear.Storage.Specifications;
 
 using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.OrganizationUnitDto;
+using TimeZone = DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Users
 {
@@ -350,8 +350,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public bool TryGetSingleUserOrganizationUnit(long userId, out OrganizationUnit organizationUnit)
         {
-            organizationUnit = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == userId).Select(x => x.OrganizationUnitId).Distinct().Count() == 1
-                                   ? _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == userId).Select(x => x.OrganizationUnit).First()
+            organizationUnit = _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == userId)).Select(x => x.OrganizationUnitId).Distinct().Count() == 1
+                                   ? _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == userId)).Select(x => x.OrganizationUnit).First()
                                    : null;
 
             return organizationUnit != null;
@@ -359,7 +359,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public OrganizationUnit GetFirstUserOrganizationUnit(long userId)
         {
-            var organizationUnits = _finder.Find<UserOrganizationUnit>(unit => unit.UserId == userId)
+            var organizationUnits = _finder.Find(new FindSpecification<UserOrganizationUnit>(unit => unit.UserId == userId))
                                            .Select(unit => unit.OrganizationUnitId)
                                            .ToArray();
 
@@ -369,7 +369,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public int Deactivate(OrganizationUnit organizationUnit)
         {
-            var isLinkedWithUsers = _finder.Find<UserOrganizationUnit>(x => x.OrganizationUnitId == organizationUnit.Id).Any();
+            var isLinkedWithUsers = _finder.Find(new FindSpecification<UserOrganizationUnit>(x => x.OrganizationUnitId == organizationUnit.Id)).Any();
             if (isLinkedWithUsers)
             {
                 throw new ArgumentException(BLResources.OrgUnitLinkedWithActiveUsers);
@@ -391,7 +391,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public int Deactivate(Territory territory)
         {
-            var isLinkedWithUsers = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.TerritoryId == territory.Id).Any();
+            var isLinkedWithUsers = _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.TerritoryId == territory.Id)).Any();
             if (isLinkedWithUsers)
             {
                 throw new ArgumentException(BLResources.TerritoryLinkedWithActiveUser);
@@ -495,7 +495,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public int DeleteUserRole(long userId, long roleId)
         {
-            var userRole = _finder.Find<UserRole>(x => x.UserId == userId && x.RoleId == roleId).SingleOrDefault();
+            var userRole = _finder.Find(new FindSpecification<UserRole>(x => x.UserId == userId && x.RoleId == roleId)).SingleOrDefault();
             if (userRole == null)
             {
                 throw new NotificationException(BLResources.UserRoleNotFound);
@@ -507,7 +507,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         public int DeleteUserOrganizationUnit(long userId, long organizationUnitId)
         {
             var userOrganizationUnit =
-                _finder.Find<UserOrganizationUnit>(x => x.UserId == userId && x.OrganizationUnitId == organizationUnitId).SingleOrDefault();
+                _finder.Find(new FindSpecification<UserOrganizationUnit>(x => x.UserId == userId && x.OrganizationUnitId == organizationUnitId)).SingleOrDefault();
             if (userOrganizationUnit == null)
             {
                 throw new NotificationException(BLResources.UserOrgUnitNotFound);
@@ -520,7 +520,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         {
             _userRoleGenericRepository.Delete(userRole);
 
-            var isServiceUser = _finder.Find<User>(x => x.Id == userRole.UserId).Select(x => x.IsServiceUser).Single();
+            var isServiceUser = _finder.Find(new FindSpecification<User>(x => x.Id == userRole.UserId)).Select(x => x.IsServiceUser).Single();
             if (!isServiceUser)
             {
                 DeleteRoleFromCrm(userRole);
@@ -596,7 +596,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public void CreateOrUpdate(User user)
         {
-            var userExist = _finder.Find<User>(x => x.Account == user.Account && x.Id != user.Id).Any();
+            var userExist = _finder.Find(new FindSpecification<User>(x => x.Account == user.Account && x.Id != user.Id)).Any();
             if (userExist)
             {
                 throw new ArgumentException(BLResources.UserAlreadyExists);
@@ -633,7 +633,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public void CreateOrUpdate(Department department)
         {
-            var departmentExist = _finder.Find<Department>(x => x.Name == department.Name && x.Id != department.Id && x.IsActive && !x.IsDeleted).Any();
+            var departmentExist = _finder.Find(new FindSpecification<Department>(x => x.Name == department.Name && x.Id != department.Id && x.IsActive && !x.IsDeleted)).Any();
             if (departmentExist)
             {
                 throw new ArgumentException(BLResources.RecordAlreadyExists);
@@ -641,7 +641,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
             if (department.ParentId == null)
             {
-                var departmentRootExist = _finder.Find<Department>(x => x.ParentId == null && x.Id != department.Id && x.IsActive && !x.IsDeleted).Any();
+                var departmentRootExist = _finder.Find(new FindSpecification<Department>(x => x.ParentId == null && x.Id != department.Id && x.IsActive && !x.IsDeleted)).Any();
                 if (departmentRootExist)
                 {
                     throw new ArgumentException(BLResources.EditDepartmentSingleParentlessError);
@@ -683,7 +683,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public UserProfileDto[] GetAllUserProfiles()
         {
-            return _finder.Find<User>(x => true)
+            return _finder.Find(new FindSpecification<User>(x => true))
                 .OrderBy(x => x.ModifiedOn)
                 .Select(x => new UserProfileDto
                 {
@@ -721,7 +721,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public LocaleInfo GetUserLocaleInfo(long userCode)
         {
-            var userProfileDto = _finder.Find<User>(x => x.Id == userCode).SelectMany(x => x.UserProfiles).Select(x => new
+            var userProfileDto = _finder.Find(new FindSpecification<User>(x => x.Id == userCode)).SelectMany(x => x.UserProfiles).Select(x => new
             {
                 x.CultureInfoLCID,
                 x.TimeZone.TimeZoneId,
@@ -745,7 +745,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public bool IsUserLinkedWithOrganizationUnit(long userId, long organizationUnitId)
         {
-            return _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == userId && x.OrganizationUnitId == organizationUnitId).Any();
+            return _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == userId && x.OrganizationUnitId == organizationUnitId)).Any();
         }
 
         public OrganizationUnitDto GetSingleOrDefaultOrganizationUnit(long userId)
@@ -875,12 +875,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public Territory GetTerritory(long territoryId)
         {
-            return _finder.Find<Territory>(x => territoryId == x.Id).SingleOrDefault();
+            return _finder.Find(new FindSpecification<Territory>(x => territoryId == x.Id)).SingleOrDefault();
         }
 
         public IEnumerable<User> GetUsersByTerritory(long territoryId)
         {
-            return _finder.Find<User>(x => x.UserTerritories.Any(y => y.TerritoryId == territoryId)).ToArray();
+            return _finder.Find(new FindSpecification<User>(x => x.UserTerritories.Any(y => y.TerritoryId == territoryId))).ToArray();
         }
 
         public IEnumerable<User> GetUsersByOrganizationUnit(long organizationUnitId)
@@ -914,7 +914,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public IEnumerable<long> GetAllTerritoryIds()
         {
-            return _finder.Find<Territory>(territory => territory.IsActive)
+            return _finder.Find(new FindSpecification<Territory>(territory => territory.IsActive))
                 .Select(territory => territory.Id)
                 .ToArray();
         }
@@ -926,7 +926,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<ChangeTerritoryIdentity, User>())
             {
                 // Все существующие ссылки на старую территорию удаляем
-                var linksToRemove = _finder.Find<UserTerritory>(link => userIds.Contains(link.UserId) && link.TerritoryId == oldTerritoryId).ToArray();
+                var linksToRemove = _finder.Find(new FindSpecification<UserTerritory>(link => userIds.Contains(link.UserId) && link.TerritoryId == oldTerritoryId)).ToArray();
                 foreach (var userTerritory in linksToRemove)
                 {
                     _userTerritoryGenericRepository.Delete(userTerritory);
@@ -934,7 +934,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 }
 
                 // Новые ссылки добавляем только тем, у кого этоё территории не было
-                var usersHavingNewTerritory = _finder.Find<UserTerritory>(link => userIds.Contains(link.UserId) && link.TerritoryId == newTerritoryId)
+                var usersHavingNewTerritory = _finder.Find(new FindSpecification<UserTerritory>(link => userIds.Contains(link.UserId) && link.TerritoryId == newTerritoryId))
                                                      .Select(territory => territory.UserId)
                                                      .ToArray();
                 var usersNeedNewTerritory = userIds.Except(usersHavingNewTerritory).ToArray();
@@ -958,7 +958,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public void CreateOrUpdate(OrganizationUnit organizationUnit)
         {
-            var dgppIdNotUnique = _finder.Find<OrganizationUnit>(x => x.DgppId == organizationUnit.DgppId && x.Id != organizationUnit.Id).Any();
+            var dgppIdNotUnique = _finder.Find(new FindSpecification<OrganizationUnit>(x => x.DgppId == organizationUnit.DgppId && x.Id != organizationUnit.Id)).Any();
             if (dgppIdNotUnique)
             {
                 throw new NotificationException(string.Format(CultureInfo.CurrentCulture, BLResources.OrganizationUnitNonUniqueDgppId, organizationUnit.DgppId));
@@ -1031,7 +1031,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         private string GetCrmRoleName(UserRole userRole)
         {
-            var crmRoleName = _finder.Find<Role>(x => x.Id == userRole.RoleId).Select(x => x.Name).FirstOrDefault();
+            var crmRoleName = _finder.Find(new FindSpecification<Role>(x => x.Id == userRole.RoleId)).Select(x => x.Name).FirstOrDefault();
             if (crmRoleName == null)
             {
                 throw new ArgumentException(BLResources.RoleNotMappedToCRMRole);
@@ -1072,9 +1072,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         private string GetUserTimeZoneHeuristic(long userCode)
         {
-            var organizationUnits = _finder.Find<OrganizationUnit>(x => x.IsActive && !x.IsDeleted).Select(x => new { x.Name, x.TimeZoneId }).ToArray();
+            var organizationUnits = _finder.Find(new FindSpecification<OrganizationUnit>(x => x.IsActive && !x.IsDeleted)).Select(x => new { x.Name, x.TimeZoneId }).ToArray();
 
-            var timezones = _query.For<DoubleGis.Erm.Platform.Model.Entities.Security.TimeZone>().ToArray();
+            var timezones = _query.For<TimeZone>().ToArray();
             var organizationUnitimeZones = organizationUnits.Join(
                 timezones,
                 x => x.TimeZoneId,

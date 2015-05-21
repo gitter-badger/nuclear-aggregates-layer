@@ -8,11 +8,13 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.API.Core;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
 {
@@ -29,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
 
         public IEnumerable<ReleaseProcessingMessage> GetReleaseValidationResults(long releaseInfoId)
         {
-            return _finder.Find<ReleaseValidationResult>(x => x.ReleaseInfoId == releaseInfoId)
+            return _finder.Find(new FindSpecification<ReleaseValidationResult>(x => x.ReleaseInfoId == releaseInfoId))
                 .OrderBy(x => x.IsBlocking)
                 .ThenBy(x => x.IsBlocking)
                 .Select(x => new ReleaseProcessingMessage
@@ -45,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
         public Dictionary<long, ValidationReportLine> GetOrderValidationLines(IEnumerable<long> orderIds)
         {
             var userInfos = _query.For<User>().Select(user => new { user.Id, user.DisplayName }).ToArray();
-            var orderInfos = _finder.Find<Order>(o => orderIds.Contains(o.Id))
+            var orderInfos = _finder.Find(new FindSpecification<Order>(o => orderIds.Contains(o.Id)))
                 .Select(o => new
                 {
                     Id = o.Id,
@@ -137,7 +139,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             }
             else
             {
-                organizationUnitQuery = _finder.Find<OrganizationUnit>(x => x.Id == organizationUnitId);
+                organizationUnitQuery = _finder.Find(new FindSpecification<OrganizationUnit>(x => x.Id == organizationUnitId));
             }
 
             var hasSuccessedRelease = organizationUnitQuery.SelectMany(x => x.ReleaseInfos)

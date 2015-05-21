@@ -20,6 +20,7 @@ using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
 {
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
             var userCultureInfo = _userContext.Profile.UserLocaleInfo.UserCultureInfo;
             var metadata = _metadataProvider.GetOperationMetadata<ActionHistoryMetadata, ActionHistoryIdentity>(entityName);
             var entityTypeId = entityName.Id;
-            var actionsInfo = _finder.Find<ActionsHistory>(x => x.EntityType == entityTypeId && x.EntityId == entityId)
+            var actionsInfo = _finder.Find(new FindSpecification<ActionsHistory>(x => x.EntityType == entityTypeId && x.EntityId == entityId))
                                      .OrderByDescending(x => x.Id)
                                      .Select(item => new
                                      {

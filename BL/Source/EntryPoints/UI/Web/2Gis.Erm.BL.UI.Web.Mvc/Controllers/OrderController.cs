@@ -31,7 +31,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -44,7 +43,9 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.ViewModels;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -158,7 +159,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 return new JsonNetResult();
             }
 
-            var currencyInfo = _secureFinder.Find<OrganizationUnit>(x => !x.IsDeleted && x.IsActive && x.Id == organizationUnitid.Value)
+            var currencyInfo = _secureFinder.Find(new FindSpecification<OrganizationUnit>(x => !x.IsDeleted && x.IsActive && x.Id == organizationUnitid.Value))
                                             .Select(x => new { x.Country.Currency.Id, x.Country.Currency.Name }).FirstOrDefault();
 
             return (currencyInfo == null)
@@ -173,10 +174,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 return new JsonNetResult();
             }
 
-            var beginDistributionDate = _secureFinder.Find<Order>(o => o.Id == orderId.Value).Select(o => o.BeginDistributionDate).FirstOrDefault();
+            var beginDistributionDate = _secureFinder.Find(new FindSpecification<Order>(o => o.Id == orderId.Value)).Select(o => o.BeginDistributionDate).FirstOrDefault();
 
             var hasDestOrganizationUnitPublishedPrice =
-                _secureFinder.Find<OrganizationUnit>(ou => ou.Id == orgUnitId.Value)
+                _secureFinder.Find(new FindSpecification<OrganizationUnit>(ou => ou.Id == orgUnitId.Value))
                              .Any(ou =>
                                   ou.Prices.Any(price => price.IsPublished && price.IsActive && !price.IsDeleted && price.BeginDate <= beginDistributionDate));
 
@@ -203,7 +204,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         [HttpGet]
         public JsonNetResult GetOrderAggregateInCurrentState(long id)
         {
-            var orderAggregate = _secureFinder.Find<Order>(x => x.Id == id)
+            var orderAggregate = _secureFinder.Find(new FindSpecification<Order>(x => x.Id == id))
                                               .Select(x => new
                                                   {
                                                       Order = x,
@@ -540,7 +541,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
             var model = new ChangeOrderDealViewModel();
             if (orderId != 0)
             {
-                var dealInfo = _secureFinder.Find<Order>(x => x.Id == orderId)
+                var dealInfo = _secureFinder.Find(new FindSpecification<Order>(x => x.Id == orderId))
                                             .Select(x => new { Id = (long?)x.Deal.Id, x.Deal.Name })
                                             .SingleOrDefault();
                 if (dealInfo != null)
@@ -621,7 +622,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         // FIXME {all, 08.11.2013}: данное УГ приехало из 1.0 выполнен формальный рефакторинг Handler->OperationService, при рефакторинге необходимо было реализовать данную операцию через WCF сервис Operations, js будет взаимодействовать непорседственно с ним - необходимость в данном методе отпадет
         public ActionResult RepairOutdatedOrderPositions(long orderId)
         {
-            var orderInfo = _secureFinder.Find<Order>(order => order.Id == orderId).FirstOrDefault();
+            var orderInfo = _secureFinder.Find(new FindSpecification<Order>(order => order.Id == orderId)).FirstOrDefault();
 
             if (orderInfo == null)
             {
@@ -657,7 +658,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
                     // На расторжении
                 case OrderState.OnTermination:
-                    var terminationInfo = _secureFinder.Find<Order>(x => x.Id == orderId).Select(x => new { x.TerminationReason, x.Comment }).Single();
+                    var terminationInfo = _secureFinder.Find(new FindSpecification<Order>(x => x.Id == orderId)).Select(x => new { x.TerminationReason, x.Comment }).Single();
                     return View("ChangeStateOnTermination",
                                 new ChangeOrderStateOnTerminationViewModel
                                     {

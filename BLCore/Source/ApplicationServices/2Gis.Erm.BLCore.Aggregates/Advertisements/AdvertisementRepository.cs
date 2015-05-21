@@ -15,14 +15,15 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
-
-using NuClear.Security.API.UserContext;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 {
@@ -76,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         {
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Advertisement>())
             {
-                var hasOrderPositions = _finder.Find<Advertisement>(x => x.Id == entity.Id)
+                var hasOrderPositions = _finder.Find(new FindSpecification<Advertisement>(x => x.Id == entity.Id))
                                                .SelectMany(x => x.OrderPositionAdvertisements)
                                                .Select(x => x.OrderPosition)
                                                .Any(x => !x.IsDeleted);
@@ -107,7 +108,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         {
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, AdvertisementTemplate>())
             {
-                var validations = _finder.Find<AdvertisementTemplate>(x => x.Id == entity.Id)
+                var validations = _finder.Find(new FindSpecification<AdvertisementTemplate>(x => x.Id == entity.Id))
                                          .Select(x => new
                                              {
                                                  HasNotDeletedAdvertisements = x.Advertisements.Any(y => !y.IsDeleted && y.FirmId != null),
@@ -163,7 +164,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             int deletedCount;
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, AdvertisementElementTemplate>())
             {
-                var validations = _finder.Find<AdvertisementElementTemplate>(x => x.Id == entity.Id)
+                var validations = _finder.Find(new FindSpecification<AdvertisementElementTemplate>(x => x.Id == entity.Id))
                                          .Select(x => new
                                              {
                                                  HasNotDeletedAdvertisementTemplates = x.AdsTemplatesAdsElementTemplates.Any(y => !y.IsDeleted),
@@ -247,7 +248,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public Advertisement GetSelectedToWhiteListAdvertisement(long firmId)
         {
-            return _finder.Find<Advertisement>(x => x.FirmId == firmId && !x.IsDeleted && x.IsSelectedToWhiteList).SingleOrDefault();
+            return _finder.Find(new FindSpecification<Advertisement>(x => x.FirmId == firmId && !x.IsDeleted && x.IsSelectedToWhiteList)).SingleOrDefault();
         }
 
         public void CreateOrUpdate(AdvertisementTemplate advertisementTemplate)
@@ -346,7 +347,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public void AddAdvertisementsElementsFromTemplate(AdsTemplatesAdsElementTemplate adsTemplatesAdsElementTemplate)
         {
-            var advertisements = _finder.Find<Advertisement>(x => x.AdvertisementTemplateId == adsTemplatesAdsElementTemplate.AdsTemplateId && !x.IsDeleted).ToArray();
+            var advertisements = _finder.Find(new FindSpecification<Advertisement>(x => x.AdvertisementTemplateId == adsTemplatesAdsElementTemplate.AdsTemplateId && !x.IsDeleted)).ToArray();
             var dummyAdvertisementElement = _finder.Find<AdvertisementElement>(
                 x => !x.IsDeleted && !x.Advertisement.IsDeleted && x.AdvertisementElementTemplateId == adsTemplatesAdsElementTemplate.AdsElementTemplateId && x.Advertisement.FirmId == null)
                                                    .FirstOrDefault();
@@ -421,7 +422,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             // проверка, что нет другого рекламного материала в белый список для данной фирмы
             if (advertisement.IsSelectedToWhiteList)
             {
-                var otherWhiteListedAdName = _finder.Find<Firm>(x => x.Id == advertisement.FirmId)
+                var otherWhiteListedAdName = _finder.Find(new FindSpecification<Firm>(x => x.Id == advertisement.FirmId))
                     .SelectMany(x => x.Advertisements)
                     .Where(x => !x.IsDeleted && x.Id != advertisement.Id && x.IsSelectedToWhiteList)
                         .Select(x => x.Name)
@@ -512,7 +513,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public void SelectToWhiteList(long firmId, long advertisementId)
         {
-            var dto = _finder.Find<Firm>(x => x.Id == firmId).Select(x => new
+            var dto = _finder.Find(new FindSpecification<Firm>(x => x.Id == firmId)).Select(x => new
             {
                 Advertisements = x.Advertisements.Where(y => !y.IsDeleted),
             }).Select(x => new
@@ -552,7 +553,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         {
             var hasUserPrivilegeToVerifyAdvertisementElement =
                 _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementVerification, _userContext.Identity.Code);
-            var advertisementBag = _finder.Find<Advertisement>(x => x.Id == advertisementId)
+            var advertisementBag = _finder.Find(new FindSpecification<Advertisement>(x => x.Id == advertisementId))
                                           .SelectMany(x => x.AdvertisementElements)
                                           .Where(x => x.IsDeleted == x.Advertisement.IsDeleted)
                                           .Select(x => new
@@ -606,7 +607,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public AdvertisementTemplateIdNameDto GetAdvertisementTemplate(long advertisementId)
         {
-            return _finder.Find<AdvertisementTemplate>(item => item.Id == advertisementId)
+            return _finder.Find(new FindSpecification<AdvertisementTemplate>(item => item.Id == advertisementId))
                                                                 .Select(item => new AdvertisementTemplateIdNameDto
                                                                     {
                                                                         Id = item.Id,

@@ -88,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
             {
                 using (var scope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Platform.Model.Entities.Erm.Currency>())
                 {
-                _currencyGenericRepository.Update(currency);
+                    _currencyGenericRepository.Update(currency);
                     scope.Updated<Platform.Model.Entities.Erm.Currency>(currency.Id);
                     _currencyGenericRepository.Save();
 

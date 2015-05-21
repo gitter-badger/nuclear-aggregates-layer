@@ -5,9 +5,12 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
@@ -16,16 +19,17 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// </summary>
     public sealed class IsPositionSupportedByExportOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public IsPositionSupportedByExportOrderValidationRule(IFinder finder)
+        public IsPositionSupportedByExportOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            return _finder.Find(ruleContext.OrdersFilterPredicate)
+            return _query.For<Order>()
+                          .Where(ruleContext.OrdersFilterPredicate)
                           .SelectMany(x => x.OrderPositions)
                           .Where(y => y.IsActive && !y.IsDeleted)
                           .SelectMany(x => x.OrderPositionAdvertisements)

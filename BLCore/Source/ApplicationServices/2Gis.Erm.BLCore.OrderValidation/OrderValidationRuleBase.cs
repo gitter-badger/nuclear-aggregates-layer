@@ -57,14 +57,14 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
             return isMassValidation ? description : string.Format("<{0}:{1}:{2}>", entityName.Description, description, entityId);
         }
 
-        protected Expression<Func<Order, bool>> GetFilterPredicateToGetLinkedOrders(IFinder finder, long orderId, out long organizationUnitId, out long? firmId)
+        protected Expression<Func<Order, bool>> GetFilterPredicateToGetLinkedOrders(IQuery query, long orderId, out long organizationUnitId, out long? firmId)
         {
             if (orderId == 0)
             {
                 throw new ArgumentNullException("orderId");
             }
 
-            var orderInfo = finder.Find(Specs.Find.ById<Order>(orderId))
+            var orderInfo = query.For(Specs.Find.ById<Order>(orderId))
                                   .Select(item => new 
                                       {
                                             item.BeginReleaseNumber,

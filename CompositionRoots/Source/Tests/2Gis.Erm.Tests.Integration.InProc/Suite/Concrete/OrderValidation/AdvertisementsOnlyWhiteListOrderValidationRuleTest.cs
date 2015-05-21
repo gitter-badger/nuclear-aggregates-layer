@@ -14,16 +14,16 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.OrderValidation
     [UseCase(Duration = UseCaseDuration.ExtraLong)]
     public sealed class AdvertisementsOnlyWhiteListOrderValidationRuleTest : IIntegrationTest
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly IOrderValidationPredicateFactory _orderValidationPredicateFactory;
         private readonly IUseCaseTuner _useCaseTuner;
 
         public AdvertisementsOnlyWhiteListOrderValidationRuleTest(
-            IFinder finder, 
+            IQuery query, 
             IOrderValidationPredicateFactory orderValidationPredicateFactory,
             IUseCaseTuner useCaseTuner)
         {
-            _finder = finder;
+            _query = query;
             _orderValidationPredicateFactory = orderValidationPredicateFactory;
             _useCaseTuner = useCaseTuner;
         }
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.OrderValidation
 
             var combinedPredicate = _orderValidationPredicateFactory.CreatePredicate(validationParams);
 
-            IOrderValidationRule rule = new AdvertisementsOnlyWhiteListOrderValidationRule(_finder);
+            IOrderValidationRule rule = new AdvertisementsOnlyWhiteListOrderValidationRule(_query);
             var ruleMessages = rule.Validate(validationParams, combinedPredicate, null);
 
             return OrdinaryTestResult.As.Succeeded;

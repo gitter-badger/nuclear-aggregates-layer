@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -12,6 +10,5 @@ namespace DoubleGis.Erm.Platform.DAL
     {
         IQueryable<FileWithContent> Find(FindSpecification<FileWithContent> findSpecification);
         IQueryable<TOutput> Find<TOutput>(SelectSpecification<FileWithContent, TOutput> selectSpecification, FindSpecification<FileWithContent> findSpecification);
-        IQueryable<FileWithContent> Find(Expression<Func<FileWithContent, bool>> expression);
     }
 }

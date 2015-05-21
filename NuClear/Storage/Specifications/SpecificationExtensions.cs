@@ -21,6 +21,11 @@ namespace NuClear.Storage.Specifications
         {
             return source.Where(specification.Predicate);
         }
+
+        public static IQueryable<T2> Select<T1, T2>(this IQueryable<T1> source, SelectSpecification<T1, T2> specification) where T1 : class
+        {
+            return source.Select(specification.Selector);
+        }
         
         public static long ExtractEntityId<TEntity>(this FindSpecification<TEntity> findSpecification) where TEntity : class
         {
@@ -85,6 +90,14 @@ namespace NuClear.Storage.Specifications
             return Expression.Lambda<Func<IEnumerable<long>>>(idCollection).Compile().Invoke().ToArray();
         }
 
+        public static FindSpecification<T2> ReplaceType<T1, T2>(this FindSpecification<T1> expression)
+            where T1 : class
+            where T2 : class
+        {
+            var rebinder = new ParameterTypeRebinder<T1, T2>();
+            return new FindSpecification<T2>(rebinder.ReplaceParameters(expression.Predicate));
+        }
+
         private static bool IsPropertyIdAccess(Expression expression)
         {
             var member = expression as MemberExpression;
@@ -108,6 +121,63 @@ namespace NuClear.Storage.Specifications
             }
 
             return arguments[0];
+        }
+
+        private class ParameterTypeRebinder<T1, T2> : ExpressionVisitor
+        {
+            private readonly Dictionary<string, ParameterExpression> _parametersMapping = new Dictionary<string, ParameterExpression>();
+
+            public Expression<Func<T2, bool>> ReplaceParameters(Expression<Func<T1, bool>> exp)
+            {
+                var newParameters = exp.Parameters.Select(ConvertParameterExpression).ToArray();
+
+                return Expression.Lambda<Func<T2, bool>>(Visit(exp.Body), newParameters);
+            }
+
+            protected override Expression VisitMember(MemberExpression node)
+            {
+                var propertyInfo = node.Member as PropertyInfo;
+                if (propertyInfo != null)
+                {
+                    if (propertyInfo.PropertyType == typeof(T1))
+                    {
+                        var parameterExpression = (ParameterExpression)node.Expression;
+                        var replacementParameterExpression = _parametersMapping[parameterExpression.Name];
+
+                        var replacementPropery = typeof(T2).GetRuntimeProperty(node.Member.Name);
+                        var newNode = Expression.MakeMemberAccess(replacementParameterExpression, replacementPropery);
+                        return base.VisitMember(newNode);
+                    }
+
+                    if (node.Expression is ParameterExpression)
+                    {
+                        // Если стучимся к свойству через интерфейс (например, IEntityKey.Id)
+                        var parameterExpression = (ParameterExpression)node.Expression;
+                        ParameterExpression replacementParameterExpression;
+                        if (_parametersMapping.TryGetValue(parameterExpression.Name, out replacementParameterExpression))
+                        {
+                            // Свойство ищем на самом классе - для явно реализованных интерфейсов может и сломаться.
+                            var replacementPropery = typeof(T2).GetRuntimeProperty(node.Member.Name);
+                            var newNode = Expression.MakeMemberAccess(replacementParameterExpression, replacementPropery);
+                            return base.VisitMember(newNode);
+                        }
+                    }
+                }
+
+                return base.VisitMember(node);
+            }
+
+            private ParameterExpression ConvertParameterExpression(ParameterExpression parameterExpression)
+            {
+                if (parameterExpression.Type == typeof(T1))
+                {
+                    var newParameter = Expression.Parameter(typeof(T2), parameterExpression.Name);
+                    _parametersMapping[parameterExpression.Name] = newParameter;
+                    return newParameter;
+                }
+
+                return parameterExpression;
+            }
         }
     }
 }

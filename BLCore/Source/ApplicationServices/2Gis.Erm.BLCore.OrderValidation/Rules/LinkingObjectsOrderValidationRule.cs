@@ -20,11 +20,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     public sealed class LinkingObjectsOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public LinkingObjectsOrderValidationRule(IFinder finder)
+        public LinkingObjectsOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
@@ -38,7 +38,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         private void CheckForAddressFails(bool isMassValidation, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> results)
         {
-            var orderInfos = _finder.Find(filterPredicate)
+            var orderInfos = _query.For<Order>()
+                .Where(filterPredicate)
                 .Select(order => new
                     {
                         OrderId = order.Id,
@@ -124,7 +125,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         private void CheckForCategoryFails(bool isMassValidation, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> results)
         {
-            var categoryFails = _finder.Find(filterPredicate)
+            var categoryFails = _query.For<Order>()
+                .Where(filterPredicate)
                 .Select(x => new
                     {
                         OrderId = x.Id,
@@ -202,7 +204,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         private void CheckForAddressCategoryFails(bool isMassValidation, Expression<Func<Order, bool>> filterPredicate, IList<OrderValidationMessage> results)
         {
-            var orderInfos = _finder.Find(filterPredicate)
+            var orderInfos = _query.For<Order>()
+                .Where(filterPredicate)
                 .Select(order => new
                     {
                         OrderId = order.Id,

@@ -5,10 +5,10 @@ using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
@@ -119,7 +119,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
 
         public IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode)
         {
-            var organizationUnitIds = _finder.Find<Project>(project => project.Id == projectCode && project.OrganizationUnitId.HasValue)
+            var organizationUnitIds = _finder.Find(new FindSpecification<Project>(project => project.Id == projectCode && project.OrganizationUnitId.HasValue))
                                             .Select(project => project.OrganizationUnitId.Value)
                                             .ToArray();
             return organizationUnitIds;

@@ -5,23 +5,27 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     public sealed class WarrantyEndDateOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public WarrantyEndDateOrderValidationRule(IFinder finder)
+        public WarrantyEndDateOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var badOrders = _finder.Find(ruleContext.OrdersFilterPredicate)
+            var badOrders = _query.For<Order>()
+                       .Where(ruleContext.OrdersFilterPredicate)
                        .Select(x => new
                            {
                                Order = x,
@@ -39,12 +43,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             return from orderInfo in badOrders
                    from profileName in orderInfo.ProfileNames
                    select new OrderValidationMessage
-                        {
-                            Type = MessageType.Info,
-                            OrderId = orderInfo.Order.Id,
-                            OrderNumber = orderInfo.Order.Number,
-                            MessageText = string.Format(BLResources.ProfileWarrantyEndDateIsLessThanSignDate, profileName)
-                              };
+                       {
+                           Type = MessageType.Info,
+                           OrderId = orderInfo.Order.Id,
+                           OrderNumber = orderInfo.Order.Number,
+                           MessageText = string.Format(BLResources.ProfileWarrantyEndDateIsLessThanSignDate, profileName)
+                       };
         }
     }
 }

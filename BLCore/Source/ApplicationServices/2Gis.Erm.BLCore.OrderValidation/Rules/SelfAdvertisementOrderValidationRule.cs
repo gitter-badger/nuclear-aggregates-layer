@@ -5,8 +5,11 @@ using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
@@ -16,11 +19,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         private const int SelfAdvertisementPositionCategoryId = 287;
         private static readonly long[] ValidPositionPlatforms = { (long)PlatformEnum.Desktop, (long)PlatformEnum.Independent };
 
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public SelfAdvertisementOrderValidationRule(IFinder finder)
+        public SelfAdvertisementOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
@@ -30,10 +33,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             if (!ruleContext.ValidationParams.IsMassValidation)
             {
                 long organizationUnitId;
-                predicate = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
+                predicate = GetFilterPredicateToGetLinkedOrders(_query, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
             }
 
-            var orderGroupsToVerify = _finder.Find(predicate)
+            var orderGroupsToVerify = _query.For<Order>()
+                                        .Where(predicate)
                                         .Where(x => !firmId.HasValue || x.FirmId == firmId.Value)
                                         .GroupBy(x => x.FirmId,
                                                  x => new

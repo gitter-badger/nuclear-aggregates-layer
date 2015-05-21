@@ -12,6 +12,7 @@ using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         public IDomainEntityDto GetDomainEntityDto(long entityId, bool readOnly, long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
-            var dto = _finder.Find<UserProfile>(x => (entityId != 0 && x.Id == entityId) || (parentEntityId.HasValue && x.UserId == parentEntityId))
+            var dto = _finder.Find(new FindSpecification<UserProfile>(x => (entityId != 0 && x.Id == entityId) || (parentEntityId.HasValue && x.UserId == parentEntityId)))
                              .Select(entity => new UserProfileDomainEntityDto
                              {
                                  Id = entity.Id,

@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                      params FindSpecification<TEntity>[] filterSpecifications)
         {
             var query = queryBuilder.Create(filterSpecifications);
-            return query.Select(selectSpecification.Selector).ToArray();
+            return query.Select(selectSpecification).ToArray();
         }
     }
 }

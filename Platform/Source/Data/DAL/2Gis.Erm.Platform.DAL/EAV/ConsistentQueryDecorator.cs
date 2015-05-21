@@ -3,6 +3,7 @@ using System.Linq;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {
@@ -24,6 +25,11 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
         {
             return _query.For<TEntity>().ValidateQueryCorrectness();
+        }
+
+        public IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        {
+            return _query.For(findSpecification).ValidateQueryCorrectness();
         }
     }
 }

@@ -7,9 +7,11 @@ using System.Reflection;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 {
@@ -37,7 +39,12 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
         public IQueryable<TEntity> Filter<TEntity>(IQueryable<TEntity> query, params Expression<Func<TEntity, bool>>[] expressions)
         {
             return expressions.Where(x => x != null).Aggregate(query, (x, y) => x.Where(y));
-            }
+        }
+
+        public IQueryable<TEntity> Filter<TEntity>(IQueryable<TEntity> query, params FindSpecification<TEntity>[] specifications) where TEntity : class
+        {
+            return specifications.Where(x => x != null).Aggregate(query, (x, y) => x.Where(y));
+        }
 
         public IQueryable<TEntity> ForSubordinates<TEntity>(IQueryable<TEntity> queryable)
         {

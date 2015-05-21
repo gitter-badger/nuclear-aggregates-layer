@@ -5,11 +5,13 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Georgaphy;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
@@ -51,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 
         private void ProcessActiveTerritory(SaleTerritoryServiceBusDto saleTerritoryDto, IDictionary<int, long> dgppToErmIds)
         {
-            var territory = _finder.Find<Territory>(t => t.Id == saleTerritoryDto.Code).SingleOrDefault() ??
+            var territory = _finder.Find(new FindSpecification<Territory>(t => t.Id == saleTerritoryDto.Code)).SingleOrDefault() ??
                             new Territory { Id = saleTerritoryDto.Code };
 
             long organizationUnitId;
@@ -91,7 +93,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
         //                          т.е. логичным выглядит изменить поток географий, также есть предложение убрать сервис деактивации терриорий из public API ERM - эта операция должна выполняться только в случае импорта 
         private void ProcessDeletedTerritory(SaleTerritoryServiceBusDto saleTerritoryDto)
         {
-            var territory = _finder.Find<Territory>(t => t.Id == saleTerritoryDto.Code).SingleOrDefault();
+            var territory = _finder.Find(new FindSpecification<Territory>(t => t.Id == saleTerritoryDto.Code)).SingleOrDefault();
             if (territory == null)
             {
                 return;

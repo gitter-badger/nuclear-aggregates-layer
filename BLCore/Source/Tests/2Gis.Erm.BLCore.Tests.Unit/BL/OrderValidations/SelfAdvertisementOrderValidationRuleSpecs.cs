@@ -16,6 +16,7 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
 
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                     ValidationParams = new MassOrdersValidationParams(Guid.NewGuid(), ValidationType.PreReleaseBeta);
                     Predicate = new OrderValidationPredicate(order => true, order => true, order => true);
 
-                    Target = new SelfAdvertisementOrderValidationRule(Finder);
+                    Target = new SelfAdvertisementOrderValidationRule(Mock.Of<IQuery>());
                 }; 
             
             private Because of = () => ValidationMessages = ((IOrderValidationRule)Target).Validate(ValidationParams, Predicate, null);
@@ -137,8 +138,8 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
                 };
 
                 Mock.Get(Finder)
-                    .Setup(x => x.Find(Moq.It.IsAny<Expression<Func<Order, bool>>>()))
-                    .Returns<Expression<Func<Order, bool>>>(x => new[] { Order, Order_2 }.AsQueryable());
+                    .Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Order>>()))
+                    .Returns(new[] { Order, Order_2 }.AsQueryable());
             };
         }
 

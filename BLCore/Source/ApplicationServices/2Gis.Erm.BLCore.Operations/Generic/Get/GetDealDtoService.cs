@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -10,6 +9,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Deal> GetDto(long entityId)
         {
-            var modelDto = _finder.Find<Deal>(x => x.Id == entityId)
+            var modelDto = _finder.Find(new FindSpecification<Deal>(x => x.Id == entityId))
                                   .Select(entity => new DealDomainEntityDto
                                       {
                                           Id = entity.Id,
@@ -72,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var currencyId = _currencyService.GetBaseCurrency().Id;
 
             var dto = parentEntityName.Equals(EntityType.Instance.Client())
-                          ? _finder.Find<Client>(x => x.Id == parentEntityId)
+                          ? _finder.Find(new FindSpecification<Client>(x => x.Id == parentEntityId))
                                    .Select(x => new DealDomainEntityDto
                                        {
                                            ClientRef = new EntityReference { Id = x.Id, Name = x.Name },

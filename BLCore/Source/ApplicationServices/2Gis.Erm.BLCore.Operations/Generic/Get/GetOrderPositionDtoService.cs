@@ -6,7 +6,6 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -15,6 +14,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 // COMMENT {d.ivanov, 03.06.2014}: По-хорошему - эта штука должна лежать в BLFlex, и еще много чего должно быть зафлексино касательно позиции заказа. 
 // C учетом компромисса, на который мы пошли, этот сервис будет лежать в Core и мы обойдемся только разными вариантами вьюх и тем, что Ндс в Dubai будет = 0.
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<OrderPosition> GetDto(long entityId)
         {
-            var dto = _finder.Find<OrderPosition>(x => x.Id == entityId)
+            var dto = _finder.Find(new FindSpecification<OrderPosition>(x => x.Id == entityId))
                           .Select(x => new OrderPositionDomainEntityDto
                               {
                                   Id = x.Id,
@@ -112,7 +113,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var modelDto = (OrderPositionDomainEntityDto)domainEntityDto;
 
             var minimumPublishDate = DateTime.Now.AddDays(1).Date;
-            var orderInfo = _finder.Find<Order>(x => x.Id == modelDto.OrderId)
+            var orderInfo = _finder.Find(new FindSpecification<Order>(x => x.Id == modelDto.OrderId))
                                    .Select(x => new
                                        {
                                            x.WorkflowStepId,
@@ -157,7 +158,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             modelDto.OrderWorkflowStepId = (int)orderInfo.WorkflowStepId;
             modelDto.IsRated = modelDto.PricePositionRef != null &&
-                               _finder.Find<PricePosition>(x => x.Id == modelDto.PricePositionRef.Id).Select(x => x.RateType != 0).Single();
+                               _finder.Find(new FindSpecification<PricePosition>(x => x.Id == modelDto.PricePositionRef.Id)).Select(x => x.RateType != 0).Single();
         }
     }
 }

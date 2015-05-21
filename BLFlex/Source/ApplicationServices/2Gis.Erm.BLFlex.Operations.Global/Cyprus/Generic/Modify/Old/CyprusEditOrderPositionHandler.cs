@@ -100,7 +100,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.Old
                     .Where(x => x.FirmAddressId.HasValue)
                     .Select(x => x.FirmAddressId.Value)
                     .ToArray(),
-                IsPositionComposite = _finder.Find<PricePosition>(x => x.Id == orderPosition.PricePositionId).Select(x => x.Position.IsComposite).Single(),
+                IsPositionComposite = _finder.Find(new FindSpecification<PricePosition>(x => x.Id == orderPosition.PricePositionId)).Select(x => x.Position.IsComposite).Single(),
                 AdvertisementLinksCount = advertisementsLinks.Count()
             };
 

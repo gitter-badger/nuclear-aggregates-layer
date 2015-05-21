@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Platform.Model.Entities.Erm.Platform> GetDto(long entityId)
         {
-            return _finder.Find<Platform.Model.Entities.Erm.Platform>(x => x.Id == entityId)
+            return _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => x.Id == entityId))
                           .Select(entity => new PlatformDomainEntityDto
                               {
                                   Id = entity.Id,

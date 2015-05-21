@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.Export
                                                      (IQueryBuilder<Price> x,
                                                       SelectSpecification<PricePosition, IExportableEntityDto> y,
                                                       FindSpecification<PricePosition>[] z) =>
-                                                     new[] { TestPricePosition }.AsQueryable().Select(y.Selector).ToArray());
+                                                     new[] { TestPricePosition }.AsQueryable().Select(y).ToArray());
 
                 SerializeRequest = SerializeObjectsRequest<PricePosition, ExportFlowPriceListsPriceListPosition>.Create(SchemaName, Enumerable.Empty<PerformedBusinessOperation>());
 

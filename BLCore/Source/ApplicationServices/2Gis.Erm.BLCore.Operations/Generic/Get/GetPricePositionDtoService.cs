@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -9,6 +8,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<PricePosition> GetDto(long entityId)
         {
-            var dto = _finder.Find<PricePosition>(x => x.Id == entityId)
+            var dto = _finder.Find(new FindSpecification<PricePosition>(x => x.Id == entityId))
                           .Select(x => new PricePositionDomainEntityDto
                               {
                                   Id = x.Id,
@@ -83,7 +84,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             }
 
             // заполняем инфу о прайсе
-            var priceInfo = _finder.Find<Price>(x => x.Id == priceId)
+            var priceInfo = _finder.Find(new FindSpecification<Price>(x => x.Id == priceId))
                                    .Select(x => new
                                        {
                                            PriceBeginDate = x.BeginDate,

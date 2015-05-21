@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -10,6 +9,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -25,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<LocalMessage> GetDto(long entityId)
         {
-            return _finder.Find<LocalMessage>(x => x.Id == entityId)
+            return _finder.Find(new FindSpecification<LocalMessage>(x => x.Id == entityId))
                           .Select(entity => new LocalMessageDomainEntityDto
                               {
                                   Id = entity.Id,

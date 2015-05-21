@@ -6,9 +6,12 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
@@ -21,11 +24,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         private const int AdForRubricPositionCategoryId = 38;
         private const int AdsPerCategory = 2;
 
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public AdvertisementForCategoryAmountOrderValidationRule(IFinder finder)
+        public AdvertisementForCategoryAmountOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
@@ -36,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             if (!ruleContext.ValidationParams.IsMassValidation)
             {
                 long? firmId;
-                currentFilter = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
+                currentFilter = GetFilterPredicateToGetLinkedOrders(_query, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
             }
             else
             {
@@ -44,29 +47,30 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             }
 
             var categories =
-                _finder.Find(currentFilter)
-                       .Where(x => x.DestOrganizationUnitId == organizationUnitId)
-                       .SelectMany(order => order.OrderPositions)
-                       .Where(
-                              orderPosition =>
-                              orderPosition.IsActive && !orderPosition.IsDeleted)
-                       .SelectMany(
-                                   orderPosition =>
-                                   orderPosition.OrderPositionAdvertisements.Where(
-                                                                                   x =>
-                                                                                   x.CategoryId != null &&
-                                                                                   x.Position.CategoryId == AdForRubricPositionCategoryId)
-                                                .Select(x => new
-                                                    {
-                                                        x.OrderPosition.OrderId,
-                                                        x.OrderPosition.Order.BeginDistributionDate,
-                                                        x.OrderPosition.Order.EndDistributionDateFact,
-                                                        CategoryId = x.CategoryId.Value,
-                                                        x.Category.Name
-                                                    }))
-                       .GroupBy(x => x.CategoryId)
-                       .Where(x => x.Count() > AdsPerCategory)
-                       .ToList();
+                _query.For<Order>()
+                      .Where(currentFilter)
+                      .Where(x => x.DestOrganizationUnitId == organizationUnitId)
+                      .SelectMany(order => order.OrderPositions)
+                      .Where(
+                             orderPosition =>
+                             orderPosition.IsActive && !orderPosition.IsDeleted)
+                      .SelectMany(
+                                  orderPosition =>
+                                  orderPosition.OrderPositionAdvertisements.Where(
+                                                                                  x =>
+                                                                                  x.CategoryId != null &&
+                                                                                  x.Position.CategoryId == AdForRubricPositionCategoryId)
+                                               .Select(x => new
+                                                   {
+                                                       x.OrderPosition.OrderId,
+                                                       x.OrderPosition.Order.BeginDistributionDate,
+                                                       x.OrderPosition.Order.EndDistributionDateFact,
+                                                       CategoryId = x.CategoryId.Value,
+                                                       x.Category.Name
+                                                   }))
+                      .GroupBy(x => x.CategoryId)
+                      .Where(x => x.Count() > AdsPerCategory)
+                      .ToList();
 
             // Для единичной проверки исключим продажи, которые не касаются проверяемого заказа
             if (!ruleContext.ValidationParams.IsMassValidation)

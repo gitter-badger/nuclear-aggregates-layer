@@ -22,6 +22,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 using NuClear.Storage.UseCases;
 
 namespace DoubleGis.Erm.BLCore.MoDi
@@ -140,7 +141,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
 
                 var calculator = new MoneyDistributionCalculator(x.SourceBou.ContributionType, x.DestBou.ContributionType, x.SourceBou.Id == x.DestBou.Id, x.BeginDistributionDate < _moneyDistributionSettings.FirstApril);
 
-                var ownerName = _finder.Find<User>(y => y.Id == x.OwnerCode).Select(y => y.DisplayName).Single();
+                var ownerName = _finder.Find(new FindSpecification<User>(y => y.Id == x.OwnerCode)).Select(y => y.DisplayName).Single();
 
                 var ratedOrderPosition = x.OrderPositions.FirstOrDefault(y => y.CategoryRate != 1m);
                 var reportRate = ratedOrderPosition != null ? (decimal?)ratedOrderPosition.CategoryRate : null;
@@ -316,7 +317,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
 
                 var calculator = new MoneyDistributionCalculator(x.SourceBou.ContributionType, x.DestBou.ContributionType, x.SourceBou.Id == x.DestBou.Id, x.BeginDistributionDate < _moneyDistributionSettings.FirstApril);
 
-                var ownerName = _finder.Find<User>(y => y.Id == x.OwnerCode).Select(y => y.DisplayName).Single();
+                var ownerName = _finder.Find(new FindSpecification<User>(y => y.Id == x.OwnerCode)).Select(y => y.DisplayName).Single();
 
                 var ratedOrderPosition = x.OrderPositions.FirstOrDefault(y => y.CategoryRate != 1m);
                 var reportRate = ratedOrderPosition != null ? (decimal?)ratedOrderPosition.CategoryRate : null;
@@ -447,7 +448,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
 
             var orderInfos =
 
-                _finder.Find<Order>(x => x.IsActive && !x.IsDeleted)
+                _finder.Find(new FindSpecification<Order>(x => x.IsActive && !x.IsDeleted))
                 //.Where(x => allowedOrgUnits.Contains(x.DestOrganizationUnitId) || allowedOrgUnits.Contains(x.SourceOrganizationUnitId)) // uncomment to test
                     .Where(x => allowedOrderStates.Contains(x.WorkflowStepId) && x.Locks.Any(y => !y.IsDeleted && y.PeriodStartDate == startDate && y.PeriodEndDate == endDate))
                     .Select(x => new
@@ -577,7 +578,7 @@ namespace DoubleGis.Erm.BLCore.MoDi
 
             var proceedsQuery = saleDirectionGroup.SelectMany(x => x.PlatformGroup.SelectMany(y => y.OrganizationUnitGroup));
 
-            var bouInfos = _finder.Find<BranchOfficeOrganizationUnit>(x => x.IsActive && !x.IsDeleted && x.IsPrimaryForRegionalSales).Select(x => new
+            var bouInfos = _finder.Find(new FindSpecification<BranchOfficeOrganizationUnit>(x => x.IsActive && !x.IsDeleted && x.IsPrimaryForRegionalSales)).Select(x => new
             {
                 x.OrganizationUnitId,
                 OrganizationUnitName = x.OrganizationUnit.Name,

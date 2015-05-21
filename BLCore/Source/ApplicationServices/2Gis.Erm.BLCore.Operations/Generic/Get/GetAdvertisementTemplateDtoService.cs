@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<AdvertisementTemplate> GetDto(long entityId)
         {
-            return _finder.Find<AdvertisementTemplate>(x => x.Id == entityId)
+            return _finder.Find(new FindSpecification<AdvertisementTemplate>(x => x.Id == entityId))
                           .Select(entity => new AdvertisementTemplateDomainEntityDto
                                                 {
                                                     Id = entity.Id,

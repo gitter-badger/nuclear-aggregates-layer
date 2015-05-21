@@ -1,10 +1,10 @@
 ﻿namespace NuClear.Storage.ConnectionStrings
 {
-    public class DefaultConnectionStringNameResolver : IConnectionStringNameResolver
+    public class DefaultConnectionStringIdentityResolver : IConnectionStringIdentityResolver
     {
         private readonly IConnectionStringIdentity _defaultConnectionStringName;
 
-        public DefaultConnectionStringNameResolver(IConnectionStringIdentity defaultConnectionStringName)
+        public DefaultConnectionStringIdentityResolver(IConnectionStringIdentity defaultConnectionStringName)
         {
             _defaultConnectionStringName = defaultConnectionStringName;
         }

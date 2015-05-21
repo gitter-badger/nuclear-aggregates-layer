@@ -13,17 +13,18 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
-
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using NuClear.Model.Common.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
+
+using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 {
@@ -257,7 +258,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
         {
             using (var scope = _scopeFactory.CreateSpecificFor<AssignIdentity, Order>())
             {
-                var orderPositions = _finder.Find<OrderPosition>(x => x.OrderId == order.Id && !x.IsDeleted && x.IsActive).ToArray();
+                var orderPositions = _finder.Find(new FindSpecification<OrderPosition>(x => x.OrderId == order.Id && !x.IsDeleted && x.IsActive)).ToArray();
 
                 foreach (var orderPosition in orderPositions)
                 {
@@ -340,7 +341,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 order.IsActive = false;
 
                 // Удалить позиции
-                var orderPositions = _finder.Find<OrderPosition>(x => x.OrderId == order.Id && !x.IsDeleted).ToArray();
+                var orderPositions = _finder.Find(new FindSpecification<OrderPosition>(x => x.OrderId == order.Id && !x.IsDeleted)).ToArray();
                 foreach (var orderPosition in orderPositions)
                 {
                     _orderPositionGenericRepository.Delete(orderPosition);
@@ -350,7 +351,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 operationScope.Deleted<OrderPosition>(orderPositions.Select(x => x.Id).ToArray());
 
                 // Деактивировать счета на оплату
-                var bills = _finder.Find<Bill>(x => x.OrderId == order.Id && x.IsActive && !x.IsDeleted).ToArray();
+                var bills = _finder.Find(new FindSpecification<Bill>(x => x.OrderId == order.Id && x.IsActive && !x.IsDeleted)).ToArray();
                 foreach (var bill in bills)
                 {
                     bill.IsActive = false;
@@ -361,7 +362,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 operationScope.Updated<Bill>(bills.Select(x => x.Id).ToArray());
 
                 // Деактивировать файлы к заказу
-                var orderFiles = _finder.Find<OrderFile>(x => x.OrderId == order.Id && x.IsActive && !x.IsDeleted).ToArray();
+                var orderFiles = _finder.Find(new FindSpecification<OrderFile>(x => x.OrderId == order.Id && x.IsActive && !x.IsDeleted)).ToArray();
                 foreach (var orderFile in orderFiles)
                 {
                     orderFile.IsActive = false;
@@ -480,7 +481,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 
         private void CheckOrderDistributionPeriodNotOverlapsThemeDistributionPeriod(Order order)
         {
-            var usedThemes = _finder.Find<OrderPosition>(position => position.OrderId == order.Id)
+            var usedThemes = _finder.Find(new FindSpecification<OrderPosition>(position => position.OrderId == order.Id))
                                     .Where(position => position.IsActive && !position.IsDeleted)
                                     .SelectMany(position => position.OrderPositionAdvertisements)
                                     .Where(advertisement => advertisement.ThemeId != null)
@@ -515,7 +516,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 return;
             }
 
-            var legalPersonId = _finder.Find<LegalPersonProfile>(x => x.Id == order.LegalPersonProfileId).Select(x => x.LegalPersonId).Single();
+            var legalPersonId = _finder.Find(new FindSpecification<LegalPersonProfile>(x => x.Id == order.LegalPersonProfileId)).Select(x => x.LegalPersonId).Single();
             if (order.LegalPersonId != legalPersonId)
             {
                 throw new BusinessLogicException(BLResources.OrderLegalPersonProfileShouldBelongToOrderLegalPerson);

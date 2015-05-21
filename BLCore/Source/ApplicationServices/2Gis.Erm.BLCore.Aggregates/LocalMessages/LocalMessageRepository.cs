@@ -11,6 +11,8 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage.Specifications;
+
 // ReSharper disable CheckNamespace
 namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
 // ReSharper restore CheckNamespace
@@ -36,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
 
         public void Create(LocalMessage localMessage, int integrationType)
         {
-            localMessage.MessageTypeId = _finder.Find<MessageType>(x => x.IntegrationType == integrationType).Select(x => x.Id).Single();
+            localMessage.MessageTypeId = _finder.Find(new FindSpecification<MessageType>(x => x.IntegrationType == integrationType)).Select(x => x.Id).Single();
             _identityProvider.SetFor(localMessage);
             _localMessageGenericRepository.Add(localMessage);
             _localMessageGenericRepository.Save();
@@ -44,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
 
         public IEnumerable<LocalMessage> GetByIds(long[] ids)
         {
-            return _finder.Find<LocalMessage>(x => ids.Contains(x.Id)).ToArray();
+            return _finder.Find(new FindSpecification<LocalMessage>(x => ids.Contains(x.Id))).ToArray();
         }
 
         public void SetProcessingState(LocalMessage localMessage)
@@ -56,13 +58,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
 
         public LocalMessageDto GetMessageToProcess()
         {
-            var hasProcessingMessages = _finder.Find<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.Processing).Any();
+            var hasProcessingMessages = _finder.Find(new FindSpecification<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.Processing)).Any();
             if (hasProcessingMessages)
             {
                 return null;
             }
 
-            var localMessage = _finder.Find<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.WaitForProcess)
+            var localMessage = _finder.Find(new FindSpecification<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.WaitForProcess))
                                 .OrderBy(x => x.CreatedOn)
                                 .Select(x => new LocalMessageDto
                                 {

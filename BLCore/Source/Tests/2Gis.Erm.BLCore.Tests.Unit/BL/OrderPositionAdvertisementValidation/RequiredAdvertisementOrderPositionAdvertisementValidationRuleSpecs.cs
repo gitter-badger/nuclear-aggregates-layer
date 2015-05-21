@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
                                       {
                                           PositionWithOptionalAdvertisement,
                                           PositionWithRequiredAdvertisement
-                                      }.AsQueryable().Where(x.Predicate));
+                                      }.AsQueryable().Where(x));
 
                     ValidationRule = new RequiredAdvertisementOrderPositionAdvertisementValidationRule(FinderMock.Object);
                 };

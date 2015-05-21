@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<AssociatedPosition> GetDto(long entityId)
         {
-            return _finder.Find<AssociatedPosition>(x => x.Id == entityId)
+            return _finder.Find(new FindSpecification<AssociatedPosition>(x => x.Id == entityId))
                           .Select(entity => new AssociatedPositionDomainEntityDto
                               {
                                   Id = entity.Id,
@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 throw new NotSupportedException("Only AssociatedPositionsGroup parent type is supported");
             }
 
-            return _finder.Find<AssociatedPositionsGroup>(x => x.Id == parentEntityId)
+            return _finder.Find(new FindSpecification<AssociatedPositionsGroup>(x => x.Id == parentEntityId))
                           .Select(x => new AssociatedPositionDomainEntityDto
                               {
                                   AssociatedPositionsGroupRef = new EntityReference { Id = parentEntityId.Value, Name = x.Name },

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
@@ -16,45 +14,46 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     public sealed class AdditionalAdvertisementsOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
         private readonly PositionCategoryDto[] _positionCategories =
         {
             new PositionCategoryDto
             {
                 // Микрокомментарий в рубрике
-                        PrimaryPositionCategoryIds = new[] { 30L, 40L },
+                PrimaryPositionCategoryIds = new[] { 30L, 40L },
                 SecondaryPositionCategoryId = 25,
                 AdditionalPositionCategoryName = BLResources.AdditionalTextForMicrocomment,
             },
             new PositionCategoryDto
             {
                 // Баннер в рубрике
-                        PrimaryPositionCategoryIds = new[] { 23L, 2L },
+                PrimaryPositionCategoryIds = new[] { 23L, 2L },
                 SecondaryPositionCategoryId = 3,
-                        AdditionalPositionCategoryName = BLResources.AddiotionalLayoutForBanner,
+                AdditionalPositionCategoryName = BLResources.AddiotionalLayoutForBanner,
             }
         };
 
-        public AdditionalAdvertisementsOrderValidationRule(IFinder finder)
+        public AdditionalAdvertisementsOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            Expression<Func<Order, bool>> filterPredicate = ruleContext.OrdersFilterPredicate;
+            var filterPredicate = ruleContext.OrdersFilterPredicate;
             long? firmId = null;
             if (!ruleContext.ValidationParams.IsMassValidation)
             {
                 long organizationUnitId;
-                filterPredicate = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
+                filterPredicate = GetFilterPredicateToGetLinkedOrders(_query, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
             }
 
             foreach (var positionCategory in _positionCategories)
             {
                 var primaryOrderPositions =
-                    _finder.Find(filterPredicate)
+                    _query.For<Order>()
+                          .Where(filterPredicate)
                           .SelectMany(x => x.OrderPositions
                                             .Where(y => y.IsActive && !y.IsDeleted &&
                                                         (!firmId.HasValue || y.Order.FirmId == firmId.Value) &&
@@ -96,7 +95,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 }
 
                 var ordersWithSecondaryPositions =
-                    _finder.Find(filterPredicate)
+                     _query.For<Order>()
+                           .Where(filterPredicate)
                            .Select(x => new
                                {
                                    x.Id,

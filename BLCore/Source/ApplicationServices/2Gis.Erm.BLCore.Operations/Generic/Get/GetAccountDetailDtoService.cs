@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<AccountDetail> GetDto(long entityId)
         {
-            var accountDetailAndParentOwnerCodeDto = _finder.Find<AccountDetail>(x => x.Id == entityId)
+            var accountDetailAndParentOwnerCodeDto = _finder.Find(new FindSpecification<AccountDetail>(x => x.Id == entityId))
                              .Select(entity => new 
                                  {
                                  AccountDetail = new AccountDetailDomainEntityDto
@@ -100,7 +101,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                         dto.AccountRef = new EntityReference { Id = parentEntityId.Value };
 
                         // как куратор операции выставляется куратор родительского лицевого счёта
-                        dto.OwnerRef = new EntityReference { Id = _finder.Find<Account>(x => x.Id == parentEntityId).Select(x => x.OwnerCode).Single() };
+                        dto.OwnerRef = new EntityReference { Id = _finder.Find(new FindSpecification<Account>(x => x.Id == parentEntityId)).Select(x => x.OwnerCode).Single() };
                         dto.IsActive = true;
                     }
 

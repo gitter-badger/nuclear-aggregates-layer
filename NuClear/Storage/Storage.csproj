@@ -36,11 +36,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ConnectionStrings\ConnectionStringNameResolver.cs" />
+    <Compile Include="ConnectionStrings\ConnectionStringIdentityResolver.cs" />
     <Compile Include="ConnectionStrings\ConnectionStringSettingsAspect.cs" />
-    <Compile Include="ConnectionStrings\DefaultConnectionStringNameResolver.cs" />
+    <Compile Include="ConnectionStrings\DefaultConnectionStringIdentityResolver.cs" />
     <Compile Include="ConnectionStrings\IConnectionStringIdentity.cs" />
-    <Compile Include="ConnectionStrings\IConnectionStringNameResolver.cs" />
+    <Compile Include="ConnectionStrings\IConnectionStringIdentityResolver.cs" />
     <Compile Include="ConnectionStrings\IConnectionStringSettings.cs" />
     <Compile Include="Core\DomainContextHost.cs" />
     <Compile Include="Core\DomainContextsScope.cs" />

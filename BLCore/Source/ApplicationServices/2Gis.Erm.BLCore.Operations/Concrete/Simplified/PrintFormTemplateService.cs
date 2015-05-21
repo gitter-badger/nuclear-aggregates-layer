@@ -9,14 +9,15 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 {
@@ -137,7 +138,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 
         public long? GetPrintFormTemplateFileId(long branchOfficeOrganizationUnitId, TemplateCode templateCode)
         {
-            var templates = _finder.Find<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == templateCode)
+            var templates = _finder.Find(new FindSpecification<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == templateCode))
                 .OrderByDescending(x => x.Id);
 
             var specificTemplateId = templates

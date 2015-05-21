@@ -33,12 +33,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 
             static FindSpecification<IEntity> CreateSpecification()
             {
-                var spec = Mock.Of<FindSpecification<IEntity>>();
-                Mock.Get(spec)
-                    .SetupGet(x => x.Predicate)
-                    .Returns(e => true);
-
-                return spec;
+                return new FindSpecification<IEntity>(x => true);
             }
 
             static IReadDomainContextProvider CreateReadDomainContextProvider()

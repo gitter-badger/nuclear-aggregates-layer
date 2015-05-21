@@ -4,40 +4,44 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     public sealed class PlatformTypeOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public PlatformTypeOrderValidationRule(IFinder finder)
+        public PlatformTypeOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var ordersWithErrors = _finder.Find(ruleContext.OrdersFilterPredicate)
-                                          .Select(x => new
-                                              {
-                                                  x.Id,
-                                                  x.Number,
-                                                  OrderPositionsAdvertisements =
-                                                           x.OrderPositions
-                                                            .Where(y => y.IsActive && !y.IsDeleted)
-                                                            .SelectMany(y => y.OrderPositionAdvertisements)
-                                                            .Select(y => new
-                                                                {
-                                                                    y.Position.Name,
-                                                                    y.Position.Platform.IsSupportedByExport
-                                                                })
-                                                            .Where(y => !y.IsSupportedByExport)
-                                              })
-                                          .Where(y => y.OrderPositionsAdvertisements.Any())
-                                          .ToArray();
+            var ordersWithErrors = _query.For<Order>()
+                                         .Where(ruleContext.OrdersFilterPredicate)
+                                         .Select(x => new
+                                             {
+                                                 x.Id,
+                                                 x.Number,
+                                                 OrderPositionsAdvertisements =
+                                                          x.OrderPositions
+                                                           .Where(y => y.IsActive && !y.IsDeleted)
+                                                           .SelectMany(y => y.OrderPositionAdvertisements)
+                                                           .Select(y => new
+                                                               {
+                                                                   y.Position.Name,
+                                                                   y.Position.Platform.IsSupportedByExport
+                                                               })
+                                                           .Where(y => !y.IsSupportedByExport)
+                                             })
+                                         .Where(y => y.OrderPositionsAdvertisements.Any())
+                                         .ToArray();
 
             return from order in ordersWithErrors
                    from orderPositionAdvertisement in order.OrderPositionsAdvertisements

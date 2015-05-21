@@ -6,9 +6,12 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
@@ -17,16 +20,17 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// </summary>
     public sealed class CategoriesLinkedToDestOrgUnitOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public CategoriesLinkedToDestOrgUnitOrderValidationRule(IFinder finder)
+        public CategoriesLinkedToDestOrgUnitOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var badOrderPositions = _finder.Find(ruleContext.OrdersFilterPredicate)
+            var badOrderPositions = _query.For<Order>()
+                .Where(ruleContext.OrdersFilterPredicate)
                 .SelectMany(order => order.OrderPositions)
                 .Where(orderPosition => orderPosition.IsActive && !orderPosition.IsDeleted)
                 .Select(orderPosition =>

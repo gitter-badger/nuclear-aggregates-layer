@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.Platform.API.Core.Identities;
@@ -34,13 +35,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         private readonly IQuery _query;
         private readonly IIdentityProvider _identityProvider;
         private readonly IUseCaseTuner _useCaseTuner;
-        private readonly IFinder _finder;
         private readonly IRepository<TProcessedOperationEntity> _processedOperationEntity;
         private readonly IRepository<ExportFailedEntity> _exportFailedRepository;
 
         public OperationsProcessingsStoreService(
             IQuery query,
-            IFinder finder,
             IRepository<TProcessedOperationEntity> processedOperationEntity,
             IRepository<ExportFailedEntity> exportFailedRepository,
             IIdentityProvider identityProvider,
@@ -49,7 +48,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             _query = query;
             _identityProvider = identityProvider;
             _useCaseTuner = useCaseTuner;
-            _finder = finder;
             _processedOperationEntity = processedOperationEntity;
             _exportFailedRepository = exportFailedRepository;
         }
@@ -113,10 +111,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             var entityTypeId = _entityName.Id;
             var integrationProcessorStateEntityTypeId = _integrationProcessorStateEntityName.Id;
             var exportedObjectIds = exportedObjects.Select(x => x.Id).ToArray();
-            var records = _finder.Find<ExportFailedEntity>(entity => entity.EntityName == entityTypeId
-                                                                        && entity.ProcessorId == integrationProcessorStateEntityTypeId
-                                                                        && exportedObjectIds.Contains(entity.EntityId))
-                                 .ToArray();
+            var records = _query.For(new FindSpecification<ExportFailedEntity>(entity => entity.EntityName == entityTypeId
+                                                                                         && entity.ProcessorId == integrationProcessorStateEntityTypeId
+                                                                                         && exportedObjectIds.Contains(entity.EntityId)))
+                                .ToArray();
             foreach (var record in records)
             {
                 _exportFailedRepository.Delete(record);
@@ -132,8 +130,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             var performedBusinessOperations = operations as PerformedBusinessOperation[] ?? operations.ToArray();
 
             var operationIds = performedBusinessOperations.Select(operation => operation.Id);
-            var existing = _finder.Find(Specs.Find.ByIds<TProcessedOperationEntity>(operationIds))
-                                  .ToDictionary(result => result.Id, result => result);
+            var existing = _query.For(Specs.Find.ByIds<TProcessedOperationEntity>(operationIds))
+                                 .ToDictionary(result => result.Id, result => result);
             foreach (var operation in performedBusinessOperations)
             {
                 TProcessedOperationEntity operationResult;
@@ -153,16 +151,16 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
             return _processedOperationEntity.Save();
         }
 
-        public DateTime GetLastProcessedOperationPerformDate(SelectSpecification<TProcessedOperationEntity, DateTime> selectSortFieldSpecification)
+        public DateTime GetLastProcessedOperationPerformDate(Expression<Func<TProcessedOperationEntity, DateTime>> selectSortFieldExpression)
         {
             var lastMessageId = _query.For<TProcessedOperationEntity>()
-                                      .OrderByDescending(selectSortFieldSpecification.Selector)
+                                      .OrderByDescending(selectSortFieldExpression)
                                       .Select(x => x.Id)
                                       .Take(1);
 
-            var lastDate = _finder.Find<PerformedBusinessOperation>(operation => lastMessageId.Contains(operation.Id))
-                                  .Select(operation => operation.Date)
-                                  .FirstOrDefault();
+            var lastDate = _query.For(new FindSpecification<PerformedBusinessOperation>(operation => lastMessageId.Contains(operation.Id)))
+                                 .Select(operation => operation.Date)
+                                 .FirstOrDefault();
 
             return lastDate == default(DateTime) ? DateTime.UtcNow : lastDate;
         }
@@ -177,7 +175,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 
             var performedBusinessOperations = _query.For<PerformedBusinessOperation>();
             var processedBusinessOperations = _query.For<TProcessedOperationEntity>();
-            var operationTypesToProcess = _finder.Find<BusinessOperationService>(service => service.Service == (int)integrationService);
+            var operationTypesToProcess = _query.For(new FindSpecification<BusinessOperationService>(service => service.Service == (int)integrationService));
 
             var notExportedOperations = from performedOperation in performedBusinessOperations
                                         join processedOperation in processedBusinessOperations on performedOperation.Id equals processedOperation.Id
@@ -199,8 +197,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
         {
             var entityTypeId = _entityName.Id;
             var integrationProcessorStateEntityTypeId = _integrationProcessorStateEntityName.Id;
-            return _finder.Find<ExportFailedEntity>(entity => entity.EntityName == entityTypeId
-                                                                && entity.ProcessorId == integrationProcessorStateEntityTypeId);
+            return _query.For(new FindSpecification<ExportFailedEntity>(entity => entity.EntityName == entityTypeId
+                                                                                  && entity.ProcessorId == integrationProcessorStateEntityTypeId));
         }
     }
 }

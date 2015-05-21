@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 {
@@ -103,7 +104,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
         public FileWithContent GetLogForOperation(Guid operationId)
         {
             var fileShortInfo =
-                _finder.Find<Operation>(x => x.Guid == operationId).Select(x => new { x.LogFileId, x.File.ContentType, x.File.FileName }).FirstOrDefault();
+                _finder.Find(new FindSpecification<Operation>(x => x.Guid == operationId)).Select(x => new { x.LogFileId, x.File.ContentType, x.File.FileName }).FirstOrDefault();
 
             if (fileShortInfo != null && fileShortInfo.LogFileId.HasValue)
             {

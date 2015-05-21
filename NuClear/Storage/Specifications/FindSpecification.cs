@@ -16,7 +16,7 @@ namespace NuClear.Storage.Specifications
             _predicate = predicate;
         }
 
-        public Expression<Func<TEntity, bool>> Predicate
+        internal Expression<Func<TEntity, bool>> Predicate
         {
             get { return _predicate; }
         }

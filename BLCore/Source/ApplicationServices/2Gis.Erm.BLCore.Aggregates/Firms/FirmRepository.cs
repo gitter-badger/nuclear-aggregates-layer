@@ -23,6 +23,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 {
@@ -118,7 +119,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                     throw new SecurityException(BLResources.QualifyReserveOperationDenied);
 
                 case ReserveAccess.Territory:
-                    var hasTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode && x.TerritoryId == firm.TerritoryId).Any();
+                    var hasTerritories = _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode && x.TerritoryId == firm.TerritoryId)).Any();
                     if (!hasTerritories)
                     {
                         throw new SecurityException(BLResources.QualifyCouldntAccessFirmOnThisTerritory);
@@ -276,7 +277,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         public void ImportFirmPromisingValues(long userId)
         {
-            var organizationUnitDgppIds = _finder.Find<OrganizationUnit>(x => x.ErmLaunchDate != null && x.DgppId != null)
+            var organizationUnitDgppIds = _finder.Find(new FindSpecification<OrganizationUnit>(x => x.ErmLaunchDate != null && x.DgppId != null))
                                                  .Select(x => x.DgppId.Value)
                                                  .ToArray();
 
@@ -294,7 +295,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         public IEnumerable<Firm> GetFirmsByTerritory(long territoryId)
         {
-            return _finder.Find<Firm>(x => x.TerritoryId == territoryId).ToArray();
+            return _finder.Find(new FindSpecification<Firm>(x => x.TerritoryId == territoryId)).ToArray();
         }
 
         public int ChangeTerritory(IEnumerable<Firm> firms, long territoryId)
@@ -317,7 +318,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         public long[] GetAdvertisementIds(long firmId)
         {
             var advertisementIds =
-                _finder.Find<Firm>(x => x.Id == firmId).SelectMany(x => x.Advertisements).Where(x => !x.IsDeleted).Select(x => x.Id).ToArray();
+                _finder.Find(new FindSpecification<Firm>(x => x.Id == firmId)).SelectMany(x => x.Advertisements).Where(x => !x.IsDeleted).Select(x => x.Id).ToArray();
             return advertisementIds;
         }
 

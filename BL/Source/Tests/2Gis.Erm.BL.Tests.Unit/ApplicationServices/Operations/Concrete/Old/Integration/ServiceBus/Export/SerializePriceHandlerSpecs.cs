@@ -52,7 +52,7 @@ namespace DoubleGis.Erm.BL.Tests.Unit.BL.Export
                                                                          Moq.It.IsAny<FindSpecification<Price>[]>()))
                                              .Returns(
                                                  (IQueryBuilder<Price> x, SelectSpecification<Price, IExportableEntityDto> y, FindSpecification<Price>[] z) =>
-                                                 new[] { PublishedPrice }.AsQueryable().Select(y.Selector).ToArray());
+                                                 new[] { PublishedPrice }.AsQueryable().Select(y).ToArray());
 
                     SerializeRequest = SerializeObjectsRequest<Price, ExportFlowPriceListsPriceList>.Create(SchemaName, Enumerable.Empty<PerformedBusinessOperation>());
 

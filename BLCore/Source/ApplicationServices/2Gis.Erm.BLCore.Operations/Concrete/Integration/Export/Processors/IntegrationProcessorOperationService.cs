@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
@@ -9,7 +10,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Entities.Aspects.Integration;
-using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Processors
 {
@@ -34,9 +34,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Processors
             _operationsExporter = operationsExporter;
         }
 
-        protected SelectSpecification<TProcessedOperationEntity, DateTime> ProcessingDateSpecification
+        protected Expression<Func<TProcessedOperationEntity, DateTime>> ProcessingDateSpecification
         {
-            get { return new SelectSpecification<TProcessedOperationEntity, DateTime>(operation => operation.Date); }
+            get { return operation => operation.Date; }
         }
 
         public IEnumerable<PerformedBusinessOperation> GetPendingOperations(int maxOperationCount)

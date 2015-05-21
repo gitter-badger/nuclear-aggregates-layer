@@ -173,8 +173,7 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                     { ErmSecurityContainer.Instance.Name, ErmConnectionStringIdentity.Instance },
                 };
 
-            return container.RegisterInstance<IConnectionStringNameResolver>(new ConnectionStringNameResolver(readConnectionStringNameMap,
-                                                                                                              writeConnectionStringNameMap));
+            return container.RegisterInstance<IConnectionStringIdentityResolver>(new ConnectionStringIdentityResolver(readConnectionStringNameMap, writeConnectionStringNameMap));
         }
 
         private static IUnityContainer CreateErmSpecific(this IUnityContainer container)

@@ -160,18 +160,20 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
                                           HiddenFirmAddress,
                                           EmptyFirmAddress,
                                           NormalFirmAddress
-                                      }.AsQueryable().Where(x.Predicate));
+                                      }.AsQueryable().Where(x));
 
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Position>>()))
                               .Returns(
-                                  (FindSpecification<Position> x) =>
-                                  new[]
-                                      {
-                                          SponsoredLinkPosition,
-                                          AdvantageousPurchasePosition,
-                                          AddressCommentPosition,
-                                          NormalPosition
-                                      }.AsQueryable().Where(x.Predicate));
+                                       (FindSpecification<Position> x) =>
+                                       new[]
+                                           {
+                                               SponsoredLinkPosition,
+                                               AdvantageousPurchasePosition,
+                                               AddressCommentPosition,
+                                               NormalPosition
+                                           }
+                                           .AsQueryable()
+                                           .Where(x));
 
                     ValidationRule = new CorrectAddressOrderPositionAdvertisementValidationRule(FinderMock.Object);
                 };

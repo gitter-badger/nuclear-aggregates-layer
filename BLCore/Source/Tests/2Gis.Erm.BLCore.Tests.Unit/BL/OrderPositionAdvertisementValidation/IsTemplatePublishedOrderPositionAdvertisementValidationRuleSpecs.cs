@@ -74,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
                                       {
                                           AdvertisementWithPublishedTemplate,
                                           AdvertisementWithUnpublishedTemplate
-                                      }.AsQueryable().Where(x.Predicate));
+                                      }.AsQueryable().Where(x));
 
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Position>>()))
                               .Returns(
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
                                   new[]
                                       {
                                           TestPosition
-                                      }.AsQueryable().Where(x.Predicate));
+                                      }.AsQueryable().Where(x));
 
                     ValidationRule = new IsTemplatePublishedOrderPositionAdvertisementValidationRule(FinderMock.Object);
                 };

@@ -126,10 +126,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         public IEnumerable<FirmContact> GetContacts(long firmAddressId)
         {
             // В данном случае намеренно используется небезопасная версия файндера
-            var depCardsQuery = _finder.Find<DepCard>(x => !x.IsHiddenOrArchived);
+            var depCardsQuery = _finder.Find(new FindSpecification<DepCard>(x => !x.IsHiddenOrArchived));
 
             // В данном случае намеренно используется небезопасная версия файндера
-            var cardRelationsQuery = _finder.Find<CardRelation>(cardRelation => cardRelation.PosCardCode == firmAddressId && !cardRelation.IsDeleted);
+            var cardRelationsQuery = _finder.Find(new FindSpecification<CardRelation>(cardRelation => cardRelation.PosCardCode == firmAddressId && !cardRelation.IsDeleted));
 
             var depCardContacts = (from cardRelation in cardRelationsQuery
                                    join depCard in depCardsQuery on cardRelation.DepCardCode equals depCard.Id

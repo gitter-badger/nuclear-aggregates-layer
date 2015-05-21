@@ -3,9 +3,11 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {
@@ -30,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
             {
                 var cityPhoneZoneCode = cityPhoneZone.Id;
 
-                var cityPhoneZoneExists = _finder.Find<CityPhoneZone>(x => x.Id == cityPhoneZoneCode).Any();
+                var cityPhoneZoneExists = _finder.Find(new FindSpecification<CityPhoneZone>(x => x.Id == cityPhoneZoneCode)).Any();
                 if (cityPhoneZoneExists)
                 {
                     return;

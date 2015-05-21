@@ -6,10 +6,13 @@ using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
 using NuClear.Storage.UseCases;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
@@ -21,11 +24,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     [UseCase(Duration = UseCaseDuration.Long)]
     public sealed class CategoriesForFirmAmountOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public CategoriesForFirmAmountOrderValidationRule(IFinder finder)
+        public CategoriesForFirmAmountOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
@@ -37,11 +40,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             if (!ruleContext.ValidationParams.IsMassValidation)
             {
                 long organizationUnitId;
-                currentFilter = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
+                currentFilter = GetFilterPredicateToGetLinkedOrders(_query, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmId);
             }
 
             var categoriesForFirms =
-                _finder.Find(currentFilter)
+                _query.For<Order>()
+                      .Where(currentFilter)
                       .SelectMany(x => x.OrderPositions)
                       .Where(x => x.IsActive && !x.IsDeleted && (ruleContext.ValidationParams.IsMassValidation || (firmId.HasValue && x.Order.FirmId == firmId.Value)))
                       .SelectMany(x => x.OrderPositionAdvertisements)

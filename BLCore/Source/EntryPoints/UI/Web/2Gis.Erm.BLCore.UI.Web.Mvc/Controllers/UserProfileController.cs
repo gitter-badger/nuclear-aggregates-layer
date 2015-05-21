@@ -20,6 +20,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -60,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         [OutputCache(Duration = 0)]
         public JsonNetResult GetLocalSettings(long userId)
         {
-            var profileInfo = _finder.Find<UserProfile>(x => x.UserId == userId).Select(
+            var profileInfo = _finder.Find(new FindSpecification<UserProfile>(x => x.UserId == userId)).Select(
                 p => new
                     {
                         Profile = p,
@@ -84,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         [OutputCache(Duration = 0)]
         public JsonNetResult GetPersonalInfo(long userId)
         {
-            var profileInfo = _finder.Find<UserProfile>(x => x.UserId == userId).Select(
+            var profileInfo = _finder.Find(new FindSpecification<UserProfile>(x => x.UserId == userId)).Select(
                 p => new
                 {
                     Profile = p,
@@ -154,7 +155,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
         private UserProfileViewModel CreateProfileDtoBasedOnAppropriateSettings(long userId)
         {
-            var userAccountName = _finder.Find<User>(u => u.Id == userId && u.IsActive && !u.IsDeleted)
+            var userAccountName = _finder.Find(new FindSpecification<User>(u => u.Id == userId && u.IsActive && !u.IsDeleted))
                 .Select(u => u.Account)
                 .FirstOrDefault();
             if (string.IsNullOrWhiteSpace(userAccountName))
@@ -195,7 +196,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
 
             var appropriateUserLocaleInfo = _userProfileService.GetUserProfile(userId).UserLocaleInfo;
-            var appropriateTimeZone = _finder.Find<TimeZone>(tz => tz.TimeZoneId.Equals(appropriateUserLocaleInfo.UserTimeZoneInfo.Id)).FirstOrDefault();
+            var appropriateTimeZone = _finder.Find(new FindSpecification<TimeZone>(tz => tz.TimeZoneId.Equals(appropriateUserLocaleInfo.UserTimeZoneInfo.Id))).FirstOrDefault();
             if (appropriateTimeZone == null)
             {
                 throw new NotificationException(string.Format(BLResources.TimeZoneIsUnsupported, appropriateUserLocaleInfo.UserTimeZoneInfo.StandardName));

@@ -4,6 +4,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 {
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
         public IQueryable<TEntity> Apply<TEntity>(IQueryable<TEntity> queryable)
         {
             var descendantIds =
-                    _finder.Find<UsersDescendant>(x => x.AncestorId == _userContext.Identity.Code && x.DescendantId.HasValue)
+                    _finder.Find(new FindSpecification<UsersDescendant>(x => x.AncestorId == _userContext.Identity.Code && x.DescendantId.HasValue))
                     .Select(x => x.DescendantId.Value)
                     .ToArray();
 

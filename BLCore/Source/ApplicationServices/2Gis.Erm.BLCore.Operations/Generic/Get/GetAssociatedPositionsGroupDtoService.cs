@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -9,6 +8,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<AssociatedPositionsGroup> GetDto(long entityId)
         {
-            return _finder.Find<AssociatedPositionsGroup>(x => x.Id == entityId)
+            return _finder.Find(new FindSpecification<AssociatedPositionsGroup>(x => x.Id == entityId))
                           .Select(entity => new AssociatedPositionsGroupDomainEntityDto
                               {
                                   Id = entity.Id,
@@ -55,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 throw new NotSupportedException("Only PricePosition parent type is supported");
             }
 
-            return _finder.Find<PricePosition>(x => x.Id == parentEntityId)
+            return _finder.Find(new FindSpecification<PricePosition>(x => x.Id == parentEntityId))
                           .Select(x => new AssociatedPositionsGroupDomainEntityDto
                               {
                                   PricePositionRef = new EntityReference { Id = x.Id, Name = x.Position.Name },

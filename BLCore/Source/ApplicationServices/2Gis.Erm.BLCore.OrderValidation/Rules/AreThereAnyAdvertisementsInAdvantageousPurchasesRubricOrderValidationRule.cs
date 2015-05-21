@@ -27,11 +27,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         public const int PcPlatform = 1;
         public const int MobilePlatform = 2;
 
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule(IFinder finder)
+        public AreThereAnyAdvertisementsInAdvantageousPurchasesRubricOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
             if (!ruleContext.ValidationParams.IsMassValidation)
             {
-                currentFilter = GetFilterPredicateToGetLinkedOrders(_finder, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmIdForSingleValidation);
+                currentFilter = GetFilterPredicateToGetLinkedOrders(_query, ruleContext.ValidationParams.Single.OrderId, out organizationUnitId, out firmIdForSingleValidation);
             }
             else
             {
@@ -50,29 +50,31 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             }
 
             var advantageousPurchasesFirmIds =
-                _finder.Find(currentFilter)
-                       .SelectMany(x => x.OrderPositions)
-                       .Where(y => y.IsActive && !y.IsDeleted)
-                       .SelectMany(x => x.OrderPositionAdvertisements
-                                         .Select(y => y.Position)
-                                         .Where(y =>
-                                                y.PositionCategory.ExportCode == AdvantageousPurchasesPositionCategoryExportCode
-                                                || y.PositionCategory.ExportCode == SelfPromotionForThePcPositionCategoryExportCode)
-                                         .Select(y => new
-                                         {
-                                             PlatformDgppId = y.Platform.DgppId,
-                                             PositionCategoryExportCode = y.PositionCategory.ExportCode,
-                                             FirmId = x.Order.FirmId
-                                         }))
-                       .ToArray()
-                       .GroupBy(x => x.FirmId)
-                       .Where(x => x.Any(y => y.PositionCategoryExportCode == SelfPromotionForThePcPositionCategoryExportCode)
-                                   || x.Any(y => y.PositionCategoryExportCode == AdvantageousPurchasesPositionCategoryExportCode && y.PlatformDgppId == PcPlatform))
-                       .Select(x => x.Key)
-                       .ToArray();
+                _query.For<Order>()
+                      .Where(currentFilter)
+                      .SelectMany(x => x.OrderPositions)
+                      .Where(y => y.IsActive && !y.IsDeleted)
+                      .SelectMany(x => x.OrderPositionAdvertisements
+                                        .Select(y => y.Position)
+                                        .Where(y =>
+                                               y.PositionCategory.ExportCode == AdvantageousPurchasesPositionCategoryExportCode
+                                               || y.PositionCategory.ExportCode == SelfPromotionForThePcPositionCategoryExportCode)
+                                        .Select(y => new
+                                            {
+                                                PlatformDgppId = y.Platform.DgppId,
+                                                PositionCategoryExportCode = y.PositionCategory.ExportCode,
+                                                FirmId = x.Order.FirmId
+                                            }))
+                      .ToArray()
+                      .GroupBy(x => x.FirmId)
+                      .Where(x => x.Any(y => y.PositionCategoryExportCode == SelfPromotionForThePcPositionCategoryExportCode)
+                                  || x.Any(y => y.PositionCategoryExportCode == AdvantageousPurchasesPositionCategoryExportCode && y.PlatformDgppId == PcPlatform))
+                      .Select(x => x.Key)
+                      .ToArray();
 
             var firmsWithoutPurchasesErrors =
-                _finder.Find<Firm>(firm => firm.OrganizationUnitId == organizationUnitId &&
+                _query.For<Firm>()
+                      .Where(firm => firm.OrganizationUnitId == organizationUnitId &&
                                            firm.IsActive &&
                                            !firm.IsDeleted &&
                                            !firm.ClosedForAscertainment &&

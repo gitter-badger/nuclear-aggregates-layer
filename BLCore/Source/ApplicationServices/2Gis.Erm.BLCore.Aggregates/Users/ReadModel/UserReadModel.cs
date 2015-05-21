@@ -4,9 +4,11 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel.DTO;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
 {
@@ -43,11 +45,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
         public User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelegeName)
         {
             // TODO {a.rechkalov, 25.11.2013}: тут можно использовать спецификации
-            var rolesWithPrivelege = _finder.Find<Privilege>(privilege => privilege.Operation == (int)privelegeName)
+            var rolesWithPrivelege = _finder.Find(new FindSpecification<Privilege>(privilege => privilege.Operation == (int)privelegeName))
                                             .SelectMany(privilege => privilege.RolePrivileges)
                                             .Select(link => link.RoleId);
 
-            var usersOfOrganizationUnit = _finder.Find<UserOrganizationUnit>(unit => organizationUnitId.Contains(unit.OrganizationUnitId))
+            var usersOfOrganizationUnit = _finder.Find(new FindSpecification<UserOrganizationUnit>(unit => organizationUnitId.Contains(unit.OrganizationUnitId)))
                                                  .Select(unit => unit.User);
 
             return usersOfOrganizationUnit.FirstOrDefault(user => user.UserRoles.Any(role => rolesWithPrivelege.Contains(role.RoleId)));

@@ -14,6 +14,7 @@ using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<AdvertisementElement> GetDto(long entityId)
         {
-            var dtoInfo = _secureFinder.Find<AdvertisementElement>(x => x.Id == entityId)
+            var dtoInfo = _secureFinder.Find(new FindSpecification<AdvertisementElement>(x => x.Id == entityId))
                                        .Select(entity => new
                                            {
                                                Dto = new AdvertisementElementDomainEntityDto

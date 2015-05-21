@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
 {
@@ -68,37 +69,37 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
             var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(commonInfo.LegalPersonId.Value));
             var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(commonInfo.BranchOfficeOrganizationUnitId.Value));
 
-            var billsInfo = _finder.Find<Bill>(bill => bill.IsActive && !bill.IsDeleted &&
-                                                       (bill.Id == request.BillId ||
-                                                        (bill.Id != request.BillId
-                                                         && bill.BeginDistributionDate == commonInfo.BillsBeginDistributionDate
-                                                         && bill.EndDistributionDate == commonInfo.BillsEndDistributionDate
-                                                         && request.RelatedOrdersId.Contains(bill.OrderId))))
+            var billsInfo = _finder.Find(new FindSpecification<Bill>(bill => bill.IsActive && !bill.IsDeleted &&
+                                                                             (bill.Id == request.BillId ||
+                                                                              (bill.Id != request.BillId
+                                                                               && bill.BeginDistributionDate == commonInfo.BillsBeginDistributionDate
+                                                                               && bill.EndDistributionDate == commonInfo.BillsEndDistributionDate
+                                                                               && request.RelatedOrdersId.Contains(bill.OrderId)))))
                                    .Select(bill => new
-                                                       {
-                                                           Bill = new BillInfo
-                                                                      {
-                                                                          BillNumber = bill.Number,
-                                                                          BeginDistributionDate = bill.BeginDistributionDate,
-                                                                          EndDistributionDate = bill.EndDistributionDate,
-                                                                          PayablePlan = bill.PayablePlan,
-                                                                          VatPlan = bill.VatPlan,
-                                                                          PaymentDatePlan = bill.PaymentDatePlan,
-                                                                          PayableWithoutVatPlan = bill.PayablePlan - bill.VatPlan,
-                                                                          NoVatText = bill.VatPlan != default(decimal) ? string.Empty : BLResources.NoVatText,
-                                                                          CreatedOn = bill.CreatedOn,
-                                                                          OrderReleaseCountPlan = bill.Order.ReleaseCountPlan
-                                                                      },
-                                                           Order = new
-                                                                       {
-                                                                           bill.Order.Number,
-                                                                           bill.Order.SignupDate,
-                                                                           bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
-                                                                           DestOrganizationUnit = bill.Order.DestOrganizationUnit.Name,
-                                                                           bill.Order.CreatedOn
-                                                                       },
-                                                           bill.Order.Bargain,
-                                                       })
+                                       {
+                                           Bill = new BillInfo
+                                               {
+                                                   BillNumber = bill.Number,
+                                                   BeginDistributionDate = bill.BeginDistributionDate,
+                                                   EndDistributionDate = bill.EndDistributionDate,
+                                                   PayablePlan = bill.PayablePlan,
+                                                   VatPlan = bill.VatPlan,
+                                                   PaymentDatePlan = bill.PaymentDatePlan,
+                                                   PayableWithoutVatPlan = bill.PayablePlan - bill.VatPlan,
+                                                   NoVatText = bill.VatPlan != default(decimal) ? string.Empty : BLResources.NoVatText,
+                                                   CreatedOn = bill.CreatedOn,
+                                                   OrderReleaseCountPlan = bill.Order.ReleaseCountPlan
+                                               },
+                                           Order = new
+                                               {
+                                                   bill.Order.Number,
+                                                   bill.Order.SignupDate,
+                                                   bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                                                   DestOrganizationUnit = bill.Order.DestOrganizationUnit.Name,
+                                                   bill.Order.CreatedOn
+                                               },
+                                           bill.Order.Bargain,
+                                       })
                                    .ToArray();
 
             var summary = billsInfo.Aggregate(new SummaryJointBillInfo { PayableWithoutVatPlan = 0m, VatPlan = 0m, PayablePlan = 0m },

@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
@@ -14,11 +13,11 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.ConnectionStrings;
 using NuClear.Storage.Core;
 using NuClear.Storage.Specifications;
 
 using File = DoubleGis.Erm.Platform.Model.Entities.Erm.File;
-using IConnectionStringSettings = NuClear.Storage.ConnectionStrings.IConnectionStringSettings;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {
@@ -132,17 +131,12 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
 
         public IQueryable<FileWithContent> Find(FindSpecification<FileWithContent> findSpecification)
         {
-            return FindInternal(findSpecification.Predicate);
+            return FindInternal(findSpecification);
         }
 
         public IQueryable<TOutput> Find<TOutput>(SelectSpecification<FileWithContent, TOutput> selectSpecification, FindSpecification<FileWithContent> findSpecification)
         {
-            return FindInternal(findSpecification.Predicate).Select(selectSpecification.Selector);
-        }
-
-        public IQueryable<FileWithContent> Find(Expression<Func<FileWithContent, bool>> expression)
-        {
-            return FindInternal(expression);
+            return FindInternal(findSpecification).Select(selectSpecification);
         }
 
         private static void CheckArgumentNull<T>(T value, string parameterName) where T : class
@@ -153,9 +147,9 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
             }
         }
 
-        private IQueryable<FileWithContent> FindInternal(Expression<Func<FileWithContent, bool>> findExpression)
+        private IQueryable<FileWithContent> FindInternal(FindSpecification<FileWithContent> findExpression)
         {
-            var result = RepositoryFileQuery.Where(findExpression.ReplaceParameterType<FileWithContent, File>()).ToArray();
+            var result = RepositoryFileQuery.Where(findExpression.ReplaceType<FileWithContent, File>()).ToArray();
             return result.Select(OpenContentForFile).AsQueryable();
         }
 

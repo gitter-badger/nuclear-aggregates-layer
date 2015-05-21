@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     {
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             if (parentEntityName.Equals(EntityType.Instance.AdvertisementTemplate()))
             {
-                return _finder.Find<AdvertisementTemplate>(x => x.Id == parentEntityId)
+                return _finder.Find(new FindSpecification<AdvertisementTemplate>(x => x.Id == parentEntityId))
                               .Select(x => new AdsTemplatesAdsElementTemplateDomainEntityDto
                                   {
                                       AdsTemplateRef = new EntityReference { Id = x.Id, Name = x.Name }
@@ -34,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             if (parentEntityName.Equals(EntityType.Instance.AdvertisementElementTemplate()))
             {
-                return _finder.Find<AdvertisementElementTemplate>(x => x.Id == parentEntityId)
+                return _finder.Find(new FindSpecification<AdvertisementElementTemplate>(x => x.Id == parentEntityId))
                               .Select(x => new AdsTemplatesAdsElementTemplateDomainEntityDto
                                   {
                                       AdsElementTemplateRef = new EntityReference { Id = x.Id, Name = x.Name }
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<AdsTemplatesAdsElementTemplate> GetDto(long entityId)
         {
-            return _finder.Find<AdsTemplatesAdsElementTemplate>(x => x.Id == entityId)
+            return _finder.Find(new FindSpecification<AdsTemplatesAdsElementTemplate>(x => x.Id == entityId))
                           .Select(x => new AdsTemplatesAdsElementTemplateDomainEntityDto
                               {
                                   Id = x.Id,

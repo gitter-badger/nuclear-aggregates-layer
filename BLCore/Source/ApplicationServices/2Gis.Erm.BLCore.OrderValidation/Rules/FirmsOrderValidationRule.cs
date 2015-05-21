@@ -5,9 +5,12 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
@@ -16,16 +19,17 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// </summary>
     public sealed class FirmsOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public FirmsOrderValidationRule(IFinder finder)
+        public FirmsOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var orders = _finder.Find(ruleContext.OrdersFilterPredicate)
+            var orders = _query.For<Order>()
+                .Where(ruleContext.OrdersFilterPredicate)
                 .Where(order => order.Firm.ClosedForAscertainment || !order.Firm.IsActive || order.Firm.IsDeleted)
                 .GroupBy(order => order.FirmId)
                 .Select(group => group.FirstOrDefault())

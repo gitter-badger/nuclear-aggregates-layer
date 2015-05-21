@@ -7,8 +7,11 @@ using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
@@ -17,11 +20,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     /// </summary>
     public sealed class RequiredFieldsNotEmptyOrderValidationRule : OrderValidationRuleBase<OrdinaryValidationRuleContext>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public RequiredFieldsNotEmptyOrderValidationRule(IFinder finder)
+        public RequiredFieldsNotEmptyOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         /// <summary>
@@ -29,7 +32,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         /// </summary>
         protected override IEnumerable<OrderValidationMessage> Validate(OrdinaryValidationRuleContext ruleContext)
         {
-            var orderDetails = _finder.Find(ruleContext.OrdersFilterPredicate)
+            var orderDetails = _query.For<Order>()
+                    .Where(ruleContext.OrdersFilterPredicate)
                     .Where(o =>
                             o.BeginDistributionDate.Day != 1 ||
                             o.LegalPersonId == null ||

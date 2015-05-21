@@ -12,7 +12,7 @@ namespace NuClear.Storage.Specifications
             _selector = selector;
         }
 
-        public Expression<Func<TInput, TOutput>> Selector
+        internal Expression<Func<TInput, TOutput>> Selector
         {
             get { return _selector; }
         }

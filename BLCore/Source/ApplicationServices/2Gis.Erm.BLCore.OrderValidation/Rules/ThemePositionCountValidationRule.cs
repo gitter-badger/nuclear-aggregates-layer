@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -22,11 +23,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     public sealed class ThemePositionCountValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         private const int MaxPositionsPerTheme = 10;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public ThemePositionCountValidationRule(IFinder finder)
+        public ThemePositionCountValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
@@ -39,7 +40,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                     ? GetMassiveOversaleQuery()
                                     : GetSingleOversaleQuery(ruleContext.ValidationParams.Single.OrderId);
 
-            var themeUsages = _finder.Find(filter)
+            var themeUsages = _query.For<Order>()
+                                    .Where(filter)
                                     .SelectMany(query)
                                     .GroupBy(themeId => themeId)
                                     .Select(grouping => new ThemeSale
@@ -52,12 +54,12 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             var oversales = themeUsages.Where(oversaleQuery).ToArray();
 
             var orderNumber = !ruleContext.ValidationParams.IsMassValidation
-                                  ? _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)).Select(order => order.Number).Single()
+                                  ? _query.For(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)).Select(order => order.Number).Single()
                                   : null;
 
             // Получаем пачкой названия тем, по которым произошло превышение продаж
             var themeIds = oversales.Select(sale => sale.ThemeId).ToArray();
-            var themeNames = _finder.Find<Theme>(theme => themeIds.Contains(theme.Id)).ToDictionary(theme => theme.Id, theme => theme.Name);
+            var themeNames = _query.For(new FindSpecification<Theme>(theme => themeIds.Contains(theme.Id))).ToDictionary(theme => theme.Id, theme => theme.Name);
 
 
             return oversales.Select(x => new OrderValidationMessage
@@ -105,7 +107,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         private Expression<Func<Order, bool>> GetSingleOrderCheckFilter(long orderId)
         {
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
+            var orderInfo = _query.For(Specs.Find.ById<Order>(orderId))
                 .Select(order => new
                 {
                     OrganizationUnitId = order.DestOrganizationUnitId,
@@ -136,7 +138,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         private Func<ThemeSale, bool> GetSingleOversaleQuery(long orderId)
         {
-            var themes = _finder.Find(Specs.Find.ById<Order>(orderId))
+            var themes = _query.For(Specs.Find.ById<Order>(orderId))
                                 .SelectMany(GetThemeFromOrderSelectQuery())
                                 .ToArray();
 

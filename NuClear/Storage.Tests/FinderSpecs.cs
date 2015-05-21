@@ -39,11 +39,10 @@ namespace Storage.Tests
         {
             Establish context = () =>
                 {
-                    FindSpecification = new Mock<FindSpecification<IEntity>>();
-                    FindSpecification.SetupGet(f => f.Predicate).Returns(e => e.Equals(Finded));
+                    FindSpecification = new FindSpecification<IEntity>(e => e.Equals(Finded));
                 };
 
-            protected static Mock<FindSpecification<IEntity>> FindSpecification { get; private set; }
+            protected static FindSpecification<IEntity> FindSpecification { get; private set; }
         }
 
         class FinderSpecBase
@@ -98,7 +97,7 @@ namespace Storage.Tests
         [Subject(typeof(Finder))]
         class When_Find_by_findSpecification : FindBySpecificationFinderSpecBase
         {
-            Because of = () => Result = Target.Find(FindSpecification.Object);
+            Because of = () => Result = Target.Find(FindSpecification);
 
             It should_return_finded_as_result = () => ResultShouldOnlyContain(Finded);
         }
@@ -110,18 +109,16 @@ namespace Storage.Tests
         [Subject(typeof(Finder))]
         class When_Find_by_find_and_select_specification : FindBySpecificationFinderSpecBase
         {
-            static Mock<SelectSpecification<IEntity, IEntity>> _selectSpecification;
+            static SelectSpecification<IEntity, IEntity> _selectSpecification;
             static IEntity _selected;
 
             Establish context = () =>
                 {
                     _selected = Mock.Of<IEntity>();
-
-                    _selectSpecification = new Mock<SelectSpecification<IEntity, IEntity>>();
-                    _selectSpecification.SetupGet(s => s.Selector).Returns(e => e.Equals(Finded) ? _selected : (IEntity)null);
+                    _selectSpecification = new SelectSpecification<IEntity, IEntity>(e => e.Equals(Finded) ? _selected : (IEntity)null);
                 };
 
-            Because of = () => Result = Target.Find<IEntity, IEntity>(_selectSpecification.Object, FindSpecification.Object);
+            Because of = () => Result = Target.Find<IEntity, IEntity>(_selectSpecification, FindSpecification);
 
             It should_return_selected_as_result = () => ResultShouldOnlyContain(_selected);
         }
@@ -133,7 +130,7 @@ namespace Storage.Tests
         [Subject(typeof(Finder))]
         class When_Find_by_lambda_expression : FindByFinderSpecBase
         {
-            Because of = () => Result = Target.Find<IEntity>(e => e.Equals(Finded));
+            Because of = () => Result = Target.Find(new FindSpecification<IEntity>(e => e.Equals(Finded)));
 
             It should_return_finded_as_result = () => ResultShouldOnlyContain(Finded);
         }

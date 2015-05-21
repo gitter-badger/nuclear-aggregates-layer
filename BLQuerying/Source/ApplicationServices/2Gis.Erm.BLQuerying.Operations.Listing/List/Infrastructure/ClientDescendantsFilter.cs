@@ -3,6 +3,7 @@
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 {
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
         public IQueryable<TEntity> Apply<TEntity>(IQueryable<TEntity> queryable, long clientId)
         {
             var descendantIds =
-                _finder.Find<DenormalizedClientLink>(x => x.MasterClientId == clientId)
+                _finder.Find(new FindSpecification<DenormalizedClientLink>(x => x.MasterClientId == clientId))
                        .Select(x => x.ChildClientId)
                        .ToArray()
                        .Union(new[] { clientId });

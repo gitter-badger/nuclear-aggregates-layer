@@ -21,6 +21,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -115,7 +116,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
                 {
                     var limitCodes = limits.Split(Delimiter).Select(x => new Guid(x)).ToList();
 
-                    var limitIds = _secureFinder.Find<Limit>(x => limitCodes.Contains(x.ReplicationCode)).Select(x => x.Id).ToArray();
+                    var limitIds = _secureFinder.Find(new FindSpecification<Limit>(x => limitCodes.Contains(x.ReplicationCode))).Select(x => x.Id).ToArray();
                     model.LimitIds = string.Join(Delimiter.ToString(CultureInfo.InvariantCulture), limitIds);
 
                     model.LimitCount = limitIds.Length;

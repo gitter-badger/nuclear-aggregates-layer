@@ -24,6 +24,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 {
@@ -325,7 +326,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public IReadOnlyCollection<OperationType> GetOperationsInSyncWith1C()
         {
-            return _finder.Find<OperationType>(x => x.IsInSyncWith1C && x.IsActive && !x.IsDeleted).ToArray();
+            return _finder.Find(new FindSpecification<OperationType>(x => x.IsInSyncWith1C && x.IsActive && !x.IsDeleted)).ToArray();
         }
 
         public int Delete(Account account)
@@ -396,14 +397,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public IEnumerable<OperationType> GetOperationTypes(string syncCode1C)
         {
-            return _finder.Find<OperationType>(x => x.IsActive && !x.IsDeleted && x.SyncCode1C == syncCode1C && x.IsInSyncWith1C).ToArray();
+            return _finder.Find(new FindSpecification<OperationType>(x => x.IsActive && !x.IsDeleted && x.SyncCode1C == syncCode1C && x.IsInSyncWith1C)).ToArray();
         }
 
         public void UpdateAccountBalance(IEnumerable<long> accountIds)
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Account>())
             {
-                var accountInfos = _finder.Find<Account>(x => accountIds.Contains(x.Id))
+                var accountInfos = _finder.Find(new FindSpecification<Account>(x => accountIds.Contains(x.Id)))
                                           .Select(x => new
                                               {
                                                   Account = x,
@@ -438,7 +439,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public bool IsCreateAccountDetailValid(long accountId, long userCode, bool checkContributionType)
         {
-            var branchOfficeInfo = _finder.Find<Account>(x => x.Id == accountId)
+            var branchOfficeInfo = _finder.Find(new FindSpecification<Account>(x => x.Id == accountId))
                 .Select(x => new { x.BranchOfficeOrganizationUnit.BranchOfficeId, x.BranchOfficeOrganizationUnit.BranchOffice.ContributionTypeId })
                 .FirstOrDefault();
 
@@ -447,7 +448,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                 return false;
             }
 
-            var isCurrentUserInBranchOffice = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == userCode)
+            var isCurrentUserInBranchOffice = _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == userCode))
                 .SelectMany(x => x.OrganizationUnit.BranchOfficeOrganizationUnits)
                 .Select(x => x.BranchOffice)
                 .Any(x => x.Id == branchOfficeInfo.BranchOfficeId);
@@ -478,9 +479,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public AccountDetail[] GetAccountDetailsForImportFrom1COperation(string branchOfficeOrganizationUnit1CCode, DateTime transactionPeriodStart, DateTime transactionPeriodEnd)
         {
-            var operationTypeIds = _finder.Find<OperationType>(x => x.IsActive && x.IsDeleted == false && x.IsInSyncWith1C).Select(x => x.Id).ToArray();
+            var operationTypeIds = _finder.Find(new FindSpecification<OperationType>(x => x.IsActive && x.IsDeleted == false && x.IsInSyncWith1C)).Select(x => x.Id).ToArray();
 
-            return _finder.Find<BranchOfficeOrganizationUnit>(x => !x.IsDeleted && branchOfficeOrganizationUnit1CCode == x.SyncCode1C)
+            return _finder.Find(new FindSpecification<BranchOfficeOrganizationUnit>(x => !x.IsDeleted && branchOfficeOrganizationUnit1CCode == x.SyncCode1C))
                           .SelectMany(x => x.Accounts)
                           .Where(x => !x.IsDeleted)
                           .SelectMany(x => x.AccountDetails)
@@ -493,7 +494,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public IEnumerable<AccountInfoForImportFrom1C> GetAccountsForImportFrom1C(IEnumerable<string> branchOfficeSyncCodes, DateTime transactionPeriodStart, DateTime transactionPeriodEnd)
         {
-            return _finder.Find<Account>(a => !a.IsDeleted && branchOfficeSyncCodes.Contains(a.BranchOfficeOrganizationUnit.SyncCode1C))
+            return _finder.Find(new FindSpecification<Account>(a => !a.IsDeleted && branchOfficeSyncCodes.Contains(a.BranchOfficeOrganizationUnit.SyncCode1C)))
                           .Select(x => new AccountInfoForImportFrom1C
                           {
                               Id = x.Id,

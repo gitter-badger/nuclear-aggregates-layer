@@ -17,17 +17,15 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
-
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using Microsoft.Crm.SdkTypeProxy;
-
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 // ReSharper disable CheckNamespace
 namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
@@ -267,7 +265,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         public LegalPerson FindLegalPerson(string syncCodeWith1C, string innOrPassportSeries, string kppOrPassportNumber)
         {
-            var accountIds = _finder.Find<Account>(y => y.LegalPesonSyncCode1C == syncCodeWith1C).Select(y => y.LegalPersonId).ToArray();
+            var accountIds = _finder.Find(new FindSpecification<Account>(y => y.LegalPesonSyncCode1C == syncCodeWith1C)).Select(y => y.LegalPersonId).ToArray();
 
             var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(accountIds) &&
                                                 (LegalPersonSpecs.LegalPersons.Find.LegalPersonByInnAndKpp(innOrPassportSeries, kppOrPassportNumber) ||

@@ -25,6 +25,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -61,11 +62,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
             // TODO {all, 01.02.2013}: Убрать получение DTO-объекта для ViewModel-и в агрегирующий репозиторий
             var model = new MergeClientsViewModel
                 {
-                    Client1 = _finder.Find<Client>(c => c.Id == masterId && !c.IsDeleted && c.IsActive)
+                    Client1 = _finder.Find(new FindSpecification<Client>(c => c.Id == masterId && !c.IsDeleted && c.IsActive))
                                      .Select(c => new LookupField { Key = c.Id, Value = c.Name })
                                      .Single(),
                     Client2 = subordinateId.HasValue
-                                  ? _finder.Find<Client>(c => c.Id == subordinateId && !c.IsDeleted && c.IsActive)
+                                  ? _finder.Find(new FindSpecification<Client>(c => c.Id == subordinateId && !c.IsDeleted && c.IsActive))
                                            .Select(c => new LookupField { Key = c.Id, Value = c.Name })
                                            .Single()
                                   : null,
@@ -99,10 +100,10 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
             }
             catch (NotificationException ex)
             {
-                result.Client1 = _finder.Find<Client>(c => c.Id == entity.Id && !c.IsDeleted && c.IsActive)
+                result.Client1 = _finder.Find(new FindSpecification<Client>(c => c.Id == entity.Id && !c.IsDeleted && c.IsActive))
                                         .Select(c => new LookupField { Key = c.Id, Value = c.Name })
                                         .Single();
-                result.Client2 = _finder.Find<Client>(c => c.Id == model.AppendedClient && !c.IsDeleted && c.IsActive)
+                result.Client2 = _finder.Find(new FindSpecification<Client>(c => c.Id == model.AppendedClient && !c.IsDeleted && c.IsActive))
                                         .Select(c => new LookupField { Key = c.Id, Value = c.Name })
                                         .Single();
                 result.SetCriticalError(ex.Message);

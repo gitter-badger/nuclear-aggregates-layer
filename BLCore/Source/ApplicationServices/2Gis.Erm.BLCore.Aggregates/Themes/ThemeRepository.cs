@@ -15,17 +15,16 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.DAL;
-
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 using NuClear.Storage.Specifications;
 
 using File = DoubleGis.Erm.Platform.Model.Entities.Erm.File;
@@ -85,7 +84,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                     throw new ArgumentException(BLResources.CannotDeleteUsedTheme);
                 }
 
-                var themeOrganizationUnits = _finder.Find<ThemeOrganizationUnit>(unit => unit.ThemeId == entityId).ToArray();
+                var themeOrganizationUnits = _finder.Find(new FindSpecification<ThemeOrganizationUnit>(unit => unit.ThemeId == entityId)).ToArray();
                 foreach (var themeOrganizationUnit in themeOrganizationUnits)
                 {
                     themeOrganizationUnit.IsActive = false;
@@ -308,7 +307,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         public ThemeOrganizationUnit AppendThemeToOrganizationUnit(long themeId, long organizationUnitId)
         {
-            var themeOrganizationUnit = _finder.Find<ThemeOrganizationUnit>(themeCategory => themeCategory.OrganizationUnitId == organizationUnitId && themeCategory.ThemeId == themeId)
+            var themeOrganizationUnit = _finder.Find(new FindSpecification<ThemeOrganizationUnit>(themeCategory => themeCategory.OrganizationUnitId == organizationUnitId && themeCategory.ThemeId == themeId))
                               .SingleOrDefault();
 
             if (themeOrganizationUnit == null)
@@ -346,7 +345,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         public ThemeCategory AppendThemeToCategory(long themeId, long categoryId)
         {
-            var themeCategory = _finder.Find<ThemeCategory>(x => x.CategoryId == categoryId && x.ThemeId == themeId)
+            var themeCategory = _finder.Find(new FindSpecification<ThemeCategory>(x => x.CategoryId == categoryId && x.ThemeId == themeId))
                               .SingleOrDefault();
 
             if (themeCategory == null)
@@ -378,7 +377,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         public int CountThemeCategories(long themeId)
         {
-            return _finder.Find<ThemeCategory>(link => !link.IsDeleted && link.ThemeId == themeId)
+            return _finder.Find(new FindSpecification<ThemeCategory>(link => !link.IsDeleted && link.ThemeId == themeId))
                 .Select(link => link.Theme)
                 .Where(Specs.Find.ActiveAndNotDeleted<Theme>())
                 .Count();
@@ -548,7 +547,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         private TimePeriod GetMinimalThemeDistributionPeriod(long themeId)
         {
-            var orders = _finder.Find<OrderPositionAdvertisement>(advertisement => advertisement.ThemeId == themeId)
+            var orders = _finder.Find(new FindSpecification<OrderPositionAdvertisement>(advertisement => advertisement.ThemeId == themeId))
                 .Select(advertisement => advertisement.OrderPosition)
                 .Where(position => position.IsActive && !position.IsDeleted)
                 .Select(position => position.Order)

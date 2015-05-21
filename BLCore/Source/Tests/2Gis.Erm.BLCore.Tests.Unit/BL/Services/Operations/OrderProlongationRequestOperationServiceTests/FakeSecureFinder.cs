@@ -19,19 +19,9 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
 
         public List<object> Storage { get; private set; }
 
-        public IQueryable For(Type entityType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
-        {
-            throw new NotImplementedException();
-        }
-
         public IQueryable<TEntity> Find<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
-            return Storage.OfType<TEntity>().Where(findSpecification.Predicate.Compile()).AsQueryable();
+            return Storage.OfType<TEntity>().AsQueryable().Where(findSpecification).AsQueryable();
         }
 
         public IQueryable<TOutput> Find<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
@@ -49,9 +39,24 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public TOutput FindOne<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
-            return Storage.OfType<TEntity>().Where(findSpecification.Predicate.Compile()).ToArray();
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyCollection<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        {
+            return Storage.OfType<TEntity>().AsQueryable().Where(findSpecification).ToArray();
+        }
+
+        public IReadOnlyCollection<TOutput> FindMany<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool FindAny<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        {
+            throw new NotImplementedException();
         }
     }
 }

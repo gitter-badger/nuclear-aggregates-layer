@@ -6,26 +6,30 @@ using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+
+using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 {
     public sealed class SalesModelRestrictionsOrderValidationRule : OrderValidationRuleBase<HybridParamsValidationRuleContext>
     {
         private const int CategoryLevelToCheck = 3;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public SalesModelRestrictionsOrderValidationRule(IFinder finder)
+        public SalesModelRestrictionsOrderValidationRule(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
             var badAdvertisemements =
-                _finder.Find(ruleContext.OrdersFilterPredicate)
+                _query.For<Order>()
+                       .Where(ruleContext.OrdersFilterPredicate)
                        .SelectMany(order => order.OrderPositions)
                        .Where(orderPosition => orderPosition.IsActive
                                                && !orderPosition.IsDeleted)

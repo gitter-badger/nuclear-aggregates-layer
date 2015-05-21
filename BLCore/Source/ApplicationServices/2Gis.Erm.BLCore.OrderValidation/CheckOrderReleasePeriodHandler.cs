@@ -17,11 +17,11 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
 {
     public sealed class CheckOrderReleasePeriodHandler : RequestHandler<CheckOrderReleasePeriodRequest, CheckOrderReleasePeriodResponse>
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public CheckOrderReleasePeriodHandler(IFinder finder)
+        public CheckOrderReleasePeriodHandler(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         protected override CheckOrderReleasePeriodResponse Handle(CheckOrderReleasePeriodRequest request)
@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                 return result;
             }
 
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+            var orderInfo = _query.For(Specs.Find.ById<Order>(request.OrderId))
                 .Select(x => new { x.Number, x.DestOrganizationUnitId, x.BeginDistributionDate, x.EndDistributionDateFact })
                 .Single();
 
@@ -43,13 +43,15 @@ namespace DoubleGis.Erm.BLCore.OrderValidation
                       orderInfo.BeginDistributionDate <= ri.PeriodStartDate && ri.PeriodEndDate <= orderInfo.EndDistributionDateFact;
 
             var isReleaseExist = request.InProgressOnly
-                                     ? _finder.Find(expression)
-                                                .Any(ri => ri.Status == ReleaseStatus.InProgressInternalProcessingStarted 
-                                                    || ri.Status == ReleaseStatus.InProgressWaitingExternalProcessing)
-                                     : _finder.Find(expression)
-                                                .Any(ri => ri.Status == ReleaseStatus.InProgressInternalProcessingStarted 
-                                                    || ri.Status == ReleaseStatus.InProgressWaitingExternalProcessing
-                                                    || ri.Status == ReleaseStatus.Success);
+                                     ? _query.For<ReleaseInfo>()
+                                             .Where(expression)
+                                             .Any(ri => ri.Status == ReleaseStatus.InProgressInternalProcessingStarted
+                                                        || ri.Status == ReleaseStatus.InProgressWaitingExternalProcessing)
+                                     : _query.For<ReleaseInfo>()
+                                             .Where(expression)
+                                             .Any(ri => ri.Status == ReleaseStatus.InProgressInternalProcessingStarted
+                                                        || ri.Status == ReleaseStatus.InProgressWaitingExternalProcessing
+                                                        || ri.Status == ReleaseStatus.Success);
 
             if (isReleaseExist)
             {

@@ -115,9 +115,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterType<IMsCrmReplicationMetadataProvider, NullMsCrmReplicationMetadataProvider>();
             }
 
-            if (!container.IsRegistered<IConnectionStringNameResolver>())
+            if (!container.IsRegistered<IConnectionStringIdentityResolver>())
             {
-                container.RegisterInstance<IConnectionStringNameResolver>(new DefaultConnectionStringNameResolver(ErmConnectionStringIdentity.Instance));
+                container.RegisterInstance<IConnectionStringIdentityResolver>(new DefaultConnectionStringIdentityResolver(ErmConnectionStringIdentity.Instance));
             }
 
             return container
@@ -152,7 +152,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IFileContentFinder, EFFileRepository>(Lifetime.PerResolve)
 
                         .RegisterType<IDynamicStorageFinder, DynamicStorageFinder>(Lifetime.PerResolve)
-                        .RegisterType<ICompositeEntityDecorator, CompositeEntityDecorator>(Lifetime.PerResolve)
+                        .RegisterType<ICompositeEntityQuery, CompositeEntityQuery>(Lifetime.PerResolve)
 
                         .RegisterType(typeof(IRepository<>), typeof(EFGenericRepository<>), Lifetime.PerResolve)
                         .RegisterType(typeof(ISecureRepository<>), typeof(EFSecureGenericRepository<>), Lifetime.PerResolve)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
@@ -10,12 +9,14 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 {
@@ -199,7 +200,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         public IEnumerable<PricePositionDto> GetPricePositions(IEnumerable<long> requiredPriceIds, IEnumerable<long> requiredPositionIds)
         {
-            return _finder.Find<PricePosition>(x => requiredPriceIds.Contains(x.PriceId) && requiredPositionIds.Contains(x.PositionId))
+            return _finder.Find(new FindSpecification<PricePosition>(x => requiredPriceIds.Contains(x.PriceId) && requiredPositionIds.Contains(x.PositionId)))
                 .Select(x => new PricePositionDto
                 {
                     Id = x.Id,

@@ -66,9 +66,7 @@ namespace DoubleGis.Erm.Platform.DAL
                 throw new ArgumentNullException("findSpecification");
             }
 
-            var findResult = RestrictQueryWhenAccessCheck<IQueryable<TEntity>>(_finder.Find(findSpecification));
-
-            return findResult.Select(selectSpecification.Selector);
+            return RestrictQueryWhenAccessCheck<IQueryable<TOutput>>(_finder.Find(selectSpecification, findSpecification));
         }
 
         public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity
@@ -84,13 +82,64 @@ namespace DoubleGis.Erm.Platform.DAL
         public TEntity FindOne<TEntity>(FindSpecification<TEntity> findSpecification)
             where TEntity : class, IEntity
         {
-            throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");
+            if (findSpecification == null)
+            {
+                throw new ArgumentNullException("findSpecification");
+            }
+
+            return RestrictQueryWhenAccessCheck<IQueryable<TEntity>>(_finder.Find(findSpecification)).SingleOrDefault();
         }
 
-        public IEnumerable<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification)
+        public TOutput FindOne<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) 
             where TEntity : class, IEntity
         {
-            throw new NotSupportedException("ConsistentSecureFinderDecorator should be used");
+            if (selectSpecification == null)
+            {
+                throw new ArgumentNullException("selectSpecification");
+            }
+
+            if (findSpecification == null)
+            {
+                throw new ArgumentNullException("findSpecification");
+            }
+
+            return RestrictQueryWhenAccessCheck<IQueryable<TOutput>>(_finder.Find(selectSpecification, findSpecification)).SingleOrDefault();
+        }
+
+        public IReadOnlyCollection<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        {
+            if (findSpecification == null)
+            {
+                throw new ArgumentNullException("findSpecification");
+            }
+
+            return RestrictQueryWhenAccessCheck<IQueryable<TEntity>>(_finder.Find(findSpecification)).ToArray();
+        }
+
+        public IReadOnlyCollection<TOutput> FindMany<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) 
+            where TEntity : class, IEntity
+        {
+            if (selectSpecification == null)
+            {
+                throw new ArgumentNullException("selectSpecification");
+            }
+
+            if (findSpecification == null)
+            {
+                throw new ArgumentNullException("findSpecification");
+            }
+
+            return RestrictQueryWhenAccessCheck<IQueryable<TOutput>>(_finder.Find(selectSpecification, findSpecification)).ToArray();
+        }
+
+        public bool FindAny<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        {
+            if (findSpecification == null)
+            {
+                throw new ArgumentNullException("findSpecification");
+            }
+
+            return RestrictQueryWhenAccessCheck<IQueryable<TEntity>>(_finder.Find(findSpecification)).Any();
         }
 
         private TQueryable RestrictQueryWhenAccessCheck<TQueryable>(IQueryable querySource)

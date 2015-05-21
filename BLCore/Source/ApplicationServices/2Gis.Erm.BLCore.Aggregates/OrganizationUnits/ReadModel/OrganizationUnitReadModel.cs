@@ -9,6 +9,8 @@ using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLCore.Aggregates.OrganizationUnits.ReadModel
 {
     public class OrganizationUnitReadModel : IOrganizationUnitReadModel
@@ -43,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.OrganizationUnits.ReadModel
 
         public long GetCurrencyId(long organizationUnitId)
         {
-            var currencyId = _finder.Find<OrganizationUnit>(x => x.Id == organizationUnitId).Select(x => (long?)x.Country.CurrencyId).SingleOrDefault();
+            var currencyId = _finder.Find(new FindSpecification<OrganizationUnit>(x => x.Id == organizationUnitId)).Select(x => (long?)x.Country.CurrencyId).SingleOrDefault();
             if (!currencyId.HasValue)
             {
                 throw new InvalidOperationException(BLResources.CurrencyNotSpecifiedForPrice);
