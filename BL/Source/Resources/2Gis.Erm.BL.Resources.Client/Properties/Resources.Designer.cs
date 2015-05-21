@@ -2392,7 +2392,7 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Осуществляется звонок.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string StartCalling {
             get {

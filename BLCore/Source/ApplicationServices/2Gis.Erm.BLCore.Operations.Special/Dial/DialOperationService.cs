@@ -51,18 +51,24 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.Dial
                 throw new Exception(BLResources.WorkPhoneIsNotSelected);
             }
 
-            var department = _userReadModel.GetTelephonyServerAddress(_userContext.Identity.Code);
-            if (department == null)
+            short workPhoneLine;
+            if (!short.TryParse(userProfile.Phone, out workPhoneLine))
+            {
+                throw new Exception(string.Format(BLResources.IncorrectPhoneNumber, userProfile.Phone));
+            }
+
+            var telephonyServerAddress = _userReadModel.GetTelephonyServerAddress(_userContext.Identity.Code);
+            if (telephonyServerAddress == null)
             {
                 throw new Exception(BLResources.TelephonyUnitIsNotSelected);
             }
 
-            if (string.IsNullOrEmpty(department.Scheme) || string.IsNullOrEmpty(department.Host) || department.Port == 0)
+            if (string.IsNullOrEmpty(telephonyServerAddress.Scheme) || string.IsNullOrEmpty(telephonyServerAddress.Host) || telephonyServerAddress.Port == 0)
             {
                 throw new ArgumentException(BLResources.TelephonyUnitInIncorrectFormat);
             }
 
-            InvokeDialing(department, userProfile.Phone, number);
+            InvokeDialing(telephonyServerAddress, userProfile.Phone, number);
         }
 
         private static async Task<TcpClient> ConnectAsync(Uri endpointUri)
