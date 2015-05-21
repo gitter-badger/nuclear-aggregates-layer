@@ -15,7 +15,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using NuClear.Security.API.UserContext;
@@ -55,7 +55,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
                                         IEntityViewNameProvider entityViewNameProvider,
                                         ICardSettingsProvider cardSettingsProvider,
                                         IViewModelCustomizationService viewModelCustomizationService,
-                                        IAPIIdentityServiceSettings identityServiceSettings)
+                                        IIdentityServiceClientSettings identityServiceSettings)
             : base(msCrmSettings,
                    operationsServiceSettings,
                    specialOperationsServiceSettings,
