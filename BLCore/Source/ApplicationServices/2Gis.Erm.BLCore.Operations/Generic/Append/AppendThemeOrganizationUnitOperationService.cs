@@ -6,7 +6,9 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
 {
@@ -28,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
                 throw new ArgumentException(BLResources.UserIdOtTerritoryIdIsNotSpecified);
             }
 
-            if (appendParams.ParentType != EntityName.Theme || appendParams.AppendedType != EntityName.OrganizationUnit)
+            if (!appendParams.ParentType.Equals(EntityType.Instance.Theme()) || !appendParams.AppendedType.Equals(EntityType.Instance.OrganizationUnit()))
             {
                 throw new ArgumentException(BLResources.InvalidAppendThemeOrganizationUnitParamTypes);
             }
@@ -57,8 +59,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
                 scope.Updated<Theme>(themeId)
                      .Updated<OrganizationUnit>(organizationUnitId);
                 scope.Complete();
-            }
-            
+            }    
         }
     }
 }

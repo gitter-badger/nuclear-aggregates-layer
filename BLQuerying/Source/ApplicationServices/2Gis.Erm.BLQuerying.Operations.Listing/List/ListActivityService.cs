@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -14,7 +15,9 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -22,19 +25,16 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ICompositeEntityDecorator _compositeEntityDecorator;
-        private readonly IUserContext _userContext;
         private readonly IFinder _finder;
         private readonly FilterHelper _filterHelper;
 
         public ListActivityService(ISecurityServiceUserIdentifier userIdentifierService,
                                    ICompositeEntityDecorator compositeEntityDecorator,
-                                   IUserContext userContext,
                                    IFinder finder,
                                    FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
             _compositeEntityDecorator = compositeEntityDecorator;
-            _userContext = userContext;
             _finder = finder;
             _filterHelper = filterHelper;
         }
@@ -67,30 +67,28 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             dto.OwnerName = _userIdentifierService.GetUserInfo(dto.OwnerCode).DisplayName;
         }
 
-        private IQueryable<ListActivityDto> ListAppointments(bool filterByParent, EntityName entityName, long? entityId)
+        private IQueryable<ListActivityDto> ListAppointments(bool filterByParent, IEntityType entityName, long? entityId)
         {
             Expression<Func<Appointment, bool>> filter = _ => true;
             if (filterByParent && entityId.HasValue)
             {
-                switch (entityName)
+                if (entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Deal()) || entityName.Equals(EntityType.Instance.Firm()))
                 {
-                    case EntityName.Client:
-                    case EntityName.Deal:
-                    case EntityName.Firm:
                         filter = FilterByReference<Appointment, AppointmentRegardingObject>(entityName, entityId.Value);
-                        break;
-                    case EntityName.Contact:
+                }
+                else if (entityName.Equals(EntityType.Instance.Contact()))
+                {
                         filter = FilterByReference<Appointment, AppointmentAttendee>(entityName, entityId.Value);
-                        break;
-                    default:
+                }
+                else
+                {
                         throw new NotSupportedException();
                 }
             }
 
             var appointments = _compositeEntityDecorator.Find(Specs.Find.Active<Appointment>());
 
-            return
-                from appointment in appointments.Where(filter)
+            return from appointment in appointments.Where(filter)
                 select new ListActivityDto
                     {
                         ActivityTypeEnum = ActivityType.Appointment,
@@ -110,30 +108,28 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     };
         }
 
-        private IQueryable<ListActivityDto> ListLetters(bool filterByParent, EntityName entityName, long? entityId)
+        private IEnumerable<ListActivityDto> ListLetters(bool filterByParent, IEntityType entityName, long? entityId)
         {
             Expression<Func<Letter, bool>> filter = _ => true;
             if (filterByParent && entityId.HasValue)
             {
-                switch (entityName)
+                if (entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Deal()) || entityName.Equals(EntityType.Instance.Firm()))
                 {
-                    case EntityName.Client:
-                    case EntityName.Deal:
-                    case EntityName.Firm:
                         filter = FilterByReference<Letter, LetterRegardingObject>(entityName, entityId.Value);
-                        break;
-                    case EntityName.Contact:
+                }
+                else if (entityName.Equals(EntityType.Instance.Contact()))
+                {
                         filter = FilterByReference<Letter, LetterRecipient>(entityName, entityId.Value);
-                        break;
-                    default:
+                }
+                else
+                {
                         throw new NotSupportedException();
                 }
             }
 
             var letters = _compositeEntityDecorator.Find(Specs.Find.Active<Letter>());
 
-            return
-                from letter in letters.Where(filter)
+            return from letter in letters.Where(filter)
                 select new ListActivityDto
                     {
                         ActivityTypeEnum = ActivityType.Letter,
@@ -153,30 +149,28 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     };
         }
 
-        private IQueryable<ListActivityDto> ListPhonecalls(bool filterByParent, EntityName entityName, long? entityId)
+        private IEnumerable<ListActivityDto> ListPhonecalls(bool filterByParent, IEntityType entityName, long? entityId)
         {
             Expression<Func<Phonecall, bool>> filter = _ => true;
             if (filterByParent && entityId.HasValue)
             {
-                switch (entityName)
+                if (entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Deal()) || entityName.Equals(EntityType.Instance.Firm()))
                 {
-                    case EntityName.Client:
-                    case EntityName.Deal:
-                    case EntityName.Firm:
                         filter = FilterByReference<Phonecall, PhonecallRegardingObject>(entityName, entityId.Value);
-                        break;
-                    case EntityName.Contact:
+                }
+                else if (entityName.Equals(EntityType.Instance.Contact()))
+                {
                         filter = FilterByReference<Phonecall, PhonecallRecipient>(entityName, entityId.Value);
-                        break;
-                    default:
+                }
+                else
+                {
                         throw new NotSupportedException();
                 }
             }
 
             var phonecalls = _compositeEntityDecorator.Find(Specs.Find.Active<Phonecall>());
 
-            return
-                from phonecall in phonecalls.Where(filter)
+            return from phonecall in phonecalls.Where(filter)
                 select new ListActivityDto
                     {
                         ActivityTypeEnum = ActivityType.Phonecall,
@@ -196,30 +190,28 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     };
         }
 
-        private IQueryable<ListActivityDto> ListTasks(bool filterByParent, EntityName entityName, long? entityId)
+        private IEnumerable<ListActivityDto> ListTasks(bool filterByParent, IEntityType entityName, long? entityId)
         {
             Expression<Func<Task, bool>> filter = _ => true;
             if (filterByParent && entityId.HasValue)
             {
-                switch (entityName)
+                if (entityName.Equals(EntityType.Instance.Client()) || entityName.Equals(EntityType.Instance.Deal()) || entityName.Equals(EntityType.Instance.Firm()))
                 {
-                    case EntityName.Client:
-                    case EntityName.Deal:
-                    case EntityName.Firm:
                         filter = FilterByReference<Task, TaskRegardingObject>(entityName, entityId.Value);
-                        break;
-                    case EntityName.Contact:
+                }
+                else if (entityName.Equals(EntityType.Instance.Contact()))
+                {
                         filter = _ => false;
-                        break;
-                    default:
+                }
+                else
+                {
                         throw new NotSupportedException();
                 }
             }
 
             var tasks = _compositeEntityDecorator.Find(Specs.Find.Active<Task>());
 
-            return
-                from task in tasks.Where(filter)
+            return from task in tasks.Where(filter)
                 select new ListActivityDto
                     {
                         ActivityTypeEnum = ActivityType.Task,
@@ -239,15 +231,18 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                     };
         }
 
-        private Expression<Func<TActivity,bool>> FilterByReference<TActivity, TEntityReference>(EntityName entityName, long entityId)
+        private Expression<Func<TActivity, bool>> FilterByReference<TActivity, TEntityReference>(IEntityType entityName, long entityId)
             where TActivity : class, IEntity, IEntityKey, IDeactivatableEntity
             where TEntityReference : EntityReference<TActivity>, IEntity
         {
-            if (entityName == EntityName.Client)
+            var clientTypeId = EntityType.Instance.Client().Id;
+            var firmTypeId = EntityType.Instance.Firm().Id;
+            var dealTypeId = EntityType.Instance.Deal().Id;
+            if (entityName.Equals(EntityType.Instance.Client()))
             {
-                var regardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityName == EntityName.Client));
-                var regardingFirms = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityName == EntityName.Firm));
-                var regardingDeals = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityName == EntityName.Deal));
+                var regardingClients = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityTypeId == clientTypeId));
+                var regardingFirms = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityTypeId == firmTypeId));
+                var regardingDeals = _compositeEntityDecorator.Find(Specs.Find.Custom<TEntityReference>(x => x.TargetEntityTypeId == dealTypeId));
                 var firms = _finder.Find(Specs.Find.Active<Firm>());
                 var deals = _finder.Find(Specs.Find.Active<Deal>());
 
@@ -265,7 +260,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                        .Contains(activity.Id);
             }
 
-            if (entityName == EntityName.Deal || entityName == EntityName.Firm || entityName == EntityName.Contact)
+            if (entityName.Equals(EntityType.Instance.Deal()) || entityName.Equals(EntityType.Instance.Firm()) || entityName.Equals(EntityType.Instance.Contact()))
             {
                 var activities = _compositeEntityDecorator.Find(ActivitySpecs.Find.ByReferencedObject<TActivity, TEntityReference>(entityName, entityId));
                 return activity => (from referencedEntity in activities select referencedEntity.SourceEntityId).Contains(activity.Id);

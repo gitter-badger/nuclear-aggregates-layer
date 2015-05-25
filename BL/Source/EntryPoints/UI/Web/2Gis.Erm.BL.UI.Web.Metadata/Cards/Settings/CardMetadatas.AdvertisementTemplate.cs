@@ -6,7 +6,8 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
@@ -31,6 +32,6 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                                .DisableOn<IPublishableAspect>(x => !x.IsPublished),
                                 ToolbarElements.Close())
                         .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(),
-                                          RelatedItems.RelatedItem.ChildrenGrid(EntityName.AdsTemplatesAdsElementTemplate, () => ErmConfigLocalization.CrdRelChildrenPositions));
+                                          RelatedItems.RelatedItem.ChildrenGrid(EntityType.Instance.AdsTemplatesAdsElementTemplate(), () => ErmConfigLocalization.CrdRelChildrenPositions));
     }
 }

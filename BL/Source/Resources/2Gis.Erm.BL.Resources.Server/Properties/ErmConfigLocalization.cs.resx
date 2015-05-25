@@ -1382,7 +1382,7 @@
   </data>
   <data name="ControlPrintFirmNameChangeAgreement" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
-  </data>
+  </data>  
   <data name="ControlPrintBindingChangeAgreement" xml:space="preserve">
     <value>[Not defined for current business model and language]</value>
   </data>
@@ -1883,6 +1883,9 @@
   </data>
   <data name="ControlSetDocumentsDebt" xml:space="preserve">
     <value>Dostupnost dokumentů</value>
+  </data>
+  <data name="ControlSaveAndCreateOnBasis" xml:space="preserve">
+    <value>Uložit a vytvořit</value>
   </data>
   <data name="CrdRelUsers" xml:space="preserve">
     <value>Uživatelé</value>

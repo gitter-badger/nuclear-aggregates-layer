@@ -29,6 +29,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
@@ -468,7 +469,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public Note GetLastNoteForOrder(long orderId, DateTime sinceDate)
         {
-            return _finder.Find<Note>(n => n.ParentId == orderId && n.ParentType == (int)EntityName.Order && n.ModifiedOn > sinceDate)
+            var orderTypeId = EntityType.Instance.Order().Id;
+            return _finder.Find<Note>(x => x.ParentId == orderId && x.ParentType == orderTypeId && x.ModifiedOn > sinceDate)
                           .OrderByDescending(x => x.ModifiedOn)
                           .FirstOrDefault();
         }
@@ -1012,7 +1014,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             // на текущий момент интересует только возможность деактивировать
             var isDeleteAllowed = _entityAccessService.HasEntityAccess(EntityAccessTypes.Delete,
-                                                                       EntityName.Order,
+                                                                       EntityType.Instance.Order(),
                                                                        _userContext.Identity.Code,
                                                                        orderDto.Id,
                                                                        orderDto.OwnerCode,
@@ -1174,12 +1176,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             if (sourceOrganizationUnitId.HasValue)
             {
                 sourceVat = _finder.Find(OrganizationUnitSpecs.OrganizationUnits.Select.VatRate(),
-                                         Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
+                                                                    Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
                                    .Single();
             }
 
             var destVat = _finder.Find(OrganizationUnitSpecs.OrganizationUnits.Select.VatRate(),
-                                       Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
+                                                                  Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
                                  .Single();
 
             return DetermineVatRate(sourceVat, destVat);
@@ -1319,22 +1321,30 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        };
         }
 
-        public OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId)
+        public OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(IEntityType parentEntityName, long parentEntityId)
         {
-            switch (parentEntityName)
+            if (parentEntityName.Equals(EntityType.Instance.Client()))
             {
-                case EntityName.Client:
                     return GetReferenceByClient(parentEntityId);
-                case EntityName.Firm:
+            }
+
+            if (parentEntityName.Equals(EntityType.Instance.Firm()))
+            {
                     return GetReferencesByFirm(parentEntityId);
-                case EntityName.LegalPerson:
+            }
+
+            if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
+            {
                     return GetReferencesByLegalPerson(parentEntityId);
-                case EntityName.Deal:
+            }
+
+            if (parentEntityName.Equals(EntityType.Instance.Deal()))
+            {
                     return GetReferencesByDeal(parentEntityId);
-                default:
+            }
+            
                     return new OrderParentEntityDerivedFieldsDto();
             }
-        }
 
         public IEnumerable<Bill> GetBillsForOrder(long orderId)
         {

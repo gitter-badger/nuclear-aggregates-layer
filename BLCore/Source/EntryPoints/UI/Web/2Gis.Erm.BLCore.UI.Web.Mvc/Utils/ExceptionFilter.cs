@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Net.Mime;
+using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Web;
@@ -63,11 +64,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 
             // filterContext.Result
             var viewResult = new ViewResult
-            {
-                ViewName = "Error",
-                ViewData = new ViewDataDictionary<ErrorHandlerModel>(),
-                TempData = filterContext.Controller.TempData,
-            };
+                {
+                    ViewName = "Error",
+                    ViewData = new ViewDataDictionary<ErrorHandlerModel>(),
+                    TempData = filterContext.Controller.TempData,
+                };
 
             // Копируем содержимое исходной viewdata, т.к. там может быть необходимая информация:
             // настройки локали и т.п.
@@ -79,10 +80,10 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             }
 
             viewResult.ViewData.Model = new ErrorHandlerModel
-            {
-                Title = errorTitle,
-                Text = errorText,
-            };
+                {
+                    Title = errorTitle,
+                    Text = errorText,
+                };
 
             filterContext.Result = viewResult;
 
@@ -94,10 +95,11 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
         // handling erros with code 500 or 403
         public static string HandleException(Exception exception, HttpResponseBase httpResponse)
         {
-            var exceptionType = exception.GetType();
+            var originalException = exception is TargetInvocationException && exception.InnerException != null ? exception.InnerException : exception;
+            var originalExceptionType = originalException.GetType();
 
             // if-return
-            if (exceptionType == typeof(SecurityAccessDeniedException))
+            if (originalExceptionType == typeof(SecurityAccessDeniedException))
             {
                 httpResponse.StatusCode = 403;
                 return BLResources.AccessDenied;
@@ -107,37 +109,39 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             httpResponse.StatusCode = 500;
             var errorText = BLResources.ApplicationError;
 
-            if (exceptionType == typeof(NotificationException))
+            if (originalExceptionType == typeof(NotificationException))
             {
-                errorText = !string.IsNullOrWhiteSpace(exception.Message) ? exception.Message : BLResources.ErrorDuringOperation;
+                errorText = !string.IsNullOrWhiteSpace(originalException.Message) ? originalException.Message : BLResources.ErrorDuringOperation;
             }
-            else if (typeof(BusinessLogicException).IsAssignableFrom(exceptionType))
+            else if (typeof(BusinessLogicException).IsAssignableFrom(originalExceptionType))
             {
-                errorText = !string.IsNullOrWhiteSpace(exception.Message) ? exception.Message : BLResources.ApplicationError;
+                errorText = !string.IsNullOrWhiteSpace(originalException.Message) ? originalException.Message : BLResources.ApplicationError;
             }
-            else if (exceptionType == typeof(CommunicationException))
+            else if (originalExceptionType == typeof(CommunicationException))
             {
                 errorText = BLResources.CommunicationError;
             }
-            else if (exceptionType == typeof(OptimisticConcurrencyException))
+            else if (originalExceptionType == typeof(OptimisticConcurrencyException))
             {
                 errorText = BLResources.DataHasBeenChanged;
             }
-            else if (typeof(DataException).IsAssignableFrom(exceptionType))
+            else if (typeof(DataException).IsAssignableFrom(originalExceptionType))
             {
                 // Таблица с описанием ошибок SqlServer: dbo.sysmessages
-                var innerException = exception.InnerException as SqlException;
+                var innerException = originalException.InnerException as SqlException;
                 if (innerException != null)
                 {
                     var errorNumber = innerException.Errors[0].Number;
                     if (errorNumber == 3960)
-                    {   // Транзакция в режиме изоляции моментального снимка прервана из-за конфликта обновлений. 
+                    {
+                        // Транзакция в режиме изоляции моментального снимка прервана из-за конфликта обновлений. 
                         // Невозможно использовать режим изоляции моментального снимка для прямого или косвенного 
                         // доступа к таблице "%1!" в базе данных "%2!" для обновления, удаления или вставки 
                         errorText = BLResources.DataHasBeenChanged;
                     }
                     else if (errorNumber == 547)
-                    {   // Конфликт инструкции %1! с ограничением %2! "%3!". 
+                    {
+                        // Конфликт инструкции %1! с ограничением %2! "%3!". 
                         // Конфликт произошел в базе данных "%4!", таблица "%5!"%6!%7!%8!.
                         errorText = BLResources.InconsistentData;
                     }

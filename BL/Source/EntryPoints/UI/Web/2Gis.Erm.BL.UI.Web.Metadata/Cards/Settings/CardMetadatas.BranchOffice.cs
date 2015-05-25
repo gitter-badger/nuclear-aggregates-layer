@@ -5,6 +5,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
     public static partial class CardMetadatas
@@ -13,9 +15,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<BranchOffice>()
                         .WithEntityIcon()
                         .CommonCardToolbar()
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.BranchOffice)),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.BranchOfficeOrganizationUnit, () => ErmConfigLocalization.CrdRelBOOU),
-                                          RelatedItems.RelatedItem.EntityGrid(EntityName.UserBranchOffice, () => ErmConfigLocalization.CrdRelUsers)
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityType.Instance.BranchOffice())),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityType.Instance.BranchOfficeOrganizationUnit(), () => ErmConfigLocalization.CrdRelBOOU),
+                                          RelatedItems.RelatedItem.EntityGrid(EntityType.Instance.UserBranchOffice(), () => ErmConfigLocalization.CrdRelUsers)
                                                       .AppendapleEntity<User>());
     }
 }

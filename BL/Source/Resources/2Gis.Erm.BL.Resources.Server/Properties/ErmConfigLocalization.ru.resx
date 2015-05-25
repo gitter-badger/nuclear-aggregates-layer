@@ -1382,7 +1382,7 @@
   </data>
   <data name="ControlPrintFirmNameChangeAgreement" xml:space="preserve">
     <value>Доп. соглашение (смена названия фирмы)</value>
-  </data>
+  </data>  
   <data name="ControlPrintBindingChangeAgreement" xml:space="preserve">
     <value>Доп. соглашение (смена привязки)</value>
   </data>
@@ -1883,6 +1883,9 @@
   </data>
   <data name="ControlSetDocumentsDebt" xml:space="preserve">
     <value>Наличие документов</value>
+  </data>
+  <data name ="ControlSaveAndCreateOnBasis" xml:space="preserve">
+    <value>Сохранить и создать</value>
   </data>
   <data name="CrdRelUsers" xml:space="preserve">
     <value>Пользователи</value>

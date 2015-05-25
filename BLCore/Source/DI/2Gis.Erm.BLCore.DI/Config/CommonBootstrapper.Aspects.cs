@@ -28,7 +28,6 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
@@ -53,15 +52,17 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Metamodeling.Domain.Processors.Concrete;
+using NuClear.Metamodeling.Processors;
+using NuClear.Metamodeling.Processors.Concrete;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.Validators;
 using NuClear.DI.Unity.Config;
+using NuClear.ResourceUtilities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
@@ -328,31 +329,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                          : new Type[0];
 
             return container.RegisterType<IMsCrmReplicationMetadataProvider, MsCrmReplicationMetadataProvider>(Lifetime.Singleton, new InjectionConstructor(replicatedTypes));
-        }
-
-        public static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container, IdentityRequestOverrideOptions identityRequestOverrideOptions)
-        {
-            container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton);
-
-            if (identityRequestOverrideOptions.HasFlag(IdentityRequestOverrideOptions.UseNullRequestStrategy))
-            {
-                container.RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton);
-            }
-            else
-            {
-                container.RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(Lifetime.Singleton);
-            }
-
-            if (identityRequestOverrideOptions.HasFlag(IdentityRequestOverrideOptions.UseNullRequestChecker))
-            {
-                container.RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
-            }
-            else
-            {
-                container.RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(Lifetime.Singleton);
-            }
-
-            return container;
         }
 
         private static IUnityContainer RegisterDalMappings(this IUnityContainer container)

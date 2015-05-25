@@ -5,6 +5,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices
 {
     public interface IReplacePriceOperationService : IOperation<ReplacePriceIdentity>
     {
-        int Replace(long sourcePriceId, long targetPriceId);
+        void Replace(long sourcePriceId, long targetPriceId);
     }
 }

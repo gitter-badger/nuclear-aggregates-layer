@@ -1,12 +1,12 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+﻿using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
 {
     public interface IOperationScopeFactory
     {
-        IOperationScope CreateSpecificFor<TOperationIdentity>(params EntityName[] operationEntities)
+        IOperationScope CreateSpecificFor<TOperationIdentity>(params IEntityType[] operationEntities)
             where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, IEntitySpecificOperationIdentity, new();
 
         IOperationScope CreateSpecificFor<TOperationIdentity, TEntity>()
@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Operations.Logging
             where TEntity1 : class, IEntity
             where TEntity2 : class, IEntity;
 
-        IOperationScope CreateSpecificFor<TOperationIdentity>(IOperationScope parentScope, params EntityName[] operationEntities) 
+        IOperationScope CreateSpecificFor<TOperationIdentity>(IOperationScope parentScope, params IEntityType[] operationEntities) 
             where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, IEntitySpecificOperationIdentity, new();
 
         IOperationScope CreateSpecificFor<TOperationIdentity, TEntity>(IOperationScope parentScope)

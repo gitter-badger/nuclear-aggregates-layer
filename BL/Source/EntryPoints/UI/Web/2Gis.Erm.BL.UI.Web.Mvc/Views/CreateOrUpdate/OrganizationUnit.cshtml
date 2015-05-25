@@ -1,5 +1,5 @@
 ﻿
-@model Models.OrganizationUnitViewModel
+@model OrganizationUnitViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -94,7 +94,7 @@
             @Html.TemplateField(m => m.Name, FieldFlex.twins)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Country, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Country})
+            @Html.TemplateField(m => m.Country, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Country()})
             @Html.TemplateField(m => m.FirstEmitDate, FieldFlex.twins, new DateTimeSettings{ShiftOffset = false})
         </div>
         <div class="row-wrapper">
@@ -106,7 +106,7 @@
             @Html.TemplateField(m => m.ElectronicMedia, FieldFlex.twins)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.TimeZone, FieldFlex.lone, new LookupSettings { EntityName = EntityName.TimeZone})
+            @Html.TemplateField(m => m.TimeZone, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.TimeZone()})
         </div>
     </div>
     <div class="Tab" id="AdditionalTab" title="@BLResources.AdditionalTabTitle">

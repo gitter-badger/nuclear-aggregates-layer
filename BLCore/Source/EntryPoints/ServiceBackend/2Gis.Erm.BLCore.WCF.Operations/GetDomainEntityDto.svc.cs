@@ -3,11 +3,11 @@ using System.ServiceModel;
 
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.GetDomainEntityDto;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
+using NuClear.Security.API.UserContext;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.ResourceUtilities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
@@ -26,12 +26,12 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
             resourceGroupManager.SetCulture(userContext.Profile.UserLocaleInfo.UserCultureInfo);
         }
 
-        public IDomainEntityDto GetDomainEntityDto(EntityName entityName, long entityId)
+        public IDomainEntityDto GetDomainEntityDto(IEntityType entityName, long entityId)
         {
             try
             {
                 var modifyService = _operationServicesManager.GetDomainEntityDtoService(entityName);
-                var domainEntityDto = modifyService.GetDomainEntityDto(entityId, false, null, EntityName.None, string.Empty);
+                var domainEntityDto = modifyService.GetDomainEntityDto(entityId, false, null, EntityType.Instance.None(), string.Empty);
                 return domainEntityDto;
             }
             catch (Exception ex)

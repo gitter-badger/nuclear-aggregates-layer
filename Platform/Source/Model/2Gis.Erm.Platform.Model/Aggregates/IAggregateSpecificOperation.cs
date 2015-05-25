@@ -1,5 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
+﻿using NuClear.Model.Common.Entities.Aspects;
+
+using NuClear.Model.Common.Operations.Identity;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates
 {
@@ -14,8 +15,7 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates
     /// </summary>
     /// <typeparam name="TAggregateRoot">Корень агрегата, который обрабатывается данной операцией</typeparam>
     /// <typeparam name="TOperationIdentity">Identity операции, которую выполняет тип реализующий данный интерфейс</typeparam>
-    public interface IAggregateSpecificOperation<TAggregateRoot, TOperationIdentity> : 
-            IAggregatePartRepository<TAggregateRoot>
+    public interface IAggregateSpecificOperation<TAggregateRoot, TOperationIdentity> : IAggregatePartRepository<TAggregateRoot>
         where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, new()
         where TAggregateRoot : class, IEntity, IEntityKey
     {

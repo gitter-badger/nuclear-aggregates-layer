@@ -9,6 +9,8 @@ using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
 {
     public class LegalPersonProfileGridViewService : GenericEntityGridViewService<LegalPersonProfile>
@@ -29,12 +31,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
             _legalPersonRepository = legalPersonRepository;
         }
 
-        protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings,
-                                                                     long? parentEntityId,
-                                                                     EntityName parentEntityName,
-                                                                     string parentEntityState)
+        protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings, long? parentEntityId, IEntityType parentEntityName, string parentEntityState)
         {
-            if (parentEntityId == null || parentEntityName != EntityName.LegalPerson)
+            if (parentEntityId == null || !parentEntityName.Equals(EntityType.Instance.LegalPerson()))
             {
                 return gridViewSettings;
             }
@@ -42,7 +41,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
             var parentLegalPerson = _legalPersonRepository.FindLegalPerson(parentEntityId.Value);
 
             if (!_entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
-                                                      EntityName.LegalPerson,
+                                                      EntityType.Instance.LegalPerson(),
                                                       _userContext.Identity.Code,
                                                       parentLegalPerson.Id,
                                                       parentLegalPerson.OwnerCode,

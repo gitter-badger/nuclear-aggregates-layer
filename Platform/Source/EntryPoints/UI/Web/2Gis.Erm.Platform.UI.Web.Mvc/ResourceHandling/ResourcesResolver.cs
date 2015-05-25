@@ -5,7 +5,8 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
+using NuClear.ResourceUtilities;
+using NuClear.ResourceUtilities.Legacy;
 
 namespace DoubleGis.Erm.Platform.UI.Web.Mvc.ResourceHandling
 {

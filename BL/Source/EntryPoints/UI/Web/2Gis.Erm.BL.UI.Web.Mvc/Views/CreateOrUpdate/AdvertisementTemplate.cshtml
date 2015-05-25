@@ -20,7 +20,7 @@
             @Html.TemplateField(m => m.Name, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.DummyAdvertisement, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Advertisement, ReadOnly = true })
+            @Html.TemplateField(m => m.DummyAdvertisement, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Advertisement(), ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.IsAdvertisementRequired, FieldFlex.lone)

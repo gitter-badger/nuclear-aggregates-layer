@@ -4,7 +4,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 {
@@ -20,21 +20,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public int Delete(IEnumerable<DeniedPosition> deniedPositions)
+        public void Delete(IEnumerable<DeniedPosition> deniedPositions)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, DeniedPosition>())
             {
                 foreach (var deniedPosition in deniedPositions)
                 {
-                    deniedPosition.IsActive = false;
-                    _deniedPositionGenericRepository.Update(deniedPosition);
-                    operationScope.Updated<DeniedPosition>(deniedPosition.Id);
+                    _deniedPositionGenericRepository.Delete(deniedPosition);
+                    operationScope.Deleted(deniedPosition);
                 }
 
-                var count = _deniedPositionGenericRepository.Save();
+                _deniedPositionGenericRepository.Save();
 
                 operationScope.Complete();
-                return count;
             }
         }
     }

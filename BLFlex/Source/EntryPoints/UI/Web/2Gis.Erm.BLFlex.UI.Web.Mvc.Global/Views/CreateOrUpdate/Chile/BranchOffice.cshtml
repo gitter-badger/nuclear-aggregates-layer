@@ -24,8 +24,8 @@
             @Html.TemplateField(m => m.Rut, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BargainType, ReadOnly = !Model.IsNew, ShowReadOnlyCard = true})
-            @Html.TemplateField(m => m.ContributionType, FieldFlex.twins, new LookupSettings { EntityName = EntityName.ContributionType, ReadOnly = !Model.IsNew, ShowReadOnlyCard = true })
+            @Html.TemplateField(m => m.BargainType, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.BargainType(), ReadOnly = !Model.IsNew, ShowReadOnlyCard = true})
+            @Html.TemplateField(m => m.ContributionType, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.ContributionType(), ReadOnly = !Model.IsNew, ShowReadOnlyCard = true })
         </div>
     </div>
 }

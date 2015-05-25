@@ -10,6 +10,8 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Attributes;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Services.Enums;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
 {
     public sealed class ModelBinderProvider : IModelBinderProvider
@@ -28,6 +30,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
             typeof(decimal?),
             typeof(long),
             typeof(long?),
+            typeof(IEntityType),
+            typeof(IEntityType[])
         };
         private readonly IModelBinder _modelBinder;
 
@@ -112,6 +116,16 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 if (modelType == typeof(decimal) || modelType == typeof(decimal?))
                 {
                     return BindDecimal(bindingContext);
+                }
+
+                if (modelType == typeof(IEntityType))
+                {
+                    return BindEntityType(bindingContext);
+                }
+
+                if (modelType == typeof(IEntityType[]))
+                {
+                    return BindEntityTypeArray(bindingContext);
                 }
 
                 return base.BindModel(controllerContext, bindingContext);
@@ -369,6 +383,65 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils
                 var errorMessage = string.Format("The value '{0}' is not applicable to the field {1}", valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
                 bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
                 return null;
+            }
+
+            private static object BindEntityType(ModelBindingContext bindingContext)
+            {
+                var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
+                if (valueProviderResult == null || string.Equals(valueProviderResult.AttemptedValue, "null", StringComparison.OrdinalIgnoreCase) || string.IsNullOrWhiteSpace(valueProviderResult.AttemptedValue))
+                {
+                    var zeroValue = EntityType.Instance.None();
+                    valueProviderResult = new ValueProviderResult(zeroValue, null, CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    try
+                    {
+                        IEntityType value;
+                        if (EntityType.Instance.TryParse(valueProviderResult.AttemptedValue, out value))
+                        {
+                            valueProviderResult = new ValueProviderResult(value, valueProviderResult.AttemptedValue, valueProviderResult.Culture);
+                        }
+                    }
+                    catch (ArgumentException)
+                    {
+                        var errorMessage = string.Format(ValueIsNotApplicableToField, valueProviderResult.AttemptedValue, bindingContext.ModelMetadata.GetDisplayName());
+                        bindingContext.ModelState.AddModelError(bindingContext.ModelName, errorMessage);
+                        return null;
+                    }
+                }
+
+                bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+                return valueProviderResult.RawValue;
+            }
+
+            private static object BindEntityTypeArray(ModelBindingContext bindingContext)
+            {
+                var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+
+                if (valueProviderResult == null || string.IsNullOrWhiteSpace(valueProviderResult.AttemptedValue))
+                {
+                    bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+                    return null;
+                }
+
+                var splittedAttemptedValue = valueProviderResult.AttemptedValue.Split(new[] { ',' });
+
+                var entityTypes = new List<IEntityType>();
+                foreach (var attemptedValue in splittedAttemptedValue)
+                {
+                    IEntityType value;
+                    if (EntityType.Instance.TryParse(attemptedValue, out value))
+                    {
+                        entityTypes.Add(value);
+                    }
+                }
+
+                var rawValue = entityTypes.ToArray();
+                valueProviderResult = new ValueProviderResult(rawValue, valueProviderResult.AttemptedValue, valueProviderResult.Culture);
+                bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
+                return rawValue;
             }
 
             private static bool ValidateRequiredAttribute(MemberDescriptor memberDescriptor, ModelState modelState)

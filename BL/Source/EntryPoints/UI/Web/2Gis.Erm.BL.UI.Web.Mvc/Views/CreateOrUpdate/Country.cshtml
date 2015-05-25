@@ -1,5 +1,5 @@
 ﻿
-@model Models.CountryViewModel
+@model CountryViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -17,7 +17,7 @@
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Name, FieldFlex.twins)
-            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency })
+            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency() })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.IsoCode, FieldFlex.twins)

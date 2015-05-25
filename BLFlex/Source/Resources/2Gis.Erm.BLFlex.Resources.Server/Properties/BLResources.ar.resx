@@ -428,9 +428,6 @@ Bank Name: {7}
     <value>Action with ID {0} not found.</value>
     <comment>Действие с ID {0} не найдено.</comment>
   </data>
-  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
-    <value>Creation of regional orders is not supported</value>
-  </data>
   <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
     <value>You cannot change requisites of a hidden legal entity</value>
   </data>

@@ -1,6 +1,6 @@
 ﻿@using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
-@using NuClear.Security.API.FunctionalAccess
-@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.MultiCultureOrderViewModel
+@using DoubleGis.Erm.Platform.API.Security.FunctionalAccess
+@model MultiCultureOrderViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -65,11 +65,12 @@
         @Html.HiddenFor(m => m.PlatformId)
         @Html.HiddenFor(m => m.VatPlan)
         @Html.HiddenFor(m => m.OrderValidationServiceUrl)
-        @Html.HiddenFor(m => m.RegionalNumber) 
+        @Html.HiddenFor(m => m.RegionalNumber)
+        @Html.HiddenFor(m => m.DisabledOrderTypes)
 
         @*Скрыты в международной версии*@
         @Html.HiddenFor(m => m.HasDocumentsDebt)
-        @Html.HiddenFor(m => m.DocumentsComment) 
+        @Html.HiddenFor(m => m.DocumentsComment)
     </div>
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <br />
@@ -80,36 +81,36 @@
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings
                                                                             {
-                                                                                EntityName = EntityName.Deal,
+                                                                                EntityName = EntityType.Instance.Deal(),
                                                                                 ReadOnly = true,
                                                                             })
             @Html.TemplateField(m => m.LegalPerson, FieldFlex.twins, new LookupSettings
                                                                         {
-                                                                            EntityName = EntityName.LegalPerson,
+                                                                            EntityName = EntityType.Instance.LegalPerson(),
                                                                             ExtendedInfo = "DealId={DealId}",
-                                                                            ParentEntityName = EntityName.Client,
+                                                                            ParentEntityName = EntityType.Instance.Client(),
                                                                             ParentIdPattern = "ClientId",
                                                                         })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings
                                                                             {
-                                                                                EntityName = EntityName.Firm,
+                                                                                EntityName = EntityType.Instance.Firm(),
                                                                                 ReadOnly = Model.HasAnyOrderPosition,
                                                                                 ExtendedInfo = "organizationUnitId={DestinationOrganizationUnitId}&clientId={ClientId}&ForReserve=false&DealId={DealId}"
                                                                             })
-            @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "OrderSourceOrganizationUnitId={sourceOrganizationUnitId}" })
+            @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit(), ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "OrderSourceOrganizationUnitId={sourceOrganizationUnitId}" })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "currencyId={DealCurrencyId}&userId={CurrenctUserCode}", ShowReadOnlyCard = true })
+            @Html.TemplateField(m => m.SourceOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), ReadOnly = Model.HasAnyOrderPosition, ExtendedInfo = "currencyId={DealCurrencyId}&userId={CurrenctUserCode}", ShowReadOnlyCard = true })
             @Html.TemplateField(m => m.Bargain, FieldFlex.twins, new LookupSettings
                 {
-                    EntityName = EntityName.Bargain,
+                    EntityName = EntityType.Instance.Bargain(),
                     ExtendedInfo = "legalPersonId={LegalPersonId}&branchOfficeOrganizationUnitId={BranchOfficeOrganizationUnitId}"
                 })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.DestinationOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, ReadOnly = Model.HasAnyOrderPosition, ShowReadOnlyCard = true, ExtendedInfo = "restrictByProjects=true" })
+            @Html.TemplateField(m => m.DestinationOrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), ReadOnly = Model.HasAnyOrderPosition, ShowReadOnlyCard = true, ExtendedInfo = "restrictByProjects=true" })
             @Html.TemplateField(m => m.OrderType, FieldFlex.twins, null, EnumResources.ResourceManager)
         </div>
         @Html.SectionHead("placementGroup", BLResources.TitlePlacement)
@@ -243,7 +244,7 @@
         @Html.SectionHead("finances", BLResources.TitleFinances)
         <div class="row-wrapper">
             @Html.TemplateField(m => m.PayablePrice, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } })
-            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true, ShowReadOnlyCard = true, })
+            @Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true, ShowReadOnlyCard = true, })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.PayablePlan, FieldFlex.twins, new Dictionary<string, object> { { "class", "inputfields readonly" }, { "readonly", "readonly" } })
@@ -265,11 +266,11 @@
         </div>
         @Html.SectionHead("control", BLResources.TitleControl)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}" })
+            @Html.TemplateField(m => m.Inspector, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ShowReadOnlyCard = true, ExtendedInfo = "privilege=" + (int)FunctionalPrivilegeName.OrderStatesAccess + "&orgUnitId={SourceOrganizationUnit}" })
         </div>
         @Html.SectionHead("print", BLResources.TitlePrinting)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.twins, new LookupSettings { EntityName = EntityName.LegalPersonProfile, ReadOnly = true })
+            @Html.TemplateField(m => m.LegalPersonProfile, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.LegalPersonProfile(), ReadOnly = true })
         </div>
     </div>
     <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
@@ -277,16 +278,16 @@
         @if (Model.IsCurated && Model.IsSecurityRoot)
         {
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
+                @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
                 @Html.TemplateField(m => m.SignupDate, FieldFlex.twins, new DateTimeSettings { ShiftOffset = false })
             </div>
         }
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true })
             @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true })
             @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
         </div>
     </div>

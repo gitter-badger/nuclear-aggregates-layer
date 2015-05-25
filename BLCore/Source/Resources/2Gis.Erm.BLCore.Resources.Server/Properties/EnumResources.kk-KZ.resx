@@ -2022,6 +2022,12 @@
   <data name="BusinessOperationWithdrawal" xml:space="preserve">
     <value>Списание</value>
   </data>
+  <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
+    <value>Рекламное агентство</value>
+  </data>
+  <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
+    <value>Смена типа заказа РА</value>
+  </data>
   <data name="EntityNameUserBranchOffice" xml:space="preserve">
     <value>Связь пользователя с юр. лицом</value>
   </data>

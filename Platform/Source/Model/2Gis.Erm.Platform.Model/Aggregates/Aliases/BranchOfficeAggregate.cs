@@ -1,11 +1,30 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum BranchOfficeAggregate
+    public static class BranchOfficeAggregate
     {
-        BranchOffice = EntityName.BranchOffice,
-        BranchOfficeOrganizationUnit = EntityName.BranchOfficeOrganizationUnit,
-        UserBranchOffice = EntityName.UserBranchOffice,
-    }
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.BranchOffice(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+    {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.BranchOfficeOrganizationUnit(),
+                                    EntityType.Instance.UserBranchOffice(),
+                                })
+                    .ToArray();
+            }
+        }
+    } 
 }

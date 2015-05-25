@@ -5,7 +5,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
     {
@@ -18,27 +20,29 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             _finder = finder;
         }
 
-        protected override IDomainEntityDto<AdsTemplatesAdsElementTemplate> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<AdsTemplatesAdsElementTemplate> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
-            switch (parentEntityName)
+            if (parentEntityName.Equals(EntityType.Instance.AdvertisementTemplate()))
             {
-                case EntityName.AdvertisementTemplate:
-                    return _finder.Find<AdvertisementTemplate>(x => x.Id == parentEntityId)
-                                  .Select(x => new AdsTemplatesAdsElementTemplateDomainEntityDto
-                                      {
-                                          AdsTemplateRef = new EntityReference { Id = x.Id, Name = x.Name }
-                                      }).Single();
-
-                case EntityName.AdvertisementElementTemplate:
-                    return _finder.Find<AdvertisementElementTemplate>(x => x.Id == parentEntityId)
-                                  .Select(x => new AdsTemplatesAdsElementTemplateDomainEntityDto
-                                      {
-                                          AdsElementTemplateRef = new EntityReference { Id = x.Id, Name = x.Name }
-                                      }).Single();
-
-                default:
-                    return new AdsTemplatesAdsElementTemplateDomainEntityDto();
+                return _finder.Find<AdvertisementTemplate>(x => x.Id == parentEntityId)
+                              .Select(x => new AdsTemplatesAdsElementTemplateDomainEntityDto
+                                  {
+                                      AdsTemplateRef = new EntityReference { Id = x.Id, Name = x.Name }
+                                  })
+                              .Single();
             }
+
+            if (parentEntityName.Equals(EntityType.Instance.AdvertisementElementTemplate()))
+            {
+                return _finder.Find<AdvertisementElementTemplate>(x => x.Id == parentEntityId)
+                              .Select(x => new AdsTemplatesAdsElementTemplateDomainEntityDto
+                                  {
+                                      AdsElementTemplateRef = new EntityReference { Id = x.Id, Name = x.Name }
+                                  })
+                              .Single();
+            }
+
+            return new AdsTemplatesAdsElementTemplateDomainEntityDto();
         }
 
         protected override IDomainEntityDto<AdsTemplatesAdsElementTemplate> GetDto(long entityId)

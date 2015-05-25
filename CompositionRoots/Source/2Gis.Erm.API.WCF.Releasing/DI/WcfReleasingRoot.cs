@@ -10,8 +10,6 @@ using DoubleGis.Erm.Platform.AppFabric.DI;
 using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
-using DoubleGis.Erm.Platform.Model.Metadata.DI;
-
 using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.API.WCF.Releasing.DI
@@ -37,8 +35,6 @@ namespace DoubleGis.Erm.API.WCF.Releasing.DI
                                       .RequireZone<ReleasingZone>()
                                           .UseAnchor<BlCoreApiReleasingAssembly>()
                                           .UseAnchor<BlCoreReleasingAssembly>()
-                                      .RequireZone<MetadataZone>()
-                                          .UseAnchor<PlatformModelMetadataAssembly>()
                                       .RequireZone<AppFabricZone>()
                                           .UseAnchor<PlatformAppFabricAssembly>();
             }

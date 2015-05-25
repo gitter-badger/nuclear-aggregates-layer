@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Tests.Integration.InProc.Settings;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 using NuClear.Tracing.Environment;
