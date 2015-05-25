@@ -102,6 +102,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic
                     { "BankName", legalPersonProfile.BankName },
                     { "Phone", legalPersonProfile.Phone },
                     { "Email", legalPersonProfile.Email },
+                    { "PostAddress", legalPersonProfile.PostAddress },
                 };
 
             return new PrintData
