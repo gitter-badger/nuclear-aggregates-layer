@@ -436,7 +436,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                                         {
                                             {
                                                 "ExtendedInfo",
-                                                new Tuple<object, object>("firmId={Id}", null)
+                                                new Tuple<object, object>("firmId={Id}", "filterToParent=true")
                                             },
                                         }
                                 },
