@@ -1,8 +1,4 @@
-﻿@using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations
-@using DoubleGis.Erm.Platform.Common.Utils
-@using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity
-@using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic
-@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.GroupOperationViewModel
+﻿@model GroupOperationViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -97,5 +93,5 @@
             </td>
         </tr>
     </table>
-    @Html.HiddenFor(x => x.EntityTypeName)
+    @Html.Hidden("EntityType", Model.EntityTypeName.Description)
 }

@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPersonProfile
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPersonProfile
 {
     public sealed class SetAsMainLegalPersonProfileIdentity : OperationIdentityBase<SetAsMainLegalPersonProfileIdentity>, INonCoupledOperationIdentity
     {

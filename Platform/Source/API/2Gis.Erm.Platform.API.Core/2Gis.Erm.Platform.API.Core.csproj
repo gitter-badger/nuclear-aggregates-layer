@@ -37,6 +37,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Metamodeling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Metamodeling.1.5.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2Gis.NuClear.Metamodeling.Domain, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Metamodeling.Basics.1.5.2\lib\portable-net451+win81+wpa81\2Gis.NuClear.Metamodeling.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Metamodeling.UI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Metamodeling.Basics.1.5.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.ResourceUtilities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.ResourceUtilities.1.0.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.ResourceUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.1.1.0\lib\net451\2GIS.NuClear.Settings.dll</HintPath>
@@ -77,6 +97,7 @@
     <Compile Include="ActionLogging\ActionType.cs" />
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\InvalidMetadataException.cs" />
     <Compile Include="Exceptions\RequiredFieldIsEmptyException.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\EntityIsNotUniqueException.cs" />
@@ -248,7 +269,6 @@
     <Compile Include="ActionLogging\IActionLogger.cs" />
     <Compile Include="Identities\IIdentityProvider.cs" />
     <Compile Include="Identities\IIdentityRequestChecker.cs" />
-    <Compile Include="Identities\IIdentityRequestStrategy.cs" />
     <Compile Include="Metadata\EndpointDescription.cs" />
     <Compile Include="Metadata\IServiceAvailabilityProvider.cs" />
     <Compile Include="Operations\IOperationProgressCallback.cs" />

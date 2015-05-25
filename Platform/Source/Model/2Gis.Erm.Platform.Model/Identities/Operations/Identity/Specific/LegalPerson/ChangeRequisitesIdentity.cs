@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson
 {
     public sealed class ChangeRequisitesIdentity : OperationIdentityBase<ChangeRequisitesIdentity>, INonCoupledOperationIdentity
     {

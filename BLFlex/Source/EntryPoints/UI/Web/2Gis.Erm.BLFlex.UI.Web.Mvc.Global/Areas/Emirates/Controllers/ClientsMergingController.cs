@@ -15,7 +15,7 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using NuClear.Security.API.UserContext;
@@ -24,6 +24,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
         public ClientsMergingController(IMsCrmSettings msCrmSettings,
                                         IAPIOperationsServiceSettings operationsServiceSettings,
                                         IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                        IAPIIdentityServiceSettings identityServiceSettings,
+                                        IIdentityServiceClientSettings identityServiceSettings,
                                         IUserContext userContext,
                                         ITracer tracer,
                                         IGetBaseCurrencyService getBaseCurrencyService,
@@ -127,9 +128,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Emirates.Controllers
                 throw new NotificationException(BLResources.AccessDeniedMergeClients);
             }
 
-            var service = _operationServicesManager.GetDomainEntityDtoService(EntityName.Client);
-            var masterClientDto = (EmiratesClientDomainEntityDto)service.GetDomainEntityDto(masterId, false, null, EntityName.None, string.Empty);
-            var subordinateClientDto = (EmiratesClientDomainEntityDto)service.GetDomainEntityDto(subordinateId, false, null, EntityName.None, string.Empty);
+            var service = _operationServicesManager.GetDomainEntityDtoService(EntityType.Instance.Client());
+            var masterClientDto = (EmiratesClientDomainEntityDto)service.GetDomainEntityDto(masterId, false, null, EntityType.Instance.None(), string.Empty);
+            var subordinateClientDto = (EmiratesClientDomainEntityDto)service.GetDomainEntityDto(subordinateId, false, null, EntityType.Instance.None(), string.Empty);
 
             var masterClientModel = new EmiratesClientViewModel
                 {

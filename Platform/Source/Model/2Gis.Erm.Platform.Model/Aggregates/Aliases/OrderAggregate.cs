@@ -1,18 +1,37 @@
-﻿using DoubleGis.Erm.Platform.Model.Entities;
+﻿using System.Linq;
+
+using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
 {
-    public enum OrderAggregate
+    public static class OrderAggregate
     {
-        Order = EntityName.Order, 
-        OrderPosition = EntityName.OrderPosition,
-        OrderPositionAdvertisement = EntityName.OrderPositionAdvertisement,
-        Bill = EntityName.Bill, //
-        OrderFile = EntityName.OrderFile, 
-        FileWithContent = EntityName.FileWithContent,
-        OrderReleaseTotal = EntityName.OrderReleaseTotal,
-        Bargain = EntityName.Bargain,
-        ReleaseWithdrawal = EntityName.ReleaseWithdrawal,
-        ReleaseWithdrawalPosition = EntityName.ReleasesWithdrawalsPosition
-    } 
+        public static IEntityType Root
+        {
+            get { return EntityType.Instance.Order(); }
+        }
+
+        public static IEntityType[] Entities
+        {
+            get
+            {
+                return new[] { Root }
+                    .Concat(new IEntityType[]
+                                {
+                                    EntityType.Instance.OrderPosition(),
+                                    EntityType.Instance.OrderPositionAdvertisement(),
+                                    EntityType.Instance.Bill(), //
+                                    EntityType.Instance.OrderFile(),
+                                    EntityType.Instance.FileWithContent(),
+                                    EntityType.Instance.OrderReleaseTotal(),
+                                    EntityType.Instance.Bargain(),
+                                    EntityType.Instance.ReleaseWithdrawal(),
+                                    EntityType.Instance.ReleasesWithdrawalsPosition()
+                                })
+                    .ToArray();
+            }
+        }
+    }
 }

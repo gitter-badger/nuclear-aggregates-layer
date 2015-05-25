@@ -8,7 +8,9 @@ using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
 {
@@ -59,27 +61,22 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
 
         protected abstract IProjectSpecification<BranchOfficeOrganizationUnit, TDto> GetProjectSpecification();
 
-        protected override IDomainEntityDto<BranchOfficeOrganizationUnit> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<BranchOfficeOrganizationUnit> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = new TDto();
 
-            switch (parentEntityName)
-            {
-                case EntityName.BranchOffice:
+            if (parentEntityName.Equals(EntityType.Instance.BranchOffice()))
                 {
                     var branchOfficeName = _branchOfficeReadModel.GetBranchOfficeName(parentEntityId.Value);
 
                     dto.SetPropertyValue("BranchOfficeRef", new EntityReference { Id = parentEntityId.Value, Name = branchOfficeName });
                     dto.SetPropertyValue("ShortLegalName", branchOfficeName); 
-                    break;
                 }
 
-                case EntityName.OrganizationUnit:
+            if (parentEntityName.Equals(EntityType.Instance.OrganizationUnit()))
                 {
                     dto.SetPropertyValue("OrganizationUnitRef",
                                          new EntityReference { Id = parentEntityId.Value, Name = _organizationUnitReadModel.GetName(parentEntityId.Value) });
-                    break;
-                }
             }
 
             return dto;

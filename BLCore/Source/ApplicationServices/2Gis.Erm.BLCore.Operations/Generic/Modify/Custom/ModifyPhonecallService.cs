@@ -15,23 +15,21 @@ using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
     public sealed class ModifyPhonecallService : IModifyBusinessModelEntityService<Phonecall>
     {
         private readonly IPhonecallReadModel _readModel;
-
         private readonly IBusinessModelEntityObtainer<Phonecall> _activityObtainer;
 
         private readonly IActionLogger _actionLogger;
         private readonly IClientReadModel _clientReadModel;
-
         private readonly IFirmReadModel _firmReadModel;
-
         private readonly ICreatePhonecallAggregateService _createOperationService;
-
         private readonly IUpdatePhonecallAggregateService _updateOperationService;
 
         public ModifyPhonecallService(
@@ -62,12 +60,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
             var phonecall = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
+            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Client(), _clientReadModel.IsClientInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
-            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
+            if (phonecallDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Firm(), _firmReadModel.IsFirmInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }
@@ -77,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 IEnumerable<PhonecallRegardingObject> oldRegardingObjects;
                 PhonecallRecipient oldRecipient;
                 if (phonecall.IsNew())
-                {                    
+                {
                     _createOperationService.Create(phonecall);
                     oldRegardingObjects = null;
                     oldRecipient = null;

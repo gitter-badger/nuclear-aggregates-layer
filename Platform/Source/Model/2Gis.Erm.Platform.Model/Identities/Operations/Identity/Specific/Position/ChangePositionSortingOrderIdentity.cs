@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Position
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Position
 {
     public class ChangePositionSortingOrderIdentity : OperationIdentityBase<ChangePositionSortingOrderIdentity>, INonCoupledOperationIdentity
     {

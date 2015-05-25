@@ -5,6 +5,8 @@ using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
     public static partial class CardMetadatas
@@ -13,8 +15,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
             CardMetadata.For<Position>()
                         .WithEntityIcon()
                         .CommonCardToolbar()
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Position)),
-                                          RelatedItems.RelatedItem.ChildrenGrid(EntityName.PositionChildren, () => ErmConfigLocalization.CrdRelChildrenPositions)
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityType.Instance.Position())),
+                                          RelatedItems.RelatedItem.ChildrenGrid(EntityType.Instance.PositionChildren(), () => ErmConfigLocalization.CrdRelChildrenPositions)
                                                       .DisableOn<ICompositePositionAspect>(x => !x.IsComposite));
     }
 }

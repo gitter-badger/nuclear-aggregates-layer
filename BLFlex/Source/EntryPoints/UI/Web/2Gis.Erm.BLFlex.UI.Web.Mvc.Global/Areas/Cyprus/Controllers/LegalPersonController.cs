@@ -15,7 +15,7 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using NuClear.Security.API.UserContext;
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Cyprus.Controllers
         private readonly ILegalPersonReadModel _legalPersonReadModel;
 
         // TODO {all, 31.07.2013}: Избавиться от этого костыля
-        public LegalPersonController(IMsCrmSettings msCrmSettings, IAPIOperationsServiceSettings operationsServiceSettings, IAPISpecialOperationsServiceSettings specialOperationsServiceSettings, IAPIIdentityServiceSettings identityServiceSettings, IUserContext userContext, ITracer tracer, IGetBaseCurrencyService getBaseCurrencyService, ISecurityServiceFunctionalAccess functionalAccessService, IPublicService publicService, IFinder finder, ILegalPersonReadModel legalPersonReadModel) : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
+        public LegalPersonController(IMsCrmSettings msCrmSettings, IAPIOperationsServiceSettings operationsServiceSettings, IAPISpecialOperationsServiceSettings specialOperationsServiceSettings, IIdentityServiceClientSettings identityServiceSettings, IUserContext userContext, ITracer tracer, IGetBaseCurrencyService getBaseCurrencyService, ISecurityServiceFunctionalAccess functionalAccessService, IPublicService publicService, IFinder finder, ILegalPersonReadModel legalPersonReadModel) : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _functionalAccessService = functionalAccessService;
             _publicService = publicService;
@@ -77,7 +77,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Cyprus.Controllers
         }
 
         [HttpPost, UseDependencyFields, GetEntityStateToken]
-        [LogWebRequest(EntityName.LegalPerson, CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
+        [LogWebRequest("LegalPerson", CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
         public virtual ActionResult ChangeLegalPersonRequisites(CyprusChangeLegalPersonRequisitesViewModel model)
         {
             if (!ModelUtils.CheckIsModelValid(this, model))

@@ -5,12 +5,13 @@ using System.Linq;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Provider;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 {
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
             ViewModelCustomizationsMetadata customizationsMetadata;
             IEnumerable<Type> customizationTypes;
 
-            if (!_metadataProvider.TryGetMetadata(IdBuilder.For<ViewModelCustomizationsIdentity>(typeof(TEntity).AsEntityName().ToString()), out customizationsMetadata))
+            if (!_metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<ViewModelCustomizationsIdentity>(typeof(TEntity).AsEntityName().Description), out customizationsMetadata))
             {
                 customizationTypes = Enumerable.Empty<Type>();
             }

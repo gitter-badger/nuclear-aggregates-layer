@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging
@@ -25,13 +25,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             _tracer = tracer;
 
             var operationEntitiesMap =
-                EntityName.All
+                EntityType.Instance.All()
                           .GetDecomposed()
                           .Where(x => !x.IsVirtual())
                           .Select(x => x.ToEntitySet())
                           .ToDictionary(entitySet => entitySet.Entities.EvaluateHash());
 
-            var openEntitiesSet2Placeholders = new EntitySet(EntityName.All, EntityName.All);
+            var openEntitiesSet2Placeholders = new EntitySet(EntityType.Instance.All(), EntityType.Instance.All());
             foreach (var entitySet in openEntitiesSet2Placeholders.ToConcreteSets())
             {
                 operationEntitiesMap.Add(entitySet.Entities.EvaluateHash(), entitySet);
@@ -46,31 +46,31 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Logging
             EntitySet operationEntities = null;
             if (!string.IsNullOrWhiteSpace(operation.OperationEntities))
             {
-                var rawOperationEntities = operation.OperationEntities.Split(';').ToArray();
-                var entities = new EntityName[rawOperationEntities.Length];
+                var rawOperationEntityTypes = operation.OperationEntities.Split(';').ToArray();
+                var entities = new IEntityType[rawOperationEntityTypes.Length];
                 int processedIndex;
-                for (processedIndex = 0; processedIndex < rawOperationEntities.Length; processedIndex++)
+                for (processedIndex = 0; processedIndex < rawOperationEntityTypes.Length; processedIndex++)
                 {
-                    var rawOperationEntity = rawOperationEntities[processedIndex];
-                    EntityName entityName;
-                    if (!Enum.TryParse(rawOperationEntity, out entityName))
+                    var rawOperationEntityType = rawOperationEntityTypes[processedIndex];
+                    IEntityType entityName;
+                    if (!EntityType.Instance.TryParse(int.Parse(rawOperationEntityType), out entityName))
                     {
                         _tracer.ErrorFormat("Can't parse value {0} from operation entities {1} as {2}",
-                                              rawOperationEntity,
-                                              operation.OperationEntities,
-                                              typeof(EntityName).Name);
+                                            rawOperationEntityType,
+                                            operation.OperationEntities,
+                                            typeof(IEntityType).Name);
                         break;
                     }
 
                     entities[processedIndex] = entityName;
                 }
 
-                if (processedIndex != rawOperationEntities.Length)
+                if (processedIndex != rawOperationEntityTypes.Length)
                 {
                     _tracer.ErrorFormat("Can't parse some of the value with index {0} from operation entities {1} as {2}",
-                                          processedIndex,
-                                          operation.OperationEntities,
-                                          typeof(EntityName).Name);
+                                        processedIndex,
+                                        operation.OperationEntities,
+                                        typeof(IEntityType).Name);
                 }
                 else
                 {

@@ -306,15 +306,5 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
         {
             throw new NotImplementedException();
         }
-
-        public IEnumerable<CategoryGroup> GetCategoryGroups()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<CategoryGroupMembershipDto> GetCategoryGroupMembership(long organizationUnitId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

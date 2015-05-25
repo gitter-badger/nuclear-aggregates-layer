@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail;
+
+using NuClear.Metamodeling.Domain.Operations.Detail;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability.Resolvers
 {
@@ -14,12 +16,18 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability.Resolve
         static OperationApplicabilityOverrides()
         {
             OverridesMap = new Dictionary<int, OperationApplicability>()
-                .AddOverridesFor<ActionHistoryIdentity>(EntityName.Account, EntityName.Client, EntityName.Firm, EntityName.Deal, EntityName.Order, EntityName.LegalPerson, EntityName.Limit);
+                .AddOverridesFor<ActionHistoryIdentity>(EntityType.Instance.Account(),
+                                                        EntityType.Instance.Client(),
+                                                        EntityType.Instance.Firm(),
+                                                        EntityType.Instance.Deal(),
+                                                        EntityType.Instance.Order(),
+                                                        EntityType.Instance.LegalPerson(),
+                                                        EntityType.Instance.Limit());
         }
 
         private static Dictionary<int, OperationApplicability> AddOverridesFor<TOperationIdentity>(
             this Dictionary<int, OperationApplicability> dictionary, 
-            params EntityName[] entityNames)
+            params IEntityType[] entityNames)
             where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, new()
         {
             var identity = new TOperationIdentity();

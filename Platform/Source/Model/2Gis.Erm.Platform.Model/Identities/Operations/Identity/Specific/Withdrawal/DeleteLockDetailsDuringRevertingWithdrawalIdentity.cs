@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal
 {
     public class DeleteLockDetailsDuringRevertingWithdrawalIdentity : OperationIdentityBase<DeleteLockDetailsDuringRevertingWithdrawalIdentity>, INonCoupledOperationIdentity
     {

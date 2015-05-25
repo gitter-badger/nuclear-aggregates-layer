@@ -1,23 +1,24 @@
 ﻿using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.ChangeTerritory
 {
     [DataContract(Namespace = ServiceNamespaces.BasicOperations.ChangeTerritory201303)]
     public class ChangeTerritoryOperationErrorDescription : IBasicOperationErrorDescription
     {
-        public ChangeTerritoryOperationErrorDescription(EntityName entityName, string message, long entityId, long territoryId)
+        public ChangeTerritoryOperationErrorDescription(IEntityType entityName, string message, long entityId, long territoryId)
         {
-            EntityName = entityName;
+            EntityName = entityName.Description;
             Message = message;
             EntityId = entityId;
             TerritoryId = territoryId;
         }
 
         [DataMember]
-        public EntityName EntityName { get; private set; }
+        public string EntityName { get; private set; }
         [DataMember]
         public string Message { get; private set; }
         [DataMember]

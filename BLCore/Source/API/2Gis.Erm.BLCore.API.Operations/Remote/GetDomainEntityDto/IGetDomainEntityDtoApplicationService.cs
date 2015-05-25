@@ -1,8 +1,9 @@
 ﻿using System.ServiceModel;
 
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.GetDomainEntityDto
 {
@@ -11,6 +12,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.GetDomainEntityDto
     {
         [OperationContract]
         [FaultContract(typeof(GetDomainEntityDtoOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.GetDomainEntityDto201306)]
-        IDomainEntityDto GetDomainEntityDto(EntityName entityName, long entityId);
+        IDomainEntityDto GetDomainEntityDto(IEntityType entityName, long entityId);
     }
 }

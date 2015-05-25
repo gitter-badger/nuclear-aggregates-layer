@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
+namespace ASP
 {
     using System;
     using System.Collections.Generic;
@@ -27,34 +27,32 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 1 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
-    using BLCore.UI.Web.Mvc.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
+    using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models;
     using DoubleGis.Erm.Platform.Common;
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/MultiCultureAccount.cshtml")]
-    public partial class MultiCultureAccount : System.Web.Mvc.WebViewPage<Models.MultiCultureAccountViewModel>
+    public partial class _Views_CreateOrUpdate_MultiCultureAccount_cshtml : System.Web.Mvc.WebViewPage<MultiCultureAccountViewModel>
     {
-        public MultiCultureAccount()
+        public _Views_CreateOrUpdate_MultiCultureAccount_cshtml()
         {
         }
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 3 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
   
     Layout = "../Shared/_CardLayout.cshtml";
 
@@ -84,14 +82,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 346), Tuple.Create("\"", 382)
+WriteAttribute("title", Tuple.Create(" title=\"", 307), Tuple.Create("\"", 343)
             
-            #line 21 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
-, Tuple.Create(Tuple.Create("", 354), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+            #line 20 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+, Tuple.Create(Tuple.Create("", 315), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 354), false)
+, 315), false)
 );
 
 WriteLiteral(">\r\n");
@@ -99,7 +97,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("    ");
 
             
-            #line 22 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 21 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
 Write(Html.HiddenFor(m => m.Id));
 
             
@@ -108,13 +106,13 @@ Write(Html.HiddenFor(m => m.Id));
 WriteLiteral("\r\n\r\n");
 
             
-            #line 24 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 23 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 24 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 23 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
       
         var readonlyFieldHtmlAttributes = new Dictionary<string, object> { { "class", "readonly inputfields" }, { "readonly", "readonly" } };
     
@@ -130,8 +128,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 29 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
-   Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityName.LegalPerson, ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.LegalPerson.Value) }));
+            #line 28 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+   Write(Html.TemplateField(m => m.LegalPerson, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.LegalPerson(), ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.LegalPerson.Value) }));
 
             
             #line default
@@ -145,8 +143,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 32 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
-   Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit, ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.BranchOfficeOrganizationUnit.Value) }));
+            #line 31 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+   Write(Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit(), ReadOnly = !Model.IsNew && !string.IsNullOrEmpty(Model.BranchOfficeOrganizationUnit.Value) }));
 
             
             #line default
@@ -160,7 +158,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 35 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 34 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
    Write(Html.TemplateField(m => m.AccountDetailBalance, FieldFlex.twins, readonlyFieldHtmlAttributes));
 
             
@@ -171,8 +169,8 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 36 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
-   Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Currency, ReadOnly = true }));
+            #line 35 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+   Write(Html.TemplateField(m => m.Currency, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Currency(), ReadOnly = true }));
 
             
             #line default
@@ -186,7 +184,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 39 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 38 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
    Write(Html.TemplateField(m => m.LockDetailBalance, FieldFlex.twins, readonlyFieldHtmlAttributes));
 
             
@@ -198,14 +196,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"AdministrationTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1599), Tuple.Create("\"", 1642)
+WriteAttribute("title", Tuple.Create(" title=\"", 1593), Tuple.Create("\"", 1636)
             
-            #line 42 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
-, Tuple.Create(Tuple.Create("", 1607), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
+            #line 41 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+, Tuple.Create(Tuple.Create("", 1601), Tuple.Create<System.Object, System.Int32>(BLResources.AdministrationTabTitle
             
             #line default
             #line hidden
-, 1607), false)
+, 1601), false)
 );
 
 WriteLiteral(">\r\n");
@@ -213,7 +211,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("    ");
 
             
-            #line 43 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 42 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
 Write(Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle));
 
             
@@ -222,13 +220,13 @@ Write(Html.SectionHead("adminHeader", BLResources.AdministrationTabTitle));
 WriteLiteral("\r\n");
 
             
-            #line 44 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 43 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 44 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 43 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
      if (Model.IsCurated && Model.IsSecurityRoot)
     {
 
@@ -244,8 +242,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 47 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
-   Write(Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, Disabled = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
+            #line 46 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+   Write(Html.TemplateField(m=>m.Owner, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), Disabled = !Model.OwnerCanBeChanged, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } }));
 
             
             #line default
@@ -253,7 +251,7 @@ WriteLiteral("        ");
 WriteLiteral("\r\n    </div>\r\n");
 
             
-            #line 49 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 48 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
     }
 
             
@@ -268,8 +266,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 52 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
-   Write(Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityName.User, ReadOnly = true}));
+            #line 51 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+   Write(Html.TemplateField(m=>m.CreatedBy, FieldFlex.twins, new LookupSettings{EntityName = EntityType.Instance.User(), ReadOnly = true}));
 
             
             #line default
@@ -279,7 +277,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 53 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 52 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
    Write(Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             
@@ -294,8 +292,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 56 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
-   Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true }));
+            #line 55 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+   Write(Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true }));
 
             
             #line default
@@ -305,7 +303,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 57 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 56 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
    Write(Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true }));
 
             
@@ -318,7 +316,7 @@ WriteLiteral("\r\n    </div>\r\n</div>   \r\n");
 WriteLiteral("\r\n");
 
             
-            #line 62 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
+            #line 61 "..\..\Views\CreateOrUpdate\MultiCultureAccount.cshtml"
 Write(RenderBody());
 
             

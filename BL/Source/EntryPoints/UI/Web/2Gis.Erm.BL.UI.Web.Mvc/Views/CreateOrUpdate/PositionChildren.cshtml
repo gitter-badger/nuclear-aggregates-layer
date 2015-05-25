@@ -1,5 +1,5 @@
 ﻿
-@model Models.PositionChildrenViewModel
+@model PositionChildrenViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -17,10 +17,10 @@
             @Html.HiddenFor(m => m.Id)
         }
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.MasterPosition, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Position, ReadOnly = true })
+            @Html.TemplateField(m => m.MasterPosition, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Position(), ReadOnly = true })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.ChildPosition, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Position, ExtendedInfo = "composite=false" })
+            @Html.TemplateField(m => m.ChildPosition, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Position(), ExtendedInfo = "composite=false" })
         </div>
     </div>
 }

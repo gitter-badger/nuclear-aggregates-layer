@@ -44,6 +44,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Task.cshtml")]
@@ -132,8 +135,8 @@ WriteLiteral(">\r\n        Ext.onReady(function()\r\n        {\r\n            va
             
             #line default
             #line hidden
-WriteLiteral(";\r\n            window.Card = new window.Ext.DoubleGis.UI.Task(cardSettings);\r\n   " +
-"         window.Card.Build();\r\n        });\r\n    </script>\r\n");
+WriteLiteral(";            \r\n            window.Card = new window.Ext.DoubleGis.UI.Task(cardSet" +
+"tings);\r\n            window.Card.Build();\r\n        });\r\n    </script>\r\n");
 
 });
 
@@ -147,14 +150,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 943), Tuple.Create("\"", 979)
+WriteAttribute("title", Tuple.Create(" title=\"", 955), Tuple.Create("\"", 991)
             
             #line 29 "..\..\Views\CreateOrUpdate\Task.cshtml"
-, Tuple.Create(Tuple.Create("", 951), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 963), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 951), false)
+, 963), false)
 );
 
 WriteLiteral(">\r\n");
@@ -179,7 +182,7 @@ WriteLiteral("        ");
             
             #line default
             #line hidden
-WriteLiteral("\r\n        \r\n");
+WriteLiteral("\r\n\r\n");
 
             
             #line 33 "..\..\Views\CreateOrUpdate\Task.cshtml"
@@ -224,7 +227,7 @@ WriteLiteral("\r\n");
                                          new LookupDataField { Name = "city", Mapping = "OrganizationUnitName" }
                                      };
             const string HeaderTextTemplate = "'<span class=\"x-lookup-thumb\">{name}</span>&nbsp;<span class=\"x-lookup-thumb\" style=\"color:gray\">{city}</span>&nbsp;'";
-            
+        
             
             #line default
             #line hidden
@@ -235,8 +238,8 @@ WriteLiteral("        ");
             
             #line 47 "..\..\Views\CreateOrUpdate\Task.cshtml"
    Write(Html.SectionRow(
-            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ExcludeReserve=true", DefaultSortFields = isOwnerAndNameSortFields }),
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields, DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
+            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "ExcludeReserve=true", DefaultSortFields = isOwnerAndNameSortFields }),
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.FirmClientInitialization, ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields, DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
 
             
             #line default
@@ -247,7 +250,7 @@ WriteLiteral("        ");
 
             
             #line 50 "..\..\Views\CreateOrUpdate\Task.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields })));
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Deal(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.DealClientInitialization, ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields })));
 
             
             #line default

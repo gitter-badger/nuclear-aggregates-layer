@@ -1,5 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources;
-using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
+﻿using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
+
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources;
 
 namespace DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes
 {
