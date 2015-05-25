@@ -15,10 +15,13 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
 {
     public sealed partial class ReplicateToCRMMessageAggregatedProcessingResultHandler : IMessageAggregatedProcessingResultsHandler
     {
+        private const int MaxSlicingAttempts = 4;
         private readonly IReplicationPersistenceService _replicationPersistenceService;
         private readonly IAsyncMsCRMReplicationSettings _asyncMsCRMReplicationSettings;
         private readonly ITracer _tracer;
         private readonly IMsCrmReplicationMetadataProvider _msCrmReplicationMetadataProvider;
+        private readonly SlicerSettings _baseSlicerSettings;
+        private readonly int _maxEffectiveDivisor;
 
         public ReplicateToCRMMessageAggregatedProcessingResultHandler(
             IAsyncMsCRMReplicationSettings asyncMsCRMReplicationSettings,
@@ -30,6 +33,10 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
             _tracer = tracer;
             _msCrmReplicationMetadataProvider = msCrmReplicationMetadataProvider;
             _replicationPersistenceService = replicationPersistenceService;
+
+
+            _baseSlicerSettings = SlicerSettings.Default;
+            _maxEffectiveDivisor = (int)Math.Pow(_baseSlicerSettings.Ratio, MaxSlicingAttempts);
         }
 
         public IEnumerable<KeyValuePair<Guid, MessageProcessingStageResult>> Handle(IEnumerable<KeyValuePair<Guid, List<IProcessingResultMessage>>> processingResultBuckets)
@@ -80,7 +87,8 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
                     continue;
                 }
 
-                var replicationBucketSlicer = new Slicer<Tuple<Guid, long>>(SlicerSettings.Default, replicationBucket);
+                var slicerSettings = EvaluateAdaptiveSlicerSettings(replicationBucket.Count);
+                var replicationBucketSlicer = new Slicer<Tuple<Guid, long>>(slicerSettings, replicationBucket);
 
                 IReadOnlyCollection<Tuple<Guid, long>> slicedReplicationBucket;
                 while (replicationBucketSlicer.TryGetRange(out slicedReplicationBucket))
@@ -110,6 +118,16 @@ namespace DoubleGis.Erm.Platform.Core.Operations.Processing.Final.MsCRM
             }
 
             return handlingResults;
+        }
+
+        private SlicerSettings EvaluateAdaptiveSlicerSettings(int currentReplicationQueueLength)
+        {
+            return new SlicerSettings
+                       {
+                           MaxRangeLength = _baseSlicerSettings.MaxRangeLength,
+                           MinRangeLength = Math.Max(1, currentReplicationQueueLength / _maxEffectiveDivisor),
+                           Ratio = _baseSlicerSettings.Ratio
+                       };
         }
 
         private bool TryReplicate(Type replicationType, IReadOnlyCollection<Tuple<Guid, long>> replicationTargets, out IReadOnlyCollection<long> replicationFailed)

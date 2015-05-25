@@ -240,30 +240,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId))
                                            .Select(item => new
                                            {
+                                               item.PositionId,
                                                Platform = item.Position.Platform.Name,
                                                item.RateType,
                                                item.Amount,
                                                item.AmountSpecificationMode,
-                                               item.PositionId,
                                                PricePositionCost = item.Cost,
+                                               item.Position.SalesModel,
                                                item.Position.IsComposite,
-                                               LinkingObjectType = item.Position.BindingObjectTypeEnum,
-                                               item.Position.SalesModel
+                                               BindingObjectType = item.Position.BindingObjectTypeEnum
                                            })
                                            .Single();
 
             return new PricePositionDetailedInfo
             {
+                           PositionId = pricePositionInfo.PositionId,
                 Amount = pricePositionInfo.Amount,
                 AmountSpecificationMode = (int)pricePositionInfo.AmountSpecificationMode,
-                IsComposite = pricePositionInfo.IsComposite,
                 Platform = pricePositionInfo.Platform ?? string.Empty,
                 PricePositionCost = pricePositionInfo.PricePositionCost,
                 RateType = pricePositionInfo.RateType,
-
-                LinkingObjectType = pricePositionInfo.LinkingObjectType,
                 SalesModel = pricePositionInfo.SalesModel,
-                PositionId = pricePositionInfo.PositionId,
+                           BindingObjectType = pricePositionInfo.BindingObjectType,
+                           IsComposite = pricePositionInfo.IsComposite
             };
         }
 

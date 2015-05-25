@@ -5139,9 +5139,6 @@ Doba zveřejnění: {3}.</value>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>V objednávce mohou být pozice pouze z jednoho modelu prodejů</value>
   </data>
-  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
-    <value>Sada rubrik musí být jednotná pro všechny podřízené pozice</value>
-  </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>Pokus o uložení pozice v objednávce s modelem prodejů '{0}' s počtem, který se nerovná 1</value>
   </data>
@@ -5246,5 +5243,11 @@ Doba zveřejnění: {3}.</value>
   </data>
   <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
     <value>Нельзя удалить ценовую группу по умолчанию</value>
+  </data>
+  <data name="AllPositionsMustBePicked" xml:space="preserve">
+    <value>Je třeba označit všechny pozice</value>
+  </data>
+  <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
+    <value>Sada rubrik pro pozici {0} musí být stejná</value>
   </data>
 </root>

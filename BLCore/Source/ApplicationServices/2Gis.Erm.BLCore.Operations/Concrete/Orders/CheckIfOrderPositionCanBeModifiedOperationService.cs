@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel;
@@ -31,15 +30,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
 
         public bool Check(long orderId, long orderPositionId, long pricePositionId, IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements, out string report)
         {
-            var position = _positionReadModel.GetPositionByPricePositionId(pricePositionId);
+            var positionDto = _positionReadModel.GetPositionSalesModelAndCompositenessByPricePosition(pricePositionId);
             var orderInfo = _orderReadModel.GetOrderInfoToCheckPossibilityOfOrderPositionCreation(orderId);
 
-            if (position.IsComposite && !AllRequiredAdvertisementsAreSpecifiedForCompositePosition(orderPositionAdvertisements, out report))
+            if (positionDto.IsComposite && !AtLeastOneLinkingObjectIsSpecifiedForCompositePosition(orderPositionAdvertisements, out report))
             {
                 return false;
             }
 
-            if (!AllRequiredAdvertisementsAreSpecified(orderPositionAdvertisements, out report))
+            if (!AtLeastOneLinkingObjectIsSpecified(orderPositionAdvertisements, out report))
             {
                 return false;
             }
@@ -49,12 +48,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
                 return false;
             }
 
-            if (!AllPositionsOfTheSameSalesModel(orderPositionId, position.SalesModel, orderInfo.OrderPositions.ToDictionary(x => x.OrderPositionId, x => x.SalesModel), out report))
+            if (!AllPositionsOfTheSameSalesModel(orderPositionId, positionDto.SalesModel, orderInfo.OrderPositions.ToDictionary(x => x.OrderPositionId, x => x.SalesModel), out report))
             {
                 return false;
             }
 
-            if (!CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(position.SalesModel, orderPositionAdvertisements, out report))
+            if (_positionReadModel.KeepCategoriesSynced(positionDto.PositionId) && !CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(orderPositionAdvertisements, out report))
+            {
+                return false;
+            }
+
+            if (_positionReadModel.AllSubpositionsMustBePicked(positionDto.PositionId) && !AllSubpositionsMustBePicked(positionDto.PositionId, orderPositionAdvertisements, out report))
             {
                 return false;
             }
@@ -71,8 +75,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
         #region Проверки
         // Является частным случаем проверки AllRequiredAdvertisementsAreSpecified, которая появилась в рамках фикса бага ERM-6151. Есть опасение, что новая общая проверка ломает какой-то кейс. 
         // Если жалоб на нее не будет, то эту частную проверку (AllRequiredAdvertisementsAreSpecifiedForCompositePosition) можно будет удалить
-        private bool AllRequiredAdvertisementsAreSpecifiedForCompositePosition(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
-                                              out string report)
+        private bool AtLeastOneLinkingObjectIsSpecifiedForCompositePosition(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                                               out string report)
         {
             report = null;
             if (!orderPositionAdvertisements.Any())
@@ -84,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             return true;
         }
 
-        private bool AllRequiredAdvertisementsAreSpecified(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+        private bool AtLeastOneLinkingObjectIsSpecified(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
                                                            out string report)
         {
             report = null;
@@ -140,29 +144,34 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             return true;
         }
 
-        private bool CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(SalesModel salesModelOfEditingOrderPosition,
-                                                                             IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+        private bool CategoriesSetForAllPositionsWithCategoriesMustBeTheSame(IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
                                                                              out string report)
         {
             report = null;
-            if (!salesModelOfEditingOrderPosition.IsPlannedProvisionSalesModel())
-            {
-                return true;
-            }
 
             var positionsWithCategories =
                 orderPositionAdvertisements.GroupBy(x => x.PositionId)
                                            .ToDictionary(x => x.Key, y => y.Where(z => z.CategoryId.HasValue).Select(z => z.CategoryId.Value))
                                            .Where(x => x.Value.Any());
 
-            if (positionsWithCategories.Any(positionWithCategories =>
+            var bindingTypes = _positionReadModel.GetPositionBindingObjectTypes(positionsWithCategories.Select(x => x.Key))
+                                                 .GroupBy(x => x.Value)
+                                                 .ToDictionary(x => x.Key, y => y.Select(z => z.Key));
+
+            foreach (var bindingType in bindingTypes)
+            {
+                var positionsWithCategoriesToCheck = positionsWithCategories.Where(x => bindingType.Value.Contains(x.Key));
+
+                if (positionsWithCategoriesToCheck.Any(positionWithCategories =>
                                             positionWithCategories.Value
                                                                   .Any(category =>
-                                                                       positionsWithCategories
+                                                                                  positionsWithCategoriesToCheck
                                                                            .Any(x => x.Key != positionWithCategories.Key && !x.Value.Contains(category)))))
             {
-                report = BLResources.CategoriesSetForAllPositionsMustBeTheSame;
+                    var positionNames = _positionReadModel.GetPositionNames(positionsWithCategoriesToCheck.Select(x => x.Key));
+                    report = string.Format(BLResources.CategoriesSetForPositionsMustBeTheSame, string.Join(",", positionNames.Select(x => string.Format(@"'{0}'", x.Value))));
                 return false;
+            }
             }
 
             return true;
@@ -187,6 +196,27 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders
             }
 
             report = null;
+            return true;
+        }
+
+        private bool AllSubpositionsMustBePicked(long positionId,
+                                                 IEnumerable<AdvertisementDescriptor> orderPositionAdvertisements,
+                                                 out string report)
+        {
+            report = null;
+
+            var childPositionIds = _positionReadModel.GetChildPositionIds(positionId);
+
+            var pickedPositions = orderPositionAdvertisements.Select(x => x.PositionId).Distinct().ToArray();
+
+            var notPickedPositions = childPositionIds.Where(x => !pickedPositions.Contains(x)).ToArray();
+
+            if (notPickedPositions.Any())
+            {
+                report = BLResources.AllPositionsMustBePicked;
+                return false; 
+            }
+
             return true;
         }
 
