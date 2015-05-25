@@ -363,6 +363,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             RegisterExtendedInfoFilter<ListThemeTemplateDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListThemeOrganizationUnitDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListThemeCategoryDto, bool>("NotDeleted", value => x => !x.IsDeleted);
+            RegisterExtendedInfoFilter<ListUserBranchOfficeDto, bool>("NotDeleted", value => x => !x.IsDeleted);
         }
 
         public void RegisterExtendedInfoFilter<TDocument, TInfoType>(string filterName, Func<TInfoType, Expression<Func<TDocument, bool>>> func)

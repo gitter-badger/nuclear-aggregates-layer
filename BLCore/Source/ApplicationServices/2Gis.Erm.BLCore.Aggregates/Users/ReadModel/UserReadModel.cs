@@ -104,21 +104,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
 
         public bool IsUserLinkedToBranchOffice(long userId, long branchOfficeId)
         {
-            return _finder.Find(Specs.Find.ById<User>(userId))
-                          .Select(x => x.UserBranchOffices.Any(y => y.BranchOfficeId == branchOfficeId))
-                          .SingleOrDefault();
+            return _finder.Find(Specs.Find.NotDeleted<UserBranchOffice>() &&
+                                UserSpecs.UserBranchOffices.Find.ByUser(userId) &&
+                                UserSpecs.UserBranchOffices.Find.ByBranchOffice(branchOfficeId))
+                          .Any();
         }
 
         public IReadOnlyCollection<long> GetUserBranchOffices(long userId)
         {
-            return _finder.Find(UserSpecs.UserBranchOffices.Find.ByUser(userId))
+            return _finder.Find(Specs.Find.NotDeleted<UserBranchOffice>() &&
+                                UserSpecs.UserBranchOffices.Find.ByUser(userId))
                           .Select(x => x.BranchOfficeId)
                           .ToArray();
         }
 
         public IReadOnlyCollection<UserBranchOffice> GetUserBranchOfficeLinks(long userId)
         {
-            return _finder.Find(UserSpecs.UserBranchOffices.Find.ByUser(userId))
+            return _finder.Find(Specs.Find.NotDeleted<UserBranchOffice>() &&
+                                UserSpecs.UserBranchOffices.Find.ByUser(userId))
                           .ToArray();
         }
 

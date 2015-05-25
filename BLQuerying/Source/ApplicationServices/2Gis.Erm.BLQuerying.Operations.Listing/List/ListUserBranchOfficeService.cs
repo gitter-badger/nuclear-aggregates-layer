@@ -31,6 +31,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                                      UserId = x.UserId,
                                      BranchOfficeId = x.BranchOfficeId,
                                      UserName = x.User.DisplayName,
+                                     IsDeleted = x.IsDeleted
                                  })
                 .QuerySettings(_filterHelper, querySettings);
 

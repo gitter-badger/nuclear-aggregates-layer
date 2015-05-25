@@ -13,6 +13,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
                 {
                     return new FindSpecification<UserBranchOffice>(x => x.UserId == userId);
                 }
+
+                public static FindSpecification<UserBranchOffice> ByBranchOffice(long branchOfficeId)
+                {
+                    return new FindSpecification<UserBranchOffice>(x => x.BranchOfficeId == branchOfficeId);
+                }
             }
         }
     }

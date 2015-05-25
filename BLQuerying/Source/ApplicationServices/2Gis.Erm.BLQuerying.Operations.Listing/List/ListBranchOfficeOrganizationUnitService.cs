@@ -47,15 +47,15 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 "OrderSourceOrganizationUnitId",
                 sourceOrganizationUnitId =>
                 {
-                        var userId = _userContext.Identity.Code;
+                    var userId = _userContext.Identity.Code;
+                    bool primaryRequired;
 
-                        bool primaryRequired;
-                        if (!querySettings.TryGetExtendedProperty("Primary", out primaryRequired))
+                    if (!querySettings.TryGetExtendedProperty("Primary", out primaryRequired))
                     {
-                            primaryRequired = false;
-                        }
+                        primaryRequired = false;
+                    }
 
-                        Expression<Func<BranchOfficeOrganizationUnit, bool>> primaryFilter = x => x.IsPrimary;
+                    Expression<Func<BranchOfficeOrganizationUnit, bool>> primaryFilter = x => x.IsPrimary;
                     if (_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.OrderBranchOfficeOrganizationUnitSelection, userId))
                     {
                         Expression<Func<BranchOfficeOrganizationUnit, bool>> functionalPrivilegeFilter =
