@@ -2029,4 +2029,7 @@
   <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
     <value>Смена типа заказа РА</value>
   </data>
+  <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
+    <value>Телефония</value>
+  </data>
 </root>
