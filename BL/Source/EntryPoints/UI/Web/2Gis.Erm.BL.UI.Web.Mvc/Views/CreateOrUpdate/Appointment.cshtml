@@ -49,8 +49,8 @@
         }
         @Html.SectionRow(
             @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "ExcludeReserve=true", DefaultSortFields = isOwnerAndNameSortFields }),
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true;needHelp=false", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields, DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate }))
-        @Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Deal(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields }))
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true;needHelp=false", ClientInitialization = Model.FirmClientInitialization, ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields, DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate }))
+        @Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Deal(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityType.Instance.Client(),ClientInitialization = Model.DealClientInitialization, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields }))
 
         @Html.SectionHead("planHeader", BLResources.TitlePlan)
         @Html.SectionRow(@Html.TemplateField(m => m.Purpose, FieldFlex.lone, null, EnumResources.ResourceManager))
@@ -62,7 +62,7 @@
             @Html.TemplateField(m => m.ScheduledEnd, FieldFlex.twins, 
                 new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = CalendarSettings.TimeSettings.WorkHours })
             )
-        @Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Contact(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields }))
+        @Html.SectionRow(@Html.TemplateField(m => m.Attendee, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Contact(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.AttendeeClientInitialization, ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields }))
         @Html.SectionRow(@Html.TemplateField(m => m.Location, FieldFlex.lone))
 
         @Html.SectionHead("resultHeader", BLResources.TitleResult)

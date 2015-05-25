@@ -7,7 +7,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices
 {
     public interface ICopyPriceOperationService : IOperation<CopyPriceIdentity>
     {
-        int Copy(long sourcePriceId, long organizationUnitId, DateTime publishDate, DateTime beginDate);
-        int Copy(long sourcePriceId, long organizationUnitId, DateTime createDate, DateTime publishDate, DateTime beginDate);
+        void Copy(long sourcePriceId, long organizationUnitId, DateTime publishDate, DateTime beginDate);
+        void Copy(long sourcePriceId, long organizationUnitId, DateTime createDate, DateTime publishDate, DateTime beginDate);
     }
 }

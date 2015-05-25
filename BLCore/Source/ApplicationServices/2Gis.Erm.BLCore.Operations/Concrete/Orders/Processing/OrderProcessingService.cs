@@ -90,7 +90,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
                                                                  _orderReadModel,
                                                                  _accountRepository,
                                                                  _numberService,
-                                                                 _legalPersonReadModel));
+                                                                 _legalPersonReadModel,
+                                                                 _functionalAccessService));
                 return involvedStrategies.ToArray();
             }
 

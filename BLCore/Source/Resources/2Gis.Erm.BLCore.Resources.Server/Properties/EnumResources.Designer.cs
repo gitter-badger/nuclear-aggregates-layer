@@ -2842,6 +2842,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Смена типа заказа РА.
+        /// </summary>
+        public static string FunctionalPrivilegeNameEditAdvertisementAgencyOrderType {
+            get {
+                return ResourceManager.GetString("FunctionalPrivilegeNameEditAdvertisementAgencyOrderType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Редактирование заглушки РМ.
         /// </summary>
         public static string FunctionalPrivilegeNameEditDummyAdvertisement {
@@ -4183,6 +4192,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Рекламное агентство.
+        /// </summary>
+        public static string OrderTypeAdvertisementAgency {
+            get {
+                return ResourceManager.GetString("OrderTypeAdvertisementAgency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ТРУ (товары, реклама, услуги).
         /// </summary>
         public static string OrderTypeProductAdsService {
@@ -4728,7 +4746,7 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string PositionsGroupNone {
             get {
                 return ResourceManager.GetString("PositionsGroupNone", resourceCulture);
-        }
+            }
         }
         
         /// <summary>

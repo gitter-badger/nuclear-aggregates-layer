@@ -139,7 +139,9 @@
     <Compile Include="UIElements\Features\ISecuredElementFeature.cs" />
     <Compile Include="UIElements\Features\IUIElementFeature.cs" />
     <Compile Include="UIElements\Features\SecuredByEntityPrivelegeFeature.cs" />
+    <Compile Include="UIElements\Features\SecuredByEntityTypePrivilegeFeature.cs" />
     <Compile Include="UIElements\Features\SecuredByFunctionalPrivelegeFeature.cs" />
+    <Compile Include="UIElements\Features\SecuredByEntityInstancePrivilegeFeature.cs" />
     <Compile Include="UIElements\MessageType.cs" />
     <Compile Include="UIElements\UIElementMetadata.cs" />
     <Compile Include="UIElements\UIElementMetadataBuilder.cs" />

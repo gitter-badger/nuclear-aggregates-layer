@@ -414,9 +414,6 @@
     <value>Operace s ID {0} nebyla nalezena.</value>
     <comment>Действие с ID {0} не найдено.</comment>
   </data>
-  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
-    <value>Vytváření regionálních objednávek není podporováno</value>
-  </data>
   <data name="ClientHasParentLinkToAdvAgency" xml:space="preserve">
     <value>S tímto klientem spolupracuje následující reklamní agentura:</value>
   </data>

@@ -50,7 +50,7 @@ Ext.ux.ActionsHistoryTab = Ext.extend(Ext.Panel, {
         });
         this.store = new Ext.data.GroupingStore({
             reader: this.reader,
-            remoteSort: false,
+            remoteSort: true,
             sortInfo: { field: 'propertyName', direction: "ASC" },
             groupDir: "DESC",
             groupField: 'actionsHistoryId',
@@ -76,9 +76,9 @@ Ext.ux.ActionsHistoryTab = Ext.extend(Ext.Panel, {
             store: this.store,
             columns:
             [
-                { id: 'propertyName', header: Ext.LocalizedResources.PropertyName, width: 60, sortable: true, dataIndex: 'propertyName', menuDisabled: true },
-                { id: 'originalValue', header: Ext.LocalizedResources.OriginalValue, width: 60, sortable: true, dataIndex: 'originalValue', menuDisabled: true },
-                { id: 'modifiedValue', header: Ext.LocalizedResources.ModifiedValue, width: 60, sortable: true, dataIndex: 'modifiedValue', menuDisabled: true },
+                { id: 'propertyName', header: Ext.LocalizedResources.PropertyName, width: 60, sortable: false, dataIndex: 'propertyName', menuDisabled: true },
+                { id: 'originalValue', header: Ext.LocalizedResources.OriginalValue, width: 60, sortable: false, dataIndex: 'originalValue', menuDisabled: true },
+                { id: 'modifiedValue', header: Ext.LocalizedResources.ModifiedValue, width: 60, sortable: false, dataIndex: 'modifiedValue', menuDisabled: true },
                 {
                     id: 'actionsHistoryId',
                     header: "actionsHistoryId",

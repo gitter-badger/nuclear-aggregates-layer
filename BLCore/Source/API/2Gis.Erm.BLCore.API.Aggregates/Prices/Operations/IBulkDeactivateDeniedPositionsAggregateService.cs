@@ -8,6 +8,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
     public interface IBulkDeactivateDeniedPositionsAggregateService : IAggregateSpecificOperation<Price, DeactivateIdentity>
     {
-        int Deactivate(IEnumerable<DeniedPosition> deniedPositions);
+        void Deactivate(IEnumerable<DeniedPosition> deniedPositions);
     }
 }

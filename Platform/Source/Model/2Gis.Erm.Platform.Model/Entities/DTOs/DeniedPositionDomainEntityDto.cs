@@ -32,9 +32,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities.DTOs
         public ObjectBindingType ObjectBindingType { get; set; }
 
         [DataMember]
-        public EntityReference OwnerRef { get; set; }
-
-        [DataMember]
         public EntityReference CreatedByRef { get; set; }
 
         [DataMember]

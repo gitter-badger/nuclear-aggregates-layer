@@ -1,6 +1,6 @@
 ﻿@using System.Globalization
 @using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings
-@using NuClear.Security.API.FunctionalAccess
+@using DoubleGis.Erm.Platform.API.Security.FunctionalAccess
 
 
 @model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia.OrderViewModel
@@ -69,6 +69,7 @@
         @Html.HiddenFor(m => m.VatPlan)
         @Html.HiddenFor(m => m.OrderValidationServiceUrl)
         @Html.HiddenFor(m => m.RegionalNumber)
+        @Html.HiddenFor(m => m.DisabledOrderTypes)
     </div>
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <br />

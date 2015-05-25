@@ -112,15 +112,45 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
        
         
     },
+    CreateTask: function () {
+        this.SaveAndCreate("Task");
+    },
+    CreatePhonecall: function () {
+        this.SaveAndCreate("Phonecall");
+    },
+    CreateAppointment: function () {
+        this.SaveAndCreate("Appointment");
+    },
+    CreateLetter: function () {
+        this.SaveAndCreate("Letter");
+    },
+    SaveAndCreate: function (entityName) {
+        if (this.isDirty) {
+            this.on('postformsuccess', function (sender, form) { this.CreateActivityWindow(entityName, form.Id); });
+            this.Save();
+        } else {
+            this.CreateActivityWindow(entityName,this.form.Id.value);
+        }        
+    },
+    CreateActivityWindow: function(entityName, entityId) {   
+        var params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3}", window.Ext.DoubleGis.Global.UISettings.ActualCardWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight, window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
+
+        var queryString = '?pId=' + entityId + '&pType=' + this.EntityName;
+
+        var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateCreateEntityUrl(entityName, queryString);
+        window.open(sUrl, "_blank", params);
+    },
     Build : function() {
         Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
 
         Ext.getCmp("Client").on("change",this.autocompleteHeader, this);
 
-        if (this.contactField && this.contactComp) {
-            this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
-        }
+     
         this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
+
+        if (this.contactField && this.contactComp) {
+            this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController(this);
+        }
 
             this.on('postformsuccess', this.saveFormSuccess);
             this.on('postformfailure', this.saveFormFailure);

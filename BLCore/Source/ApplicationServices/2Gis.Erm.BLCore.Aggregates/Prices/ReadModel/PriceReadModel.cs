@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
@@ -77,7 +78,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
 
         public PriceValidationDto GetPriceValidationDto(long priceId)
         {
-            return _finder.Find<Price, PriceValidationDto>(PriceSpecs.Prices.Select.PriceValidationDto(), Specs.Find.ById<Price>(priceId)).Single();
+            return _finder.Find(PriceSpecs.Prices.Select.PriceValidationDto(), Specs.Find.ById<Price>(priceId)).Single();
+        }
+
+        public IsPricePublishedAndActiveDto IsPricePublishedAndActive(long priceId)
+        {
+            return _finder.Find(Specs.Find.ById<Price>(priceId))
+                          .Select(x => new IsPricePublishedAndActiveDto
+                                           {
+                                               IsActive = x.IsActive,
+                                               IsPublished = x.IsPublished
+                                           }).Single();
         }
 
         public long GetActualPriceId(long organizationUnitId)
@@ -99,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             return _finder.Find(Specs.Find.ById<Price>(priceId) && Specs.Find.ActiveAndNotDeleted<Price>()).Any();
         }
 
-        public bool IsPriceExist(long priceId)
+        public bool DoesPriceExist(long priceId)
         {
             return _finder.Find(Specs.Find.ById<Price>(priceId)).Any();
         }
@@ -115,28 +126,28 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             return _finder.Find(Specs.Find.ById<Price>(priceId) && Specs.Find.ActiveAndNotDeleted<Price>()).Any(x => x.IsPublished && x.BeginDate <= nowDate);
         }
 
-        public bool IsPriceContainsPosition(long priceId, long positionId)
+        public bool DoesPriceContainPosition(long priceId, long positionId)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<PricePosition>())
                           .Where(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId))
                           .Any();
         }
 
-        public bool IsPriceContainsPositionWithinNonDeleted(long priceId, long positionId)
+        public bool DoesPriceContainPositionWithinNonDeleted(long priceId, long positionId)
         {
             return _finder.Find(Specs.Find.NotDeleted<PricePosition>())
                           .Where(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId))
                           .Any();
         }
 
-        public bool IsPricePositionExist(long priceId, long positionId, long pricePositionId)
+        public bool DoesPricePositionExist(long priceId, long positionId, long pricePositionId)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<PricePosition>() &&
                                 PriceSpecs.PricePositions.Find.ByPriceAndPositionButAnother(priceId, positionId, pricePositionId))
                           .Any();
         }
 
-        public bool IsPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId)
+        public bool DoesPricePositionExistWithinNonDeleted(long priceId, long positionId, long pricePositionId)
         {
             return _finder.Find(Specs.Find.NotDeleted<PricePosition>() &&
                                 PriceSpecs.PricePositions.Find.ByPriceAndPositionButAnother(priceId, positionId, pricePositionId))
@@ -191,11 +202,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
                                                                                  AssociatedPositionsGroupId = y.Id,
                                                                                  y.AssociatedPositions
                                                                              }),
-                               DeniedPositions = deniedPositions.Where(x => x.PositionId == positionId && x.PositionId == x.PositionDeniedId)
-                                                                .Concat(deniedPositions
-                                                                            .Where(x => x.PositionId == positionId && x.PositionId != x.PositionDeniedId))
-                                                                .Concat(deniedPositions
-                                                                            .Where(x => x.PositionDeniedId == positionId && x.PositionId != x.PositionDeniedId))
+                                      DeniedPositions = deniedPositions.Where(x => x.PositionId == positionId || x.PositionDeniedId == positionId)
                            })
                 .Single();
 
@@ -233,31 +240,94 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
             var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(pricePositionId))
                                            .Select(item => new
                                            {
+                                               item.PositionId,
                                                Platform = item.Position.Platform.Name,
                                                item.RateType,
                                                item.Amount,
                                                item.AmountSpecificationMode,
-                                               item.PositionId,
                                                PricePositionCost = item.Cost,
+                                               item.Position.SalesModel,
                                                item.Position.IsComposite,
-                                               LinkingObjectType = item.Position.BindingObjectTypeEnum,
-                                               SalesModel = item.Position.SalesModel
+                                               BindingObjectType = item.Position.BindingObjectTypeEnum
                                            })
                                            .Single();
 
             return new PricePositionDetailedInfo
             {
+                           PositionId = pricePositionInfo.PositionId,
                 Amount = pricePositionInfo.Amount,
                 AmountSpecificationMode = (int)pricePositionInfo.AmountSpecificationMode,
-                IsComposite = pricePositionInfo.IsComposite,
                 Platform = pricePositionInfo.Platform ?? string.Empty,
                 PricePositionCost = pricePositionInfo.PricePositionCost,
                 RateType = pricePositionInfo.RateType,
-
-                LinkingObjectType = pricePositionInfo.LinkingObjectType,
                 SalesModel = pricePositionInfo.SalesModel,
-                PositionId = pricePositionInfo.PositionId,
+                           BindingObjectType = pricePositionInfo.BindingObjectType,
+                           IsComposite = pricePositionInfo.IsComposite
             };
+        }
+
+        public DeniedPosition GetDeniedPosition(long deniedPositionId)
+        {
+            return _finder.FindOne(Specs.Find.ById<DeniedPosition>(deniedPositionId));
+        }
+
+        public IReadOnlyCollection<DeniedPosition> GetDeniedPositions(long positionId, long priceId)
+        {
+            return
+                _finder.FindMany(Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
+                                 PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
+                                 PriceSpecs.DeniedPositions.Find.ByPosition(positionId))
+                       .ToArray();
+        }
+
+        public IReadOnlyCollection<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId)
+        {
+            return
+                _finder.FindMany(Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
+                                 PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
+                                 PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId))
+                       .ToArray();
+        }
+
+        public IReadOnlyCollection<DeniedPosition> GetDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
+        {
+            return
+                _finder.FindMany(Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
+                                 PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
+                                 PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId) &&
+                                 PriceSpecs.DeniedPositions.Find.ByObjectBindingType(objectBindingType))
+                       .ToArray();
+        }
+
+        public IReadOnlyCollection<DeniedPosition> GetInactiveDeniedPositions(long positionId, long positionDeniedId, long priceId, ObjectBindingType objectBindingType)
+        {
+            return
+                _finder.FindMany(Specs.Find.InactiveAndNotDeletedEntities<DeniedPosition>() &&
+                                 PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
+                                 PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId) &&
+                                 PriceSpecs.DeniedPositions.Find.ByObjectBindingType(objectBindingType))
+                       .ToArray();
+        }
+
+        public IReadOnlyCollection<DeniedPosition> GetDeniedPositionsOrSymmetric(long positionId, long priceId)
+        {
+            return
+                _finder.FindMany(Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
+                                 PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
+                                 (PriceSpecs.DeniedPositions.Find.ByPosition(positionId) ||
+                                  PriceSpecs.DeniedPositions.Find.ByPositionDenied(positionId)))
+                       .ToArray();
+        }
+
+        public IReadOnlyCollection<DeniedPosition> GetDeniedPositionsOrSymmetric(long positionId, long positionDeniedId, long priceId, params long[] deniedPositionToExcludeIds)
+        {
+            return
+                _finder.FindMany(Specs.Find.ExceptByIds<DeniedPosition>(deniedPositionToExcludeIds) &&
+                                 Specs.Find.ActiveAndNotDeleted<DeniedPosition>() &&
+                                 PriceSpecs.DeniedPositions.Find.ByPrice(priceId) &&
+                                 (PriceSpecs.DeniedPositions.Find.ByPositions(positionId, positionDeniedId) ||
+                                  PriceSpecs.DeniedPositions.Find.ByPositions(positionDeniedId, positionId)))
+                       .ToArray();
         }
 
         private static decimal GetCategoryRateInternal(IQueryable<Category> categoryQuery, long organizationUnitId)

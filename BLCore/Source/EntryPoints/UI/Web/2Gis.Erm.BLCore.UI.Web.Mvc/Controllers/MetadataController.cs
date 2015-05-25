@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using NuClear.Security.API.UserContext;
+using NuClear.IdentityService.Client.Settings;
 
 using NuClear.Tracing.API;
 
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         public MetadataController(IMsCrmSettings msCrmSettings,
                                   IAPIOperationsServiceSettings operationsServiceSettings,
                                   IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                  IAPIIdentityServiceSettings identityServiceSettings,
+                                  IIdentityServiceClientSettings identityServiceSettings,
                                   IUserContext userContext,
                                   ITracer tracer,
                                   IGetBaseCurrencyService getBaseCurrencyService,
