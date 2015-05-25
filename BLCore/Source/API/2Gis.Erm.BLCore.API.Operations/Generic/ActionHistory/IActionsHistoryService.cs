@@ -4,14 +4,15 @@ using System.Runtime.Serialization;
 
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Generic.ActionHistory
 {
     public interface IActionsHistoryService : IOperation<ActionHistoryIdentity>
     {
-        ActionsHistoryDto GetActionHistory(EntityName entityName, long entityId);
+        ActionsHistoryDto GetActionHistory(IEntityType entityName, long entityId);
     }
 
     [DataContract(Namespace = ServiceNamespaces.BasicOperations.ActionsHistory201303)]

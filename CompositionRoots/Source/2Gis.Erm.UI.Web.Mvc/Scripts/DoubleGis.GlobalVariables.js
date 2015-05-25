@@ -220,6 +220,7 @@ Ext.DoubleGis.Global.Helpers = {
                     text: textLengthLimit && leaf.LocalizedName.length > textLengthLimit ? leaf.LocalizedName.substring(0, textLengthLimit - 2) + '...' : leaf.LocalizedName,
                     qtip: leaf.LocalizedName,
                     leaf: !(leaf.Items && leaf.Items.length),
+                    defaultDataView: leaf.DefaultDataView,
                     disabledExpression: leaf.DisabledExpression,
                     expanded: true,
                     requestUrl: leaf.RequestUrl,
@@ -243,6 +244,16 @@ Ext.DoubleGis.Global.Helpers = {
         Ext.get(linkId).on('click', function () {
             Ext.DoubleGis.Global.Helpers.OpenEntity(config.entityName, config.entityId);
         });
+    },
+    DisableComboBoxItemsByValues: function (comboBox, valuesToDisable) {
+        for (var i = 0; i < valuesToDisable.length; i++) {
+            for (var j = 0; j < comboBox.options.length; j++) {
+                if (comboBox.options[j].value == valuesToDisable[i] || (valuesToDisable[i] == 'Undefined' && comboBox.options[j].value == '')) {
+                    comboBox.options[j].disabled = true;
+                    break;
+                }
+            }
+        }
     },
     HideComboBoxItemsByValues : function(comboBox, valuesToHide) {
         for (var i = 0; i < comboBox.options.length; i++) {

@@ -30,7 +30,7 @@
             @Html.TemplateField(m => m.TaxationType, FieldFlex.twins, null, EnumResources.ResourceManager)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = true })
+            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Ipn, FieldFlex.twins)

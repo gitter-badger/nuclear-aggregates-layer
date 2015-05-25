@@ -12,7 +12,9 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;
@@ -62,7 +64,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             {
                 var mock = Mock.Of<IEvaluateOrderNumberService>();
                 Mock.Get(mock)
-                    .Setup(x => x.Evaluate(Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<long?>()))
+                    .Setup(x => x.Evaluate(Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<long?>(), Moq.It.IsAny<OrderType>()))
                     .Returns("AnyNumber");
 
                 Mock.Get(mock)

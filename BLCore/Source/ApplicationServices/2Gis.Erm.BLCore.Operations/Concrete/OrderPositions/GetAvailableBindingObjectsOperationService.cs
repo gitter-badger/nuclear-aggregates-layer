@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
@@ -53,18 +54,18 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             {
                 var orderDto = _orderReadModel.GetOrderLinkingObjectsDto(orderId);
                 var pricePositionInfo = _priceReadModel.GetPricePositionDetailedInfo(pricePositionId);
-                var firmAddresses = GetFirmAddresses(orderDto.FirmId, includeHiddenAddresses);
-                var firmAddressesCategories = _categoryReadModel.GetFirmAddressesCategories(orderDto.DestOrganizationUnitId, firmAddresses.Select(x => x.Id));
+                var firmAddressDtos = GetFirmAddresses(orderDto.FirmId, includeHiddenAddresses);
+                var firmAddressesCategories = _categoryReadModel.GetFirmAddressesCategories(orderDto.DestOrganizationUnitId, firmAddressDtos.Select(x => x.Id));
 
                 var firmCategoryIds = firmAddressesCategories.SelectMany(x => x.Value).Select(x => x.Id).Distinct().ToArray();
                 var themeDtos = _themeReadModel.FindThemesCanBeUsedWithOrder(orderDto.DestOrganizationUnitId, orderDto.BeginDistributionDate, orderDto.EndDistributionDatePlan);
 
                 IEnumerable<LinkingObjectsSchemaDto.WarningDto> warnings = null;
-                if (firmAddresses.Length == 0)
+                if (firmAddressDtos.Length == 0)
                 {
                     warnings = new[] { new LinkingObjectsSchemaDto.WarningDto { Text = BLResources.FirmDoesntHaveActiveAddresses } };
                 }
-                else if (pricePositionInfo.LinkingObjectType == PositionBindingObjectType.ThemeMultiple && !themeDtos.Any())
+                else if (pricePositionInfo.BindingObjectType == PositionBindingObjectType.ThemeMultiple && !themeDtos.Any())
                 {
                     warnings = new[] { new LinkingObjectsSchemaDto.WarningDto { Text = BLResources.ThereIsNoSuitableThemes } };
                 }
@@ -79,27 +80,28 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                                                           .ToDictionary(x => x.Key, y => y);
 
                 // Оставим в качестве допустимых рубрик в адрес только те рубрики, что остались в качестве допустимых рубрик по фирме, либо те, в которые уже были продажи.
-                foreach (var firmAddress in firmAddresses)
+                foreach (var firmAddressDto in firmAddressDtos)
                 {
-                    firmAddress.Categories =
-                        (firmAddressesCategories.ContainsKey(firmAddress.Id)
-                             ? firmAddressesCategories[firmAddress.Id].Select(x => x.Id).Where(x => firmCategoriesSupportedBySalesModel.Any(y => y.Id == x))
+                    firmAddressDto.Categories =
+                        (firmAddressesCategories.ContainsKey(firmAddressDto.Id)
+                             ? firmAddressesCategories[firmAddressDto.Id].Select(x => x.Id).Where(x => firmCategoriesSupportedBySalesModel.Any(y => y.Id == x))
                              : Enumerable.Empty<long>())
-                            .Union(salesIntoCategoriesByFirmAddress.ContainsKey(firmAddress.Id)
-                                       ? salesIntoCategoriesByFirmAddress[firmAddress.Id].Select(x => x.CategoryId)
+                            .Union(salesIntoCategoriesByFirmAddress.ContainsKey(firmAddressDto.Id)
+                                       ? salesIntoCategoriesByFirmAddress[firmAddressDto.Id].Select(x => x.CategoryId)
                                        : Enumerable.Empty<long>());
                 }
 
-                var positions = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId)
-                                                  .Select(ConvertToResponsePositionDto)
-                                                  .ToArray();
+                var autoCheckForFirmBindingObjectType = _positionReadModel.AutoCheckPositionsWithFirmBindingType(pricePositionInfo.PositionId);
+
+                var positionDtos = _positionReadModel.GetPositionBindingObjectsInfo(pricePositionInfo.IsComposite, pricePositionInfo.PositionId)
+                                                     .Select(x => ConvertToResponsePositionDto(x, autoCheckForFirmBindingObjectType))
+                                                     .ToArray();
 
                 var salesIntoCategoriesByPositions = salesIntoCategories.GroupBy(x => x.PositionId)
                                                                         .ToDictionary(x => x.Key, y => y);
 
-
                 var allFirmCategories = firmAddressesCategories.SelectMany(x => x.Value).DistinctBy(x => x.Id).ToArray();
-                foreach (var position in positions)
+                foreach (var position in positionDtos)
                 {
                     var salesIntoCategoriesByPosition = salesIntoCategoriesByPositions.ContainsKey(position.Id)
                                                             ? salesIntoCategoriesByPositions[position.Id]
@@ -121,8 +123,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
                                                                                                        .Select(LinkingObjectCategoryDto()))
                                                                                                        .ToArray(),
                                      Themes = themeDtos,
-                                     Positions = positions,
-                                     FirmAddresses = firmAddresses
+                                     Positions = positionDtos,
+                                     FirmAddresses = firmAddressDtos
                                  };
 
                 operationScope.Complete();
@@ -155,40 +157,19 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositions
             };
         }
 
-        private static LinkingObjectsSchemaDto.PositionDto ConvertToResponsePositionDto(LinkingObjectsSchemaPositionDto dto)
+        private static LinkingObjectsSchemaDto.PositionDto ConvertToResponsePositionDto(LinkingObjectsSchemaPositionDto dto, bool autoCheckForFirmBindingObjectType)
         {
             return new LinkingObjectsSchemaDto.PositionDto
-            {
-                Id = dto.Id,
-                Name = dto.Name,
-                PositionsGroup = (int)dto.PositionsGroup,
-                LinkingObjectType = dto.BindingObjectType.ToString(),
-                IsLinkingObjectOfSingleType = IsPositionBindingOfSingleType(dto.BindingObjectType),
-                AdvertisementTemplateId = dto.AdvertisementTemplateId,
-                DummyAdvertisementId = dto.DummyAdvertisementId,
-            };
-        }
-
-        private static bool IsPositionBindingOfSingleType(PositionBindingObjectType type)
-        {
-            switch (type)
-            {
-                case PositionBindingObjectType.Firm:
-                case PositionBindingObjectType.AddressCategorySingle:
-                case PositionBindingObjectType.AddressSingle:
-                case PositionBindingObjectType.CategorySingle:
-                case PositionBindingObjectType.AddressFirstLevelCategorySingle:
-                    return true;
-                case PositionBindingObjectType.AddressMultiple:
-                case PositionBindingObjectType.CategoryMultiple:
-                case PositionBindingObjectType.CategoryMultipleAsterix:
-                case PositionBindingObjectType.AddressCategoryMultiple:
-                case PositionBindingObjectType.AddressFirstLevelCategoryMultiple:
-                case PositionBindingObjectType.ThemeMultiple:
-                    return false;
-                default:
-                    throw new ArgumentOutOfRangeException("type");
-            }
+                       {
+                           Id = dto.Id,
+                           Name = dto.Name,
+                           PositionsGroup = (int)dto.PositionsGroup,
+                           LinkingObjectType = dto.BindingObjectType.ToString(),
+                           IsLinkingObjectOfSingleType = dto.BindingObjectType.IsPositionBindingOfSingleType(),
+                           AdvertisementTemplateId = dto.AdvertisementTemplateId,
+                           DummyAdvertisementId = dto.DummyAdvertisementId,
+                           AlwaysChecked = autoCheckForFirmBindingObjectType && dto.BindingObjectType == PositionBindingObjectType.Firm
+                       };
         }
 
         private LinkingObjectsSchemaDto.FirmAddressDto[] GetFirmAddresses(long firmId, bool includeHiddenAddresses)

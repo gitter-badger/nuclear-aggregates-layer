@@ -2,12 +2,14 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
 {
@@ -34,14 +36,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
             return dto;
         }
 
-        protected override IDomainEntityDto<LegalPersonProfile> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<LegalPersonProfile> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             if (!parentEntityId.HasValue)
             {
                 throw new ArgumentNullException("parentEntityId");
             }
 
-            if (parentEntityName != EntityName.LegalPerson)
+            if (!parentEntityName.Equals(EntityType.Instance.LegalPerson()))
             {
                 throw new ArgumentException("parentEntityName");
             }

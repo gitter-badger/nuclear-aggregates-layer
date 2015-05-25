@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -89,7 +91,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                       .Select(x => new OrderValidationMessage
                       {
                           Type = ruleContext.ValidationParams.IsMassValidation ? MessageType.Error : MessageType.Warning,
-                          MessageText = string.Format(BLResources.ThereIsNoAdvertisementForAdvantageousPurchasesCategory, GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Firm, x.Name, x.Id))
+                          MessageText = string.Format(BLResources.ThereIsNoAdvertisementForAdvantageousPurchasesCategory, GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityType.Instance.Firm(), x.Name, x.Id))
                       });
 
             return firmsWithoutPurchasesErrors;

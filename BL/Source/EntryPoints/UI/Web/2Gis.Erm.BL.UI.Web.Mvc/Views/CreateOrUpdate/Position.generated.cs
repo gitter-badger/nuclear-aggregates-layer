@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
+namespace ASP
 {
     using System;
     using System.Collections.Generic;
@@ -38,12 +38,15 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Position.cshtml")]
-    public partial class Position : System.Web.Mvc.WebViewPage<PositionViewModel>
+    public partial class _Views_CreateOrUpdate_Position_cshtml : System.Web.Mvc.WebViewPage<PositionViewModel>
     {
-        public Position()
+        public _Views_CreateOrUpdate_Position_cshtml()
         {
         }
         public override void Execute()
@@ -279,7 +282,7 @@ WriteLiteral("            ");
 
             
             #line 50 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Platform, ReadOnly = Model.IsPublished }));
+       Write(Html.TemplateField(m => m.Platform, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Platform(), ReadOnly = Model.IsPublished }));
 
             
             #line default
@@ -294,7 +297,7 @@ WriteLiteral("            ");
 
             
             #line 53 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.PositionCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityName.PositionCategory, ReadOnly = Model.IsPublished }));
+       Write(Html.TemplateField(m => m.PositionCategory, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.PositionCategory(), ReadOnly = Model.IsPublished }));
 
             
             #line default
@@ -309,7 +312,7 @@ WriteLiteral("            ");
 
             
             #line 56 "..\..\Views\CreateOrUpdate\Position.cshtml"
-       Write(Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityName.AdvertisementTemplate }));
+       Write(Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.AdvertisementTemplate() }));
 
             
             #line default

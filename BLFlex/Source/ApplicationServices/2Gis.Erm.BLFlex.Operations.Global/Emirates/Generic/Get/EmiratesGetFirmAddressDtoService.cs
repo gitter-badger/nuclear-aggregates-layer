@@ -3,11 +3,12 @@ using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
 using DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
 {
@@ -41,7 +42,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
             return firmAddressDto;
         }
 
-        protected override IDomainEntityDto<FirmAddress> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<FirmAddress> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             return new EmiratesFirmAddressDomainEntityDto();
         }

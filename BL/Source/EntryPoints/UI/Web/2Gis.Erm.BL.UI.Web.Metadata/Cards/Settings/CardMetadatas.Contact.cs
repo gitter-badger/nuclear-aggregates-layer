@@ -4,6 +4,8 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
 {
     public static partial class CardMetadatas
@@ -23,7 +25,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Settings
                                 ToolbarElements.Additional(ToolbarElements.ChangeOwner<Contact>()),
                                 ToolbarElements.Splitter(),
                                 ToolbarElements.Close())
-                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityName.Contact)),
+                        .WithRelatedItems(RelatedItems.RelatedItem.ContentTab(Icons.Icons.Entity.Small(EntityType.Instance.Contact())),
                                           RelatedItems.RelatedItem.ActivitiesGrid());
     }
 }

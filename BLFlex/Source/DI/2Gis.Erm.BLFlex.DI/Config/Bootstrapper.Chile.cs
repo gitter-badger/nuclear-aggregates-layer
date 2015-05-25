@@ -10,24 +10,26 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
+using DoubleGis.Erm.BLFlex.DI.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
+using NuClear.Security.API.UserContext;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLFlex.DI.Config
 {
@@ -74,10 +76,13 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureChileSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}", "AC_{0}-{1}-{2}")) // http://confluence.2gis.local:8090/pages/viewpage.action?pageId=117179880
-                        .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}"))
-                        .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("ORD_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForCountriesWithRomanAlphabet))
-                        .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
+                // http://confluence.2gis.local:8090/pages/viewpage.action?pageId=117179880
+                .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}", "AC_{0}-{1}-{2}"))
+                .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{0}"))
+                .RegisterType<IEvaluateOrderNumberService, ChileEvaluateOrderNumberService>(Lifetime.Singleton,
+                                                                                            new InjectionConstructor(
+                                                                                                OrderNumberGenerationStrategiesContainer.StrategiesForRomanAlphabetCountries))
+                .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 
         // TODO переделать на нормальную метадату
@@ -93,7 +98,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             FilteredFieldsMetadata.RegisterFilteredFields<ChileListCommuneDto>(
                 x => x.Name);
 
-            RelationalMetadata.RegisterRelatedFilter<ChileListLegalPersonDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<ChileListLegalPersonDto>(EntityType.Instance.Client(), x => x.ClientId);
 
             var extendedInfoFilterMetadata = container.Resolve<IExtendedInfoFilterMetadata>();
 

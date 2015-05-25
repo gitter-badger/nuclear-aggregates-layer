@@ -9,12 +9,15 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
@@ -22,6 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
     {
         private readonly ITaskReadModel _readModel;        
         private readonly IBusinessModelEntityObtainer<Task> _activityObtainer;
+        private readonly IActionLogger _actionLogger;
         private readonly IClientReadModel _clientReadModel;
         private readonly IFirmReadModel _firmReadModel;
         private readonly ICreateTaskAggregateService _createOperationService;
@@ -30,6 +34,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         public ModifyTaskService(
             ITaskReadModel readModel,
             IBusinessModelEntityObtainer<Task> obtainer,
+            IActionLogger actionLogger,
             IClientReadModel clientReadModel,
             IFirmReadModel firmReadModel,
             ICreateTaskAggregateService createOperationService,
@@ -37,6 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
         {
             _readModel = readModel;            
             _activityObtainer = obtainer;
+            _actionLogger = actionLogger;
             _clientReadModel = clientReadModel;
             _firmReadModel = firmReadModel;
             _createOperationService = createOperationService;
@@ -53,12 +59,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
             var task = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            if (taskDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
+            if (taskDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Client(), _clientReadModel.IsClientInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
-            if (taskDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
+            if (taskDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Firm(), _firmReadModel.IsFirmInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }
@@ -73,8 +79,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 }
                 else
                 {
+                    var originalTask = _readModel.GetTask(task.Id);
                     _updateOperationService.Update(task);
                     oldRegardingObjects = _readModel.GetRegardingObjects(task.Id);
+                    if (originalTask.ScheduledOn != task.ScheduledOn)
+                    {
+                        _actionLogger.LogChanges(task, x => x.ScheduledOn, originalTask.ScheduledOn, task.ScheduledOn);
+                    }
                 }
 
                 _updateOperationService.ChangeRegardingObjects(task,

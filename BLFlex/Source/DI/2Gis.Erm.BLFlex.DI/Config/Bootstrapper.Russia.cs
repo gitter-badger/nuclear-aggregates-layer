@@ -11,8 +11,8 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
+using DoubleGis.Erm.BLFlex.DI.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic;
@@ -22,15 +22,16 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Russia;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Config;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLFlex.DI.Config
 {
@@ -61,11 +62,13 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureRussiaSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                    .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}", "АД_{0}-{1}-{2}"))
-                    .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
-                    .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                    .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "ОФ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia))
-                    .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
+                .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}", "АД_{0}-{1}-{2}"))
+                .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
+                .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
+                .RegisterType<IEvaluateOrderNumberService, RussiaEvaluateOrderNumberService>(Lifetime.Singleton,
+                                                                                             new InjectionConstructor(
+                                                                                                 OrderNumberGenerationStrategiesContainer.StrategiesForCyrillicAlphabetCountries))
+                .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 
         internal static void ConfigureRussiaListingMetadata(this IUnityContainer container)

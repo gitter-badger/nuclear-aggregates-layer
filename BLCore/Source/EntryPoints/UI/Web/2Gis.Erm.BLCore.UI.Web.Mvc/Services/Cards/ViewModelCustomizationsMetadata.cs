@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities.Concrete;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Aspects.Features;
+using NuClear.Metamodeling.Elements.Identities;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Elements.Identities.Concrete;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
 {
@@ -19,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards
             : base(features)
         {
             _entityType = entityType;
-            _identity = new MetadataElementIdentity(IdBuilder.For<ViewModelCustomizationsIdentity>(entityType.Name));
+            _identity = new MetadataElementIdentity(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<ViewModelCustomizationsIdentity>(entityType.Name));
         }
 
         public Type EntityType

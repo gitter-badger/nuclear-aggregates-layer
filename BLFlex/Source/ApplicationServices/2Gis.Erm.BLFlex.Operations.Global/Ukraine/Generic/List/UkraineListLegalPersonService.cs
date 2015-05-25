@@ -7,13 +7,15 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
 {
@@ -55,13 +57,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
                 query = _filterHelper.ForSubordinates(query);
             }
 
-            if (querySettings.ParentEntityName == EntityName.Deal && querySettings.ParentEntityId.HasValue)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.Deal()) && querySettings.ParentEntityId.HasValue)
             {
                 var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).Select(x => x.ClientId).Single();
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 
-            if (querySettings.ParentEntityName == EntityName.Client && querySettings.ParentEntityId.HasValue)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.Client()) && querySettings.ParentEntityId.HasValue)
             {
                 query = _filterHelper.ForClientAndItsDescendants(query, querySettings.ParentEntityId.Value);
             }

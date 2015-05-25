@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 {
@@ -28,6 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
                             {
                                 IsActive = true,
                                 LegalPersonProfileId = dto.LegalPersonProfileRef != null ? dto.LegalPersonProfileRef.Id : null,
+                                HasDocumentsDebt = dto.HasDocumentsDebt
                             };
 
             order.Number = dto.Number;

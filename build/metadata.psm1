@@ -7,15 +7,26 @@ Import-Module "$PSScriptRoot\metadata.web.psm1" -DisableNameChecking
 Import-Module "$PSScriptRoot\metadata.taskservice.psm1" -DisableNameChecking
 Import-Module "$PSScriptRoot\metadata.transform.psm1" -DisableNameChecking
 
-function Get-MigrationsMetadata ($Country){
+function Get-MigrationsMetadata ($Country) {
 	switch ($Country){
 		'Russia' {
 			return @{ 'RunElasticsearchMigrations' = $true }
 		}
 		default {
 			return @{ 'RunElasticsearchMigrations' = $false }
+		}
 	}
 }
+
+function Get-ReportsMetadata ($EnvType) {
+	switch ($EnvType){
+		{ @('Edu', 'Business') -contains $_ } {
+			return @{ 'OptionReports' = $true }
+		}
+		default {
+			return @{ 'OptionReports' = $false }
+		}
+	}
 }
 
 function Get-EnvironmentMetadata ($EnvName, [ValidateSet('Test', 'Int', 'Load', 'Production', 'Edu', 'Business')]$EnvType, $Country, $Index) {
@@ -30,8 +41,9 @@ function Get-EnvironmentMetadata ($EnvName, [ValidateSet('Test', 'Int', 'Load', 
 		'2Gis.Erm.API.WCF.Operations.Special' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Operations.Special' $Index
 		'2Gis.Erm.API.WCF.Releasing' = Get-WebMetadata $EnvType $Country '2Gis.Erm.API.WCF.Releasing' $Index
 		'2Gis.Erm.UI.Desktop.WPF' = Get-WebMetadata $EnvType $Country '2Gis.Erm.UI.Desktop.WPF' $Index
-		'2Gis.Erm.TaskService.Installer' = Get-TaskServiceMetadata $EnvName $EnvType $Country $Index
+		'2Gis.Erm.TaskService' = Get-TaskServiceMetadata $EnvType $Country $Index
 		'Migrations' = Get-MigrationsMetadata $Country
+		'Reports' = Get-ReportsMetadata $EnvType
 		'Dynamics' = Get-DynamicsMetadata $EnvType $Country $Index
 	}
 }
@@ -94,6 +106,7 @@ $EnvironmentMetadata = @{
 	'Test.23' = Get-EnvironmentMetadata 'Test.23' 'Test' 'Russia' '23'
 	'Test.24' = Get-EnvironmentMetadata 'Test.24' 'Test' 'Russia' '24'
 	'Test.25' = Get-EnvironmentMetadata 'Test.25' 'Test' 'Russia' '25'
+	'Test.88' = Get-EnvironmentMetadata 'Test.88' 'Test' 'Russia' '88'
 	
 	'Test.101' = Get-EnvironmentMetadata 'Test.101' 'Test' 'Cyprus' '101'
 	'Test.102' = Get-EnvironmentMetadata 'Test.102' 'Test' 'Cyprus' '102'

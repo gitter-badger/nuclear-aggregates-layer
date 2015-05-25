@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
@@ -29,6 +29,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
                                          IOrderValidationServiceAspect,
                                          IOrderSecurityAspect, 
                                          ITerminatableAspect,
+                                         IDisabledOrderTypesAspect,
                                          IRussiaAdapted
     {
         long? IOrderDirectionAspect.SourceOrganizationUnitKey
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         }
 
         OrderState IOrderWorkflowAspect.WorkflowStepId
-        {
+    {
             get { return (OrderState)WorkflowStepId; }
         }
 
@@ -257,6 +258,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public string DocumentsComment { get; set; }
 
         public long? AccountId { get; set; }
+
+        public string DisabledOrderTypes { get; set; }
 
         public override bool IsSecurityRoot
         {

@@ -5,10 +5,12 @@ using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.IdentityService.Client.Settings;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Security.API.UserContext;
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -23,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.UI
         public GridController(IMsCrmSettings msCrmSettings,
                               IAPIOperationsServiceSettings operationsServiceSettings,
                               IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                              IAPIIdentityServiceSettings identityServiceSettings,
+                              IIdentityServiceClientSettings identityServiceSettings,
                               IUserContext userContext,
                               ITracer tracer,
                               IGetBaseCurrencyService getBaseCurrencyService,
@@ -33,9 +35,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.UI
             _uiServicesManager = uiServicesManager;
         }
 
-        public ActionResult View(EntityName entityTypeName, EntityName parentEntityType, string parentEntityId, string parentEntityState)
+        public ActionResult View(IEntityType entityTypeName, IEntityType parentEntityType, string parentEntityId, string parentEntityState)
         {
-            var entityId = !string.IsNullOrEmpty(parentEntityId) ? long.Parse(parentEntityId) : (long?) null;
+            var entityId = !string.IsNullOrEmpty(parentEntityId) ? long.Parse(parentEntityId) : (long?)null;
 
             var uiService = _uiServicesManager.GetEntityGridViewService(entityTypeName);
             var gridViewSettings = uiService.GetGridViewSettings(UserContext.Profile);
@@ -44,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.UI
             return View("View", gridViewSettings);
         }
 
-        public ActionResult Search(EntityName entityTypeName)
+        public ActionResult Search(IEntityType entityTypeName)
         {
             var uiService = _uiServicesManager.GetEntityGridViewService(entityTypeName);
             var gridViewSettings = uiService.GetGridViewSettings(UserContext.Profile);
@@ -52,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.UI
             return View("Search", gridViewSettings);
         }
 
-        public ActionResult SearchMultiple(EntityName entityTypeName)
+        public ActionResult SearchMultiple(IEntityType entityTypeName)
         {
             var uiService = _uiServicesManager.GetEntityGridViewService(entityTypeName);
             var gridViewSettings = uiService.GetGridViewSettings(UserContext.Profile);

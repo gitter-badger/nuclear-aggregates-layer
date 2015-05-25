@@ -1,7 +1,9 @@
-﻿using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
+﻿using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 
 using Moq;
+
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
 {
@@ -15,12 +17,14 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         public MoqUserContext()
         {
             MockIdentity = new Mock<IUserIdentity>();
+            MockIdentitySecurityControl = MockIdentity.As<IUserIdentitySecurityControl>();
             MockIdentity.SetupGet(i => i.Code).Returns(UserCode);
 
             SetupGet(u => u.Identity).Returns(MockIdentity.Object);
         }
 
         public Mock<IUserIdentity> MockIdentity { get; private set; }
+        public Mock<IUserIdentitySecurityControl> MockIdentitySecurityControl { get; private set; }
 
         /// <summary>
         /// Настроить возвращаемое значение для мока <see cref="MockIdentity"/> при запросе <see cref="IUserIdentity.SkipEntityAccessCheck"/>.
@@ -28,7 +32,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         /// <param name="checkAccess">Возвращаемое значение.</param>
         public void SkipEntityAccess(bool checkAccess)
         {
-            MockIdentity.SetupGet(i => i.SkipEntityAccessCheck).Returns(checkAccess);
+            MockIdentitySecurityControl.SetupGet(i => i.SkipEntityAccessCheck).Returns(checkAccess);
         }
     }
 }

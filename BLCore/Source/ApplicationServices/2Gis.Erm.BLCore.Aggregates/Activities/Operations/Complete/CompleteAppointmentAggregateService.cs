@@ -6,7 +6,8 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
+
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Complete
 {
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Complete
             {
                 throw new ArgumentNullException("appointment");
             }
-
+         
             if (appointment.Status != ActivityStatus.InProgress)
             {
                 throw new BusinessLogicException(string.Format(BLResources.CannotCompleteFinishedOrClosedActivity, appointment.Header));

@@ -8,11 +8,12 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
@@ -48,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
             // Проверяем открытые связанные объекты:
             // Проверяем наличие открытых Действий (Звонок, Встреча, Задача и пр.), связанных с данной Фирмой, 
             // если есть открытые Действия, выдается сообщение "Необходимо закрыть все активные действия с данной Фирмой".
-            var hasRelatedOpenedActivities = _activityReadService.CheckIfOpenActivityExistsRegarding(EntityName.Firm, entityId);
+            var hasRelatedOpenedActivities = _activityReadService.CheckIfOpenActivityExistsRegarding(EntityType.Instance.Firm(), entityId);
             if (hasRelatedOpenedActivities)
             {
                 throw new NotificationException(BLResources.NeedToCloseAllActivities);

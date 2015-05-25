@@ -7,10 +7,12 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPersonProfile;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LegalPersonProfiles
 {
@@ -39,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.LegalPersonProfiles
             {
                 var legalPerson = _legalPersonRepository.FindLegalPersonByProfile(request.LegalPersonProfileId);
                 var hasAccess = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                             EntityName.LegalPerson,
+                                                                             EntityType.Instance.LegalPerson(),
                                                                              _userContext.Identity.Code,
                                                                              legalPerson.Id,
                                                                              legalPerson.OwnerCode,

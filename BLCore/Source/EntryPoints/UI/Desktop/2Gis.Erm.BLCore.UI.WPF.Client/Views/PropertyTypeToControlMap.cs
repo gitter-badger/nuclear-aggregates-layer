@@ -1,8 +1,9 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Controls;
+
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Views
 {

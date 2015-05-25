@@ -14,23 +14,23 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.App_Start;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
+using DoubleGis.Erm.Platform.DAL.Specifications;
 
 using Newtonsoft.Json;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
-using DoubleGis.Erm.Platform.DAL.Specifications;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 {
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
         public CrmCreateOrUpdateController(IMsCrmSettings msCrmSettings,
                                            IAPIOperationsServiceSettings operationsServiceSettings,
                                            IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                           IAPIIdentityServiceSettings identityServiceSettings,
+                                           IIdentityServiceClientSettings identityServiceSettings,
                                            IUserContext userContext,
                                            ITracer tracer,
                                            IGetBaseCurrencyService getBaseCurrencyService,
@@ -66,7 +66,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
 
         public ActionResult Redirect(Guid? crmId)
         {
-            var routeValues = new RouteValueDictionary(new { readOnly = false, pId = (long?)null, pType = EntityName.None, extendedInfo = (string)null });
+            var routeValues = new RouteValueDictionary(new { readOnly = false, pId = (long?)null, pType = EntityType.Instance.None().Description, extendedInfo = (string)null });
             if (crmId.HasValue)
             {
                 routeValues.Add("entityId", _replicationCodeConverter.ConvertToEntityId(typeof(TEntity).AsEntityName(), crmId.Value));

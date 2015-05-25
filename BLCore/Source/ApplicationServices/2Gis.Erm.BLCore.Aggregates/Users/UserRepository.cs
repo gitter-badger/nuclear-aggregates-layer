@@ -18,16 +18,17 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Profile;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 using Microsoft.Crm.SdkTypeProxy;
 using Microsoft.Xrm.Client.Data.Services;
+
+using NuClear.Security.API.UserContext.Profile;
 
 using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.OrganizationUnitDto;
 
@@ -538,25 +539,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                     HasLinkedUsers = unit.UserTerritoriesOrganizationUnits.Any()
                 })
                 .SingleOrDefault();
-        }
-
-        public IEnumerable<CategoryGroup> GetCategoryGroups()
-        {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryGroup>()).OrderBy(x => x.GroupRate).ToArray();
-        }
-
-        public IEnumerable<CategoryGroupMembershipDto> GetCategoryGroupMembership(long organizationUnitId)
-        {
-            return _finder.Find<CategoryOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId && x.IsActive && !x.IsDeleted
-                                                               && x.Category.IsActive && !x.Category.IsDeleted)
-                          .Select(x => new CategoryGroupMembershipDto
-                              {
-                                  Id = x.Id,
-                                  CategoryGroupId = x.CategoryGroupId,
-                                  CategoryId = x.CategoryId,
-                                  CategoryName = x.Category.Name,
-                                  CategoryLevel = x.Category.Level
-                              }).ToArray();
         }
 
         public void CreateOrUpdate(UserOrganizationUnit userOrganizationUnit)

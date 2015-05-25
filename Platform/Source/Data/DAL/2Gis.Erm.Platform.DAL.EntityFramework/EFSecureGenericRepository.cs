@@ -1,7 +1,8 @@
 ﻿using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {

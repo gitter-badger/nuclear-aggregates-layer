@@ -41,6 +41,30 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Metamodeling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Metamodeling.1.5.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2Gis.NuClear.Metamodeling.Domain, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Metamodeling.Basics.1.5.2\lib\portable-net451+win81+wpa81\2Gis.NuClear.Metamodeling.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Metamodeling.UI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Metamodeling.Basics.1.5.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Metamodeling.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="2GIS.NuClear.ResourceUtilities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.ResourceUtilities.1.0.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.ResourceUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -53,81 +77,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Boundaries\IPrintingBoundedContext.cs" />
-    <Compile Include="Common\Elements\Aspects\Conditions\ICondition.cs" />
-    <Compile Include="Common\Elements\Aspects\Conditions\StringConditionCondition.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Handler\Concrete\RequestHandlerFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\PropertyDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Entities\RelatedEntityFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Handler\Concrete\NamedHandlerFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\IPropertyDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\IUniqueMetadataFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Operations\OperationFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\TemplateDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\ITemplateDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\IStringResourceDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Name\INamedElement.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\StringResourceDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\StaticResourceDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Name\NameFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Name\NameFeatureAspect.cs" />
-    <Compile Include="Common\Elements\Aspects\Identities\IdentifiableAspect.cs" />
-    <Compile Include="Common\Elements\Concrete\References\MetadataReference.cs" />
-    <Compile Include="Common\Elements\Concrete\References\MetadataReferenceBuilder.cs" />
-    <Compile Include="Common\Elements\Identities\IdBuilder.cs" />
-    <Compile Include="Common\Elements\MetadataElement.cs" />
-    <Compile Include="Common\Elements\MetadataElementBuilder.cs" />
-    <Compile Include="Common\Elements\MetadataElementBuilderAspectBase.cs" />
-    <Compile Include="Common\Elements\MetadataElementUtils.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\IImageBoundElement.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\ImageFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Handler\IHandlerBoundElement.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Handler\HandlerFeatureAspect.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Mode\ISharable.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Mode\SharedFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Mode\SharedFeatureAspect.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Operations\OperationsSetFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Operations\OperationFeatureAspect.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Operations\OperatiosFeatureUtils.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\ITitledElement.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\TitleFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\TitleFeatureAspect.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Handler\IHandlerFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Handler\Concrete\ShowGridHandlerFeature.cs" />
-    <Compile Include="Common\Elements\Concrete\Hierarchy\HierarchyMetadata.cs" />
-    <Compile Include="Common\Elements\Concrete\Hierarchy\HierarchyMetadataBuilder.cs" />
-    <Compile Include="Common\Elements\IMetadataElement.cs" />
-    <Compile Include="Common\Elements\IMetadataElementAspect.cs" />
-    <Compile Include="Common\Elements\Identities\IMetadataElementIdentity.cs" />
-    <Compile Include="Common\Elements\IMetadataElementUpdater.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\IMetadataFeature.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\IImageDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\ResourceImageDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\StaticPathImageDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Operations\IOperationsBoundElement.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Images\ImageFeatureAspect.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\IResourceDescriptor.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\ITitleDescriptor.cs" />
-    <Compile Include="Common\Elements\Identities\Concrete\MetadataElementIdentity.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\ResourceTitleDescriptor.cs" />
-    <Compile Include="Common\Kinds\IMetadataKindIdentity.cs" />
-    <Compile Include="Common\Kinds\MetadataKindIdentityBase.cs" />
-    <Compile Include="Common\Processors\Concrete\Feature2PropertiesLinkerProcessor.cs" />
-    <Compile Include="Common\Processors\Concrete\ReferencesEvaluatorProcessor.cs" />
-    <Compile Include="Common\Processors\IMetadataProcessor.cs" />
-    <Compile Include="Common\Processors\MetadataProcessorBase.cs" />
-    <Compile Include="Common\Provider\MetadataProvider.cs" />
-    <Compile Include="Common\Provider\MetadataProviderUtils.cs" />
-    <Compile Include="Common\Provider\MetadataSet.cs" />
-    <Compile Include="Common\Provider\Sources\MetadataExtractorUtils.cs" />
-    <Compile Include="Common\Elements\Aspects\Features\Resources\Titles\StaticTitleDescriptor.cs" />
-    <Compile Include="Common\Provider\IMetadataProvider.cs" />
-    <Compile Include="Common\Provider\Sources\IMetadataSource.cs" />
-    <Compile Include="Common\Provider\Sources\MetadataSourceBase.cs" />
-    <Compile Include="Common\Validators\IMetadataValidator.cs" />
-    <Compile Include="Common\Validators\IMetadataValidatorsSuite.cs" />
-    <Compile Include="Common\Validators\MetadataValidatorBase.cs" />
-    <Compile Include="Common\Validators\MetadataValidatorsSuite.cs" />
-    <Compile Include="DI\PlatformModelMetadataAssembly.cs" />
     <Compile Include="DI\MetadataZone.cs" />
     <Compile Include="Entities\CommonFeatures\EntityNameLocalizationFeature.cs" />
     <Compile Include="Entities\Configuration\LookupAttributeProvider.cs" />
@@ -169,12 +118,6 @@
     <Compile Include="Entities\EAV\PropertyIdentities\RepresentativeRutIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\RnnIdentity.cs" />
     <Compile Include="Entities\EAV\PropertyIdentities\TaxationTypeIdentity.cs" />
-    <Compile Include="Entities\EntityPropertyMetadata.cs" />
-    <Compile Include="Entities\ErrorDescription.cs" />
-    <Compile Include="Entities\IDataFieldFeature.cs" />
-    <Compile Include="Entities\IPropertyFeature.cs" />
-    <Compile Include="Entities\IValidatablePropertyFeature.cs" />
-    <Compile Include="Entities\MetadataEntitiesIdentity.cs" />
     <Compile Include="Entities\PropertyFeatures\CheckDatePropertyFeature.cs" />
     <Compile Include="Entities\PropertyFeatures\ComboBoxPropertyFeature.cs" />
     <Compile Include="Entities\PropertyFeatures\DatePropertyFeature.cs" />
@@ -240,10 +183,7 @@
     <Compile Include="Operations\Detail\Concrete\ReopenMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\UploadFileMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\DownloadFileMetadata.cs" />
-    <Compile Include="Operations\Detail\EmptyOperationMetadata.cs" />
-    <Compile Include="Operations\Detail\IOperationMetadata.cs" />
     <Compile Include="Operations\Detail\Concrete\QualifyMetadata.cs" />
-    <Compile Include="Operations\Detail\OperationMetadataDetailContainer.cs" />
     <Compile Include="Operations\Detail\OperationMetadataDetailRegistry.cs" />
     <Compile Include="Replication\Metadata\EntityReplicationInfo.cs" />
     <Compile Include="Replication\Metadata\EntityReplicationMetadata.cs" />
@@ -270,7 +210,9 @@
       <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

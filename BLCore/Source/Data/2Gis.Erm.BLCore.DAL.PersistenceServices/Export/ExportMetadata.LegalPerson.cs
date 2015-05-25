@@ -4,9 +4,11 @@ using System.Linq;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPerson;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.LegalPersonProfile;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {
@@ -14,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
     {
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "Reviewed. Suppression is OK here.")]
         public static readonly QueryRuleContainer<LegalPerson> LegalPerson = QueryRuleContainer<LegalPerson>.Create(
-            () => EntityOperationMapping<LegalPerson>.ForEntity(EntityName.LegalPerson)
+            () => EntityOperationMapping<LegalPerson>.ForEntity(EntityType.Instance.LegalPerson())
                                                      .Operation<CreateIdentity>()
                                                      .Operation<UpdateIdentity>()
                                                      .Operation<DeactivateIdentity>()
@@ -26,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                      .Operation<MergeIdentity>()
                                                      .Use((finder, ids) => finder.Find(Specs.Find.ByIds<LegalPerson>(ids))),
 
-            () => EntityOperationMapping<LegalPerson>.ForEntity(EntityName.LegalPersonProfile)
+            () => EntityOperationMapping<LegalPerson>.ForEntity(EntityType.Instance.LegalPersonProfile())
                                                      .Operation<CreateIdentity>()
                                                      .Operation<UpdateIdentity>()
                                                      .Operation<AssignIdentity>()
@@ -35,12 +37,12 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                      .Use((finder, ids) => finder.Find(Specs.Find.ByIds<LegalPersonProfile>(ids))
                                                                                  .Select(profile => profile.LegalPerson)),
 
-            () => EntityOperationMapping<LegalPerson>.ForEntity(EntityName.Client)
+            () => EntityOperationMapping<LegalPerson>.ForEntity(EntityType.Instance.Client())
                                                      .Operation<AssignIdentity>()
                                                      .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Client>(ids))
                                                                                  .SelectMany(client => client.LegalPersons)),
 
-            () => EntityOperationMapping<LegalPerson>.ForEntity(EntityName.Account)
+            () => EntityOperationMapping<LegalPerson>.ForEntity(EntityType.Instance.Account())
                                                      .Operation<CreateIdentity>()
                                                      .Operation<UpdateIdentity>()
                                                      .Operation<DeleteIdentity>()

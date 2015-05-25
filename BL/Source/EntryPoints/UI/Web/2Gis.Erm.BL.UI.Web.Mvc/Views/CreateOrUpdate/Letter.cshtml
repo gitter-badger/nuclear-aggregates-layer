@@ -6,8 +6,7 @@
 }
 
 @section CardScripts
-{
-    <script src="/Scripts/Ext.ux.TimeComboBox.js?@ThisAssembly.Build" type="text/javascript"></script>
+{    
     <script src="/Scripts/Activity/Ext.DoubleGis.UI.RegardingObjectController.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Activity/Ext.DoubleGis.UI.ContactRelationController.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Activity/Ext.DoubleGis.UI.ActivityBase.js?@ThisAssembly.Build" type="text/javascript"></script>
@@ -20,7 +19,7 @@
         Ext.onReady(function()
         {
             var cardSettings = @Html.WriteJson(Model.ViewConfig.CardSettings);
-            Ext.apply(cardSettings, { contactField: "RecipientId", contactComponent: "Recipient" });
+            Ext.apply(cardSettings, { contactField: "RecipientId", contactComponent: "Recipient" });            
             window.Card = new window.Ext.DoubleGis.UI.Letter(cardSettings);
             window.Card.Build();
         });
@@ -49,18 +48,18 @@
             const string HeaderTextTemplate = "'<span class=\"x-lookup-thumb\">{name}</span>&nbsp;<span class=\"x-lookup-thumb\" style=\"color:gray\">{city}</span>&nbsp;'";
         }
         @Html.SectionRow(         
-            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ExcludeReserve=true", DefaultSortFields = isOwnerAndNameSortFields }),
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields, DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate }))
-        @Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Deal, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields }))
+            @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "ExcludeReserve=true", DefaultSortFields = isOwnerAndNameSortFields }),
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.FirmClientInitialization, ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields, DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate }))
+        @Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Deal(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.DealClientInitialization, ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields }))
         
         @Html.SectionHead("planHeader", BLResources.TitlePlan)
         @Html.SectionRow(@Html.TemplateField(m => m.Title, FieldFlex.lone))
         @Html.SectionRow(
             @Html.TemplateField(m => m.ScheduledStart, FieldFlex.twins,
-                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = new CalendarSettings.TimeSettings() }),
+                new CalendarSettings { Store = CalendarSettings.StoreMode.Absolute, Time = CalendarSettings.TimeSettings.WorkHours }),
             @Html.TemplateField(m => m.Priority, FieldFlex.twins, null, EnumResources.ResourceManager))
-        @Html.SectionRow(@Html.TemplateField(m => m.Sender, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User }))
-        @Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Contact, ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityName.Client, ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields }))
+        @Html.SectionRow(@Html.TemplateField(m => m.Sender, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.User() }))
+        @Html.SectionRow(@Html.TemplateField(m => m.Recipient, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Contact(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.RecipientClientInitialization, ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields }))
 
         @Html.SectionHead("resultHeader", BLResources.TitleResult)
         @Html.SectionRow(@Html.TemplateField(m => m.Description, FieldFlex.lone, new Dictionary<string, object> { { "rows", "10" } }))

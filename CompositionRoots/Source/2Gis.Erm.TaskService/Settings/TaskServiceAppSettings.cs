@@ -16,10 +16,11 @@ using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.TaskService.Settings;
+using NuClear.IdentityService.Client.Settings;
+
 using DoubleGis.Erm.Qds.Common.Settings;
 
+using NuClear.Jobs.Settings;
 using NuClear.Settings;
 using NuClear.Settings.API;
 
@@ -33,7 +34,8 @@ namespace DoubleGis.Erm.TaskService.Settings
         INotificationProcessingSettings,
         IIntegrationLocalizationSettings,
         IDBCleanupSettings,
-        ITaskServiceProcessingSettings
+        ITaskServiceProcessingSettings,
+        IPersistentStoreSettings
     {
         private const int LogSizeInDaysDefault = 60;
         private const string MailSenderUserNameDefault = "TEST";
@@ -61,8 +63,6 @@ namespace DoubleGis.Erm.TaskService.Settings
 
         public TaskServiceAppSettings(IEnumerable<Type> supportedBusinessModelIndicators)
         {
-            var connectionStrings = new ConnectionStringsSettingsAspect();
-
             Aspects
                .UseUsuallyRequiredFor(supportedBusinessModelIndicators)
                .Use<GetUserInfoFromAdSettingsAspect>()
@@ -70,15 +70,14 @@ namespace DoubleGis.Erm.TaskService.Settings
                .Use<IntegrationSettingsAspect>()
                .Use<NotificationsSettingsAspect>()
                .Use<CachingSettingsAspect>()
-               .Use(new NestSettingsAspect(connectionStrings))
+               .Use(new NestSettingsAspect(this.AsSettings<IConnectionStringSettings>()))
                .Use<OperationLoggingSettingsAspect>()
                .IfRequiredUseOperationLogging2ServiceBus()
                .Use<PerformedOperationsTransportSettingsAspect>()
                .IfRequiredUsePerformedOperationsFromServiceBusAspect()
                .Use<AsyncMsCRMReplicationSettingsAspect>()
-               .Use(RequiredServices
-                       .Is<APIIdentityServiceSettingsAspect>()
-                       .Is<APIMoDiServiceSettingsAspect>());
+               .Use<IdentityServiceClientSettingsAspect>()
+               .Use(RequiredServices.Is<APIMoDiServiceSettingsAspect>());
         }
 
         string IIntegrationLocalizationSettings.BasicLanguage
@@ -169,6 +168,16 @@ namespace DoubleGis.Erm.TaskService.Settings
             {
                 return _smtpServerHost.Value;
             }
+        }
+
+        string IPersistentStoreSettings.ConnectionString
+        {
+            get { return this.AsSettings<IConnectionStringSettings>().GetConnectionStringSettings(ConnectionStringName.ErmInfrastructure).ConnectionString; }
+        }
+
+        string IPersistentStoreSettings.TablePrefix
+        {
+            get { return "Quartz."; }
         }
     }
 }

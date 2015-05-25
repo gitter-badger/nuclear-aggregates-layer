@@ -16,12 +16,12 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.Validators;
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLFlex.UI.Metadata
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
         private const string EntitySettingsResourceEntry = "EntitySettings.xml";
         private const string EntitySettingsResourceEntryFormat = "EntitySettings.{0}.xml";
 
-        private static readonly Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>> CardSettings = ParseCardSettings();
+        private static readonly Dictionary<BusinessModel, Dictionary<IEntityType, CardStructure>> CardSettings = ParseCardSettings();
 
         private readonly IGlobalizationSettings _globalizationSettings;
         private readonly ICardSettingsProvider _cardSettingsProvider;
@@ -82,7 +82,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
             return string.IsNullOrWhiteSpace(report);
         }
 
-        private CardStructure GetXmlCardSettings(EntityName entityName)
+        private CardStructure GetXmlCardSettings(IEntityType entityName)
         {
             var culture = Thread.CurrentThread.CurrentUICulture;
             var cardSettings = GetCardSettings(_globalizationSettings.BusinessModel, entityName);
@@ -96,6 +96,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                 EntityMainAttribute = cardSettings.EntityMainAttribute,
                 HasComments = cardSettings.HasComments,
                 HasAdminTab = cardSettings.HasAdminTab,
+                HasActionsHistory = cardSettings.HasActionsHistory,
                 DecimalDigits = cardSettings.DecimalDigits,
 
                 CardToolbar = cardSettings.CardToolbar.Select(x => new ToolbarElementStructure
@@ -140,9 +141,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
             return localizedCardSettings;
         }
 
-        private CardStructure GetCardSettings(BusinessModel adaptation, EntityName entityName)
+        private CardStructure GetCardSettings(BusinessModel adaptation, IEntityType entityName)
         {
-            Dictionary<EntityName, CardStructure> container;
+            Dictionary<IEntityType, CardStructure> container;
             if (!CardSettings.TryGetValue(adaptation, out container))
             {
                 throw new ArgumentException("Cannot find metadata for adaptation " + adaptation);
@@ -169,9 +170,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                 ?? resourceId;
         }
 
-        private static Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>> ParseCardSettings()
+        private static Dictionary<BusinessModel, Dictionary<IEntityType, CardStructure>> ParseCardSettings()
         {
-            var result = new Dictionary<BusinessModel, Dictionary<EntityName, CardStructure>>();
+            var result = new Dictionary<BusinessModel, Dictionary<IEntityType, CardStructure>>();
 
             foreach (BusinessModel val in Enum.GetValues(typeof(BusinessModel)))
             {
@@ -184,16 +185,16 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
             return result;
         }
 
-        private static Dictionary<EntityName, CardStructure> ParseCardSettings(XContainer container)
+        private static Dictionary<IEntityType, CardStructure> ParseCardSettings(XContainer container)
         {
-            var dictionary = new Dictionary<EntityName, CardStructure>();
+            var dictionary = new Dictionary<IEntityType, CardStructure>();
 
             foreach (var entityEl in container.Elements("Entity"))
             {
                 var entityNameNonParsed = (string)entityEl.Attribute("Name");
 
-                EntityName entityName;
-                if (!Enum.TryParse(entityNameNonParsed, out entityName))
+                IEntityType entityName;
+                if (!EntityType.Instance.TryParse(entityNameNonParsed, out entityName))
                 {
                     throw new ArgumentException("Unrecognized entity type");
                 }
@@ -208,7 +209,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
             return dictionary;
         }
 
-        private static CardStructure ParseCardDto(XContainer entityEl, EntityName entityName)
+        private static CardStructure ParseCardDto(XContainer entityEl, IEntityType entityName)
         {
             var cardEl = entityEl.Element("Card");
             if (cardEl == null)
@@ -216,7 +217,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
                 return null;
             }
 
-            var cardJson = new CardStructure { EntityName = entityName.ToString() };
+            var cardJson = new CardStructure { EntityName = entityName.Description };
 
             // Сейчас нигде не задается
             var cardNameLocaleResourceId = cardEl.Attribute("CardNameLocaleResourceId");
@@ -247,6 +248,12 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
             if (hasAdminTab != null)
             {
                 cardJson.HasAdminTab = (bool)hasAdminTab;
+            }
+
+            var hasActionHistory = cardEl.Attribute("HasActionsHistory");
+            if (hasActionHistory != null)
+            {
+                cardJson.HasActionsHistory = (bool)hasActionHistory;
             }
 
             var decimalDigits = cardEl.Attribute("DecimalDigits");
@@ -447,7 +454,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
             return toolbarItems.ToArray();
         }
 
-        private IEnumerable<string> GetCardSettingsErrors(CardStructure xmlData, CardStructure codeData, EntityName entity)
+        private IEnumerable<string> GetCardSettingsErrors(CardStructure xmlData, CardStructure codeData, IEntityType entity)
         {
             var cardMetadataCorrections = _cardMetadataCorrections.ContainsKey(entity) ? _cardMetadataCorrections[entity] : null;
             var errors = new List<string>();
@@ -465,10 +472,11 @@ namespace DoubleGis.Erm.BLFlex.UI.Metadata
 
             errors.AddRange(CheckProperties(xmlData,
                                             codeData,
-                                            cardMetadataCorrections != null && cardMetadataCorrections.ContainsKey(entity.ToString()) ? cardMetadataCorrections[entity.ToString()] : null,
+                                            cardMetadataCorrections != null && cardMetadataCorrections.ContainsKey(entity.Description) ? cardMetadataCorrections[entity.Description] : null,
                                             x => x.HasAdminTab,
                                             x => x.HasComments,
                                             x => x.DecimalDigits,
+                                            x => x.HasActionsHistory,
                                             x => x.EntityName,
                                             x => x.EntityLocalizedName,
                                             x => x.EntityMainAttribute,

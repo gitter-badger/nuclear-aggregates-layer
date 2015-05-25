@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 
@@ -8,13 +9,17 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Complete;
 using DoubleGis.Erm.BLCore.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Complete;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 {
@@ -23,6 +28,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IPhonecallReadModel _phonecallReadModel;
         private readonly ISecurityServiceEntityAccess _entityAccessService;
+
+        private readonly IActionLogger _actionLogger;
+
         private readonly IUserContext _userContext;
         private readonly IChangeDealStageOperationService _changeDealStageOperationService;
 
@@ -32,6 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             IOperationScopeFactory operationScopeFactory,
             IPhonecallReadModel phonecallReadModel,
             ISecurityServiceEntityAccess entityAccessService,
+            IActionLogger actionLogger,
             IUserContext userContext,
             IChangeDealStageOperationService changeDealStageOperationService,
             ICompletePhonecallAggregateService completePhonecallAggregateService)
@@ -39,16 +48,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
             _operationScopeFactory = operationScopeFactory;
             _phonecallReadModel = phonecallReadModel;
             _entityAccessService = entityAccessService;
+            _actionLogger = actionLogger;
             _userContext = userContext;
             _changeDealStageOperationService = changeDealStageOperationService;
             _completePhonecallAggregateService = completePhonecallAggregateService;
         }
 
         public void Complete(long entityId)
-        {
+        {            
             using (var scope = _operationScopeFactory.CreateSpecificFor<CompleteIdentity, Phonecall>())
             {
-                var phonecall = _phonecallReadModel.GetPhonecall(entityId);                
+                var phonecall = _phonecallReadModel.GetPhonecall(entityId);
+                var originalStatus = phonecall.Status;
+
+                var userLocale = _userContext.Profile.UserLocaleInfo;
+
+                if (userLocale.UserTimeZoneInfo.ConvertDateFromUtc(phonecall.ScheduledOn).Date > userLocale.UserTimeZoneInfo.ConvertDateFromLocal(DateTime.Now).Date)
+                {
+                    throw new BusinessLogicException(BLResources.ActivityClosingInFuturePeriodDenied);
+                }
 
                 if (!_entityAccessService.HasActivityUpdateAccess<Appointment>(_userContext.Identity, entityId, phonecall.OwnerCode))
                 {
@@ -59,6 +77,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
 
                 var phonecallRegardingObjects = _phonecallReadModel.GetRegardingObjects(entityId);
                 UpdateDealStage(phonecallRegardingObjects, phonecall);
+
+                _actionLogger.LogChanges(phonecall, x => x.Status, originalStatus, ActivityStatus.Completed);
 
                 scope.Updated<Phonecall>(entityId);
                 scope.Complete();
@@ -93,7 +113,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Complete
         /// </remarks>
         private void UpdateDealStage(IEnumerable<PhonecallRegardingObject> regardingObjects, Phonecall phonecall)
         {
-            var dealRef = regardingObjects.FirstOrDefault(x => x.TargetEntityName == EntityName.Deal);
+            var dealRef = regardingObjects.FirstOrDefault(x => x.TargetEntityTypeId == EntityType.Instance.Deal().Id);
             if (dealRef == null)
             {
                 return;

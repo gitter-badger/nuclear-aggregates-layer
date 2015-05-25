@@ -48,10 +48,8 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.Order
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
             
-            #line 4 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 3 "..\..\Views\Order\CloseWithDenial.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -65,7 +63,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 7 "..\..\Views\Order\CloseWithDenial.cshtml"
             Write(BLResources.CloseWithDenial);
 
             
@@ -80,7 +78,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 8 "..\..\Views\Order\CloseWithDenial.cshtml"
                   Write(BLResources.CloseWithDenial);
 
             
@@ -95,7 +93,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 9 "..\..\Views\Order\CloseWithDenial.cshtml"
                     Write(Model.Confirmation);
 
             
@@ -149,13 +147,13 @@ WriteLiteral(">\r\n        Ext.onReady(function ()\r\n        {\r\n            v
 ";\r\n        };\r\n    </script>\r\n");
 
             
-            #line 90 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 89 "..\..\Views\Order\CloseWithDenial.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 90 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 89 "..\..\Views\Order\CloseWithDenial.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -177,7 +175,7 @@ WriteLiteral(" class=\"Notifications\"");
 WriteLiteral(">");
 
             
-            #line 93 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 92 "..\..\Views\Order\CloseWithDenial.cshtml"
                                                                                       Write(Model.Message);
 
             
@@ -188,7 +186,7 @@ WriteLiteral("</div>\r\n");
 WriteLiteral("        ");
 
             
-            #line 94 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 93 "..\..\Views\Order\CloseWithDenial.cshtml"
    Write(Html.HiddenFor(m => m.OrderId));
 
             
@@ -199,7 +197,7 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 95 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 94 "..\..\Views\Order\CloseWithDenial.cshtml"
    Write(Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList));
 
             
@@ -212,7 +210,7 @@ WriteLiteral(" style=\"display: none;\"");
 WriteLiteral(">");
 
             
-            #line 96 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 95 "..\..\Views\Order\CloseWithDenial.cshtml"
                                Write(Html.CheckBoxFor(m => m.CanClose));
 
             
@@ -227,7 +225,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 99 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 98 "..\..\Views\Order\CloseWithDenial.cshtml"
        Write(Html.TemplateField(m => m.Reason, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } }));
 
             
@@ -236,7 +234,7 @@ WriteLiteral("            ");
 WriteLiteral("\r\n        </div>\r\n\r\n    </div>\r\n");
 
             
-            #line 103 "..\..\Views\Order\CloseWithDenial.cshtml"
+            #line 102 "..\..\Views\Order\CloseWithDenial.cshtml"
     }
 
             

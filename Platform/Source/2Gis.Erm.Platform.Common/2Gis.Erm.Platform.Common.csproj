@@ -39,9 +39,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.0.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\CompositionRoots\Source\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
@@ -54,6 +58,10 @@
     <Reference Include="SevenZipSharp, Version=0.64.3890.29348, Culture=neutral, PublicKeyToken=20de82c62b055c88, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\CompositionRoots\Source\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Resources, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Resources.1.0.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Resources.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -80,13 +88,11 @@
     <Compile Include="Crosscutting\ICrosscuttingServiceConsumer.cs" />
     <Compile Include="Crosscutting\ICrosscuttingService.cs" />
     <Compile Include="Crosscutting\IInvariantSafeCrosscuttingService.cs" />
-    <Compile Include="Identities\IdentityProviderService.cs" />
-    <Compile Include="Identities\IIdentityProviderService.cs" />
-    <Compile Include="Identities\IIdentityProviderSettings.cs" />
     <Compile Include="Prerequisites\PrerequisitesAttribute.cs" />
     <Compile Include="Prerequisites\СonsideringPrerequisitesComparer.cs" />
     <Compile Include="PrintFormEngine\PrintData.cs" />
     <Compile Include="Serialization\DotNet2JavaScriptDateTimeConverter.cs" />
+    <Compile Include="Serialization\EntityTypeToStringConverter.cs" />
     <Compile Include="Serialization\Int64ToStringConverter.cs" />
     <Compile Include="Utils\ActivatorUtils.cs" />
     <Compile Include="Utils\CompareObjects.cs" />
@@ -112,12 +118,6 @@
     <Compile Include="Compression\StreamExtensions.cs" />
     <Compile Include="Utils\LambdaExtensions.cs" />
     <Compile Include="Utils\PropertyChangeDescriptor.cs" />
-    <Compile Include="Utils\Resources\IResourceGroupManager.cs" />
-    <Compile Include="Utils\Resources\ResourceGroupManager.cs" />
-    <Compile Include="Utils\Resources\ResourceEntriesRegistry.cs" />
-    <Compile Include="Utils\Resources\ResourceEntryKey.cs" />
-    <Compile Include="Utils\Resources\ResourceEntryValuesContainer.cs" />
-    <Compile Include="Utils\Resources\ResourceUtils.cs" />
     <Compile Include="Utils\StaticReflection.cs" />
     <Compile Include="Utils\StrictKeyEqualityComparer.cs" />
     <Compile Include="Utils\StringComparsionExtensions.cs" />

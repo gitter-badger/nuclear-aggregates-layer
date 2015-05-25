@@ -6,15 +6,15 @@ using System.Text;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Metadata;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Applicability;
-using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Infrastructure;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Operations;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
+using NuClear.Metamodeling.Domain.Operations.Detail;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
@@ -41,14 +41,14 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
             _cacheAdapter = cacheAdapter;
         }
 
-        public IOperationMetadata GetOperationMetadata(IOperationIdentity operationIdentity, params EntityName[] operationProcessingEntities) 
+        public IOperationMetadata GetOperationMetadata(IOperationIdentity operationIdentity, params IEntityType[] operationProcessingEntities) 
         {
             IOperationMetadata metadataDetail;
             TryGetOperationMetadataDetail(operationIdentity, operationProcessingEntities, out metadataDetail);
             return metadataDetail;
         }
 
-        public TOperationMetadata GetOperationMetadata<TOperationMetadata, TOperationIdentity>(params EntityName[] operationProcessingEntities) 
+        public TOperationMetadata GetOperationMetadata<TOperationMetadata, TOperationIdentity>(params IEntityType[] operationProcessingEntities) 
             where TOperationMetadata : class, IOperationMetadata<TOperationIdentity> 
             where TOperationIdentity : IOperationIdentity, new()
         {
@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
             return (TOperationMetadata)metadataDetail;
         }
 
-        public bool IsSupported<TOperationIdentity>(params EntityName[] operationProcessingEntities) 
+        public bool IsSupported<TOperationIdentity>(params IEntityType[] operationProcessingEntities) 
             where TOperationIdentity : IOperationIdentity, new()
         {
             IOperationMetadata metadataDetail;
@@ -115,7 +115,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
             return operations;
         }
 
-        public OperationApplicability[] GetApplicableOperationsForContext(EntityName[] entityNames, long[] entityIds)
+        public OperationApplicability[] GetApplicableOperationsForContext(IEntityType[] entityNames, long[] entityIds)
         {
             if (entityNames == null || entityIds == null || entityNames.Length != entityIds.Length)
             {
@@ -126,7 +126,7 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
             var sb = new StringBuilder();
             for (int i = 0; i < entityNames.Length; i++)
             {
-                sb.AppendFormat("{0}={1}", (int)entityNames[i], entityIds[i]);
+                sb.AppendFormat("{0}={1}", entityNames[i].Id, entityIds[i]);
             }
 
             var cacheKey = string.Format(ContextOperationsCacheKeyTemplate, sb);
@@ -151,14 +151,14 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ApiInteraction.Metadata
             return operations;
         }
 
-        private bool TryGetOperationMetadataDetail<TOperationIdentity>(EntityName[] operationProcessingEntities, out IOperationMetadata metadataDetail)
+        private bool TryGetOperationMetadataDetail<TOperationIdentity>(IEntityType[] operationProcessingEntities, out IOperationMetadata metadataDetail)
             where TOperationIdentity : IOperationIdentity, new()
         {
             var targetIdentity = new TOperationIdentity();
             return TryGetOperationMetadataDetail(targetIdentity, operationProcessingEntities, out metadataDetail);
         }
 
-        private bool TryGetOperationMetadataDetail(IOperationIdentity operationIdentity, EntityName[] operationProcessingEntities, out IOperationMetadata metadataDetail)
+        private bool TryGetOperationMetadataDetail(IOperationIdentity operationIdentity, IEntityType[] operationProcessingEntities, out IOperationMetadata metadataDetail)
         {
             metadataDetail = null;
 

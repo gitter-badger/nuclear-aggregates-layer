@@ -52,9 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
 
             if (pricePosition.IsNew())
             {
-                // COMMENT {all, 08.04.2014}: В кейсе создания позиции прайса PriceId и PositionId верно проставляются на UI, поэтому можно использовать эти значения из объекта pricePosition 
-                //                            Однако, это не всегда так. В целом, операция создания позиции прайса принимает PriceId и PositionId в качестве внешних параметров, а не внутренних
-                _createPricePositionAggregateService.Create(pricePosition, priceId, positionId);
+                _createPricePositionAggregateService.Create(pricePosition);
             }
             else
             {
@@ -97,7 +95,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                         PositionBindingObjectType.AddressFirstLevelCategoryMultiple,
                     };
 
-                var positionBindingObjectType = _positionReadModel.GetPositionBindingObjectType(positionId);
+                var positionBindingObjectType = _positionReadModel.GetPositionBindingObjectTypes(new[] { positionId }).Single().Value;
                 if (!allowedBindingTypesForBoundCategoryRateTypes.Contains(positionBindingObjectType))
                 {
                     throw new NotificationException(string.Format(BLResources.CannotUseRateTypeForBindingObjectType,
@@ -111,13 +109,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
                 throw new NotificationException(BLResources.CountMustBeSpecified);
             }
 
-            var isAlreadyCreated = _priceReadModel.IsPricePositionExist(priceId, positionId, pricePositionId);
+            var isAlreadyCreated = _priceReadModel.DoesPricePositionExist(priceId, positionId, pricePositionId);
             if (isAlreadyCreated)
             {
                 throw new NotificationException(BLResources.PricePositionForPositionAlreadyCreated);
             }
 
-            var isAlreadyCreatedWithinNonDeleted = _priceReadModel.IsPricePositionExistWithinNonDeleted(priceId, positionId, pricePositionId);
+            var isAlreadyCreatedWithinNonDeleted = _priceReadModel.DoesPricePositionExistWithinNonDeleted(priceId, positionId, pricePositionId);
             if (isAlreadyCreatedWithinNonDeleted)
             {
                 throw new NotificationException(BLResources.HiddenPricePositionForPositionAlreadyCreated);

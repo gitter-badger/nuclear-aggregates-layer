@@ -20,7 +20,7 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -154,7 +154,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing
             order.Number = _numberService.Evaluate(order.Number,
                                                    syncCodes[order.SourceOrganizationUnitId],
                                                    syncCodes[order.DestOrganizationUnitId],
-                                                   reservedNumberDigit);
+                                                   reservedNumberDigit,
+                                                   order.OrderType);
             order.RegionalNumber = null;
 
             if (order.SourceOrganizationUnitId == order.DestOrganizationUnitId)

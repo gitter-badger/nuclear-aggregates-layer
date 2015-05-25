@@ -4,13 +4,14 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     contactComp: null,
     contactRelationController: null,
     reagrdingObjectController: null,
+    changeStatusOperation:undefined,
     autoHeader: {
         prefix: null,
         suffix: null,
         build: function () {
             return (this.suffix ? this.prefix + ' - ' + this.suffix : this.prefix) || "";
         }
-    },    
+    },
 
     constructor: function (config) {
         Ext.DoubleGis.UI.ActivityBase.superclass.constructor.call(this, config);
@@ -38,17 +39,17 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 success: scope.refresh,
                 failure: scope.postFormFailure
             });
-         }
+        }       
         function checkDirty() {
             if (scope.form.Id.value == 0) {
-                Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
-                return false;
-            }
+            Ext.Msg.alert('', Ext.LocalizedResources.CardIsNewAlert);
+            return false;
+        }
             if (scope.isDirty) {
-                Ext.Msg.alert('', Ext.LocalizedResources.CardIsDirtyAlert);
-                return false;
-            }
-            return true;
+            Ext.Msg.alert('', Ext.LocalizedResources.CardIsDirtyAlert);
+            return false;
+        }
+        return true;
         }
         function сhangeStatus(operation)
         {
@@ -58,8 +59,8 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
                 scope.Items.Toolbar.disable();
                 scope.submitMode = scope.submitModes.SAVE;
                 if (scope.fireEvent('beforepost', scope) && scope.normalizeForm()) {
+                    scope.changeStatusOperation = operation;
                     scope.postForm();
-                    scope.on('postformsuccess', function () { postOperation(operation); });
                 }
                 else {
                     scope.recalcDisabling();
@@ -72,6 +73,16 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
             }
         }
 
+        this.saveFormSuccess = function() {
+            if (scope.changeStatusOperation) {
+                postOperation(scope.changeStatusOperation);
+                scope.changeStatusOperation = null;
+            }
+        }
+
+        this.saveFormFailure= function() {
+            scope.changeStatusOperation = null;
+        }
 
         this.getComboboxText = function (name) {
             var element = Ext.get(name);
@@ -92,24 +103,57 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
         }
         this.Assign = function () {
             if (!checkDirty()) return;
-            var result = window.showModalDialog("/GroupOperation/Assign/" + this.EntityName, [this.form.Id.value],
-                "dialogWidth:450px; dialogHeight:300px; status:yes; scroll:no; resizable:no;");
-            if (result) {
-                this.refresh(true);
-            }
+        var result = window.showModalDialog("/GroupOperation/Assign/" + this.EntityName, [this.form.Id.value],
+            "dialogWidth:450px; dialogHeight:300px; status:yes; scroll:no; resizable:no;");
+        if (result) {
+            this.refresh(true);
+        }
         }
        
         
+    },
+    CreateTask: function () {
+        this.SaveAndCreate("Task");
+    },
+    CreatePhonecall: function () {
+        this.SaveAndCreate("Phonecall");
+    },
+    CreateAppointment: function () {
+        this.SaveAndCreate("Appointment");
+    },
+    CreateLetter: function () {
+        this.SaveAndCreate("Letter");
+    },
+    SaveAndCreate: function (entityName) {
+        if (this.isDirty) {
+            this.on('postformsuccess', function (sender, form) { this.CreateActivityWindow(entityName, form.Id); });
+            this.Save();
+        } else {
+            this.CreateActivityWindow(entityName,this.form.Id.value);
+        }        
+    },
+    CreateActivityWindow: function(entityName, entityId) {   
+        var params = String.format("width={0},height={1},status=no,resizable=yes,top={2},left={3}", window.Ext.DoubleGis.Global.UISettings.ActualCardWidth, window.Ext.DoubleGis.Global.UISettings.ActualCardHeight, window.Ext.DoubleGis.Global.UISettings.ScreenCenterTop, window.Ext.DoubleGis.Global.UISettings.ScreenCenterLeft);
+
+        var queryString = '?pId=' + entityId + '&pType=' + this.EntityName;
+
+        var sUrl = Ext.DoubleGis.Global.Helpers.EvaluateCreateEntityUrl(entityName, queryString);
+        window.open(sUrl, "_blank", params);
     },
     Build : function() {
         Ext.DoubleGis.UI.ActivityBase.superclass.Build.call(this);
 
         Ext.getCmp("Client").on("change",this.autocompleteHeader, this);
 
-        if (this.contactField && this.contactComp) {
-            this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController({ contactField: this.contactField, contactComponent: this.contactComp });
-        }
+     
         this.reagrdingObjectController = new Ext.DoubleGis.UI.RegardingObjectController(this);
+
+        if (this.contactField && this.contactComp) {
+            this.contactRelationController = new Ext.DoubleGis.UI.ContactRelationController(this);
+        }
+
+            this.on('postformsuccess', this.saveFormSuccess);
+            this.on('postformfailure', this.saveFormFailure);
 
         this.autocompleteHeader();
     },
@@ -133,7 +177,7 @@ Ext.DoubleGis.UI.ActivityBase = Ext.extend(Ext.DoubleGis.UI.Card, {
     },
     getTitleSuffix: function() {
             return null;
-    }      
+    }
     
     
 });

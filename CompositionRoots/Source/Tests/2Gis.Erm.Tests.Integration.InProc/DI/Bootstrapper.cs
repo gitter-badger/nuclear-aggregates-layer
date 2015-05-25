@@ -49,8 +49,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
@@ -58,20 +56,17 @@ using DoubleGis.Erm.Platform.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
 using DoubleGis.Erm.Platform.DI.Common.Config;
-using DoubleGis.Erm.Platform.DI.Common.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Security;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Tests.Integration.InProc.Config;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.DI.MassProcessing;
+using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Concrete.Withdrawals;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.OrderValidation;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.Logging;
@@ -79,9 +74,19 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operations.
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes.Import.BrokerApiReceiver;
+using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Assembling.TypeProcessing;
+using NuClear.DI.Unity.Config;
+using NuClear.Security;
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
+using NuClear.Metamodeling.Processors;
+using NuClear.Metamodeling.Validators;
+using NuClear.Model.Common.Entities;
 using NuClear.Settings.API;
 using NuClear.Tracing.API;
 
@@ -95,10 +100,10 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
             container.InitializeDIInfrastructure();
 
             Type[] explicitlyTypesSpecified = null;
-            //{ typeof(BulkWithdrawTest) };
+            // { typeof(IdentityServiceClientTest) };
             // { typeof(PerformedOperationsProcessingReadModelTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest),  };
             Type[] explicitlyExcludedTypes = //null;
-            { typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest), typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };
+            { typeof(PrimaryProcessingSimulationSQLTransportLoadTest), typeof(PrimaryProcessingCUDOnlySQLTransportLoadTest), typeof(BulkWithdrawTest), typeof(ServiceBusLoggingTest), typeof(ServiceBusReceiverTest), typeof(AdvertisementsOnlyWhiteListOrderValidationRuleTest) };
 
 
             var massProcessors = new IMassProcessor[]
@@ -181,7 +186,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
                     .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
                     .RegisterType<IProducedQueryLogAccessor, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
                     .RegisterType<IProducedQueryLogContainer, CachingProducedQueryLogAccessor>(EntryPointSpecificLifetimeManagerFactory())
-                    .ConfigureIdentityInfrastructure()
+                .ConfigureIdentityInfrastructure()
                     .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                     .ConfigureExportMetadata()
                     .ConfigureMetadata()
@@ -215,9 +220,9 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
 
         private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
         {
-            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(EntryPointSpecificLifetimeManagerFactory())
-                     .RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(EntryPointSpecificLifetimeManagerFactory())
-                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(EntryPointSpecificLifetimeManagerFactory());
+            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
+                     .RegisterType<IIdentityServiceClient, IdentityServiceClient>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(Lifetime.Singleton);
         }
 
         private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IMsCrmSettings msCrmSettings)
@@ -257,7 +262,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.DI
         {
             const string MappingScope = Mapping.Erm;
 
-            return container.RegisterTypeWithDependencies<ISecurityServiceAuthentication, SecurityServiceAuthentication>(Lifetime.PerScope, MappingScope)
+            return container.RegisterTypeWithDependencies<IUserAuthenticationService, SecurityServiceAuthentication>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceUserIdentifier, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccessInternal, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
                 .RegisterTypeWithDependencies<ISecurityServiceEntityAccess, SecurityServiceFacade>(Lifetime.PerScope, MappingScope)
