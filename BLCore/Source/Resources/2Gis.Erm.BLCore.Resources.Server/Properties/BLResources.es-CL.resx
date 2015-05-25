@@ -5252,24 +5252,24 @@ Periodo de la publicación: {3}.</value>
     <value>El conjunto de las categorías para las posiciones {0} tiene que se idéntico</value>
   </data>
   <data name ="WorkPhoneIsNotSelected" xml:space="preserve">
-    <value>В вашем профиле не указан внутренний телефон, на который должны приходить звонки.</value>
+    <value>En su perfil no está indicado el teléfono interno al cual deben entrar las llamadas.</value>
   </data>
   <data name ="IncorrectPhoneNumber" xml:space="preserve">
-    <value>Телефон {0} имеет некорректный формат.</value>
+    <value>Teléfono {0} tiene el formato incorrecto.</value>
   </data>
   <data name ="DialingIsNotAllowed" xml:space="preserve">
-    <value>У Вас нет прав на совершение звонков.</value>
+    <value>No tiene permisos para realizar las llamadas.</value>
   </data>
   <data name ="TelephonyUnitIsNotSelected" xml:space="preserve">
-    <value>В профиле не указан адрес сервиса телефонии.</value>
+    <value>En el perfil no está indicada la dirección del servicio de telefonía.</value>
   </data>
   <data name ="TelephonyServiceInactive" xml:space="preserve">
-    <value>В данный момент сервис телефони не доступен.</value>
+    <value>En estos momentos el servicio de telefonía no está disponible.</value>
   </data>
   <data name ="TelephonyUnitInIncorrectFormat" xml:space="preserve">
-    <value>Адрес сервиса телефонии указан в некорректном формате</value>
+    <value>La dirección del servicio de telefonía está indicado en el formato incorrecto.</value>
   </data>
   <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
-    <value>Данный тип {0} телефонии не поддерживается.</value>
+    <value>Este tipo {0} de telefonía no se soporta.</value>
   </data>
 </root>

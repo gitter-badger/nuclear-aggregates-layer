@@ -973,6 +973,6 @@
     <value>Valor incorrecto. Use el formato  'DD-MM-XXXX'</value>
   </data>
   <data name = "StartCalling" xml:space="preserve">
-    <value>Осуществляется звонок</value>
+    <value>La llamada en curso</value>
   </data>
 </root>

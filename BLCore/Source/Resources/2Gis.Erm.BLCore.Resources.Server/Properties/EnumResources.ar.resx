@@ -2033,7 +2033,7 @@
     <value>Writing-off</value>
   </data>
   <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
-    <value>Телефония</value>
+    <value>Telephony</value>
   </data>
   <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
     <value>Advertising agency</value>

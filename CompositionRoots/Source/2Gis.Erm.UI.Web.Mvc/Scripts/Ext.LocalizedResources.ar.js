@@ -1,4 +1,4 @@
-﻿// File updated : 4/22/2015 3:10:40 PM
+﻿// File updated : 5/25/2015 11:35:13 AM
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -291,7 +291,7 @@ SetLimitStatusDialogConfirmation : 'Do you really want to change limit status to
 SomeOfTheClientsHaveDebtsAlert : 'Attention! You are trying to take a Client with a debt receivable!',
 SourceEditText : 'Switch to the source code.',
 SourceEditTitle : 'Source code',
-StartCalling : 'Осуществляется звонок',
+StartCalling : 'Call in progress',
 StartSearch : 'Start search',
 StatusLabel : '<b>Status: </b>',
 SumRemainingMustBeNull : 'The remaining amount of the order is not equal to zero. The remaining amount needs to be distributed among payments',

@@ -5248,24 +5248,24 @@ Placement period: {3}.</value>
     <value>Items {0} should have identical category sets</value>
   </data>
   <data name ="WorkPhoneIsNotSelected" xml:space="preserve">
-    <value>В вашем профиле не указан внутренний телефон, на который должны приходить звонки.</value>
+    <value>There is no internal phone number in your profile that could receive calls.</value>
   </data>
   <data name ="IncorrectPhoneNumber" xml:space="preserve">
-    <value>Телефон {0} имеет некорректный формат.</value>
+    <value>Phone number {0} has incorrect format.</value>
   </data>
   <data name ="DialingIsNotAllowed" xml:space="preserve">
-    <value>У Вас нет прав на совершение звонков.</value>
+    <value>You have no rights to make calls.</value>
   </data>
   <data name ="TelephonyUnitIsNotSelected" xml:space="preserve">
-    <value>В профиле не указан адрес сервиса телефонии.</value>
+    <value>There is no telephony service address in the profile.</value>
   </data>
   <data name ="TelephonyServiceInactive" xml:space="preserve">
-    <value>В данный момент сервис телефони не доступен.</value>
+    <value>Telephony service is unavailable at the moment.</value>
   </data>
   <data name ="TelephonyUnitInIncorrectFormat" xml:space="preserve">
-    <value>Адрес сервиса телефонии указан в некорректном формате</value>
+    <value>Telephony service address has incorrect format.</value>
   </data>
   <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
-    <value>Данный тип {0} телефонии не поддерживается.</value>
+    <value>This {0} telephony type is not supported.</value>
   </data>
 </root>

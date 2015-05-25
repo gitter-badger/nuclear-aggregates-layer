@@ -1,4 +1,4 @@
-﻿// File updated : 4/22/2015 3:10:40 PM
+﻿// File updated : 5/25/2015 11:35:13 AM
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -291,7 +291,7 @@ SetLimitStatusDialogConfirmation : 'Skutečně si přejete změnit stav limitu n
 SomeOfTheClientsHaveDebtsAlert : 'Pozor! Pokoušíte se vzít z rezervy klienta s pohledávkami!',
 SourceEditText : 'Přepnout na zdrojový kód.',
 SourceEditTitle : 'Zdrojový kód',
-StartCalling : 'Осуществляется звонок',
+StartCalling : 'Voláme',
 StartSearch : 'Spustit vyhledávání',
 StatusLabel : '<b>Stav: </b>',
 SumRemainingMustBeNull : 'Zůstatek objednávky se nerovná nule. Zůstatek je třeba rozdělit mezi faktury',
