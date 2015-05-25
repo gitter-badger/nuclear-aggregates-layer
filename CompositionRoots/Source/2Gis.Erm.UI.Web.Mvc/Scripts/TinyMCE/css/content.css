@@ -5,6 +5,7 @@
     а т.к. при сохранении ТРМ теги <p> заменяются на <br />,
     то нужно убрать отступ у тега <p>.
 */
+.mceNonEditable p,
 .mceContentBody p {
     margin: 0;
     padding: 0;
