@@ -14,6 +14,7 @@
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.ReplicationCode)
     @Html.HiddenFor(m => m.CanEditIsAdvertisingAgency)
+    @Html.HiddenFor(m => m.HaveTelephonyAccess)
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Name, FieldFlex.lone)

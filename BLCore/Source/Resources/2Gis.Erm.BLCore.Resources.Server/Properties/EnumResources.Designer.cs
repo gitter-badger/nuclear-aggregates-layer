@@ -3112,6 +3112,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Телефония.
+        /// </summary>
+        public static string FunctionalPrivilegeNameTelephonyAccess {
+            get {
+                return ResourceManager.GetString("FunctionalPrivilegeNameTelephonyAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Отмена публикации шаблона РМ.
         /// </summary>
         public static string FunctionalPrivilegeNameUnpublishAdvertisementTemplate {

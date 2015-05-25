@@ -1,4 +1,4 @@
-﻿// File updated : 02.12.2014 16:13:26
+﻿// File updated : 4/22/2015 3:10:40 PM
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -291,6 +291,7 @@ SetLimitStatusDialogConfirmation : 'Вы действительно хотите
 SomeOfTheClientsHaveDebtsAlert : 'Внимание! Вы пытаетесь взять из резерва Клиента с дебиторской задолженностью!',
 SourceEditText : 'Переключиться на исходный код.',
 SourceEditTitle : 'Исходный код',
+StartCalling : 'Осуществляется звонок',
 StartSearch : 'Начать поиск',
 StatusLabel : '<b>Статус: </b>',
 SumRemainingMustBeNull : 'Остаток суммы заказа не равен нулю. Необходимо распределить остаток по счетам',

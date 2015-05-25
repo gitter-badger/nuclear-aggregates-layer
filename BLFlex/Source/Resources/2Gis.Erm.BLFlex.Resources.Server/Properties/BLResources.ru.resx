@@ -127,29 +127,21 @@
     <value>{0}
 ИНН: {1}
 Юридический адрес: {2}
-Платежные реквизиты: {3}</value>
+Почтовый адрес: {3}
+Платежные реквизиты: {4}</value>
   </data>
   <data name="PrintOrderHandler_ClientRequisitesParagraph3" xml:space="preserve">
     <value>{0}
 ИНН: {1} КПП: {2}
 Юридический адрес: {3}
-Платежные реквизиты: {4}</value>
+Почтовый адрес: {4}
+Платежные реквизиты: {5}</value>
   </data>
   <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph1" xml:space="preserve">
-    <value>{0}
-Паспорт № {2},
-Выдан: {3}
-Место жительства: {4}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="CyprusPrintOrderHandler_ClientRequisitesParagraph2" xml:space="preserve">
-    <value>{0}
-T.I.C.: {1}    V.A.T. Reg. No {2}
-Юридический адрес: {3}
-IBAN {4}
-SWIFT {5}
-Номер счета {6}
-Название банка {7}
-{8}</value>
+    <value>[Not defined for current business model and language]</value>
   </data>
   <data name="PrintOrderHandler_BeginContractParagraph2" xml:space="preserve">
     <value>{0}, именуемое в дальнейшем «Исполнитель», в лице {1} {2}, действующего на основании {3}, с одной стороны, и {4}, именуемое в дальнейшем «Заказчик», в лице {5} {6}, действующего на основании {7}, с другой стороны, подписали настоящий Бланк заказа о нижеследующем:</value>
