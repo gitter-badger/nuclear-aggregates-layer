@@ -16,7 +16,7 @@ using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
-    public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, INameAspect, IEmiratesAdapted
+    public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, IHaveTelephonyAccessAspect, INameAspect, IEmiratesAdapted
     {
         // Наименование
         [StringLengthLocalized(250)]
@@ -94,6 +94,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         // Поле, необходимое для мерджа клиентов
         public long AppendedClient { get; set; }
         public bool AssignAllObjects { get; set; }
+
+        public bool HaveTelephonyAccess { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {
