@@ -252,6 +252,15 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AdvertisementElementTextContainsControlList {
+            get {
+                return ResourceManager.GetString("AdvertisementElementTextContainsControlList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string AdvertisementElementTextContainsHtmlTags {
             get {
                 return ResourceManager.GetString("AdvertisementElementTextContainsHtmlTags", resourceCulture);

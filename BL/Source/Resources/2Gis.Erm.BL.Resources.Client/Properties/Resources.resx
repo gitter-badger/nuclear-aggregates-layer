@@ -978,4 +978,7 @@
   <data name = "StartCalling" xml:space="preserve">
     <value />
   </data>
+  <data name="AdvertisementElementTextContainsControlList" xml:space="preserve">
+    <value/>
+  </data>
 </root>

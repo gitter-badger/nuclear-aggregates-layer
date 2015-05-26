@@ -975,4 +975,7 @@
   <data name = "StartCalling" xml:space="preserve">
     <value>La llamada en curso</value>
   </data>
+  <data name="AdvertisementElementTextContainsControlList" xml:space="preserve">
+    <value>Текст содержит вложенные списки,текст не может быть сохранен.</value>
+  </data>
 </root>
