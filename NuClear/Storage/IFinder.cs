@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Storage.Futures;
@@ -17,8 +15,9 @@ namespace NuClear.Storage
         /// <summary>
         /// Compose future sequence based on findSpecification.
         /// </summary>
-        // FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity;
+        FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity;
         
+        /*
         /// <summary>
         /// Find the Entity object(s) based on findSpecification.
         /// </summary>
@@ -30,10 +29,6 @@ namespace NuClear.Storage
         IQueryable<TOutput> Find<TEntity, TOutput>(FindSpecification<TEntity> findSpecification, SelectSpecification<TEntity, TOutput> selectSpecification)
             where TEntity : class, IEntity;
         
-        /// <summary>
-        /// Find the Entity object(s) based on user supplied lambda expression.
-        /// </summary>
-        IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity;
 
         /// <summary>
         /// Find one entity object based on findSpecification.
@@ -61,5 +56,6 @@ namespace NuClear.Storage
         /// Find any of entity objects based on findSpecification without materialization.
         /// </summary>
         bool FindAny<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
+         */
     }
 }
