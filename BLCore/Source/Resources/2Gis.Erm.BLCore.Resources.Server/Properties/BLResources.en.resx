@@ -5251,4 +5251,25 @@ Placement period: {3}.</value>
   <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
     <value>Items {0} should have identical category sets</value>
   </data>
+  <data name ="WorkPhoneIsNotSelected" xml:space="preserve">
+    <value>There is no internal phone number in your profile that could receive calls.</value>
+  </data>
+  <data name ="IncorrectPhoneNumber" xml:space="preserve">
+    <value>Phone number {0} has incorrect format.</value>
+  </data>
+  <data name ="DialingIsNotAllowed" xml:space="preserve">
+    <value>You have no rights to make calls.</value>
+  </data>
+  <data name ="TelephonyUnitIsNotSelected" xml:space="preserve">
+    <value>There is no telephony service address in the profile.</value>
+  </data>
+  <data name ="TelephonyServiceInactive" xml:space="preserve">
+    <value>Telephony service is unavailable at the moment.</value>
+  </data>
+  <data name ="TelephonyUnitInIncorrectFormat" xml:space="preserve">
+    <value>Telephony service address has incorrect format.</value>
+  </data>
+  <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
+    <value>This {0} telephony type is not supported.</value>
+  </data>
 </root>
