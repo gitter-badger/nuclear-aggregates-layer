@@ -20,46 +20,35 @@
         Ext.DoubleGis.UI.Client.QualifyProcessor = Ext.extend(Ext.DoubleGis.UI.GroupProcessor, {
             OwnerCode: 0,
             UserCodeLookup: {},
-            constructor: function (config)
-            {
+            constructor: function(config) {
                 Ext.apply(config, {
                     listeners: {
-                        configspecificcontrols: function ()
-                        {
+                        configspecificcontrols: function() {
                             this.ConfigCustomControls();
                         },
-                        applyusersettings: function ()
-                        {
+                        applyusersettings: function() {
                             this.ApplyUserSettings();
                         }
                     }
                 });
                 Ext.DoubleGis.UI.Client.QualifyProcessor.superclass.constructor.call(this, config);
             },
-            ConfigCustomControls: function ()
-            {
+            ConfigCustomControls: function() {
                 var onRadioClick = this.RadioClick.createDelegate(this);
                 Ext.get("rdoAssignToMe").on("click", onRadioClick);
                 Ext.get("rdoAssignToUser").on("click", onRadioClick);
                 this.UserCodeLookup = Ext.getCmp("UserCode");
             },
-            RadioClick: function ()
-            {
-                if (Ext.getDom("rdoAssignToMe").checked)
-                {
+            RadioClick: function() {
+                if (Ext.getDom("rdoAssignToMe").checked) {
                     this.UserCodeLookup.disable();
-                }
-                else if (Ext.getDom("rdoAssignToUser").checked)
-                {
+                } else if (Ext.getDom("rdoAssignToUser").checked) {
                     this.UserCodeLookup.enable();
                 }
             },
-            IsUserSettingsValid: function ()
-            {
-                if (Ext.getDom("rdoAssignToUser").checked)
-                {
-                    if (Ext.getDom("UserCode").value == "")
-                    {
+            IsUserSettingsValid: function() {
+                if (Ext.getDom("rdoAssignToUser").checked) {
+                    if (Ext.getDom("UserCode").value == "") {
                         Ext.MessageBox.show({
                             title: '',
                             msg: Ext.LocalizedResources.QualifyMustPickUser,
@@ -72,7 +61,7 @@
                 }
                 return true;
             },
-            CheckForDebtsAndProcess: function () {
+            CheckForDebtsAndProcess: function() {
                 if (this.Config.Entities.length) {
 
                     // waitbox заменён на Mask, поскольку от первого в некоторых случаях у ie сносило крышу:
@@ -81,11 +70,21 @@
                     var waitMask = new Ext.LoadMask(Ext.getBody());
                     waitMask.show();
 
-                    var checkUrl = Ext.BasicOperationsServiceRestUrl + 'CheckForDebts.svc/Rest/Client/' + Ext.encode(this.Config.Entities);
+                    // Config.Entities может содержать как массив id, так и массив {entityName, id}, контракт сервиса предполагает наличие массива id
+                    var ids = [];
+                    this.Config.Entities.forEach(function(e) {
+                        ids.push(e.Id ? e.Id : e);
+                    });
+
+                    var checkUrl = Ext.BasicOperationsServiceRestUrl + 'CheckForDebts.svc/Rest';
                     var response = window.Ext.Ajax.syncRequest({
                         timeout: 1200000,
                         url: checkUrl,
-                        method: 'POST'
+                        method: 'POST',
+                        jsonData: {
+                            entityName: 'Client',
+                            entityIds: Ext.encode(ids)
+                        }
                     });
 
                     waitMask.hide();
@@ -133,21 +132,18 @@
                     window.close();
                 }
             },
-            ApplyUserSettings: function ()
-            {
+            ApplyUserSettings: function() {
                 this.OwnerCode = Ext.getDom("rdoAssignToUser").checked ? this.UserCodeLookup.getValue().id : "";
 
                 Ext.getDom("rdoAssignToMe").disabled = "disabled";
                 Ext.getDom("rdoAssignToUser").disabled = "disabled";
                 this.UserCodeLookup.disable();
             },
-            CreateParamsForControllerCall: function (entityId)
-            {
-                return  { entityId: entityId, ownerCode: this.OwnerCode };
+            CreateParamsForControllerCall: function(entityId) {
+                return { entityId: entityId, ownerCode: this.OwnerCode };
             }
         });
-        Ext.onReady(function ()
-        {
+        Ext.onReady(function() {
             var ids = !window.dialogArguments ? [] : (window.dialogArguments.Values ? window.dialogArguments.Values : window.dialogArguments);
 
             var config = {
@@ -159,8 +155,7 @@
                 ResultMessageTemplate: Ext.LocalizedResources.GroupOperationResultsMessage // локализованная надпись - шаблон строки для результатов операции
             };
             var qualifyProcessor = new Ext.DoubleGis.UI.Client.QualifyProcessor(config);
-            if (!qualifyProcessor.CheckProcessingPossibility())
-            {
+            if (!qualifyProcessor.CheckProcessingPossibility()) {
                 return;
             }
             qualifyProcessor.CheckForDebtsAndProcess();
@@ -168,69 +163,69 @@
     </script>
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
-    <table cellspacing="5" cellpadding="5" width="100%" height="100%">
-        <colgroup>
-            <col width="26" />
-            <col />
-        </colgroup>
-        <tbody id="qualifysettings">
-            <tr>
-                <td colspan="2">
-                    <div style="height: 24px;" id="Notifications">@Model.Message</div>
-                </td>
-            </tr>
-            <tr>
-                <td valign="top">
-                    <input id="rdoAssignToMe" class="radio" checked="checked" type="radio" name="AssignedUser" />
-                </td>
-                <td valign="top">
-                    <label style="font-weight: bold" for="rdoAssignTome">@BLResources.QualifyAssignToMe</label>
-                    <br />
-                    <div style="color: #444444; padding-top: 5px">@BLResources.QualifyAssignToMeClientLegend</div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    &nbsp;
-                </td>
-            </tr>
-            <tr>
-                <td valign="top">
-                    <input id="rdoAssignToUser" class="radio" type="radio" name="AssignedUser" />
-                </td>
-                <td valign="top">
-                    <label style="font-weight: bold" for="rdoAssignToUser">@BLResources.QualifyAssignToOtherUser</label>
-                    <br />
-                    <div style="padding-bottom: 10px; color: #444444; padding-top: 5px">
-                        <label for="rdoAssignToUser">@BLResources.QualifyAssignToOtherUserClientLegend</label>
-                    </div>
-                    <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    @Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.User(), ExtendedInfo = "'hideReserveUser=true'"})
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr style="display:none;">
-                <td colspan="2">
-                    @Html.Hidden("EntityType", Model.EntityTypeName.Description)
-                </td>
-            </tr>
-        </tbody>
-        <tbody>
-            <tr>
-                <td colspan="2" style="padding-left: 10px;">
-                    <div id="pbDiv">
-                        <div id="pbInner">
+        <table cellspacing="5" cellpadding="5" width="100%" height="100%">
+            <colgroup>
+                <col width="26" />
+                <col />
+            </colgroup>
+            <tbody id="qualifysettings">
+                <tr>
+                    <td colspan="2">
+                        <div style="height: 24px;" id="Notifications">@Model.Message</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input id="rdoAssignToMe" class="radio" checked="checked" type="radio" name="AssignedUser" />
+                    </td>
+                    <td valign="top">
+                        <label style="font-weight: bold" for="rdoAssignTome">@BLResources.QualifyAssignToMe</label>
+                        <br />
+                        <div style="color: #444444; padding-top: 5px">@BLResources.QualifyAssignToMeClientLegend</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <input id="rdoAssignToUser" class="radio" type="radio" name="AssignedUser" />
+                    </td>
+                    <td valign="top">
+                        <label style="font-weight: bold" for="rdoAssignToUser">@BLResources.QualifyAssignToOtherUser</label>
+                        <br />
+                        <div style="padding-bottom: 10px; color: #444444; padding-top: 5px">
+                            <label for="rdoAssignToUser">@BLResources.QualifyAssignToOtherUserClientLegend</label>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                        <table style="table-layout: fixed" cellspacing="0" cellpadding="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.LookupFor(k => k.UserCode, new LookupSettings { Disabled = true, EntityName = EntityType.Instance.User(), ExtendedInfo = "'hideReserveUser=true'" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr style="display: none;">
+                    <td colspan="2">
+                        @Html.Hidden("EntityType", Model.EntityTypeName.Description)
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="2" style="padding-left: 10px;">
+                        <div id="pbDiv">
+                            <div id="pbInner">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     }
 }

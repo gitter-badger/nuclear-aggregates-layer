@@ -220,10 +220,15 @@
     <Compile Include="Concrete\Positions\PositionBindingObjectTypeExtensions.cs" />
     <Compile Include="Concrete\Positions\PositionSortingOrderDto.cs" />
     <Compile Include="Concrete\Prices\Dto\RatedPricesDto.cs" />
+    <Compile Include="Concrete\Prices\IVerifyDeniedPositionsForDuplicatesOperationService.cs" />
+    <Compile Include="Concrete\Prices\IChangeDeniedPositionObjectBindingTypeOperationService.cs" />
+    <Compile Include="Concrete\Prices\IReplaceDeniedPositionOperationService.cs" />
+    <Compile Include="Concrete\Prices\IVerifyDeniedPositionsForSymmetryOperationService.cs" />
     <Compile Include="Concrete\Prices\IGetRatedPricesForCategoryOperationService.cs" />
     <Compile Include="Concrete\Orders\IRepairOutdatedPositionsOperationService.cs" />
     <Compile Include="Concrete\Prices\ICopyPriceOperationService.cs" />
     <Compile Include="Concrete\Prices\ICopyPricePositionOperationService.cs" />
+    <Compile Include="Concrete\Prices\IGetSymmetricDeniedPositionOperationService.cs" />
     <Compile Include="Concrete\Prices\IReplacePriceOperationService.cs" />
     <Compile Include="Concrete\Prices\PriceDto.cs" />
     <Compile Include="Concrete\Processing\Final\HotClient\HotClientFinalProcessingResultsMessage.cs" />
@@ -288,6 +293,7 @@
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainCanBeForBranchesOnlyException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Bargains\AgentBargainIsNotUniqueException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Deal\DealClientIsInReserveException.cs" />
+    <Compile Include="Generic\Modify\Exceptions\Price\InactivePriceModificationException.cs" />
     <Compile Include="Generic\Modify\Exceptions\Price\PublishedPriceModificationException.cs" />
     <Compile Include="Generic\Modify\Old\EditAccessSharingRequest.cs" />
     <Compile Include="Concrete\Old\AccountDetails\ValidateCreateAccountDetailRequest.cs" />

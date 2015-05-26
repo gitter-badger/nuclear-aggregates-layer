@@ -16,6 +16,7 @@ using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders.OrderProcessing;
+using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.API.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
@@ -28,6 +29,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.DI.Config;
 using DoubleGis.Erm.BLCore.DI.Config.MassProcessing;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Orders.Processing;
+using DoubleGis.Erm.BLCore.Operations.Concrete.Prices;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Users;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.AdvertisementElements;
@@ -48,6 +50,7 @@ using DoubleGis.Erm.BLQuerying.WCF.Operations.Listing;
 using DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
+using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Metadata;
 using DoubleGis.Erm.Platform.API.Core.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -59,6 +62,9 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.Core.Identities;
+using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
+using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection;
@@ -76,6 +82,7 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.S
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
 using DoubleGis.Erm.Qds.Common.Settings;
 using DoubleGis.Erm.WCF.BasicOperations.Config;
+using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
@@ -240,7 +247,7 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                 .ConfigureOperationServices(EntryPointSpecificLifetimeManagerFactory)
                 .ConfigureReplicationMetadata(msCrmSettings)
                 .ConfigureDAL(EntryPointSpecificLifetimeManagerFactory, environmentSettings, connectionStringSettings)
-                .ConfigureIdentityInfrastructure(IdentityRequestOverrideOptions.None)
+                .ConfigureIdentityInfrastructure()
                 .ConfigureEAV()
                 .ConfigureLocalization(typeof(Resources),
                                        typeof(ResPlatform),
@@ -271,7 +278,12 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
             checkingResourceStorages.EnsureResourceEntriesUniqueness(localizationSettings.SupportedCultures);
         }
 
-
+        private static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container)
+        {
+            return container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton)
+                     .RegisterType<IIdentityServiceClient, IdentityServiceClient>(Lifetime.Singleton)
+                     .RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(CustomLifetime.PerOperationContext);
+        }
 
         private static IUnityContainer CreateErmSpecific(this IUnityContainer container, IMsCrmSettings msCrmSettings)
         {

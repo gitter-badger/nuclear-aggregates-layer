@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
                 return;
             }
 
-            const int BatchSize = 10000;
+            const int BatchSize = 3000;
 
             var extractors = new[]
                 {

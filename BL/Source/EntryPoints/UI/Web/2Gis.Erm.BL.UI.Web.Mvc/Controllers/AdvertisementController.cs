@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public AdvertisementController(IMsCrmSettings msCrmSettings,
                                        IAPIOperationsServiceSettings operationsServiceSettings,
                                        IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                       IAPIIdentityServiceSettings identityServiceSettings,
+                                       IIdentityServiceClientSettings identityServiceSettings,
                                        IUserContext userContext,
                                        ITracer tracer,
                                        IGetBaseCurrencyService getBaseCurrencyService,

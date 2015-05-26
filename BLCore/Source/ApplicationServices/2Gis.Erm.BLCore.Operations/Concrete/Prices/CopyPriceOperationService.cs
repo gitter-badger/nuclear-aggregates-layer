@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Prices;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Prices;
@@ -20,86 +22,88 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         private readonly IOrganizationUnitReadModel _organizationUnitReadModel;
         private readonly ICreatePriceAggregateService _createPriceAggregateService;
         private readonly ICreatePricePositionAggregateService _createPricePositionAggregateService;
-        private readonly IBulkCreateDeniedPositionsAggregateService _createDeniedPositionAggregateService;
         private readonly IBulkCreateAssociatedPositionsGroupsAggregateService _bulkCreateAssociatedPositionsGroupsAggregateService;
         private readonly IBulkCreateAssociatedPositionsAggregateService _bulkCreateAssociatedPositionsAggregateService;
         private readonly IOperationScopeFactory _operationScopeFactory;
+        private readonly IVerifyDeniedPositionsForSymmetryOperationService _verifyDeniedPositionsForSymmetryOperationService;
+        private readonly IVerifyDeniedPositionsForDuplicatesOperationService _verifyDeniedPositionsForDuplicatesOperationService;
+        private readonly ICopyDeniedPositionsAggregateService _copyDeniedPositionsAggregateService;
 
         public CopyPriceOperationService(IPriceReadModel priceReadModel,
                                          IOrganizationUnitReadModel organizationUnitReadModel,
                                          ICreatePriceAggregateService createPriceAggregateService,
                                          ICreatePricePositionAggregateService createPricePositionAggregateService,
-                                         IBulkCreateDeniedPositionsAggregateService createDeniedPositionAggregateService,
                                          IBulkCreateAssociatedPositionsGroupsAggregateService bulkCreateAssociatedPositionsGroupsAggregateService,
                                          IBulkCreateAssociatedPositionsAggregateService bulkCreateAssociatedPositionsAggregateService,
-                                         IOperationScopeFactory operationScopeFactory)
+                                         IOperationScopeFactory operationScopeFactory,
+                                         IVerifyDeniedPositionsForSymmetryOperationService verifyDeniedPositionsForSymmetryOperationService,
+                                         IVerifyDeniedPositionsForDuplicatesOperationService verifyDeniedPositionsForDuplicatesOperationService,
+                                         ICopyDeniedPositionsAggregateService copyDeniedPositionsAggregateService)
         {
             _priceReadModel = priceReadModel;
             _organizationUnitReadModel = organizationUnitReadModel;
             _createPriceAggregateService = createPriceAggregateService;
             _createPricePositionAggregateService = createPricePositionAggregateService;
-            _createDeniedPositionAggregateService = createDeniedPositionAggregateService;
             _bulkCreateAssociatedPositionsGroupsAggregateService = bulkCreateAssociatedPositionsGroupsAggregateService;
             _bulkCreateAssociatedPositionsAggregateService = bulkCreateAssociatedPositionsAggregateService;
             _operationScopeFactory = operationScopeFactory;
+            _verifyDeniedPositionsForSymmetryOperationService = verifyDeniedPositionsForSymmetryOperationService;
+            _verifyDeniedPositionsForDuplicatesOperationService = verifyDeniedPositionsForDuplicatesOperationService;
+            _copyDeniedPositionsAggregateService = copyDeniedPositionsAggregateService;
         }
 
-        public int Copy(long sourcePriceId, long organizationUnitId, DateTime publishDate, DateTime beginDate)
+        public void Copy(long sourcePriceId, long organizationUnitId, DateTime publishDate, DateTime beginDate)
         {
             ValidatePrice(sourcePriceId, organizationUnitId, publishDate, beginDate);
 
             var targetPrice = new Price
-                {
-                    OrganizationUnitId = organizationUnitId,
-                    CreateDate = DateTime.UtcNow.Date,
-                    PublishDate = publishDate,
-                    BeginDate = beginDate,
+                                  {
+                                      OrganizationUnitId = organizationUnitId,
+                                      CreateDate = DateTime.UtcNow.Date,
+                                      PublishDate = publishDate,
+                                      BeginDate = beginDate,
 
-                    IsActive = true
-                };
+                                      IsActive = true
+                                  };
 
-            return CopyInternal(sourcePriceId, targetPrice);
+            CopyInternal(sourcePriceId, targetPrice);
         }
 
-        public int Copy(long sourcePriceId, long organizationUnitId, DateTime createDate, DateTime publishDate, DateTime beginDate)
+        public void Copy(long sourcePriceId, long organizationUnitId, DateTime createDate, DateTime publishDate, DateTime beginDate)
         {
             var targetPrice = new Price
-                {
-                    OrganizationUnitId = organizationUnitId,
-                    CreateDate = createDate,
-                    PublishDate = publishDate,
-                    BeginDate = beginDate,
+                                  {
+                                      OrganizationUnitId = organizationUnitId,
+                                      CreateDate = createDate,
+                                      PublishDate = publishDate,
+                                      BeginDate = beginDate,
 
-                    IsActive = true
-                };
+                                      IsActive = true
+                                  };
 
-            return CopyInternal(sourcePriceId, targetPrice);
+            CopyInternal(sourcePriceId, targetPrice);
         }
 
-        private int CopyInternal(long sourcePriceId, Price targetPrice)
+        private void CopyInternal(long sourcePriceId, Price targetPrice)
         {
             using (var operationScope = _operationScopeFactory.CreateNonCoupled<CopyPriceIdentity>())
             {
                 var allPriceDescendantsDto = _priceReadModel.GetAllPriceDescendantsDto(sourcePriceId);
 
                 var currencyId = _organizationUnitReadModel.GetCurrencyId(targetPrice.OrganizationUnitId);
-                var count = _createPriceAggregateService.Create(targetPrice, currencyId);
+                _createPriceAggregateService.Create(targetPrice, currencyId);
 
                 var associatedPositionsGroupsToCreate = CreatePricePositions(targetPrice.Id,
-                                                                             allPriceDescendantsDto.PricePositions,
-                                                                             allPriceDescendantsDto.AssociatedPositionsGroupsMapping,
-                                                                             ref count);
+                                                                             allPriceDescendantsDto.PricePositions.Where(x => x.IsActive && !x.IsDeleted),
+                                                                             allPriceDescendantsDto.AssociatedPositionsGroupsMapping);
 
-                CreateDeniedPositions(targetPrice.Id, allPriceDescendantsDto.DeniedPositions, ref count);
+                CreateDeniedPositions(allPriceDescendantsDto.DeniedPositions, targetPrice.Id);
 
                 var associatedPositionsToCreate = CreateAssociatedPositionsGroups(associatedPositionsGroupsToCreate,
-                                                                                  allPriceDescendantsDto.AssociatedPositionsMapping,
-                                                                                  ref count);
-                CreateAssociatedPositions(associatedPositionsToCreate, ref count);
+                                                                                  allPriceDescendantsDto.AssociatedPositionsMapping);
+                CreateAssociatedPositions(associatedPositionsToCreate);
 
                 operationScope.Complete();
-
-                return count;
             }
         }
 
@@ -131,15 +135,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
         private Dictionary<long, IEnumerable<AssociatedPositionsGroup>> CreatePricePositions(
             long targetPriceId,
             IEnumerable<PricePosition> pricePositions,
-            IDictionary<long, IEnumerable<AssociatedPositionsGroup>> associatedPositionsGroupsMapping,
-            ref int count)
+            IDictionary<long, IEnumerable<AssociatedPositionsGroup>> associatedPositionsGroupsMapping)
         {
             var associatedPositionsGroupsToCreate = new Dictionary<long, IEnumerable<AssociatedPositionsGroup>>();
             foreach (var pricePosition in pricePositions)
             {
                 var associatedPositionsGroups = associatedPositionsGroupsMapping[pricePosition.Id];
 
-                count += _createPricePositionAggregateService.Create(pricePosition, targetPriceId, pricePosition.PositionId);
+                pricePosition.PriceId = targetPriceId;
+                _createPricePositionAggregateService.Create(pricePosition);
 
                 associatedPositionsGroupsToCreate.Add(pricePosition.Id, associatedPositionsGroups);
             }
@@ -147,15 +151,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             return associatedPositionsGroupsToCreate;
         }
 
-        private void CreateDeniedPositions(long targetPriceId, IEnumerable<DeniedPosition> deniedPositions, ref int count)
-        {
-            count += _createDeniedPositionAggregateService.Create(deniedPositions, targetPriceId);
-        }
-
         private Dictionary<long, IEnumerable<AssociatedPosition>> CreateAssociatedPositionsGroups(
             Dictionary<long, IEnumerable<AssociatedPositionsGroup>> associatedPositionsGroupsToCreate,
-            IDictionary<long, IEnumerable<AssociatedPosition>> associatedPositionsMapping,
-            ref int count)
+            IDictionary<long, IEnumerable<AssociatedPosition>> associatedPositionsMapping)
         {
             var associatedPositionsToCreate = new Dictionary<long, IEnumerable<AssociatedPosition>>();
             foreach (var associatedPositionsGroups in associatedPositionsGroupsToCreate)
@@ -165,7 +163,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
 
                 var associatedPositionsSnapshot = groups.Select(x => associatedPositionsMapping[x.Id]).ToArray();
 
-                count += _bulkCreateAssociatedPositionsGroupsAggregateService.Create(groups, pricePositionId);
+                _bulkCreateAssociatedPositionsGroupsAggregateService.Create(groups, pricePositionId);
 
                 var associatedPositionsByUpdatedGroupIds = groups
                     .Select(x => x.Id)
@@ -178,15 +176,33 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Prices
             return associatedPositionsToCreate;
         }
 
-        private void CreateAssociatedPositions(Dictionary<long, IEnumerable<AssociatedPosition>> associatedPositionsToCreate, ref int count)
+        private void CreateAssociatedPositions(Dictionary<long, IEnumerable<AssociatedPosition>> associatedPositionsToCreate)
         {
             // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var associatedPositions in associatedPositionsToCreate)
             {
                 var associatedPositionsGroupId = associatedPositions.Key;
                 var positions = associatedPositions.Value;
-                count += _bulkCreateAssociatedPositionsAggregateService.Create(positions, associatedPositionsGroupId);
+                _bulkCreateAssociatedPositionsAggregateService.Create(positions, associatedPositionsGroupId);
             }
+        }
+
+        private void CreateDeniedPositions(IEnumerable<DeniedPosition> deniedPositionsToCreate, long targetPriceId)
+        {
+            var deniedPositions = deniedPositionsToCreate
+                .Where(x => x.IsActive && !x.IsDeleted)
+                .DistinctDeniedPositions();
+
+            _verifyDeniedPositionsForDuplicatesOperationService.VerifyWithinCollection(deniedPositions);
+            _verifyDeniedPositionsForSymmetryOperationService.VerifyWithinCollection(deniedPositions);
+
+            _copyDeniedPositionsAggregateService.Copy(deniedPositions.Select(x => new DeniedPositionToCopyDto
+                                                                                      {
+                                                                                          ObjectBindingType = x.ObjectBindingType,
+                                                                                          PositionDeniedId = x.PositionDeniedId,
+                                                                                          PositionId = x.PositionId
+                                                                                      }),
+                                                      targetPriceId);
         }
     }
 }

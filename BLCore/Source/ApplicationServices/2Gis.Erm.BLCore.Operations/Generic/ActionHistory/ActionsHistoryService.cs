@@ -54,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
             var metadata = _metadataProvider.GetOperationMetadata<ActionHistoryMetadata, ActionHistoryIdentity>(entityName);
             var entityTypeId = entityName.Id;
             var actionsInfo = _finder.Find(new FindSpecification<ActionsHistory>(x => x.EntityType == entityTypeId && x.EntityId == entityId))
-                                     .OrderByDescending(x => x.Id)
+                                     .OrderByDescending(x => x.CreatedOn)
                                      .Select(item => new
                                      {
                                          Item = new

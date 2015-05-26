@@ -6,6 +6,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
     public interface ICreatePricePositionAggregateService : IAggregateSpecificOperation<Price, CreateIdentity>
     {
-        int Create(PricePosition pricePosition, long priceId, long positionId);
+        void Create(PricePosition pricePosition);
     }
 }

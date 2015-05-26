@@ -97,6 +97,7 @@
     <Compile Include="ActionLogging\ActionType.cs" />
     <Compile Include="ActionLogging\ChangesDescriptor.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Exceptions\InvalidMetadataException.cs" />
     <Compile Include="Exceptions\RequiredFieldIsEmptyException.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
     <Compile Include="Exceptions\EntityIsNotUniqueException.cs" />
@@ -275,7 +276,6 @@
     <Compile Include="ActionLogging\IActionLogger.cs" />
     <Compile Include="Identities\IIdentityProvider.cs" />
     <Compile Include="Identities\IIdentityRequestChecker.cs" />
-    <Compile Include="Identities\IIdentityRequestStrategy.cs" />
     <Compile Include="Metadata\EndpointDescription.cs" />
     <Compile Include="Metadata\IServiceAvailabilityProvider.cs" />
     <Compile Include="Operations\IOperationProgressCallback.cs" />

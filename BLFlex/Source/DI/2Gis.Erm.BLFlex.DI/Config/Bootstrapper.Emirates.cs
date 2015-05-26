@@ -11,10 +11,10 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Concrete.Integration;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
+using DoubleGis.Erm.BLFlex.DI.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Integration.Import.FlowCards;
 using DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
@@ -74,10 +74,12 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureEmiratesSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}", "AC_{0}-{1}-{2}"))
-                        .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
-                        .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("Q_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForCountriesWithRomanAlphabet))
-                        .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
+                .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("C_{0}-{1}-{2}", "AC_{0}-{1}-{2}"))
+                .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
+                .RegisterType<IEvaluateOrderNumberService, EmiratesEvaluateOrderNumberService>(Lifetime.Singleton,
+                                                                                               new InjectionConstructor(
+                                                                                                   OrderNumberGenerationStrategiesContainer.StrategiesForRomanAlphabetCountries))
+                .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 
         // TODO переделать на нормальную метадату

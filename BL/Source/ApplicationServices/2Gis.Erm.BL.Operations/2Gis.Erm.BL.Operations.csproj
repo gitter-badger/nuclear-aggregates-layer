@@ -108,7 +108,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Generic\Activate\ActivateLimitService.cs" />
+    <Compile Include="Generic\Activate\ActivateLimitOperationService.cs" />
     <Compile Include="Generic\Append\AppendException.cs" />
     <Compile Include="Generic\Append\AppendClientClientService.cs" />
     <Compile Include="Generic\Append\AppendAdvertisingAgencyException.cs" />
@@ -117,15 +117,15 @@
     <Compile Include="Generic\Append\SameIdsForEntitiesToLinkException.cs" />
     <Compile Include="Generic\Append\InvalidEntityTypesForLinkingException.cs" />
     <Compile Include="Generic\Deactivate\DeactivateDenialReasonOperationService.cs" />
-    <Compile Include="Generic\Deactivate\DeactivateLimitService.cs" />
-    <Compile Include="Generic\Delete\DeleteLimitService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateLimitOperationService.cs" />
+    <Compile Include="Generic\Delete\DeleteLimitOperationService.cs" />
     <Compile Include="Generic\File\AdvertisementElements\IUploadingAdvertisementElementValidator.cs" />
     <Compile Include="Generic\File\AdvertisementElements\UploadAdvertisementElementFileOperationService.cs" />
     <Compile Include="Generic\File\AdvertisementElements\UploadingAdvertisementElementValidator.cs" />
     <Compile Include="Generic\Get\GetDenialReasonDtoOperationService.cs" />
-    <Compile Include="Generic\Get\GetLimitDtoService.cs" />
-    <Compile Include="Generic\Modify\ModifyLegalPersonProfileService.cs" />
-    <Compile Include="Generic\Modify\ModifyLimitService.cs" />
+    <Compile Include="Generic\Get\GetLimitDtoOperationService.cs" />
+    <Compile Include="Generic\Modify\ModifyLegalPersonProfileOperationService.cs" />
+    <Compile Include="Generic\Modify\ModifyLimitOperationService.cs" />
     <Compile Include="Generic\Modify\SimplifiedModel\ModifyDenialReasonOperationService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
@@ -27,8 +28,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            const int AdditionalPackageDgppId = 11572; // ДгппИд элемента номенклатуры "пакет "Дополнительный"" нужен для костыля-исключения на 2+2 месяца (до Июля)
-
             var orderInfos = _query.For<Order>()
                 .Where(ruleContext.OrdersFilterPredicate)
                 .Select(x => new
@@ -57,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         z.Name,
 
                         OpaIsEmpty = y.OrderPositionAdvertisements.All(p => p.PositionId != z.Id)
-                                     && (!y.PricePosition.Position.DgppId.HasValue || y.PricePosition.Position.DgppId.Value != AdditionalPackageDgppId),
+                                     && (!y.PricePosition.Position.DgppId.HasValue || y.PricePosition.Position.DgppId.Value != PositionTools.AdditionalPackageDgppId),
 
                         AdvertisementIsRequired = 
                         y.OrderPositionAdvertisements.Where(p => p.PositionId == z.Id).Any(p => p.AdvertisementId == null),

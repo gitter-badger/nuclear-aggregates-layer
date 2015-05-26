@@ -58,14 +58,10 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="IIdentityProviderApplicationRestService.cs" />
-    <Compile Include="IIdentityProviderApplicationService.cs" />
     <Compile Include="IMetadataProviderApplicationRestService.cs" />
     <Compile Include="IMetadataProviderApplicationService.cs" />
     <Compile Include="MetadataOperationErrorDescription.cs" />
-    <Compile Include="Settings\APIIdentityServiceSettingsAspect.cs" />
     <Compile Include="Settings\APIIntrospectionServiceSettingsAspect.cs" />
-    <Compile Include="Settings\IAPIIdentityServiceSettings.cs" />
     <Compile Include="Settings\IAPIIntrospectionServiceSettings.cs" />
   </ItemGroup>
   <ItemGroup>

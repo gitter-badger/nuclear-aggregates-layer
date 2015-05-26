@@ -87,6 +87,7 @@
     <Compile Include="Aspects\Entities\IPublishablePriceAspect.cs" />
     <Compile Include="Aspects\Entities\ISelectableToWhiteListAspect.cs" />
     <Compile Include="Aspects\Entities\IThemeTemplateCodeAspect.cs" />
+    <Compile Include="Aspects\IHaveTelephonyAccessAspect.cs" />
     <Compile Include="Aspects\IAspect.cs" />
     <Compile Include="Aspects\Entities\IBaseCurrencyAspect.cs" />
     <Compile Include="Aspects\IBusinessOperationTypeAspect.cs" />
@@ -683,6 +684,12 @@
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\BranchOfficeOrganizationUnit\SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Category\ChangeCategoryGroupIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\DeniedPosition\VerifyDeniedPositionsForSymmetryIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\DeniedPosition\VerifyDeniedPositionsForDuplicatesIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\DeniedPosition\GetSymmetricDeniedPositionIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\DeniedPosition\ChangeDeniedPositionObjectBindingTypeIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\DeniedPosition\CopyDeniedPositionsIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\DeniedPosition\ReplaceDeniedPositionIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\NotificationEmail\SendNotificationIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\DeleteChargesForPeriodAndProjectIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Charge\ImportAdvModelInRubricInfoIdentity.cs" />
@@ -696,6 +703,7 @@
     <Compile Include="Identities\Operations\Identity\Specific\Contact\RequestBirthdayCongratulationsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\SetMainLegalPersonForDealIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Deal\GenerateDealNameIdentity.cs" />
+    <Compile Include="Identities\Operations\Identity\Specific\Dial\DialIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\CreateBlankFirmsIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\GetFirmInfoIdentity.cs" />
     <Compile Include="Identities\Operations\Identity\Specific\Firm\ImportCardForErmIdentity.cs" />

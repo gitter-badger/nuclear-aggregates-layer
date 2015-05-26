@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
         public void Push(IReadOnlyList<PerformedOperationFinalProcessing> finalProcessings)
         {
             var currentDate = DateTime.UtcNow;
-            const int BatchSize = 10000;
+            const int BatchSize = 3000;
 
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {

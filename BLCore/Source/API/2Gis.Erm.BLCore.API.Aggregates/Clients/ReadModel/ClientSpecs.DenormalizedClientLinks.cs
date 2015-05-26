@@ -24,6 +24,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel
                 {
                     return new FindSpecification<DenormalizedClientLink>(x => keys.Contains(x.GraphKey));
                 }
+
+                public static FindSpecification<DenormalizedClientLink> ClientChild(long clientId)
+                {
+                    return new FindSpecification<DenormalizedClientLink>(x => x.MasterClientId == clientId && x.IsLinkedDirectly);
+                }
             }
         }
     }

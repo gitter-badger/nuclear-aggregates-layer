@@ -45,9 +45,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             builder.Actions
                    .Attach(ToolbarElements.Create<TEntity>(),
                            ToolbarElements.Update<TEntity>(),
-                           ToolbarElements.Splitter(),
-                           ToolbarElements.CreateAndClose<TEntity>(),
-                           ToolbarElements.UpdateAndClose<TEntity>(),
+                       ToolbarElements.Splitter(),
+                       ToolbarElements.SaveAndCreateOnBasis(ToolbarElements.CreateTask(), ToolbarElements.CreatePhonecall(), ToolbarElements.CreateAppointment(), ToolbarElements.CreateLetter()),
+                       ToolbarElements.CreateAndClose<TEntity>(),
+                       ToolbarElements.UpdateAndClose<TEntity>(),
                            ToolbarElements.Splitter(),
                            ToolbarElements.Activities.Complete<TEntity>(),
                            ToolbarElements.Activities.Cancel<TEntity>(),

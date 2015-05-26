@@ -82,6 +82,8 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto
             public bool IsLinkingObjectOfSingleType { get; set; }
             [DataMember]
             public int PositionsGroup { get; set; }
+            [DataMember]
+            public bool AlwaysChecked { get; set; }
         }
     }
 }

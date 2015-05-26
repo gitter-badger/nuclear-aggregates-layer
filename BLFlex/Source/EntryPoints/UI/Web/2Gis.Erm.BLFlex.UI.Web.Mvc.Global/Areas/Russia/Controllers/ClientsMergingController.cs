@@ -14,7 +14,7 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
         private readonly IFinder _finder;
         private readonly IBusinessModelEntityObtainer<Client> _clientObtainer;
 
-        public ClientsMergingController(IMsCrmSettings msCrmSettings, IAPIOperationsServiceSettings operationsServiceSettings, IAPISpecialOperationsServiceSettings specialOperationsServiceSettings, IAPIIdentityServiceSettings identityServiceSettings, IUserContext userContext, ITracer tracer, IGetBaseCurrencyService getBaseCurrencyService, IOperationServicesManager operationServicesManager, ISecurityServiceUserIdentifier userIdentifierService, ISecurityServiceFunctionalAccess functionalAccessService, IPublicService publicService, IFinder finder, IBusinessModelEntityObtainer<Client> clientObtainer) : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
+        public ClientsMergingController(IMsCrmSettings msCrmSettings, IAPIOperationsServiceSettings operationsServiceSettings, IAPISpecialOperationsServiceSettings specialOperationsServiceSettings, IIdentityServiceClientSettings identityServiceSettings, IUserContext userContext, ITracer tracer, IGetBaseCurrencyService getBaseCurrencyService, IOperationServicesManager operationServicesManager, ISecurityServiceUserIdentifier userIdentifierService, ISecurityServiceFunctionalAccess functionalAccessService, IPublicService publicService, IFinder finder, IBusinessModelEntityObtainer<Client> clientObtainer) : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _userIdentifierService = userIdentifierService;

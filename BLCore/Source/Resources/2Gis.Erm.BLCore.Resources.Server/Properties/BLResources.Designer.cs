@@ -1431,6 +1431,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AllPositionsMustBePicked {
+            get {
+                return ResourceManager.GetString("AllPositionsMustBePicked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string AlreadyExistsPricePositionWithSamePositionNotification {
             get {
                 return ResourceManager.GetString("AlreadyExistsPricePositionWithSamePositionNotification", resourceCulture);
@@ -3151,6 +3160,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CantCreateDeniedPositionWhenPriceIsDeactivated {
+            get {
+                return ResourceManager.GetString("CantCreateDeniedPositionWhenPriceIsDeactivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CantCreateDeniedPositionWhenPriceIsPublished {
+            get {
+                return ResourceManager.GetString("CantCreateDeniedPositionWhenPriceIsPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CantCreateProfileForUnspecifiedUser {
             get {
                 return ResourceManager.GetString("CantCreateProfileForUnspecifiedUser", resourceCulture);
@@ -3199,24 +3226,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string CantDeactivateAssociatedPositionWhenPriceIsPublished {
             get {
                 return ResourceManager.GetString("CantDeactivateAssociatedPositionWhenPriceIsPublished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CantDeactivateDeniedPositionWhenPriceIsDeactivated {
-            get {
-                return ResourceManager.GetString("CantDeactivateDeniedPositionWhenPriceIsDeactivated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string CantDeactivateDeniedPositionWhenPriceIsPublished {
-            get {
-                return ResourceManager.GetString("CantDeactivateDeniedPositionWhenPriceIsPublished", resourceCulture);
             }
         }
         
@@ -3475,6 +3484,24 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string CantUpdateDeniedPositionWhenPriceIsDeactivated {
+            get {
+                return ResourceManager.GetString("CantUpdateDeniedPositionWhenPriceIsDeactivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CantUpdateDeniedPositionWhenPriceIsPublished {
+            get {
+                return ResourceManager.GetString("CantUpdateDeniedPositionWhenPriceIsPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CantUploadFileForNewAdvertisementElement {
             get {
                 return ResourceManager.GetString("CantUploadFileForNewAdvertisementElement", resourceCulture);
@@ -3709,9 +3736,9 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string CategoriesSetForAllPositionsMustBeTheSame {
+        public static string CategoriesSetForPositionsMustBeTheSame {
             get {
-                return ResourceManager.GetString("CategoriesSetForAllPositionsMustBeTheSame", resourceCulture);
+                return ResourceManager.GetString("CategoriesSetForPositionsMustBeTheSame", resourceCulture);
             }
         }
         
@@ -5446,15 +5473,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string DeniedPositionIsDeactivatedAlready {
-            get {
-                return ResourceManager.GetString("DeniedPositionIsDeactivatedAlready", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string DeniedPositionsReferencesToInactivePositions {
             get {
                 return ResourceManager.GetString("DeniedPositionsReferencesToInactivePositions", resourceCulture);
@@ -5530,6 +5548,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string DgppImportHandler_CantResurrectOrder {
             get {
                 return ResourceManager.GetString("DgppImportHandler_CantResurrectOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DialingIsNotAllowed {
+            get {
+                return ResourceManager.GetString("DialingIsNotAllowed", resourceCulture);
             }
         }
         
@@ -5782,6 +5809,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string DumpAccountDetails_AccountDetailsNotExist {
             get {
                 return ResourceManager.GetString("DumpAccountDetails_AccountDetailsNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DuplicateDeniedPositionsAreFound {
+            get {
+                return ResourceManager.GetString("DuplicateDeniedPositionsAreFound", resourceCulture);
             }
         }
         
@@ -7537,6 +7573,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string IncorrectDBVersion {
             get {
                 return ResourceManager.GetString("IncorrectDBVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IncorrectPhoneNumber {
+            get {
+                return ResourceManager.GetString("IncorrectPhoneNumber", resourceCulture);
             }
         }
         
@@ -9743,15 +9788,6 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string OperationCouldntCompleteMessage {
             get {
                 return ResourceManager.GetString("OperationCouldntCompleteMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string OperationIsDiabled {
-            get {
-                return ResourceManager.GetString("OperationIsDiabled", resourceCulture);
             }
         }
         
@@ -12917,6 +12953,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string RegionalOrdersAreNotSupported {
+            get {
+                return ResourceManager.GetString("RegionalOrdersAreNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string RegisteredPositionIsNotSupportedByExport {
             get {
                 return ResourceManager.GetString("RegisteredPositionIsNotSupportedByExport", resourceCulture);
@@ -14105,6 +14150,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string SymmetricDeniedPositionIsMissing {
+            get {
+                return ResourceManager.GetString("SymmetricDeniedPositionIsMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string SystemID {
             get {
                 return ResourceManager.GetString("SystemID", resourceCulture);
@@ -14144,6 +14198,42 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string TabTitleInformation {
             get {
                 return ResourceManager.GetString("TabTitleInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TelephonySchemeIsNotSupported {
+            get {
+                return ResourceManager.GetString("TelephonySchemeIsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TelephonyServiceInactive {
+            get {
+                return ResourceManager.GetString("TelephonyServiceInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TelephonyUnitInIncorrectFormat {
+            get {
+                return ResourceManager.GetString("TelephonyUnitInIncorrectFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TelephonyUnitIsNotSelected {
+            get {
+                return ResourceManager.GetString("TelephonyUnitIsNotSelected", resourceCulture);
             }
         }
         
@@ -14924,6 +15014,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string UserIsNotAllowedToCreateAdvAgencyOrder {
+            get {
+                return ResourceManager.GetString("UserIsNotAllowedToCreateAdvAgencyOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string UserIsNotAllowedToRecalculateLimit {
             get {
                 return ResourceManager.GetString("UserIsNotAllowedToRecalculateLimit", resourceCulture);
@@ -15179,6 +15278,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         public static string WorkInProgressPleaseStandBy {
             get {
                 return ResourceManager.GetString("WorkInProgressPleaseStandBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string WorkPhoneIsNotSelected {
+            get {
+                return ResourceManager.GetString("WorkPhoneIsNotSelected", resourceCulture);
             }
         }
         

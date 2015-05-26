@@ -22,22 +22,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public int Create(PricePosition pricePosition, long priceId, long positionId)
+        public void Create(PricePosition pricePosition)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, PricePosition>())
             {
                 _identityProvider.SetFor(pricePosition);
-                pricePosition.PriceId = priceId;
-                pricePosition.PositionId = positionId;
 
                 _pricePositionGenericRepository.Add(pricePosition);
-                operationScope.Added<PricePosition>(pricePosition.Id);
+                _pricePositionGenericRepository.Save();
 
-                var count = _pricePositionGenericRepository.Save();
-
-                operationScope.Complete();
-
-                return count;
+                operationScope.Added(pricePosition)
+                              .Complete();
             }
         }
     }

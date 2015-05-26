@@ -38,10 +38,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients.ReadModel
             return _finder.FindOne(ClientSpecs.Clients.Find.ByContact(contactId));
         }
 
-	    public string GetContactName(long contactId)
+        public Client GetClientByDeal(long dealId)
+        {
+            return _finder.FindOne(ClientSpecs.Clients.Find.ByDeal(dealId));
+        }
+
+        public Client GetClientByFirm(long firmId)
+        {
+            return _finder.FindOne(ClientSpecs.Clients.Find.ByFirm(firmId));
+        }
+
+        public string GetContactName(long contactId)
 	    {
 			return _finder.Find(Specs.Find.ById<Contact>(contactId)).Select(x => x.FullName).Single();
 		}
+
+        public IEnumerable<Contact> GetClientContacts(long clientId)
+        {
+            var clientAndChild = _finder.Find(ClientSpecs.DenormalizedClientLinks.Find.ClientChild(clientId))
+                .Select(s => (long?)s.ChildClientId)
+                .ToArray()
+                .Union(new[] { (long?)clientId });
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Contact>() && ClientSpecs.Contacts.Find.IsNotFired() && ClientSpecs.Contacts.Find.ByClientIds(clientAndChild));
+        }
 
         public IEnumerable<string> GetContactEmailsByBirthDate(int month, int day)
         {

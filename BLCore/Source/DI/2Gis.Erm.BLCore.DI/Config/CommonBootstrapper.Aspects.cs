@@ -337,31 +337,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             return container.RegisterType<IMsCrmReplicationMetadataProvider, MsCrmReplicationMetadataProvider>(Lifetime.Singleton, new InjectionConstructor(replicatedTypes));
         }
 
-        public static IUnityContainer ConfigureIdentityInfrastructure(this IUnityContainer container, IdentityRequestOverrideOptions identityRequestOverrideOptions)
-        {
-            container.RegisterType<IIdentityProvider, IdentityServiceIdentityProvider>(Lifetime.Singleton);
-
-            if (identityRequestOverrideOptions.HasFlag(IdentityRequestOverrideOptions.UseNullRequestStrategy))
-            {
-                container.RegisterType<IIdentityRequestStrategy, NullIdentityRequestStrategy>(Lifetime.Singleton);
-            }
-            else
-            {
-                container.RegisterType<IIdentityRequestStrategy, BufferedIdentityRequestStrategy>(Lifetime.Singleton);
-            }
-
-            if (identityRequestOverrideOptions.HasFlag(IdentityRequestOverrideOptions.UseNullRequestChecker))
-            {
-                container.RegisterType<IIdentityRequestChecker, NullIdentityRequestChecker>(Lifetime.Singleton);
-            }
-            else
-            {
-                container.RegisterType<IIdentityRequestChecker, IdentityRequestChecker>(Lifetime.Singleton);
-            }
-
-            return container;
-        }
-
         private static IUnityContainer RegisterDalMappings(this IUnityContainer container)
                 {
             // FIXME {all, 28.01.2015}: Выпилить При дальнейшем рефакторинге DAL

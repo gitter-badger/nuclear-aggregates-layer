@@ -13,7 +13,7 @@ using DoubleGis.Erm.Platform.API.Core.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Caching;
 using DoubleGis.Erm.Platform.API.Core.Settings.ConnectionStrings;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Qds.Common.Settings;
 
 using NuClear.Settings;
@@ -41,10 +41,10 @@ namespace DoubleGis.Erm.WCF.BasicOperations.Settings
                 .Use(new NestSettingsAspect(connectionStrings))
                 .Use<ValidateFileSettingsAspect>()
                 .Use<OperationLoggingSettingsAspect>()
+                .Use<IdentityServiceClientSettingsAspect>()
                 .IfRequiredUseOperationLogging2ServiceBus()
                 .Use(RequiredServices
                         .Is<APIOrderValidationServiceSettingsAspect>()
-                        .Is<APIIdentityServiceSettingsAspect>()
                         .Is<APIMoDiServiceSettingsAspect>()
                         .Is<APIWebClientServiceSettingsAspect>());
         }

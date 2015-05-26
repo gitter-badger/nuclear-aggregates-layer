@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASP
+namespace DoubleGis.Erm.BL.UI.Web.Mvc.Views.CreateOrUpdate
 {
     using System;
     using System.Collections.Generic;
@@ -50,9 +50,9 @@ namespace ASP
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Phonecall.cshtml")]
-    public partial class _Views_CreateOrUpdate_Phonecall_cshtml : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity.PhonecallViewModel>
+    public partial class Phonecall : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BL.UI.Web.Mvc.Models.Activity.PhonecallViewModel>
     {
-        public _Views_CreateOrUpdate_Phonecall_cshtml()
+        public Phonecall()
         {
         }
         public override void Execute()
@@ -151,9 +151,9 @@ WriteLiteral(">\r\n        Ext.onReady(function() {\r\n            var cardSetti
             #line default
             #line hidden
 WriteLiteral(";\r\n            Ext.apply(cardSettings, { contactField: \"ContactId\", contactCompon" +
-"ent: \"Contact\" });\r\n            window.Card = new window.Ext.DoubleGis.UI.Phonec" +
-"all(cardSettings);\r\n            window.Card.Build();\r\n        });\r\n    </script>" +
-"\r\n");
+"ent: \"Contact\" });            \r\n            window.Card = new window.Ext.DoubleG" +
+"is.UI.Phonecall(cardSettings);\r\n            window.Card.Build();\r\n        });\r\n " +
+"   </script>\r\n");
 
 });
 
@@ -167,14 +167,14 @@ WriteLiteral(" class=\"Tab\"");
 
 WriteLiteral(" id=\"MainTab\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1183), Tuple.Create("\"", 1219)
+WriteAttribute("title", Tuple.Create(" title=\"", 1195), Tuple.Create("\"", 1231)
             
             #line 30 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-, Tuple.Create(Tuple.Create("", 1191), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
+, Tuple.Create(Tuple.Create("", 1203), Tuple.Create<System.Object, System.Int32>(BLResources.GeneralTabTitle
             
             #line default
             #line hidden
-, 1191), false)
+, 1203), false)
 );
 
 WriteLiteral(">\r\n");
@@ -257,7 +257,7 @@ WriteLiteral("        ");
             #line 49 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
    Write(Html.SectionRow(
           @Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "ExcludeReserve=true", DefaultSortFields = isOwnerAndNameSortFields }),
-          @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields, DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
+          @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.FirmClientInitialization,  ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields, DataFields = firmDataFields, HeaderTextTemplate = HeaderTextTemplate })));
 
             
             #line default
@@ -267,8 +267,8 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 53 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Deal(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields })));
+            #line 52 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Deal, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Deal(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.DealClientInitialization, ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndNameSortFields })));
 
             
             #line default
@@ -326,8 +326,8 @@ WriteLiteral("\r\n");
 WriteLiteral("        ");
 
             
-            #line 63 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
-   Write(Html.SectionRow(@Html.TemplateField(m => m.Contact, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Contact(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields })));
+            #line 62 "..\..\Views\CreateOrUpdate\Phonecall.cshtml"
+   Write(Html.SectionRow(@Html.TemplateField(m => m.Contact, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Contact(), ExtendedInfo = "ForClientAndLinkedChild=true;ExcludeReserve=true", ClientInitialization = Model.RecipientClientInitialization, ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "ClientId", DefaultSortFields = isOwnerAndFullNameSortFields })));
 
             
             #line default

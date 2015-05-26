@@ -39,6 +39,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
@@ -67,6 +69,10 @@
     </Reference>
     <Reference Include="2GIS.NuClear.DI.Unity">
       <HintPath>..\..\packages\2GIS.NuClear.DI.Unity.1.1.1\lib\portable-net451+win81+wpa81\2GIS.NuClear.DI.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.IdentityService.Client, Version=0.0.0.0, Culture=neutral, PublicKeyToken=b743d84006fae806, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\2GIS.NuClear.IdentityService.Client.1.0.5\lib\net451\2GIS.NuClear.IdentityService.Client.dll</HintPath>
     </Reference>
     <Reference Include="2GIS.NuClear.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -148,6 +154,7 @@
     <Compile Include="DI\Zones\IntegrationTestsZone.cs" />
     <Compile Include="DI\Zones\Parts\IntegrationTestsZonePartAssembly.cs" />
     <Compile Include="DI\TestsIntegrationInProcRoot.cs" />
+    <Compile Include="Suite\Concrete\Platform\Operations\Processing\PrimaryProcessingSimulationSQLTransportLoadTest.cs" />
     <Compile Include="Suite\Base\DelegateResponseAsserter.cs" />
     <Compile Include="Suite\Base\EmptyResponseAsserter.cs" />
     <Compile Include="Suite\Base\IResponseAsserter.cs" />
@@ -250,9 +257,10 @@
     <Compile Include="Suite\Concrete\BLCore\Operations\Concrete\Old\Integration\ServiceBus\SerializeAccountDetailHandlerTest.cs" />
     <Compile Include="Suite\Concrete\OrderValidation\AdvertisementsOnlyWhiteListOrderValidationRuleTest.cs" />
     <Compile Include="Suite\Concrete\Platform\DAL\QueryAllRegisteredEntitiesTest.cs" />
-    <Compile Include="Suite\Concrete\Platform\Identity\BufferedIdentityRequestStrategyTest.cs" />
+    <Compile Include="Suite\Concrete\Platform\Identity\RangedIdentityRequestStrategyTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Logging\ServiceBusLoggingTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\PerformedOperationsProcessingReadModelTest.cs" />
+    <Compile Include="Suite\Concrete\Platform\Operations\Processing\PrimaryProcessingCUDOnlySQLTransportLoadTest.cs" />
     <Compile Include="Suite\Concrete\Platform\Operations\Processing\ServiceBusReceiverTest.cs" />
     <Compile Include="Suite\Infrastructure\CompositeTestResult.cs" />
     <Compile Include="Suite\Infrastructure\Fakes\CachingProducedQueryLogAccessor.cs" />

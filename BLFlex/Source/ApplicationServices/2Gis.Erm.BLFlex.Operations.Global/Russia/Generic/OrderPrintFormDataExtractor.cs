@@ -275,6 +275,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                         legalPerson.LegalName,
                         legalPerson.Inn,
                         legalPerson.LegalAddress,
+                        profile != null ? profile.PostAddress : string.Empty,
                         profile != null ? profile.PaymentEssentialElements : string.Empty);
                 case LegalPersonType.LegalPerson:
                     return string.Format(
@@ -284,6 +285,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                         legalPerson.Inn,
                         legalPerson.Kpp,
                         legalPerson.LegalAddress,
+                        profile != null ? profile.PostAddress : string.Empty,
                         profile != null ? profile.PaymentEssentialElements : string.Empty);
                 default:
                     throw new ArgumentOutOfRangeException();
