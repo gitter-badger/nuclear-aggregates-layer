@@ -49,6 +49,42 @@
         return text.match(controlChars);
     };
 
+    function textContainsControlList(element) {
+
+        function isMatch(el) {
+            return el.tagName.toLowerCase() == "ul";
+        }
+
+        function hasNestedMatch(el) {
+            var queue = [];
+            queue.push.apply(queue, el.children);
+
+            do {
+                var child = queue.shift();
+                if (isMatch(child))
+                    return true;
+                queue.push.apply(queue, child.children);
+            } while (queue.length > 0);
+
+            return false;
+        }
+
+        var queue = [element];
+        do {
+            var child = queue.shift();
+
+            if (isMatch(child)) {
+                if (hasNestedMatch(child))
+                    return true;
+            }
+            else {
+                queue.push.apply(queue, child.children);
+            }
+        } while (queue.length > 0);
+
+        return false;
+    };
+
     function textContainsSpace(text) {
         return text.match(/(&nbsp;)|(\x20){2,}/g);
     }
@@ -205,14 +241,11 @@
                 theme_advanced_statusbar_location: "bottom",
                 theme_advanced_resizing: false,
                 content_css: "/Scripts/tinymce/css/content.css",
-                valid_elements: "p,br,strong/b,em/i,ul,ol,li",
+                valid_elements: "p,br,strong/b,em/i,ul,li",
 
                 // очищаем формат при вставке, иначе tinymce намертво повисает
                 paste_remove_styles: true,
                 paste_remove_spans: true,
-                paste_preprocess: function (pl, o) {
-                    o.content = Ext.util.Format.stripTags(o.content);
-                },
 
                 forced_root_block: false,
                 convert_newlines_to_brs: true
@@ -228,6 +261,12 @@
         this.on('beforepost', function () {
             // set plaintext
             var body = this.RTE.getEd().getBody();
+
+            if (textContainsControlList(body)) {
+                alert(Ext.LocalizedResources.AdvertisementElementTextContainsControlList);
+                return false;
+            };
+
             var plainText = body.innerText || body.textContent || "";
 
             if (plainText) {
