@@ -127,16 +127,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
                     break;
                 case ReserveAccess.OrganizationUnit:
+                {
+                    var hasFirmOrgUnitOrTerritories = _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(
+                                                                       x => x.UserId == currentUserCode &&
+                                                                            (x.OrganizationUnitId == firm.OrganizationUnitId || x.TerritoryId == firm.TerritoryId)))
+                                                            .Any();
+                    if (!hasFirmOrgUnitOrTerritories)
                     {
-                        var hasFirmOrgUnitOrTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
-                                                                                                              (x.OrganizationUnitId == firm.OrganizationUnitId ||
-                                                                                                               x.TerritoryId == firm.TerritoryId))
-                                                                 .Any();
-                        if (!hasFirmOrgUnitOrTerritories)
-                        {
-                            throw new SecurityException(BLResources.QualifyCouldntAccessFirmOnThisOrgUnit);
-                        }
+                        throw new SecurityException(BLResources.QualifyCouldntAccessFirmOnThisOrgUnit);
                     }
+                }
 
                     break;
                 case ReserveAccess.Full:

@@ -209,12 +209,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
         public void CreateOrUpdate(ThemeTemplate template)
         {
             if (template.IsSkyScraper &&
-                _finder.Find<ThemeTemplate>(
+                _finder.Find(new FindSpecification<ThemeTemplate>(
                     themeTemplate =>
                     themeTemplate.IsActive
                     && !themeTemplate.IsDeleted
                     && themeTemplate.IsSkyScraper
-                    && themeTemplate.Id != template.Id).Any())
+                    && themeTemplate.Id != template.Id)).Any())
             {
                 throw new ArgumentException(BLResources.ThemeTemplateCannotBeSkyscapper);
             }
@@ -449,23 +449,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         public bool IsThemeUsedInOrders(long themeId)
         {
-            return _finder.Find<OrderPositionAdvertisement>(advertisement => advertisement.ThemeId == themeId &&
-                                                                             advertisement.OrderPosition.IsActive &&
-                                                                             !advertisement.OrderPosition.IsDeleted &&
-                                                                             advertisement.OrderPosition.Order.IsActive &&
-                                                                             !advertisement.OrderPosition.Order.IsDeleted)
+            return _finder.Find(new FindSpecification<OrderPositionAdvertisement>(
+                                    advertisement => advertisement.ThemeId == themeId &&
+                                                     advertisement.OrderPosition.IsActive &&
+                                                     !advertisement.OrderPosition.IsDeleted &&
+                                                     advertisement.OrderPosition.Order.IsActive &&
+                                                     !advertisement.OrderPosition.Order.IsDeleted))
                           .Any();
         }
 
         public Order FindFirstOrderWithSameDestOrgUnitAndTheme(long themeId, long organizationUnitId)
         {
-            return _finder.Find<OrderPositionAdvertisement>(advertisement => advertisement.ThemeId == themeId &&
-                                                                                advertisement.OrderPosition.IsActive &&
-                                                                                !advertisement.OrderPosition.IsDeleted &&
-                                                                                advertisement.OrderPosition.Order.IsActive &&
-                                                                                !advertisement.OrderPosition.Order.IsDeleted &&
-                                                                                advertisement.OrderPosition.Order.DestOrganizationUnitId == organizationUnitId)
-                             .Select(a => a.OrderPosition.Order).FirstOrDefault();
+            return _finder.Find(new FindSpecification<OrderPositionAdvertisement>(
+                                    advertisement => advertisement.ThemeId == themeId &&
+                                                     advertisement.OrderPosition.IsActive &&
+                                                     !advertisement.OrderPosition.IsDeleted &&
+                                                     advertisement.OrderPosition.Order.IsActive &&
+                                                     !advertisement.OrderPosition.Order.IsDeleted &&
+                                                     advertisement.OrderPosition.Order.DestOrganizationUnitId == organizationUnitId))
+                          .Select(a => a.OrderPosition.Order)
+                          .FirstOrDefault();
         }
 
         public string GetOrganizationUnitName(long organizationUnitId)

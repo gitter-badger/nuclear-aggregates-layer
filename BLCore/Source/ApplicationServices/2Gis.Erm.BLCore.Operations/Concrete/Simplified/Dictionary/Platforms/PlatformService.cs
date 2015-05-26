@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Platforms
 {
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Platfor
 
         public void CreateOrUpdate(Platform.Model.Entities.Erm.Platform platform)
         {
-            var isAlreadyExist = _finder.Find<Platform.Model.Entities.Erm.Platform>(x => x.Id != platform.Id && (x.Name == platform.Name || x.DgppId == platform.DgppId)).Any();
+            var isAlreadyExist = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => x.Id != platform.Id && (x.Name == platform.Name || x.DgppId == platform.DgppId))).Any();
             if (isAlreadyExist)
             {
                 throw new NotificationException(BLResources.PlatfromAlreadyExist);
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Platfor
 
         public bool IsPlatformLinked(long platformId)
         {
-            return _finder.Find<Platform.Model.Entities.Erm.Platform>(p => p.Id == platformId && (p.Orders.Any() || p.Orders.Any())).Any();
+            return _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Platform>(p => p.Id == platformId && (p.Orders.Any() || p.Orders.Any()))).Any();
         }
 
         public int Delete(int entityId)

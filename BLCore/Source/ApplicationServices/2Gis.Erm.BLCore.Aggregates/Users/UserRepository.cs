@@ -547,9 +547,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public void CreateOrUpdate(UserOrganizationUnit userOrganizationUnit)
         {
-            var organizationUnitExist = _finder.Find<UserOrganizationUnit>(x => x.UserId == userOrganizationUnit.UserId &&
-                                                                                         x.OrganizationUnitId == userOrganizationUnit.OrganizationUnitId)
-                .Any();
+            var organizationUnitExist = _finder.Find(new FindSpecification<UserOrganizationUnit>(
+                                                         x => x.UserId == userOrganizationUnit.UserId &&
+                                                              x.OrganizationUnitId == userOrganizationUnit.OrganizationUnitId))
+                                               .Any();
             if (organizationUnitExist)
             {
                 throw new ArgumentException(BLResources.EditUserOrganizationUnitHandler_WarningOrganizationUnitAlreadyExists);
@@ -562,9 +563,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public void CreateOrUpdate(UserTerritory userTerritory)
         {
-            var territoryExist = _finder.Find<UserTerritory>(x => x.UserId == userTerritory.UserId &&
-                                                                           x.TerritoryId == userTerritory.TerritoryId && !x.IsDeleted)
-                .Any();
+            var territoryExist = _finder.Find(new FindSpecification<UserTerritory>(x => x.UserId == userTerritory.UserId &&
+                                                                                        x.TerritoryId == userTerritory.TerritoryId && !x.IsDeleted))
+                                        .Any();
             if (territoryExist)
             {
                 throw new ArgumentException(BLResources.EditUserTerritoryHandler_WarningUserTerritoryAlreadyExists);
@@ -885,10 +886,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public IEnumerable<User> GetUsersByOrganizationUnit(long organizationUnitId)
         {
-            return
-                _finder.Find<User>(
-                    x => x.IsActive && x.UserOrganizationUnits.Any(y => y.OrganizationUnitId == organizationUnitId))
-                    .ToArray();
+            return _finder.Find(new FindSpecification<User>(
+                                    x => x.IsActive && x.UserOrganizationUnits.Any(y => y.OrganizationUnitId == organizationUnitId)))
+                          .ToArray();
         }
 
         public IEnumerable<long> GetUserTerritoryIds(long userId)

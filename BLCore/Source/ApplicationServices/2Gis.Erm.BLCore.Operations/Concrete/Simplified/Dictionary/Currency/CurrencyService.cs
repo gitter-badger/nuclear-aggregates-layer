@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currency
 {
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
         {
             if (currency.IsBase)
             {
-                var isDuplicatedCurrency = _finder.Find<Platform.Model.Entities.Erm.Currency>(x => !x.IsDeleted && x.IsActive && x.IsBase && x.Id != currency.Id).Any();
+                var isDuplicatedCurrency = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Currency>(x => !x.IsDeleted && x.IsActive && x.IsBase && x.Id != currency.Id)).Any();
                 if (isDuplicatedCurrency)
                 {
                     throw new NotificationException(BLResources.CurrencyController_BaseCurrencyIsExists);
@@ -99,10 +100,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
 
         public void SetCurrencyRate(CurrencyRate currencyRate)
         {
-            var isCurrencyRateExistForDate = _finder.Find<Platform.Model.Entities.Erm.Currency>(x => x.Id == currencyRate.CurrencyId).SelectMany(x => x.CurrencyRates).Where(x => !x.IsDeleted).Any(x => x.CreatedOn == currencyRate.CreatedOn);
+            var isCurrencyRateExistForDate = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Currency>(x => x.Id == currencyRate.CurrencyId))
+                .SelectMany(x => x.CurrencyRates)
+                .Where(x => !x.IsDeleted)
+                .Any(x => x.CreatedOn == currencyRate.CreatedOn);
             if (isCurrencyRateExistForDate)
             {
-                var currency = _finder.Find<Platform.Model.Entities.Erm.Currency>(x => x.Id == currencyRate.CurrencyId).Single();
+                var currency = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Currency>(x => x.Id == currencyRate.CurrencyId)).Single();
                 throw new NotificationException(string.Format(CultureInfo.InvariantCulture, BLResources.CurrencyRateForDateAlreadyExist, currency.Name, currencyRate.CreatedOn.ToShortDateString()));
             }
 

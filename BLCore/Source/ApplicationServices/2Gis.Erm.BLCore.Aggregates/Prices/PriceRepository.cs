@@ -56,10 +56,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             if (deniedPosition.PositionId != deniedPosition.PositionDeniedId)
             {
                 var symmetricDeniedPosition = _finder
-                    .Find<DeniedPosition>(x => !x.IsActive && !x.IsDeleted &&
-                               x.PriceId == deniedPosition.PriceId &&
-                               x.PositionId == deniedPosition.PositionDeniedId &&
-                               x.PositionDeniedId == deniedPosition.PositionId)
+                    .Find(new FindSpecification<DeniedPosition>(x => !x.IsActive && !x.IsDeleted &&
+                                                                     x.PriceId == deniedPosition.PriceId &&
+                                                                     x.PositionId == deniedPosition.PositionDeniedId &&
+                                                                     x.PositionDeniedId == deniedPosition.PositionId))
                     .Single();
 
                 symmetricDeniedPosition.IsActive = true;
@@ -186,10 +186,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             if (deniedPosition.PositionId != deniedPosition.PositionDeniedId)
             {
                 var symmetricDeniedPosition = _finder
-                    .Find<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
-                               x.PriceId == deniedPosition.PriceId &&
-                               x.PositionId == deniedPosition.PositionDeniedId &&
-                               x.PositionDeniedId == deniedPosition.PositionId)
+                    .Find(new FindSpecification<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
+                                                                     x.PriceId == deniedPosition.PriceId &&
+                                                                     x.PositionId == deniedPosition.PositionDeniedId &&
+                                                                     x.PositionDeniedId == deniedPosition.PositionId))
                     .Single();
                 symmetricDeniedPosition.IsActive = false;
                 _deniedPositionGenericRepository.Update(symmetricDeniedPosition);
@@ -291,20 +291,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         public void CreateOrUpdate(AssociatedPosition associatedPosition)
         {
-            var isPositionsMatch = _finder.Find<AssociatedPositionsGroup>(x => x.IsActive && !x.IsDeleted
-                                                                               && x.Id == associatedPosition.AssociatedPositionsGroupId
-                                                                               && x.PricePosition.IsActive && !x.PricePosition.IsDeleted
-                                                                               && x.PricePosition.PositionId == associatedPosition.PositionId).Any();
+            var isPositionsMatch = _finder.Find(new FindSpecification<AssociatedPositionsGroup>(x => x.IsActive && !x.IsDeleted
+                                                                                                     && x.Id == associatedPosition.AssociatedPositionsGroupId
+                                                                                                     && x.PricePosition.IsActive && !x.PricePosition.IsDeleted
+                                                                                                     && x.PricePosition.PositionId == associatedPosition.PositionId))
+                                          .Any();
 
             if (isPositionsMatch)
             {
                 throw new NotificationException(BLResources.AssociatedPositionMustDifferFromPricePosition);
             }
 
-            var isPositionExist = _finder.Find<AssociatedPosition>(x => x.IsActive && !x.IsDeleted &&
-                            x.AssociatedPositionsGroupId == associatedPosition.AssociatedPositionsGroupId &&
-                            x.Id != associatedPosition.Id &&
-                            x.PositionId == associatedPosition.PositionId).Any();
+            var isPositionExist = _finder.Find(new FindSpecification<AssociatedPosition>(x => x.IsActive && !x.IsDeleted &&
+                                                                                              x.AssociatedPositionsGroupId == associatedPosition.AssociatedPositionsGroupId &&
+                                                                                              x.Id != associatedPosition.Id &&
+                                                                                              x.PositionId == associatedPosition.PositionId))
+                                         .Any();
 
             if (isPositionExist)
             {
@@ -326,11 +328,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         public void CreateOrUpdate(DeniedPosition deniedPosition)
         {
-            var isDeniedPositionAlreadyExist = _finder.Find<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
+            var isDeniedPositionAlreadyExist = _finder.Find(new FindSpecification<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
                                     x.Id != deniedPosition.Id &&
                                     x.PriceId == deniedPosition.PriceId &&
                                     x.PositionId == deniedPosition.PositionId &&
-                                    x.PositionDeniedId == deniedPosition.PositionDeniedId).Any();
+                                    x.PositionDeniedId == deniedPosition.PositionDeniedId)).Any();
             if (isDeniedPositionAlreadyExist)
             {
                 throw new NotificationException(BLResources.DeniedPositionAlreadyExist);
@@ -350,10 +352,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             if (!isSelfDeniedPosition)
             {
                 // symmetric denied position
-                var symmetricDeniedPosition = _finder.Find<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
+                var symmetricDeniedPosition = _finder.Find(new FindSpecification<DeniedPosition>(x => x.IsActive && !x.IsDeleted &&
                                                                     x.PriceId == deniedPosition.PriceId &&
                                                                     x.PositionId == deniedPosition.PositionDeniedId &&
-                                                                    x.PositionDeniedId == deniedPosition.PositionId)
+                                                                    x.PositionDeniedId == deniedPosition.PositionId))
                                                                     .SingleOrDefault();
                 if (symmetricDeniedPosition == null)
                 {

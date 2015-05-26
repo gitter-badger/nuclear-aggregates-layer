@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.File
 {
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File
 
         private IEnumerable<long> GetOrphanFilesIds()
         {
-            return _finder.Find<DoubleGis.Erm.Platform.Model.Entities.Erm.File>(x => !x.AdvertisementElements.Any() &&
+            return _finder.Find(new FindSpecification<DoubleGis.Erm.Platform.Model.Entities.Erm.File>(x => !x.AdvertisementElements.Any() &&
                                                     !x.BargainFiles.Any() &&
                                                     !x.OrderFiles.Any() &&
                                                     !x.Notes.Any() &&
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File
                                                     !x.Operations.Any() &&
                                                     !x.PrintFormTemplates.Any() &&
                                                     !x.ThemeTemplates.Any() &&
-                                                    !x.Themes.Any())
+                                                    !x.Themes.Any()))
                                                     .Select(x => x.Id).ToArray();
         }
     }

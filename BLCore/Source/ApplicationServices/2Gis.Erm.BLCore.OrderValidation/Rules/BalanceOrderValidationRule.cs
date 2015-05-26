@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 using NuClear.Storage.UseCases;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
@@ -27,13 +28,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
     public sealed class BalanceOrderValidationRule : OrderValidationRuleBase<MassOverridibleValidationRuleContext>
     {
         private readonly IBusinessModelSettings _businessModelSettings;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly IUseCaseTuner _useCaseTuner;
 
-        public BalanceOrderValidationRule(IBusinessModelSettings businessModelSettings, IFinder finder, IUseCaseTuner useCaseTuner)
+        public BalanceOrderValidationRule(IBusinessModelSettings businessModelSettings, IQuery query, IUseCaseTuner useCaseTuner)
         {
             _businessModelSettings = businessModelSettings;
-            _finder = finder;
+            _query = query;
             _useCaseTuner = useCaseTuner;
         }
 
@@ -45,8 +46,8 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
             _useCaseTuner.AlterDuration<BalanceOrderValidationRule>();
             var ordersPredicate = new OrderValidationPredicate(ruleContext.CombinedPredicate.GeneralPart, null, null).GetCombinedPredicate();
-            var ordersForRelease = _finder.Find(ordersPredicate);
-            var accountsWithInsufficientBalance = _finder.Find(overridedPredicate)
+            var ordersForRelease = _query.For(new FindSpecification<Order>(ordersPredicate));
+            var accountsWithInsufficientBalance = _query.For(new FindSpecification<Order>(overridedPredicate))
                 .GroupBy(order => order.Account) // все лицевые счета для заказов участвующих в сборке
                 .Select(x => new
                     {
@@ -123,7 +124,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         private Expression<Func<Order, bool>> GetOrdersOverridedPredicate(MassOrdersValidationParams validationParams, OrderValidationPredicate predicate)
         {
             var finalReleaseInfos =
-                _finder.Find(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatuses(new TimePeriod(validationParams.Period.Start, validationParams.Period.End), ReleaseStatus.Success));
+                _query.For(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatuses(new TimePeriod(validationParams.Period.Start, validationParams.Period.End), ReleaseStatus.Success));
 
             var overridenPredicate = new OrderValidationPredicate(
                 predicate.GeneralPart,

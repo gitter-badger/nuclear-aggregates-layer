@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
         public IReadOnlyDictionary<PlatformEnum, long> GetPlatformsDictionary(IEnumerable<long> platformDgppIds)
         {
-            return _finder.Find<Platform.Model.Entities.Erm.Platform>(x => platformDgppIds.Contains(x.DgppId))
+            return _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => platformDgppIds.Contains(x.DgppId)))
                                 .ToDictionary(x => (PlatformEnum)x.DgppId, x => x.Id);
         }
     }

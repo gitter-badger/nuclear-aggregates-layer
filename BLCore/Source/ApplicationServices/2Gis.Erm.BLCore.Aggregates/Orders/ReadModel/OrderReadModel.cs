@@ -168,7 +168,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             var userDescendantsQuery = _query.For<UsersDescendant>();
 
-            var orderInfos = _finder.Find<Order>(
+            var orderInfos = _finder.Find(new FindSpecification<Order>(
                                                  x =>
                                                  x.IsActive && !x.IsDeleted && (x.OwnerCode == ownerCode || (includeOwnerDescendants &&
                                                                                                              userDescendantsQuery.Any(
@@ -180,7 +180,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                  x.OrderPositions.Any(
                                                                       y =>
                                                                       y.IsActive && !y.IsDeleted &&
-                                                                      y.OrderPositionAdvertisements.Any(z => dummyAdvertisements.Contains(z.AdvertisementId))))
+                                                                      y.OrderPositionAdvertisements.Any(z => dummyAdvertisements.Contains(z.AdvertisementId)))))
                                     .Select(x => new
                                         {
                                             x.Id,
@@ -271,7 +271,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .ToArray(); 
             
             var platformId = platformIds.Count() > 1
-                                 ? _finder.Find<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (long)PlatformEnum.Independent).Single().Id
+                                 ? _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (long)PlatformEnum.Independent)).Single().Id
                                  : platformIds.FirstOrDefault();
 
            return platformId == 0 ? null : platformId as long?;
@@ -794,16 +794,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var startDateForNotActualClientPeriod = startDate.Date.AddDays(-1);
             var endDateForNotActualClientPeriod = startDate.Date.AddMilliseconds(-1);
 
-            var apiPlatformId = _finder.Find<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (int)PlatformEnum.Api).Select(x => x.Id).Single();
+            var apiPlatformId = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (int)PlatformEnum.Api)).Select(x => x.Id).Single();
 
             // Получаем текущих рекламодателей
-            var actualRecepientsInfo = _finder.Find<Order>(x => x.IsActive && !x.IsDeleted &&
+            var actualRecepientsInfo = _finder.Find(new FindSpecification<Order>(
+                                                                x => x.IsActive && !x.IsDeleted &&
                                                                 x.OrderType != OrderType.SelfAds && x.OrderType != OrderType.SocialAds &&
                                                                 (includeRegional || x.SourceOrganizationUnitId == x.DestOrganizationUnitId) &&
                                                                 (x.WorkflowStepId == OrderState.Approved ||
                                                                  x.WorkflowStepId == OrderState.Archive ||
                                                                  x.WorkflowStepId == OrderState.OnTermination) &&
-                                                                x.BeginDistributionDate <= endDate && x.EndDistributionDateFact >= startDate)
+                                                                x.BeginDistributionDate <= endDate && x.EndDistributionDateFact >= startDate))
                                               .Select(x => new
                                                   {
                                                       BranchName = x.Firm.OrganizationUnit.Name,
@@ -836,13 +837,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                               .ToArray();
 
             // Получаем бывших рекламодателей
-            var notActualRecepientsInfo = _finder.Find<Order>(x => x.IsActive && !x.IsDeleted &&
+            var notActualRecepientsInfo = _finder.Find(new FindSpecification<Order>(x => x.IsActive && !x.IsDeleted &&
                                                                    x.OrderType != OrderType.SelfAds && x.OrderType != OrderType.SocialAds &&
                                                                    (includeRegional || x.SourceOrganizationUnitId == x.DestOrganizationUnitId) &&
                                                                    (x.WorkflowStepId == OrderState.Archive ||
                                                                     x.WorkflowStepId == OrderState.OnTermination) &&
                                                                    x.EndDistributionDateFact >= startDateForNotActualClientPeriod &&
-                                                                   x.EndDistributionDateFact <= endDateForNotActualClientPeriod)
+                                                                   x.EndDistributionDateFact <= endDateForNotActualClientPeriod))
                                                  .Select(x => new
                                                      {
                                                          BranchName = x.Firm.OrganizationUnit.Name,

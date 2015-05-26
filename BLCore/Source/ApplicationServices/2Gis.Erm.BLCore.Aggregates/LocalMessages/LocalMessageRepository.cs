@@ -88,10 +88,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
         {
             var period = DateTime.UtcNow.AddMinutes(-periodInMinutes);
 
-            var localMessages = _finder.Find<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.Processing &&
-                                                                (x.ModifiedOn.HasValue ? x.ModifiedOn <= period : x.CreatedOn <= period))
-                .OrderBy(x => x.CreatedOn)
-                .ToArray();
+            var localMessages = _finder.Find(new FindSpecification<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.Processing &&
+                                                                                      (x.ModifiedOn.HasValue ? x.ModifiedOn <= period : x.CreatedOn <= period)))
+                                       .OrderBy(x => x.CreatedOn)
+                                       .ToArray();
             return localMessages;
         }
 

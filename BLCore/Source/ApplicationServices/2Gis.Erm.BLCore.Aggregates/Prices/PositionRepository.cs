@@ -328,11 +328,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 throw new NotificationException(BLResources.CantAddCompositePosition);
             }
 
-            var isSalesMethodNotMatched = _finder.Find<PositionChildren>(x => !x.IsDeleted &&
-                                                                                   x.MasterPositionId == positionChildren.MasterPositionId &&
-                                                                                   x.ChildPosition.SalesModel !=
-                                                                                   childPositionInfo.SalesModel)
-                                                      .Any();
+            var isSalesMethodNotMatched = _finder.Find(new FindSpecification<PositionChildren>(x => !x.IsDeleted &&
+                                                                                                    x.MasterPositionId == positionChildren.MasterPositionId &&
+                                                                                                    x.ChildPosition.SalesModel !=
+                                                                                                    childPositionInfo.SalesModel))
+                                                 .Any();
             if (isSalesMethodNotMatched)
             {
                 throw new NotificationException(BLResources.CantAddChildPositionWithDifferentSalesModel);

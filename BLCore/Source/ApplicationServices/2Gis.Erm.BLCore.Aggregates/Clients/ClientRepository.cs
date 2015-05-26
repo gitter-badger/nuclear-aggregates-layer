@@ -310,8 +310,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                     case ReserveAccess.Territory:
                     {
-                        var withinTerritories = _finder.Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
-                                                                                                    x.TerritoryId == client.TerritoryId)
+                        var withinTerritories = _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
+                                                                                                                          x.TerritoryId == client.TerritoryId))
                                                        .Any();
                         if (!withinTerritories)
                         {
@@ -326,8 +326,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                                             .Select(x => x.Territory.OrganizationUnitId)
                                                             .Single();
                         var withinFirmOrgUnitsOrTerritories = _finder
-                            .Find<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
-                                                                         (x.OrganizationUnitId == clientOrganizationUnit || x.TerritoryId == client.TerritoryId))
+                            .Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == currentUserCode &&
+                                                                                               (x.OrganizationUnitId == clientOrganizationUnit ||
+                                                                                                x.TerritoryId == client.TerritoryId)))
                             .Any();
                         if (!withinFirmOrgUnitsOrTerritories)
                         {

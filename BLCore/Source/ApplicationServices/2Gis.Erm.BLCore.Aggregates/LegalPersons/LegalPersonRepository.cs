@@ -299,21 +299,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
 
         public IEnumerable<LegalPerson> FindLegalPersons(string syncCodeWith1C, long branchOfficeOrganizationUnitId)
         {
-            var ids = _finder.Find<Account>(x => x.IsActive && !x.IsDeleted
-                                              && x.LegalPesonSyncCode1C == syncCodeWith1C
-                                              && x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId)
-                          .Select(x => x.LegalPersonId)
-                          .ToArray();
+            var ids = _finder.Find(new FindSpecification<Account>(x => x.IsActive && !x.IsDeleted
+                                                                       && x.LegalPesonSyncCode1C == syncCodeWith1C
+                                                                       && x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId))
+                             .Select(x => x.LegalPersonId)
+                             .ToArray();
 
             return _finder.FindMany(Specs.Find.ByIds<LegalPerson>(ids));
         }
 
         public IEnumerable<LegalPersonFor1CExportDto> GetLegalPersonsForExportTo1C(long organizationUnitId, DateTime startPeriod)
         {
-            var data = _finder.Find<LegalPersonProfile>(x => x.IsActive && !x.IsDeleted &&
-                                                             x.IsMainProfile &&
-                                                             x.LegalPerson.IsActive && !x.LegalPerson.IsDeleted &&
-                                                             (x.LegalPerson.ModifiedOn >= startPeriod || x.ModifiedOn >= startPeriod))
+            var data = _finder.Find(new FindSpecification<LegalPersonProfile>(x => x.IsActive && !x.IsDeleted &&
+                                                                                   x.IsMainProfile &&
+                                                                                   x.LegalPerson.IsActive && !x.LegalPerson.IsDeleted &&
+                                                                                   (x.LegalPerson.ModifiedOn >= startPeriod || x.ModifiedOn >= startPeriod)))
                               .SelectMany(x => x.LegalPerson.Accounts
                                                 .Where(y => y.IsActive && !y.IsDeleted && y.BranchOfficeOrganizationUnit.OrganizationUnitId == organizationUnitId)
                                                 .Select(z => new

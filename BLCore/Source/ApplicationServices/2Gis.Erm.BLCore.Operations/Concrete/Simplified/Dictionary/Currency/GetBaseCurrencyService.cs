@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.Caching;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currency
 {
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
 
             if (baseCurrency == null)
             {
-                var baseCurrencies = _finder.Find<Platform.Model.Entities.Erm.Currency>(x => x.IsBase && !x.IsDeleted && x.IsActive).Take(2).ToArray();
+                var baseCurrencies = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Currency>(x => x.IsBase && !x.IsDeleted && x.IsActive)).Take(2).ToArray();
 
                 if (baseCurrencies.Length == 0)
                 {

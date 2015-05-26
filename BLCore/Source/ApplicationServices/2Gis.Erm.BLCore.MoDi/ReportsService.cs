@@ -61,12 +61,12 @@ namespace DoubleGis.Erm.BLCore.MoDi
                 equalsStartDateStates = equalsStartDateStates.Concat(new[] { OrderState.OnRegistration });
             }
 
-            var orderInfos = _finder.Find<Order>(x =>
-                            (x.SourceOrganizationUnitId == request.OrganizationUnitId
+            var orderInfos = _finder.Find(new FindSpecification<Order>(
+                        x => (x.SourceOrganizationUnitId == request.OrganizationUnitId
                                 || x.DestOrganizationUnitId == request.OrganizationUnitId
                                 || request.GetDataForAllNetwork) &&
                             x.EndDistributionDateFact > request.StartDate &&
-                            x.IsActive && !x.IsDeleted)
+                            x.IsActive && !x.IsDeleted))
                 //.Where(x => x.Id == 260807) // uncomment for test
             .Select(x => new
             {
@@ -232,13 +232,13 @@ namespace DoubleGis.Erm.BLCore.MoDi
 
             var firstApril = _moneyDistributionSettings.FirstApril;
 
-            var orderInfos = _finder.Find<Order>(
+            var orderInfos = _finder.Find(new FindSpecification<Order>(
                 x =>
                     (x.SourceOrganizationUnitId == request.OrganizationUnitId
                     || x.DestOrganizationUnitId == request.OrganizationUnitId
                     || request.GetDataForAllNetwork) &&
                         x.EndDistributionDateFact > request.StartDate &&
-                        x.IsActive && !x.IsDeleted)
+                        x.IsActive && !x.IsDeleted))
             .Select(x => new
             {
                 Order = x,

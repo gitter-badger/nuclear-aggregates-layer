@@ -21,12 +21,13 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceEntityAccessInternal _entityAccessService;
 
-        public ConsistentSecureFinder(IReadDomainContextProvider readDomainContextProvider,
-                                      IDynamicEntityMetadataProvider dynamicEntityMetadataProvider,
-                                      IDynamicStorageFinder dynamicStorageFinder,
-                                      ICompositeEntityQuery compositeEntityQuery,
-                                      IUserContext userContext,
-                                      ISecurityServiceEntityAccessInternal entityAccessService)
+        public ConsistentSecureFinder(
+            IReadDomainContextProvider readDomainContextProvider,
+            IDynamicEntityMetadataProvider dynamicEntityMetadataProvider,
+            IDynamicStorageFinder dynamicStorageFinder,
+            ICompositeEntityQuery compositeEntityQuery,
+            IUserContext userContext,
+            ISecurityServiceEntityAccessInternal entityAccessService)
         {
             _readDomainContextProvider = readDomainContextProvider;
             _dynamicEntityMetadataProvider = dynamicEntityMetadataProvider;
