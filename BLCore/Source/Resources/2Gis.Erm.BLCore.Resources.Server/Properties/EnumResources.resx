@@ -1110,6 +1110,9 @@
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
     <value>Обработка горячих клиентов 5-й категории (филиал)</value>
   </data>
+   <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
+    <value>Телефония</value>
+  </data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>Отсутствует</value>
   </data>

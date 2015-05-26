@@ -127,6 +127,7 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Config\ServiceClientConfig.cs" />
+    <Content Include="Dial.svc" />
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="SpecialOperationsSharedTypesBehaviorFactory.cs" />
     <Compile Include="DI\WcfOperationsSpecialRoot.cs" />

@@ -5250,4 +5250,25 @@ Doba zveřejnění: {3}.</value>
   <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
     <value>Sada rubrik pro pozici {0} musí být stejná</value>
   </data>
+  <data name ="WorkPhoneIsNotSelected" xml:space="preserve">
+    <value>Ve vašem profilu není zadáno vnitřní telefonní číslo, na něhož musejí být přesměrována volání.</value>
+  </data>
+  <data name ="IncorrectPhoneNumber" xml:space="preserve">
+    <value>Telefonní číslo {0} má nesprávný formát.</value>
+  </data>
+  <data name ="DialingIsNotAllowed" xml:space="preserve">
+    <value>Nemáte právo na volání.</value>
+  </data>
+  <data name ="TelephonyUnitIsNotSelected" xml:space="preserve">
+    <value>V profilu není zadána adresa služby telefonie.</value>
+  </data>
+  <data name ="TelephonyServiceInactive" xml:space="preserve">
+    <value>V současné době služba telefonie není dostupná.</value>
+  </data>
+  <data name ="TelephonyUnitInIncorrectFormat" xml:space="preserve">
+    <value>Adresa služby telefonie je zadána v nesprávném formátu.</value>
+  </data>
+  <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
+    <value>Tento typ {0} telefonie není podporován.</value>
+  </data>
 </root>
