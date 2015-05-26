@@ -981,4 +981,7 @@
   <data name="AdvertisementElementTextContainsControlList" xml:space="preserve">
     <value/>
   </data>
+  <data name="AdvertisementElementTextContainsControlSpaces" xml:space="preserve">
+    <value />
+  </data>
 </root>

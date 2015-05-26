@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 29.04.2015 11:12:07
+// File updated : 30.04.2015 13:18:38
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -32,6 +32,7 @@ AdsCheckTooLongWord : 'В слове "{0}" превышено максималь
 AdvertisementElements : 'Элементы рекламного материала',
 AdvertisementElementTextContainsControlCharacters : 'Текст содержит управляющие символы, удалить их перед сохранением?',
 AdvertisementElementTextContainsControlList : 'Текст содержит вложенные списки,текст не может быть сохранен.',
+AdvertisementElementTextContainsControlSpaces : 'Текст содержит повторяющиеся пробелы, удалить их перед сохранением?',
 AdvertisementElementTextContainsHtmlTags : 'Текст содержит потенциально опасные элементы (тэги HTML), текст не может быть сохранён.',
 AdvertisementElementWasNotSaved : 'Элемент РМ не был сохранён.',
 Advertisements : 'Рекламные материалы',

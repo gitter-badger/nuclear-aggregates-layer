@@ -1,4 +1,4 @@
-// File updated : 02.12.2014 16:13:25
+// File updated : 30.04.2015 13:18:38
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -321,6 +321,9 @@ YouHaveToSaveOrderToPrint : 'Pro účely vytvoření výtisků je nezbytné ulo�
 }
 =======
 ﻿// File updated : 02.12.2014 16:13:25
+=======
+﻿// File updated : 30.04.2015 13:18:38
+>>>>>>> origin/release/ERM-6441-ExtraSpaces
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -352,6 +355,7 @@ AdsCheckTooLongWord : 'Ve slove "{0}" byl prekrocen maximalni pocet symbolu: {1}
 AdvertisementElements : 'Prvky reklamního materiálu',
 AdvertisementElementTextContainsControlCharacters : 'Text obsahuje řídicí znaky, přejete si je před uložením odstranit?',
 AdvertisementElementTextContainsControlList : 'Текст содержит вложенные списки,текст не может быть сохранен.',
+AdvertisementElementTextContainsControlSpaces : 'Текст содержит повторяющиеся пробелы, удалить их перед сохранением?',
 AdvertisementElementTextContainsHtmlTags : 'Text obsahuje potenciálně nebezpečné prvky (HTML tagy), text nelze uložit.',
 AdvertisementElementWasNotSaved : 'Element reklamního materiálu nebyl uložen.',
 Advertisements : 'Reklamní materiály',

@@ -321,6 +321,9 @@ YouHaveToSaveOrderToPrint : 'Save order to create a PF'
 }
 =======
 ﻿// File updated : 02.12.2014 16:13:26
+=======
+﻿// File updated : 30.04.2015 13:18:38
+>>>>>>> origin/release/ERM-6441-ExtraSpaces
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -352,6 +355,7 @@ AdsCheckTooLongWord : 'Maximum permitted number of symbols in the word {0} is ex
 AdvertisementElements : 'Components of advertising material',
 AdvertisementElementTextContainsControlCharacters : 'The text contains control symbols. Delete them before saving?',
 AdvertisementElementTextContainsControlList : 'Текст содержит вложенные списки,текст не может быть сохранен.',
+AdvertisementElementTextContainsControlSpaces : 'Текст содержит повторяющиеся пробелы, удалить их перед сохранением?',
 AdvertisementElementTextContainsHtmlTags : 'The text contains potentially dangerous elements (HTML tags) and cannot be saved.',
 AdvertisementElementWasNotSaved : 'AM element was not saved.',
 Advertisements : 'Advertising materials',

@@ -39,9 +39,19 @@
         return text.replace(controlChars, '');
     };
 
+    function ensureHasSingleSpaces(text) {
+        return text
+            .replace(/&nbsp;/g, '\x20')
+            .replace(/(\x20){2,}/g, '\x20');
+    };
+
     function textContainsControlChars(text) {
         return text.match(controlChars);
     };
+
+    function textContainsSpace(text) {
+        return text.match(/(&nbsp;)|(\x20){2,}/g);
+    }
 
     function characterCountValidationMessage(plainText, maxLength) {
         var diff = maxLength - plainText.replace(plainTextNewLineRegexp, '').length;
@@ -730,6 +740,17 @@
                 .replace(new RegExp('<p>', 'gim'), '')
                 .replace(new RegExp('&nbsp;</p>', 'gim'), '<br />')
                 .replace(new RegExp('</p>', 'gim'), '<br />');
+
+            if (textContainsSpace(plainText) || textContainsSpace(formattedText)) {
+                var userAgreedToRemoveSpaces = confirm(Ext.LocalizedResources.AdvertisementElementTextContainsControlSpaces);
+                if (userAgreedToRemoveSpaces) {
+                    formattedText = ensureHasSingleSpaces(formattedText);
+                    plainText = ensureHasSingleSpaces(plainText);
+                } else {
+                    alert(Ext.LocalizedResources.AdvertisementElementWasNotSaved);
+                    return false;
+                }
+            }
 
             // Если в тексте РМ есть управляющие символы, пользователю предлагается их удалить автоматически.
             // Как правило, это неотображаемые символы и они могут быть безболезненно удалены, 
