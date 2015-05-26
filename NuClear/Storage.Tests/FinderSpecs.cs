@@ -90,6 +90,7 @@ namespace Storage.Tests
                 ReadDomainContext.Verify(r => r.GetQueryableSource<IEntity>(), Times.Once(), "Ожидался запрос к GetQueryableSource по типу generic параметра.");
         }
 
+        /*
         /// <summary>
         ///     Запрос объектов по спецификации поиска, должен вренуть только один объект удовлетворяющий спецификации.
         /// </summary>
@@ -101,6 +102,7 @@ namespace Storage.Tests
 
             It should_return_finded_as_result = () => ResultShouldOnlyContain(Finded);
         }
+         
 
         /// <summary>
         ///     Запрос объектов по спецификации поиска и выбора, должен вренуть один выбранный элемент.
@@ -118,7 +120,7 @@ namespace Storage.Tests
                     _selectSpecification = new SelectSpecification<IEntity, IEntity>(e => e.Equals(Finded) ? _selected : (IEntity)null);
                 };
 
-            Because of = () => Result = Target.Find<IEntity, IEntity>(_selectSpecification, FindSpecification);
+            Because of = () => Result = Target.Find<IEntity, IEntity>(FindSpecification, _selectSpecification);
 
             It should_return_selected_as_result = () => ResultShouldOnlyContain(_selected);
         }
@@ -134,5 +136,6 @@ namespace Storage.Tests
 
             It should_return_finded_as_result = () => ResultShouldOnlyContain(Finded);
         }
+         */
     }
 }

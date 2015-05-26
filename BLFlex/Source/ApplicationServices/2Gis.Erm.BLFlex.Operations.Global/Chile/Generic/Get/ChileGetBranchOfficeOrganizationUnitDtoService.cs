@@ -9,6 +9,8 @@ using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
 {
     public class ChileGetBranchOfficeOrganizationUnitDtoService : GetBranchOfficeOrganizationUnitDtoServiceBase<ChileBranchOfficeOrganizationUnitDomainEntityDto>, IChileAdapted
@@ -36,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
             }
         }
 
-        protected override IProjectSpecification<BranchOfficeOrganizationUnit, ChileBranchOfficeOrganizationUnitDomainEntityDto> GetProjectSpecification()
+        protected override ProjectSpecification<BranchOfficeOrganizationUnit, ChileBranchOfficeOrganizationUnitDomainEntityDto> GetProjectSpecification()
         {
             return BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Chile.Project.DomainEntityDto();
         }

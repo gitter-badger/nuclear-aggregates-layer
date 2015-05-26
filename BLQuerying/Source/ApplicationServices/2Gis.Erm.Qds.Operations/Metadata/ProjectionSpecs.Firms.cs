@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<FirmGridDoc>> Project()
+            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<FirmGridDoc>> Project()
             {
                 return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<FirmGridDoc>>(
                     x =>

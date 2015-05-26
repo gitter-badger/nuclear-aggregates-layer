@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
             _query = query;
         }
 
-        public IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class
+        public IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification)
         {
             // TODO {s.pomadin, 06.08.2014}: consider how to query via dynamic expression building
 
@@ -99,7 +99,6 @@ namespace DoubleGis.Erm.Platform.DAL.EntityFramework
         private IQueryable<TEntity> Find<TPersistentEntity, TEntity>(
             Expression<Func<TPersistentEntity, bool>> preExpression,
             FindSpecification<TEntity> postSpecification)
-            where TEntity : class
             where TPersistentEntity : class, IEntity
         {
             CheckRegistration<TPersistentEntity, TEntity>();

@@ -122,7 +122,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
 
             var selector = CategorySpecs.CategoryOrganizationUnits.Select.CategoryGroupMembershipDto();
 
-            return _finder.Find(selector, filter)
+            return _finder.Find(filter, selector)
                           .Where(dto => dto.CategoryLevel == 3)
                           .ToArray();
         }

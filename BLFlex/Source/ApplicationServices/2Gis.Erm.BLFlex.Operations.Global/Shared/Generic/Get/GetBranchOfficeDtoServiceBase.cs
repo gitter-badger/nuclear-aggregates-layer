@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
 {
@@ -57,7 +58,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
             return dto;
         }
 
-        protected abstract IProjectSpecification<BranchOffice, TDto> GetProjectSpecification();
+        protected abstract ProjectSpecification<BranchOffice, TDto> GetProjectSpecification();
 
         protected override IDomainEntityDto<BranchOffice> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {

@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<TerritoryGridDoc>> Project()
+            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<TerritoryGridDoc>> Project()
             {
                 return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<TerritoryGridDoc>>(
                     x =>

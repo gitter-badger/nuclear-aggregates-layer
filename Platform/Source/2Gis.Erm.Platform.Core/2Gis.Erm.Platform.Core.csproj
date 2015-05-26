@@ -114,8 +114,6 @@
     <Compile Include="ActionLogging\ActionsLogger.cs" />
     <Compile Include="EntityProjection\AssignSpecification.cs" />
     <Compile Include="EntityProjection\IAssignSpecification.cs" />
-    <Compile Include="EntityProjection\IProjectSpecification.cs" />
-    <Compile Include="EntityProjection\ProjectSpecification.cs" />
     <Compile Include="Identities\AppLockIdentityServiceUniqueIdProvider.cs" />
     <Compile Include="Identities\BufferedIdentityRequestStrategy.cs" />
     <Compile Include="Identities\IdentityProviderBase.cs" />

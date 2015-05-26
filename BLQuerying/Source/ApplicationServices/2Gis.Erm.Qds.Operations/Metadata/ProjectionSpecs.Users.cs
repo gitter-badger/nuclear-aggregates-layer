@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserGridDoc>> Project()
+            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserGridDoc>> Project()
             {
                 return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserGridDoc>>(
                     x =>
@@ -91,7 +91,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserAuthorizationDoc>> ProjectToUserAuthorizationDoc(
+            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserAuthorizationDoc>> ProjectToUserAuthorizationDoc(
                 IEnumerable<Department> departments,
                 IEnumerable<IEntityRelationFeature> relationFeatures)
             {

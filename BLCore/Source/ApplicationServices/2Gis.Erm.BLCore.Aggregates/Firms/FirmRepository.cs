@@ -359,9 +359,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
             var firmCountForFirmClient =
                 _finder
-                    .Find<Firm, int>(
-                                     FirmSpecs.Firms.Select.FirmCountForFirmClient(),
-                                     Specs.Find.ById<Firm>(entityId) && FirmSpecs.Firms.Find.HasClient())
+                    .Find<Firm, int>(Specs.Find.ById<Firm>(entityId) && FirmSpecs.Firms.Find.HasClient(), FirmSpecs.Firms.Select.FirmCountForFirmClient())
                     .SingleOrDefault();
             if (firmCountForFirmClient == 1)
             {

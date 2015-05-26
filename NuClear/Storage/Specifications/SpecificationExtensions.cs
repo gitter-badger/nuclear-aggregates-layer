@@ -11,18 +11,18 @@ namespace NuClear.Storage.Specifications
     public static class SpecificationExtensions
     {
         private const string IdPropertyName = "Id";
-        
-        public static IQueryable<T> Find<T>(this IQueryable<T> queryable, FindSpecification<T> findSpecification) where T : class
+
+        public static IQueryable<T> Find<T>(this IQueryable<T> queryable, FindSpecification<T> findSpecification)
         {
             return queryable.Where(findSpecification.Predicate);
         }
 
-        public static IQueryable<T> Where<T>(this IQueryable<T> source, FindSpecification<T> specification) where T : class
+        public static IQueryable<T> Where<T>(this IQueryable<T> source, FindSpecification<T> specification)
         {
             return source.Where(specification.Predicate);
         }
 
-        public static IQueryable<T2> Select<T1, T2>(this IQueryable<T1> source, SelectSpecification<T1, T2> specification) where T1 : class
+        public static IQueryable<T2> Select<T1, T2>(this IQueryable<T1> source, SelectSpecification<T1, T2> specification)
         {
             return source.Select(specification.Selector);
         }

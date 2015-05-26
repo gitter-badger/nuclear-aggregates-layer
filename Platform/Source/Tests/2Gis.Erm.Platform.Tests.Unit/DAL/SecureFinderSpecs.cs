@@ -136,7 +136,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SetUpRestrictQuery();
 
-            Because of = () => _result = Target.Find(_selectSpec, _findSpec);
+            Because of = () => _result = Target.Find(_findSpec, _selectSpec);
 
             Behaves_like<RestrictAccessBehavior> restrict_query;
         }
@@ -150,7 +150,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SkipEntityAccess(true);
 
-            Because of = () => _result = Target.Find(_selectSpec, _findSpec);
+            Because of = () => _result = Target.Find(_findSpec, _selectSpec);
 
             Behaves_like<SkipEntityAccessCheckBehavior> skip_entity_access;
         }

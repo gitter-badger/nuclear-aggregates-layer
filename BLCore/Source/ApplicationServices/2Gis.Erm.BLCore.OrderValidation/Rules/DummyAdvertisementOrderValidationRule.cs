@@ -32,8 +32,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
             var dummyAdvertisementsIds =
-                _finder.FindMany(new SelectSpecification<AdvertisementTemplate, long?>(x => x.DummyAdvertisementId),
-                                 new FindSpecification<AdvertisementTemplate>(x => !x.IsDeleted && x.DummyAdvertisementId != null));
+                _finder.FindMany(new FindSpecification<AdvertisementTemplate>(x => !x.IsDeleted && x.DummyAdvertisementId != null), new SelectSpecification<AdvertisementTemplate, long?>(x => x.DummyAdvertisementId));
 
             var badAdvertisemements =
                 _query.For<Order>()

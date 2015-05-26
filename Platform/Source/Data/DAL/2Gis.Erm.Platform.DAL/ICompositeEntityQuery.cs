@@ -6,6 +6,6 @@ namespace DoubleGis.Erm.Platform.DAL
 {
     public interface ICompositeEntityQuery
     {
-        IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class;
+        IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification);
     }
 }

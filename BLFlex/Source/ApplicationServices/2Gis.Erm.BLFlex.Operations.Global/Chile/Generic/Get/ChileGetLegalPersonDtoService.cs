@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
 {
     public class ChileGetLegalPersonDtoService : GetLegalPersonDtoServiceBase<ChileLegalPersonDomainEntityDto>, IChileAdapted
@@ -26,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
             _chileLegalPersonReadModel = chileLegalPersonReadModel;
         }
 
-        protected override IProjectSpecification<LegalPerson, ChileLegalPersonDomainEntityDto> GetProjectSpecification()
+        protected override ProjectSpecification<LegalPerson, ChileLegalPersonDomainEntityDto> GetProjectSpecification()
         {
             return LegalPersonFlexSpecs.LegalPersons.Chile.Project.DomainEntityDto();
         }

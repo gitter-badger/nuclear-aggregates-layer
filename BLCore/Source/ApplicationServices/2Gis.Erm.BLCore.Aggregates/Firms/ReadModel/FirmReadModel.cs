@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public IReadOnlyDictionary<long, FirmWithAddressesAndProjectDto> GetFirmInfosByIds(IEnumerable<long> ids)
         {
-            return _secureFinder.Find(FirmSpecs.Firms.Select.FirmWithAddressesAndProject(), Specs.Find.ByIds<Firm>(ids))
+            return _secureFinder.Find(Specs.Find.ByIds<Firm>(ids), FirmSpecs.Firms.Select.FirmWithAddressesAndProject())
                                 .ToDictionary(dto => dto.Id, dto => dto);
         }
 

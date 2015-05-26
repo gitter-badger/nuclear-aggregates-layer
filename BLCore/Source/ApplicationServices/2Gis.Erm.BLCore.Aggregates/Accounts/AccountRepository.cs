@@ -512,10 +512,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public Account FindAccount(long branchOfficeOrganizationUnitId, long legalPersonId)
         {
-            return _finder.Find<Account>(x => x.IsActive && !x.IsDeleted &&
-                                              x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId &&
-                                              x.LegalPersonId == legalPersonId)
-                .SingleOrDefault();
+            return _finder.FindOne(new FindSpecification<Account>(x => x.IsActive && !x.IsDeleted &&
+                                                                       x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId &&
+                                                                       x.LegalPersonId == legalPersonId));
         }
 
         public IEnumerable<Account> GetAccountsByLegalPerson(string legalPersonSyncCode1C)
@@ -677,12 +676,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                 var legalPersonInfo = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
                                              .Select(x => new { x.Inn, x.Kpp, x.OwnerCode })
                                              .Single();
-                var isAccountExists = _finder.Find<LegalPerson>(x => x.Id != legalPersonId &&
-                                                                     x.Inn.Equals(legalPersonInfo.Inn, StringComparison.Ordinal) &&
-                                                                     x.Kpp.Equals(legalPersonInfo.Kpp, StringComparison.Ordinal) &&
-                                                                     x.Accounts.Any(y => !y.IsDeleted &&
-                                                                                         y.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId))
-                                             .Any();
+                var isAccountExists = _finder.FindAny(new FindSpecification<LegalPerson>(
+                                                          x => x.Id != legalPersonId &&
+                                                               x.Inn.Equals(legalPersonInfo.Inn, StringComparison.Ordinal) &&
+                                                               x.Kpp.Equals(legalPersonInfo.Kpp, StringComparison.Ordinal) &&
+                                                               x.Accounts.Any(y => !y.IsDeleted &&
+                                                                                   y.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId)));
                 if (isAccountExists)
                 {
                     throw new ArgumentException(BLResources.LegalPersonWithTheSameInnKppAndAccountExists);

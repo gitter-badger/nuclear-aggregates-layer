@@ -118,11 +118,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public IEnumerable<Limit> GetHungLimitsByOrganizationUnitForDate(long organizationUnitId, DateTime limitStart)
         {
-            return _finder.Find<Limit>(limit => limit.StartPeriodDate <= limitStart &&
-                                                limit.Account.BranchOfficeOrganizationUnit.OrganizationUnitId == organizationUnitId &&
-                                                limit.IsActive &&
-                                                !limit.IsDeleted)
-                          .ToArray();
+            return _finder.FindMany(new FindSpecification<Limit>(limit => limit.StartPeriodDate <= limitStart &&
+                                                                          limit.Account.BranchOfficeOrganizationUnit.OrganizationUnitId == organizationUnitId &&
+                                                                          limit.IsActive &&
+                                                                          !limit.IsDeleted));
         }
 
         public IEnumerable<Limit> GetClosedLimits(long destinationOrganizationUnitId, TimePeriod period)
@@ -177,8 +176,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         {
             const string OperationTypeDebitForOrderPaymentSyncCode1C = "11";
 
-            return _finder.Find(Specs.Select.Id<OperationType>(),
-                            AccountSpecs.OperationTypes.Find.BySyncCode1C(OperationTypeDebitForOrderPaymentSyncCode1C))
+            return _finder.Find(AccountSpecs.OperationTypes.Find.BySyncCode1C(OperationTypeDebitForOrderPaymentSyncCode1C), Specs.Select.Id<OperationType>())
                         .Single();
         }
 

@@ -78,7 +78,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.ReadModel
 
         public PriceValidationDto GetPriceValidationDto(long priceId)
         {
-            return _finder.Find<Price, PriceValidationDto>(PriceSpecs.Prices.Select.PriceValidationDto(), Specs.Find.ById<Price>(priceId)).Single();
+            return _finder.Find<Price, PriceValidationDto>(Specs.Find.ById<Price>(priceId), PriceSpecs.Prices.Select.PriceValidationDto()).Single();
         }
 
         public long GetActualPriceId(long organizationUnitId)

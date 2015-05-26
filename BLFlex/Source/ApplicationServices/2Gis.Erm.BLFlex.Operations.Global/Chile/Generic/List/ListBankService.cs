@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             // FIXME {all, 10.04.2014}: при рефаторинге EAV попытаться свести просто к For<Bank> и т.п. - то что bank это EAV нужно запрятать куда-то (finder)
-            return _finder.Find(BankSpecs.Select.Banks, BankSpecs.Find.OnlyBanks)
+            return _finder.Find(BankSpecs.Find.OnlyBanks, BankSpecs.Select.Banks)
                    .Select(x => new ChileListBankDto
                     {
                         Id = x.Id,

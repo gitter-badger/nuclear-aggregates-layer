@@ -1184,13 +1184,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var sourceVat = DefaultVatRate;
             if (sourceOrganizationUnitId.HasValue)
             {
-                sourceVat = _finder.Find(OrganizationUnitSpecs.Select.VatRate(),
-                                                                    Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
+                sourceVat = _finder.Find(Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value), OrganizationUnitSpecs.Select.VatRate())
                                    .Single();
             }
 
-            var destVat = _finder.Find(OrganizationUnitSpecs.Select.VatRate(),
-                                                                  Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
+            var destVat = _finder.Find(Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId), OrganizationUnitSpecs.Select.VatRate())
                                  .Single();
 
             return DetermineVatRate(sourceVat, destVat);

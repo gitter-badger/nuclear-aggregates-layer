@@ -75,6 +75,7 @@
     <Compile Include="FinderSpecs.cs" />
     <Compile Include="FindSpecificationParserSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryableFutureSpecs.cs" />
     <Compile Include="ScopedDomainContextsStoreSpecs.cs" />
   </ItemGroup>
   <ItemGroup>

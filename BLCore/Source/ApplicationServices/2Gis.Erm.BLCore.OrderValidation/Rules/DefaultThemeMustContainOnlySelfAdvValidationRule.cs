@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 throw new ArgumentNullException("themeId");
             }
 
-            var name = _finder.FindOne(new SelectSpecification<Theme, string>(x => x.Name), Specs.Find.ById<Theme>(themeId.Value));
+            var name = _finder.FindOne(Specs.Find.ById<Theme>(themeId.Value), new SelectSpecification<Theme, string>(x => x.Name));
 
             return GenerateDescription(isMassValidation, EntityType.Instance.Theme(), name, themeId.Value);
         }

@@ -7,7 +7,7 @@ namespace NuClear.Storage.Specifications
     /// Specification pattern base type.
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class FindSpecification<TEntity> where TEntity : class
+    public class FindSpecification<TEntity>
     {
         private readonly Expression<Func<TEntity, bool>> _predicate;
 

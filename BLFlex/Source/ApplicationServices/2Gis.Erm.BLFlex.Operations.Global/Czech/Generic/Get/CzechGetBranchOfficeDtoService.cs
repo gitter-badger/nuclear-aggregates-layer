@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Get
 {
     public class CzechGetBranchOfficeDtoService : GetBranchOfficeDtoServiceBase<CzechBranchOfficeDomainEntityDto>, ICzechAdapted
@@ -23,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Get
         {
         }
 
-        protected override IProjectSpecification<BranchOffice, CzechBranchOfficeDomainEntityDto> GetProjectSpecification()
+        protected override ProjectSpecification<BranchOffice, CzechBranchOfficeDomainEntityDto> GetProjectSpecification()
         {
             return BranchOfficeFlexSpecs.BranchOffices.Czech.Project.DomainEntityDto();
         }

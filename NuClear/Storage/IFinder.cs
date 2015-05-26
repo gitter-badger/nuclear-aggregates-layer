@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Futures;
 using NuClear.Storage.Specifications;
 
 namespace NuClear.Storage
@@ -14,6 +15,12 @@ namespace NuClear.Storage
     public interface IFinder 
     {
         /// <summary>
+        /// Compose future sequence based on findSpecification.
+        /// </summary>
+        FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity;
+        
+        /*
+        /// <summary>
         /// Find the Entity object(s) based on findSpecification.
         /// </summary>
         IQueryable<TEntity> Find<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
@@ -21,7 +28,7 @@ namespace NuClear.Storage
         /// <summary>
         /// Find the Entity object(s) based on findSpecification and returns the projection based on selectSpecification.
         /// </summary>
-        IQueryable<TOutput> Find<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification)
+        IQueryable<TOutput> Find<TEntity, TOutput>(FindSpecification<TEntity> findSpecification, SelectSpecification<TEntity, TOutput> selectSpecification)
             where TEntity : class, IEntity;
         
         /// <summary>
@@ -34,10 +41,12 @@ namespace NuClear.Storage
         /// </summary>
         TEntity FindOne<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
 
+        
+
         /// <summary>
         /// Find one entity object based on findSpecification and returns the projection based on selectSpecification.
         /// </summary>
-        TOutput FindOne<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification)
+        TOutput FindOne<TEntity, TOutput>(FindSpecification<TEntity> findSpecification, SelectSpecification<TEntity, TOutput> selectSpecification)
             where TEntity : class, IEntity;
 
         /// <summary>
@@ -48,12 +57,13 @@ namespace NuClear.Storage
         /// <summary>
         /// Find and select collection of entity objects based on findSpecification and returns the projection based on selectSpecification.
         /// </summary>
-        IReadOnlyCollection<TOutput> FindMany<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification)
+        IReadOnlyCollection<TOutput> FindMany<TEntity, TOutput>(FindSpecification<TEntity> findSpecification, SelectSpecification<TEntity, TOutput> selectSpecification)
             where TEntity : class, IEntity;
 
         /// <summary>
         /// Find any of entity objects based on findSpecification without materialization.
         /// </summary>
         bool FindAny<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
+         */
     }
 }

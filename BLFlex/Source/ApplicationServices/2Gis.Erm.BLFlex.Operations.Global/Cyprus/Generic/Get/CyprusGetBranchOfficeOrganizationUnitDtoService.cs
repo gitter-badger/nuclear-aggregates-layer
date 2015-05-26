@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
 {
     public class CyprusGetBranchOfficeOrganizationUnitDtoService : GetBranchOfficeOrganizationUnitDtoServiceBase<CyprusBranchOfficeOrganizationUnitDomainEntityDto>, ICyprusAdapted
@@ -35,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
         }
                     }
 
-        protected override IProjectSpecification<BranchOfficeOrganizationUnit, CyprusBranchOfficeOrganizationUnitDomainEntityDto> GetProjectSpecification()
+        protected override ProjectSpecification<BranchOfficeOrganizationUnit, CyprusBranchOfficeOrganizationUnitDomainEntityDto> GetProjectSpecification()
                     {
             return BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Cyprus.Project.DomainEntityDto();
         }

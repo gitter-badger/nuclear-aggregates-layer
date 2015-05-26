@@ -5,6 +5,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
 {
     public static class BranchOfficeFlexSpecs
@@ -15,7 +17,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
             {
                 public static class Project
                 {
-                    public static IProjectSpecification<BranchOfficeOrganizationUnit, EmiratesBranchOfficeOrganizationUnitDomainEntityDto> DomainEntityDto()
+                    public static ProjectSpecification<BranchOfficeOrganizationUnit, EmiratesBranchOfficeOrganizationUnitDomainEntityDto> DomainEntityDto()
                     {
                         return new ProjectSpecification<BranchOfficeOrganizationUnit, EmiratesBranchOfficeOrganizationUnitDomainEntityDto>(
                             x =>
@@ -87,7 +89,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
             {
                 public static class Project
                 {
-                    public static IProjectSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto> DomainEntityDto()
+                    public static ProjectSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto> DomainEntityDto()
                     {
                         return new ProjectSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto>(
                             x =>

@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         {
             var filter = CreateAccountDetailsFilter(operation);
             var selector = AccountDetailDtoSelectSpecification();
-            var exportData = _finder.Find(selector, filter).ToArray();
+            var exportData = _finder.Find(filter, selector).ToArray();
 
             if (exportData.Length == 0)
             {

@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static IProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<BargainGridDoc>> Project(CultureInfo cultureInfo)
+            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<BargainGridDoc>> Project(CultureInfo cultureInfo)
             {
                 return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<BargainGridDoc>>(x =>
                 {

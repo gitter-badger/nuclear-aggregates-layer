@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         private IEnumerable<IIndexedDocumentWrapper> SelectDocuments(FindSpecification<TEntity> findSpec)
         {
-            var entities = _finder.Find(_selectSpec, findSpec).AsEnumerable();
+            var entities = _finder.Find(findSpec, _selectSpec).AsEnumerable();
             return entities.Select(x => _projectSpec.Project(ObjectAccessor.Create(x)));
         }
     }

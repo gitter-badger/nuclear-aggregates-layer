@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
 {
@@ -19,7 +20,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
         private readonly IBranchOfficeReadModel _readModel;
         private readonly IBargainTypeReadModel _bargainTypeReadModel;
         private readonly IContributionTypeReadModel _contributionTypeReadModel;
-        private readonly IProjectSpecification<BranchOffice, KazakhstanBranchOfficeDomainEntityDto> _specification;
+        private readonly ProjectSpecification<BranchOffice, KazakhstanBranchOfficeDomainEntityDto> _specification;
 
         public KazakhstanGetBranchOfficeDtoService(IUserContext userContext,
                                                    IBranchOfficeReadModel readModel,

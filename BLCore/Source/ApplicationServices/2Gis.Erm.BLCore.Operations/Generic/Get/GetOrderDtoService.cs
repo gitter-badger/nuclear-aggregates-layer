@@ -69,7 +69,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
         protected override IDomainEntityDto<Order> GetDto(long entityId)
         {
-            var dto = _finder.Find(OrderSpecs.Orders.Select.OrderDomainEntityDto(), Specs.Find.ById<Order>(entityId)).Single();
+            var dto = _finder.Find(Specs.Find.ById<Order>(entityId), OrderSpecs.Orders.Select.OrderDomainEntityDto()).Single();
 
             dto.ShowRegionalAttributes = dto.SourceOrganizationUnitRef.Id != dto.DestOrganizationUnitRef.Id &&
                 !_orderReadModel.CheckIsBranchToBranchOrder(dto.SourceOrganizationUnitRef.Id.Value, dto.DestOrganizationUnitRef.Id.Value, false);

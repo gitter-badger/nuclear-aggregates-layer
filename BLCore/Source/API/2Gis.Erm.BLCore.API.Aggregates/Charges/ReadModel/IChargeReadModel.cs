@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Dto;
 using DoubleGis.Erm.Platform.API.Core;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Charges.ReadModel
 {

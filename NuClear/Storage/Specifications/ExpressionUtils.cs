@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace NuClear.Storage.Specifications
 {
@@ -12,7 +11,6 @@ namespace NuClear.Storage.Specifications
         /// Combines two expression using "or"
         /// </summary>
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2)
-            where T : class
         {
             return Compose(expr1, expr2, Expression.OrElse);
         }
@@ -21,7 +19,6 @@ namespace NuClear.Storage.Specifications
         /// Combines two expression using "and"
         /// </summary>
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2)
-            where T : class
         {
             return Compose(expr1, expr2, Expression.AndAlso);
         }
@@ -30,7 +27,6 @@ namespace NuClear.Storage.Specifications
         /// Negates the expression
         /// </summary>
         public static Expression<Func<T, bool>> Not<T>(this Expression<Func<T, bool>> expr)
-            where T : class
         {
             var negated = Expression.Not(expr.Body);
             return Expression.Lambda<Func<T, bool>>(negated, expr.Parameters);
@@ -40,8 +36,8 @@ namespace NuClear.Storage.Specifications
         /// Combines the first expression with the second using the specified merge function.
         /// </summary>
         private static Expression<T> Compose<T>(
-            Expression<T> first,
-            Expression<T> second,
+            Expression<T> first, 
+            Expression<T> second, 
             Func<Expression, Expression, Expression> merge)
         {
             // zip parameters (map from parameters of second to parameters of first)

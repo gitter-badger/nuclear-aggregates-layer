@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
 {
     public class EmiratesGetBranchOfficeDtoService : GetBranchOfficeDtoServiceBase<EmiratesBranchOfficeDomainEntityDto>, IEmiratesAdapted
@@ -23,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
         {
         }
 
-        protected override IProjectSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto> GetProjectSpecification()
+        protected override ProjectSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto> GetProjectSpecification()
         {
             return BranchOfficeFlexSpecs.BranchOffices.Emirates.Project.DomainEntityDto();
         }

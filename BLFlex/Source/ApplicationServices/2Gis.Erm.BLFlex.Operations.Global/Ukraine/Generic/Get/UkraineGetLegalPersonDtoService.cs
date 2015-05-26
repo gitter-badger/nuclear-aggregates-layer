@@ -9,6 +9,8 @@ using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get
 {
     public class UkraineGetLegalPersonDtoService : GetLegalPersonDtoServiceBase<UkraineLegalPersonDomainEntityDto>, IUkraineAdapted
@@ -21,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get
         {
         }
 
-        protected override IProjectSpecification<LegalPerson, UkraineLegalPersonDomainEntityDto> GetProjectSpecification()
+        protected override ProjectSpecification<LegalPerson, UkraineLegalPersonDomainEntityDto> GetProjectSpecification()
         {
             return LegalPersonFlexSpecs.LegalPersons.Ukraine.Project.DomainEntityDto();
         }

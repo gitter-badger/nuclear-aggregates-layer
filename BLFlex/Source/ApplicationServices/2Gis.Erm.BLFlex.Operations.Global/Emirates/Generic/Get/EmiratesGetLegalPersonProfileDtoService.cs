@@ -7,6 +7,8 @@ using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
 {
     public class EmiratesGetLegalPersonProfileDtoService : GetLegalPersonProfileDtoServiceBase<EmiratesLegalPersonProfileDomainEntityDto>, IEmiratesAdapted
@@ -16,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
         {
         }
 
-        protected override IProjectSpecification<LegalPersonProfile, EmiratesLegalPersonProfileDomainEntityDto> GetProjectSpecification()
+        protected override ProjectSpecification<LegalPersonProfile, EmiratesLegalPersonProfileDomainEntityDto> GetProjectSpecification()
         {
             return LegalPersonFlexSpecs.LegalPersonProfiles.Emirates.Project.DomainEntityDto();
         }

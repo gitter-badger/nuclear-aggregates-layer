@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
 {
     public class KazakhstanGetLegalPersonProfileDtoService : GetLegalPersonProfileDtoServiceBase<KazakhstanLegalPersonProfileDomainEntityDto>, IKazakhstanAdapted
@@ -18,7 +20,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
         {
         }
 
-        protected override IProjectSpecification<LegalPersonProfile, KazakhstanLegalPersonProfileDomainEntityDto> GetProjectSpecification()
+        protected override ProjectSpecification<LegalPersonProfile, KazakhstanLegalPersonProfileDomainEntityDto> GetProjectSpecification()
         {
             return LegalPersonFlexSpecs.LegalPersonProfiles.Kazakhstan.Project.DomainEntityDto();
         }

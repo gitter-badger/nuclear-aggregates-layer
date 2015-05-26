@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
             return Storage.OfType<TEntity>().AsQueryable().Where(findSpecification).AsQueryable();
         }
 
-        public IQueryable<TOutput> Find<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public IQueryable<TOutput> Find<TEntity, TOutput>(FindSpecification<TEntity> findSpecification, SelectSpecification<TEntity, TOutput> selectSpecification) where TEntity : class, IEntity
         {
             throw new NotImplementedException();
         }
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
             throw new NotImplementedException();
         }
 
-        public TOutput FindOne<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public TOutput FindOne<TEntity, TOutput>(FindSpecification<TEntity> findSpecification, SelectSpecification<TEntity, TOutput> selectSpecification) where TEntity : class, IEntity
         {
             throw new NotImplementedException();
         }
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
             return Storage.OfType<TEntity>().AsQueryable().Where(findSpecification).ToArray();
         }
 
-        public IReadOnlyCollection<TOutput> FindMany<TEntity, TOutput>(SelectSpecification<TEntity, TOutput> selectSpecification, FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public IReadOnlyCollection<TOutput> FindMany<TEntity, TOutput>(FindSpecification<TEntity> findSpecification, SelectSpecification<TEntity, TOutput> selectSpecification) where TEntity : class, IEntity
         {
             throw new NotImplementedException();
         }

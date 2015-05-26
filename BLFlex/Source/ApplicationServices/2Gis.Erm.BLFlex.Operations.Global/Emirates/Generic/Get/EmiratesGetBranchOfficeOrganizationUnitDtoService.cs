@@ -8,6 +8,8 @@ using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
 {
     public class EmiratesGetBranchOfficeOrganizationUnitDtoService :
@@ -37,7 +39,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
             }
         }
 
-        protected override IProjectSpecification<BranchOfficeOrganizationUnit, EmiratesBranchOfficeOrganizationUnitDomainEntityDto> GetProjectSpecification()
+        protected override ProjectSpecification<BranchOfficeOrganizationUnit, EmiratesBranchOfficeOrganizationUnitDomainEntityDto> GetProjectSpecification()
         {
             return BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Emirates.Project.DomainEntityDto();
         }

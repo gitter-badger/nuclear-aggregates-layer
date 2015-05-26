@@ -69,6 +69,9 @@
     <Compile Include="Core\IReadDomainContextProvider.cs" />
     <Compile Include="Core\CachingReadDomainContext.cs" />
     <Compile Include="Finder.cs" />
+    <Compile Include="Futures\FutureSequence.cs" />
+    <Compile Include="Futures\Queryable\QueryableFutureExtensions.cs" />
+    <Compile Include="Futures\Queryable\QueryableFutureSequence.cs" />
     <Compile Include="IFinder.cs" />
     <Compile Include="IProducedQueryLogAccessor.cs" />
     <Compile Include="IQuery.cs" />
@@ -78,6 +81,8 @@
     <Compile Include="Query.cs" />
     <Compile Include="Specifications\ExpressionUtils.cs" />
     <Compile Include="Specifications\FindSpecification.cs" />
+    <Compile Include="Specifications\IProjectSpecification.cs" />
+    <Compile Include="Specifications\ProjectSpecification.cs" />
     <Compile Include="Specifications\SelectSpecification.cs" />
     <Compile Include="Specifications\SpecificationExtensions.cs" />
     <Compile Include="UseCases\IContextKey.cs" />

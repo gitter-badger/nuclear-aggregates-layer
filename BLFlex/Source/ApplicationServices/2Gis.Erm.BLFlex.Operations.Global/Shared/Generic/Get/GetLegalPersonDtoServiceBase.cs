@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
 {
@@ -74,7 +75,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
             return ProjectToDto(legalPerson);
         }
 
-        protected abstract IProjectSpecification<LegalPerson, TDto> GetProjectSpecification();
+        protected abstract ProjectSpecification<LegalPerson, TDto> GetProjectSpecification();
 
         protected virtual void SetSpecificPropertyValues(TDto dto)
         {

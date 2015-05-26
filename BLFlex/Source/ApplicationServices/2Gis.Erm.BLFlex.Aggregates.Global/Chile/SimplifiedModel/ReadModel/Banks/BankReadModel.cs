@@ -27,8 +27,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel
 
         public string GetBankName(long bankId)
         {
-            return _finder.Find(DictionaryEntitySpecs.DictionaryEntity.Select.Name(),
-                                Specs.Find.ById<DictionaryEntityInstance>(bankId))
+            return _finder.Find(Specs.Find.ById<DictionaryEntityInstance>(bankId), DictionaryEntitySpecs.DictionaryEntity.Select.Name())
                           .SingleOrDefault();
         }
 

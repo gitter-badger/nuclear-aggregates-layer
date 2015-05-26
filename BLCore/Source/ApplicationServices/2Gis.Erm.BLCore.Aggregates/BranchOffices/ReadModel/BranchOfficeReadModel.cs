@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
                                                                                                                             branchOfficeId,
                                                                                                                             branchOfficeOrganizationUnitId);
 
-            return _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Select.BranchOfficeAndOrganizationUnitNames(), findSpec)
+            return _finder.Find(findSpec, BranchOfficeSpecs.BranchOfficeOrganizationUnits.Select.BranchOfficeAndOrganizationUnitNames())
                           .FirstOrDefault();
         }
 

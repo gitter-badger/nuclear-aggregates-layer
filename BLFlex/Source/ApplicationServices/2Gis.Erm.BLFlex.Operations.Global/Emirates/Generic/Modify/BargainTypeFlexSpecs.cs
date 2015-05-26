@@ -3,6 +3,8 @@ using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
 {
     public class BargainTypeFlexSpecs
@@ -13,7 +15,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
             {
                 public static class Project
                 {
-                    public static IProjectSpecification<BargainType, EmiratesBargainTypeDomainEntityDto> DomainEntityDto()
+                    public static ProjectSpecification<BargainType, EmiratesBargainTypeDomainEntityDto> DomainEntityDto()
                     {
                         return new ProjectSpecification<BargainType, EmiratesBargainTypeDomainEntityDto>(
                             x =>

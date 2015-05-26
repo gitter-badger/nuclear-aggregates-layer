@@ -16,5 +16,10 @@ namespace NuClear.Storage.Specifications
         {
             get { return _selector; }
         }
+
+        public static implicit operator SelectSpecification<TInput, TOutput>(Expression<Func<TInput, TOutput>> selector)
+        {
+            return new SelectSpecification<TInput, TOutput>(selector);
+        }
     }
 }

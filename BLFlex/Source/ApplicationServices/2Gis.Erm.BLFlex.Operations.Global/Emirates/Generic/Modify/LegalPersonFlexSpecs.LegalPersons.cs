@@ -6,6 +6,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
 {
     public static class LegalPersonFlexSpecs
@@ -16,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
             {
                 public static class Project
                 {
-                    public static IProjectSpecification<LegalPerson, EmiratesLegalPersonDomainEntityDto> DomainEntityDto()
+                    public static ProjectSpecification<LegalPerson, EmiratesLegalPersonDomainEntityDto> DomainEntityDto()
                     {
                         return new ProjectSpecification<LegalPerson, EmiratesLegalPersonDomainEntityDto>(
                             x =>
@@ -91,7 +93,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
             {
                 public static class Project
                 {
-                    public static IProjectSpecification<LegalPersonProfile, EmiratesLegalPersonProfileDomainEntityDto> DomainEntityDto()
+                    public static ProjectSpecification<LegalPersonProfile, EmiratesLegalPersonProfileDomainEntityDto> DomainEntityDto()
                     {
                         return new ProjectSpecification<LegalPersonProfile, EmiratesLegalPersonProfileDomainEntityDto>(
                             x =>

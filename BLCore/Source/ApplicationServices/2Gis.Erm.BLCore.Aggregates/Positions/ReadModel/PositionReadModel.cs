@@ -114,8 +114,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
         public IEnumerable<PositionSortingOrderDto> GetPositionsSortingOrder()
         {
-            return _finder.Find(PriceSpecs.Positions.Select.PositionSortingOrderDto(),
-                                PriceSpecs.Positions.Find.WithSortingSpecified())
+            return _finder.Find(PriceSpecs.Positions.Find.WithSortingSpecified(), PriceSpecs.Positions.Select.PositionSortingOrderDto())
                           .ToArray();
         }
 

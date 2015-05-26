@@ -7,6 +7,8 @@ using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 {
     public class GetLegalPersonProfileDtoService : GetLegalPersonProfileDtoServiceBase<LegalPersonProfileDomainEntityDto>, ICyprusAdapted, ICzechAdapted
@@ -16,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
         {
         }
 
-        protected override IProjectSpecification<LegalPersonProfile, LegalPersonProfileDomainEntityDto> GetProjectSpecification()
+        protected override ProjectSpecification<LegalPersonProfile, LegalPersonProfileDomainEntityDto> GetProjectSpecification()
                               {
             return LegalPersonFlexSpecs.LegalPersonProfiles.MultiCulture.Project.DomainEntityDto();
         }

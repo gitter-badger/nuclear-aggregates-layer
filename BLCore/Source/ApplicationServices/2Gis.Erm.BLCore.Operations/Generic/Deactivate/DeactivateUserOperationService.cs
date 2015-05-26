@@ -100,7 +100,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                 using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, User>())
                 {
                     // проверка на задолженности по лицевым счетам
-                    var clientIds = _finder.Find(Specs.Select.Id<Client>(), Specs.Find.Owned<Client>(entityId)).ToArray();
+                    var clientIds = _finder.Find(Specs.Find.Owned<Client>(entityId), Specs.Select.Id<Client>()).ToArray();
                     var checkAggregateForDebtsRepository = _clientRepository as ICheckAggregateForDebtsRepository<Client>;
                     foreach (var clientId in clientIds)
                     {

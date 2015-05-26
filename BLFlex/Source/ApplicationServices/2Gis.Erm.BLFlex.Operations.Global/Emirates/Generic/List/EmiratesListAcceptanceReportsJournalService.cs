@@ -33,8 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
         {
             var organizationUnitsQuery = _query.For<OrganizationUnit>();
 
-            return _finder.Find(AcceptanceReportsJournalSpecs.Select.AcceptanceReportsJournalRecords,
-                                AcceptanceReportsJournalSpecs.Find.OnlyAcceptanceReportsJournalRecords)
+            return _finder.Find(AcceptanceReportsJournalSpecs.Find.OnlyAcceptanceReportsJournalRecords, AcceptanceReportsJournalSpecs.Select.AcceptanceReportsJournalRecords)
                           .Select(x => new
                               {
                                   Id = x.Id,

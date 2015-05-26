@@ -6,6 +6,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Russia;
 
+using NuClear.Storage.Specifications;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify
 {
     public static partial class LegalPersonFlexSpecs
@@ -16,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify
             {
                 public static class Project
                 {
-                    public static IProjectSpecification<LegalPersonProfile, RussiaLegalPersonProfileDomainEntityDto> DomainEntityDto()
+                    public static ProjectSpecification<LegalPersonProfile, RussiaLegalPersonProfileDomainEntityDto> DomainEntityDto()
                     {
                         return new ProjectSpecification<LegalPersonProfile, RussiaLegalPersonProfileDomainEntityDto>(
                             x =>

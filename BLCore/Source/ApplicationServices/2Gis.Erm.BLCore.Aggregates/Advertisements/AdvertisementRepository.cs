@@ -192,10 +192,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, AdsTemplatesAdsElementTemplate>())
             {
                 // Нельзя удалить связь, если у нас есть ЭРМ(не заглушка) с контентом
-                if (_finder.Find<AdvertisementElement>(x =>
-                                                           !x.IsDeleted && !x.Advertisement.IsDeleted && x.Advertisement.FirmId != null &&
-                                                           x.AdsTemplatesAdsElementTemplatesId == entity.Id &&
-                                                           (x.FileId != null || x.BeginDate != null || x.EndDate != null || x.Text != null)).Any())
+                if (_finder.FindAny(new FindSpecification<AdvertisementElement>(
+                                        x => !x.IsDeleted && !x.Advertisement.IsDeleted && x.Advertisement.FirmId != null &&
+                                             x.AdsTemplatesAdsElementTemplatesId == entity.Id &&
+                                             (x.FileId != null || x.BeginDate != null || x.EndDate != null || x.Text != null))))
                 {
                     throw new BusinessLogicException(BLResources.CanNotDeleteAdsTemplatesAdsElementTemplateSinceThereIsAdvertisementMaterialsWithContent);
                 }
@@ -229,11 +229,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public bool IsAdvertisementTemplateTheSameInAdvertisementAndElements(long advertisementTemplateId, long advertisementId)
         {
-            return !_finder.Find<AdvertisementElement>(
-                                                       x => !x.IsDeleted
-                                                            && x.AdvertisementId == advertisementId
-                                                            && x.AdsTemplatesAdsElementTemplate.AdsTemplateId != advertisementTemplateId)
-                           .Any();
+            return !_finder.FindAny(new FindSpecification<AdvertisementElement>(
+                                        x => !x.IsDeleted
+                                             && x.AdvertisementId == advertisementId
+                                             && x.AdsTemplatesAdsElementTemplate.AdsTemplateId != advertisementTemplateId));
         }
 
         public AdsTemplatesAdsElementTemplate GetAdsTemplatesAdsElementTemplate(long entityId)
@@ -253,10 +252,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public void CreateOrUpdate(AdvertisementTemplate advertisementTemplate)
         {
-            var notUniqueName = _finder.Find<AdvertisementTemplate>(x => x.Id != advertisementTemplate.Id &&
-                                                                         !x.IsDeleted &&
-                                                                         x.Name == advertisementTemplate.Name)
-                                       .Any();
+            var notUniqueName = _finder.FindAny(Specs.Find.NotDeleted<AdvertisementTemplate>() &&
+                                                new FindSpecification<AdvertisementTemplate>(x => x.Id != advertisementTemplate.Id && x.Name == advertisementTemplate.Name));
             if (notUniqueName)
             {
                 throw new NotificationException(string.Format(CultureInfo.CurrentCulture,
@@ -287,10 +284,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         {
             using (var scope = _scopeFactory.CreateOrUpdateOperationFor(advertisementElementTemplate))
             {
-                var notUniqueName = _finder.Find<AdvertisementElementTemplate>(x => x.Id != advertisementElementTemplate.Id &&
-                                                                                    !x.IsDeleted &&
-                                                                                    x.Name == advertisementElementTemplate.Name)
-                                           .Any();
+                var notUniqueName = _finder.FindAny(Specs.Find.NotDeleted<AdvertisementElementTemplate>() &&
+                                                    new FindSpecification<AdvertisementElementTemplate>(
+                                                        x => x.Id != advertisementElementTemplate.Id && x.Name == advertisementElementTemplate.Name));
                 if (notUniqueName)
                 {
                     throw new NotificationException(string.Format(CultureInfo.CurrentCulture,
@@ -348,8 +344,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         public void AddAdvertisementsElementsFromTemplate(AdsTemplatesAdsElementTemplate adsTemplatesAdsElementTemplate)
         {
             var advertisements = _finder.Find(new FindSpecification<Advertisement>(x => x.AdvertisementTemplateId == adsTemplatesAdsElementTemplate.AdsTemplateId && !x.IsDeleted)).ToArray();
-            var dummyAdvertisementElement = _finder.Find<AdvertisementElement>(
-                x => !x.IsDeleted && !x.Advertisement.IsDeleted && x.AdvertisementElementTemplateId == adsTemplatesAdsElementTemplate.AdsElementTemplateId && x.Advertisement.FirmId == null)
+            var dummyAdvertisementElement = _finder.Find(Specs.Find.NotDeleted<AdvertisementElement>() &&
+                                                         new FindSpecification<AdvertisementElement>(x => !x.Advertisement.IsDeleted &&
+                                                                                                          x.AdvertisementElementTemplateId ==
+                                                                                                          adsTemplatesAdsElementTemplate.AdsElementTemplateId &&
+                                                                                                          x.Advertisement.FirmId == null))
                                                    .FirstOrDefault();
             var elementInfo =
                 _finder.Find(Specs.Find.ById<AdvertisementElementTemplate>(adsTemplatesAdsElementTemplate.AdsElementTemplateId))
@@ -409,11 +408,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public void CreateOrUpdate(Advertisement advertisement)
         {
-            var notUniqueName = _finder.Find<Advertisement>(x => x.Id != advertisement.Id &&
-                                                                 !x.IsDeleted &&
-                                                                 x.FirmId == advertisement.FirmId &&
-                                                                 x.Name == advertisement.Name)
-                .Any();
+            var notUniqueName = _finder.FindAny(Specs.Find.NotDeleted<Advertisement>() &&
+                                                new FindSpecification<Advertisement>(x => x.Id != advertisement.Id &&
+                                                                                          x.FirmId == advertisement.FirmId &&
+                                                                                          x.Name == advertisement.Name));
             if (notUniqueName)
             {
                 throw new NotificationException(string.Format(BLResources.AdsCheckNameMustBeUnique, advertisement.Name));
