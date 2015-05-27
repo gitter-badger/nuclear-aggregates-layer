@@ -7,6 +7,8 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
+using NuClear.Model.Common.Operations.Identity.Generic;
+
 namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.Operations
 {
     public class AssignAccountDetailAggregateService : IAssignAccountDetailAggregateService

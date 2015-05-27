@@ -15,6 +15,10 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Security.API.UserContext;
+
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 {
     public sealed class AssignAccountOperationService : IAssignGenericEntityService<Account>
@@ -77,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                 }
 
                 var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
-                                                                             EntityName.Account,
+                                                                             EntityType.Instance.Account(),
                                                                              _userContext.Identity.Code,
                                                                              entityId,
                                                                              ownerCode,
