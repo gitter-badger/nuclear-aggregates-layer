@@ -39,10 +39,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
-        public static DateTime GetAdvMatherialsDeadline(DateTime beginDistributionDate)
+        public static DateTime GetAdvMaterialsDeadline(DateTime beginDistributionDate, DateTime signupDate)
         {
+            if (signupDate >= beginDistributionDate)
+            {
+                throw new ArgumentException("Signup date should be less than begin distribution date", "signupDate");
+            }
+
             const int Day = 18;
-            return beginDistributionDate.AddMonths(-1).AddDays(Day - 1);
+            var deadline = beginDistributionDate.AddMonths(-1).AddDays(Day - 1);
+            return signupDate > deadline ? signupDate : deadline;
         }
 
         public string FormatAddress(int addressNumber, AddressDto address, IEnumerable<FirmContact> contacts, CultureInfo targetCulture)

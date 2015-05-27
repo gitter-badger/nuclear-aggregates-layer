@@ -107,6 +107,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic
                                      {
                                          SourceElectronicMedia = order.SourceOrganizationUnit.ElectronicMedia,
                                          order.BeginDistributionDate,
+                                         order.SignupDate,
                                          order.PaymentMethod,
                                          order.PayablePlan,
                                          DiscountSum = order.DiscountSum.HasValue ? order.DiscountSum.Value : 0,
@@ -114,7 +115,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic
                 .AsEnumerable()
                 .Select(x => new PrintData
                                  {
-                                     { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(x.BeginDistributionDate) },
+                                     { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(x.BeginDistributionDate, x.SignupDate) },
                                      { "SourceElectronicMedia", x.SourceElectronicMedia },
                                      {
                                          "PaymentMethod",
