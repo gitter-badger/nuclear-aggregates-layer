@@ -758,6 +758,17 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             }
         }
 
+        if (rule.ValidationType == "phone") {
+            var haveTelephonyAccess = Ext.getDom("HaveTelephonyAccess");
+            if(haveTelephonyAccess && haveTelephonyAccess.value.toLowerCase() == 'true')
+                new Ext.ux.PhonecallField(
+                {
+                    applyTo: el,
+                    form: this,
+                    readOnly: this.ReadOnly                               
+                });
+        }
+
         if (rule.ValidationType == "email") {
             new Ext.ux.LinkField(
                 {

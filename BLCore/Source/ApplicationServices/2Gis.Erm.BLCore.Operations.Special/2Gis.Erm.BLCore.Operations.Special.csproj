@@ -73,6 +73,7 @@
     <Compile Include="CostCalculation\OrderCostCalculationOperationService.cs" />
     <Compile Include="CostCalculation\OrderPositionCostCalculationOperationService.cs" />
     <Compile Include="FirmInfo\GetFirmInfoOperationService.cs" />
+    <Compile Include="Dial\DialOperationService.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\BasicOrderProlongationOperationLogic.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\CancelOrderProcessingRequestOperationService.cs" />
     <Compile Include="OrderProcessingRequests\Concrete\CreateOrderProlongationRequestOperationService.cs" />

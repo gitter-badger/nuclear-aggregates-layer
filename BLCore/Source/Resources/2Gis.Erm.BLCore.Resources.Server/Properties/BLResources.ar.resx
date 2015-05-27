@@ -5136,9 +5136,6 @@ Placement period: {3}.</value>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>Only items of the same sales model can be presented in an order</value>
   </data>
-  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
-    <value>Set of categories should be the same for all subitems</value>
-  </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>Attempt to save an order item with sales model '{0}' where quantity is not 1</value>
   </data>
@@ -5243,6 +5240,33 @@ Placement period: {3}.</value>
   </data>
   <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
     <value>Нельзя удалить ценовую группу по умолчанию</value>
+  </data>
+  <data name="AllPositionsMustBePicked" xml:space="preserve">
+    <value>You need to select all items</value>
+  </data>
+  <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
+    <value>Items {0} should have identical category sets</value>
+  </data>
+  <data name ="WorkPhoneIsNotSelected" xml:space="preserve">
+    <value>There is no internal phone number in your profile that could receive calls.</value>
+  </data>
+  <data name ="IncorrectPhoneNumber" xml:space="preserve">
+    <value>Phone number {0} has incorrect format.</value>
+  </data>
+  <data name ="DialingIsNotAllowed" xml:space="preserve">
+    <value>You have no rights to make calls.</value>
+  </data>
+  <data name ="TelephonyUnitIsNotSelected" xml:space="preserve">
+    <value>There is no telephony service address in the profile.</value>
+  </data>
+  <data name ="TelephonyServiceInactive" xml:space="preserve">
+    <value>Telephony service is unavailable at the moment.</value>
+  </data>
+  <data name ="TelephonyUnitInIncorrectFormat" xml:space="preserve">
+    <value>Telephony service address has incorrect format.</value>
+  </data>
+  <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
+    <value>This {0} telephony type is not supported.</value>
   </data>
   <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
     <value>User {0} is already linked to legal entity {1}</value>

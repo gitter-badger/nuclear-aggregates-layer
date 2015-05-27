@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
 {
-    public sealed class ContactViewModel : EntityViewModelBase<Contact>, IFullNameAspect, IContactSalutationsAspect, IBusinessModelAreaAspect, IRussiaAdapted
+    public sealed class ContactViewModel : EntityViewModelBase<Contact>, IFullNameAspect, IContactSalutationsAspect, IHaveTelephonyAccessAspect, IBusinessModelAreaAspect, IRussiaAdapted
     {
         [PresentationLayerProperty]
         public Guid? ReplicationCode { get; set; }
@@ -38,16 +38,20 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         [RequiredLocalized]
         public string Salutation { get; set; }
 
+        [Phone]
         [StringLengthLocalized(64)]
         [DisplayNameLocalized("WorkPhoneNumber")]
         public string MainPhoneNumber { get; set; }
 
+        [Phone]
         [StringLengthLocalized(64)]
         public string AdditionalPhoneNumber { get; set; }
 
+        [Phone]
         [StringLengthLocalized(64)]
         public string MobilePhoneNumber { get; set; }
 
+        [Phone]
         [StringLengthLocalized(64)]
         public string HomePhoneNumber { get; set; }
 
@@ -125,6 +129,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia
         public bool IsFired { get; set; }
 
         public DateTime? BirthDate { get; set; }
+
+        public bool HaveTelephonyAccess { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel.DTO;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
@@ -15,6 +16,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
         User FindAnyUserWithPrivelege(IEnumerable<long> organizationUnitId, FunctionalPrivilegeName privelege);
         User GetNotServiceUser(long userId);
         User GetOrganizationUnitDirector(long organizationUnitId);
+        Uri GetTelephonyServerAddress(long userId);
         long? GetUserOrganizationUnitId(long userId);
         IReadOnlyDictionary<long, string> GetUserNames(IEnumerable<long> userIds);
         string GetUserName(long userId);

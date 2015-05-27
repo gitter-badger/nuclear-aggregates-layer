@@ -426,8 +426,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Environments", "Environment
 		Environments\quartz.Edu.MultiCulture.config = Environments\quartz.Edu.MultiCulture.config
 		Environments\quartz.Edu.Russia.config = Environments\quartz.Edu.Russia.config
 		Environments\quartz.Load.Russia.config = Environments\quartz.Load.Russia.config
+		Environments\quartz.Production.Emirates.config = Environments\quartz.Production.Emirates.config
+		Environments\quartz.Production.Kazakhstan.config = Environments\quartz.Production.Kazakhstan.config
 		Environments\quartz.Production.MultiCulture.config = Environments\quartz.Production.MultiCulture.config
 		Environments\quartz.Production.Russia.config = Environments\quartz.Production.Russia.config
+		Environments\quartz.Production.Ukraine.config = Environments\quartz.Production.Ukraine.config
 		Environments\quartz.Test.08.config = Environments\quartz.Test.08.config
 		Environments\quartz.Test.108.config = Environments\quartz.Test.108.config
 		Environments\quartz.Test.208.config = Environments\quartz.Test.208.config
@@ -448,9 +451,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Environments\Templates\Erm.Test.Russia.config = Environments\Templates\Erm.Test.Russia.config
 		Environments\Templates\Erm.Test.Russia.CRM.config = Environments\Templates\Erm.Test.Russia.CRM.config
 		Environments\Templates\Erm.Test.Ukraine.config = Environments\Templates\Erm.Test.Ukraine.config
+		Environments\Templates\quartz.Test.Emirates.config = Environments\Templates\quartz.Test.Emirates.config
+		Environments\Templates\quartz.Test.Kazakhstan.config = Environments\Templates\quartz.Test.Kazakhstan.config
 		Environments\Templates\quartz.Test.MultiCulture.config = Environments\Templates\quartz.Test.MultiCulture.config
 		Environments\Templates\quartz.Test.Russia.config = Environments\Templates\quartz.Test.Russia.config
 		Environments\Templates\quartz.Test.Russia.CRM.config = Environments\Templates\quartz.Test.Russia.CRM.config
+		Environments\Templates\quartz.Test.Ukraine.config = Environments\Templates\quartz.Test.Ukraine.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{8A7FE04B-1B23-412D-AC87-D297824303A3}"
