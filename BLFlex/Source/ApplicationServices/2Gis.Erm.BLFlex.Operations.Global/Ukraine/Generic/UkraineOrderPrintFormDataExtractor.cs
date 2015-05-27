@@ -101,7 +101,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic
                 .Select(x => new PrintData
                     {
                         { "UseBargainNumberExists", x.BargainExists && !string.IsNullOrWhiteSpace(x.BargainNumber) },
-                        { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(x.BeginDistributionDate, x.SignupDate) },
+                        { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(x.BeginDistributionDate, x.SignupDate) },
                         { "ElectronicMedia", x.ElectronicMedia },
                         { "SourceElectronicMedia", x.SourceElectronicMedia },
                         { "BargainNumber", x.BargainNumber },

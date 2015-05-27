@@ -128,7 +128,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic
 
             var parintData = new PrintData
                 {
-                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate, stuff.SignupDate) },
+                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(stuff.BeginDistributionDate, stuff.SignupDate) },
                     { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, profile) },
                     { "ElectronicMedia", stuff.ElectronicMedia },
                     { "Firm.Name", stuff.FirmName },

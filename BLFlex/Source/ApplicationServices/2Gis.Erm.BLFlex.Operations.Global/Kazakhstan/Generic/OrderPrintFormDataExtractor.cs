@@ -115,7 +115,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic
                 .AsEnumerable()
                 .Select(x => new PrintData
                                  {
-                                     { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(x.BeginDistributionDate, x.SignupDate) },
+                                     { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(x.BeginDistributionDate, x.SignupDate) },
                                      { "SourceElectronicMedia", x.SourceElectronicMedia },
                                      {
                                          "PaymentMethod",

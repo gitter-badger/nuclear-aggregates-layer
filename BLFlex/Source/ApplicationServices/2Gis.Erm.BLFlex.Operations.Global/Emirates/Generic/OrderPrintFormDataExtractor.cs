@@ -156,7 +156,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic
 
             return new PrintData
                 {
-                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(stuff.BeginDistributionDate, stuff.SignupDate) },
+                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(stuff.BeginDistributionDate, stuff.SignupDate) },
                     { "ElectronicMedia", stuff.ElectronicMedia },
                     { "Firm.Name", stuff.FirmName },
                 };

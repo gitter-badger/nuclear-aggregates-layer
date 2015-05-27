@@ -151,7 +151,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic
                 .Select(x => new PrintData
                     {
                         { "BargainNumber", x.BargainNumber ?? string.Empty },
-                        { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(x.BeginDistributionDate, x.SignupDate) },
+                        { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(x.BeginDistributionDate, x.SignupDate) },
                         { "ElectronicMedia", x.ElectronicMedia },
                         { "SourceElectronicMedia", x.SourceElectronicMedia },
                         { "Firm.Name", x.FirmName },

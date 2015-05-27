@@ -134,7 +134,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
 
             return new PrintData
                 {
-                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(data.BeginDistributionDate, data.SignupDate) },
+                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(data.BeginDistributionDate, data.SignupDate) },
                     { "BeginContractParagraph", GetBeginContractParagraph(branchOfficeOrganizationUnit, legalPerson, legalPersonProfile) },
                     { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, legalPersonProfile) },
                     { "ElectronicMedia", data.ElectronicMedia },

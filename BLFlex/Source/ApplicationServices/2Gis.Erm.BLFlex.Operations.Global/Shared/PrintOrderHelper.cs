@@ -39,8 +39,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared
             _longDateFormatter = formatterFactory.Create(typeof(DateTime), FormatType.LongDate, 0);
         }
 
-        public static DateTime GetAdvMatherialsDeadline(DateTime beginDistributionDate, DateTime signupDate)
+        public static DateTime GetAdvMaterialsDeadline(DateTime beginDistributionDate, DateTime signupDate)
         {
+            if (signupDate >= beginDistributionDate)
+            {
+                throw new ArgumentException("Signup date should be less than begin distribution date", "signupDate");
+            }
+
             const int Day = 18;
             var deadline = beginDistributionDate.AddMonths(-1).AddDays(Day - 1);
             return signupDate > deadline ? signupDate : deadline;
