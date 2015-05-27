@@ -1,6 +1,6 @@
 using System;
 
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Platform.Model.Entities.Security
 {
@@ -28,10 +28,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         public string Mobile { get; set; }
         public string Address { get; set; }
         public string Company { get; set; }
-        public string Position { get; set; }
+        public string Position { get; set; }              
         public DateTime? Birthday { get; set; }
         public int Gender { get; set; }
         public string PlanetURL { get; set; }
+        public string TelephonyAddress { get; set; }
 
         public TimeZone TimeZone { get; set; }
         public User User { get; set; }

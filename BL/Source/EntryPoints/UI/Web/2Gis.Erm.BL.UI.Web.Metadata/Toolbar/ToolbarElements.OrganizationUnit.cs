@@ -4,6 +4,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
 {
     public sealed partial class ToolbarElements
@@ -22,7 +24,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar
                                      .LockOnInactive()
                                      .LockOnNew()
                                      .JSHandler("ManageCategories")
-                                     .Icon.Path(Icons.Icons.Entity.Small(EntityName.Category));
+                                     .Icon.Path(Icons.Icons.Entity.Small(EntityType.Instance.Category()));
             }
         }
     }

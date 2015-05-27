@@ -21,7 +21,7 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -29,6 +29,8 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 {
@@ -467,7 +469,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public Note GetLastNoteForOrder(long orderId, DateTime sinceDate)
         {
-            return _finder.Find<Note>(n => n.ParentId == orderId && n.ParentType == (int)EntityName.Order && n.ModifiedOn > sinceDate)
+            var orderTypeId = EntityType.Instance.Order().Id;
+            return _finder.Find<Note>(x => x.ParentId == orderId && x.ParentType == orderTypeId && x.ModifiedOn > sinceDate)
                           .OrderByDescending(x => x.ModifiedOn)
                           .FirstOrDefault();
         }
@@ -1011,7 +1014,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             // на текущий момент интересует только возможность деактивировать
             var isDeleteAllowed = _entityAccessService.HasEntityAccess(EntityAccessTypes.Delete,
-                                                                       EntityName.Order,
+                                                                       EntityType.Instance.Order(),
                                                                        _userContext.Identity.Code,
                                                                        orderDto.Id,
                                                                        orderDto.OwnerCode,
@@ -1318,21 +1321,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                        };
         }
 
-        public OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(EntityName parentEntityName, long parentEntityId)
+        public OrderParentEntityDerivedFieldsDto GetOrderFieldValuesByParentEntity(IEntityType parentEntityName, long parentEntityId)
         {
-            switch (parentEntityName)
+            if (parentEntityName.Equals(EntityType.Instance.Client()))
             {
-                case EntityName.Client:
-                    return GetReferenceByClient(parentEntityId);
-                case EntityName.Firm:
-                    return GetReferencesByFirm(parentEntityId);
-                case EntityName.LegalPerson:
-                    return GetReferencesByLegalPerson(parentEntityId);
-                case EntityName.Deal:
-                    return GetReferencesByDeal(parentEntityId);
-                default:
-                    return new OrderParentEntityDerivedFieldsDto();
+                return GetReferenceByClient(parentEntityId);
             }
+
+            if (parentEntityName.Equals(EntityType.Instance.Firm()))
+            {
+                return GetReferencesByFirm(parentEntityId);
+            }
+
+            if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
+            {
+                return GetReferencesByLegalPerson(parentEntityId);
+            }
+
+            if (parentEntityName.Equals(EntityType.Instance.Deal()))
+            {
+                return GetReferencesByDeal(parentEntityId);
+            }
+            
+            return new OrderParentEntityDerivedFieldsDto();
         }
 
         public IEnumerable<Bill> GetBillsForOrder(long orderId)

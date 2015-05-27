@@ -14,16 +14,17 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
         private readonly IFinder _finder;
         private readonly IBusinessModelEntityObtainer<Client> _clientObtainer;
 
-        public ClientsMergingController(IMsCrmSettings msCrmSettings, IAPIOperationsServiceSettings operationsServiceSettings, IAPISpecialOperationsServiceSettings specialOperationsServiceSettings, IAPIIdentityServiceSettings identityServiceSettings, IUserContext userContext, ITracer tracer, IGetBaseCurrencyService getBaseCurrencyService, IOperationServicesManager operationServicesManager, ISecurityServiceUserIdentifier userIdentifierService, ISecurityServiceFunctionalAccess functionalAccessService, IPublicService publicService, IFinder finder, IBusinessModelEntityObtainer<Client> clientObtainer) : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
+        public ClientsMergingController(IMsCrmSettings msCrmSettings, IAPIOperationsServiceSettings operationsServiceSettings, IAPISpecialOperationsServiceSettings specialOperationsServiceSettings, IIdentityServiceClientSettings identityServiceSettings, IUserContext userContext, ITracer tracer, IGetBaseCurrencyService getBaseCurrencyService, IOperationServicesManager operationServicesManager, ISecurityServiceUserIdentifier userIdentifierService, ISecurityServiceFunctionalAccess functionalAccessService, IPublicService publicService, IFinder finder, IBusinessModelEntityObtainer<Client> clientObtainer) : base(msCrmSettings, operationsServiceSettings, specialOperationsServiceSettings, identityServiceSettings, userContext, tracer, getBaseCurrencyService)
         {
             _operationServicesManager = operationServicesManager;
             _userIdentifierService = userIdentifierService;
@@ -115,9 +116,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
                 throw new NotificationException(BLResources.AccessDeniedMergeClients);
             }
 
-            var service = _operationServicesManager.GetDomainEntityDtoService(EntityName.Client);
-            var masterClientDto = (ClientDomainEntityDto)service.GetDomainEntityDto(masterId, false, null, EntityName.None, string.Empty);
-            var subordinateClientDto = (ClientDomainEntityDto)service.GetDomainEntityDto(subordinateId, false, null, EntityName.None, string.Empty);
+            var service = _operationServicesManager.GetDomainEntityDtoService(EntityType.Instance.Client());
+            var masterClientDto = (ClientDomainEntityDto)service.GetDomainEntityDto(masterId, false, null, EntityType.Instance.None(), string.Empty);
+            var subordinateClientDto = (ClientDomainEntityDto)service.GetDomainEntityDto(subordinateId, false, null, EntityType.Instance.None(), string.Empty);
 
             var masterClientModel = new ClientViewModel
                 {

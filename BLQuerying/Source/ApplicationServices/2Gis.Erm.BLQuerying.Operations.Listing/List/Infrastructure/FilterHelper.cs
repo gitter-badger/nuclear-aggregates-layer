@@ -7,7 +7,7 @@ using System.Reflection;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
@@ -89,7 +89,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure
 
             var castExpression = (UnaryExpression)lambdaExpression.Body;
             var propertyExpression = castExpression.Operand;
-            var parentEntityIdExpression = Expression.Constant(querySettings.ParentEntityId, propertyExpression.Type);
+            var parentEntityIdExpression = ConstantWrapper<long>.CreateExpression(querySettings.ParentEntityId.Value, propertyExpression.Type);
             var equalsExpression = Expression.Equal(propertyExpression, parentEntityIdExpression);
             var parameterExpression = lambdaExpression.Parameters.Single();
             lambdaExpression = Expression.Lambda(equalsExpression, parameterExpression);

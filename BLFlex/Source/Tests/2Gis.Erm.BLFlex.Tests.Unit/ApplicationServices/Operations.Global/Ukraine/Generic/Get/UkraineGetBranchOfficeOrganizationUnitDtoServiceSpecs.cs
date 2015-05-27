@@ -3,12 +3,9 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.OrganizationUnits.ReadModel;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
@@ -18,6 +15,10 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 
 using It = Machine.Specifications.It;
 
@@ -31,13 +32,13 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             protected static IUserContext UserContext;
             protected static IOrganizationUnitReadModel OrganizationUnitReadModel;
             protected static IBranchOfficeReadModel BranchOfficeReadModel;
-            protected static IAPIIdentityServiceSettings IdentityServiceSettings;
+            protected static IIdentityServiceClientSettings IdentityServiceSettings;
             protected static UkraineBranchOfficeOrganizationUnitDomainEntityDto Result;
 
             protected static long EntityId;
             protected static bool ReadOnly;
             protected static long? ParentEntityId;
-            protected static EntityName ParentEntityName;
+            protected static IEntityType ParentEntityName;
             protected static string ExtendedInfo;
 
             Establish context = () =>
@@ -45,13 +46,13 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                     EntityId = 0;
                     ReadOnly = false;
                     ParentEntityId = null;
-                    ParentEntityName = 0;
+                    ParentEntityName = EntityType.Instance.None();
                     ExtendedInfo = null;
 
                     BranchOfficeReadModel = Mock.Of<IBranchOfficeReadModel>();
                     OrganizationUnitReadModel = Mock.Of<IOrganizationUnitReadModel>();
                     UserContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
-                    IdentityServiceSettings = Mock.Of<IAPIIdentityServiceSettings>();
+                    IdentityServiceSettings = Mock.Of<IIdentityServiceClientSettings>();
 
                     UkraineGetBranchOfficeOrganizationUnitDtoService = new UkraineGetBranchOfficeOrganizationUnitDtoService(UserContext, OrganizationUnitReadModel, BranchOfficeReadModel);
                 };
@@ -98,7 +99,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             {
                 EntityId = 0;
 
-                Mock.Get(IdentityServiceSettings).Setup(x => x.RestUrl).Returns(RestUrl);
+                Mock.Get(IdentityServiceSettings).Setup(x => x.IdentityServiceUrl).Returns(RestUrl);
             };
 
             It should_be_UkraineBranchOfficeDomainEntityDto = () => Result.Should().BeOfType<UkraineBranchOfficeOrganizationUnitDomainEntityDto>();
@@ -116,7 +117,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             Establish context = () =>
                 {
                     ParentEntityId = PARENT_ENTITY_ID;
-                    ParentEntityName = EntityName.BranchOffice;
+                    ParentEntityName = EntityType.Instance.BranchOffice();
 
                     BranchOffice = new BranchOffice { Name = BRANCH_OFFICE_NAME };
 
@@ -141,7 +142,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             Establish context = () =>
             {
                 ParentEntityId = PARENT_ENTITY_ID;
-                ParentEntityName = EntityName.OrganizationUnit;
+                ParentEntityName = EntityType.Instance.OrganizationUnit();
 
                 Mock.Get(OrganizationUnitReadModel).Setup(x => x.GetName(PARENT_ENTITY_ID)).Returns(ORGANIZATION_UNIT_NAME);
             };

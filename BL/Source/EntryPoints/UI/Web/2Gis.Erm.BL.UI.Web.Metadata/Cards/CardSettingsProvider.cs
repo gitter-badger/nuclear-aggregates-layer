@@ -6,17 +6,18 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Common.Metadata.Old.Dto;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Handler.Concrete;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Identities;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Features.RelatedItems;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.ControlTypes;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Elements.Identities.Builder;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Handler.Concrete;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 {
@@ -45,11 +46,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
         // TODO {all, 24.12.2014}: Культура передается т.к. на старте приложения проверяется корректность метаданных.
         // Контекст пользователя в это время неопределен. После удаления метаданных карточек из EntitySettings.xml и соответсвующей проверки метаданных карточек
         // культуру можно будет брать из контекста пользователя
-        public CardStructure GetCardSettings(EntityName entity, CultureInfo culture)
+        public CardStructure GetCardSettings(IEntityType entity, CultureInfo culture)
         {
             _currentCulture = culture;
             CardMetadata metadata;
-            if (!_metadataProvider.TryGetMetadata(IdBuilder.For<MetadataCardsIdentity>(entity.ToString()).AsIdentity().Id, out metadata))
+            if (!_metadataProvider.TryGetMetadata(NuClear.Metamodeling.Elements.Identities.Builder.Metadata.Id.For<MetadataCardsIdentity>(entity.Description).Build().AsIdentity().Id, out metadata))
             {
                 throw new ArgumentException(string.Format("Cannot find metadata for entity {0}", entity), "entity");
             }
@@ -69,7 +70,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
                 result.Icon = card.ImageDescriptor.ToString();
             }
 
-            result.EntityName = card.Entity.ToString();
+            result.EntityName = card.Entity.Description;
 
             if (card.TitleDescriptor != null)
             {
@@ -91,6 +92,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 
             result.HasComments = card.Uses<ShowNotesFeature>();
             result.HasAdminTab = card.Uses<ShowAdminPartFeature>();
+            result.HasActionsHistory = card.Uses<ShowActionHistoryFeature>();
 
             result.CardToolbar = card.ActionsDescriptors.SelectMany(x => ToToolbarStructure(x, null)).ToArray();
             result.CardRelatedItems = card.Features<RelatedItemsFeature>().Select(ToCardRelatedItemsGroupStructure).ToArray();
@@ -138,6 +140,16 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
 
             var securityPrivelegeFlag = 0;
             foreach (var feature in toolbarElement.Features<SecuredByFunctionalPrivelegeFeature>())
+            {
+                securityPrivelegeFlag |= (int)feature.Privilege;
+            }
+
+            foreach (var feature in toolbarElement.Features<SecuredByEntityInstancePrivilegeFeature>())
+            {
+                securityPrivelegeFlag |= (int)feature.Privilege;
+            }
+
+            foreach (var feature in toolbarElement.Features<SecuredByEntityTypePrivilegeFeature>())
             {
                 securityPrivelegeFlag |= (int)feature.Privilege;
             }
@@ -221,7 +233,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             var appendableEntityFeature = element.Features<AppendableEntityFeature>().SingleOrDefault();
             if (appendableEntityFeature != null)
             {
-                result.AppendableEntity = appendableEntityFeature.Entity.ToString();
+                result.AppendableEntity = appendableEntityFeature.Entity.Description;
             }
 
             var filterToParentFeature = element.Features<FilterToParentFeature>().SingleOrDefault();
@@ -234,6 +246,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards
             if (filterToParentsFeature != null)
             {
                 result.AppendExtendedInfo(filterToParentsFeature.ToExtendedInfo());
+            }
+
+            var defaultDataViewFeature = element.Features<DefaultDataViewFeature>().SingleOrDefault();
+            if (defaultDataViewFeature != null)
+            {
+                result.DefaultDataView = defaultDataViewFeature.DataView;
             }
 
             return result;

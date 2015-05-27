@@ -12,10 +12,11 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.Card;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BL.UI.Metadata.Cards
 {
@@ -40,10 +41,12 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                     {
                         CardMetadata.For<Account>()
                                     .WithDefaultMainAttribute()
+                                    .WithActionHistory()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAccounts),
 
                         CardMetadata.For<AccountDetail>()
                                     .WithDefaultMainAttribute()
+                                    .WithActionHistory()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAccountDetails),
 
                         CardMetadata.For<AdsTemplatesAdsElementTemplate>()
@@ -53,6 +56,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
 
                         CardMetadata.For<Advertisement>()
                                     .MainAttribute<INameAspect>(x => x.Name)
+                                    .WithActionHistory()
                                     .EntityLocalization(() => ErmConfigLocalization.EnAdvertisement)
                                     .ReadOnlyOn<IDummyAdvertisementAspect>(x => x.IsDummy)
                                     .WithAdminTab(),
@@ -83,6 +87,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .ReadOnlyOn<IActivityStateAspect>(x => x.Status == ActivityStatus.Canceled,
                                                                       x => x.Status == ActivityStatus.Completed)
                                     .WithAdminTab()
+                                    .WithActionHistory()
                                     .WithComments(),
 
                         CardMetadata.For<AssociatedPosition>()
@@ -103,6 +108,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .MainAttribute<INumberAspect>(x => x.Number)
                                     .EntityLocalization(() => MetadataResources.Bargain)
                                     .WithComments()
+                                    .WithActionHistory()
                                     .WithAdminTab(),
 
                         CardMetadata.For<BargainFile>()
@@ -144,6 +150,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Client>()
                                     .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnClient)
+                                    .WithActionHistory()
                                     .WithComments(),
 
                         CardMetadata.For<Contact>()
@@ -176,6 +183,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnDeal)
                                     .WithAdminTab()
+                                    .WithActionHistory()
                                     .WithComments(),
 
                         CardMetadata.For<DenialReason>()
@@ -197,6 +205,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                         CardMetadata.For<Firm>()
                                     .MainAttribute<INameAspect>(x => x.Name)
                                     .EntityLocalization(() => ErmConfigLocalization.EnFirms)
+                                    .WithActionHistory()
                                     .WithComments(),
 
                         CardMetadata.For<FirmAddress>()
@@ -214,6 +223,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .MainAttribute<ILegalNameAspect>(x => x.LegalName)
                                     .EntityLocalization(() => ErmConfigLocalization.EnLegalPersons)
                                     .WithAdminTab()
+                                    .WithActionHistory()
                                     .WithComments(),
 
                         CardMetadata.For<LegalPersonProfile>()
@@ -227,12 +237,14 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .ReadOnlyOn<IActivityStateAspect>(x => x.Status == ActivityStatus.Canceled,
                                                                       x => x.Status == ActivityStatus.Completed)
                                     .WithAdminTab()
+                                    .WithActionHistory()
                                     .WithComments(),
 
                         CardMetadata.For<Limit>()
                                     .WithDefaultMainAttribute()
                                     .EntityLocalization(() => ErmConfigLocalization.EnLimit)
                                     .ReadOnlyOn<ILimitStateAspect>(x => x.Status != LimitStatus.Opened)
+                                    .WithActionHistory()
                                     .WithComments(),
 
                         CardMetadata.For<LocalMessage>()
@@ -270,6 +282,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .MainAttribute<INumberAspect>(x => x.Number)
                                     .EntityLocalization(() => ErmConfigLocalization.EnOrders)
                                     .ReadOnlyOn<IOrderWorkflowAspect>(x => x.WorkflowStepId != OrderState.OnRegistration)
+                                    .WithActionHistory()
                                     .WithComments(),
 
                         CardMetadata.For<OrderFile>()
@@ -294,6 +307,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .ReadOnlyOn<IActivityStateAspect>(x => x.Status == ActivityStatus.Canceled,
                                                                       x => x.Status == ActivityStatus.Completed)
                                     .WithComments()
+                                    .WithActionHistory()
                                     .WithAdminTab(),
 
                         CardMetadata.For<Platform.Model.Entities.Erm.Platform>()
@@ -359,6 +373,7 @@ namespace DoubleGis.Erm.BL.UI.Metadata.Cards
                                     .ReadOnlyOn<IActivityStateAspect>(x => x.Status == ActivityStatus.Canceled,
                                                                       x => x.Status == ActivityStatus.Completed)
                                     .WithComments()
+                                    .WithActionHistory()
                                     .WithAdminTab(),
 
                         CardMetadata.For<Territory>()

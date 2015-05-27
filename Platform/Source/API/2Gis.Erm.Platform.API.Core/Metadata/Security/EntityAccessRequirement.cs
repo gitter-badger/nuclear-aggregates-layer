@@ -1,14 +1,14 @@
 ﻿using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.Model.Entities;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.API.Core.Metadata.Security
 {
     public sealed class EntityAccessRequirement : IAccessRequirement
     {
         private readonly EntityAccessTypes _requirement;
-        private readonly EntityName _entityName;
+        private readonly IEntityType _entityName;
 
-        public EntityAccessRequirement(EntityAccessTypes requirement, EntityName entityName)
+        public EntityAccessRequirement(EntityAccessTypes requirement, IEntityType entityName)
         {
             _requirement = requirement;
             _entityName = entityName;
@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Metadata.Security
             get { return _requirement; }
         }
 
-        public EntityName EntityName
+        public IEntityType EntityName
         {
             get { return _entityName; }
         }
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Metadata.Security
         {
             unchecked
             {
-                return ((int)EntityAccessType * 397) ^ (int)EntityName;
+                return ((int)EntityAccessType * 397) ^ EntityName.Id;
             }
         }
 

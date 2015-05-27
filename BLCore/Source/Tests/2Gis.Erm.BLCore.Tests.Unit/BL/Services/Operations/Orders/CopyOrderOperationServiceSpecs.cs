@@ -13,9 +13,6 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
-using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
@@ -25,6 +22,10 @@ using FluentAssertions;
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 
 using It = Machine.Specifications.It;
 
@@ -144,7 +145,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                 Mock.Get(securityServiceEntityAccess)
                     .Setup(x => x.HasEntityAccess(
                         Moq.It.IsAny<EntityAccessTypes>(),
-                        Moq.It.IsAny<EntityName>(),
+                        Moq.It.IsAny<IEntityType>(),
                         Moq.It.IsAny<long>(),
                         Moq.It.IsAny<long?>(),
                         Moq.It.IsAny<long>(),
@@ -159,7 +160,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.Orders
                 var service = Mock.Of<IEvaluateOrderNumberService>();
 
                 Mock.Get(service)
-                    .Setup(s => s.Evaluate(Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<long?>()))
+                    .Setup(s => s.Evaluate(Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<long?>(), Moq.It.IsAny<OrderType>()))
                     .Returns(string.Empty);
 
                 Mock.Get(service)

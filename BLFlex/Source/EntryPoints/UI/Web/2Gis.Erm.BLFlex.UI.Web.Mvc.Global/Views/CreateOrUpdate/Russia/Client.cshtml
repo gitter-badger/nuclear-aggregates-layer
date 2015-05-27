@@ -14,6 +14,7 @@
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.ReplicationCode)
     @Html.HiddenFor(m => m.CanEditIsAdvertisingAgency)
+    @Html.HiddenFor(m => m.HaveTelephonyAccess)
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Name, FieldFlex.lone)
@@ -49,7 +50,7 @@
             @Html.TemplateField(m => m.LastDisqualifyTime, FieldFlex.twins, new CalendarSettings { ReadOnly = true })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.MainFirm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, ExtendedInfo = "filterToParent=true", ParentEntityName = EntityName.Client, ParentIdPattern = "Id" })
+            @Html.TemplateField(m => m.MainFirm, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Firm(), ExtendedInfo = "filterToParent=true", ParentEntityName = EntityType.Instance.Client(), ParentIdPattern = "Id" })
         </div>
     </div>
     <div class="Tab" id="AdministrationTab" title="@BLResources.AdministrationTabTitle">
@@ -57,16 +58,16 @@
         @if (Model.IsCurated && Model.IsSecurityRoot)
         {
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
-                @Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Territory, ReadOnly = Model != null && Model.Territory != null && !string.IsNullOrEmpty(Model.Territory.Value) })
+                @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
+                @Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Territory(), ReadOnly = Model != null && Model.Territory != null && !string.IsNullOrEmpty(Model.Territory.Value) })
             </div>
         }
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true })
             @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, ReadOnly = true })
+            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), ReadOnly = true })
             @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { ReadOnly = true })
         </div>
     </div>

@@ -1,8 +1,10 @@
 ﻿using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.TaskService.Jobs.Concrete.PerformedOperationsProcessing.Analysis.Producer;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.DI.Unity.Proxies;
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.Platform.DI.Proxies.PerformedOperations
 {
@@ -13,7 +15,7 @@ namespace DoubleGis.Erm.Platform.DI.Proxies.PerformedOperations
         {
         }
 
-        IOperationScope IOperationScopeFactory.CreateSpecificFor<TOperationIdentity>(params EntityName[] operationEntities)
+        IOperationScope IOperationScopeFactory.CreateSpecificFor<TOperationIdentity>(params IEntityType[] operationEntities)
         {
             return ProxiedInstance.CreateSpecificFor<TOperationIdentity>(operationEntities);
         }
@@ -28,7 +30,7 @@ namespace DoubleGis.Erm.Platform.DI.Proxies.PerformedOperations
             return ProxiedInstance.CreateSpecificFor<TOperationIdentity, TEntity1, TEntity2>();
         }
 
-        IOperationScope IOperationScopeFactory.CreateSpecificFor<TOperationIdentity>(IOperationScope parentScope, params EntityName[] operationEntities)
+        IOperationScope IOperationScopeFactory.CreateSpecificFor<TOperationIdentity>(IOperationScope parentScope, params IEntityType[] operationEntities)
         {
             return ProxiedInstance.CreateSpecificFor<TOperationIdentity>(parentScope, operationEntities);
         }

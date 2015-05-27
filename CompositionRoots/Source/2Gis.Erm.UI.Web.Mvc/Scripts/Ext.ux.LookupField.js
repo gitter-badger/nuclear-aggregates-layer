@@ -17,6 +17,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
     errorMessage: true,
     tabIndex: -1,
     readOnly: false,
+    clientInitialization: false,
     supressMatchesErrors: false,
     parentEntityName: "None",
     parentIdPattern: "",
@@ -53,6 +54,9 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         this.setDisabled(this.disabled);
         this.searchBtn.dom.src = this.disabled || this.readOnly ? this.btnDis : this.btnOff;
         this.initHandlers();
+        if (this.clientInitialization == true) {
+            this.forceGetData();
+        }
     },
     renderItems: function ()
     {
@@ -367,7 +371,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
         }
     },
     openSearchHint: function() {
-        if (this.d1isabled || this.readOnly) {
+        if (this.disabled || this.readOnly) {
             return;
         }
 
@@ -381,7 +385,7 @@ Ext.ux.LookupField = Ext.extend(Ext.Component, {
     },
     openSearchWin: function (evt, el)
     {
-        if (this.d1isabled || this.readOnly) {
+        if (this.disabled || this.readOnly) {
              return;
         }
 

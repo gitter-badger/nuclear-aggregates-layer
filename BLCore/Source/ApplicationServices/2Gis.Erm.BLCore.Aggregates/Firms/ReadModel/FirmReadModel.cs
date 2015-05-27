@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO.FirmInfo;
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 {
     public class FirmReadModel : IFirmReadModel
     {
-        private const long TelesaleCategoryGroupId = 1;
+        private const long TelesaleCategoryGroupId = 5;
         private const long DefaultCategoryRate = 1;
 
         private readonly IFinder _finder;
@@ -73,12 +74,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                                      .Distinct()
                                      .ToArray();
 
-            var mostExpensiveGroupId = _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>() &&
-                                                    new FindSpecification<CategoryOrganizationUnit>(
-                                                        link => link.OrganizationUnitId == organizationUnitId &&
-                                                                categoryIds.Contains(link.CategoryId)))
-                // ReSharper disable once ConstantNullCoalescingCondition
-                                              .OrderByDescending(x => (decimal?)x.CategoryGroup.GroupRate ?? DefaultCategoryRate)
+            var mostExpensiveGroupId = _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>()
+                                                    && CategorySpecs.CategoryOrganizationUnits.Find.ForOrganizationUnit(organizationUnitId)
+                                                    && CategorySpecs.CategoryOrganizationUnits.Find.ForCategories(categoryIds))
+                                              .OrderByDescending(x => x.CategoryGroup != null ? x.CategoryGroup.GroupRate : DefaultCategoryRate)
                                               .Select(x => x.CategoryGroupId)
                                               .FirstOrDefault();
 
@@ -222,6 +221,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         public Dictionary<long, Firm> GetFirms(IEnumerable<long> firmIds)
         {
             return _finder.FindMany(Specs.Find.ByIds<Firm>(firmIds)).ToDictionary(x => x.Id);
+        }
+
+        public IEnumerable<Firm> GetFirmsForClientAndLinkedChild(long clientId)
+        {
+            var clientAndChild = _finder.Find(ClientSpecs.DenormalizedClientLinks.Find.ClientChild(clientId)).Select(s => (long?)s.ChildClientId).ToArray().Union(new[] { (long?)clientId });
+            return _finder.Find(FirmSpecs.Firms.Find.ByClientIds(clientAndChild)).ToArray();
         }
 
         public IReadOnlyDictionary<int, RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase)

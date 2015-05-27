@@ -11,14 +11,17 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Old;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 using NuClear.Tracing.API;
 
@@ -34,6 +37,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
         private readonly ITracer _tracer;
         private readonly IClientReadModel _clientReadModel;
         private readonly IAppointmentReadModel _appointmentReadModel;
+
+        private readonly IActionLogger _actionLogger;
+
         private readonly ILetterReadModel _letterReadModel;
         private readonly IPhonecallReadModel _phonecallReadModel;
         private readonly ITaskReadModel _taskReadModel;
@@ -51,6 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             ITracer tracer,
             IClientReadModel clientReadModel,
             IAppointmentReadModel appointmentReadModel,
+            IActionLogger actionLogger,
             ILetterReadModel letterReadModel,
             IPhonecallReadModel phonecallReadModel,
             ITaskReadModel taskReadModel,
@@ -67,6 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             _tracer = tracer;
             _clientReadModel = clientReadModel;
             _appointmentReadModel = appointmentReadModel;
+            _actionLogger = actionLogger;
             _letterReadModel = letterReadModel;
             _phonecallReadModel = phonecallReadModel;
             _taskReadModel = taskReadModel;
@@ -133,21 +141,29 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 
         private void AssignRelatedActivities(long clientId, long prevOwnerCode, long newOwnerCode, bool isPartialAssign)
         {
-            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            foreach (var appointment in _appointmentReadModel.LookupOpenAppointmentsRegarding(EntityType.Instance.Client(), clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
             {
+                var originalOwner = appointment.OwnerCode;
                 _assignAppointmentAggregateService.Assign(appointment, newOwnerCode);
+                _actionLogger.LogChanges(appointment, x => x.OwnerCode, originalOwner, appointment.OwnerCode);
             }
-            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            foreach (var letter in _letterReadModel.LookupOpenLettersRegarding(EntityType.Instance.Client(), clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
             {
+                var originalOwner = letter.OwnerCode;
                 _assignLetterAggregateService.Assign(letter, newOwnerCode);
+                _actionLogger.LogChanges(letter, x => x.OwnerCode, originalOwner, letter.OwnerCode);
             }
-            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            foreach (var phonecall in _phonecallReadModel.LookupOpenPhonecallsRegarding(EntityType.Instance.Client(), clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
             {
+                var originalOwner = phonecall.OwnerCode;
                 _assignPhonecallAggregateService.Assign(phonecall, newOwnerCode);
+                _actionLogger.LogChanges(phonecall, x => x.OwnerCode, originalOwner, phonecall.OwnerCode);
             }
-            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityName.Client, clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
+            foreach (var task in _taskReadModel.LookupOpenTasksRegarding(EntityType.Instance.Client(), clientId).Where(x => !isPartialAssign || x.OwnerCode == prevOwnerCode))
             {
+                var originalOwner = task.OwnerCode;
                 _assignTaskAggregateService.Assign(task, newOwnerCode);
+                _actionLogger.LogChanges(task, x => x.OwnerCode, originalOwner, task.OwnerCode);
             }
         }
     }

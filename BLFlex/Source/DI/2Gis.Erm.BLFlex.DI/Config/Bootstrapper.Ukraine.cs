@@ -10,8 +10,8 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Clients;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Ukraine.Operations.Generic.List;
+using DoubleGis.Erm.BLFlex.DI.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Consistency;
@@ -20,7 +20,6 @@ using DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -29,6 +28,10 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Ukraine;
 
 using Microsoft.Practices.Unity;
+
+using NuClear.Model.Common.Entities;
+using NuClear.DI.Unity.Config;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLFlex.DI.Config
 {
@@ -62,7 +65,9 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
             return container
                 .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("Д_{0}-{1}-{2}", "АД_{0}-{1}-{2}"))
                 .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}-счёт"))
-                .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberService>(Lifetime.Singleton, new InjectionConstructor("БЗ_{0}-{1}-{2}", "БЗ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForRussia))
+                .RegisterType<IEvaluateOrderNumberService, UkraineEvaluateOrderNumberService>(Lifetime.Singleton,
+                                                                                              new InjectionConstructor(
+                                                                                                  OrderNumberGenerationStrategiesContainer.StrategiesForCyrillicAlphabetCountries))
                 .RegisterType<IEvaluateBillDateService, EvaluateBillDateService>();
         }
 
@@ -81,7 +86,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 x => x.Egrpou,
                 x => x.LegalAddress);
 
-            RelationalMetadata.RegisterRelatedFilter<UkraineListLegalPersonDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<UkraineListLegalPersonDto>(EntityType.Instance.Client(), x => x.ClientId);
 
             var extendedInfoFilterMetadata = container.Resolve<IExtendedInfoFilterMetadata>();
 

@@ -3,22 +3,24 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
 using DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 
 using FluentAssertions;
 
 using Machine.Specifications;
 
 using Moq;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
+using NuClear.Security.API.UserContext.Identity;
 
 using It = Machine.Specifications.It;
 
@@ -37,7 +39,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             protected static long EntityId;
             protected static bool ReadOnly;
             protected static long? ParentEntityId;
-            protected static EntityName ParentEntityName;
+            protected static IEntityType ParentEntityName;
             protected static string ExtendedInfo;
 
             Establish context = () =>
@@ -118,7 +120,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
                 {
                     EntityId = 0; // C Id = 0 мы создадим новую Dto
                     ParentEntityId = 1;
-                    ParentEntityName = EntityName.LegalPerson;
+                    ParentEntityName = EntityType.Instance.LegalPerson();
 
                     ParentLegalPerson = new LegalPerson
                         {
@@ -161,7 +163,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             {
                 EntityId = 0; // C Id = 0 мы создадим новую Dto
                 ParentEntityId = null;
-                ParentEntityName = EntityName.LegalPerson;
+                ParentEntityName = EntityType.Instance.LegalPerson();
             };
 
             Because of = () => catchedException = Catch.Exception(() => ChileGetLegalPersonProfileDtoService.GetDomainEntityDto(EntityId, ReadOnly, ParentEntityId, ParentEntityName, ExtendedInfo));
@@ -182,7 +184,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
             {
                 EntityId = 0; // C Id = 0 мы создадим новую Dto
                 ParentEntityId = 1;
-                ParentEntityName = EntityName.Order;
+                ParentEntityName = EntityType.Instance.Order();
             };
 
             Because of = () => catchedException = Catch.Exception(() => ChileGetLegalPersonProfileDtoService.GetDomainEntityDto(EntityId, ReadOnly, ParentEntityId, ParentEntityName, ExtendedInfo));

@@ -8,19 +8,23 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
     public sealed class ModifyLetterService : IModifyBusinessModelEntityService<Letter>
     {
         private readonly ILetterReadModel _readModel;
+        private readonly IActionLogger _actionLogger;
         private readonly IBusinessModelEntityObtainer<Letter> _activityObtainer;        
         private readonly IClientReadModel _clientReadModel;
         private readonly IFirmReadModel _firmReadModel;
@@ -29,6 +33,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
         public ModifyLetterService(
             ILetterReadModel readModel,
+            IActionLogger actionLogger,
             IBusinessModelEntityObtainer<Letter> obtainer,
             IClientReadModel clientReadModel,
             IFirmReadModel firmReadModel,
@@ -36,6 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             IUpdateLetterAggregateService updateOperationService)
         {
             _readModel = readModel;
+            _actionLogger = actionLogger;
             _activityObtainer = obtainer;            
             _clientReadModel = clientReadModel;
             _firmReadModel = firmReadModel;
@@ -53,12 +59,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
             var letter = _activityObtainer.ObtainBusinessModelEntity(domainEntityDto);
 
-            if (letterDto.RegardingObjects.HasReferenceInReserve(EntityName.Client, _clientReadModel.IsClientInReserve))
+            if (letterDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Client(), _clientReadModel.IsClientInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForClientInReserve);
             }
 
-            if (letterDto.RegardingObjects.HasReferenceInReserve(EntityName.Firm, _firmReadModel.IsFirmInReserve))
+            if (letterDto.RegardingObjects.HasReferenceInReserve(EntityType.Instance.Firm(), _firmReadModel.IsFirmInReserve))
             {
                 throw new BusinessLogicException(BLResources.CannotSaveActivityForFirmInReserve);
             }
@@ -74,10 +80,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 }
                 else
                 {
+                    var originalLetter = _readModel.GetLetter(letter.Id);
                     _updateOperationService.Update(letter);
                     oldRegardingObjects = _readModel.GetRegardingObjects(letter.Id);
                     oldSender = _readModel.GetSender(letter.Id);
                     oldRecipient = _readModel.GetRecipient(letter.Id);
+                    if (originalLetter.ScheduledOn != letter.ScheduledOn)
+                    {
+                        _actionLogger.LogChanges(letter, x => x.ScheduledOn, originalLetter.ScheduledOn, letter.ScheduledOn);
+                    }
                 }
 
                 _updateOperationService.ChangeRegardingObjects(letter,

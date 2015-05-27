@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Metadata.Sources
 {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
@@ -71,6 +72,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
                                                   && user.UserOrganizationUnits.Any(unit => unit.OrganizationUnitId == organizationUnitId));
         }
 
+        public Uri GetTelephonyServerAddress(long userId)
+        {
+            var uri = _finder.Find(UserSpecs.UserProfiles.Find.ForUser(userId)).Select(s => s.TelephonyAddress).SingleOrDefault();
+            return !string.IsNullOrEmpty(uri) ? new Uri(uri) : null;
+        }
+
         public long? GetUserOrganizationUnitId(long userId)
         {
             var singleOrganizationUnitIds = _finder.Find(Specs.Find.ById<User>(userId))
@@ -91,6 +98,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
         {
             return _finder.Find(Specs.Find.ByIds<User>(userIds))
                           .ToDictionary(user => user.Id, user => user.DisplayName);
+        }
+
+        public IEnumerable<long> PickNonServiceUsers(IEnumerable<long> userIds)
+        {
+            return _finder.Find(Specs.Find.ByIds<User>(userIds) && UserSpecs.Users.Find.NotService()).Select(x => x.Id).ToArray();
         }
     }
 }

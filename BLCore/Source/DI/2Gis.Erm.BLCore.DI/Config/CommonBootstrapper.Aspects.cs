@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.DI.Factories.Operations.Withdrawals;
 using DoubleGis.Erm.BLCore.Operations.Concrete.Withdrawals.ValidationRules;
 using DoubleGis.Erm.BLCore.Operations.Crosscutting.EmailResolvers;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
+using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.API.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.API.Core.Metadata.Security;
@@ -27,7 +28,7 @@ using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Platform.API.Core.UseCases.Context;
 using DoubleGis.Erm.Platform.AppFabric.Cache;
 using DoubleGis.Erm.Platform.Common.Caching;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
+using DoubleGis.Erm.Platform.Core.Identities;
 using DoubleGis.Erm.Platform.Core.Messaging.Flows;
 using DoubleGis.Erm.Platform.Core.Messaging.Transports.ServiceBusForWindowsServer;
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
@@ -51,14 +52,17 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.EAV;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Processors.Concrete;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Validators;
 using DoubleGis.Erm.Platform.Model.Metadata.Replication.Metadata;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Metamodeling.Domain.Processors.Concrete;
+using NuClear.Metamodeling.Processors;
+using NuClear.Metamodeling.Processors.Concrete;
+using NuClear.Metamodeling.Provider;
+using NuClear.Metamodeling.Validators;
+using NuClear.DI.Unity.Config;
+using NuClear.ResourceUtilities;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.DI.Config
@@ -114,7 +118,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IModifiableDomainContextFactory, EFDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IReadDomainContext, ReadDomainContextCachingProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IUnitOfWork, UnityUnitOfWork>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(entryPointSpecificLifetimeManagerFactory(), new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
+                        .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ConnectionStringName.Erm)))
                         .RegisterType<IAggregatesLayerRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as IAggregatesLayerRuntimeFactory))
                         .RegisterType<ISimplifiedModelConsumerRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as ISimplifiedModelConsumerRuntimeFactory))
                         .RegisterType<IPersistenceServiceRuntimeFactory>(entryPointSpecificLifetimeManagerFactory(), new InjectionFactory(c => c.Resolve<IUnitOfWork>() as IPersistenceServiceRuntimeFactory))
@@ -122,6 +126,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IUseCaseTuner, UseCaseTuner>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IAggregateServiceIsolator, AggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
+                        
 
                         // TODO нужно удалить все явные регистрации всяких проксей и т.п. - всем этим должен заниматься только UoW внутри себя
                         // пока без них не смогут работать нарпимер handler в которые напрямую, инжектиться finder
@@ -248,7 +253,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterTypeWithDependencies(
                                     typeof(IOperationLoggingStrategy), 
                                     typeOfDirectDBLoggingStrategy, 
-                                    typeOfDirectDBLoggingStrategy.GetPerTypeUniqueMarker(), 
+                                    ContainerUtils.GetPerTypeUniqueMarker(typeOfDirectDBLoggingStrategy), 
                                     entryPointSpecificLifetimeManagerFactory(), 
                                     (string)null, 
                                     InjectionFactories.SimplifiedModelConsumer)
@@ -260,7 +265,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                 container.RegisterTypeWithDependencies(
                                     typeof(IOperationLoggingStrategy), 
                                     typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy, 
-                                    typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy.GetPerTypeUniqueMarker(), 
+                                    ContainerUtils.GetPerTypeUniqueMarker(typeOfDirectDbEnqueUseCaseForProcessingLoggingStrategy), 
                                     entryPointSpecificLifetimeManagerFactory(), 
                                     (string)null)
                          .RegisterType<IMessageFlowRegistry, MessageFlowRegistry>(Lifetime.Singleton);
@@ -298,12 +303,12 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                                     var strategies = crmSettings.IntegrationMode.HasFlag(MsCrmIntegrationMode.Sdk)
                                         ? new[]
                                             {
-                                                container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(),
-                                                container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, MsCrmEmployeeEmailResolveStrategy>()
+                                                ContainerUtils.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(container),
+                                                ContainerUtils.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, MsCrmEmployeeEmailResolveStrategy>(container)
                                             }
                                         : new[]
                                             {
-                                                container.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>()
+                                                ContainerUtils.ResolveOne2ManyTypesByType<IEmployeeEmailResolveStrategy, UserProfileEmployeeEmailResolveStrategy>(container)
                                             };
 
                                     return new EmployeeEmailResolver(strategies);

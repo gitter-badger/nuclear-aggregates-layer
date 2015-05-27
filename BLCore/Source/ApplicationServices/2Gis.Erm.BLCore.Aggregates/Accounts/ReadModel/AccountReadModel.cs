@@ -383,22 +383,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                 AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
                                 AccountSpecs.Locks.Find.ForPeriod(period.Start, period.End))
                           .Select(l => new
-                                           {
-                                               Lock = l,
-                                               LockDetails = l.LockDetails
-                                                              .Where(ld => ld.IsActive && !ld.IsDeleted)
-                                                              .Join(orderPositionsQuery,
-                                                                    ld => ld.OrderPositionId,
-                                                                    op => op.Id,
-                                                                    (ld, op) => new
-                                                                                    {
-                                                                                        LockDetail = ld,
+                              {
+                                  Lock = l,
+                                  LockDetails = l.LockDetails
+                                                 .Where(ld => ld.IsActive && !ld.IsDeleted)
+                                                 .Join(orderPositionsQuery,
+                                                       ld => ld.OrderPositionId,
+                                                       op => op.Id,
+                                                       (ld, op) => new
+                                                           {
+                                                               LockDetail = ld,
                                                                                         IsPlannedProvision =
                                                                                     SalesModelUtil.PlannedProvisionSalesModels.Contains(op.PricePosition.Position.SalesModel)
-                                                                                    })
-                                                              .Where(x => x.IsPlannedProvision)
-                                                              .Select(x => x.LockDetail)
-                                           })
+                                                           })
+                                                 .Where(x => x.IsPlannedProvision)
+                                                 .Select(x => x.LockDetail)
+                              })
                           .Where(x => x.LockDetails.Any())
                           .Select(x => new LockDto { Lock = x.Lock, Details = x.LockDetails })
                           .ToArray();

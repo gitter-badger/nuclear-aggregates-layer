@@ -8,11 +8,13 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Limit;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
 {
@@ -69,7 +71,7 @@ namespace DoubleGis.Erm.BL.Operations.Concrete.Limits
         private void AuthorizeUser(long userId, Limit limit)
         {
             var hasFunctionalPrivelege = _securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LimitRecalculation, userId);
-            var hasEntityAccess = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update, EntityName.Limit, userId, limit.Id, limit.OwnerCode, null);
+            var hasEntityAccess = _securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update, EntityType.Instance.Limit(), userId, limit.Id, limit.OwnerCode, null);
 
             if (!hasFunctionalPrivelege || !hasEntityAccess)
             {

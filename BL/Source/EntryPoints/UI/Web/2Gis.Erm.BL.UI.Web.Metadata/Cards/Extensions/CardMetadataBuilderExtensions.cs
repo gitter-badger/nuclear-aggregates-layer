@@ -1,9 +1,10 @@
 ﻿using DoubleGis.Erm.BL.Resources.Server.Properties;
 using DoubleGis.Erm.BL.UI.Web.Metadata.Toolbar;
 using DoubleGis.Erm.BLCore.UI.Metadata.Config.Cards;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
 {
@@ -44,9 +45,10 @@ namespace DoubleGis.Erm.BL.UI.Web.Metadata.Cards.Extensions
             builder.Actions
                    .Attach(ToolbarElements.Create<TEntity>(),
                            ToolbarElements.Update<TEntity>(),
-                           ToolbarElements.Splitter(),
-                           ToolbarElements.CreateAndClose<TEntity>(),
-                           ToolbarElements.UpdateAndClose<TEntity>(),
+                       ToolbarElements.Splitter(),
+                       ToolbarElements.SaveAndCreateOnBasis(ToolbarElements.CreateTask(), ToolbarElements.CreatePhonecall(), ToolbarElements.CreateAppointment(), ToolbarElements.CreateLetter()),
+                       ToolbarElements.CreateAndClose<TEntity>(),
+                       ToolbarElements.UpdateAndClose<TEntity>(),
                            ToolbarElements.Splitter(),
                            ToolbarElements.Activities.Complete<TEntity>(),
                            ToolbarElements.Activities.Cancel<TEntity>(),

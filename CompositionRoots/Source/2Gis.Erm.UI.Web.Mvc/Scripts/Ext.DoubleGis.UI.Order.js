@@ -722,17 +722,6 @@ window.InitPage = function () {
                 self.refresh();
             });
 
-            if (window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
-                this.Items.TabPanel.add(
-                    {
-                        xtype: "actionshistorytab",
-                        pCardInfo:
-                        {
-                            pTypeName: this.Settings.EntityName,
-                            pId: window.Ext.getDom("ViewConfig_Id").value
-                        }
-                    });
-            }
         },
 
         fillAutocalculatedValues: function() {
@@ -749,6 +738,13 @@ window.InitPage = function () {
             if (!sourceOrganizationUnit.getValue()) {
                 sourceOrganizationUnit.forceGetData();
             }
+        },
+
+        disableOrderTypeValues: function () {
+            var disabledValues = Ext.decode(document.getElementById('DisabledOrderTypes').value);
+
+            var orderTypesCombobox = document.getElementById('OrderType');
+            Ext.DoubleGis.Global.Helpers.DisableComboBoxItemsByValues(orderTypesCombobox, disabledValues);
         },
 
         refreshDiscountRelatedAvailability: function () {
@@ -885,6 +881,7 @@ window.InitPage = function () {
 
     this.on("afterbuild", this.initEventListeners, this);
     this.on("afterbuild", this.fillAutocalculatedValues, this);
+    this.on("afterbuild", this.disableOrderTypeValues, this);
 
     this.on("afterrelatedlistready", function (card, details) {
         var dataListName = details.dataList.currentSettings.Name;

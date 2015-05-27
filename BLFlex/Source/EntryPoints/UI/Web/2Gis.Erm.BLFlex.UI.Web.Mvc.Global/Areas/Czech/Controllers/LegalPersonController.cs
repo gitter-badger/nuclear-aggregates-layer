@@ -15,10 +15,10 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
         public LegalPersonController(IMsCrmSettings msCrmSettings,
                                      IAPIOperationsServiceSettings operationsServiceSettings,
                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                     IAPIIdentityServiceSettings identityServiceSettings,
+                                     IIdentityServiceClientSettings identityServiceSettings,
                                      IUserContext userContext,
                                      ITracer tracer,
                                      IGetBaseCurrencyService getBaseCurrencyService,
@@ -87,7 +87,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
         }
 
         [HttpPost, UseDependencyFields, GetEntityStateToken]
-        [LogWebRequest(EntityName.LegalPerson, CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
+        [LogWebRequest("LegalPerson", CompareObjectMode = CompareObjectMode.Deep, ElementsToIgnore = "*.Count")]
         public virtual ActionResult ChangeLegalPersonRequisites(CzechChangeLegalPersonRequisitesViewModel model)
         {
             if (!ModelUtils.CheckIsModelValid(this, model))

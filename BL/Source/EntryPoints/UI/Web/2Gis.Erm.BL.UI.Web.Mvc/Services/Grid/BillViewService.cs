@@ -7,9 +7,11 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Grid;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
 {
@@ -27,12 +29,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
             _orderReadModel = orderReadModel;
         }
 
-        protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings,
-                                                                     long? parentEntityId,
-                                                                     EntityName parentEntityName,
-                                                                     string parentEntityState)
+        protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings, long? parentEntityId, IEntityType parentEntityName, string parentEntityState)
         {
-            if (parentEntityName == EntityName.Order && parentEntityId.HasValue)
+            if (parentEntityName.Equals(EntityType.Instance.Order()) && parentEntityId.HasValue)
             {
                 var order = _orderReadModel.GetOrderSecure(parentEntityId.Value);
                 if (order == null)

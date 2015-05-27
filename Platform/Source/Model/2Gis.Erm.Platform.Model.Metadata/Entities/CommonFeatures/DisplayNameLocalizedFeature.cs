@@ -2,7 +2,9 @@
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features;
+
+using NuClear.Metamodeling.Domain.Entities;
+using NuClear.Metamodeling.Elements.Aspects.Features;
 
 namespace DoubleGis.Erm.Platform.Model.Metadata.Entities.CommonFeatures
 {

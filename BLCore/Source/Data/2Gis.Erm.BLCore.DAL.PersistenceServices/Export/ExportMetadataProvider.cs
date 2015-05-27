@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {

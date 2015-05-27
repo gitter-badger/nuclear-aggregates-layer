@@ -71,7 +71,7 @@
                         @Html.LabelFor(k => k.Deal)
                     </td>
                     <td>
-                        @Html.LookupFor(k => k.Deal, new LookupSettings {EntityName = EntityName.Deal, ExtendedInfo = "OrderId={OrderId}"})
+                        @Html.LookupFor(k => k.Deal, new LookupSettings {EntityName = EntityType.Instance.Deal(), ExtendedInfo = "OrderId={OrderId}"})
                         @Html.ValidationMessageFor(k => k.Deal)
                     </td>
                 </tr>

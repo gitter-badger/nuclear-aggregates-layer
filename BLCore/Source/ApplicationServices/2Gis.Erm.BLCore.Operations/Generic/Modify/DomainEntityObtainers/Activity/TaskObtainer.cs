@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (TaskDomainEntityDto)domainEntityDto;
 
-            var task = dto.IsNew() 
+            var task = dto.IsNew()
                 ? new Task { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() } 
                 : _finder.FindOne(Specs.Find.ById<Task>(dto.Id));
 

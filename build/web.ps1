@@ -9,17 +9,12 @@ Import-Module "$BuildToolsRoot\modules\metadata.psm1" -DisableNameChecking
 Properties { $OptionWebApp = $true }
 Task Build-WebApp -Precondition { $OptionWebApp } -Depends Update-AssemblyInfo {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.UI.Web.Mvc'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Web.Mvc'
-	
 	# for silverlight project we need to build in x86 mode
-	Build-WebPackage $projectFileName $entryPointMetadata -MsBuildPlatform 'x86'
+	Build-WebPackage $projectFileName '2Gis.Erm.UI.Web.Mvc' -MsBuildPlatform 'x86'
 }
-Task Deploy-WebApp -Precondition { $OptionWebApp } {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.UI.Web.Mvc'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Web.Mvc'
-	
+Task Deploy-WebApp -Precondition { $OptionWebApp } -Depends Take-WebAppOffline {
 	# don't touch App_offline.htm file if it presented
-	Deploy-WebPackage $projectFileName $entryPointMetadata -Argument @(
+	Deploy-WebPackage '2Gis.Erm.UI.Web.Mvc' -Argument @(
 		"-skip:File=App_offline.htm"
 	)
 }
@@ -27,100 +22,63 @@ Task Deploy-WebApp -Precondition { $OptionWebApp } {
 Properties { $OptionBasicOperations = $true }
 Task Build-BasicOperations -Precondition { $OptionBasicOperations } -Depends Update-AssemblyInfo {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Operations'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Operations'
-	
-	Build-WebPackage $projectFileName $entryPointMetadata
+	Build-WebPackage $projectFileName '2Gis.Erm.API.WCF.Operations'
 }
 Task Deploy-BasicOperations -Precondition { $OptionBasicOperations } {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Operations'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Operations'
-	
-	Deploy-WebPackage $projectFileName $entryPointMetadata
-	Validate-WebSite $entryPointMetadata 'Delete.svc'
+	Deploy-WebPackage '2Gis.Erm.API.WCF.Operations'
+	Validate-WebSite '2Gis.Erm.API.WCF.Operations' 'Delete.svc'
 }
 
 Properties { $OptionModi = $true }
-Task Build-Modi -Precondition { $OptionModi -and (Get-EntryPointMetadata '2Gis.Erm.API.WCF.MoDi').OptionModi } -Depends Update-AssemblyInfo {
+Task Build-Modi -Precondition { $OptionModi -and (Get-Metadata '2Gis.Erm.API.WCF.MoDi').OptionModi } -Depends Update-AssemblyInfo {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.MoDi'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.MoDi'
-	
-	Build-WebPackage $projectFileName $entryPointMetadata
+	Build-WebPackage $projectFileName '2Gis.Erm.API.WCF.MoDi'
 }
-Task Deploy-Modi -Precondition { $OptionModi -and (Get-EntryPointMetadata '2Gis.Erm.API.WCF.MoDi').OptionModi } {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.MoDi'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.MoDi'
-	
-	Deploy-WebPackage $projectFileName $entryPointMetadata
-	Validate-WebSite $entryPointMetadata 'Reports.svc'
+Task Deploy-Modi -Precondition { $OptionModi -and (Get-Metadata '2Gis.Erm.API.WCF.MoDi').OptionModi } {
+	Deploy-WebPackage '2Gis.Erm.API.WCF.MoDi'
+	Validate-WebSite '2Gis.Erm.API.WCF.MoDi' 'Reports.svc'
 }
 
 Properties { $OptionMetadata = $true }
 Task Build-Metadata -Precondition { $OptionMetadata } -Depends Update-AssemblyInfo {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Metadata'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Metadata'
-	
-	Build-WebPackage $projectFileName $entryPointMetadata
+	Build-WebPackage $projectFileName '2Gis.Erm.API.WCF.Metadata'
 }
 Task Deploy-Metadata -Precondition { $OptionMetadata } {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Metadata'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Metadata'
-	
-	Deploy-WebPackage $projectFileName $entryPointMetadata
-	Validate-WebSite $entryPointMetadata 'Metadata.svc'
+	Deploy-WebPackage '2Gis.Erm.API.WCF.Metadata'
+	Validate-WebSite '2Gis.Erm.API.WCF.Metadata' 'Metadata.svc'
 }
 
 Properties { $OptionOrderValidation = $true }
 Task Build-OrderValidation -Precondition { $OptionOrderValidation } -Depends Update-AssemblyInfo {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.OrderValidation'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.OrderValidation'
-	
-	Build-WebPackage $projectFileName $entryPointMetadata
+	Build-WebPackage $projectFileName '2Gis.Erm.API.WCF.OrderValidation'
 }
 Task Deploy-OrderValidation -Precondition { $OptionOrderValidation } {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.OrderValidation'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.OrderValidation'
-	
-	Deploy-WebPackage $projectFileName $entryPointMetadata
-	Validate-WebSite $entryPointMetadata 'Validate.svc'
+	Deploy-WebPackage '2Gis.Erm.API.WCF.OrderValidation'
+	Validate-WebSite '2Gis.Erm.API.WCF.OrderValidation' 'Validate.svc'
 }
 
 Properties { $OptionFinancialOperations = $true }
-Task Build-FinancialOperations -Precondition { $OptionFinancialOperations -and (Get-EntryPointMetadata '2Gis.Erm.API.WCF.Operations.Special').OptionFinancialOperations } -Depends Update-AssemblyInfo {
+Task Build-FinancialOperations -Precondition { $OptionFinancialOperations -and (Get-Metadata '2Gis.Erm.API.WCF.Operations.Special').OptionFinancialOperations } -Depends Update-AssemblyInfo {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Operations.Special'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Operations.Special'
-	
-	Build-WebPackage $projectFileName $entryPointMetadata
+	Build-WebPackage $projectFileName '2Gis.Erm.API.WCF.Operations.Special'
 }
-Task Deploy-FinancialOperations -Precondition { $OptionFinancialOperations -and (Get-EntryPointMetadata '2Gis.Erm.API.WCF.Operations.Special').OptionFinancialOperations } {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Operations.Special'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Operations.Special'
-	
-	Deploy-WebPackage $projectFileName $entryPointMetadata
-	Validate-WebSite $entryPointMetadata 'Calculate.svc'
+Task Deploy-FinancialOperations -Precondition { $OptionFinancialOperations -and (Get-Metadata '2Gis.Erm.API.WCF.Operations.Special').OptionFinancialOperations } {
+	Deploy-WebPackage '2Gis.Erm.API.WCF.Operations.Special'
+	Validate-WebSite '2Gis.Erm.API.WCF.Operations.Special' 'Calculate.svc'
 }
 
 Properties { $OptionReleasing = $true }
 Task Build-Releasing -Precondition { $OptionReleasing } -Depends Update-AssemblyInfo {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Releasing'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Releasing'
-	
-	Build-WebPackage $projectFileName $entryPointMetadata
+	Build-WebPackage $projectFileName '2Gis.Erm.API.WCF.Releasing'
 }
 Task Deploy-Releasing -Precondition { $OptionReleasing } {
-	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Releasing'
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.API.WCF.Releasing'
-	
-	Deploy-WebPackage $projectFileName $entryPointMetadata
-	Validate-WebSite $entryPointMetadata 'Release.svc'
+	Deploy-WebPackage '2Gis.Erm.API.WCF.Releasing'
+	Validate-WebSite '2Gis.Erm.API.WCF.Releasing' 'Release.svc'
 }
 
-Task Take-WebAppOffline -Precondition { $OptionWebApp -and (Get-EntryPointMetadata '2Gis.Erm.UI.Web.Mvc').TakeOffline } {
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Web.Mvc'
-	Take-WebsiteOffline $entryPointMetadata.TargetHosts $entryPointMetadata.IisAppPath
-}
-
-Task Take-WebAppOnline -Precondition { $OptionWebApp -and (Get-EntryPointMetadata '2Gis.Erm.UI.Web.Mvc').TakeOffline } {
-	$entryPointMetadata = Get-EntryPointMetadata '2Gis.Erm.UI.Web.Mvc'
-	Take-WebsiteOnline $entryPointMetadata.TargetHosts $entryPointMetadata.IisAppPath
-	Validate-WebSite $entryPointMetadata
+Task Take-WebAppOffline -Precondition { $OptionWebApp -and (Get-Metadata '2Gis.Erm.UI.Web.Mvc').TakeOffline } {
+	Take-WebsiteOffline '2Gis.Erm.UI.Web.Mvc'
 }

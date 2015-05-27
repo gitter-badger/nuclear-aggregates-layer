@@ -12,6 +12,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
 {
     public sealed class ListOrderService : ListEntityDtoServiceBase<Order, ListOrderDto>, IRussiaAdapted
@@ -109,70 +111,59 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.List
                             return null;
                         }
 
-                        var onApprovalState = (OrderState.OnApproval).ToString();
-                        var rejectedState = (OrderState.Rejected).ToString();
+                        var onApprovalState = OrderState.OnApproval.ToString();
+                        var rejectedState = OrderState.Rejected.ToString();
 
-                        var loqQuery = _finder.Find<ActionsHistoryDetail>(
-                            x =>
-                            x.ActionsHistory.EntityType == (int)EntityName.Order && x.PropertyName == "WorkflowStepId" &&
-                            x.OriginalValue == onApprovalState && x.ModifiedValue == rejectedState)
-                               .Select(x => x.ActionsHistory.EntityId);
+                        var orderTypeId = EntityType.Instance.Order().Id;
+                        var loqQuery = _finder.Find<ActionsHistoryDetail>(x => x.ActionsHistory.EntityType == orderTypeId &&
+                                                                               x.PropertyName == "WorkflowStepId" &&
+                                                                               x.OriginalValue == onApprovalState &&
+                                                                               x.ModifiedValue == rejectedState)
+                                              .Select(x => x.ActionsHistory.EntityId);
 
                         return x => loqQuery.Contains(x.Id);
                     });
 
-            switch (querySettings.ParentEntityName)
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.Client()))
             {
-                case EntityName.Client:
-                    return query
-                        .Where(x => x.Firm.ClientId == querySettings.ParentEntityId || x.LegalPerson.ClientId == querySettings.ParentEntityId)
-                        .Filter(_filterHelper
-                        , withoutAdvertisementFilter
-                        , dummyAdvertisementsFilter
-                        , rejectedByMeFilter)
-                        .Select(selectExpression)
-                        .Distinct()
-                        .QuerySettings(_filterHelper, querySettings);
-                case EntityName.LegalPerson:
-                    return query
-                        .Where(x => x.LegalPersonId == querySettings.ParentEntityId)
-                        .Filter(_filterHelper
-                        , withoutAdvertisementFilter
-                        , dummyAdvertisementsFilter
-                        , rejectedByMeFilter)
-                        .Select(selectExpression)
-                        .Distinct()
-                        .QuerySettings(_filterHelper, querySettings);
-                case EntityName.Account:
-                    return query
-                        .Where(x => x.AccountId == querySettings.ParentEntityId)
-                        .Filter(_filterHelper
-                        , withoutAdvertisementFilter
-                        , dummyAdvertisementsFilter
-                        , rejectedByMeFilter)
-                        .Select(selectExpression)
-                        .Distinct()
-                        .QuerySettings(_filterHelper, querySettings);
-                case EntityName.Firm:
-                    return query
-                        .Where(x => x.FirmId == querySettings.ParentEntityId)
-                        .Filter(_filterHelper
-                        , withoutAdvertisementFilter
-                        , dummyAdvertisementsFilter
-                        , rejectedByMeFilter)
-                        .Select(selectExpression)
-                        .Distinct()
-                        .QuerySettings(_filterHelper, querySettings);
-                default:
-                    return query
-                        .Filter(_filterHelper
-                        , withoutAdvertisementFilter
-                        , dummyAdvertisementsFilter
-                        , rejectedByMeFilter)
-                        .Select(selectExpression)
-                        .Distinct()
-                        .QuerySettings(_filterHelper, querySettings);
+                return query.Where(x => x.Firm.ClientId == querySettings.ParentEntityId || x.LegalPerson.ClientId == querySettings.ParentEntityId)
+                            .Filter(_filterHelper, withoutAdvertisementFilter, dummyAdvertisementsFilter, rejectedByMeFilter)
+                            .Select(selectExpression)
+                            .Distinct()
+                            .QuerySettings(_filterHelper, querySettings);
             }
+
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.LegalPerson()))
+            {
+                return query.Where(x => x.LegalPersonId == querySettings.ParentEntityId)
+                            .Filter(_filterHelper, withoutAdvertisementFilter, dummyAdvertisementsFilter, rejectedByMeFilter)
+                            .Select(selectExpression)
+                            .Distinct()
+                            .QuerySettings(_filterHelper, querySettings);
+            }
+
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.Account()))
+            {
+                return query.Where(x => x.AccountId == querySettings.ParentEntityId)
+                            .Filter(_filterHelper, withoutAdvertisementFilter, dummyAdvertisementsFilter, rejectedByMeFilter)
+                            .Select(selectExpression)
+                            .Distinct()
+                            .QuerySettings(_filterHelper, querySettings);
+            }
+
+            if (querySettings.ParentEntityName.Equals(EntityType.Instance.Firm()))
+            {
+                return query.Where(x => x.FirmId == querySettings.ParentEntityId)
+                            .Filter(_filterHelper, withoutAdvertisementFilter, dummyAdvertisementsFilter, rejectedByMeFilter)
+                            .Select(selectExpression)
+                            .Distinct()
+                            .QuerySettings(_filterHelper, querySettings);
+            }
+
+            return query.Filter(_filterHelper, withoutAdvertisementFilter, dummyAdvertisementsFilter, rejectedByMeFilter)
+                        .Select(selectExpression)
+                        .Distinct()
+                        .QuerySettings(_filterHelper, querySettings);
         }
 
         protected override void Transform(ListOrderDto dto)

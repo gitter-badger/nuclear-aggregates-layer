@@ -7,6 +7,8 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
@@ -47,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                                                OrderNumber = x.OrderNumber,
                                                MessageText =
                                                    string.Format(BLResources.PositionCategeryOfOrderPositionIsNotSupportedByExport,
-                                                                 GenerateDescription(ruleContext.IsMassValidation, EntityName.OrderPosition, x.OrderPositionName, x.OrderPositionId))
+                                                                 GenerateDescription(ruleContext.IsMassValidation, EntityType.Instance.OrderPosition(), x.OrderPositionName, x.OrderPositionId))
                                            });
         }
     }

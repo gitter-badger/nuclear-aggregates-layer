@@ -20,10 +20,10 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         public LocalMessageController(IMsCrmSettings msCrmSettings,
                                       IAPIOperationsServiceSettings operationsServiceSettings,
                                       IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                      IAPIIdentityServiceSettings identityServiceSettings,
+                                      IIdentityServiceClientSettings identityServiceSettings,
                                       IUserContext userContext,
                                       ITracer tracer,
                                       IGetBaseCurrencyService getBaseCurrencyService,

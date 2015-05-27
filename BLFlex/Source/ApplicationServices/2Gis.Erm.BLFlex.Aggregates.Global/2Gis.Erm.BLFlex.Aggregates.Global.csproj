@@ -37,6 +37,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Assembling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
+    </Reference>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
@@ -51,10 +59,13 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="Chile\Clients\ChileContactSalutationsProvider.cs" />
+    <Compile Include="Chile\Crosscutting\ChileEvaluateOrderNumberService.cs" />
     <Compile Include="Chile\SimplifiedModel\BankService.cs" />
     <Compile Include="Chile\SimplifiedModel\IBankService.cs" />
     <Compile Include="Cyprus\Clients\CyprusContactSalutationsProvider.cs" />
+    <Compile Include="Cyprus\Crosscutting\CyprusEvaluateOrderNumberService.cs" />
     <Compile Include="Czech\Clients\CzechContactSalutationsProvider.cs" />
+    <Compile Include="Czech\Crosscutting\CzechEvaluateOrderNumberService.cs" />
     <Compile Include="DI\BlFlexAggregatesGlobalAssembly.cs" />
     <Compile Include="Chile\SimplifiedModel\ReadModel\Communes\CommuneSpecs.cs" />
     <Compile Include="Chile\Bills\BillSpecifications.cs" />
@@ -65,9 +76,11 @@
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\BankReadModel.cs" />
     <Compile Include="Chile\SimplifiedModel\ReadModel\Banks\IBankReadModel.cs" />
     <Compile Include="Emirates\Clients\EmiratesContactSalutationsProvider.cs" />
+    <Compile Include="Emirates\Crosscutting\EmiratesEvaluateOrderNumberService.cs" />
     <Compile Include="Emirates\Orders\EmiratesOrderReadModel.cs" />
     <Compile Include="Emirates\SimplifiedModel\CreateAcceptanceReportsJournalRecordService.cs" />
     <Compile Include="Kazakhstan\Clients\KazakhstanContactSalutationsProvider.cs" />
+    <Compile Include="Kazakhstan\Crosscutting\KazakhstanEvaluateOrderNumberService.cs" />
     <Compile Include="Kazakhstan\Crosscutting\KazakhstanBinInnService.cs" />
     <Compile Include="Kazakhstan\LegalPerson\ReadModel\KazakhstanLegalPersonReadModel.cs" />
     <Compile Include="MultiCulture\BranchOfficesAggregate\ReadModel\MultiCultureBranchOfficeReadModel.cs" />
@@ -83,15 +96,22 @@
     <Compile Include="MultiCulture\Orders\OrderSpecifications.cs" />
     <Compile Include="Cyprus\Crosscutting\CyprusTicService.cs" />
     <Compile Include="Czech\Crosscutting\CzechTicService.cs" />
+    <Compile Include="MultiCulture\Orders\ReadFromFormatOrderNumberGenerationStrategy.cs" />
+    <Compile Include="MultiCulture\Orders\ReadFromCurrentOrderNumberGenerationStrategy.cs" />
+    <Compile Include="MultiCulture\Orders\ReadFromOldFormatOrderNumberGenerationStrategy.cs" />
+    <Compile Include="MultiCulture\Orders\ReadFromNewFormatOrderNumberGenerationStrategy.cs" />
     <Compile Include="Russia\Clients\RussiaContactSalutationsProvider.cs" />
+    <Compile Include="Russia\Crosscutting\RussiaEvaluateOrderNumberService.cs" />
     <Compile Include="Russia\LegalPersons\RussiaLegalPersonReadModel.cs" />
     <Compile Include="Russia\Orders\OrderSpecifications.cs" />
     <Compile Include="Russia\Crosscutting\RussiaCheckInnService.cs" />
     <Compile Include="Chile\BranchOfficesAggregate\ReadModel\ChileBranchOfficeReadModel.cs" />
+    <Compile Include="Shared\OrderNumberStrategyExtensions.cs" />
     <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\BranchOfficeSpecs.cs" />
     <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\IUkraineBranchOfficeReadModel.cs" />
     <Compile Include="Ukraine\BranchOfficesAggregate\ReadModel\UkraineBranchOfficeReadModel.cs" />
     <Compile Include="Ukraine\Clients\UkraineContactSalutationsProvider.cs" />
+    <Compile Include="Ukraine\Crosscutting\UkraineEvaluateOrderNumberService.cs" />
     <Compile Include="Ukraine\Crosscutting\UkraineIpnService.cs" />
     <Compile Include="Ukraine\LegalPersonAggregate\ReadModel\IUkraineLegalPersonReadModel.cs" />
     <Compile Include="Ukraine\LegalPersonAggregate\ReadModel\UkraineLegalPersonReadModel.cs" />
@@ -200,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

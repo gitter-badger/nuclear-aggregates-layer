@@ -3,8 +3,9 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Read;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 {
@@ -17,7 +18,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
 
         public ActivityReadService(
             IAppointmentReadModel appointmentReadModel, 
-            ILetterReadModel letterReadModel,
+            ILetterReadModel letterReadModel, 
             IPhonecallReadModel phonecallReadModel, 
             ITaskReadModel taskReadModel)
         {
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
             _taskReadModel = taskReadModel;
         }
 
-        public bool CheckIfActivityExistsRegarding(EntityName entityName, long entityId)
+        public bool CheckIfActivityExistsRegarding(IEntityType entityName, long entityId)
         {
             return
                 _appointmentReadModel.CheckIfAppointmentExistsRegarding(entityName, entityId)
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 || _taskReadModel.CheckIfTaskExistsRegarding(entityName, entityId);
         }
 
-        public bool CheckIfOpenActivityExistsRegarding(EntityName entityName, long entityId)
+        public bool CheckIfOpenActivityExistsRegarding(IEntityType entityName, long entityId)
         {
             return
                 _appointmentReadModel.CheckIfOpenAppointmentExistsRegarding(entityName, entityId)
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Custom
                 || _taskReadModel.CheckIfOpenTaskExistsRegarding(entityName, entityId);
         }
 
-        public IEnumerable<IEntity> LookupActivitiesRegarding(EntityName entityName, long entityId)
+        public IEnumerable<IEntity> LookupActivitiesRegarding(IEntityType entityName, long entityId)
         {
             return
                 _appointmentReadModel.LookupAppointmentsRegarding(entityName, entityId).Cast<IEntity>()

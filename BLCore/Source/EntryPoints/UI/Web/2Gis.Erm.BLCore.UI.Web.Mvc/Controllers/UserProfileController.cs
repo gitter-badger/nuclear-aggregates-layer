@@ -14,12 +14,13 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.API.Security;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using NuClear.Security.API;
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;
@@ -37,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         public UserProfileController(IMsCrmSettings msCrmSettings,
                                      IAPIOperationsServiceSettings operationsServiceSettings,
                                      IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                                     IAPIIdentityServiceSettings identityServiceSettings,
+                                     IIdentityServiceClientSettings identityServiceSettings,
                                      IUserContext userContext,
                                      ITracer tracer,
                                      IGetBaseCurrencyService getBaseCurrencyService,

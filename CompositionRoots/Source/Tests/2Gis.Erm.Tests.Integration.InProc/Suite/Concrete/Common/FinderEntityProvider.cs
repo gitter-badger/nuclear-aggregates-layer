@@ -2,12 +2,14 @@
 using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
+
+using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common
 {
-    public sealed class FinderAppropriateEntityProvider<TEntity> : IAppropriateEntityProvider<TEntity>
+    public sealed class FinderAppropriateEntityProvider<TEntity> : IAppropriateEntityProvider<TEntity> 
         where TEntity : class, IEntity
     {
         private readonly IFinder _finder;

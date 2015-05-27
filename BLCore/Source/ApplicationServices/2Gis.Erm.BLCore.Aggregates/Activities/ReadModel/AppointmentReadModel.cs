@@ -4,8 +4,9 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 {
@@ -38,12 +39,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindOne(Specs.Find.Custom<AppointmentOrganizer>(x => x.SourceEntityId == appointmentId));
         }
 
-        public bool CheckIfAppointmentExistsRegarding(EntityName entityName, long entityId)
+        public bool CheckIfAppointmentExistsRegarding(IEntityType entityName, long entityId)
         {
             return _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Appointment, AppointmentRegardingObject>(entityName, entityId)).Any();
         }
         
-        public bool CheckIfOpenAppointmentExistsRegarding(EntityName entityName, long entityId)
+        public bool CheckIfOpenAppointmentExistsRegarding(IEntityType entityName, long entityId)
         {
             var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Appointment, AppointmentRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
@@ -55,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                           .Any();
         }
 
-        public IEnumerable<Appointment> LookupAppointmentsRegarding(EntityName entityName, long entityId)
+        public IEnumerable<Appointment> LookupAppointmentsRegarding(IEntityType entityName, long entityId)
         {
             var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Appointment, AppointmentRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Active<Appointment>() & Specs.Find.ByIds<Appointment>(ids)).ToArray();
         }
 
-        public IEnumerable<Appointment> LookupOpenAppointmentsRegarding(EntityName entityName, long entityId)
+        public IEnumerable<Appointment> LookupOpenAppointmentsRegarding(IEntityType entityName, long entityId)
         {
             var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Appointment, AppointmentRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)

@@ -1,5 +1,6 @@
-﻿using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Aspects.Features.Resources.Images;
-using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
+﻿using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.ResourceInfrastructure;
+
+using NuClear.Metamodeling.UI.Elements.Aspects.Features.Resources.Images;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Presentation.Common
 {

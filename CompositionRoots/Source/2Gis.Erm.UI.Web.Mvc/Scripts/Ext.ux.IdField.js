@@ -61,7 +61,8 @@ Ext.ux.IdField = Ext.extend(Ext.Component, {
         window.Ext.Ajax.request({
             scope: this,
             method: 'GET',
-            url: this.serviceUrl + '/NewIdentity',
+            url: this.serviceUrl + '/one',
+            timeout: 60000,
             success: function (result, options) {
                 window.Card.Mask.hide();
                 this.setValue(result.responseText);
@@ -70,7 +71,7 @@ Ext.ux.IdField = Ext.extend(Ext.Component, {
                 window.Card.Mask.hide();
                 Ext.MessageBox.show({
                     title: 'Ошибка получения идентификатора',
-                    msg: xhr.responseText,
+                    msg: xhr.isTimeout ? 'Timeout expired' : xhr.responseText,
                     buttons: window.Ext.MessageBox.OK,
                     width: 300,
                     icon: window.Ext.MessageBox.ERROR

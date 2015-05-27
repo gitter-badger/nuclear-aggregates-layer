@@ -14,8 +14,8 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.Remote.Settings;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using DoubleGis.Erm.Platform.API.Metadata.Settings;
-using DoubleGis.Erm.Platform.API.Security.UserContext;
+using NuClear.IdentityService.Client.Settings;
+using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public LimitController(IMsCrmSettings msCrmSettings,
                                IAPIOperationsServiceSettings operationsServiceSettings,
                                IAPISpecialOperationsServiceSettings specialOperationsServiceSettings,
-                               IAPIIdentityServiceSettings identityServiceSettings,
+                               IIdentityServiceClientSettings identityServiceSettings,
                                IUserContext userContext,
                                ITracer tracer,
                                IGetBaseCurrencyService getBaseCurrencyService,

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Reopen;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Reopen;
+
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Reopen
 {
@@ -30,6 +27,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.Operations.Reopen
             if (phonecall == null)
             {
                 throw new ArgumentNullException("phonecall");
+            }
+
+            if (phonecall.Status == ActivityStatus.InProgress)
+            {
+                return;
             }
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<ReopenIdentity, Phonecall>())

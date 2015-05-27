@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 
 using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common
 {

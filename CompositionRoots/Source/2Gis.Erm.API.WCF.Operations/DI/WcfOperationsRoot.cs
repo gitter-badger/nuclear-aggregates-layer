@@ -15,9 +15,9 @@ using DoubleGis.Erm.Platform.Core;
 using DoubleGis.Erm.Platform.DAL.PersistenceServices.DI;
 using DoubleGis.Erm.Platform.Model.DI;
 using DoubleGis.Erm.Platform.Model.EntityFramework.DI;
-using DoubleGis.Erm.Platform.Model.Metadata.DI;
-using DoubleGis.Erm.Platform.Model.Zones;
 using DoubleGis.Erm.Qds.Operations.DI;
+
+using NuClear.Assembling.Zones;
 
 namespace DoubleGis.Erm.WCF.BasicOperations.DI
 {
@@ -48,8 +48,6 @@ namespace DoubleGis.Erm.WCF.BasicOperations.DI
                                           .UseAnchor<BlQueryingApiOperationsListingAssembly>()
                                           .UseAnchor<BlQueryingOperationsListingAssembly>()
                                           .UseAnchor<QdsOperationsAssembly>()
-                                      .RequireZone<MetadataZone>()
-                                          .UseAnchor<PlatformModelMetadataAssembly>()
                                       .RequireZone<AppFabricZone>()
                                           .UseAnchor<PlatformAppFabricAssembly>();
             }

@@ -28,29 +28,29 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
     using DoubleGis.Erm.Platform.Common;
-    
-    #line 1 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
-    using DoubleGis.Erm.Platform.Common.Utils;
-    
-    #line default
-    #line hidden
     using DoubleGis.Erm.Platform.Model.Entities;
     using DoubleGis.Erm.Platform.Model.Entities.Enums;
     using DoubleGis.Erm.Platform.Model.Metadata.Enums;
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/GroupOperation/ChangeLegalPersonClient.cshtml")]
-    public partial class ChangeLegalPersonClient : System.Web.Mvc.WebViewPage<DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.ChangeClientViewModel>
+    public partial class ChangeLegalPersonClient : System.Web.Mvc.WebViewPage<ChangeClientViewModel>
     {
         public ChangeLegalPersonClient()
         {
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.GroupOperation
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+            #line 3 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -72,7 +72,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 8 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+            #line 7 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
             Write(BLResources.ChangeClient);
 
             
@@ -87,7 +87,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+            #line 8 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
                   Write(BLResources.ChangeClient);
 
             
@@ -102,7 +102,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+            #line 9 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
                     Write(string.Format(BLResources.GroupOperationTopBarMessage, Model.EntityTypeName.ToStringLocalized(EnumResources.ResourceManager, EnumResources.Culture)));
 
             
@@ -122,43 +122,43 @@ WriteLiteral(" rel=\"stylesheet\"");
 
 WriteLiteral(" type=\"text/css\"");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 532), Tuple.Create("\"", 580)
-, Tuple.Create(Tuple.Create("", 539), Tuple.Create("/Content/Progress.css?", 539), true)
+WriteAttribute("href", Tuple.Create(" href=\"", 434), Tuple.Create("\"", 482)
+, Tuple.Create(Tuple.Create("", 441), Tuple.Create("/Content/Progress.css?", 441), true)
             
-            #line 14 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
-, Tuple.Create(Tuple.Create("", 561), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 13 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+, Tuple.Create(Tuple.Create("", 463), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 561), false)
+, 463), false)
 );
 
 WriteLiteral(" />\r\n\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 599), Tuple.Create("\"", 657)
-, Tuple.Create(Tuple.Create("", 605), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 605), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 501), Tuple.Create("\"", 559)
+, Tuple.Create(Tuple.Create("", 507), Tuple.Create("/Scripts/Ext.Ajax.syncRequest.js?", 507), true)
             
-            #line 16 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
-, Tuple.Create(Tuple.Create("", 638), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 15 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+, Tuple.Create(Tuple.Create("", 540), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 638), false)
+, 540), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
 
 WriteLiteral("></script>\r\n    <script");
 
-WriteAttribute("src", Tuple.Create(" src=\"", 704), Tuple.Create("\"", 770)
-, Tuple.Create(Tuple.Create("", 710), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 710), true)
+WriteAttribute("src", Tuple.Create(" src=\"", 606), Tuple.Create("\"", 672)
+, Tuple.Create(Tuple.Create("", 612), Tuple.Create("/Scripts/DoubleGis.UI.GroupOperations.js?", 612), true)
             
-            #line 17 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
-, Tuple.Create(Tuple.Create("", 751), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
+            #line 16 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+, Tuple.Create(Tuple.Create("", 653), Tuple.Create<System.Object, System.Int32>(ThisAssembly.Build
             
             #line default
             #line hidden
-, 751), false)
+, 653), false)
 );
 
 WriteLiteral(" type=\"text/javascript\"");
@@ -195,7 +195,7 @@ WriteLiteral(">\r\n        Ext.namespace(\'Ext.DoubleGis.UI.Client\');\r\n      
 " Entities: ids, // массив id сущностей\r\n                OperationName: \'");
 
             
-            #line 68 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+            #line 67 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
                            Write(Model.OperationName);
 
             
@@ -220,13 +220,13 @@ WriteLiteral(@"', // тип операции - Qualify, Assign, ChangeTerritory
 ");
 
             
-            #line 84 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+            #line 83 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 84 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+            #line 83 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -265,7 +265,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 95 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+            #line 94 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
                    Write(Model.Message);
 
             
@@ -301,8 +301,8 @@ WriteLiteral(">\r\n                        <tbody>\r\n                          
 WriteLiteral("                                    ");
 
             
-            #line 112 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
-                               Write(Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ForReserve=false" }));
+            #line 111 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+                               Write(Html.LookupFor(m => m.Client, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "ForReserve=false" }));
 
             
             #line default
@@ -326,8 +326,8 @@ WriteLiteral(">\r\n                        </div>\r\n                    </div>\
 WriteLiteral("                    ");
 
             
-            #line 125 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
-               Write(Html.HiddenFor(m => m.EntityTypeName));
+            #line 124 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+               Write(Html.Hidden("EntityType", Model.EntityTypeName.Description));
 
             
             #line default
@@ -335,7 +335,7 @@ WriteLiteral("                    ");
 WriteLiteral("\r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n");
 
             
-            #line 130 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
+            #line 129 "..\..\Views\GroupOperation\ChangeLegalPersonClient.cshtml"
     }
 
             

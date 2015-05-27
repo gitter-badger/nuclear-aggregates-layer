@@ -238,6 +238,10 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             this.Items.TabPanel.add({ xtype: "notepanel", pCardInfo: { pTypeName: this.Settings.EntityName, pId: window.Ext.getDom("ViewConfig_Id").value } });
         }
 
+        if (this.Settings.HasActionsHistory === true && window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
+            this.Items.TabPanel.add({ xtype: "actionshistorytab", pCardInfo: { pTypeName: this.Settings.EntityName, pId: window.Ext.getDom("ViewConfig_Id").value } });
+        }
+
         if (window.Ext.getDom("Message").innerHTML.trim()) {
             this.isDirty = window.Ext.getDom("MessageType").innerHTML.trim() == "CriticalError";
             this.AddNotification(window.Ext.getDom("Message").innerText.trim(), window.Ext.getDom("MessageType").innerHTML.trim(), "ServerError");
@@ -754,6 +758,17 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             }
         }
 
+        if (rule.ValidationType == "phone") {
+            var haveTelephonyAccess = Ext.getDom("HaveTelephonyAccess");
+            if(haveTelephonyAccess && haveTelephonyAccess.value.toLowerCase() == 'true')
+                new Ext.ux.PhonecallField(
+                {
+                    applyTo: el,
+                    form: this,
+                    readOnly: this.ReadOnly                               
+                });
+        }
+
         if (rule.ValidationType == "email") {
             new Ext.ux.LinkField(
                 {
@@ -835,7 +850,7 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
             var reg;
             var filters;
             var val;
-            var i;
+            var i;                 
 
             var extendedInfo = n.attributes.extendedInfo;
             if (extendedInfo) {
@@ -909,6 +924,11 @@ Ext.DoubleGis.UI.Card = Ext.extend(Ext.util.Observable, {
 
                 if (extendedInfo) {
                     frameUrl = window.Ext.urlAppend(frameUrl, window.Ext.urlEncode({ extendedInfo: extendedInfo }));
+                }
+                
+                var defaultDataView = n.attributes.defaultDataView;
+                if (defaultDataView) {
+                    frameUrl = window.Ext.urlAppend(frameUrl, window.Ext.urlEncode({ defaultDataView: defaultDataView }));
                 }
 
                 frame.setAttribute("src", frameUrl);

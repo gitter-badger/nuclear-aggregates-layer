@@ -156,13 +156,58 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
 
         private void MarkReferencesAsDirty(WordprocessingDocument document)
         {
-            var fieldBeginMarks = document.MainDocumentPart.Document.Descendants<FieldChar>()
-                                          .Where(c => c.FieldCharType == "begin")
+            /*
+             * WordprocessingDocument представляет собой xml-файл, слегка облагороженный api
+             * Целью является пометка полей-ссылок как подлежащих перевычислению,
+             * но однозначно идентифицировать их не так-то легко.
+             * Во-первых они не являюся цельным элементом: это три последовательных элемента,
+             * разбросанныые по разным родительским.
+             * 
+             * Сначала идёт fldChar с атрибутом type, равным begin. Именно этот элемент помечается isDirty.
+             * Ему должен следовать fldChar с атрибутом type, равным end.
+             * Однако, эта пара элементов может обозначать не только вычисляемую ссылку.
+             * Для того, чтобы можно было сказать, что имеем дело с ссылкой нужно найти между ними 
+             * элемент instrText с текстом, начинающимся с " REF".
+             * 
+             * Кроме REF я встречал DOCVARIABLE.
+             * 
+             * https://msdn.microsoft.com/en-us/library/office/aa213346(v=office.11).aspx
+             * https://msdn.microsoft.com/en-us/library/office/aa172854(v=office.11).aspx
+             */
+            var fieldBeginMarks = document.MainDocumentPart.Document.Descendants()
+                                          .Where(c => c is FieldChar || c is FieldCode)
                                           .ToArray();
 
-            foreach (var fieldChar in fieldBeginMarks)
+            var fieldState = new FieldState();
+            foreach (var xmlElement in fieldBeginMarks)
             {
-                fieldChar.Dirty = new OnOffValue(true);
+                var fieldChar = xmlElement as FieldChar;
+                var fieldCode = xmlElement as FieldCode;
+
+                if (fieldChar != null && fieldChar.FieldCharType == "begin")
+                {
+                    fieldState.Begin = fieldChar;
+                }
+
+                if (fieldChar != null && fieldChar.FieldCharType == "end")
+                {
+                    fieldState.End = fieldChar;
+                }
+
+                if (fieldCode != null)
+                {
+                    fieldState.Code = fieldCode;
+                }
+
+                if (fieldState.IsComplete)
+                {
+                    if (fieldState.IsReference)
+                    {
+                        fieldState.Begin.Dirty = new OnOffValue(true);
+                    }
+
+                    fieldState = new FieldState();
+                }
             }
         }
 
@@ -381,6 +426,65 @@ namespace DoubleGis.Erm.Platform.Common.PrintFormEngine
 
             value = null;
             return false;
+        }
+
+        private class FieldState
+        {
+            private FieldChar _begin;
+            private FieldChar _end;
+            private FieldCode _code;
+
+            public bool IsComplete
+            {
+                get { return _end != null; }
+            }
+
+            public bool IsReference
+            {
+                get { return _code != null && _code.Text.Trim().StartsWith("REF"); }
+            }
+
+            public FieldChar Begin
+            {
+                get { return _begin; }
+                set
+                {
+                    if (_begin != null)
+                    {
+                        throw new InvalidOperationException("Начало поля уже добавлено");
+                    }
+
+                    _begin = value;
+                }
+            }
+
+            public FieldChar End
+            {
+                get { return _end; }
+                set
+                {
+                    if (_begin == null)
+                    {
+                        throw new InvalidOperationException("Начало поля не было добавлено");
+                    }
+
+                    _end = value;
+                }
+            }
+
+            public FieldCode Code
+            {
+                get { return _code; }
+                set
+                {
+                    if (_begin == null)
+                    {
+                        throw new InvalidOperationException("Начало поля не было добавлено");
+                    }
+
+                    _code = value;
+                }
+            }
         }
     }
 }

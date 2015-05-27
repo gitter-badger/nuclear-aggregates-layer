@@ -57,20 +57,7 @@
                 });
             this.on("afterbuild", function() {
                 this.showAdsElemBag();
-                if (window.Ext.getDom("ViewConfig_Id").value && window.Ext.getDom("ViewConfig_Id").value != "0") {
-
-                    this.Items.TabPanel.add(
-                        {
-                            xtype: "actionshistorytab",
-                            pCardInfo:
-                            {
-                                pTypeId: this.Settings.EntityId,
-                                pId: window.Ext.getDom("ViewConfig_Id").value,
-                                pTypeName: Ext.get("ViewConfig_EntityName").dom.value
-                            }
-            });
-                }
-            }, this);
+               }, this);
         this.on("formbind", this.showAdsElemBag, this);
     };
 </script>    
@@ -95,8 +82,8 @@
             @Html.TemplateField(m => m.Name, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Firm, ReadOnly = Model.HasAssignedOrder })
-            @Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.twins, new LookupSettings { EntityName = EntityName.AdvertisementTemplate, ReadOnly = Model.Id != 0, ExtendedInfo = "isPublished=true"})
+            @Html.TemplateField(m => m.Firm, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Firm(), ReadOnly = Model.HasAssignedOrder })
+            @Html.TemplateField(m => m.AdvertisementTemplate, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.AdvertisementTemplate(), ReadOnly = Model.Id != 0, ExtendedInfo = "isPublished=true"})
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object>{{"rows", "2"}})

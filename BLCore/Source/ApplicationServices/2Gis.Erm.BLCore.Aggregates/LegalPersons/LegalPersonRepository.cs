@@ -22,7 +22,9 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 // ReSharper disable CheckNamespace
 namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
@@ -452,7 +454,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
             }
 
             var ownerCode = _finder.Find(Specs.Find.ById<LegalPerson>(entityId)).Select(x => x.OwnerCode).Single();
-            var permissions = _entityAccessService.RestrictEntityAccess(EntityName.LegalPerson,
+            var permissions = _entityAccessService.RestrictEntityAccess(EntityType.Instance.LegalPerson(),
                                                                         EntityAccessTypes.All,
                                                                         currentUserCode,
                                                                         entityId,
