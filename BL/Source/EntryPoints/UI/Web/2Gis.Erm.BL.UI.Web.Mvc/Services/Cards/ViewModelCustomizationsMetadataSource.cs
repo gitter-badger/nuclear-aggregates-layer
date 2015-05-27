@@ -17,6 +17,7 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Locks;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Positions;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Themes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -58,9 +59,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .UseOrdered<AssociatedPositionGroupsPriceIsPublishedCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<Client, IEntityViewModelBase>()
+                                                       .Use<TelephonyAccessCustomization>()
                                                        .Use<WarnLinkToAdvAgencyExistsVmCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<Contact, IEntityViewModelBase>()
+                                                       .Use<TelephonyAccessCustomization>()
                                                        .Use<BusinessModelAreaCustomization>()
                                                        .Use<ContactSalutationsCustomization>(),
 

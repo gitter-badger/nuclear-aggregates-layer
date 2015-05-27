@@ -132,8 +132,8 @@ window.InitPage = function ()
             organizationUnitId: window.Ext.getDom('OrganizationUnitId').value
         });
 
-        this.BusinessLogic.on("pricePositionChanged", function (linkingObjectsShema, isPositionOfPlannedProvisionSalesModel, salesModel) {
-            this.Advertisements.localData.useSingleCategoryForPackage = isPositionOfPlannedProvisionSalesModel;
+        this.BusinessLogic.on("pricePositionChanged", function (linkingObjectsShema, keepCategoriesSynced, salesModel) {
+            this.Advertisements.localData.keepCategoriesSynced = keepCategoriesSynced;
             this.Advertisements.localData.salesModel = salesModel;
             this.Advertisements.setSchema(linkingObjectsShema);
         }, this);

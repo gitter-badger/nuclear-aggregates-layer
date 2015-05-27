@@ -10,7 +10,9 @@ Task Build-AutoTestsPackages -Depends Set-BuildNumber, Update-AssemblyInfo {
 	# все проекты лежат на две папки выше solution
 	$SolutionRelatedAllProjectsDir = '..\..'
 
-	$tempDir = Join-Path $global:Context.Dir.Temp 'NuGet'
+	$commonMetadata = Get-Metadata 'Common'
+
+	$tempDir = Join-Path $commonMetadata.Dir.Temp 'NuGet'
 	if (!(Test-Path $tempDir)){
 		md $tempDir | Out-Null
 	}

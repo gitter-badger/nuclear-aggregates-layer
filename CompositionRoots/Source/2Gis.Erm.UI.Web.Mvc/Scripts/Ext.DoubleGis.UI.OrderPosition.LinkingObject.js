@@ -79,7 +79,6 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
     },
 
     beginCheckboxCreation: function () {
-        var isComposite = window.Ext.getDom('IsComposite').value.toLowerCase();
         var outerDivId = 'checkboxDiv-' + this.key;
         var div = document.createElement('div');
         div.id = outerDivId;
@@ -92,7 +91,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
             checkbox.type = 'checkbox';
             self.checkbox = checkbox;
             window.Ext.getDom(outerDivId).appendChild(checkbox);
-            checkbox.checked = (self.type == window.Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.Firm && isComposite == 'false') || self.getAdvertisement() != null;
+            checkbox.checked = self.position.AlwaysChecked || self.getAdvertisement() != null;
             self.originalValue = checkbox.checked;
         });
 
@@ -121,7 +120,6 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
     // Метод создаёт чекбокс отражающий не изменённое пользователем состояние заказа в базе данных и не доступный для изменения.
     beginDisabledCheckboxCreation: function () {
-        var isComposite = window.Ext.getDom('IsComposite').value.toLowerCase();
         var key = this.key + '-disabled';
         var outerDivId = 'checkboxDiv-' + key;
         var div = document.createElement('div');
@@ -135,7 +133,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
             checkbox.type = 'checkbox';
             window.Ext.getDom(outerDivId).appendChild(checkbox);
             checkbox.disabled = true;
-            checkbox.checked = (self.type == window.Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.Firm && isComposite == 'false') || self.getAdvertisement() != null;
+            checkbox.checked = self.position.AlwaysChecked || self.getAdvertisement() != null;
         });
 
         return div;
@@ -187,8 +185,6 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
 
     setupControlsAvailability: function () {
 
-        var isComposite = window.Ext.getDom('IsComposite').value.toLowerCase();
-
         var checkboxDisabled = this.controller.localData.readOnly;
         var isDummyCheckboxDisabled = this.controller.localData.readOnly;
 
@@ -202,7 +198,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
         }
         else {
             if (this.checkbox.checked) {
-                if (this.type == window.Ext.DoubleGis.UI.OrderPosition.LinkingObjectTypes.Firm && isComposite == 'false') {
+                if (this.position.AlwaysChecked) {
                     checkboxDisabled = true;
                     isDummyCheckboxDisabled = false;
                 }

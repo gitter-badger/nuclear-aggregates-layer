@@ -25,6 +25,8 @@
     @Html.Hidden("Salutations", JsonConvert.SerializeObject(Model.AvailableSalutations))
     @Html.Hidden("InitialSalutation", Model.Salutation)
 
+    @Html.HiddenFor(m => m.HaveTelephonyAccess)
+
     <div class="Tab" id="MainTab" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Gender, FieldFlex.twins, null, EnumResources.ResourceManager)

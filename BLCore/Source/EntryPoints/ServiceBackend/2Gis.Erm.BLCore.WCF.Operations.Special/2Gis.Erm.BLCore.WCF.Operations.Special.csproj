@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="AdsManagement\HandleAdsState.svc.cs" />
     <Compile Include="AdsManagement\ManageTextAds.svc.cs" />
+    <Compile Include="Dial\DialApplicationService.cs" />
     <Compile Include="FinancialOperations\Calculate.svc.cs" />
     <Compile Include="FinancialOperations\OrderRequest.svc.cs" />
     <Compile Include="FinancialOperations\RequestState.svc.cs" />

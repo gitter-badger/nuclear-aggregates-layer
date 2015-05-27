@@ -210,6 +210,7 @@
     <Content Include="ClientBin\2Gis.Erm.BLCore.UI.Web.Silverlight.xap" />
     <Content Include="Content\Administration.css" />
     <Content Include="Content\images\CommonUI\helpme.png" />
+    <Content Include="Content\images\Configuration\CommonUI\Phone.gif" />
     <Content Include="Content\input-overlay.css" />
     <Content Include="Content\time-period.css" />
     <Content Include="Content\advertisement-element-status.css" />
@@ -783,6 +784,7 @@
     <Compile Include="DI\Bootstrapper.Russia.Mvc.Interception.cs" />
     <Content Include="Scripts\Ext.DoubleGis.Print.js" />
     <Content Include="Scripts\Ext.ux.MonthMenu.js" />
+    <Content Include="Scripts\Ext.ux.PhonecallField.js" />
     <None Include="Scripts\JsResourcesGeneration.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>JsResourcesGeneration.log</LastGenOutput>

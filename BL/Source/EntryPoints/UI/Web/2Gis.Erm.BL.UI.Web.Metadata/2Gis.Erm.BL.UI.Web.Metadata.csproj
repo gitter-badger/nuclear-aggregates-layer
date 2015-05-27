@@ -161,7 +161,6 @@
     <Compile Include="Icons\Icons.Toolbar.cs" />
     <Compile Include="Icons\Icons.Entity.cs" />
     <Compile Include="RelatedItems\RelatedItems.Client.cs" />
-    <Compile Include="RelatedItems\RelatedItems.Firm.cs" />
     <Compile Include="RelatedItems\RelatedItems.Role.cs" />
     <Compile Include="RelatedItems\RelatedItems.PricePosition.cs" />
     <Compile Include="RelatedItems\RelatedItems.cs" />
