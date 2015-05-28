@@ -391,6 +391,10 @@
             }
         };
 
+        if (cardSurrogate.fireEvent('beforepost', this) === false) {
+            return false;
+        }
+
         var form = document.forms[0];
 
         var isValid = Ext.DoubleGis.FormValidator.validate(form);
@@ -409,7 +413,6 @@
         var mask = new Ext.LoadMask(document.body);
         mask.show();
 
-        cardSurrogate.fireEvent('beforepost');
         Ext.Ajax.request({
             url: form.action,
             method: 'POST',
