@@ -13,15 +13,13 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
     public sealed class ADPValidationQueryProvider
     {
         private readonly IQuery _query;
-        private readonly IFinder _finder;
         private readonly ADPCheckMode _checkMode;
         private readonly long _orderId;
         private readonly Expression<Func<Order, bool>> _filterExpression;
 
-        public ADPValidationQueryProvider(IQuery query, IFinder finder, ADPCheckMode checkMode, long orderId, Expression<Func<Order, bool>> filterExpression)
+        public ADPValidationQueryProvider(IQuery query, ADPCheckMode checkMode, long orderId, Expression<Func<Order, bool>> filterExpression)
         {
             _query = query;
-            _finder = finder;
             _checkMode = checkMode;
             _orderId = orderId;
             _filterExpression = filterExpression;
@@ -34,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules.AssociatedAndDenied
                 case ADPCheckMode.OrderBeingCancelled:
                 case ADPCheckMode.OrderBeingReapproved:
                 case ADPCheckMode.SpecificOrder:
-                    var orderInfo = _finder.FindMany(Specs.Find.ById<Order>(_orderId))
+                    var orderInfo = _query.For(Specs.Find.ById<Order>(_orderId))
                                            .Select(item => new
                                                {
                                                    item.FirmId,

@@ -122,8 +122,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export.Exporters
         private IEnumerable<FirmAddress> GetAddressesByFirm(IEnumerable<long> entityIds)
         {
             return
-                _finder.FindMany(FirmSpecs.Addresses.Find.ByFirmIds(entityIds) && Specs.Find.ActiveAndNotDeleted<FirmAddress>() &&
-                                 FirmSpecs.Addresses.Find.NotClosed() && FirmSpecs.Addresses.Find.WithAddressCode());
+                _finder.Find(FirmSpecs.Addresses.Find.ByFirmIds(entityIds) && Specs.Find.ActiveAndNotDeleted<FirmAddress>() &&
+                             FirmSpecs.Addresses.Find.NotClosed() && FirmSpecs.Addresses.Find.WithAddressCode())
+                       .Many();
         }
     }
 }

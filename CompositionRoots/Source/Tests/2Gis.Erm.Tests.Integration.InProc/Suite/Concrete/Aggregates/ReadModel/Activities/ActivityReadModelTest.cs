@@ -35,13 +35,13 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadM
 
         public ITestResult Execute()
         {
-            var appropriateAppointment = _finder.FindMany(Specs.Find.Active<Appointment>()).FirstOrDefault();
-            var appropriateLetter = _finder.FindMany(Specs.Find.Active<Letter>()).FirstOrDefault();
-            var appropriatePhonecall = _finder.FindMany(Specs.Find.Active<Phonecall>()).FirstOrDefault();
-            var appropriateTask = _finder.FindMany(Specs.Find.Active<Task>()).FirstOrDefault();
+            var appropriateAppointment = _finder.Find(Specs.Find.Active<Appointment>()).Top();
+            var appropriateLetter = _finder.Find(Specs.Find.Active<Letter>()).Top();
+            var appropriatePhonecall = _finder.Find(Specs.Find.Active<Phonecall>()).Top();
+            var appropriateTask = _finder.Find(Specs.Find.Active<Task>()).Top();
             var clientTypeId = EntityType.Instance.Client().Id;
-            var reference = _finder.FindMany(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityTypeId == clientTypeId)).FirstOrDefault();
-            var activityWithClient = reference != null ? _finder.FindMany(Specs.Find.ById<Appointment>(reference.SourceEntityId)) : null;
+            var reference = _finder.Find(Specs.Find.Custom<AppointmentRegardingObject>(x => x.TargetEntityTypeId == clientTypeId)).Top();
+            var activityWithClient = reference != null ? _finder.Find(Specs.Find.ById<Appointment>(reference.SourceEntityId)).Many() : null;
 
             if (appropriateAppointment == null || appropriateLetter == null || appropriatePhonecall == null || appropriateTask == null || activityWithClient == null)
             {

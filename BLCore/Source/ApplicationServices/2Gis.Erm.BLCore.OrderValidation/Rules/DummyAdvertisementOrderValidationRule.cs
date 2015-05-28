@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
@@ -32,7 +33,9 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
             var dummyAdvertisementsIds =
-                _finder.FindMany(new FindSpecification<AdvertisementTemplate>(x => !x.IsDeleted && x.DummyAdvertisementId != null), new SelectSpecification<AdvertisementTemplate, long?>(x => x.DummyAdvertisementId));
+                _finder.Find(new FindSpecification<AdvertisementTemplate>(x => !x.IsDeleted && x.DummyAdvertisementId != null))
+                       .Map(q => q.Select(x => x.DummyAdvertisementId))
+                       .Many();
 
             var badAdvertisemements =
                 _query.For<Order>()
