@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (BargainFileDomainEntityDto)domainEntityDto;
 
-            var entity = _finder.FindOne(Specs.Find.ById<BargainFile>(dto.Id)) 
+            var entity = _finder.Find(Specs.Find.ById<BargainFile>(dto.Id)).One()
                 ?? new BargainFile { IsActive = true };
             
             entity.FileKind = dto.FileKind;

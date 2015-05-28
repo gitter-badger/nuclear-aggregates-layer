@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.List
 
             if (querySettings.ParentEntityName.Equals(EntityType.Instance.Deal()) && querySettings.ParentEntityId.HasValue)
             {
-                var clientId = _finder.FindOne(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).ClientId;
+                var clientId = _finder.Find(Specs.Find.ById<Deal>(querySettings.ParentEntityId.Value)).One().ClientId;
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 

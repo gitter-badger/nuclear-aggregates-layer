@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify.DomainE
         {
             var dto = (EmiratesClientDomainEntityDto)domainEntityDto;
 
-            var client = _finder.FindOne(Specs.Find.ById<Client>(dto.Id))
+            var client = _finder.Find(Specs.Find.ById<Client>(dto.Id)).One()
                 ?? new Client { IsActive = true, Parts = new[] { new EmiratesClientPart() } };
 
             ClientFlexSpecs.Clients.Emirates.Assign.Entity().Assign(dto, client);

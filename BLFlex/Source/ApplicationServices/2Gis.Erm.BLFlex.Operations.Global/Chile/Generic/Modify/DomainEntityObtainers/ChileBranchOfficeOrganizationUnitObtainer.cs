@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEnti
         {
             var dto = (ChileBranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
 
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(dto.Id))
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(dto.Id)).One()
                 ?? new BranchOfficeOrganizationUnit { IsActive = true, Parts = new[] { new ChileBranchOfficeOrganizationUnitPart() } };
 
             BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Chile.Assign.Entity().Assign(dto, branchOfficeOrganizationUnit);

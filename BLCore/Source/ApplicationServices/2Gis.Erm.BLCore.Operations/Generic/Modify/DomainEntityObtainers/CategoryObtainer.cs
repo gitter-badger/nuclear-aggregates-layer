@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (CategoryDomainEntityDto)domainEntityDto;
 
-            var category = _finder.FindOne(Specs.Find.ById<Category>(dto.Id)) 
+            var category = _finder.Find(Specs.Find.ById<Category>(dto.Id)).One()
                 ?? new Category { IsActive = true };
 
             category.Id = dto.Id;

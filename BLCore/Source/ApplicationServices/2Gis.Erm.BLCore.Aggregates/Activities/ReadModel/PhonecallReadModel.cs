@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 {
@@ -21,31 +21,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public Phonecall GetPhonecall(long phonecallId)
         {
-            return _finder.FindOne(Specs.Find.ById<Phonecall>(phonecallId));
+            return _finder.Find(Specs.Find.ById<Phonecall>(phonecallId)).One();
         }
 
         public IEnumerable<PhonecallRegardingObject> GetRegardingObjects(long phonecallId)
         {
-            return _finder.FindMany(Specs.Find.Custom<PhonecallRegardingObject>(x => x.SourceEntityId == phonecallId)).ToList();
+            return _finder.Find(Specs.Find.Custom<PhonecallRegardingObject>(x => x.SourceEntityId == phonecallId)).Many();
         }
 
         public PhonecallRecipient GetRecipient(long phonecallId)
         {
-            return _finder.FindOne(Specs.Find.Custom<PhonecallRecipient>(x => x.SourceEntityId == phonecallId));
+            return _finder.Find(Specs.Find.Custom<PhonecallRecipient>(x => x.SourceEntityId == phonecallId)).One();
         }
 
         public bool CheckIfPhonecallExistsRegarding(IEntityType entityName, long entityId)
         {
-            return _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId)).Any();
+            return _finder.Find(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId)).Any();
         }
 
         public bool CheckIfOpenPhonecallExistsRegarding(IEntityType entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.Find(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId)).Many()
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Phonecall>() &&
+            return _finder.Find(Specs.Find.Active<Phonecall>() &&
                                     Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress) &&
                                     Specs.Find.ByIds<Phonecall>(ids))
                           .Any();
@@ -53,26 +53,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public IEnumerable<Phonecall> LookupPhonecallsRegarding(IEntityType entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.Find(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId)).Many()
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Phonecall>() & Specs.Find.ByIds<Phonecall>(ids)).ToArray();
+            return _finder.Find(Specs.Find.Active<Phonecall>() & Specs.Find.ByIds<Phonecall>(ids)).Many();
         }
 
         public IEnumerable<Phonecall> LookupOpenPhonecallsRegarding(IEntityType entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.Find(ActivitySpecs.Find.ByReferencedObject<Phonecall, PhonecallRegardingObject>(entityName, entityId)).Many()
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Phonecall>() & Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Phonecall>(ids)).ToArray();
+            return _finder.Find(Specs.Find.Active<Phonecall>() & Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Phonecall>(ids)).Many();
         }
 
         public IEnumerable<Phonecall> LookupOpenPhonecallsOwnedBy(long ownerCode)
         {
-            return _finder.FindMany(Specs.Find.Owned<Phonecall>(ownerCode) &
-                                    Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress)).ToArray();
+            return _finder.Find(Specs.Find.Owned<Phonecall>(ownerCode) &
+                                    Specs.Find.Custom<Phonecall>(x => x.Status == ActivityStatus.InProgress)).Many();
         }
     }
 }

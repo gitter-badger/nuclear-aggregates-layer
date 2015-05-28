@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEnti
             var dto = (BankDomainEntityDto)domainEntityDto;
             var bank = dto.IsNew()
                            ? new Bank { IsActive = true, IsDeleted = false }
-                           : _finder.FindOne(Specs.Find.ById<Bank>(dto.Id));
+                           : _finder.Find(Specs.Find.ById<Bank>(dto.Id)).One();
             
             bank.Name = dto.Name;
             

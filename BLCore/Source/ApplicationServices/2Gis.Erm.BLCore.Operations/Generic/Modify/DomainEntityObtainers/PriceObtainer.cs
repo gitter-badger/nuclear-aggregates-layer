@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (PriceDomainEntityDto)domainEntityDto;
 
-            var price = _finder.FindOne(Specs.Find.ById<Price>(dto.Id)) 
+            var price = _finder.Find(Specs.Find.ById<Price>(dto.Id)).One()
                         ?? new Price { IsActive = true, IsPublished = false, CreateDate = dto.CreateDate };
 
             price.OrganizationUnitId = dto.OrganizationUnitRef.Id.Value;

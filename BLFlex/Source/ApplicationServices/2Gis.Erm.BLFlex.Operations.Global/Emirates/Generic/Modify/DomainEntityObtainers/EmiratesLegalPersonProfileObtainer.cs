@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify.DomainE
         {
             var dto = (EmiratesLegalPersonProfileDomainEntityDto)domainEntityDto;
 
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(dto.Id)) ??
+            var legalPersonProfile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(dto.Id)).One() ??
                                      new LegalPersonProfile
                                          {
                                              IsActive = true,

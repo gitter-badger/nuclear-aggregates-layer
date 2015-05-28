@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify.Domai
         {
             var dto = (KazakhstanBranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
 
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(dto.Id))
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(dto.Id)).One()
                 ?? new BranchOfficeOrganizationUnit { IsActive = true };
 
             BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Kazakhstan.Assign.Entity().Assign(dto, branchOfficeOrganizationUnit);

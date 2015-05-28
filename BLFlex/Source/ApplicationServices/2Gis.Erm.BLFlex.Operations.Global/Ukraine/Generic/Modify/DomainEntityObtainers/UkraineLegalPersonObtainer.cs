@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify.DomainEn
 
             var legalPerson = dto.IsNew()
                                   ? new LegalPerson { IsActive = true, Parts = new[] { new UkraineLegalPersonPart() } }
-                                  : _finder.FindOne(Specs.Find.ById<LegalPerson>(dto.Id));
+                                  : _finder.Find(Specs.Find.ById<LegalPerson>(dto.Id)).One();
 
             LegalPersonFlexSpecs.LegalPersons.Ukraine.Assign.Entity().Assign(dto, legalPerson);
 

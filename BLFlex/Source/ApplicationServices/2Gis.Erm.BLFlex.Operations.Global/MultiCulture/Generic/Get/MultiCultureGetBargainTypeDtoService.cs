@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
 
         protected override IDomainEntityDto<BargainType> GetDto(long entityId)
         {
-            var entity = _finder.FindOne(Specs.Find.ById<BargainType>(entityId));
+            var entity = _finder.Find(Specs.Find.ById<BargainType>(entityId)).One();
 
             return BargainTypeFlexSpecs.BargainTypes.MultiCulture.Project.DomainEntityDto().Map(entity);
         }

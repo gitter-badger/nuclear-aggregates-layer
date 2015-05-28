@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (LegalPersonDomainEntityDto)domainEntityDto;
 
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(dto.Id)) 
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(dto.Id)).One()
                 ?? new LegalPerson { IsActive = true };
 
             if (!dto.IsInSyncWith1C)

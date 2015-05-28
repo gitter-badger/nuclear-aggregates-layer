@@ -21,12 +21,12 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.BranchOfficesAggregate.Re
 
         public override BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId)
         {
-            return _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId));
+            return _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId)).One();
         }
 
         public override BranchOfficeOrganizationUnit GetBranchOfficeOrganizationUnit(string syncCode1C)
         {
-            return _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BySyncCode1C(syncCode1C));
+            return _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.BySyncCode1C(syncCode1C)).One();
         }
     }
 }

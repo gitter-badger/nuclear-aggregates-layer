@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (PricePositionDomainEntityDto)domainEntityDto;
 
-            var pricePosition = _finder.FindOne(Specs.Find.ById<PricePosition>(dto.Id)) 
+            var pricePosition = _finder.Find(Specs.Find.ById<PricePosition>(dto.Id)).One()
                 ?? new PricePosition { IsActive = true };
 
             pricePosition.PriceId = dto.PriceRef.Id.Value;

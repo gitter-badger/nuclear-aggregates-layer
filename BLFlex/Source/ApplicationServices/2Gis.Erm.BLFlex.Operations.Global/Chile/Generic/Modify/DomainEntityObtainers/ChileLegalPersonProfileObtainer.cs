@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEnti
                                                              }
                                                      }
                                              }
-                                         : _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(dto.Id));
+                                         : _finder.Find(Specs.Find.ById<LegalPersonProfile>(dto.Id)).One();
 
             LegalPersonFlexSpecs.LegalPersonProfiles.Chile.Assign.Entity().Assign(dto, legalPersonProfile);
 

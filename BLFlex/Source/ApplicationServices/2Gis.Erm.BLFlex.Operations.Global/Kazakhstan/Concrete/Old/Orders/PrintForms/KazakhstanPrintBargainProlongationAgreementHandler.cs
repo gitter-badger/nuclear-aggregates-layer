@@ -36,11 +36,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
 
         protected override Response Handle(PrintBargainProlongationAgreementRequest request)
         {
-            var bargain = _finder.FindOne(Specs.Find.ById<Bargain>(request.BargainId));
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargain.ExecutorBranchOfficeId));
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(bargain.CustomerLegalPersonId));
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(request.LegalPersonProfileId));
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(branchOfficeOrganizationUnit.BranchOfficeId));
+            var bargain = _finder.Find(Specs.Find.ById<Bargain>(request.BargainId)).One();
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargain.ExecutorBranchOfficeId)).One();
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(bargain.CustomerLegalPersonId)).One();
+            var legalPersonProfile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(request.LegalPersonProfileId)).One();
+            var branchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(branchOfficeOrganizationUnit.BranchOfficeId)).One();
 
             var printData = new PrintData
                 {

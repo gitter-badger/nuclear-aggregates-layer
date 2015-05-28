@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.EntityOperations
             var sharings = _securityServiceSharings.GetAccessSharingsForEntity(typeof(TEntity).AsEntityName(), id);
 
             // privileges
-            var entity = _secureFinder.FindOne<TEntity>(Specs.Find.ById<TEntity>(id));
+            var entity = _secureFinder.Find<TEntity>(Specs.Find.ById<TEntity>(id)).One();
             var entitySecure = (ICuratedEntity)entity;
             var entityPrivileges = _entityAccessService.RestrictEntityAccess(typeof(TEntity).AsEntityName(),
                                                                              EntityAccessTypes.All,

@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify.DomainE
         {
             var dto = (EmiratesLegalPersonDomainEntityDto)domainEntityDto;
 
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(dto.Id))
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(dto.Id)).One()
                 ?? new LegalPerson { IsActive = true, Parts = new[] { new EmiratesLegalPersonPart() } };
 
             LegalPersonFlexSpecs.LegalPersons.Emirates.Assign.Entity().Assign(dto, legalPerson);

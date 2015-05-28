@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
             // DONE {d.ivanov, 04.06.2014}: да
             var dto = (MultiCultureClientDomainEntityDto)domainEntityDto;
 
-            var client = _finder.FindOne(Specs.Find.ById<Client>(dto.Id)) 
+            var client = _finder.Find(Specs.Find.ById<Client>(dto.Id)).One()
                 ?? new Client { IsActive = true };
 
             client.Name = dto.Name;

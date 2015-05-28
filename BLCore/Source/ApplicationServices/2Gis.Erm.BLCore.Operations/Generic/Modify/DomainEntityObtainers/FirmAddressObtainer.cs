@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (FirmAddressDomainEntityDto)domainEntityDto;
 
-            var entity = _finder.FindOne(Specs.Find.ById<FirmAddress>(dto.Id)) 
+            var entity = _finder.Find(Specs.Find.ById<FirmAddress>(dto.Id)).One()
                 ?? new FirmAddress { IsActive = true };
 
             entity.Timestamp = dto.Timestamp;

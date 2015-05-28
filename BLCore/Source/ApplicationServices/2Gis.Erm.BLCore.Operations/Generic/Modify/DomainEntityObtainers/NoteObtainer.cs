@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (NoteDomainEntityDto)domainEntityDto;
 
-            var entity = _finder.FindOne(Specs.Find.ById<Note>(dto.Id)) 
+            var entity = _finder.Find(Specs.Find.ById<Note>(dto.Id)).One()
                 ?? new Note { OwnerCode = _userContext.Identity.Code };
 
             entity.Id = dto.Id;

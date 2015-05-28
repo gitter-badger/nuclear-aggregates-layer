@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BL.Aggregates.DomainEntityObtainers
         public DenialReason ObtainSimplifiedModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (DenialReasonDomainEntityDto)domainEntityDto;
-            var entity = _finder.FindOne(Specs.Find.ById<DenialReason>(dto.Id))
+            var entity = _finder.Find(Specs.Find.ById<DenialReason>(dto.Id)).One()
                          ?? new DenialReason { IsActive = true };
 
             entity.Name = dto.Name;

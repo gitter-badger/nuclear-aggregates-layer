@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Generi
         {
             var dto = (OrderProcessingRequestDomainEntityDto)domainEntityDto;
 
-            var result = _finder.FindOne(Specs.Find.ById<OrderProcessingRequest>(dto.Id))
+            var result = _finder.Find(Specs.Find.ById<OrderProcessingRequest>(dto.Id)).One()
                 ?? new OrderProcessingRequest { IsActive = true };
 
             result.BaseOrderId = dto.BaseOrderRef.Id;

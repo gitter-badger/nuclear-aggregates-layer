@@ -18,17 +18,6 @@ namespace NuClear.Storage
         FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity;
         
         /// <summary>
-        /// Find one entity object based on findSpecification.
-        /// </summary>
-        TEntity FindOne<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
-
-        /// <summary>
-        /// Find one entity object based on findSpecification and returns the projection based on selectSpecification.
-        /// </summary>
-        TOutput FindOne<TEntity, TOutput>(FindSpecification<TEntity> findSpecification, SelectSpecification<TEntity, TOutput> selectSpecification)
-            where TEntity : class, IEntity;
-
-        /// <summary>
         /// Find and select collection of entity objects based on findSpecification.
         /// </summary>
         IReadOnlyCollection<TEntity> FindMany<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
@@ -43,5 +32,6 @@ namespace NuClear.Storage
         /// Find any of entity objects based on findSpecification without materialization.
         /// </summary>
         bool FindAny<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
+         * */
     }
 }

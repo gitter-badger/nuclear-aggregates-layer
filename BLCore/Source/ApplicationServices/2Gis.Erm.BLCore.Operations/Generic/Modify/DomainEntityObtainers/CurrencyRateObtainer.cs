@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (CurrencyRateDomainEntityDto)domainEntityDto;
 
-            var currencyRate = _finder.FindOne(Specs.Find.ById<CurrencyRate>(dto.Id)) 
+            var currencyRate = _finder.Find(Specs.Find.ById<CurrencyRate>(dto.Id)).One()
                 ?? new CurrencyRate { IsActive = true };
 
             currencyRate.Rate = dto.Rate;

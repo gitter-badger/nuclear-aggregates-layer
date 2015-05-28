@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (PrintFormTemplateDomainEntityDto)domainEntityDto;
 
-            var entity = _finder.FindOne(Specs.Find.ById<PrintFormTemplate>(dto.Id)) 
+            var entity = _finder.Find(Specs.Find.ById<PrintFormTemplate>(dto.Id)).One()
                 ?? new PrintFormTemplate { IsActive = true };
 
             entity.TemplateCode = dto.TemplateCode;

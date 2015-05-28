@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
         {
             var dto = (ClientDomainEntityDto)domainEntityDto;
 
-            var client = _finder.FindOne(Specs.Find.ById<Client>(dto.Id)) 
+            var client = _finder.Find(Specs.Find.ById<Client>(dto.Id)).One() 
                 ?? new Client { IsActive = true };
 
             client.Name = dto.Name;

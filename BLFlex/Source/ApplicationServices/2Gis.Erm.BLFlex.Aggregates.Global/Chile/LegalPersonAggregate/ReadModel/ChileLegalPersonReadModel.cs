@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.Read
 
         public EntityReference GetCommuneReference(long legalPersonId)
         {
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId));
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId)).One();
             var legalPersonPart = legalPerson.Parts.OfType<ChileLegalPersonPart>().SingleOrDefault();
 
             if (legalPersonPart == null)
@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.Read
                 return null;
             }
 
-            var commune = _finder.FindOne(Specs.Find.ById<Commune>(legalPersonPart.CommuneId));
+            var commune = _finder.Find(Specs.Find.ById<Commune>(legalPersonPart.CommuneId)).One();
             return new EntityReference(commune.Id, commune.Name);
         }
     }

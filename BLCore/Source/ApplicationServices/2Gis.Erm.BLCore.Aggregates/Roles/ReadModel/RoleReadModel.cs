@@ -16,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles.ReadModel
 
         public Role GetRole(long roleId)
         {
-            return _finder.FindOne(Specs.Find.ById<Role>(roleId));
+            return _finder.Find(Specs.Find.ById<Role>(roleId)).One();
         }
     }
 }

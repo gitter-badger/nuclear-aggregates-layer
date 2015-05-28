@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.DAL
         private TEntity CallFindOne<TEntity>() where TEntity : class, IEntity, IEntityKey
         {
             var id = _query.For<TEntity>().Select(x => x.Id).FirstOrDefault();
-            return _finder.FindOne(new FindSpecification<TEntity>(x => x.Id == id));
+            return _finder.Find(new FindSpecification<TEntity>(x => x.Id == id)).One();
         }
     }
 }

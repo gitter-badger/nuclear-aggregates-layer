@@ -51,7 +51,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Activate
 
             using (var operationScope = _scopeFactory.CreateSpecificFor<ActivateIdentity, LegalPerson>())
             {
-                var restoringLegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(entityId));
+                var restoringLegalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(entityId)).One();
 
                 if (restoringLegalPerson.IsActive)
                 {
@@ -66,11 +66,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Activate
                         if (!string.IsNullOrWhiteSpace(restoringLegalPerson.Inn))
                         {
                             dublicateLegalPerson = 
-                                _finder
-                                    .FindMany(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                _finder.Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
                                             && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.LegalPerson)
                                             && LegalPersonSpecs.LegalPersons.Find.ByInn(restoringLegalPerson.Inn))
-                                    .FirstOrDefault();
+                                    .Top();
                         }
 
                         break;
@@ -78,11 +77,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Activate
                         if (!string.IsNullOrWhiteSpace(restoringLegalPerson.Inn))
                         {
                             dublicateLegalPerson = 
-                                _finder
-                                    .FindMany(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                _finder.Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
                                             && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.Businessman)
                                             && LegalPersonSpecs.LegalPersons.Find.ByInn(restoringLegalPerson.Inn))
-                                    .FirstOrDefault();
+                                    .Top();
                         }
 
                         break;
@@ -90,11 +88,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Activate
                         if (!string.IsNullOrWhiteSpace(restoringLegalPerson.PassportNumber))
                         {
                             dublicateLegalPerson = 
-                                _finder
-                                    .FindMany(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
+                                _finder.Find(Specs.Find.ActiveAndNotDeleted<LegalPerson>()
                                             && LegalPersonSpecs.LegalPersons.Find.OfType(LegalPersonType.NaturalPerson)
                                             && LegalPersonSpecs.LegalPersons.Find.ByPassport(restoringLegalPerson.PassportSeries, restoringLegalPerson.PassportNumber))
-                                    .FirstOrDefault();
+                                    .Top();
                         }
 
                         break;

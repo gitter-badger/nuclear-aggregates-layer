@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (DeniedPositionDomainEntityDto)domainEntityDto;
 
-            var deniedPosition = _finder.FindOne(Specs.Find.ById<DeniedPosition>(dto.Id)) 
+            var deniedPosition = _finder.Find(Specs.Find.ById<DeniedPosition>(dto.Id)).One()
                 ?? new DeniedPosition { IsActive = true };
 
             deniedPosition.PositionId = dto.PositionRef.Id.Value;

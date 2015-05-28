@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify.DomainEnti
 
             var legalPerson = dto.IsNew()
                                   ? new LegalPerson { IsActive = true, Parts = new[] { new ChileLegalPersonPart() } }
-                                  : _finder.FindOne(Specs.Find.ById<LegalPerson>(dto.Id));
+                                  : _finder.Find(Specs.Find.ById<LegalPerson>(dto.Id)).One();
 
             LegalPersonFlexSpecs.LegalPersons.Chile.Assign.Entity().Assign(dto, legalPerson);
 

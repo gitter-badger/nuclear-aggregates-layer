@@ -2,11 +2,11 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 {
@@ -21,26 +21,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public Task GetTask(long taskId)
         {
-            return _finder.FindOne(Specs.Find.ById<Task>(taskId));
+            return _finder.Find(Specs.Find.ById<Task>(taskId)).One();
         }
 
         public IEnumerable<TaskRegardingObject> GetRegardingObjects(long taskId)
         {
-            return _finder.FindMany(Specs.Find.Custom<TaskRegardingObject>(x => x.SourceEntityId == taskId)).ToList();
+            return _finder.Find(Specs.Find.Custom<TaskRegardingObject>(x => x.SourceEntityId == taskId)).Many();
         }
 
         public bool CheckIfTaskExistsRegarding(IEntityType entityName, long entityId)
         {
-            return _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId)).Any();
+            return _finder.Find(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId)).Any();
         }
 
         public bool CheckIfOpenTaskExistsRegarding(IEntityType entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.Find(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId)).Many()
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Task>() &&
+            return _finder.Find(Specs.Find.Active<Task>() &&
                                     Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) &&
                                     Specs.Find.ByIds<Task>(ids))
                           .Any();
@@ -48,25 +48,25 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 
         public IEnumerable<Task> LookupTasksRegarding(IEntityType entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.Find(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId)).Many()
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Task>() & Specs.Find.ByIds<Task>(ids)).ToArray();
+            return _finder.Find(Specs.Find.Active<Task>() & Specs.Find.ByIds<Task>(ids)).Many();
         }
 
         public IEnumerable<Task> LookupOpenTasksRegarding(IEntityType entityName, long entityId)
         {
-            var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId))
+            var ids = (from reference in _finder.Find(ActivitySpecs.Find.ByReferencedObject<Task, TaskRegardingObject>(entityName, entityId)).Many()
                        select reference.SourceEntityId)
                 .ToArray();
 
-            return _finder.FindMany(Specs.Find.Active<Task>() & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Task>(ids)).ToArray();
+            return _finder.Find(Specs.Find.Active<Task>() & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress) & Specs.Find.ByIds<Task>(ids)).Many();
         }
 
         public IEnumerable<Task> LookupOpenTasksOwnedBy(long ownerCode)
         {
-            return _finder.FindMany(Specs.Find.Owned<Task>(ownerCode) & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress)).ToArray();
+            return _finder.Find(Specs.Find.Owned<Task>(ownerCode) & Specs.Find.Custom<Task>(x => x.Status == ActivityStatus.InProgress)).Many();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
         public AdvertisementElementStatus ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (AdvertisementElementStatusDomainEntityDto)domainEntityDto;
-            var entity = _finder.FindOne(Specs.Find.ById<AdvertisementElementStatus>(dto.Id)) ?? new AdvertisementElementStatus { Id = dto.Id };
+            var entity = _finder.Find(Specs.Find.ById<AdvertisementElementStatus>(dto.Id)).One() ?? new AdvertisementElementStatus { Id = dto.Id };
 
             entity.Timestamp = dto.Timestamp;
 

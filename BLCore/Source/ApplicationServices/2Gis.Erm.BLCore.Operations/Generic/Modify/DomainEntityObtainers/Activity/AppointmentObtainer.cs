@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 
             var appointment = dto.IsNew()
                                   ? new Appointment { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() }
-                                  : _finder.FindOne(Specs.Find.ById<Appointment>(dto.Id));
+                                  : _finder.Find(Specs.Find.ById<Appointment>(dto.Id)).One();
 
             appointment.Header = dto.Header;
             appointment.Description = dto.Description;

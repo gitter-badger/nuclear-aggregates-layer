@@ -154,7 +154,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             }
             else
             {
-                var orderToCheck = _finder.FindOne(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId));
+                var orderToCheck = _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.Single.OrderId)).One();
                 beginCheckPeriod = orderToCheck.BeginDistributionDate;
                 endCheckPeriod = orderToCheck.EndDistributionDateFact;
             }

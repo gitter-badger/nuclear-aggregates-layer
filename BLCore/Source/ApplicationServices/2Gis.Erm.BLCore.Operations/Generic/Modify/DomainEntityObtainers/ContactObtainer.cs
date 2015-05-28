@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (ContactDomainEntityDto)domainEntityDto;
 
-            var contact = _finder.FindOne(Specs.Find.ById<Contact>(dto.Id)) 
+            var contact = _finder.Find(Specs.Find.ById<Contact>(dto.Id)).One()
                 ?? new Contact { IsActive = true };
 
             contact.Id = dto.Id;

@@ -25,8 +25,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var dto = (LetterDomainEntityDto)domainEntityDto;
 
             var letter = dto.IsNew() 
-                ? new Letter { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() } 
-                : _finder.FindOne(Specs.Find.ById<Letter>(dto.Id));
+                ? new Letter { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() }
+                : _finder.Find(Specs.Find.ById<Letter>(dto.Id)).One();
 
             letter.Header = dto.Header;
             letter.Description = dto.Description;

@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 
         public int Deactivate(long entityId)
         {
-            var entity = _finder.FindOne<T>(Specs.Find.ById<T>(entityId));
+            var entity = _finder.Find(Specs.Find.ById<T>(entityId)).One();
             entity.IsActive = false;
             _repository.Update(entity);
             return _repository.Save();
@@ -44,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 
         public int Deactivate(long entityId)
         {
-            var entity = _finder.FindOne<T>(Specs.Find.ById<T>(entityId));
+            var entity = _finder.Find(Specs.Find.ById<T>(entityId)).One();
             entity.IsActive = false;
             _secureRepository.Update(entity);
             return _secureRepository.Save();

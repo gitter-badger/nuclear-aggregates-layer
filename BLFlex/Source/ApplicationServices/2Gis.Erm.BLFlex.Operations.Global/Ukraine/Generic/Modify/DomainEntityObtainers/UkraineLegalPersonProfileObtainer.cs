@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify.DomainEn
                                                       }
                                               }
                                       }
-                                  : _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(dto.Id));
+                                  : _finder.Find(Specs.Find.ById<LegalPersonProfile>(dto.Id)).One();
 
             LegalPersonFlexSpecs.LegalPersonProfiles.Ukraine.Assign.Entity().Assign(dto, legalPersonProfile);
 

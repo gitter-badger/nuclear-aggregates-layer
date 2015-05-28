@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify.DomainEnt
         public BranchOffice ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (CyprusBranchOfficeDomainEntityDto)domainEntityDto;
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(dto.Id)) 
+            var branchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(dto.Id)).One() 
                 ?? new BranchOffice { IsActive = true };
 
             BranchOfficeFlexSpecs.BranchOffices.Cyprus.Assign.Entity().Assign(dto, branchOffice);

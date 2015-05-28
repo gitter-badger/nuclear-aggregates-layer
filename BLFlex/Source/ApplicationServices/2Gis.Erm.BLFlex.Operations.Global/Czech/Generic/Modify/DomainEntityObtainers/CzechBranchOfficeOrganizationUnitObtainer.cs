@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Modify.DomainEnti
         {
             var dto = (CzechBranchOfficeOrganizationUnitDomainEntityDto)domainEntityDto;
 
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(dto.Id)) 
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(dto.Id)).One() 
                 ?? new BranchOfficeOrganizationUnit { IsActive = true };
 
             BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Czech.Assign.Entity().Assign(dto, branchOfficeOrganizationUnit);

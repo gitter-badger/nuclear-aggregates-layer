@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
         public BranchOffice ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (RussiaBranchOfficeDomainEntityDto)domainEntityDto;
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(dto.Id)) 
+            var branchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(dto.Id)).One()
                 ?? new BranchOffice { IsActive = true };
 
             BranchOfficeFlexSpecs.BranchOffices.Russia.Assign.Entity().Assign(dto, branchOffice);

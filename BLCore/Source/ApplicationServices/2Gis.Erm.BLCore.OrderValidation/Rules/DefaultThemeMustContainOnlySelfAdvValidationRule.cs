@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
@@ -81,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 throw new ArgumentNullException("themeId");
             }
 
-            var name = _finder.FindOne(Specs.Find.ById<Theme>(themeId.Value), new SelectSpecification<Theme, string>(x => x.Name));
+            var name = _finder.Find(Specs.Find.ById<Theme>(themeId.Value)).Map(q => q.Select(x => x.Name)).One();
 
             return GenerateDescription(isMassValidation, EntityType.Instance.Theme(), name, themeId.Value);
         }

@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 
             var phoneCall = dto.IsNew() 
                 ? new Phonecall { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() } 
-                : _finder.FindOne(Specs.Find.ById<Phonecall>(dto.Id));
+                : _finder.Find(Specs.Find.ById<Phonecall>(dto.Id)).One();
 
             phoneCall.Header = dto.Header;
             phoneCall.Description = dto.Description;

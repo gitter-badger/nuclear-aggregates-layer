@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify.DomainE
         {
             var dto = (EmiratesBranchOfficeDomainEntityDto)domainEntityDto;
 
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(dto.Id)) 
+            var branchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(dto.Id)).One() 
                 ?? new BranchOffice { IsActive = true };
 
             BranchOfficeFlexSpecs.BranchOffices.Emirates.Assign.Entity().Assign(dto, branchOffice);

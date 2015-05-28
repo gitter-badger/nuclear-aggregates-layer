@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (AdvertisementDomainEntityDto)domainEntityDto;
 
-            var advertisement = _finder.FindOne(Specs.Find.ById<Advertisement>(dto.Id)) 
+            var advertisement = _finder.Find(Specs.Find.ById<Advertisement>(dto.Id)).One() 
                 ?? new Advertisement();
 
             advertisement.FirmId = dto.FirmRef.Id.Value;

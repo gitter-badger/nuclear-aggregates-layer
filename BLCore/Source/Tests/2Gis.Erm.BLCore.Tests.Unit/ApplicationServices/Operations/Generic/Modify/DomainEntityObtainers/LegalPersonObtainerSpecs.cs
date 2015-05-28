@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.ApplicationServices.Operations.Generic
 
             private Establish context = () =>
                 {
-                    Mock.Get(Finder).Setup(x => x.FindOne(Moq.It.IsAny<FindSpecification<LegalPerson>>())).Returns(LegalPerson);
+                    Mock.Get(Finder).Setup(x => x.Find(Moq.It.IsAny<FindSpecification<LegalPerson>>()).One()).Returns(LegalPerson);
 
                     DomainEntityDto.Id = 1; // Id != 0 => сущность создадим не на new, а возьмем из хранилища
 

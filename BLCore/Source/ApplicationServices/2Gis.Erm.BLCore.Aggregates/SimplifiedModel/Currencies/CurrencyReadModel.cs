@@ -1,7 +1,8 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Currencies;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Currencies
 {
@@ -16,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Currencies
 
         public Currency GetCurrency(long id)
         {
-            return _finder.FindOne(Specs.Find.ById<Currency>(id));
+            return _finder.Find(Specs.Find.ById<Currency>(id)).One();
         }
     }
 }

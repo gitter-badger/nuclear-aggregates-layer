@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify.DomainEnt
         {
             var dto = (BargainTypeDomainEntityDto)domainEntityDto;
 
-            var entity = _finder.FindOne(Specs.Find.ById<BargainType>(dto.Id)) ??
+            var entity = _finder.Find(Specs.Find.ById<BargainType>(dto.Id)).One() ??
                          new BargainType { IsActive = true, Id = dto.Id };
 
             if (dto.Timestamp == null && entity.Timestamp != null)

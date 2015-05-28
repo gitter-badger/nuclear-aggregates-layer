@@ -2,11 +2,10 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.Platform.DAL;
-
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 {
@@ -24,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 
         public int Activate(long entityId)
         {
-            var entity = _finder.FindOne<T>(Specs.Find.ById<T>(entityId));
+            var entity = _finder.Find(Specs.Find.ById<T>(entityId)).One();
             entity.IsActive = true;
             _repository.Update(entity);
             return _repository.Save();
@@ -45,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 
         public int Activate(long entityId)
         {
-            var entity = _finder.FindOne(Specs.Find.ById<T>(entityId));
+            var entity = _finder.Find(Specs.Find.ById<T>(entityId)).One();
             entity.IsActive = true;
             _secureRepository.Update(entity);
             return _secureRepository.Save();

@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (AccountDomainEntityDto)domainEntityDto;
 
-            var account = _finder.FindOne(Specs.Find.ById<Account>(dto.Id)) ?? new Account { IsActive = true };
+            var account = _finder.Find(Specs.Find.ById<Account>(dto.Id)).One() ?? new Account { IsActive = true };
             
             account.BranchOfficeOrganizationUnitId = dto.BranchOfficeOrganizationUnitRef.Id.Value;
             account.LegalPersonId = dto.LegalPersonRef.Id.Value;

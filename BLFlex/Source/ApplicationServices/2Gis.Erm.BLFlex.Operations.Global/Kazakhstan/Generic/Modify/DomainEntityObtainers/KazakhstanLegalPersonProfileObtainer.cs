@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify.Domai
         {
             var dto = (KazakhstanLegalPersonProfileDomainEntityDto)domainEntityDto;
 
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(dto.Id))
+            var legalPersonProfile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(dto.Id)).One()
                                   ?? new LegalPersonProfile { IsActive = true, Parts = new IEntityPart[] { new KazakhstanLegalPersonProfilePart() } };
 
             LegalPersonFlexSpecs.LegalPersonProfiles.Kazakhstan.Assign.Entity().Assign(dto, legalPersonProfile);

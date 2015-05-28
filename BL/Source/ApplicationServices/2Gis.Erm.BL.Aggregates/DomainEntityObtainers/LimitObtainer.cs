@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BL.Aggregates.DomainEntityObtainers
         {
             var dto = (LimitDomainEntityDto)domainEntityDto;
 
-            var limit = _finder.FindOne(Specs.Find.ById<Limit>(dto.Id)) 
+            var limit = _finder.Find(Specs.Find.ById<Limit>(dto.Id)).One() 
                 ?? new Limit { IsActive = true };
 
             limit.AccountId = dto.AccountRef.Id.Value;

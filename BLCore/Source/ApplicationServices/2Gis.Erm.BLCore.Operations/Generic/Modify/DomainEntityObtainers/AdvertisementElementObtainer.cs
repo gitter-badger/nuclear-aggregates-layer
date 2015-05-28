@@ -21,7 +21,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         public AdvertisementElement ObtainBusinessModelEntity(IDomainEntityDto domainEntityDto)
         {
             var dto = (AdvertisementElementDomainEntityDto)domainEntityDto;
-            var advertisementElement = _finder.FindOne(Specs.Find.ById<AdvertisementElement>(dto.Id))
+            var advertisementElement = _finder.Find(Specs.Find.ById<AdvertisementElement>(dto.Id)).One()
                                        ?? new AdvertisementElement();
 
             advertisementElement.FileId = dto.FileId;

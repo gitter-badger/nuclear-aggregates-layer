@@ -42,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bargains
 
         public int Activate(long entityId)
         {
-            return Activate(_finder.FindOne(Specs.Find.ById<Bargain>(entityId)));
+            return Activate(_finder.Find(Specs.Find.ById<Bargain>(entityId)).One());
         }
     }
 }

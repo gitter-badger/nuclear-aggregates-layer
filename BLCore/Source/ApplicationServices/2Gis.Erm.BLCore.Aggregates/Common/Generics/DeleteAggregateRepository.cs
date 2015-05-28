@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 
         public int Delete(long entityId)
         {
-            var entity = _finder.FindOne<T>(Specs.Find.ById<T>(entityId));
+            var entity = _finder.Find(Specs.Find.ById<T>(entityId)).One();
             _repository.Delete(entity);
             return _repository.Save();
         }
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Generics
 
         public int Delete(long entityId)
         {
-            var entity = _finder.FindOne(Specs.Find.ById<T>(entityId));
+            var entity = _finder.Find(Specs.Find.ById<T>(entityId)).One();
             _secureRepository.Delete(entity);
             return _secureRepository.Save();
         }

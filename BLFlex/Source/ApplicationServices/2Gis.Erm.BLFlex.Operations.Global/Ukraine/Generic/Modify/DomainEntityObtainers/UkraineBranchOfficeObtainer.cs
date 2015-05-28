@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Modify.DomainEn
         {
             var dto = (UkraineBranchOfficeDomainEntityDto)domainEntityDto;
 
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(dto.Id)) 
+            var branchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(dto.Id)).One()
                 ?? new BranchOffice { IsActive = true, Parts = new[] { new UkraineBranchOfficePart() } };
 
             BranchOfficeFlexSpecs.BranchOffices.Ukraine.Assign.Entity().Assign(dto, branchOffice);

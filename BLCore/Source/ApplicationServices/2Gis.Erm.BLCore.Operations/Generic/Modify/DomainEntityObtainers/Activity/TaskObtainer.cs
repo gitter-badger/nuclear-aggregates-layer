@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 
             var task = dto.IsNew()
                 ? new Task { IsActive = true, Status = dto.Status, OwnerCode = dto.OwnerRef.GetId() } 
-                : _finder.FindOne(Specs.Find.ById<Task>(dto.Id));
+                : _finder.Find(Specs.Find.ById<Task>(dto.Id)).One();
 
             task.Header = dto.Header;
             task.TaskType = dto.TaskType;
