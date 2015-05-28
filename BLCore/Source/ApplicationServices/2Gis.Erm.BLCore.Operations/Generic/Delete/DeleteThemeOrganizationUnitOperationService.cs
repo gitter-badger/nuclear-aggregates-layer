@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
 
         public DeleteConfirmation Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<ThemeOrganizationUnit>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<ThemeOrganizationUnit>(entityId)).Single();
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<DetachIdentity, Theme, OrganizationUnit>())
             {
                 _deleteAggregateRepository.Delete(entityId);

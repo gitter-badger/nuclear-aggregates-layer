@@ -115,7 +115,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
                     operationScope.Updated<FileWithContent>(file.Id);
                 }
 
-                var note = _finder.Find(Specs.Find.ByOptionalFileId<Note>(uploadFileParams.FileId)).FirstOrDefault();
+                var note = _finder.Find(Specs.Find.ByOptionalFileId<Note>(uploadFileParams.FileId)).Top();
                 if (note != null)
                 {
                     note.ModifiedOn = DateTime.UtcNow;

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel.DTO;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
 {
@@ -18,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
         User GetOrganizationUnitDirector(long organizationUnitId);
         Uri GetTelephonyServerAddress(long userId);
         long? GetUserOrganizationUnitId(long userId);
-        IDictionary<long, string> GetUserNames(IEnumerable<long> userIds);
+        IReadOnlyDictionary<long, string> GetUserNames(IEnumerable<long> userIds);
         IEnumerable<long> PickNonServiceUsers(IEnumerable<long> userIds);
     }
 }

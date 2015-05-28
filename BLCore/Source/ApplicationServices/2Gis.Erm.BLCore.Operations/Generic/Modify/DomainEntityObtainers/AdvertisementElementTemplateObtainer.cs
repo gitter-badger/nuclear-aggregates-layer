@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             var dto = (AdvertisementElementTemplateDomainEntityDto)domainEntityDto;
 
             // todo: добавить контроль сохранения удалённой сущности
-            var entity = _finder.Find(Specs.Find.ById<AdvertisementElementTemplate>(dto.Id)).SingleOrDefault() ??
+            var entity = _finder.Find(Specs.Find.ById<AdvertisementElementTemplate>(dto.Id)).One() ??
                 new AdvertisementElementTemplate { Id = dto.Id };
 
             if (dto.Timestamp == null && entity.Timestamp != null)

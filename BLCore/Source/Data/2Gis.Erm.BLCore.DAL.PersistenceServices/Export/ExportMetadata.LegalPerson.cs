@@ -26,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                      .Operation<ChangeClientIdentity>()
                                                      .NonCoupledOperation<ChangeRequisitesIdentity>()
                                                      .Operation<MergeIdentity>()
-                                                     .Use((finder, ids) => finder.Find(Specs.Find.ByIds<LegalPerson>(ids))),
+                                                     .Use((query, ids) => query.For(Specs.Find.ByIds<LegalPerson>(ids))),
 
             () => EntityOperationMapping<LegalPerson>.ForEntity(EntityType.Instance.LegalPersonProfile())
                                                      .Operation<CreateIdentity>()
@@ -34,19 +34,19 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                      .Operation<AssignIdentity>()
                                                      .Operation<DeleteIdentity>()
                                                      .NonCoupledOperation<SetAsMainLegalPersonProfileIdentity>()
-                                                     .Use((finder, ids) => finder.Find(Specs.Find.ByIds<LegalPersonProfile>(ids))
+                                                     .Use((query, ids) => query.For(Specs.Find.ByIds<LegalPersonProfile>(ids))
                                                                                  .Select(profile => profile.LegalPerson)),
 
             () => EntityOperationMapping<LegalPerson>.ForEntity(EntityType.Instance.Client())
                                                      .Operation<AssignIdentity>()
-                                                     .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Client>(ids))
+                                                     .Use((query, ids) => query.For(Specs.Find.ByIds<Client>(ids))
                                                                                  .SelectMany(client => client.LegalPersons)),
 
             () => EntityOperationMapping<LegalPerson>.ForEntity(EntityType.Instance.Account())
                                                      .Operation<CreateIdentity>()
                                                      .Operation<UpdateIdentity>()
                                                      .Operation<DeleteIdentity>()
-                                                     .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Account>(ids))
+                                                     .Use((query, ids) => query.For(Specs.Find.ByIds<Account>(ids))
                                                                                  .Select(account => account.LegalPerson)));
     }
 }

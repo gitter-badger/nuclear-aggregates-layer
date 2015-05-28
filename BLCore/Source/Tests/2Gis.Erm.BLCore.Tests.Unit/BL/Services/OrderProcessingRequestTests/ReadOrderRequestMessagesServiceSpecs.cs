@@ -14,6 +14,7 @@ using Moq;
 
 using NuClear.Security.API.UserContext.Identity;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
@@ -38,8 +39,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
                 {
                     var finderMock = new Mock<IFinder>();
                     finderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<OrderProcessingRequestMessage>>()))
-                              .Returns(
-                                  (FindSpecification<OrderProcessingRequestMessage> x) => RequestMessages.AsQueryable().Where(x));
+                              .Returns((FindSpecification<OrderProcessingRequestMessage> x) => new QueryableFutureSequence<OrderProcessingRequestMessage>(RequestMessages.AsQueryable().Where(x)));
 
                     Finder = finderMock.Object;
 

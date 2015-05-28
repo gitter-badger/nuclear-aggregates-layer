@@ -14,6 +14,6 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                       .Operation<CreateIdentity>()
                                                       .Operation<UpdateIdentity>()
                                                       .Operation<DeactivateIdentity>()
-                                                      .Use((finder, ids) => finder.Find(Specs.Find.ByIds<DenialReason>(ids))));
+                                                      .Use((query, ids) => query.For(Specs.Find.ByIds<DenialReason>(ids))));
     }
 }

@@ -107,7 +107,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                     operationScope.Updated<FileWithContent>(file.Id);
                 }
 
-                var bargainFile = _finder.Find(Specs.Find.ByFileId<BargainFile>(uploadFileParams.FileId)).FirstOrDefault();
+                var bargainFile = _finder.Find(Specs.Find.ByFileId<BargainFile>(uploadFileParams.FileId)).Top();
                 if (bargainFile != null)
                 {
                     bargainFile.ModifiedOn = DateTime.UtcNow;

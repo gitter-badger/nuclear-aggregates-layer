@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLFlex.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -32,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Acceptanc
         protected override Response Handle(EmiratesPrintAcceptanceReportRequest request)
         {
             var orderInfo =
-                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                        .Select(order => new
                            {
                                OrderNumber = order.Number,
@@ -60,7 +61,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Acceptanc
 
         protected PrintData GetPrintData(long orderId)
         {
-            var data = _finder.Find(Specs.Find.ById<Order>(orderId))
+            var data = _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                               .Select(order => new
                                   {
                                       Order = order,
@@ -80,8 +81,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Acceptanc
                                   data.Order.Number));
             }
 
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId.Value));
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationId));
+            var legalPersonProfile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(data.ProfileId.Value)).One();
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationId)).One();
 
             return new PrintData
                 {

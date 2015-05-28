@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         public void CancelRequest(long requestId)
         {
-            var orderProcessingRequest = _finder.Find(Specs.Find.ById<OrderProcessingRequest>(requestId)).Single();
+            var orderProcessingRequest = _finder.FindObsolete(Specs.Find.ById<OrderProcessingRequest>(requestId)).Single();
             if (orderProcessingRequest.State == OrderProcessingRequestState.Completed)
             {
                 throw new BusinessLogicException(BLResources.CannotCancelCompletedOrderRequest);

@@ -7,12 +7,14 @@ using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Pr
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.PrintForms
 {
@@ -35,12 +37,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
         {
             var bargainInfo =
                 _finder.Find(Specs.Find.ById<Bargain>(request.BargainId))
-                       .Select(x => new
+                       .Map(q => q.Select(x => new
                            {
                                BranchOfficeOrganizationUnitId = x.ExecutorBranchOfficeId,
                                BargainNumber = x.Number,
-                           })
-                       .SingleOrDefault();
+                           }))
+                       .One();
 
             if (bargainInfo == null)
             {
@@ -62,8 +64,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bargains.Pr
 
         private PrintData GetPrintData(long bargainId, long legalPersonProfileId)
         {
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId));
-            var data = _finder.Find(Specs.Find.ById<Bargain>(bargainId))
+            var legalPersonProfile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId)).One();
+            var data = _finder.FindObsolete(Specs.Find.ById<Bargain>(bargainId))
                               .Select(x => new
                                   {
                                       OrganizationUnitName = x.BranchOfficeOrganizationUnit.OrganizationUnit.Name,

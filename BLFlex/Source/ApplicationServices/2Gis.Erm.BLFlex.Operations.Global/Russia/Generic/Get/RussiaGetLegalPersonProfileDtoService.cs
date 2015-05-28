@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         {
         }
 
-        protected override ProjectSpecification<LegalPersonProfile, RussiaLegalPersonProfileDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<LegalPersonProfile, RussiaLegalPersonProfileDomainEntityDto> GetProjectSpecification()
         {
             return LegalPersonFlexSpecs.LegalPersonProfiles.Russia.Project.DomainEntityDto();
         }

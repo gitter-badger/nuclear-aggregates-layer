@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.PrintForms
 {
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
         {
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                                   .Select(order => new
+                                   .Map(q => q.Select(order => new
                                        {
                                            OrderState = order.WorkflowStepId,
                                            order.IsTerminated,
@@ -46,8 +47,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                                            CurrencyISOCode = order.Currency.ISOCode,
                                            LegalPersonType = order.LegalPerson.LegalPersonTypeEnum,
                                            order.LegalPersonProfileId,
-                                       })
-                                   .AsEnumerable()
+                                       }))
+                                   .Many()
                                    .Select(x => new
                                        {
                                            x.Order,
@@ -80,7 +81,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);
             var profile = _legalPersonReadModel.GetLegalPersonProfile(orderInfo.LegalPersonProfileId.Value);
             var branchOfficeOrganizationUnit = orderInfo.BranchOfficeOrganizationUnitId.HasValue
-                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(orderInfo.BranchOfficeOrganizationUnitId.Value))
+                ? _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(orderInfo.BranchOfficeOrganizationUnitId.Value)).One()
                 : null;
 
             var printData = new PrintData

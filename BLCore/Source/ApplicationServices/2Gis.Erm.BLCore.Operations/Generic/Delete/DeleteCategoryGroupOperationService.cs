@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
@@ -63,14 +64,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
         private CategoryGroupWithLinkedCategoriesCountDto GetCategoryGroupDto(long categoryGroup)
         {
             return _finder.Find(new FindSpecification<CategoryGroup>(x => x.Id == categoryGroup))
-                          .Select(
-                              x =>
-                              new CategoryGroupWithLinkedCategoriesCountDto
+                          .Map(q => q.Select(x => new CategoryGroupWithLinkedCategoriesCountDto
                               {
                                   Group = x,
                                   CategoriesCount = x.CategoryOrganizationUnits.Count()
-                              })
-                          .FirstOrDefault();
+                              }))
+                          .Top();
         }
 
         private sealed class CategoryGroupWithLinkedCategoriesCountDto

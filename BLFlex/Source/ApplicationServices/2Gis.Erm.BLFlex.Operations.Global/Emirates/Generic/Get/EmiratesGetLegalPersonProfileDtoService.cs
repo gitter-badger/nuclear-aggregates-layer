@@ -18,7 +18,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
         {
         }
 
-        protected override ProjectSpecification<LegalPersonProfile, EmiratesLegalPersonProfileDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<LegalPersonProfile, EmiratesLegalPersonProfileDomainEntityDto> GetProjectSpecification()
         {
             return LegalPersonFlexSpecs.LegalPersonProfiles.Emirates.Project.DomainEntityDto();
         }

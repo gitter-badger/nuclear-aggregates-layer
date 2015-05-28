@@ -4,11 +4,13 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositionAdvertisementValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementValidation.Rules
 {
@@ -27,13 +29,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementVal
         public void Validate(AdvertisementDescriptor advertisement, ICollection<OrderPositionAdvertisementValidationError> errors)
         {
             if (!advertisement.AdvertisementId.HasValue ||
-                !_finder.Find(Specs.Find.ById<Advertisement>(advertisement.AdvertisementId.Value))
-                        .Any(x => !x.AdvertisementTemplate.IsPublished))
+                !_finder.Find(Specs.Find.ById<Advertisement>(advertisement.AdvertisementId.Value) &&
+                              new FindSpecification<Advertisement>(x => !x.AdvertisementTemplate.IsPublished))
+                        .Any())
             {
                 return;
             }
 
-            var positionName = _finder.Find(Specs.Find.ById<Position>(advertisement.PositionId)).Single().Name;
+            var positionName = _finder.FindObsolete(Specs.Find.ById<Position>(advertisement.PositionId)).Single().Name;
 
             errors.Add(new OrderPositionAdvertisementValidationError
                 {

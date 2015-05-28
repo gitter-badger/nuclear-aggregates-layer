@@ -9,12 +9,14 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
@@ -75,7 +77,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                             return x => false;
                         }
 
-                        var filterInfo = _finder.Find(Specs.Find.ById<Deal>(dealId))
+                        var filterInfo = _finder.FindObsolete(Specs.Find.ById<Deal>(dealId))
                             .Select(deal => new
                                 {
                                     deal.ClientId,
@@ -92,13 +94,14 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                         else
                         {
                             var childClients = _finder.Find(new FindSpecification<DenormalizedClientLink>(link => link.MasterClientId == filterInfo.ClientId))
-                                                      .Select(link => link.ChildClientId)
+                                                      .Map(q => q.Select(link => link.ChildClientId))
+                                                      .Many()
                                                       .ToList();
                             childClients.Add(filterInfo.ClientId);
 
                             legalPersons = _finder.Find(new FindSpecification<LegalPerson>(person => childClients.Contains(person.ClientId.Value)))
-                                                  .Select(person => person.Id)
-                                                  .ToArray();
+                                                  .Map(q => q.Select(person => person.Id))
+                                                  .Many();
                         }
 
                         return x => legalPersons.Contains(x.CustomerLegalPersonId);

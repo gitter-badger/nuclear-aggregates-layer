@@ -15,14 +15,16 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
-using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
@@ -77,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         {
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, Advertisement>())
             {
-                var hasOrderPositions = _finder.Find(new FindSpecification<Advertisement>(x => x.Id == entity.Id))
+                var hasOrderPositions = _finder.FindObsolete(new FindSpecification<Advertisement>(x => x.Id == entity.Id))
                                                .SelectMany(x => x.OrderPositionAdvertisements)
                                                .Select(x => x.OrderPosition)
                                                .Any(x => !x.IsDeleted);
@@ -86,7 +88,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                     throw new ArgumentException(BLResources.UnableToDeleteAssignedAdvertisement);
                 }
 
-                var advertisementElements = _finder.Find(Specs.Find.ById<Advertisement>(entity.Id)).SelectMany(x => x.AdvertisementElements);
+                var advertisementElements = _finder.FindObsolete(Specs.Find.ById<Advertisement>(entity.Id)).SelectMany(x => x.AdvertisementElements);
                 foreach (var advertisementElement in advertisementElements)
                 {
                     _advertisementElementGenericRepository.Delete(advertisementElement);
@@ -108,7 +110,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         {
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, AdvertisementTemplate>())
             {
-                var validations = _finder.Find(new FindSpecification<AdvertisementTemplate>(x => x.Id == entity.Id))
+                var validations = _finder.FindObsolete(new FindSpecification<AdvertisementTemplate>(x => x.Id == entity.Id))
                                          .Select(x => new
                                              {
                                                  HasNotDeletedAdvertisements = x.Advertisements.Any(y => !y.IsDeleted && y.FirmId != null),
@@ -164,7 +166,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             int deletedCount;
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, AdvertisementElementTemplate>())
             {
-                var validations = _finder.Find(new FindSpecification<AdvertisementElementTemplate>(x => x.Id == entity.Id))
+                var validations = _finder.FindObsolete(new FindSpecification<AdvertisementElementTemplate>(x => x.Id == entity.Id))
                                          .Select(x => new
                                              {
                                                  HasNotDeletedAdvertisementTemplates = x.AdsTemplatesAdsElementTemplates.Any(y => !y.IsDeleted),
@@ -192,10 +194,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, AdsTemplatesAdsElementTemplate>())
             {
                 // Нельзя удалить связь, если у нас есть ЭРМ(не заглушка) с контентом
-                if (_finder.FindAny(new FindSpecification<AdvertisementElement>(
-                                        x => !x.IsDeleted && !x.Advertisement.IsDeleted && x.Advertisement.FirmId != null &&
-                                             x.AdsTemplatesAdsElementTemplatesId == entity.Id &&
-                                             (x.FileId != null || x.BeginDate != null || x.EndDate != null || x.Text != null))))
+                if (_finder.Find(new FindSpecification<AdvertisementElement>(
+                                     x => !x.IsDeleted && !x.Advertisement.IsDeleted && x.Advertisement.FirmId != null &&
+                                          x.AdsTemplatesAdsElementTemplatesId == entity.Id &&
+                                          (x.FileId != null || x.BeginDate != null || x.EndDate != null || x.Text != null)))
+                           .Any())
                 {
                     throw new BusinessLogicException(BLResources.CanNotDeleteAdsTemplatesAdsElementTemplateSinceThereIsAdvertisementMaterialsWithContent);
                 }
@@ -206,8 +209,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
                 // удаляем связанные с этим шаблоном элементы РМ из всех РМ
                 var advertisementElementsWithAdvertisements = _secureFinder
                     .Find(Specs.Find.ById<AdsTemplatesAdsElementTemplate>(entity.Id))
-                    .SelectMany(x => x.AdvertisementElements)
-                    .ToArray();
+                    .Map(q => q.SelectMany(x => x.AdvertisementElements))
+                    .Many();
 
                 foreach (var advertisementElement in advertisementElementsWithAdvertisements)
                 {
@@ -224,36 +227,38 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public bool IsAdvertisementTemplatePublished(long advertisementTemplateId)
         {
-            return _finder.Find(Specs.Find.ById<AdvertisementTemplate>(advertisementTemplateId)).Select(x => x.IsPublished).Single();
+            return _finder.FindObsolete(Specs.Find.ById<AdvertisementTemplate>(advertisementTemplateId)).Select(x => x.IsPublished).Single();
         }
 
         public bool IsAdvertisementTemplateTheSameInAdvertisementAndElements(long advertisementTemplateId, long advertisementId)
         {
-            return !_finder.FindAny(new FindSpecification<AdvertisementElement>(
-                                        x => !x.IsDeleted
-                                             && x.AdvertisementId == advertisementId
-                                             && x.AdsTemplatesAdsElementTemplate.AdsTemplateId != advertisementTemplateId));
+            return !_finder.Find(new FindSpecification<AdvertisementElement>(
+                                     x => !x.IsDeleted
+                                          && x.AdvertisementId == advertisementId
+                                          && x.AdsTemplatesAdsElementTemplate.AdsTemplateId != advertisementTemplateId))
+                           .Any();
         }
 
         public AdsTemplatesAdsElementTemplate GetAdsTemplatesAdsElementTemplate(long entityId)
         {
-            return _finder.Find(Specs.Find.ById<AdsTemplatesAdsElementTemplate>(entityId)).Single();
+            return _finder.FindObsolete(Specs.Find.ById<AdsTemplatesAdsElementTemplate>(entityId)).Single();
         }
 
         public AdvertisementElementTemplate GetAdvertisementElementTemplate(long entityId)
         {
-            return _finder.Find(Specs.Find.ById<AdvertisementElementTemplate>(entityId)).Single();
+            return _finder.FindObsolete(Specs.Find.ById<AdvertisementElementTemplate>(entityId)).Single();
         }
 
         public Advertisement GetSelectedToWhiteListAdvertisement(long firmId)
         {
-            return _finder.Find(new FindSpecification<Advertisement>(x => x.FirmId == firmId && !x.IsDeleted && x.IsSelectedToWhiteList)).SingleOrDefault();
+            return _finder.Find(new FindSpecification<Advertisement>(x => x.FirmId == firmId && !x.IsDeleted && x.IsSelectedToWhiteList)).One();
         }
 
         public void CreateOrUpdate(AdvertisementTemplate advertisementTemplate)
         {
-            var notUniqueName = _finder.FindAny(Specs.Find.NotDeleted<AdvertisementTemplate>() &&
-                                                new FindSpecification<AdvertisementTemplate>(x => x.Id != advertisementTemplate.Id && x.Name == advertisementTemplate.Name));
+            var notUniqueName = _finder.Find(Specs.Find.NotDeleted<AdvertisementTemplate>() &&
+                                             new FindSpecification<AdvertisementTemplate>(x => x.Id != advertisementTemplate.Id && x.Name == advertisementTemplate.Name))
+                                       .Any();
             if (notUniqueName)
             {
                 throw new NotificationException(string.Format(CultureInfo.CurrentCulture,
@@ -284,9 +289,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         {
             using (var scope = _scopeFactory.CreateOrUpdateOperationFor(advertisementElementTemplate))
             {
-                var notUniqueName = _finder.FindAny(Specs.Find.NotDeleted<AdvertisementElementTemplate>() &&
-                                                    new FindSpecification<AdvertisementElementTemplate>(
-                                                        x => x.Id != advertisementElementTemplate.Id && x.Name == advertisementElementTemplate.Name));
+                var notUniqueName = _finder.Find(Specs.Find.NotDeleted<AdvertisementElementTemplate>() &&
+                                                 new FindSpecification<AdvertisementElementTemplate>(
+                                                     x => x.Id != advertisementElementTemplate.Id && x.Name == advertisementElementTemplate.Name))
+                                           .Any();
                 if (notUniqueName)
                 {
                     throw new NotificationException(string.Format(CultureInfo.CurrentCulture,
@@ -343,15 +349,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public void AddAdvertisementsElementsFromTemplate(AdsTemplatesAdsElementTemplate adsTemplatesAdsElementTemplate)
         {
-            var advertisements = _finder.Find(new FindSpecification<Advertisement>(x => x.AdvertisementTemplateId == adsTemplatesAdsElementTemplate.AdsTemplateId && !x.IsDeleted)).ToArray();
+            var advertisements = _finder.Find(new FindSpecification<Advertisement>(x => x.AdvertisementTemplateId == adsTemplatesAdsElementTemplate.AdsTemplateId && !x.IsDeleted)).Many();
             var dummyAdvertisementElement = _finder.Find(Specs.Find.NotDeleted<AdvertisementElement>() &&
                                                          new FindSpecification<AdvertisementElement>(x => !x.Advertisement.IsDeleted &&
                                                                                                           x.AdvertisementElementTemplateId ==
                                                                                                           adsTemplatesAdsElementTemplate.AdsElementTemplateId &&
                                                                                                           x.Advertisement.FirmId == null))
-                                                   .FirstOrDefault();
+                                                   .Top();
             var elementInfo =
-                _finder.Find(Specs.Find.ById<AdvertisementElementTemplate>(adsTemplatesAdsElementTemplate.AdsElementTemplateId))
+                _finder.FindObsolete(Specs.Find.ById<AdvertisementElementTemplate>(adsTemplatesAdsElementTemplate.AdsElementTemplateId))
                        .Select(x => new
                            {
                                x.IsRequired,
@@ -408,10 +414,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public void CreateOrUpdate(Advertisement advertisement)
         {
-            var notUniqueName = _finder.FindAny(Specs.Find.NotDeleted<Advertisement>() &&
-                                                new FindSpecification<Advertisement>(x => x.Id != advertisement.Id &&
-                                                                                          x.FirmId == advertisement.FirmId &&
-                                                                                          x.Name == advertisement.Name));
+            var notUniqueName = _finder.Find(Specs.Find.NotDeleted<Advertisement>() &&
+                                             new FindSpecification<Advertisement>(x => x.Id != advertisement.Id &&
+                                                                                       x.FirmId == advertisement.FirmId &&
+                                                                                       x.Name == advertisement.Name))
+                                       .Any();
             if (notUniqueName)
             {
                 throw new NotificationException(string.Format(BLResources.AdsCheckNameMustBeUnique, advertisement.Name));
@@ -420,7 +427,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             // проверка, что нет другого рекламного материала в белый список для данной фирмы
             if (advertisement.IsSelectedToWhiteList)
             {
-                var otherWhiteListedAdName = _finder.Find(new FindSpecification<Firm>(x => x.Id == advertisement.FirmId))
+                var otherWhiteListedAdName = _finder.FindObsolete(new FindSpecification<Firm>(x => x.Id == advertisement.FirmId))
                     .SelectMany(x => x.Advertisements)
                     .Where(x => !x.IsDeleted && x.Id != advertisement.Id && x.IsSelectedToWhiteList)
                         .Select(x => x.Name)
@@ -460,12 +467,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
             }
 
             var advertisementTemplate = _finder.Find(Specs.Find.ById<AdvertisementTemplate>(advertisementTemplateId))
-                                               .Select(at => new
+                                               .Map(q => q.Select(at => new
                                                    {
                                                        AdvertisementTemplate = at,
                                                        HasElements = at.AdsTemplatesAdsElementTemplates.Any(ataet => !ataet.IsDeleted)
-                                                   })
-                                               .SingleOrDefault();
+                                                   }))
+                                               .One();
 
             if (advertisementTemplate == null)
             {
@@ -491,7 +498,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public void Unpublish(long advertisementTemplateId)
         {
-            var advertisementTemplate = _finder.Find(Specs.Find.ById<AdvertisementTemplate>(advertisementTemplateId)).SingleOrDefault();
+            var advertisementTemplate = _finder.Find(Specs.Find.ById<AdvertisementTemplate>(advertisementTemplateId)).One();
             if (advertisementTemplate == null)
             {
                 return;
@@ -511,7 +518,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public void SelectToWhiteList(long firmId, long advertisementId)
         {
-            var dto = _finder.Find(new FindSpecification<Firm>(x => x.Id == firmId)).Select(x => new
+            var dto = _finder.FindObsolete(new FindSpecification<Firm>(x => x.Id == firmId)).Select(x => new
             {
                 Advertisements = x.Advertisements.Where(y => !y.IsDeleted),
             }).Select(x => new
@@ -551,7 +558,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
         {
             var hasUserPrivilegeToVerifyAdvertisementElement =
                 _functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementVerification, _userContext.Identity.Code);
-            var advertisementBag = _finder.Find(new FindSpecification<Advertisement>(x => x.Id == advertisementId))
+            var advertisementBag = _finder.FindObsolete(new FindSpecification<Advertisement>(x => x.Id == advertisementId))
                                           .SelectMany(x => x.AdvertisementElements)
                                           .Where(x => x.IsDeleted == x.Advertisement.IsDeleted)
                                           .Select(x => new
@@ -605,7 +612,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         public AdvertisementTemplateIdNameDto GetAdvertisementTemplate(long advertisementId)
         {
-            return _finder.Find(new FindSpecification<AdvertisementTemplate>(item => item.Id == advertisementId))
+            return _finder.FindObsolete(new FindSpecification<AdvertisementTemplate>(item => item.Id == advertisementId))
                                                                 .Select(item => new AdvertisementTemplateIdNameDto
                                                                     {
                                                                         Id = item.Id,
@@ -617,31 +624,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements
 
         int IDeleteAggregateRepository<AdvertisementTemplate>.Delete(long entityId)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<AdvertisementTemplate>(entityId)).Single();
+            var entity = _secureFinder.FindObsolete(Specs.Find.ById<AdvertisementTemplate>(entityId)).Single();
             return Delete(entity);
         }
 
         int IDeleteAggregateRepository<Advertisement>.Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<Advertisement>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<Advertisement>(entityId)).Single();
             return Delete(entity);
         }
 
         int IDeleteAggregateRepository<AdvertisementElement>.Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<AdvertisementElement>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<AdvertisementElement>(entityId)).Single();
             return Delete(entity);
         }
 
         int IDeleteAggregateRepository<AdsTemplatesAdsElementTemplate>.Delete(long entityId)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<AdsTemplatesAdsElementTemplate>(entityId)).Single();
+            var entity = _secureFinder.FindObsolete(Specs.Find.ById<AdsTemplatesAdsElementTemplate>(entityId)).Single();
             return Delete(entity);
         }
 
         int IDeleteAggregateRepository<AdvertisementElementTemplate>.Delete(long entityId)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<AdvertisementElementTemplate>(entityId)).Single();
+            var entity = _secureFinder.FindObsolete(Specs.Find.ById<AdvertisementElementTemplate>(entityId)).Single();
             return Delete(entity);
         }
 

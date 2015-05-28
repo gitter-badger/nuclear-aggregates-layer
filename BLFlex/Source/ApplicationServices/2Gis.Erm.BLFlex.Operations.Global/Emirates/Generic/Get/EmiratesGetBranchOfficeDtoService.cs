@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
         {
         }
 
-        protected override ProjectSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto> GetProjectSpecification()
         {
             return BranchOfficeFlexSpecs.BranchOffices.Emirates.Project.DomainEntityDto();
         }

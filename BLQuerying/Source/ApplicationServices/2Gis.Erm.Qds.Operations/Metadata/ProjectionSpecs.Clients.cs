@@ -35,9 +35,9 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<ClientGridDoc>> Project()
+            public static MapSpecification<ObjectAccessor, IndexedDocumentWrapper<ClientGridDoc>> Project()
             {
-                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<ClientGridDoc>>(
+                return new MapSpecification<ObjectAccessor, IndexedDocumentWrapper<ClientGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<Client>();

@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
         {
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+            var orderInfo = _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                     {
                         OrderState = order.WorkflowStepId,
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
 
         protected PrintData GetPrintData(long orderId)
         {
-            var data = _finder.Find(Specs.Find.ById<Order>(orderId))
+            var data = _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                               .Select(order => new
                                   {
                                       Order = order,
@@ -75,12 +76,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete.Old.Orders.Print
                                   })
                               .Single();
 
-            var branchOfficeOrganizationUnit = _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrderId(orderId));
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
+            var branchOfficeOrganizationUnit = _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrderId(orderId)).One();
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value)).One();
 
             return new PrintData
                 {
-                    { "BranchOffice", CzechPrintHelper.BranchOfficeFields(_finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId))) },
+                    { "BranchOffice", CzechPrintHelper.BranchOfficeFields(_finder.Find(Specs.Find.ById<BranchOffice>(data.BranchOfficeId)).One()) },
                     { "BranchOfficeOrganizationUnit", CzechPrintHelper.BranchOfficeOrganizationUnitFieldsForTerminationNotice(branchOfficeOrganizationUnit) },
                     { "LegalPerson", CzechPrintHelper.LegalPersonFields(legalPerson) },
                     { "Order", CzechPrintHelper.OrderFields(data.Order) }

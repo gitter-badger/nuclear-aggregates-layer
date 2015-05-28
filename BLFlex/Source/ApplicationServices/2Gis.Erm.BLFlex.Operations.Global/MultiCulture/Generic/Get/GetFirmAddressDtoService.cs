@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BLCore.Operations.Crosscutting;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
         protected override IDomainEntityDto<FirmAddress> GetDto(long entityId)
         {
             // TODO {y.baranihin, 30.04.2014}:  адаптировать после вливания рефакторинга из Украины
-            var firmAddressDto = _finder.Find(new FindSpecification<FirmAddress>(x => x.Id == entityId))
+            var firmAddressDto = _finder.FindObsolete(new FindSpecification<FirmAddress>(x => x.Id == entityId))
                           .Select(entity => new FirmAddressDomainEntityDto
                               {
                                   IsFirmActive = entity.Firm.IsActive,

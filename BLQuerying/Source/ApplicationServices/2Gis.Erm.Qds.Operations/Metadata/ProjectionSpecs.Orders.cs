@@ -54,9 +54,9 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<OrderGridDoc>> Project(CultureInfo cultureInfo)
+            public static MapSpecification<ObjectAccessor, IndexedDocumentWrapper<OrderGridDoc>> Project(CultureInfo cultureInfo)
             {
-                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<OrderGridDoc>>(
+                return new MapSpecification<ObjectAccessor, IndexedDocumentWrapper<OrderGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<Order>();

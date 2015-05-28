@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
         {
             var client = _clientReadModel.GetClient(entityId);
 
-            var modelDto = ClientFlexSpecs.Clients.Emirates.Project.DomainEntityDto().Project(client);
+            var modelDto = ClientFlexSpecs.Clients.Emirates.Project.DomainEntityDto().Map(client);
             modelDto.MainFirmRef.Name = modelDto.MainFirmRef.Id.HasValue ? _firmReadModel.GetFirmName(modelDto.MainFirmRef.Id.Value) : null;
             modelDto.TerritoryRef.Name = modelDto.TerritoryRef.Id.HasValue ? _firmReadModel.GetTerritoryName(modelDto.TerritoryRef.Id.Value) : null;
 

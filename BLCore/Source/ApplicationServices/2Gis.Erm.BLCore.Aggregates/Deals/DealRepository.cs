@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -21,6 +22,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Deals
@@ -68,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Deal>())
             {
-                var dealWithRelated = _secureFinder.Find(Specs.Find.ById<Deal>(deal.Id))
+                var dealWithRelated = _secureFinder.FindObsolete(Specs.Find.ById<Deal>(deal.Id))
                                              .Select(x => new
                                                  {
                                                      Orders = x.Orders.Where(y => !y.IsDeleted && y.WorkflowStepId != OrderState.Archive && y.IsActive),
@@ -113,7 +115,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
         {
             var releaseInfoQuery = _secureQuery.For<ReleaseInfo>();
 
-            return _secureFinder.Find(new FindSpecification<Order>(x => x.DealId == dealId && !x.IsDeleted && x.IsActive))
+            return _secureFinder.FindObsolete(new FindSpecification<Order>(x => x.DealId == dealId && !x.IsDeleted && x.IsActive))
                 .Any(o => o.WorkflowStepId != OrderState.Rejected
                           && o.WorkflowStepId != OrderState.Archive
                           && !(o.WorkflowStepId == OrderState.OnTermination &&
@@ -151,7 +153,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         public int SetOrderApprovedForReleaseStage(long dealId)
         {
-            var deal = _secureFinder.Find(Specs.Find.ById<Deal>(dealId)).Single();
+            var deal = _secureFinder.FindObsolete(Specs.Find.ById<Deal>(dealId)).Single();
             if (deal.DealStage == DealStage.Service || deal.DealStage == DealStage.OrderApprovedForRelease)
             {
                 return 0;
@@ -171,7 +173,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
         {
             var orderStates = new[] { OrderState.Approved, OrderState.OnTermination, OrderState.Archive };
 
-            var otherOrdersExists = _secureFinder.Find(OrderSpecs.Orders.Find.ForDeal(dealId)
+            var otherOrdersExists = _secureFinder.FindObsolete(OrderSpecs.Orders.Find.ForDeal(dealId)
                                                     && Specs.Find.ActiveAndNotDeleted<Order>())
                                            .Any(x => x.Id != orderId && orderStates.Contains(x.WorkflowStepId));
 
@@ -180,7 +182,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
                 return 0;
             }
 
-            var deal = _secureFinder.Find(Specs.Find.ById<Deal>(dealId)).Single();
+            var deal = _secureFinder.FindObsolete(Specs.Find.ById<Deal>(dealId)).Single();
             using (var operationScope = _operationScopeFactory.CreateOrUpdateOperationFor(deal))
             {
                 deal.DealStage = DealStage.OrderFormed;
@@ -193,7 +195,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         int IAssignAggregateRepository<Deal>.Assign(long entityId, long ownerCode)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<Deal>(entityId)).Single();
+            var entity = _secureFinder.FindObsolete(Specs.Find.ById<Deal>(entityId)).Single();
             return Assign(entity, ownerCode);
         }
 
@@ -205,13 +207,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             var result = new ChangeAggregateClientValidationResult(warnings, securityErrors, domainErrors);
 
             var dealInfo = _secureFinder.Find(Specs.Find.ById<Deal>(entityId))
-                .Select(x => new
+                .Map(q => q.Select(x => new
                     {
                         x.Id,
                         x.IsActive,
                         x.OwnerCode
-                    })
-                .SingleOrDefault();
+                    }))
+                .One();
             if (dealInfo == null)
             {
                 domainErrors.Add(BLResources.CouldNotFindDeal);
@@ -236,18 +238,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
 
         int IChangeAggregateClientRepository<Deal>.ChangeClient(long entityId, long clientId, long currentUserCode, bool bypassValidation)
         {
-            var deal = _secureFinder.FindOne(Specs.Find.ById<Deal>(entityId));
-            var firms = _secureFinder.FindMany(FirmSpecs.Firms.Find.ByClient(clientId)).ToArray();
-            if (firms.Length == 1)
+            var deal = _secureFinder.Find(Specs.Find.ById<Deal>(entityId)).One();
+            var firms = _secureFinder.Find(FirmSpecs.Firms.Find.ByClient(clientId)).Many();
+            if (firms.Count == 1)
             {
-                deal.MainFirmId = firms[0].Id;
+                deal.MainFirmId = firms.First().Id;
             }
             else
             {
                 deal.MainFirmId = null;
             }
 
-            var client = _secureFinder.FindOne(Specs.Find.ById<Client>(clientId));
+            var client = _secureFinder.Find(Specs.Find.ById<Client>(clientId)).One();
             if (client == null)
             {
                 throw new ArgumentException(BLResources.EntityNotFound, "clientId");
@@ -260,7 +262,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
             //    если при этом в коде вышестоящего по controlflow operationsservice не останется ничего кроме вызова разлиных aggregate service - пусть так, возможно, позднее решим избавится от необходимости создавать operationservice и aggregate service, если первый фактически ничего не делает
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<UpdateIdentity, Order>())
             {
-                var orders = _secureFinder.Find(new FindSpecification<Order>(x => x.DealId == entityId)).ToArray();
+                var orders = _secureFinder.Find(new FindSpecification<Order>(x => x.DealId == entityId)).Many();
                 foreach (var order in orders)
                 {
                     order.OwnerCode = client.OwnerCode;
@@ -283,7 +285,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
         public DealLegalPersonDto GetDealLegalPerson(long dealId)
         {
             var dealInfo = _secureFinder.Find(new FindSpecification<Deal>(deal => deal.Id == dealId && !deal.IsDeleted))
-                .Select(x => new DealLegalPersonDto
+                .Map(q => q.Select(x => new DealLegalPersonDto
                     {
                         Id = x.Id, 
                         Name = x.Name, 
@@ -291,13 +293,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Deals
                         MainFirmId = x.MainFirmId, 
                         CurrencyId = x.CurrencyId,
                         OwnerCode = x.OwnerCode
-                    })
-                .SingleOrDefault();
+                    }))
+                .One();
 
             var legalPersonInfo =
                 _secureFinder.Find(DealSpecs.LegalPersonDeals.Find.ByDeal(dealId) && DealSpecs.LegalPersonDeals.Find.Main() && Specs.Find.NotDeleted<LegalPersonDeal>())
-                             .Select(x => new DealLegalPersonDto.LegalPersonDto { Id = x.LegalPersonId, Name = x.LegalPerson.LegalName })
-                             .SingleOrDefault();
+                             .Map(q => q.Select(x => new DealLegalPersonDto.LegalPersonDto { Id = x.LegalPersonId, Name = x.LegalPerson.LegalName }))
+                             .One();
 
             if (dealInfo != null && legalPersonInfo != null)
             {

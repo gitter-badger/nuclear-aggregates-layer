@@ -8,11 +8,13 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Prices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
@@ -28,15 +30,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
         public bool IsSupportedByExport(long positionId)
         {
-            return _finder.Find(Specs.Find.ById<Position>(positionId)).Select(x => x.Platform.IsSupportedByExport).SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<Position>(positionId)).Map(q => q.Select(x => x.Platform.IsSupportedByExport)).One();
         }
 
         public bool PositionsExist(IReadOnlyCollection<long> positionIds, out string message)
         {
             var existingPositionIds = _finder.Find(Specs.Find.ActiveAndNotDeleted<Position>() &&
                                                    Specs.Find.ByIds<Position>(positionIds))
-                                             .Select(x => x.Id)
-                                             .ToArray();
+                                             .Map(q => q.Select(x => x.Id))
+                                             .Many();
 
             var missingPositionIds = positionIds.Except(existingPositionIds).ToArray();
             if (missingPositionIds.Any())
@@ -51,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
         public IEnumerable<LinkingObjectsSchemaPositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId)
         {
-            var positions = _finder.Find(Specs.Find.ById<Position>(positionId));
+            var positions = _finder.FindObsolete(Specs.Find.ById<Position>(positionId));
 
             if (isPricePositionComposite)
             {
@@ -74,12 +76,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
         public IReadOnlyCollection<long> GetDependedByPositionOrderIds(long positionId)
         {
-            var childPositionIds = _finder.Find(Specs.Find.ById<Position>(positionId))
+            var childPositionIds = _finder.FindObsolete(Specs.Find.ById<Position>(positionId))
                                           .SelectMany(x => x.ChildPositions)
                                           .Select(x => x.ChildPositionId)
                                           .ToArray();
 
-            return _finder.Find(Specs.Find.ByIds<Position>(childPositionIds.With(positionId)))
+            return _finder.FindObsolete(Specs.Find.ByIds<Position>(childPositionIds.With(positionId)))
                           .SelectMany(x => x.OrderPositionAdvertisements)
                           .Select(x => x.OrderPosition)
                           .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
@@ -96,31 +98,32 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
         public IReadOnlyDictionary<long, PositionBindingObjectType> GetPositionBindingObjectTypes(IEnumerable<long> positionIds)
         {
             return _finder.Find(Specs.Find.ByIds<Position>(positionIds))
-                          .Select(x => new { x.Id, x.BindingObjectTypeEnum })
-                          .ToDictionary(x => x.Id, y => y.BindingObjectTypeEnum);
+                          .Map(q => q.Select(x => new { x.Id, x.BindingObjectTypeEnum }))
+                          .Map(x => x.Id, y => y.BindingObjectTypeEnum);
         }
 
         public IReadOnlyDictionary<long, string> GetPositionNames(IEnumerable<long> positionIds)
         {
             return _finder.Find(Specs.Find.ByIds<Position>(positionIds))
-                          .Select(x => new { x.Id, x.Name })
-                          .ToDictionary(x => x.Id, y => y.Name);
+                          .Map(q => q.Select(x => new { x.Id, x.Name }))
+                          .Map(x => x.Id, y => y.Name);
         }
 
         public IEnumerable<PositionSortingOrderDto> GetPositionsSortingOrder()
         {
-            return _finder.Find(PriceSpecs.Positions.Find.WithSortingSpecified(), PriceSpecs.Positions.Select.PositionSortingOrderDto())
-                          .ToArray();
+            return _finder.Find(PriceSpecs.Positions.Find.WithSortingSpecified())
+                          .Map(q => q.Select(PriceSpecs.Positions.Select.PositionSortingOrderDto()))
+                          .Many();
         }
 
         public IEnumerable<Position> GetPositions(IEnumerable<long> ids)
         {
-            return _finder.FindMany(Specs.Find.ByIds<Position>(ids));
+            return _finder.Find(Specs.Find.ByIds<Position>(ids)).Many();
         }
 
         public IReadOnlyCollection<long> GetChildPositionIds(long positionId)
         {
-            return _finder.Find(Specs.Find.ById<Position>(positionId))
+            return _finder.FindObsolete(Specs.Find.ById<Position>(positionId))
                           .SelectMany(x => x.ChildPositions)
                           .Where(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
                           .Select(x => x.ChildPositionId)
@@ -129,23 +132,29 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
 
         public bool KeepCategoriesSynced(long positionId)
         {
-            return _finder.Find(Specs.Find.ById<Position>(positionId)).Any(x => x.IsComposite && (!x.DgppId.HasValue || x.DgppId != PositionTools.AdditionalPackageDgppId));
+            return _finder.Find(Specs.Find.ById<Position>(positionId) &&
+                                new FindSpecification<Position>(x => x.IsComposite && (!x.DgppId.HasValue || x.DgppId != PositionTools.AdditionalPackageDgppId)))
+                          .Any();
         }
 
         public bool AllSubpositionsMustBePicked(long positionId)
         {
-            return _finder.Find(Specs.Find.ById<Position>(positionId)).Any(x => x.IsComposite && (!x.DgppId.HasValue || x.DgppId != PositionTools.AdditionalPackageDgppId));
+            return _finder.Find(Specs.Find.ById<Position>(positionId) &&
+                                new FindSpecification<Position>(x => x.IsComposite && (!x.DgppId.HasValue || x.DgppId != PositionTools.AdditionalPackageDgppId)))
+                          .Any();
         }
 
         public bool AutoCheckPositionsWithFirmBindingType(long positionId)
         {
-            return _finder.Find(Specs.Find.ById<Position>(positionId)).Any(x => !x.DgppId.HasValue || x.DgppId != PositionTools.AdditionalPackageDgppId);
+            return _finder.Find(Specs.Find.ById<Position>(positionId) &&
+                                new FindSpecification<Position>(x => !x.DgppId.HasValue || x.DgppId != PositionTools.AdditionalPackageDgppId))
+                          .Any();
         }
 
         public PositionSalesModelAndCompositenessDto GetPositionSalesModelAndCompositenessByPricePosition(long pricePositionId)
         {
             return
-                _finder.Find(PriceSpecs.Positions.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>())
+                _finder.FindObsolete(PriceSpecs.Positions.Find.ByPricePosition(pricePositionId) && Specs.Find.ActiveAndNotDeleted<Position>())
                        .Select(x => new PositionSalesModelAndCompositenessDto
                                         {
                                             PositionId = x.Id,
@@ -155,21 +164,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Positions.ReadModel
                        .Single();
         }
 
-        public IDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds)
+        public IReadOnlyDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds)
         {
             return _finder.Find(Specs.Find.ByIds<Position>(positionIds))
-                          .Select(x => new
+                          .Map(q => q.Select(x => new
                                            {
                                                Id = x.Id,
                                                PositionsGroup = x.PositionsGroup
-                                           })
-                          .ToDictionary(x => x.Id, x => x.PositionsGroup);
+                                           }))
+                          .Map(x => x.Id, x => x.PositionsGroup);
         }
 
         public IReadOnlyDictionary<PlatformEnum, long> GetPlatformsDictionary(IEnumerable<long> platformDgppIds)
         {
             return _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => platformDgppIds.Contains(x.DgppId)))
-                                .ToDictionary(x => (PlatformEnum)x.DgppId, x => x.Id);
+                                .Map(x => (PlatformEnum)x.DgppId, x => x.Id);
         }
     }
 }

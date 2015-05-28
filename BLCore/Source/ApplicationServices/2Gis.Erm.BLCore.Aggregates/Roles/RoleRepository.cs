@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
@@ -17,6 +18,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Roles
@@ -51,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 
         public int Delete(Role role)
         {
-            var relatedEntities = _finder.Find(Specs.Find.ById<Role>(role.Id))
+            var relatedEntities = _finder.FindObsolete(Specs.Find.ById<Role>(role.Id))
                 .Select(r => new
                     {
                         r.RolePrivileges,
@@ -79,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 
         int IDeleteAggregateRepository<Role>.Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<Role>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<Role>(entityId)).Single();
             return Delete(entity);
         }
 
@@ -148,7 +150,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
             {
                 var privilegeId = privilegeInfo.PrivilegeId;
 
-                var rolePrivilege = _finder.Find(new FindSpecification<RolePrivilege>(x => x.RoleId == roleId && x.PrivilegeId == privilegeId)).SingleOrDefault();
+                var rolePrivilege = _finder.Find(new FindSpecification<RolePrivilege>(x => x.RoleId == roleId && x.PrivilegeId == privilegeId)).One();
                 if (rolePrivilege == null)
                 {
                     if (privilegeInfo.PrivilegeDepthMask == EntityPrivilegeDepthState.None)
@@ -192,7 +194,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
             {
                 var privilegeId = privilegeInfo.PrivilegeId;
 
-                var rolePrivilege = _finder.Find(new FindSpecification<RolePrivilege>(x => x.RoleId == roleId && x.PrivilegeId == privilegeId)).SingleOrDefault();
+                var rolePrivilege = _finder.Find(new FindSpecification<RolePrivilege>(x => x.RoleId == roleId && x.PrivilegeId == privilegeId)).One();
                 if (rolePrivilege == null)
                 {
                     if (privilegeInfo.Mask == 0)
@@ -251,7 +253,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 
         public bool HasUsers(long roleId)
         {
-            var hasUsers = _finder.Find(new FindSpecification<Role>(x => x.Id == roleId)).SelectMany(x => x.UserRoles).Select(x => x.User).Distinct().Any(x => x.IsActive && !x.IsDeleted);
+            var hasUsers = _finder.Find(new FindSpecification<Role>(x => x.Id == roleId))
+                                  .Map(q => q.SelectMany(x => x.UserRoles).Select(x => x.User).Distinct())
+                                  .Find(Specs.Find.ActiveAndNotDeleted<User>())
+                                  .Any();
             return hasUsers;
         }
 

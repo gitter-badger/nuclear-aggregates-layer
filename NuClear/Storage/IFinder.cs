@@ -17,12 +17,6 @@ namespace NuClear.Storage
         /// </summary>
         FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity;
         
-        /*
-        /// <summary>
-        /// Find the Entity object(s) based on findSpecification.
-        /// </summary>
-        IQueryable<TEntity> Find<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity;
-
         /// <summary>
         /// Find the Entity object(s) based on findSpecification and returns the projection based on selectSpecification.
         /// </summary>

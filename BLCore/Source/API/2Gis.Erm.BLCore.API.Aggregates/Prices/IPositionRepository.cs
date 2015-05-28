@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices
 {
@@ -16,7 +19,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices
         int DeleteWithSubentities(Position position);
 
         CategoryWithPositionsDto GetCategoryWithPositions(long entityId);
-        string[] GetMasterPositionNames(Position position);
+        IReadOnlyCollection<string> GetMasterPositionNames(Position position);
 
         bool IsReadOnlyAdvertisementTemplate(long positionId);
         bool IsInPublishedPrices(long positionId);

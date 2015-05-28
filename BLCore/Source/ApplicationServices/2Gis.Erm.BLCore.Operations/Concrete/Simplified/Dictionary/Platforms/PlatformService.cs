@@ -4,10 +4,12 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Platfor
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Platforms.DTO;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Platforms
@@ -32,17 +34,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Platfor
         public PlatwormWithPositionsDto GetPlatformWithPositions(long entityId)
         {
             return _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Platform>(entityId))
-                .Select(platform => new PlatwormWithPositionsDto
-                {
-                    Platform = platform,
-                    Positions = platform.Positions.Where(position => position.IsActive && !position.IsDeleted)
-                })
-                .SingleOrDefault();
+                          .Map(q => q.Select(platform => new PlatwormWithPositionsDto
+                              {
+                                  Platform = platform,
+                                  Positions = platform.Positions.Where(position => position.IsActive && !position.IsDeleted)
+                              }))
+                          .One();
         }
 
         public Platform.Model.Entities.Erm.Platform GetPlatform(long entityId)
         {
-            return _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Platform>(entityId)).SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Platform>(entityId)).One();
         }
 
         public void CreateOrUpdate(Platform.Model.Entities.Erm.Platform platform)
@@ -72,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Platfor
 
         public int Delete(int entityId)
         {
-            var platform = _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Platform>(entityId)).Single();
+            var platform = _finder.FindObsolete(Specs.Find.ById<Platform.Model.Entities.Erm.Platform>(entityId)).Single();
             return Delete(platform);
         }
     }

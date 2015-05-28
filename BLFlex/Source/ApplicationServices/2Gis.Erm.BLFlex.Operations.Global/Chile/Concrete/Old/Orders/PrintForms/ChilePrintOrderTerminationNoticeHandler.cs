@@ -6,12 +6,14 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.PrintForms
 {
@@ -32,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
         {
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+            var orderInfo = _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                                    .Select(order => new
                                        {
                                            OrderState = order.WorkflowStepId, 
@@ -64,7 +66,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
 
             var printData =
                 _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                       .Select(order => new
+                       .Map(q => q.Select(order => new
                            {
                                Order = new
                                    {
@@ -90,8 +92,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
                                    {
                                        order.Bargain.Number,
                                    },
-                           })
-                       .AsEnumerable()
+                           }))
+                       .Many()
                        .Select(x => new
                            {
                                Order = new

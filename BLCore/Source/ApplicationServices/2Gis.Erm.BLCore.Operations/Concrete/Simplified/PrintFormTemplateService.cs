@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -80,7 +81,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
                     operationScope.Updated<FileWithContent>(file.Id);
                 }
 
-                var printFormTemplate = _finder.Find(Specs.Find.ByFileId<PrintFormTemplate>(uploadFileParams.FileId)).FirstOrDefault();
+                var printFormTemplate = _finder.Find(Specs.Find.ByFileId<PrintFormTemplate>(uploadFileParams.FileId)).Top();
                 if (printFormTemplate != null)
                 {
                     printFormTemplate.ModifiedOn = DateTime.UtcNow;
@@ -111,7 +112,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 
         public bool TemplateExists(PrintFormTemplate printFormTemplate)
         {
-            var templates = _finder.Find(Specs.Find.ActiveAndNotDeleted<PrintFormTemplate>())
+            var templates = _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<PrintFormTemplate>())
                 .Where(template => template.Id != printFormTemplate.Id && template.TemplateCode == printFormTemplate.TemplateCode);
 
             // EF4 bug workaroud: 
@@ -138,7 +139,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 
         public long? GetPrintFormTemplateFileId(long branchOfficeOrganizationUnitId, TemplateCode templateCode)
         {
-            var templates = _finder.Find(new FindSpecification<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == templateCode))
+            var templates = _finder.FindObsolete(new FindSpecification<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == templateCode))
                 .OrderByDescending(x => x.Id);
 
             var specificTemplateId = templates

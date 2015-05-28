@@ -15,9 +15,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Modify
             {
                 public static class Project
                 {
-                    public static ProjectSpecification<BranchOffice, RussiaBranchOfficeDomainEntityDto> DomainEntityDto()
+                    public static MapSpecification<BranchOffice, RussiaBranchOfficeDomainEntityDto> DomainEntityDto()
                     {
-                        return new ProjectSpecification<BranchOffice, RussiaBranchOfficeDomainEntityDto>(
+                        return new MapSpecification<BranchOffice, RussiaBranchOfficeDomainEntityDto>(
                             x =>
                                 {
                                     var dto = new RussiaBranchOfficeDomainEntityDto

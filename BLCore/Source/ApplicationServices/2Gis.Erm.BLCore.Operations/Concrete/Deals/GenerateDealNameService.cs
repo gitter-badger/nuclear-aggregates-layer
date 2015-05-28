@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Deals;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Deal;
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Deals
 
         public string GenerateDealName(long clientId)
         {
-            var item = _finder.Find(Specs.Find.ById<Client>(clientId))
+            var item = _finder.FindObsolete(Specs.Find.ById<Client>(clientId))
                              .Select(x => new { ClientName = x.Name, MainFirmName = x.Firm.Name })
                              .Single();
 

@@ -17,7 +17,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
             _operationMappings = operationMappings;
         }
 
-        public IDictionary<StrictOperationIdentity, Func<IFinder, IEnumerable<long>, IQueryable<TEntity>>> SelectExpressionsByEntity
+        public IDictionary<StrictOperationIdentity, Func<IQuery, IEnumerable<long>, IQueryable<TEntity>>> SelectExpressionsByEntity
         {
             get { return _operationMappings.ToDictionary(x => x.OperationIdentity, x => x.SelectExpression); }
         }

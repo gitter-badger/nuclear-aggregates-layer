@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<OrderFile> GetDto(long entityId)
         {
-            var dto = _finder.Find(new FindSpecification<OrderFile>(x => x.Id == entityId))
+            var dto = _finder.FindObsolete(new FindSpecification<OrderFile>(x => x.Id == entityId))
                              .Select(entity => new OrderFileDomainEntityDto
                                  {
                                      Id = entity.Id,

@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -23,6 +24,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms
@@ -75,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         public Firm GetFirm(long firmId)
         {
-            return _secureFinder.Find(Specs.Find.ById<Firm>(firmId)).SingleOrDefault();
+            return _secureFinder.Find(Specs.Find.ById<Firm>(firmId)).One();
         }
 
         public void Update(Firm firm)
@@ -157,15 +159,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         public Client PerformDisqualificationChecks(long firmId, long currentUserCode)
         {
             var clientId = _secureFinder.Find(Specs.Find.ById<Firm>(firmId))
-                                      .Select(x => x.ClientId)
-                                      .SingleOrDefault();
+                                      .Map(q => q.Select(x => x.ClientId))
+                                      .One();
 
             if (clientId == null)
             {
                 throw new ArgumentException(BLResources.DisqualifyCantFindFirmClient);
             }
 
-            var client = _secureFinder.FindOne(Specs.Find.ById<Client>(clientId.Value));
+            var client = _secureFinder.Find(Specs.Find.ById<Client>(clientId.Value)).One();
 
             var hasClientPrivileges = _entityAccessService.HasEntityAccess(EntityAccessTypes.Update,
                                                                            EntityType.Instance.Client(),
@@ -194,7 +196,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             var clientFirmsCountEqualToOne =
                 _finder
                     .Find(Specs.Find.NotDeleted<Firm>() && FirmSpecs.Firms.Find.ByClient(client.Id))
-                    .Count() <= 1;
+                    .Fold(q => q.Count()) <= 1;
             if (clientFirmsCountEqualToOne)
             {
                 if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LeaveClientWithNoFirms, currentUserCode))
@@ -241,7 +243,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         public Client GetFirmClient(long firmId)
         {
-            return _finder.FindOne(ClientSpecs.Clients.Find.ByFirm(firmId));
+            return _finder.Find(ClientSpecs.Clients.Find.ByFirm(firmId)).One();
         }
 
         public int SetFirmClient(Firm firm, long clientId)
@@ -271,15 +273,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         {
             return
                 _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId) && Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
-                       .Select(unit => unit.DgppId)
-                       .SingleOrDefault();
+                       .Map(q => q.Select(unit => unit.DgppId))
+                       .One();
         }
 
         public void ImportFirmPromisingValues(long userId)
         {
             var organizationUnitDgppIds = _finder.Find(new FindSpecification<OrganizationUnit>(x => x.ErmLaunchDate != null && x.DgppId != null))
-                                                 .Select(x => x.DgppId.Value)
-                                                 .ToArray();
+                                                 .Map(q => q.Select(x => x.DgppId.Value))
+                                                 .Many();
 
             foreach (var organizationUnitDgppId in organizationUnitDgppIds)
             {
@@ -295,7 +297,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         public IEnumerable<Firm> GetFirmsByTerritory(long territoryId)
         {
-            return _finder.Find(new FindSpecification<Firm>(x => x.TerritoryId == territoryId)).ToArray();
+            return _finder.Find(new FindSpecification<Firm>(x => x.TerritoryId == territoryId)).Many();
         }
 
         public int ChangeTerritory(IEnumerable<Firm> firms, long territoryId)
@@ -315,16 +317,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             return _firmGenericSecureRepository.Save();
         }
 
-        public long[] GetAdvertisementIds(long firmId)
+        public IReadOnlyCollection<long> GetAdvertisementIds(long firmId)
         {
             var advertisementIds =
-                _finder.Find(new FindSpecification<Firm>(x => x.Id == firmId)).SelectMany(x => x.Advertisements).Where(x => !x.IsDeleted).Select(x => x.Id).ToArray();
+                _finder.Find(new FindSpecification<Firm>(x => x.Id == firmId))
+                       .Map(q => q.SelectMany(x => x.Advertisements))
+                       .Find(new FindSpecification<Advertisement>(x => !x.IsDeleted))
+                       .Map(q => q.Select(x => x.Id))
+                       .Many();
             return advertisementIds;
         }
 
         int IQualifyAggregateRepository<Firm>.Qualify(long entityId, long currentUserCode, long reserveCode, long ownerCode, DateTime qualifyDate)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<Firm>(entityId)).Single();
+            var entity = _secureFinder.FindObsolete(Specs.Find.ById<Firm>(entityId)).Single();
             return Qualify(entity, currentUserCode, reserveCode, ownerCode, qualifyDate);
         }
 
@@ -334,13 +340,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                                                             bool bypassValidation,
                                                             DateTime disqualifyDate)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<Firm>(entityId)).Single();
+            var entity = _secureFinder.FindObsolete(Specs.Find.ById<Firm>(entityId)).Single();
             return Disqualify(entity, currentUserCode, reserveCode, disqualifyDate);
         }
 
         int IChangeAggregateTerritoryRepository<Firm>.ChangeTerritory(long entityId, long territoryId)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<Firm>(entityId)).Single();
+            var entity = _secureFinder.FindObsolete(Specs.Find.ById<Firm>(entityId)).Single();
             return ChangeTerritory(entity, territoryId);
         }
 
@@ -359,8 +365,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
             var firmCountForFirmClient =
                 _finder
-                    .Find<Firm, int>(Specs.Find.ById<Firm>(entityId) && FirmSpecs.Firms.Find.HasClient(), FirmSpecs.Firms.Select.FirmCountForFirmClient())
-                    .SingleOrDefault();
+                    .Find(Specs.Find.ById<Firm>(entityId) && FirmSpecs.Firms.Find.HasClient())
+                    .Map(q => q.Select(FirmSpecs.Firms.Select.FirmCountForFirmClient()))
+                    .One();
             if (firmCountForFirmClient == 1)
             {
                 if (!_functionalAccessService.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.LeaveClientWithNoFirms, currentUserCode))
@@ -372,7 +379,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
                 warnings.Add(BLResources.TheClientFirmIsTheOnlyOneWarning);
             }
 
-            var firmInfo = _finder.Find(Specs.Find.ById<Firm>(entityId)).Select(x => new { x.Id, x.Name, x.OwnerCode }).Single();
+            var firmInfo = _finder.FindObsolete(Specs.Find.ById<Firm>(entityId)).Select(x => new { x.Id, x.Name, x.OwnerCode }).Single();
             if (firmInfo.OwnerCode == reserveCode)
             {
                 domainErrors.Add(string.Format(BLResources.Firm_PleaseUseQualifyOperstion, firmInfo.Name));
@@ -391,8 +398,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 
         int IChangeAggregateClientRepository<Firm>.ChangeClient(long entityId, long clientId, long currentUserCode, bool bypassValidation)
         {
-            var entity = _secureFinder.Find(Specs.Find.ById<Firm>(entityId)).Single();
-            var clientOwnerCode = _finder.Find(Specs.Find.ById<Client>(clientId)).Select(x => x.OwnerCode).Single();
+            var entity = _secureFinder.FindObsolete(Specs.Find.ById<Firm>(entityId)).Single();
+            var clientOwnerCode = _finder.FindObsolete(Specs.Find.ById<Client>(clientId)).Select(x => x.OwnerCode).Single();
 
             entity.ClientId = clientId;
             entity.OwnerCode = clientOwnerCode;
@@ -411,10 +418,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
         public bool IsTerritoryReplaceable(long oldTerritoryId, long newTerritoryId)
         {
             // Чтобы территории были взаимозаменяемыми, они должны принадлежать одному подразделению
-            var oldOrganizationUnit = _finder.Find(Specs.Find.ById<Territory>(oldTerritoryId))
+            var oldOrganizationUnit = _finder.FindObsolete(Specs.Find.ById<Territory>(oldTerritoryId))
                                              .Select(territory => territory.OrganizationUnit.Id)
                                              .Single();
-            var newOrganizationUnit = _finder.Find(Specs.Find.ById<Territory>(newTerritoryId))
+            var newOrganizationUnit = _finder.FindObsolete(Specs.Find.ById<Territory>(newTerritoryId))
                                              .Select(territory => territory.OrganizationUnit.Id)
                                              .Single();
 

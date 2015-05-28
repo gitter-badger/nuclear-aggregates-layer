@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLFlex.API.Aggregates.Global.Russia.LegalPersons.DTO;
 using DoubleGis.Erm.BLFlex.API.Aggregates.Global.Russia.LegalPersons.ReadModel;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
@@ -20,13 +21,13 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.LegalPersons
 
         public LegalPersonForMergeDto GetInfoForMerge(long legalPersonId)
         {
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(legalPersonId) && Specs.Find.ActiveAndNotDeleted<LegalPerson>());
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId) && Specs.Find.ActiveAndNotDeleted<LegalPerson>()).One();
             if (legalPerson == null)
             {
                 return null;
             }
 
-            var relatedEntities = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
+            var relatedEntities = _finder.FindObsolete(Specs.Find.ById<LegalPerson>(legalPersonId))
                                          .Select(x => new
                                              {
                                                  x.Accounts,
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.LegalPersons
                     AccountDetails = relatedEntities.AccountDetails,
                     Orders = relatedEntities.Orders,
                     Bargains = relatedEntities.Bargains,
-                    Profiles = _finder.FindMany(Specs.Find.ByIds<LegalPersonProfile>(relatedEntities.ProfileIds))
+                    Profiles = _finder.Find(Specs.Find.ByIds<LegalPersonProfile>(relatedEntities.ProfileIds)).Many()
                 };
         }
     }

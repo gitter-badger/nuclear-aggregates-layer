@@ -9,16 +9,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
 {
     public class BargainPrintFormReadModel : IBargainPrintFormReadModel
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public BargainPrintFormReadModel(IFinder finder)
+        public BargainPrintFormReadModel(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         public BargainRelationsDto GetBargainRelationsDto(long bargainId)
         {
-            return _finder.Find(Specs.Find.ById<Bargain>(bargainId))
+            return _query.For(Specs.Find.ById<Bargain>(bargainId))
                           .Select(x => new BargainRelationsDto
                               {
                                   BargainNumber = x.Number,
@@ -31,14 +31,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
 
         public IQueryable<Bargain> GetBargainQuery(long bargainId)
         {
-            return _finder.Find(Specs.Find.ById<Bargain>(bargainId));
+            return _query.For(Specs.Find.ById<Bargain>(bargainId));
         }
 
         public IQueryable<BranchOffice> GetBranchOfficeQuery(long bargainId)
         {
             // COMMENT {all, 13.05.2014}: Тут нормально, поскольку этот BranchOffice не будет вытянут целиком
             // COMMENT {a.rechkalov, 21.05.2014}: Отдавая наружу IQueryable нельзя быть в этом уверенным
-            return _finder.Find(Specs.Find.ById<Bargain>(bargainId))
+            return _query.For(Specs.Find.ById<Bargain>(bargainId))
                           .Select(x => x.BranchOfficeOrganizationUnit.BranchOffice);
         }
     }

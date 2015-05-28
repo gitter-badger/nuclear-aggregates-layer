@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -26,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (RoleDomainEntityDto)domainEntityDto;
 
-            var role = _finder.Find(Specs.Find.ById<Role>(dto.Id)).SingleOrDefault() ??
+            var role = _finder.Find(Specs.Find.ById<Role>(dto.Id)).One() ??
                        new Role { Id = dto.Id };
 
             if (dto.Timestamp == null && role.Timestamp != null)

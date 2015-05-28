@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -15,6 +16,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete.Simplified
 {
@@ -103,47 +105,48 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
                 _finder
                     .Find(Specs.Find.ActiveAndNotDeleted<OrderProcessingRequest>()
                             && OrderProcessingRequestSpecifications.Find.ForProlongateAndOpened())
-                    .ToArray();
+                    .Many();
         }
 
         public OrderProcessingRequest GetProlongationRequestToProcess(long id)
         {
-            return _finder.Find(Specs.Find.ById<OrderProcessingRequest>(id)).Single();
+            return _finder.FindObsolete(Specs.Find.ById<OrderProcessingRequest>(id)).Single();
         }
 
         public long GetBaseOrderOwner(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.OwnerCode).Single();
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId)).Select(x => x.OwnerCode).Single();
         }
 
         public OrderProcessingRequestFirmDto GetFirmDto(long firmId)
         {
             return _finder.Find(Specs.Find.ById<Firm>(firmId))
-                                   .Select(firm => new OrderProcessingRequestFirmDto
-                                       {
-                                           OrganizationUnitId = firm.OrganizationUnit.Id,
-                                           OrganizationUnitName = firm.OrganizationUnit.Name,
-                                           CurrencyId = firm.OrganizationUnit.Country.CurrencyId,
-                                           OwnerCode = firm.OwnerCode,
-                                           
-                                           // Хитрость: мы не можем написать firm.Client == null ? null : ...
-                                           Client = new[] { firm.Client }.Where(x => x != null)
-                                           .Select(x => new OrderProcessingRequestFirmDto.ClientDto { Id = x.Id, OwnerCode = x.OwnerCode, Name = x.Name }).FirstOrDefault()
-                                       })
-                                   .SingleOrDefault();
+                          .Map(q => q.Select(firm => new OrderProcessingRequestFirmDto
+                              {
+                                  OrganizationUnitId = firm.OrganizationUnit.Id,
+                                  OrganizationUnitName = firm.OrganizationUnit.Name,
+                                  CurrencyId = firm.OrganizationUnit.Country.CurrencyId,
+                                  OwnerCode = firm.OwnerCode,
+
+                                  // Хитрость: мы не можем написать firm.Client == null ? null : ...
+                                  Client = new[] { firm.Client }.Where(x => x != null)
+                                                                .Select(x => new OrderProcessingRequestFirmDto.ClientDto { Id = x.Id, OwnerCode = x.OwnerCode, Name = x.Name })
+                                                                .FirstOrDefault()
+                              }))
+                          .One();
         }
 
         public OrderProcessingRequestOrderDto GetOrderDto(long orderId)
         {
             // TODO {a.rechkalov, 05.12.2013}: тут можно использовать select-спецификацию
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(order => new OrderProcessingRequestOrderDto { Id = order.Id, Number = order.Number, OwnerCode = order.OwnerCode })
-                          .SingleOrDefault();
+                          .Map(q => q.Select(order => new OrderProcessingRequestOrderDto { Id = order.Id, Number = order.Number, OwnerCode = order.OwnerCode }))
+                          .One();
         }
 
         public OrderProcessingRequestNotificationData GetNotificationData(long orderProcessingRequestId)
         {
-            return _finder.Find(Specs.Find.ById<OrderProcessingRequest>(orderProcessingRequestId))
+            return _finder.FindObsolete(Specs.Find.ById<OrderProcessingRequest>(orderProcessingRequestId))
                           .Select(x => new OrderProcessingRequestNotificationData
                               {
                                   FirmName = x.Firm.Name,

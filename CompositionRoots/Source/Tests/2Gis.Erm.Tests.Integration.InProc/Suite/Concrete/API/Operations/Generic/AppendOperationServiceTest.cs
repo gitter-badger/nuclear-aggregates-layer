@@ -11,6 +11,7 @@ using FluentAssertions;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {
@@ -30,18 +31,18 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
             var activeOrganizationUnits = 
                 _finder
                     .Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
-                    .Select(ou => ou.Id)
-                    .ToArray();
+                    .Map(q => q.Select(ou => ou.Id))
+                    .Many();
 
-            var appendInfo = 
+            var appendInfo =
                 _finder
                     .Find(Specs.Find.ActiveAndNotDeleted<User>())
-                    .Select(u => new
+                    .Map(q => q.Select(u => new
                         {
                             User = u,
                             AlreadyAppended = u.UserOrganizationUnits.Select(x => x.OrganizationUnitId)
-                        })
-                    .AsEnumerable()
+                        }))
+                    .Many()
                     .Select(u => new
                         {
                             u.User,

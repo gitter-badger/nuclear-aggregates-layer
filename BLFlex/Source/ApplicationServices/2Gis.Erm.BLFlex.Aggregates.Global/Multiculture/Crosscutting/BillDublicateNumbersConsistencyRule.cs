@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
 {
@@ -35,8 +36,8 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting
             // пересечения в базе с пакетом
             var billIds = bills.Where(x => !x.IsNew()).Select(x => x.Id).ToArray();
             var existingNumbers = _finder.Find(Specs.Find.ActiveAndNotDeleted<Bill>() && BillSpecifications.Find.ByNumbers(billNumbers) && !Specs.Find.ByIds<Bill>(billIds))
-                                         .Select(x => x.Number)
-                                         .ToArray();
+                                         .Map(q => q.Select(x => x.Number))
+                                         .Many();
 
             if (existingNumbers.Any())
             {

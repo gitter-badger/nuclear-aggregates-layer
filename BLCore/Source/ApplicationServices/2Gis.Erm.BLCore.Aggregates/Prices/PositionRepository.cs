@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -10,12 +11,14 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices
@@ -47,13 +50,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         int IDeleteAggregateRepository<Position>.Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<Position>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<Position>(entityId)).Single();
             return Delete(entity);
         }
 
         int IDeleteAggregateRepository<PositionChildren>.Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<PositionChildren>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<PositionChildren>(entityId)).Single();
             return Delete(entity);
         }
 
@@ -73,15 +76,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         int IDeleteAggregateRepository<PositionCategory>.Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<PositionCategory>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<PositionCategory>(entityId)).Single();
             return Delete(entity);
         }
 
         public int DeleteWithSubentities(Position position)
         {
             var positionChildrenQuery = position.IsComposite
-                                            ? _finder.Find(new FindSpecification<PositionChildren>(pc => !pc.IsDeleted && pc.MasterPositionId == position.Id))
-                                            : _finder.Find(new FindSpecification<PositionChildren>(pc => !pc.IsDeleted && pc.ChildPositionId == position.Id));
+                                            ? _finder.FindObsolete(new FindSpecification<PositionChildren>(pc => !pc.IsDeleted && pc.MasterPositionId == position.Id))
+                                            : _finder.FindObsolete(new FindSpecification<PositionChildren>(pc => !pc.IsDeleted && pc.ChildPositionId == position.Id));
 
             var positionChildrenCollection = positionChildrenQuery.ToArray();
 
@@ -105,46 +108,47 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             }
         }
 
-        public string[] GetMasterPositionNames(Position position)
+        public IReadOnlyCollection<string> GetMasterPositionNames(Position position)
         {
             return _finder.Find(new FindSpecification<Position>(p => !p.IsDeleted && p.Id == position.Id))
-                          .SelectMany(p => p.MasterPositions)
-                          .Select(children => children.MasterPosition.Name)
-                          .ToArray();
+                          .Map(q => q.SelectMany(p => p.MasterPositions)
+                                     .Select(children => children.MasterPosition.Name))
+                          .Many();
         }
 
         public bool IsReadOnlyAdvertisementTemplate(long positionId)
         {
             return _finder.Find(new FindSpecification<Position>(x => x.Id == positionId))
-                          .SelectMany(x => x.OrderPositionAdvertisements)
-                          .Select(x => x.OrderPosition)
-                          .Any(x => x.IsActive && !x.IsDeleted);
+                          .Map(q => q.SelectMany(x => x.OrderPositionAdvertisements)
+                                     .Select(x => x.OrderPosition))
+                          .Find(new FindSpecification<OrderPosition>(x => x.IsActive && !x.IsDeleted))
+                          .Any();
         }
 
         public Position GetPosition(long entityId)
         {
-            return _finder.Find(Specs.Find.ById<Position>(entityId)).SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<Position>(entityId)).One();
         }
 
         public CategoryWithPositionsDto GetCategoryWithPositions(long entityId)
         {
             return _finder.Find(Specs.Find.ById<PositionCategory>(entityId))
-                          .Select(category => new CategoryWithPositionsDto
+                          .Map(q => q.Select(category => new CategoryWithPositionsDto
                               {
                                   PositionCategory = category,
                                   Positions = category.Positions
-                              })
-                          .SingleOrDefault();
+                              }))
+                          .One();
         }
 
         public bool IsInPublishedPrices(long positionId)
         {
-            var masterPositions = _finder.Find(Specs.Find.ById<Position>(positionId))
+            var masterPositions = _finder.FindObsolete(Specs.Find.ById<Position>(positionId))
                                          .SelectMany(x => x.MasterPositions)
                                          .Where(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
                                          .Select(x => x.MasterPosition);
 
-            var isInPublishedPrices = _finder.Find(Specs.Find.ById<Position>(positionId)).Union(masterPositions)
+            var isInPublishedPrices = _finder.FindObsolete(Specs.Find.ById<Position>(positionId)).Union(masterPositions)
                                              .SelectMany(x => x.PricePositions)
                                              .Where(Specs.Find.NotDeleted<PricePosition>())
                                              .Select(x => x.Price)
@@ -160,7 +164,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 throw new ArgumentException(BLResources.CantActivatePositionRelatedToCompositeRelatedToPublishedPricePosition);
             }
 
-            var positionInfo = _finder.Find(Specs.Find.ById<Position>(entityId))
+            var positionInfo = _finder.FindObsolete(Specs.Find.ById<Position>(entityId))
                           .Select(x => new
                           {
                               Position = x,
@@ -195,7 +199,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             var isUsedAsChildElement = _finder.Find(PriceSpecs.Positions.Find.UsedAsChildElement(entityId)).Any();
             if (isUsedAsChildElement)
             {
-                var masterElementName = _finder.Find(Specs.Find.ById<Position>(entityId))
+                var masterElementName = _finder.FindObsolete(Specs.Find.ById<Position>(entityId))
                                                .SelectMany(x => x.MasterPositions)
                                                .Select(x => x.MasterPosition.Name)
                                                .First();
@@ -208,7 +212,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 throw new ArgumentException(BLResources.ErrorCantDeletePositionInPublishedPrice);
             }
 
-            var positionInfo = _finder.Find(Specs.Find.ById<Position>(entityId))
+            var positionInfo = _finder.FindObsolete(Specs.Find.ById<Position>(entityId))
                                       .Select(x => new
                                           {
                                               Position = x,
@@ -248,13 +252,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 throw new NotificationException(BLResources.PositionAlreadyExist);
             }
 
-            var hasChildren = _finder.Find(new FindSpecification<Position>(x => x.Id == position.Id)).SelectMany(x => x.ChildPositions).Any(x => x.IsActive && !x.IsDeleted);
+            var hasChildren = _finder.Find(new FindSpecification<Position>(x => x.Id == position.Id))
+                                     .Map(q => q.SelectMany(x => x.ChildPositions))
+                                     .Find(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
+                                     .Any();
             if (hasChildren && !position.IsComposite)
             {
                 throw new NotificationException(BLResources.CantChangeCompositePositionToSimpleWithoutDeletingChildrenPositions);
             }
 
-            var hasParent = _finder.Find(new FindSpecification<Position>(x => x.Id == position.Id)).SelectMany(x => x.MasterPositions).Any(x => x.IsActive && !x.IsDeleted);
+            var hasParent = _finder.Find(new FindSpecification<Position>(x => x.Id == position.Id))
+                                   .Map(q => q.SelectMany(x => x.MasterPositions))
+                                   .Find(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
+                                   .Any();
             if (hasParent && position.IsComposite)
             {
                 throw new NotificationException(BLResources.ErrorPositionIsNotComposite);
@@ -271,7 +281,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             }
 
             if (!position.IsNew() &&
-                _finder.Find(Specs.Find.ById<Position>(position.Id)).Single().AdvertisementTemplateId != position.AdvertisementTemplateId &&
+                _finder.FindObsolete(Specs.Find.ById<Position>(position.Id)).Single().AdvertisementTemplateId != position.AdvertisementTemplateId &&
                 IsReadOnlyAdvertisementTemplate(position.Id))
             {
                 throw new NotificationException(BLResources.CannotChangePositionAdvertisementTemplate);
@@ -280,7 +290,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             var isInPublishedPrices = IsInPublishedPrices(position.Id);
             if (isInPublishedPrices)
             {
-                var originalPosition = _finder.Find(new FindSpecification<Position>(x => x.Id == position.Id)).Single();
+                var originalPosition = _finder.FindObsolete(new FindSpecification<Position>(x => x.Id == position.Id)).Single();
 
                 if (position.PlatformId != originalPosition.PlatformId)
                 {
@@ -314,7 +324,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         public void CreateOrUpdate(PositionChildren positionChildren)
         {
-            var childPositionInfo = _finder.Find(new FindSpecification<Position>(x => x.Id == positionChildren.ChildPositionId))
+            var childPositionInfo = _finder.FindObsolete(new FindSpecification<Position>(x => x.Id == positionChildren.ChildPositionId))
                                            .Select(x => new
                                                {
                                                    SalesModel = x.SalesModel,
@@ -338,7 +348,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 throw new NotificationException(BLResources.CantAddChildPositionWithDifferentSalesModel);
             }
 
-            var masterPosition = _finder.Find(Specs.Find.ById<Position>(positionChildren.MasterPositionId)).Single();
+            var masterPosition = _finder.FindObsolete(Specs.Find.ById<Position>(positionChildren.MasterPositionId)).Single();
             if (masterPosition.RestrictChildPositionPlatforms && masterPosition.PlatformId != childPositionInfo.PlatformId)
             {
                 throw new NotificationException(BLResources.PositionViolatesPlatformRestriction);
@@ -416,16 +426,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         private bool ChildPositionViolatesPlatformRestriction(Position position)
         {
             return _finder.Find(new FindSpecification<PositionChildren>(link => link.IsActive && !link.IsDeleted && link.ChildPositionId == position.Id))
-                          .Select(link => link.MasterPosition)
-                          .Any(masterPosition => masterPosition.RestrictChildPositionPlatforms
-                                                 && masterPosition.PlatformId != position.PlatformId);
+                          .Map(q => q.Select(link => link.MasterPosition))
+                          .Find(new FindSpecification<Position>(masterPosition => masterPosition.RestrictChildPositionPlatforms
+                                                                                  && masterPosition.PlatformId != position.PlatformId))
+                          .Any();
         }
 
         private bool PositionHasDifferentChildPositionPlatforms(Position position)
         {
             return _finder.Find(new FindSpecification<PositionChildren>(link => link.IsActive && !link.IsDeleted && link.MasterPositionId == position.Id))
-                          .Select(link => link.ChildPosition)
-                          .Any(childPosition => childPosition.PlatformId != position.PlatformId);
+                          .Map(q => q.Select(link => link.ChildPosition))
+                          .Find(new FindSpecification<Position>(childPosition => childPosition.PlatformId != position.PlatformId))
+                          .Any();
         }
     }
 }

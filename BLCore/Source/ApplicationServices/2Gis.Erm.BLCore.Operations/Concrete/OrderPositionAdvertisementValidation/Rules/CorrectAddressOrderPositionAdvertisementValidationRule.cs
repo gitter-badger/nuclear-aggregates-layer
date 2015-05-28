@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositionAdvertisementValidation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -41,7 +42,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementVal
                     AddressCommentPositionCategoryId
                 };
 
-            var positionCategoryInfo = _finder.Find(Specs.Find.ById<Position>(advertisement.PositionId))
+            var positionCategoryInfo = _finder.FindObsolete(Specs.Find.ById<Position>(advertisement.PositionId))
                                               .Select(x =>
                                                       new
                                                           {
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementVal
                                                               x.Name
                                                           }).Single();
 
-            var firmAddressInfo = _finder.Find(Specs.Find.ById<FirmAddress>(advertisement.FirmAddressId.Value))
+            var firmAddressInfo = _finder.FindObsolete(Specs.Find.ById<FirmAddress>(advertisement.FirmAddressId.Value))
                                          .Select(x => new
                                              {
                                                  IsHiden = !x.IsActive,

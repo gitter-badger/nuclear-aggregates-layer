@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.Old;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -46,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.UsingHandler
             }
             else
             {
-                originalOrderState = _finder.Find(Specs.Find.ById<Order>(dto.Id)).Select(x => x.WorkflowStepId).Single();
+                originalOrderState = _finder.FindObsolete(Specs.Find.ById<Order>(dto.Id)).Select(x => x.WorkflowStepId).Single();
             }
 
             // При операциях из UI политики безопасности НЕ игнорируем

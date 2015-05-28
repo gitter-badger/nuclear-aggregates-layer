@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.Platform.API.Core.Identities;
+﻿using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -34,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Users
         {
             var entityTypeId = entityName.Id;
             var sharingsToDelete = _finder.Find(new FindSpecification<UserEntity>(x => x.EntityId == entityId && x.Privilege.EntityType == entityTypeId))
-                .ToArray();
+                .Many();
             foreach (var userEntity in sharingsToDelete)
             {
                 _userEntityGenericRepository.Delete(userEntity);

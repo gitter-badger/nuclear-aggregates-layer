@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
         protected override IDomainEntityDto<Client> GetDto(long entityId)
         {
-            var modelDto = _finder.Find(new FindSpecification<Client>(x => x.Id == entityId))
+            var modelDto = _finder.FindObsolete(new FindSpecification<Client>(x => x.Id == entityId))
                                   .Select(entity => new ClientDomainEntityDto
                                       {
                                           Id = entity.Id,

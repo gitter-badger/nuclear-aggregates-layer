@@ -5,6 +5,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using Moq;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.Czech.Concrete.Old.Orders.PrintForms
@@ -32,22 +33,22 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
 
             Mock.Get(finder)
                 .Setup(f => f.Find(It.IsAny<FindSpecification<Order>>()))
-                .Returns(new[] { order }.AsQueryable());
+                .Returns(new QueryableFutureSequence<Order>(new[] { order }.AsQueryable()));
 
             Mock.Get(finder)
-                .Setup(f => f.FindOne(It.IsAny<FindSpecification<BranchOfficeOrganizationUnit>>()))
+                .Setup(f => f.Find(It.IsAny<FindSpecification<BranchOfficeOrganizationUnit>>()).One())
                 .Returns(branchOfficeOrganizationUnit);
 
             Mock.Get(finder)
-                .Setup(f => f.FindOne(It.IsAny<FindSpecification<LegalPerson>>()))
+                .Setup(f => f.Find(It.IsAny<FindSpecification<LegalPerson>>()).One())
                 .Returns(legalPerson);
 
             Mock.Get(finder)
-                .Setup(f => f.FindOne(It.IsAny<FindSpecification<LegalPersonProfile>>()))
+                .Setup(f => f.Find(It.IsAny<FindSpecification<LegalPersonProfile>>()).One())
                 .Returns(legalPersonProfile);
 
             Mock.Get(finder)
-                .Setup(f => f.FindOne(It.IsAny<FindSpecification<BranchOffice>>()))
+                .Setup(f => f.Find(It.IsAny<FindSpecification<BranchOffice>>()).One())
                 .Returns(branchOffice);
 
             return finder;

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -29,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<LockDetail> GetDto(long entityId)
         {
-            var dto = _finder.Find(new FindSpecification<LockDetail>(x => x.Id == entityId))
+            var dto = _finder.FindObsolete(new FindSpecification<LockDetail>(x => x.Id == entityId))
                              .Select(entity => new LockDetailDomainEntityDto
                                  {
                                      Id = entity.Id,
@@ -51,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             if (dto.OrderPositionRef.Id != null)
             {
-                dto.OrderPositionRef.Name = _finder.Find(Specs.Find.ById<OrderPosition>(dto.OrderPositionRef.Id.Value))
+                dto.OrderPositionRef.Name = _finder.FindObsolete(Specs.Find.ById<OrderPosition>(dto.OrderPositionRef.Id.Value))
                                                    .Select(x => x.PricePosition.Position.Name)
                                                    .Single();
             }

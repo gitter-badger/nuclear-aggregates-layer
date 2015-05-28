@@ -19,16 +19,17 @@ using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
-using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
+using NuClear.IdentityService.Client.Settings;
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
@@ -80,9 +81,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
                 throw new SecurityException(BLResources.AccessDenied);
             }
 
-            var legalPerson1 = _finder.FindOne(Specs.Find.ById<LegalPerson>(masterId) && Specs.Find.ActiveAndNotDeleted<LegalPerson>());
+            var legalPerson1 = _finder.Find(Specs.Find.ById<LegalPerson>(masterId) && Specs.Find.ActiveAndNotDeleted<LegalPerson>()).One();
             var legalPerson2 = subordinateId.HasValue
-                                   ? _finder.FindOne(Specs.Find.ById<LegalPerson>(subordinateId.Value) && Specs.Find.ActiveAndNotDeleted<LegalPerson>())
+                                   ? _finder.Find(Specs.Find.ById<LegalPerson>(subordinateId.Value) && Specs.Find.ActiveAndNotDeleted<LegalPerson>()).One()
                                    : null;
 
             var model = new MergeLegalPersonsViewModel
@@ -204,7 +205,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Russia.Controllers
             }
 
             // TODO {01.02.2013}: Убрать получение DTO-объекта в агрегирующий репозиторий
-            var model = _finder.Find(new FindSpecification<LegalPerson>(x => x.Id == id))
+            var model = _finder.FindObsolete(new FindSpecification<LegalPerson>(x => x.Id == id))
             .Select(x => new ChangeLegalPersonRequisitesViewModel
             {
                 Id = x.Id,

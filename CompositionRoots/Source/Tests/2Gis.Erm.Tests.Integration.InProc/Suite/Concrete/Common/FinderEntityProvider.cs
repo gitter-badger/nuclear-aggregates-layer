@@ -3,6 +3,7 @@ using System.Linq;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common
@@ -19,12 +20,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common
 
         public TEntity Get(FindSpecification<TEntity> spec)
         {
-            return _finder.Find(spec).FirstOrDefault();
+            return _finder.Find(spec).Top();
         }
 
         public IReadOnlyCollection<TEntity> Get(FindSpecification<TEntity> spec, int maxCount)
         {
-            return _finder.Find(spec).Take(maxCount).ToArray();
+            return _finder.Find(spec).Map(q => q.Take(maxCount)).Many();
         }
     }
 }

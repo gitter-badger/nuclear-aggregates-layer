@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Country> GetDto(long entityId)
         {
-            return _finder.Find(Specs.Find.ById<Country>(entityId))
+            return _finder.FindObsolete(Specs.Find.ById<Country>(entityId))
                           .Select(entity => new CountryDomainEntityDto
                                                 {
                                                     Id = entity.Id,

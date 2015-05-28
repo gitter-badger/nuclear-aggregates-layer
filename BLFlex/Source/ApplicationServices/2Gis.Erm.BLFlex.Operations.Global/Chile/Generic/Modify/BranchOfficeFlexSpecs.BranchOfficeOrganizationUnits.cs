@@ -17,9 +17,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
             {
                 public static class Project
                 {
-                    public static ProjectSpecification<BranchOfficeOrganizationUnit, ChileBranchOfficeOrganizationUnitDomainEntityDto> DomainEntityDto()
+                    public static MapSpecification<BranchOfficeOrganizationUnit, ChileBranchOfficeOrganizationUnitDomainEntityDto> DomainEntityDto()
                     {
-                        return new ProjectSpecification<BranchOfficeOrganizationUnit, ChileBranchOfficeOrganizationUnitDomainEntityDto>(
+                        return new MapSpecification<BranchOfficeOrganizationUnit, ChileBranchOfficeOrganizationUnitDomainEntityDto>(
                             x =>
                                 {
                                     var dto = new ChileBranchOfficeOrganizationUnitDomainEntityDto

@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -24,15 +25,15 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         protected override IEnumerable<OrderValidationMessage> Validate(SingleValidationRuleContext ruleContext)
         {
-            return _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.OrderId))
-                .Where(x => x.SignupDate > x.Bargain.ClosedOn)
-                .AsEnumerable()
-                .Select(x => new OrderValidationMessage
-                               {
-                                   OrderId = x.Id,
-                                   Type = MessageType.Error,
-                                   MessageText = BLResources.OrdersCheckBargainIsOutOfDate
-                               });
+            return _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.OrderId) &&
+                                new FindSpecification<Order>(x => x.SignupDate > x.Bargain.ClosedOn))
+                          .Many()
+                          .Select(x => new OrderValidationMessage
+                              {
+                                  OrderId = x.Id,
+                                  Type = MessageType.Error,
+                                  MessageText = BLResources.OrdersCheckBargainIsOutOfDate
+                              });
         }
     }
 }

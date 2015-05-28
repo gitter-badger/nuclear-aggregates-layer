@@ -30,9 +30,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
 
         public string GetChargesHistoryMessage(Guid sessionId, ChargesHistoryStatus status)
         {
-            var p = new ProjectSpecification<IQueryable<ChargesHistory>, IQueryable<string>>(q => q.Select(x => x.Message));
+            var p = new MapSpecification<IQueryable<ChargesHistory>, IQueryable<string>>(q => q.Select(x => x.Message));
             return _finder.Find(new FindSpecification<ChargesHistory>(x => x.SessionId == sessionId && x.Status == (int)status))
-                          .Project(p)
+                          .Map(p)
                           .One();
         }
 
@@ -46,7 +46,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Charges.ReadModel
         {
             id = _finder.Find(new FindSpecification<ChargesHistory>(x => x.ProjectId == projectId && x.PeriodStartDate == period.Start &&
                                                                          x.PeriodEndDate == period.End && x.Status == (int)status))
-                        .Project(q => q.OrderBy(x => x.CreatedOn).Select(x => x.SessionId))
+                        .Map(q => q.OrderBy(x => x.CreatedOn).Select(x => x.SessionId))
                         .Top();
 
             return id != default(Guid);

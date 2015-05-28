@@ -9,6 +9,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -16,6 +17,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Branc
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 // ReSharper disable CheckNamespace
@@ -48,21 +50,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         public IEnumerable<long> GetOrganizationUnitTerritories(long organizationUnitId)
         {
             return _finder.Find(new FindSpecification<Territory>(territory => territory.OrganizationUnitId == organizationUnitId))
-                          .Select(territory => territory.Id)
-                          .ToArray();
+                          .Map(q => q.Select(territory => territory.Id))
+                          .Many();
         }
 
         public BranchOfficeOrganizationShortInformationDto GetBranchOfficeOrganizationUnitShortInfo(long organizationUnitId)
         {
             return _finder.Find(new FindSpecification<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId))
-                          .Where(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
-                          .Where(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
-                          .Select(x => new BranchOfficeOrganizationShortInformationDto
+                          .Find(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
+                          .Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
+                          .Map(q => q.Select(x => new BranchOfficeOrganizationShortInformationDto
                               {
                                   Id = x.Id,
                                   ShortLegalName = x.ShortLegalName,
-                              })
-                          .SingleOrDefault() ?? new BranchOfficeOrganizationShortInformationDto();
+                              }))
+                          .One() ?? new BranchOfficeOrganizationShortInformationDto();
             // null не возвращаем, логика была рассчитана на работу с пустыми значениями.
         }
 
@@ -71,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
             using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, BranchOffice>())
             {
                 var isActiveOrdersExist = _secureFinder
-                    .Find(Specs.Find.ById<BranchOffice>(branchOffice.Id))
+                    .FindObsolete(Specs.Find.ById<BranchOffice>(branchOffice.Id))
                     .SelectMany(x => x.BranchOfficeOrganizationUnits)
                     .SelectMany(x => x.Orders)
                     .Any(x => x.IsActive);
@@ -80,7 +82,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                     throw new ArgumentException(BLResources.CantDeativateObjectLinkedWithActiveOrders);
                 }
 
-                var branchOfficeOrganizationUnits = _secureFinder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByBranchOffice(branchOffice.Id));
+                var branchOfficeOrganizationUnits = _secureFinder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByBranchOffice(branchOffice.Id)).Many();
                 foreach (var branchOfficeOrganizationUnit in branchOfficeOrganizationUnits)
                 {
                     branchOfficeOrganizationUnit.IsActive = false;
@@ -103,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         public int Deactivate(BranchOfficeOrganizationUnit branchOfficeOrganizationUnit)
         {
             var isActiveOrdersExist = _finder
-                .Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id))
+                .FindObsolete(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id))
                 .SelectMany(x => x.Orders)
                 .Any(x => x.IsActive && !x.IsDeleted);
 
@@ -127,16 +129,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
 
         public void SetPrimaryBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId)
         {
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId));
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId)).One();
             if (branchOfficeOrganizationUnit == null)
             {
                 throw new Exception(BLResources.CouldNotFindBranchOfficeOrganizationUnit);
             }
 
             var otherBranchOfficeOrganizationUnits =
-                _finder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
+                _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
                                  & Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>()
-                                 & Specs.Find.ExceptById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id));
+                                 & Specs.Find.ExceptById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id)).Many();
 
             using (var scope = _scopeFactory.CreateNonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryIdentity>())
             {
@@ -158,7 +160,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
 
         public void SetPrimaryForRegionalSalesBranchOfficeOrganizationUnit(long branchOfficeOrganizationUnitId)
         {
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId));
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId)).One();
             if (branchOfficeOrganizationUnit == null)
             {
                 throw new Exception(BLResources.CouldNotFindBranchOfficeOrganizationUnit);
@@ -167,9 +169,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
             using (var scope = _scopeFactory.CreateNonCoupled<SetBranchOfficeOrganizationUnitAsPrimaryForRegionalSalesIdentity>())
             {
                 var otherBranchOfficeOrganizationUnits =
-                    _finder.FindMany(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
-                                     & Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>()
-                                     & Specs.Find.ExceptById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id));
+                    _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
+                                 & Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>()
+                                 & Specs.Find.ExceptById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id))
+                           .Many();
 
                 branchOfficeOrganizationUnit.IsPrimaryForRegionalSales = true;
                 _branchOfficeOrganizationUnitGenericRepository.Update(branchOfficeOrganizationUnit);
@@ -189,7 +192,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
 
         public long? GetPrintFormTemplateId(long branchOfficeOrganizationUnitId, TemplateCode templateCode)
         {
-            var templates = _finder.Find(new FindSpecification<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == templateCode))
+            var templates = _finder.FindObsolete(new FindSpecification<PrintFormTemplate>(x => !x.IsDeleted && x.IsActive && x.TemplateCode == templateCode))
                                    .OrderByDescending(x => x.Id);
 
             var templateId = templates
@@ -210,26 +213,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
 
         int IDeactivateAggregateRepository<BranchOffice>.Deactivate(long entityId)
         {
-            var entity = _secureFinder.FindOne(Specs.Find.ById<BranchOffice>(entityId));
+            var entity = _secureFinder.Find(Specs.Find.ById<BranchOffice>(entityId)).One();
             return Deactivate(entity);
         }
 
         int IDeactivateAggregateRepository<BranchOfficeOrganizationUnit>.Deactivate(long entityId)
         {
-            var entity = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(entityId));
+            var entity = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(entityId)).One();
             return Deactivate(entity);
         }
 
         int IActivateAggregateRepository<BranchOfficeOrganizationUnit>.Activate(long entityId)
         {
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(entityId));
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(entityId)).One();
 
             return Activate(branchOfficeOrganizationUnit);
         }
 
         int IActivateAggregateRepository<BranchOffice>.Activate(long entityId)
         {
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(entityId));
+            var branchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(entityId)).One();
 
             return Activate(branchOffice);
         }
@@ -264,14 +267,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         private PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
         {
             return new PrimaryBranchOfficeOrganizationUnits
-                       {
-                           Primary =
-                               _finder.FindOne(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
-                                               BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId) &&
-                                               BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.Primary()),
-                           PrimaryForRegionalSales =
-                               _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
-                       };
+                {
+                    Primary =
+                        _finder.Find(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
+                                     BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId) &&
+                                     BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.Primary())
+                               .One(),
+                    PrimaryForRegionalSales =
+                        _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId)).One()
+                };
         }
 
         private int Activate(BranchOffice branchOffice)

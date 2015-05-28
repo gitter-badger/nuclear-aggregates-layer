@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -225,7 +226,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
         {
             using (var operationScope = _scopeFactory.CreateNonCoupled<SetInspectorIdentity>())
             {
-                var order = _secureFinder.Find(Specs.Find.ById<Order>(orderId)).Single();
+                var order = _secureFinder.FindObsolete(Specs.Find.ById<Order>(orderId)).Single();
                 order.InspectorCode = inspectorId;
 
                 Update(order);
@@ -258,7 +259,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
         {
             using (var scope = _scopeFactory.CreateSpecificFor<AssignIdentity, Order>())
             {
-                var orderPositions = _finder.Find(new FindSpecification<OrderPosition>(x => x.OrderId == order.Id && !x.IsDeleted && x.IsActive)).ToArray();
+                var orderPositions = _finder.Find(new FindSpecification<OrderPosition>(x => x.OrderId == order.Id && !x.IsDeleted && x.IsActive)).Many();
 
                 foreach (var orderPosition in orderPositions)
                 {
@@ -341,7 +342,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 order.IsActive = false;
 
                 // Удалить позиции
-                var orderPositions = _finder.Find(new FindSpecification<OrderPosition>(x => x.OrderId == order.Id && !x.IsDeleted)).ToArray();
+                var orderPositions = _finder.Find(new FindSpecification<OrderPosition>(x => x.OrderId == order.Id && !x.IsDeleted)).Many();
                 foreach (var orderPosition in orderPositions)
                 {
                     _orderPositionGenericRepository.Delete(orderPosition);
@@ -351,7 +352,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 operationScope.Deleted<OrderPosition>(orderPositions.Select(x => x.Id).ToArray());
 
                 // Деактивировать счета на оплату
-                var bills = _finder.Find(new FindSpecification<Bill>(x => x.OrderId == order.Id && x.IsActive && !x.IsDeleted)).ToArray();
+                var bills = _finder.Find(new FindSpecification<Bill>(x => x.OrderId == order.Id && x.IsActive && !x.IsDeleted)).Many();
                 foreach (var bill in bills)
                 {
                     bill.IsActive = false;
@@ -362,7 +363,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 operationScope.Updated<Bill>(bills.Select(x => x.Id).ToArray());
 
                 // Деактивировать файлы к заказу
-                var orderFiles = _finder.Find(new FindSpecification<OrderFile>(x => x.OrderId == order.Id && x.IsActive && !x.IsDeleted)).ToArray();
+                var orderFiles = _finder.Find(new FindSpecification<OrderFile>(x => x.OrderId == order.Id && x.IsActive && !x.IsDeleted)).Many();
                 foreach (var orderFile in orderFiles)
                 {
                     orderFile.IsActive = false;
@@ -383,13 +384,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
         }
         int IAssignAggregateRepository<Order>.Assign(long entityId, long ownerCode)
         {
-            var entity = _finder.Find(Specs.Find.ById<Order>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<Order>(entityId)).Single();
             return Assign(entity, ownerCode);
         }
 
         int IDeleteAggregateRepository<OrderPosition>.Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<OrderPosition>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<OrderPosition>(entityId)).Single();
             return Delete(entity);
         }
 
@@ -429,7 +430,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                     operationScope.Updated<FileWithContent>(file.Id);
                 }
 
-                var orderFile = _finder.Find(Specs.Find.ByFileId<OrderFile>(uploadFileParams.FileId)).FirstOrDefault();
+                var orderFile = _finder.Find(Specs.Find.ByFileId<OrderFile>(uploadFileParams.FileId)).Top();
                 if (orderFile != null)
                 {
                     orderFile.ModifiedOn = DateTime.UtcNow;
@@ -481,7 +482,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
 
         private void CheckOrderDistributionPeriodNotOverlapsThemeDistributionPeriod(Order order)
         {
-            var usedThemes = _finder.Find(new FindSpecification<OrderPosition>(position => position.OrderId == order.Id))
+            var usedThemes = _finder.FindObsolete(new FindSpecification<OrderPosition>(position => position.OrderId == order.Id))
                                     .Where(position => position.IsActive && !position.IsDeleted)
                                     .SelectMany(position => position.OrderPositionAdvertisements)
                                     .Where(advertisement => advertisement.ThemeId != null)
@@ -516,7 +517,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders
                 return;
             }
 
-            var legalPersonId = _finder.Find(new FindSpecification<LegalPersonProfile>(x => x.Id == order.LegalPersonProfileId)).Select(x => x.LegalPersonId).Single();
+            var legalPersonId = _finder.FindObsolete(new FindSpecification<LegalPersonProfile>(x => x.Id == order.LegalPersonProfileId)).Select(x => x.LegalPersonId).Single();
             if (order.LegalPersonId != legalPersonId)
             {
                 throw new BusinessLogicException(BLResources.OrderLegalPersonProfileShouldBelongToOrderLegalPerson);

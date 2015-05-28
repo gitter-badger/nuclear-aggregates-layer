@@ -17,11 +17,11 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                        .Operation<CreateIdentity>()
                                                        .Operation<UpdateIdentity>()
                                                        .Operation<DeleteIdentity>()
-                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByIds<ThemeTemplate>(ids))),
+                                                       .Use((query, ids) => query.For(Specs.Find.ByIds<ThemeTemplate>(ids))),
 
             () => EntityOperationMapping<ThemeTemplate>.ForEntity(EntityType.Instance.File())
                                                        .Operation<UploadIdentity>()
-                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByFileIds<ThemeTemplate>(ids))));
+                                                       .Use((query, ids) => query.For(Specs.Find.ByFileIds<ThemeTemplate>(ids))));
     }
 }
 

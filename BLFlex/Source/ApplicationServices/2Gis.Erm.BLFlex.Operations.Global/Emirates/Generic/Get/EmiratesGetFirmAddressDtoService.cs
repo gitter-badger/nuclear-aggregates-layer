@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
         {
             var address = _firmReadModel.GetFirmAddress(entityId);
 
-            var firmAddressDto = FirmFlexSpecs.FirmAddresses.Emirates.Project.DomainEntityDto().Project(address);
+            var firmAddressDto = FirmFlexSpecs.FirmAddresses.Emirates.Project.DomainEntityDto().Map(address);
 
             var firm = _firmReadModel.GetFirm(firmAddressDto.FirmRef.Id.Value);
 

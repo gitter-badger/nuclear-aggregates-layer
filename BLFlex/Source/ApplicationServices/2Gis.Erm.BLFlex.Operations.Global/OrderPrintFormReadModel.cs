@@ -12,16 +12,16 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
 {
     public sealed class OrderPrintFormReadModel : IOrderPrintFormReadModel
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
 
-        public OrderPrintFormReadModel(IFinder finder)
+        public OrderPrintFormReadModel(IQuery query)
         {
-            _finder = finder;
+            _query = query;
         }
 
         public OrderRelationsDto GetOrderRelationsDto(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _query.For(Specs.Find.ById<Order>(orderId))
                           .Select(order => new OrderRelationsDto
                                                {
                                                    BranchOfficeOrganizationUnitId = order.BranchOfficeOrganizationUnitId,
@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
 
         public decimal GetOrderDicount(long orderId)
         {
-            var discount = _finder.Find(Specs.Find.ById<Order>(orderId))
+            var discount = _query.For(Specs.Find.ById<Order>(orderId))
                                   .Select(order => order.DiscountSum)
                                   .Single();
 
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
 
         public ContributionTypeEnum GetOrderContributionType(long organizationUnitId)
         {
-            var contributionType = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
+            var contributionType = _query.For(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
                                           .SelectMany(x => x.BranchOfficeOrganizationUnits)
                                           .Where(x => x.IsActive && !x.IsDeleted && x.IsPrimary)
                                           .Select(x => x.BranchOffice.ContributionTypeId)
@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
 
         public IQueryable<Bill> GetBillQuery(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _query.For(Specs.Find.ById<Order>(orderId))
                           .SelectMany(x => x.Bills)
                           .Where(Specs.Find.ActiveAndNotDeleted<Bill>())
                           .OrderBy(y => y.PaymentDatePlan);
@@ -68,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
 
         public IQueryable<OrderPosition> GetOrderPositionQuery(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _query.For(Specs.Find.ById<Order>(orderId))
                           .SelectMany(order => order.OrderPositions)
                           .Where(orderPosition => orderPosition.IsActive && !orderPosition.IsDeleted && orderPosition.PayablePrice != 0m)
                           .OrderBy(orderPosition => orderPosition.Id);
@@ -76,12 +76,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
 
         public IQueryable<Order> GetOrderQuery(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId));
+            return _query.For(Specs.Find.ById<Order>(orderId));
         }
 
         public IQueryable<FirmAddress> GetFirmAddressQuery(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _query.For(Specs.Find.ById<Order>(orderId))
                           .SelectMany(x => x.Firm.FirmAddresses)
                           .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
                           .Where(x => !x.ClosedForAscertainment)
@@ -92,13 +92,13 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global
         {
             // COMMENT {all, 13.05.2014}: Тут Partable не опасен
             // COMMENT {a.rechkalov, 21.05.2014}: Отдавая наружу IQueryable нельзя быть в этом уверенным
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _query.For(Specs.Find.ById<Order>(orderId))
                           .Select(order => order.BranchOfficeOrganizationUnit.BranchOffice);
         }
 
         public Bargain GetOrderBargain(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _query.For(Specs.Find.ById<Order>(orderId))
                           .Select(order => order.Bargain)
                           .Single();
         }

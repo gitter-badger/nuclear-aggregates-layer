@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -25,6 +26,7 @@ using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using File = DoubleGis.Erm.Platform.Model.Entities.Erm.File;
@@ -84,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                     throw new ArgumentException(BLResources.CannotDeleteUsedTheme);
                 }
 
-                var themeOrganizationUnits = _finder.Find(new FindSpecification<ThemeOrganizationUnit>(unit => unit.ThemeId == entityId)).ToArray();
+                var themeOrganizationUnits = _finder.Find(new FindSpecification<ThemeOrganizationUnit>(unit => unit.ThemeId == entityId)).Many();
                 foreach (var themeOrganizationUnit in themeOrganizationUnits)
                 {
                     themeOrganizationUnit.IsActive = false;
@@ -92,7 +94,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                     scope.Updated<ThemeOrganizationUnit>(themeOrganizationUnit.Id);
                 }
 
-                var theme = _finder.Find(Specs.Find.ById<Theme>(entityId)).Single();
+                var theme = _finder.FindObsolete(Specs.Find.ById<Theme>(entityId)).Single();
                 _themeRepository.Delete(theme);
                 scope.Deleted<Theme>(theme.Id);
 
@@ -112,7 +114,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                 throw new ArgumentException(BLResources.CannotDeleteUsedThemeTemplate);
             }
 
-            var themeTemplate = _finder.Find(Specs.Find.ById<ThemeTemplate>(entityId)).Single();
+            var themeTemplate = _finder.FindObsolete(Specs.Find.ById<ThemeTemplate>(entityId)).Single();
             using (var scope = _scopeFactory.CreateSpecificFor<DeleteIdentity, ThemeTemplate>())
             {
                 _themeTemplateRepository.Delete(themeTemplate);
@@ -124,7 +126,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         int IDeleteAggregateRepository<ThemeCategory>.Delete(long entityId)
         {
-            var themeCategory = _finder.Find(Specs.Find.ById<ThemeCategory>(entityId)).Single();
+            var themeCategory = _finder.FindObsolete(Specs.Find.ById<ThemeCategory>(entityId)).Single();
             if (themeCategory.IsDeleted)
             {
                 return 0;
@@ -141,13 +143,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         int IDeleteAggregateRepository<ThemeOrganizationUnit>.Delete(long entityId)
         {
-            var themeOrganizationUnit = _finder.Find(Specs.Find.ById<ThemeOrganizationUnit>(entityId)).Single();
+            var themeOrganizationUnit = _finder.FindObsolete(Specs.Find.ById<ThemeOrganizationUnit>(entityId)).Single();
             if (themeOrganizationUnit.IsDeleted)
             {
                 return 0;
             }
 
-            var theme = _finder.Find(Specs.Find.ById<Theme>(themeOrganizationUnit.ThemeId)).Single();
+            var theme = _finder.FindObsolete(Specs.Find.ById<Theme>(themeOrganizationUnit.ThemeId)).Single();
 
             // Если тематика установлена по умолчанию - редактирование отделений организации НЕ допустимо
             if (theme.IsDefault)
@@ -173,37 +175,38 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         public Theme FindTheme(long themeId)
         {
-            return _finder.Find(Specs.Find.ById<Theme>(themeId)).SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<Theme>(themeId)).One();
         }
 
         public ThemeTemplate FindThemeTemplate(long templateId)
         {
-            return _finder.Find(Specs.Find.ById<ThemeTemplate>(templateId)).SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<ThemeTemplate>(templateId)).One();
         }
 
         public ThemeTemplate FindThemeTemplateByThemeId(long themeId)
         {
-            return _finder.Find(Specs.Find.ById<Theme>(themeId)).Select(x => x.ThemeTemplate).SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<Theme>(themeId)).Map(q => q.Select(x => x.ThemeTemplate)).One();
         }
 
         public ThemeTemplate FindThemeTemplateByThemplateCode(long templateCode)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<ThemeTemplate>())
-                .SingleOrDefault(template => template.TemplateCode == templateCode);
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<ThemeTemplate>() &&
+                                new FindSpecification<ThemeTemplate>(template => template.TemplateCode == templateCode))
+                          .One();
         }
 
         public File GetThemeTemplateFile(long templateId)
         {
             return _finder.Find(Specs.Find.ById<ThemeTemplate>(templateId))
-                .Select(template => template.File)
-                .SingleOrDefault();
+                          .Map(q => q.Select(template => template.File))
+                          .One();
         }
 
         public File GetThemeFile(long themeId)
         {
             return _finder.Find(Specs.Find.ById<Theme>(themeId))
-                .Select(theme => theme.File)
-                .SingleOrDefault();
+                          .Map(q => q.Select(theme => theme.File))
+                          .One();
         }
 
         public void CreateOrUpdate(ThemeTemplate template)
@@ -251,10 +254,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
             }
 
             // Контроллируем, что после правки не нарушится условие по числу тематик по отделению оргранизации
-            var units = _finder.Find(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
-                               .Where(link => link.ThemeId == theme.Id)
-                               .Select(link => new { link.OrganizationUnit.Id, link.OrganizationUnit.Name })
-                               .ToArray();
+            var units = _finder.Find(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>() &&
+                                     new FindSpecification<ThemeOrganizationUnit>(link => link.ThemeId == theme.Id))
+                               .Map(q => q.Select(link => new { link.OrganizationUnit.Id, link.OrganizationUnit.Name }))
+                               .Many();
 
             foreach (var unit in units.Where(unit => IsThemeLimitReachedInOrganizationUnit(theme, unit.Id)))
             {
@@ -300,15 +303,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         public bool IsThemeAppendedToOrganizationUnit(long themeId, long organizationUnitId)
         {
-            var linkExists = _finder.Find(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
-                                    .Any(link => link.OrganizationUnitId == organizationUnitId && link.ThemeId == themeId);
+            var linkExists = _finder.Find(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>() &&
+                                          new FindSpecification<ThemeOrganizationUnit>(link => link.OrganizationUnitId == organizationUnitId && link.ThemeId == themeId))
+                                    .Any();
             return linkExists;
         }
 
         public ThemeOrganizationUnit AppendThemeToOrganizationUnit(long themeId, long organizationUnitId)
         {
             var themeOrganizationUnit = _finder.Find(new FindSpecification<ThemeOrganizationUnit>(themeCategory => themeCategory.OrganizationUnitId == organizationUnitId && themeCategory.ThemeId == themeId))
-                              .SingleOrDefault();
+                              .One();
 
             if (themeOrganizationUnit == null)
             {
@@ -346,7 +350,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
         public ThemeCategory AppendThemeToCategory(long themeId, long categoryId)
         {
             var themeCategory = _finder.Find(new FindSpecification<ThemeCategory>(x => x.CategoryId == categoryId && x.ThemeId == themeId))
-                              .SingleOrDefault();
+                              .One();
 
             if (themeCategory == null)
             {
@@ -378,14 +382,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
         public int CountThemeCategories(long themeId)
         {
             return _finder.Find(new FindSpecification<ThemeCategory>(link => !link.IsDeleted && link.ThemeId == themeId))
-                .Select(link => link.Theme)
-                .Where(Specs.Find.ActiveAndNotDeleted<Theme>())
-                .Count();
+                          .Map(q => q.Select(link => link.Theme)
+                                     .Where(Specs.Find.ActiveAndNotDeleted<Theme>()))
+                          .Fold(q => q.Count());
         }
 
         public bool IsThemeLimitReachedInOrganizationUnit(Theme theme, long organizationUnitId)
         {
-            var isSkyScraper = _finder.Find(Specs.Find.ById<ThemeTemplate>(theme.ThemeTemplateId)).Select(themeTemplate => themeTemplate.IsSkyScraper).Single();
+            var isSkyScraper = _finder.FindObsolete(Specs.Find.ById<ThemeTemplate>(theme.ThemeTemplateId)).Select(themeTemplate => themeTemplate.IsSkyScraper).Single();
             var isDefault = theme.IsDefault;
             FindSpecification<Theme> themeKindSpecification;
             int entityLimit;
@@ -411,8 +415,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         public bool IsTemplateUsedInThemes(long templateId)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Theme>())
-                .Any(theme => theme.ThemeTemplateId == templateId);
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Theme>() &&
+                                new FindSpecification<Theme>(theme => theme.ThemeTemplateId == templateId))
+                          .Any();
         }
 
         public bool CanThemeBeDefault(long themeId)
@@ -423,7 +428,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                 return false;
             }
 
-            var themeOrganizationUnits = _finder.Find(Specs.Find.ById<Theme>(themeId))
+            var themeOrganizationUnits = _finder.FindObsolete(Specs.Find.ById<Theme>(themeId))
                                                 .SelectMany(th => th.ThemeOrganizationUnits)
                                                 .Where(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
                                                 .Select(unit => unit.OrganizationUnitId)
@@ -435,7 +440,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                 return false;
             }
 
-            var anyConflictExist = _finder.Find(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
+            var anyConflictExist = _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
                                             .Where(unit => unit.Theme.Id != themeId &&
                                                            unit.Theme.IsDefault &&
                                                            unit.OrganizationUnit.IsActive && !unit.OrganizationUnit.IsDeleted &&
@@ -449,7 +454,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         public bool IsThemeUsedInOrders(long themeId)
         {
-            return _finder.Find(new FindSpecification<OrderPositionAdvertisement>(
+            return _finder.FindObsolete(new FindSpecification<OrderPositionAdvertisement>(
                                     advertisement => advertisement.ThemeId == themeId &&
                                                      advertisement.OrderPosition.IsActive &&
                                                      !advertisement.OrderPosition.IsDeleted &&
@@ -467,13 +472,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                                                      advertisement.OrderPosition.Order.IsActive &&
                                                      !advertisement.OrderPosition.Order.IsDeleted &&
                                                      advertisement.OrderPosition.Order.DestOrganizationUnitId == organizationUnitId))
-                          .Select(a => a.OrderPosition.Order)
-                          .FirstOrDefault();
+                          .Map(q => q.Select(a => a.OrderPosition.Order))
+                          .Top();
         }
 
         public string GetOrganizationUnitName(long organizationUnitId)
         {
-            return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
+            return _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
                           .Select(unit => unit.Name)
                           .Single();
         }
@@ -502,7 +507,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         public IEnumerable<ThemeTemplateUsageDto> GetThemeUsage(long organizationUnit, TimePeriod period)
         {
-            return _finder.Find(OrderSpecs.Orders.Find.ForRelease(organizationUnit, period) && Specs.Find.ActiveAndNotDeleted<Order>())
+            return _finder.FindObsolete(OrderSpecs.Orders.Find.ForRelease(organizationUnit, period) && Specs.Find.ActiveAndNotDeleted<Order>())
                    .SelectMany(order => order.OrderPositions.SelectMany(position => position.OrderPositionAdvertisements))
                    .Where(advertisement => advertisement.ThemeId != null)
                    .Select(advertisement => new { advertisement.Theme, advertisement.Theme.ThemeTemplate })
@@ -520,8 +525,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
         public int CountThemeOrganizationUnits(long themeId)
         {
             return _finder.Find(Specs.Find.ById<Theme>(themeId))
-                          .SelectMany(theme => theme.ThemeOrganizationUnits)
-                          .Count(link => link.IsActive && !link.IsDeleted);
+                          .Fold(q => q.SelectMany(theme => theme.ThemeOrganizationUnits)
+                                      .Count(link => link.IsActive && !link.IsDeleted));
         }
 
         UploadFileResult IUploadFileAggregateRepository<Theme>.UploadFile(UploadFileParams<Theme> uploadFileParams)
@@ -550,7 +555,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
 
         private TimePeriod GetMinimalThemeDistributionPeriod(long themeId)
         {
-            var orders = _finder.Find(new FindSpecification<OrderPositionAdvertisement>(advertisement => advertisement.ThemeId == themeId))
+            var orders = _finder.FindObsolete(new FindSpecification<OrderPositionAdvertisement>(advertisement => advertisement.ThemeId == themeId))
                 .Select(advertisement => advertisement.OrderPosition)
                 .Where(position => position.IsActive && !position.IsDeleted)
                 .Select(position => position.Order)
@@ -574,7 +579,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
             // то за период с января по март в ответе должна быть единица.
 
             // Все тематики по умолчанию, действовавшие в требуемый период
-            var themes = _finder.Find(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
+            var themes = _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
                                 .Where(link => link.OrganizationUnitId == organizationUnitId && excludeTheme != link.ThemeId)
                                 .Select(link => link.Theme)
                                 .Where(ThemeSpecifications.Find.InPeriod(periodStart, periodEnd))
@@ -617,7 +622,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes
                     operationScope.Updated<FileWithContent>(file.Id);
                 }
 
-                var entity = _finder.Find(Specs.Find.ByFileId<TEntity>(uploadFileParams.FileId)).FirstOrDefault();
+                var entity = _finder.Find(Specs.Find.ByFileId<TEntity>(uploadFileParams.FileId)).Top();
                 if (entity != null)
                 {
                     entity.ModifiedOn = DateTime.UtcNow;

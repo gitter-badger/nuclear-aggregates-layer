@@ -26,13 +26,12 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds);
         IEnumerable<Order> GetOrdersCompletelyReleasedBySourceOrganizationUnit(long sourceOrganizationUnitId);
         IEnumerable<OrderWithDummyAdvertisementDto> GetOrdersWithDummyAdvertisement(long organizationUnitId, long ownerCode, bool includeOwnerDescendants);
-        IDictionary<long, string> PickInactiveOrDeletedOrderPositionNames(IEnumerable<long> orderPositionIds);
+        IReadOnlyDictionary<long, string> PickInactiveOrDeletedOrderPositionNames(IEnumerable<long> orderPositionIds);
         IEnumerable<long> GetExistingOrderPositionIds(IEnumerable<long> orderPositionIds);
 
-        Dictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(
-            IEnumerable<long> orderIds,
-            DateTime startPeriodDate,
-            DateTime endPeriodDate);
+        [Obsolete("It seems to be not using")]
+        IReadOnlyDictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(
+            IEnumerable<long> orderIds, DateTime startPeriodDate, DateTime endPeriodDate);
 
         long? EvaluateOrderPlatformId(long orderId);
         OrderNumberDto EvaluateOrderNumbers(string orderNumber, string orderRegionalNumber, long? orderPlatformId);
@@ -69,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel
         OrderType GetOrderType(long orderId);
         OrderPositionWithAdvertisementsDto[] GetOrderPositionsWithAdvertisements(long orderId);
         IEnumerable<OrderPosition> GetOrderPositions(long orderId);
-        IDictionary<long, string> GetOrderOrganizationUnitsSyncCodes(params long[] organizationUnitId);
+        IReadOnlyDictionary<long, string> GetOrderOrganizationUnitsSyncCodes(params long[] organizationUnitId);
         IEnumerable<RelatedOrderDescriptor> GetRelatedOrdersToCreateBill(long orderId);
         IEnumerable<RelatedOrderDescriptor> GetRelatedOrdersForPrintJointBill(long orderId);
         OrderInfoToCheckOrderBeginDistributionDate GetOrderInfoToCheckOrderBeginDistributionDate(long orderId);

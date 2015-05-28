@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         protected override IDomainEntityDto<ThemeTemplate> GetDto(long entityId)
         {
             var dto =
-                _finder.Find(new FindSpecification<ThemeTemplate>(x => x.Id == entityId))
+                _finder.FindObsolete(new FindSpecification<ThemeTemplate>(x => x.Id == entityId))
                        .Select(entity => new ThemeTemplateDomainEntityDto
                            {
                                Id = entity.Id,

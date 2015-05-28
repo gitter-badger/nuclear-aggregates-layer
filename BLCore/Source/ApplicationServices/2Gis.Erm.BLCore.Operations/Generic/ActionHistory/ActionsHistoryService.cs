@@ -20,6 +20,7 @@ using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
@@ -54,28 +55,28 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory
             var metadata = _metadataProvider.GetOperationMetadata<ActionHistoryMetadata, ActionHistoryIdentity>(entityName);
             var entityTypeId = entityName.Id;
             var actionsInfo = _finder.Find(new FindSpecification<ActionsHistory>(x => x.EntityType == entityTypeId && x.EntityId == entityId))
-                                     .OrderByDescending(x => x.CreatedOn)
-                                     .Select(item => new
-                                     {
-                                         Item = new
-                                         {
-                                             item.Id,
-                                             ActionType = (ActionType)item.ActionType,
-                                             item.CreatedBy,
-                                             item.CreatedOn
-                                         },
-                                         Details = item.ActionsHistoryDetails
-                                                       .Where(detail => metadata.Properties.Contains(detail.PropertyName))
-                                                       .Select(detail => new
-                                                       {
-                                                           detail.Id,
-                                                           detail.ActionsHistoryId,
-                                                           detail.PropertyName,
-                                                           detail.OriginalValue,
-                                                           detail.ModifiedValue
-                                                       })
-                                     })
-                                     .ToArray();
+                                     .Map(q => q.OrderByDescending(x => x.CreatedOn)
+                                                .Select(item => new
+                                                    {
+                                                        Item = new
+                                                            {
+                                                                item.Id,
+                                                                ActionType = (ActionType)item.ActionType,
+                                                                item.CreatedBy,
+                                                                item.CreatedOn
+                                                            },
+                                                        Details = item.ActionsHistoryDetails
+                                                                      .Where(detail => metadata.Properties.Contains(detail.PropertyName))
+                                                                      .Select(detail => new
+                                                                          {
+                                                                              detail.Id,
+                                                                              detail.ActionsHistoryId,
+                                                                              detail.PropertyName,
+                                                                              detail.OriginalValue,
+                                                                              detail.ModifiedValue
+                                                                          })
+                                                    }))
+                                     .Many();
 
             var actionHistoryData = actionsInfo
                 .Select(x => new ActionsHistoryDto.ActionsHistoryItemDto

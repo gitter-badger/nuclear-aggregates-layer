@@ -16,9 +16,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify
             {
                 public static class Project
                 {
-                    public static ProjectSpecification<LegalPerson, LegalPersonDomainEntityDto> DomainEntityDto()
+                    public static MapSpecification<LegalPerson, LegalPersonDomainEntityDto> DomainEntityDto()
                     {
-                        return new ProjectSpecification<LegalPerson, LegalPersonDomainEntityDto>(
+                        return new MapSpecification<LegalPerson, LegalPersonDomainEntityDto>(
                             x =>
                                 {
                                     if (x.IsNew())

@@ -5,16 +5,13 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Bills;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.LegalPersonAggregate.ReadModel;
-using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -22,6 +19,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
 {
@@ -34,10 +32,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
         private readonly IFormatter _shortDateFormatter;
 
         public ChilePrintBillHandler(
-            ILegalPersonReadModel legalPersonReadModel,
-            IChileLegalPersonReadModel chileLegalPersonReadModel,
-            ISubRequestProcessor requestProcessor,
-            IFormatterFactory formatterFactory,
+            ILegalPersonReadModel legalPersonReadModel, 
+            IChileLegalPersonReadModel chileLegalPersonReadModel, 
+            ISubRequestProcessor requestProcessor, 
+            IFormatterFactory formatterFactory, 
             IFinder finder)
         {
             _legalPersonReadModel = legalPersonReadModel;
@@ -50,26 +48,26 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
         protected override Response Handle(PrintBillRequest request)
         {
             var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
-                                  .Select(bill => new
+                                  .Map(q => q.Select(bill => new
                                       {
-                                          Bill = bill,
-                                          Bargain = bill.Order.Bargain,
-                                          LegalPersonId = bill.Order.LegalPersonId,
-                                          LegalPersonProfileId = bill.Order.LegalPersonProfileId,
-                                          bill.Order.BranchOfficeOrganizationUnitId,
-                                          BranchOfficeOrganizationUnitVatRate = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
+                                          Bill = bill, 
+                                          Bargain = bill.Order.Bargain, 
+                                          LegalPersonId = bill.Order.LegalPersonId, 
+                                          LegalPersonProfileId = bill.Order.LegalPersonProfileId, 
+                                          bill.Order.BranchOfficeOrganizationUnitId, 
+                                          BranchOfficeOrganizationUnitVatRate = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate, 
 
                                           Order = new
                                               {
-                                                  bill.Order.Number,
-                                                  bill.Order.SignupDate,
-                                                  bill.Order.PaymentMethod,
-                                                  bill.Order.DiscountPercent,
-                                              },
+                                                  bill.Order.Number, 
+                                                  bill.Order.SignupDate, 
+                                                  bill.Order.PaymentMethod, 
+                                                  bill.Order.DiscountPercent, 
+                                              }, 
 
                                           CurrencyISOCode = bill.Order.Currency.ISOCode
-                                      })
-                                  .SingleOrDefault();
+                                      }))
+                                  .One();
 
             if (billInfo == null)
             {
@@ -102,45 +100,45 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
                 {
                     Order = new
                         {
-                            billInfo.Order.Number,
-                            billInfo.Order.SignupDate,
-                            billInfo.Order.PaymentMethod,
-                            billInfo.BranchOfficeOrganizationUnitVatRate.Value,
+                            billInfo.Order.Number, 
+                            billInfo.Order.SignupDate, 
+                            billInfo.Order.PaymentMethod, 
+                            billInfo.BranchOfficeOrganizationUnitVatRate.Value, 
                             billInfo.Order.DiscountPercent
-                        },
+                        }, 
 
                     LegalPerson = new
                         {
-                            legalPerson.LegalName,
-                            legalPerson.LegalAddress,
+                            legalPerson.LegalName, 
+                            legalPerson.LegalAddress, 
                             legalPerson.Inn, // TODO {all, 26.02.2014}: Rut vs Inn
-                            legalPersonPart.OperationsKind,
-                            legalPersonProfile.Phone,
+                            legalPersonPart.OperationsKind, 
+                            legalPersonProfile.Phone, 
 
-                            Commune = communeRef.Name,
-                            PaymentMethod = LocalizePaymentMethod(legalPersonProfile.PaymentMethod),
-                        },
+                            Commune = communeRef.Name, 
+                            PaymentMethod = LocalizePaymentMethod(legalPersonProfile.PaymentMethod), 
+                        }, 
 
                     Bill = new
                         {
-                            BillNumber = billInfo.Bill.Number,
-                            billInfo.Bill.PaymentDatePlan,
-                            billInfo.Bill.BeginDistributionDate,
-                            billInfo.Bill.EndDistributionDate,
-                            billInfo.Bill.PayablePlan,
-                            billInfo.Bill.VatPlan,
-                            PayableWithoutVatPlan = billInfo.Bill.PayablePlan - billInfo.Bill.VatPlan,
-                        },
+                            BillNumber = billInfo.Bill.Number, 
+                            billInfo.Bill.PaymentDatePlan, 
+                            billInfo.Bill.BeginDistributionDate, 
+                            billInfo.Bill.EndDistributionDate, 
+                            billInfo.Bill.PayablePlan, 
+                            billInfo.Bill.VatPlan, 
+                            PayableWithoutVatPlan = billInfo.Bill.PayablePlan - billInfo.Bill.VatPlan, 
+                        }, 
 
-                    RelatedBargainInfo = FormatRelatedBargainInfo(billInfo.Bargain),
+                    RelatedBargainInfo = FormatRelatedBargainInfo(billInfo.Bargain), 
                 };
 
             var printDocumentRequest = new PrintDocumentRequest
                 {
-                    CurrencyIsoCode = billInfo.CurrencyISOCode,
-                    BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId,
-                    FileName = printData2.Bill.BillNumber,
-                    PrintData = printData2,
+                    CurrencyIsoCode = billInfo.CurrencyISOCode, 
+                    BranchOfficeOrganizationUnitId = billInfo.BranchOfficeOrganizationUnitId, 
+                    FileName = printData2.Bill.BillNumber, 
+                    PrintData = printData2, 
                     TemplateCode = TemplateCode.BillLegalPerson
                 };
 
@@ -159,8 +157,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
         {
             return (bargain == null)
                        ? null
-                       : string.Format(BLResources.RelatedToBargainInfoTemplate,
-                                       bargain.Number,
+                       : string.Format(BLResources.RelatedToBargainInfoTemplate, 
+                                       bargain.Number, 
                                        _shortDateFormatter.Format(bargain.CreatedOn));
         }
     }

@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.PrintForms
 {
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
         protected override Response Handle(PrintOrderBargainRequest request)
         {
             var legalPersonProfileId = request.LegalPersonProfileId 
-                ?? _finder.Find(Specs.Find.ById<Order>(request.OrderId.Value)).Select(order => order.LegalPersonProfileId).SingleOrDefault();
+                ?? _finder.Find(Specs.Find.ById<Order>(request.OrderId.Value)).Map(q => q.Select(order => order.LegalPersonProfileId)).One();
 
             if (legalPersonProfileId == null)
             {
@@ -46,11 +47,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
             var bargainSpecification = request.BargainId.HasValue
                                            ? Specs.Find.ById<Bargain>(request.BargainId.Value)
                                            : OrderSpecs.Bargains.Find.ByOrder(request.OrderId.Value);
-            var bargain = _finder.FindOne(bargainSpecification);
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargain.ExecutorBranchOfficeId));
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(bargain.CustomerLegalPersonId));
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId.Value));
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(branchOfficeOrganizationUnit.BranchOfficeId));
+            var bargain = _finder.Find(bargainSpecification).One();
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargain.ExecutorBranchOfficeId)).One();
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(bargain.CustomerLegalPersonId)).One();
+            var legalPersonProfile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId.Value)).One();
+            var branchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(branchOfficeOrganizationUnit.BranchOfficeId)).One();
 
             var printData = new PrintData
                 {

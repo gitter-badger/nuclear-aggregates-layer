@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
 {
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
         protected override Response Handle(PrintBillRequest request)
         {
             var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
-                                  .Select(bill => new
+                                  .Map(q => q.Select(bill => new
                                       {
                                           Bill = bill,
                                           bill.OrderId,
@@ -43,8 +44,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
                                           LegalPersonType = bill.Order.LegalPerson.LegalPersonTypeEnum,
                                           bill.Order.BranchOfficeOrganizationUnitId,
                                           bill.Order.LegalPersonProfileId,
-                                      })
-                                  .SingleOrDefault();
+                                      }))
+                                  .One();
 
             if (billInfo == null)
             {
@@ -62,7 +63,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
             }
 
             var printData = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
-                                   .Select(bill => new
+                                   .Map(q => q.Select(bill => new
                                        {
                                            Bill = new
                                                {
@@ -90,8 +91,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
                                            bill.Order.BranchOfficeOrganizationUnit.BranchOfficeId,
                                            bill.Order.LegalPersonId,
                                            CurrencyISOCode = bill.Order.Currency.ISOCode
-                                       })
-                                   .ToArray()
+                                       }))
+                                   .Many()
                                    .Select(x => new
                                        {
                                            x.Bill,
@@ -104,12 +105,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Bills
                                                 ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
                                                 : null,
                                            billInfo.OrderReleaseCountPlan,
-                                           BranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnitId.HasValue 
-                                               ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(x.BranchOfficeOrganizationUnitId.Value)) 
+                                           BranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnitId.HasValue
+                                               ? _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(x.BranchOfficeOrganizationUnitId.Value)).One()
                                                : null,
-                                           BranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(x.BranchOfficeId)),
-                                           LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)),
-                                           Profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(billInfo.LegalPersonProfileId.Value)),
+                                           BranchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(x.BranchOfficeId)).One(),
+                                           LegalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)).One(),
+                                           Profile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(billInfo.LegalPersonProfileId.Value)).One(),
                                            x.CurrencyISOCode
                                        })
                                    .Single();

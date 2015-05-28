@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -13,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 {
@@ -28,7 +30,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 
         protected override IDomainEntityDto<AdvertisementElementStatus> GetDto(long entityId)
         {
-            var advertisementElementStatusDomainEntityDto = _finder.Find(Specs.Find.ById<AdvertisementElementStatus>(entityId))
+            var advertisementElementStatusDomainEntityDto = _finder.FindObsolete(Specs.Find.ById<AdvertisementElementStatus>(entityId))
                                                                    .Select(entity => new AdvertisementElementStatusDomainEntityDto
                                                                        {
                                                                            Id = entity.Id,
@@ -42,16 +44,17 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
                                                                    .Single();
 
             advertisementElementStatusDomainEntityDto.Reasons = _finder.Find(Specs.Find.ById<AdvertisementElement>(entityId))
-                                                                       .SelectMany(entity => entity.AdvertisementElementDenialReasons)
-                                                                       .Select(reason => new ReasonDto
-                                                                           {
-                                                                               Id = reason.Id,
-                                                                               Comment = reason.Comment,
-                                                                           })
+                                                                       .Map(q => q.SelectMany(entity => entity.AdvertisementElementDenialReasons)
+                                                                                  .Select(reason => new ReasonDto
+                                                                                      {
+                                                                                          Id = reason.Id,
+                                                                                          Comment = reason.Comment,
+                                                                                      }))
+                                                                       .Many()
                                                                        .ToArray();
 
             var advertisementElementDomainEntityDto =
-                _finder.Find(Specs.Find.ById<AdvertisementElement>(entityId))
+                _finder.FindObsolete(Specs.Find.ById<AdvertisementElement>(entityId))
                        .Select(entity => new AdvertisementElementDomainEntityDto
                            {
                                TemplateRestrictionType = entity.AdvertisementElementTemplate.RestrictionType,

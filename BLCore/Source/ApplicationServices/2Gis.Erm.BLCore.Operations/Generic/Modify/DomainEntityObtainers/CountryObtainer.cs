@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -25,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (CountryDomainEntityDto)domainEntityDto;
 
-            var country = _finder.Find(Specs.Find.ById<Country>(dto.Id)).SingleOrDefault() ??
+            var country = _finder.Find(Specs.Find.ById<Country>(dto.Id)).One() ??
                           new Country { IsActive = true, Id = dto.Id };
 
             if (dto.Timestamp == null && country.Timestamp != null)

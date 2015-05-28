@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
         {
         }
 
-        protected override ProjectSpecification<LegalPerson, LegalPersonDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<LegalPerson, LegalPersonDomainEntityDto> GetProjectSpecification()
             {
             return LegalPersonFlexSpecs.LegalPersons.MultiCulture.Project.DomainEntityDto();
         }

@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     var checkAggregateForDebtsRepository = _accountRepository as ICheckAggregateForDebtsRepository<Account>;
                     checkAggregateForDebtsRepository.CheckForDebts(entityId, _userContext.Identity.Code, bypassValidation);
 
-                    var accountOwnerCode = _finder.Find(Specs.Find.ById<Account>(entityId)).Select(x => x.OwnerCode).Single();
+                    var accountOwnerCode = _finder.FindObsolete(Specs.Find.ById<Account>(entityId)).Select(x => x.OwnerCode).Single();
                     var securityControlAspect = _userContext.Identity as IUserIdentitySecurityControl;
                     if (securityControlAspect == null || !securityControlAspect.SkipEntityAccessCheck)
                     {

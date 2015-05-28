@@ -31,11 +31,11 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
             var targetFirm = 
                 _finder
                     .Find(Specs.Find.ActiveAndNotDeleted<Firm>() && FirmSpecs.Firms.Find.HasClient())
-                    .First();
+                    .Top();
 
             var targetClient = _finder
                     .Find(Specs.Find.ActiveAndNotDeleted<Client>() && new FindSpecification<Client>(c => c.Id != targetFirm.ClientId))
-                    .First();
+                    .Top();
 
             return Result
                 .When(_changeClientGenericEntityService.Execute(targetFirm.Id, targetClient.Id, true))

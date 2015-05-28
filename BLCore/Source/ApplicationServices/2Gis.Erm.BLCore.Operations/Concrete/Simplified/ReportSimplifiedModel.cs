@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 
         public bool IsUserFromHeadBranch(long userId)
         {
-            var user = _finder.Find(Specs.Find.ById<User>(userId)).Single();
+            var user = _finder.FindObsolete(Specs.Find.ById<User>(userId)).Single();
             return user.DepartmentId == 1;
         }
 

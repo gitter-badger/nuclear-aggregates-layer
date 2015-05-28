@@ -17,9 +17,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
             {
                 public static class Project
                 {
-                    public static ProjectSpecification<BranchOfficeOrganizationUnit, EmiratesBranchOfficeOrganizationUnitDomainEntityDto> DomainEntityDto()
+                    public static MapSpecification<BranchOfficeOrganizationUnit, EmiratesBranchOfficeOrganizationUnitDomainEntityDto> DomainEntityDto()
                     {
-                        return new ProjectSpecification<BranchOfficeOrganizationUnit, EmiratesBranchOfficeOrganizationUnitDomainEntityDto>(
+                        return new MapSpecification<BranchOfficeOrganizationUnit, EmiratesBranchOfficeOrganizationUnitDomainEntityDto>(
                             x =>
                                 {
                                     var dto = new EmiratesBranchOfficeOrganizationUnitDomainEntityDto
@@ -89,9 +89,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
             {
                 public static class Project
                 {
-                    public static ProjectSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto> DomainEntityDto()
+                    public static MapSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto> DomainEntityDto()
                     {
-                        return new ProjectSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto>(
+                        return new MapSpecification<BranchOffice, EmiratesBranchOfficeDomainEntityDto>(
                             x =>
                                 {
                                     var dto = new EmiratesBranchOfficeDomainEntityDto

@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -28,6 +29,7 @@ using Microsoft.Xrm.Client.Data.Services;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext.Profile;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.OrganizationUnitDto;
@@ -127,14 +129,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 _finder
                     .Find(Specs.Find.ActiveAndNotDeleted<Department>() 
                                 && UserSpecs.Departments.Find.ChildrensOf(department))
-                    .ToArray();
+                    .Many();
 
             var departmentIds = childDepartments.Select(x => x.Id).ToList();
             departmentIds.Add(department.Id);
 
             var userInfos = _finder
                 .Find(Specs.Find.InactiveAndNotDeletedEntities<User>() && UserSpecs.Users.Find.ByDepartments(departmentIds))
-                .ToArray();
+                .Many();
 
             var count = 0;
 
@@ -192,22 +194,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         // FIXME {all, 23.12.2014}: при конвертации в OperationService + набор AggregateService, учесть наличие ещё и связанных действий см. метод   
         public void AssignUserRelatedEntities(long userId, long newOwnerCode)
         {
-            var clients = _finder.FindMany(Specs.Find.Owned<Client>(userId));
-            var firms = _finder.FindMany(Specs.Find.Owned<Firm>(userId));
-            var deals = _finder.FindMany(Specs.Find.Owned<Deal>(userId) && Specs.Find.ActiveAndNotDeleted<Deal>());
-            var legalPersons = _finder.FindMany(Specs.Find.Owned<LegalPerson>(userId));
-            var legalPersonProfiles = _finder.FindMany(Specs.Find.Owned<LegalPersonProfile>(userId));
-            var accounts = _finder.FindMany(Specs.Find.Owned<Account>(userId));
-            var limits = _finder.FindMany(Specs.Find.Owned<Limit>(userId) && Specs.Find.ActiveAndNotDeleted<Limit>());
-            var bargains = _finder.FindMany(Specs.Find.Owned<Bargain>(userId));
-            var contacts = _finder.FindMany(Specs.Find.Owned<Contact>(userId));
+            var clients = _finder.Find(Specs.Find.Owned<Client>(userId)).Many();
+            var firms = _finder.Find(Specs.Find.Owned<Firm>(userId)).Many();
+            var deals = _finder.Find(Specs.Find.Owned<Deal>(userId) && Specs.Find.ActiveAndNotDeleted<Deal>()).Many();
+            var legalPersons = _finder.Find(Specs.Find.Owned<LegalPerson>(userId)).Many();
+            var legalPersonProfiles = _finder.Find(Specs.Find.Owned<LegalPersonProfile>(userId)).Many();
+            var accounts = _finder.Find(Specs.Find.Owned<Account>(userId)).Many();
+            var limits = _finder.Find(Specs.Find.Owned<Limit>(userId) && Specs.Find.ActiveAndNotDeleted<Limit>()).Many();
+            var bargains = _finder.Find(Specs.Find.Owned<Bargain>(userId)).Many();
+            var contacts = _finder.Find(Specs.Find.Owned<Contact>(userId)).Many();
 
             // Критерии поиска заказов учитываются при экспорте. Если меняешь - меняй и там.
             var ordersWithPositions = _finder.Find(Specs.Find.Owned<Order>(userId) &&
                                                    Specs.Find.ActiveAndNotDeleted<Order>() &&
                                                    OrderSpecs.Orders.Find.NotInArchive())
-                                             .Select(o => new { Order = o, o.OrderPositions })
-                                             .ToArray();
+                                             .Map(q => q.Select(o => new { Order = o, o.OrderPositions }))
+                                             .Many();
 
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Client>())
             {
@@ -350,8 +352,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public bool TryGetSingleUserOrganizationUnit(long userId, out OrganizationUnit organizationUnit)
         {
-            organizationUnit = _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == userId)).Select(x => x.OrganizationUnitId).Distinct().Count() == 1
-                                   ? _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == userId)).Select(x => x.OrganizationUnit).First()
+            organizationUnit = _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == userId)).Fold(q => q.Select(x => x.OrganizationUnitId).Distinct().Count()) == 1
+                                   ? _finder.FindObsolete(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == userId)).Select(x => x.OrganizationUnit).First()
                                    : null;
 
             return organizationUnit != null;
@@ -360,11 +362,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         public OrganizationUnit GetFirstUserOrganizationUnit(long userId)
         {
             var organizationUnits = _finder.Find(new FindSpecification<UserOrganizationUnit>(unit => unit.UserId == userId))
-                                           .Select(unit => unit.OrganizationUnitId)
-                                           .ToArray();
+                                           .Map(q => q.Select(unit => unit.OrganizationUnitId))
+                                           .Many();
 
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
-                          .FirstOrDefault(unit => unit.ErmLaunchDate != null && organizationUnits.Contains(unit.Id));
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() &&
+                                new FindSpecification<OrganizationUnit>(unit => unit.ErmLaunchDate != null && organizationUnits.Contains(unit.Id)))
+                          .Top();
         }
 
         public int Deactivate(OrganizationUnit organizationUnit)
@@ -421,12 +424,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             }
 
             var userInfos = _finder.Find(Specs.Find.ActiveAndNotDeleted<User>() && UserSpecs.Users.Find.ByDepartment(department.Id))
-            .Select(x => new
-            {
-                User = x,
-                x.UserRoles
-            })
-            .ToArray();
+                                   .Map(q => q.Select(x => new
+                                       {
+                                           User = x,
+                                           x.UserRoles
+                                       }))
+                                   .Many();
 
             var count = 0;
             // Удалить привязку ролей у пользователей
@@ -495,7 +498,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public int DeleteUserRole(long userId, long roleId)
         {
-            var userRole = _finder.Find(new FindSpecification<UserRole>(x => x.UserId == userId && x.RoleId == roleId)).SingleOrDefault();
+            var userRole = _finder.Find(new FindSpecification<UserRole>(x => x.UserId == userId && x.RoleId == roleId)).One();
             if (userRole == null)
             {
                 throw new NotificationException(BLResources.UserRoleNotFound);
@@ -507,7 +510,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         public int DeleteUserOrganizationUnit(long userId, long organizationUnitId)
         {
             var userOrganizationUnit =
-                _finder.Find(new FindSpecification<UserOrganizationUnit>(x => x.UserId == userId && x.OrganizationUnitId == organizationUnitId)).SingleOrDefault();
+                _finder.Find(new FindSpecification<UserOrganizationUnit>(x => x.UserId == userId && x.OrganizationUnitId == organizationUnitId)).One();
             if (userOrganizationUnit == null)
             {
                 throw new NotificationException(BLResources.UserOrgUnitNotFound);
@@ -520,7 +523,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         {
             _userRoleGenericRepository.Delete(userRole);
 
-            var isServiceUser = _finder.Find(new FindSpecification<User>(x => x.Id == userRole.UserId)).Select(x => x.IsServiceUser).Single();
+            var isServiceUser = _finder.FindObsolete(new FindSpecification<User>(x => x.Id == userRole.UserId)).Select(x => x.IsServiceUser).Single();
             if (!isServiceUser)
             {
                 DeleteRoleFromCrm(userRole);
@@ -531,18 +534,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public OrganizationUnit GetOrganizationUnit(long orgUnitId)
         {
-            return _finder.Find(Specs.Find.ById<OrganizationUnit>(orgUnitId)).SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<OrganizationUnit>(orgUnitId)).One();
         }
 
         public OrganizationUnitWithUsersDto GetOrganizationUnitDetails(long entityId)
         {
             return _finder.Find(Specs.Find.ById<OrganizationUnit>(entityId))
-                .Select(unit => new OrganizationUnitWithUsersDto
-                {
-                    Unit = unit,
-                    HasLinkedUsers = unit.UserTerritoriesOrganizationUnits.Any()
-                })
-                .SingleOrDefault();
+                          .Map(q => q.Select(unit => new OrganizationUnitWithUsersDto
+                              {
+                                  Unit = unit,
+                                  HasLinkedUsers = unit.UserTerritoriesOrganizationUnits.Any()
+                              }))
+                          .One();
         }
 
         public void CreateOrUpdate(UserOrganizationUnit userOrganizationUnit)
@@ -571,7 +574,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 throw new ArgumentException(BLResources.EditUserTerritoryHandler_WarningUserTerritoryAlreadyExists);
             }
 
-            var userTerritoryBelongsToUserOrganizationUnits = _finder.Find(Specs.Find.ById<User>(userTerritory.UserId))
+            var userTerritoryBelongsToUserOrganizationUnits = _finder.FindObsolete(Specs.Find.ById<User>(userTerritory.UserId))
                 .SelectMany(x => x.UserOrganizationUnits)
                 .Select(x => x.OrganizationUnitDto)
                 .SelectMany(x => x.Territories)
@@ -679,24 +682,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 _finder
                     .Find(Specs.Find.ActiveAndNotDeleted<UserProfile>() 
                                     && UserSpecs.UserProfiles.Find.ForUser(userCode))
-                    .FirstOrDefault();
+                    .Top();
         }
 
-        public UserProfileDto[] GetAllUserProfiles()
+        public IReadOnlyCollection<UserProfileDto> GetAllUserProfiles()
         {
             return _finder.Find(new FindSpecification<User>(x => true))
-                .OrderBy(x => x.ModifiedOn)
-                .Select(x => new UserProfileDto
-                {
-                    UserAccountName = x.Account,
-                    UserProfile = x.UserProfiles.FirstOrDefault(),
-                })
-                .Where(x => x.UserProfile != null)
-                .ToArray();
+                          .Map(q => q.OrderBy(x => x.ModifiedOn)
+                                     .Select(x => new UserProfileDto
+                                         {
+                                             UserAccountName = x.Account,
+                                             UserProfile = x.UserProfiles.FirstOrDefault(),
+                                         })
+                                     .Where(x => x.UserProfile != null))
+                          .Many();
         }
 
         // TODO: {all, 14.02.2013}: вынести методы для работы с профилями пользователей в SimplifiedModel service (см. например ContributionTypeService)
-        public void UpdateUserProfiles(UserProfileDto[] userProfileDtos)
+        public void UpdateUserProfiles(IReadOnlyCollection<UserProfileDto> userProfileDtos)
         {
             foreach (var userProfileDto in userProfileDtos)
             {
@@ -722,11 +725,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public LocaleInfo GetUserLocaleInfo(long userCode)
         {
-            var userProfileDto = _finder.Find(new FindSpecification<User>(x => x.Id == userCode)).SelectMany(x => x.UserProfiles).Select(x => new
-            {
-                x.CultureInfoLCID,
-                x.TimeZone.TimeZoneId,
-            }).SingleOrDefault();
+            var userProfileDto = _finder.Find(new FindSpecification<User>(x => x.Id == userCode))
+                                        .Map(q => q.SelectMany(x => x.UserProfiles)
+                                                   .Select(x => new
+                                                       {
+                                                           x.CultureInfoLCID,
+                                                           x.TimeZone.TimeZoneId,
+                                                       }))
+                                        .One();
 
             LocaleInfo localeInfo;
             if (userProfileDto == null)
@@ -753,17 +759,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         {
             // Запрос идет по линии раздела edmx, поэтому после удаления ErmSecurity.edmx можно будет обойтись одним.
             var singleOrganizationUnitIds = _finder.Find(Specs.Find.ById<User>(userId))
-                .SelectMany(x => x.UserOrganizationUnits)
-                .Select(x => x.OrganizationUnitId)
-                .Take(2)
-                .ToArray();
+                                                   .Map(q => q.SelectMany(x => x.UserOrganizationUnits)
+                                                              .Select(x => x.OrganizationUnitId)
+                                                              .Take(2))
+                                                   .Many();
 
-            if (singleOrganizationUnitIds.Length == 0 || singleOrganizationUnitIds.Length > 1)
+            if (singleOrganizationUnitIds.Count == 0 || singleOrganizationUnitIds.Count > 1)
             {
                 return null;
             }
 
-            var organizationUnitDto = _finder.Find(Specs.Find.ById<OrganizationUnit>(singleOrganizationUnitIds[0]))
+            var organizationUnitDto = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(singleOrganizationUnitIds.Single()))
             .Select(x => new OrganizationUnitDto
             {
                 Id = x.Id,
@@ -781,43 +787,43 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         int IActivateAggregateRepository<Department>.Activate(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<Department>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<Department>(entityId)).Single();
             return Activate(entity);
         }
 
         int IActivateAggregateRepository<OrganizationUnit>.Activate(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<OrganizationUnit>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(entityId)).Single();
             return Activate(entity);
         }
 
         public IEnumerable<User> GetUsersByDepartments(IEnumerable<long> departmentIds)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<User>() && UserSpecs.Users.Find.ByDepartments(departmentIds))
-                          .ToArray();
+                          .Many();
         }
 
         int IDeactivateAggregateRepository<OrganizationUnit>.Deactivate(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<OrganizationUnit>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(entityId)).Single();
             return Deactivate(entity);
         }
 
         int IDeactivateAggregateRepository<Territory>.Deactivate(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<Territory>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<Territory>(entityId)).Single();
             return Deactivate(entity);
         }
 
         int IDeactivateAggregateRepository<Department>.Deactivate(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<Department>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<Department>(entityId)).Single();
             return Deactivate(entity);
         }
 
         int IDeleteAggregateRepository<OrganizationUnit>.Delete(long entityId)
         {
-            var unit = _finder.Find(Specs.Find.ById<OrganizationUnit>(entityId)).Single();
+            var unit = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(entityId)).Single();
             return Delete(unit);
         }
 
@@ -825,14 +831,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
         {
             using (var scope = _operationScopeFactory.CreateSpecificFor<DeleteIdentity, UserOrganizationUnit>())
             {
-                var userOrganizationUnit = _finder.Find(Specs.Find.ById<UserOrganizationUnit>(entityId)).Single();
+                var userOrganizationUnit = _finder.FindObsolete(Specs.Find.ById<UserOrganizationUnit>(entityId)).Single();
 
-                var territoryIds = _finder.Find(TerritoryDtoSpecifications.TerritoriesFromOrganizationUnit(userOrganizationUnit.OrganizationUnitId)).Select(x => x.Id);
+                var territoryIds = _finder.FindObsolete(TerritoryDtoSpecifications.TerritoriesFromOrganizationUnit(userOrganizationUnit.OrganizationUnitId)).Select(x => x.Id);
 
                 // Удаление территорий пользователя данной территории организации
                 var userTerritories = _finder
                     .Find(new FindSpecification<UserTerritory>(x => x.UserId == userOrganizationUnit.UserId && territoryIds.Contains(x.TerritoryId) && !x.IsDeleted))
-                    .ToArray();
+                    .Many();
 
                 foreach (var userTerritory in userTerritories)
                 {
@@ -876,47 +882,47 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         public Territory GetTerritory(long territoryId)
         {
-            return _finder.Find(new FindSpecification<Territory>(x => territoryId == x.Id)).SingleOrDefault();
+            return _finder.Find(new FindSpecification<Territory>(x => territoryId == x.Id)).One();
         }
 
         public IEnumerable<User> GetUsersByTerritory(long territoryId)
         {
-            return _finder.Find(new FindSpecification<User>(x => x.UserTerritories.Any(y => y.TerritoryId == territoryId))).ToArray();
+            return _finder.Find(new FindSpecification<User>(x => x.UserTerritories.Any(y => y.TerritoryId == territoryId))).Many();
         }
 
         public IEnumerable<User> GetUsersByOrganizationUnit(long organizationUnitId)
         {
             return _finder.Find(new FindSpecification<User>(
                                     x => x.IsActive && x.UserOrganizationUnits.Any(y => y.OrganizationUnitId == organizationUnitId)))
-                          .ToArray();
+                          .Many();
         }
 
         public IEnumerable<long> GetUserTerritoryIds(long userId)
         {
             // Представление vwTerritories уже включает в себя фильтр по неактивным
             return _finder.Find(Specs.Find.ById<User>(userId))
-                .SelectMany(user => user.UserTerritories)
-                .Select(territory => territory.TerritoryDto)
-                .Select(dto => dto.Id)
-                .ToArray();
+                          .Map(q => q.SelectMany(user => user.UserTerritories)
+                                     .Select(territory => territory.TerritoryDto)
+                                     .Select(dto => dto.Id))
+                          .Many();
         }
 
         public IEnumerable<long> GetUserOrganizationUnitsTerritoryIds(long userId)
         {
             // Представления vwTerritories, vwOrganizationUnits на которых основаны dto-сущности не содержат удаленных или неактивых записей.
             return _finder.Find(Specs.Find.ById<User>(userId))
-                .SelectMany(user => user.UserOrganizationUnits)
-                .Select(unit => unit.OrganizationUnitDto)
-                .SelectMany(unitDto => unitDto.Territories)
-                .Select(territoryDto => territoryDto.Id)
-                .ToArray();
+                          .Map(q => q.SelectMany(user => user.UserOrganizationUnits)
+                                     .Select(unit => unit.OrganizationUnitDto)
+                                     .SelectMany(unitDto => unitDto.Territories)
+                                     .Select(territoryDto => territoryDto.Id))
+                          .Many();
         }
 
         public IEnumerable<long> GetAllTerritoryIds()
         {
             return _finder.Find(new FindSpecification<Territory>(territory => territory.IsActive))
-                .Select(territory => territory.Id)
-                .ToArray();
+                          .Map(q => q.Select(territory => territory.Id))
+                          .Many();
         }
 
         public void ChangeUserTerritory(IEnumerable<User> users, long oldTerritoryId, long newTerritoryId)
@@ -926,7 +932,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<ChangeTerritoryIdentity, User>())
             {
                 // Все существующие ссылки на старую территорию удаляем
-                var linksToRemove = _finder.Find(new FindSpecification<UserTerritory>(link => userIds.Contains(link.UserId) && link.TerritoryId == oldTerritoryId)).ToArray();
+                var linksToRemove = _finder.Find(new FindSpecification<UserTerritory>(link => userIds.Contains(link.UserId) && link.TerritoryId == oldTerritoryId)).Many();
                 foreach (var userTerritory in linksToRemove)
                 {
                     _userTerritoryGenericRepository.Delete(userTerritory);
@@ -935,8 +941,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
                 // Новые ссылки добавляем только тем, у кого этоё территории не было
                 var usersHavingNewTerritory = _finder.Find(new FindSpecification<UserTerritory>(link => userIds.Contains(link.UserId) && link.TerritoryId == newTerritoryId))
-                                                     .Select(territory => territory.UserId)
-                                                     .ToArray();
+                                                     .Map(q => q.Select(territory => territory.UserId))
+                                                     .Many();
                 var usersNeedNewTerritory = userIds.Except(usersHavingNewTerritory).ToArray();
                 foreach (var userId in usersNeedNewTerritory)
                 {
@@ -964,12 +970,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 throw new NotificationException(string.Format(CultureInfo.CurrentCulture, BLResources.OrganizationUnitNonUniqueDgppId, organizationUnit.DgppId));
             }
 
-            var notUniqueSyncCode1C = _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
-                .Any(x => x.SyncCode1C == organizationUnit.SyncCode1C && x.Id != organizationUnit.Id);
+            var notUniqueSyncCode1C = _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() &&
+                                                   new FindSpecification<OrganizationUnit>(x => x.SyncCode1C == organizationUnit.SyncCode1C && x.Id != organizationUnit.Id))
+                                             .Any();
 
             if (!organizationUnit.IsNew())
             {
-                var organizationUnitDatesInfo = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnit.Id)).Select(x => new
+                var organizationUnitDatesInfo = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(organizationUnit.Id)).Select(x => new
                 {
                     x.FirstEmitDate,
                     x.ErmLaunchDate,
@@ -1031,7 +1038,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         private string GetCrmRoleName(UserRole userRole)
         {
-            var crmRoleName = _finder.Find(new FindSpecification<Role>(x => x.Id == userRole.RoleId)).Select(x => x.Name).FirstOrDefault();
+            var crmRoleName = _finder.Find(new FindSpecification<Role>(x => x.Id == userRole.RoleId)).Map(q => q.Select(x => x.Name)).Top();
             if (crmRoleName == null)
             {
                 throw new ArgumentException(BLResources.RoleNotMappedToCRMRole);
@@ -1065,14 +1072,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
 
         private CrmDataContextExtensions.CrmUserInfo GetCrmUserInfo(ICrmDataContext crmDataContext, long userId)
         {
-            var userAccount = _finder.Find(Specs.Find.ById<User>(userId)).Select(x => x.Account).Single();
+            var userAccount = _finder.FindObsolete(Specs.Find.ById<User>(userId)).Select(x => x.Account).Single();
             var userInfo = crmDataContext.GetSystemUserByDomainName(userAccount, true);
             return userInfo;
         }
 
         private string GetUserTimeZoneHeuristic(long userCode)
         {
-            var organizationUnits = _finder.Find(new FindSpecification<OrganizationUnit>(x => x.IsActive && !x.IsDeleted)).Select(x => new { x.Name, x.TimeZoneId }).ToArray();
+            var organizationUnits = _finder.Find(new FindSpecification<OrganizationUnit>(x => x.IsActive && !x.IsDeleted))
+                                           .Map(q => q.Select(x => new { x.Name, x.TimeZoneId }))
+                                           .Many();
 
             var timezones = _query.For<TimeZone>().ToArray();
             var organizationUnitimeZones = organizationUnits.Join(
@@ -1086,28 +1095,28 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users
                 }).ToArray();
 
             // TODO: убрать это УГ
-            var userDepartments = _finder.Find(Specs.Find.ById<User>(userCode)).Select(x => new
-            {
-                UserId = x.Id,
-                DepartmentName = (x.Department.Name == "2ГИС")
-                                     ? "Новосибирск"
-                                     : (x.Department.Name == "Алтай")
-                                           ? "Барнаул"
-                                           : x.Department.Name,
-            }).ToArray();
+            var userDepartments = _finder.Find(Specs.Find.ById<User>(userCode))
+                                         .Map(q => q.Select(x => new
+                                             {
+                                                 UserId = x.Id,
+                                                 DepartmentName = (x.Department.Name == "2ГИС")
+                                                                      ? "Новосибирск"
+                                                                      : (x.Department.Name == "Алтай")
+                                                                            ? "Барнаул"
+                                                                            : x.Department.Name,
+                                             })).Many();
 
-            var timeZoneId = userDepartments.SelectMany(
-                x => organizationUnitimeZones.DefaultIfEmpty(),
-                (x, y) => new
-                {
-                    x.DepartmentName,
-                    y.Name,
+            var timeZoneId = userDepartments.SelectMany(x => organizationUnitimeZones.DefaultIfEmpty(),
+                                                        (x, y) => new
+                                                            {
+                                                                x.DepartmentName,
+                                                                y.Name,
 
-                    y.TimeZoneId,
-                })
-                    .Where(x => x.DepartmentName.Contains(x.Name))
-                    .Select(x => x.TimeZoneId)
-                    .FirstOrDefault();
+                                                                y.TimeZoneId,
+                                                            })
+                                            .Where(x => x.DepartmentName.Contains(x.Name))
+                                            .Select(x => x.TimeZoneId)
+                                            .FirstOrDefault();
 
             return timeZoneId;
         }

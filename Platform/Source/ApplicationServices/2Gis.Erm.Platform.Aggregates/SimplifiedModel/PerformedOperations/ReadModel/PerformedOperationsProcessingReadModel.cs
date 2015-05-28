@@ -10,28 +10,31 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.ReadModel
 {
     public sealed class PerformedOperationsProcessingReadModel : IPerformedOperationsProcessingReadModel
     {
+        private readonly IQuery _query;
         private readonly IFinder _finder;
 
-        public PerformedOperationsProcessingReadModel(IFinder finder)
+        public PerformedOperationsProcessingReadModel(IQuery query, IFinder finder)
         {
+            _query = query;
             _finder = finder;
         }
 
         public PrimaryProcessingFlowStateDto GetPrimaryProcessingFlowState(IMessageFlow messageFlow)
         {
             return _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowId(messageFlow.Id))
-                          .GroupBy(processing => processing.MessageFlowId)
-                          .Select(grouping => new PrimaryProcessingFlowStateDto
-                              {
-                                  OldestProcessingTargetCreatedDate = grouping.Min(processing => processing.CreatedOn),
-                                  ProcessingTargetsCount = grouping.Count()
-                              })
-                          .FirstOrDefault();
+                          .Map(q => q.GroupBy(processing => processing.MessageFlowId)
+                                     .Select(grouping => new PrimaryProcessingFlowStateDto
+                                         {
+                                             OldestProcessingTargetCreatedDate = grouping.Min(processing => processing.CreatedOn),
+                                             ProcessingTargetsCount = grouping.Count()
+                                         }))
+                          .Top();
         }
 
         public IReadOnlyList<DBPerformedOperationsMessage> GetOperationsForPrimaryProcessing(
@@ -39,8 +42,8 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
             DateTime oldestOperationBoundaryDate,
             int maxUseCaseCount)
         {
-            var performedOperations = _finder.Find(OperationSpecs.Performed.Find.AfterDate(oldestOperationBoundaryDate));
-            var processingTargetUseCases = _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowId(sourceMessageFlow.Id))
+            var performedOperations = _query.For(OperationSpecs.Performed.Find.AfterDate(oldestOperationBoundaryDate));
+            var processingTargetUseCases = _query.For(OperationSpecs.PrimaryProcessings.Find.ByFlowId(sourceMessageFlow.Id))
                                                   .OrderBy(targetUseCase => targetUseCase.CreatedOn)
                                                   .Take(maxUseCaseCount);
 
@@ -58,10 +61,10 @@ namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.
 
         public IReadOnlyList<PerformedOperationsFinalProcessingMessage> GetOperationFinalProcessings(IMessageFlow sourceMessageFlow, int batchSize, int reprocessingBatchSize)
         {
-            var initialProcessingSequence = _finder.Find(OperationSpecs.FinalProcessings.Find.ByFlowId(sourceMessageFlow.Id) &&
-                                                         OperationSpecs.FinalProcessings.Find.Initial);
-            var reprocessingSequence = _finder.Find(OperationSpecs.FinalProcessings.Find.ByFlowId(sourceMessageFlow.Id) &&
-                                                    OperationSpecs.FinalProcessings.Find.Failed);
+            var initialProcessingSequence = _query.For(OperationSpecs.FinalProcessings.Find.ByFlowId(sourceMessageFlow.Id) &&
+                                                       OperationSpecs.FinalProcessings.Find.Initial);
+            var reprocessingSequence = _query.For(OperationSpecs.FinalProcessings.Find.ByFlowId(sourceMessageFlow.Id) &&
+                                                  OperationSpecs.FinalProcessings.Find.Failed);
 
             var result = GetTargetMessages(initialProcessingSequence, batchSize)
                 .Union(GetTargetMessages(reprocessingSequence, reprocessingBatchSize))

@@ -13,6 +13,7 @@ using Moq;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
@@ -38,7 +39,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Establish context = () =>
                 {
                     _findSpec = new FindSpecification<Deal>(e => true);
-                    Finder.Setup(f => f.Find(_findSpec)).Returns(_finderEntities.Cast<Deal>());
+                    Finder.Setup(f => f.Find(_findSpec)).Returns(new QueryableFutureSequence<Deal>(_finderEntities.Cast<Deal>()));
                 };
         }
 

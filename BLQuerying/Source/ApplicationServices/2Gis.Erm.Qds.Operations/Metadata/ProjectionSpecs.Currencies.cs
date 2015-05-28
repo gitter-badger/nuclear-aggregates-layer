@@ -28,9 +28,9 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<CurrencyGridDoc>> Project()
+            public static MapSpecification<ObjectAccessor, IndexedDocumentWrapper<CurrencyGridDoc>> Project()
             {
-                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<CurrencyGridDoc>>(
+                return new MapSpecification<ObjectAccessor, IndexedDocumentWrapper<CurrencyGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<Currency>();

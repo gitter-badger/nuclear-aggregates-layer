@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Get
         {
             var entity = _finder.FindOne(Specs.Find.ById<BargainType>(entityId));
 
-            return BargainTypeFlexSpecs.BargainTypes.MultiCulture.Project.DomainEntityDto().Project(entity);
+            return BargainTypeFlexSpecs.BargainTypes.MultiCulture.Project.DomainEntityDto().Map(entity);
         }
     }
 }

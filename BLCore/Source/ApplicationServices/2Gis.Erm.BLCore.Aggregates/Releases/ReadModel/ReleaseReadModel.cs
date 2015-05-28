@@ -8,12 +8,14 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Releasing.Releases;
 using DoubleGis.Erm.Platform.API.Core;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
@@ -32,31 +34,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
         public IEnumerable<ReleaseProcessingMessage> GetReleaseValidationResults(long releaseInfoId)
         {
             return _finder.Find(new FindSpecification<ReleaseValidationResult>(x => x.ReleaseInfoId == releaseInfoId))
-                .OrderBy(x => x.IsBlocking)
-                .ThenBy(x => x.IsBlocking)
-                .Select(x => new ReleaseProcessingMessage
-                {
-                    IsBlocking = x.IsBlocking,
-                    Message = x.Message,
-                    OrderId = x.OrderId,
-                    RuleCode = x.RuleCode
-                })
-                .ToArray();
+                          .Map(q => q.OrderBy(x => x.IsBlocking)
+                                     .ThenBy(x => x.IsBlocking)
+                                     .Select(x => new ReleaseProcessingMessage
+                                         {
+                                             IsBlocking = x.IsBlocking,
+                                             Message = x.Message,
+                                             OrderId = x.OrderId,
+                                             RuleCode = x.RuleCode
+                                         }))
+                          .Many();
         }
 
         public Dictionary<long, ValidationReportLine> GetOrderValidationLines(IEnumerable<long> orderIds)
         {
             var userInfos = _query.For<User>().Select(user => new { user.Id, user.DisplayName }).ToArray();
             var orderInfos = _finder.Find(new FindSpecification<Order>(o => orderIds.Contains(o.Id)))
-                .Select(o => new
-                {
-                    Id = o.Id,
-                    Number = o.Number,
-                    FirmName = o.Firm.Name,
-                    LegalPersonName = o.LegalPerson.ShortName,
-                    OwnerCode = o.OwnerCode
-                })
-                .ToArray();
+                                    .Map(q => q.Select(o => new
+                                        {
+                                            Id = o.Id,
+                                            Number = o.Number,
+                                            FirmName = o.Firm.Name,
+                                            LegalPersonName = o.LegalPerson.ShortName,
+                                            OwnerCode = o.OwnerCode
+                                        }))
+                                    .Many();
 
             return orderInfos
                 .Join(userInfos,
@@ -69,26 +71,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
         public int GetCountryCode(long organizationUnitId)
         {
             var countyIsoCode = _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() && Specs.Find.ById<OrganizationUnit>(organizationUnitId))
-                                       .Select(x => x.Country.IsoCode)
-                                       .SingleOrDefault();
+                                       .Map(q => q.Select(x => x.Country.IsoCode))
+                                       .One();
             return !string.IsNullOrEmpty(countyIsoCode) ? int.Parse(countyIsoCode) : 0;
         }
 
         public bool IsReleaseMustBeLaunchedThroughExport(long organizationUnitId)
         {
-            return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(x => x.ErmLaunchDate != null).Single();
+            return _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(x => x.ErmLaunchDate != null).Single();
         }
 
         public long GetOrganizationUnitId(int organizationUnitDgppId)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() && OrganizationUnitSpecs.Find.ByDgppId(organizationUnitDgppId))
-                          .Select(x => x.Id)
-                          .FirstOrDefault();
+                          .Map(q => q.Select(x => x.Id))
+                          .Top();
         }
 
         public string GetOrganizationUnitName(long organizationUnitId)
         {
-            return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(ou => ou.Name).Single();
+            return _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(organizationUnitId)).Select(ou => ou.Name).Single();
         }
 
         public ReleaseInfo GetLastFinalRelease(long organizationUnitId, TimePeriod period)
@@ -97,8 +99,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
                                 ReleaseSpecs.Releases.Find.ByOrganization(organizationUnitId) &&
                                 ReleaseSpecs.Releases.Find.ForPeriod(period) &&
                                 ReleaseSpecs.Releases.Find.Final())
-                          .OrderByDescending(x => x.StartDate)
-                          .FirstOrDefault();
+                          .Map(q => q.OrderByDescending(x => x.StartDate))
+                          .Top();
         }
 
         public IReadOnlyCollection<ReleaseInfo> GetReleasesInDescOrder(long organizationUnitId, TimePeriod period)
@@ -106,8 +108,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>() &&
                                 ReleaseSpecs.Releases.Find.ByOrganization(organizationUnitId) &&
                                 ReleaseSpecs.Releases.Find.ForPeriod(period))
-                          .OrderByDescending(x => x.StartDate)
-                          .ToArray();
+                          .Map(q => q.OrderByDescending(x => x.StartDate))
+                          .Many();
         }
 
         public bool HasFinalReleaseAfterDate(long organizationUnitId, DateTime periodStartDate)
@@ -139,7 +141,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             }
             else
             {
-                organizationUnitQuery = _finder.Find(new FindSpecification<OrganizationUnit>(x => x.Id == organizationUnitId));
+                organizationUnitQuery = _query.For(new FindSpecification<OrganizationUnit>(x => x.Id == organizationUnitId));
             }
 
             var hasSuccessedRelease = organizationUnitQuery.SelectMany(x => x.ReleaseInfos)
@@ -152,7 +154,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
 
         public ReleaseInfo GetReleaseInfo(long releaseInfoId)
         {
-            return _finder.Find(Specs.Find.ById<ReleaseInfo>(releaseInfoId)).SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<ReleaseInfo>(releaseInfoId)).One();
         }
 
         public bool HasFinalReleaseInProgress(long organizationUnitId, TimePeriod period)

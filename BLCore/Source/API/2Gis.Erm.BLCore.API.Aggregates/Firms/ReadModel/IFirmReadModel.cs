@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO.FirmInfo;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
 {
@@ -29,9 +30,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         IEnumerable<CategoryFirmAddress> GetCategoryFirmAddressesByFirmAddresses(IEnumerable<long> firmAddressIds);
         IEnumerable<FirmContact> GetFirmContactsByFirmAddresses(IEnumerable<long> firmAddressIds);
         IEnumerable<FirmContact> GetFirmContactsByDepCards(IEnumerable<long> depCardIds);
-        Dictionary<long, DepCard> GetDepCards(IEnumerable<long> depCardIds);
-        Dictionary<long, FirmAddress> GetFirmAddresses(IEnumerable<long> firmAddressIds);
-        Dictionary<long, Firm> GetFirms(IEnumerable<long> firmIds);
+        IReadOnlyDictionary<long, DepCard> GetDepCards(IEnumerable<long> depCardIds);
+        IReadOnlyDictionary<long, FirmAddress> GetFirmAddresses(IEnumerable<long> firmAddressIds);
+        IReadOnlyDictionary<long, Firm> GetFirms(IEnumerable<long> firmIds);
 
         IEnumerable<Firm> GetFirmsForClientAndLinkedChild(long clientId);
         IReadOnlyDictionary<int, RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase);
@@ -40,9 +41,9 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel
         // COMMENT {all, 23.05.2014}: Телефонные коды городов, справочники и элементы справочника относятся к агрегату фирмы.
         // Это немного странно.
         // Если эти сущности уйдут из этого агрегата, например, в SimlifiedModel, то следующие методы можно будет смело переместить.
-        Dictionary<long, string> GetCityPhoneZones(IEnumerable<long> phoneZoneIds);
-        Dictionary<int, string> GetPhoneFormats(IEnumerable<int> phoneFormatCodes);
-        Dictionary<int, string> GetPaymentMethods(IEnumerable<int> paymentMethodCodes);
+        IReadOnlyDictionary<long, string> GetCityPhoneZones(IEnumerable<long> phoneZoneIds);
+        IReadOnlyDictionary<int, string> GetPhoneFormats(IEnumerable<int> phoneFormatCodes);
+        IReadOnlyDictionary<int, string> GetPaymentMethods(IEnumerable<int> paymentMethodCodes);
 
         HotClientRequest GetHotClientRequest(long hotClientRequestId);
         bool IsTelesaleFirmAddress(long firmAddressId);

@@ -35,9 +35,9 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<BargainGridDoc>> Project(CultureInfo cultureInfo)
+            public static MapSpecification<ObjectAccessor, IndexedDocumentWrapper<BargainGridDoc>> Project(CultureInfo cultureInfo)
             {
-                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<BargainGridDoc>>(x =>
+                return new MapSpecification<ObjectAccessor, IndexedDocumentWrapper<BargainGridDoc>>(x =>
                 {
                     var accessor = x.BasedOn<Bargain>();
                     var bargainKind = accessor.Get(c => c.BargainKind);

@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DI.Interception.PolicyInjection.Handlers;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -89,22 +90,22 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging
             // Текущая реализация вызывает вопросы "почему для Order используется Find, а для LegalPerson - FindOne"
             if (_entityType.Equals(EntityType.Instance.Order()))
             {
-                    return _finder.Find(Specs.Find.ById<Order>(viewModel.Id)).Single();
+                    return _finder.FindObsolete(Specs.Find.ById<Order>(viewModel.Id)).Single();
             }
 
             if (_entityType.Equals(EntityType.Instance.Client()))
             {
-                    return _finder.Find(Specs.Find.ById<Client>(viewModel.Id)).Single();
+                return _finder.FindObsolete(Specs.Find.ById<Client>(viewModel.Id)).Single();
             }
 
             if (_entityType.Equals(EntityType.Instance.LegalPerson()))
             {
-                    return _finder.FindOne(Specs.Find.ById<LegalPerson>(viewModel.Id));
+                    return _finder.Find(Specs.Find.ById<LegalPerson>(viewModel.Id)).One();
             }
 
             if (_entityType.Equals(EntityType.Instance.Deal()))
             {
-                    return _finder.Find(Specs.Find.ById<Deal>(viewModel.Id)).Single();
+                    return _finder.FindObsolete(Specs.Find.ById<Deal>(viewModel.Id)).Single();
             }
 
                     throw new ArgumentOutOfRangeException("Не работает журналирование для сущности " + _entityType);

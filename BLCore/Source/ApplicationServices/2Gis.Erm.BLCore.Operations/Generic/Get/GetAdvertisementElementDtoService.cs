@@ -4,6 +4,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<AdvertisementElement> GetDto(long entityId)
         {
-            var dtoInfo = _secureFinder.Find(new FindSpecification<AdvertisementElement>(x => x.Id == entityId))
+            var dtoInfo = _secureFinder.FindObsolete(new FindSpecification<AdvertisementElement>(x => x.Id == entityId))
                                        .Select(entity => new
                                            {
                                                Dto = new AdvertisementElementDomainEntityDto

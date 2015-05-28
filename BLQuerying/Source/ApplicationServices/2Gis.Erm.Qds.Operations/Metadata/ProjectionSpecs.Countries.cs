@@ -26,9 +26,9 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<CountryGridDoc>> Project()
+            public static MapSpecification<ObjectAccessor, IndexedDocumentWrapper<CountryGridDoc>> Project()
             {
-                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<CountryGridDoc>>(
+                return new MapSpecification<ObjectAccessor, IndexedDocumentWrapper<CountryGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<Country>();

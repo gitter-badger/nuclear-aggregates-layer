@@ -15,9 +15,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify
             {
                 public static class Project
                 {
-                    public static ProjectSpecification<BranchOfficeOrganizationUnit, CyprusBranchOfficeOrganizationUnitDomainEntityDto> DomainEntityDto()
+                    public static MapSpecification<BranchOfficeOrganizationUnit, CyprusBranchOfficeOrganizationUnitDomainEntityDto> DomainEntityDto()
                     {
-                        return new ProjectSpecification<BranchOfficeOrganizationUnit, CyprusBranchOfficeOrganizationUnitDomainEntityDto>(
+                        return new MapSpecification<BranchOfficeOrganizationUnit, CyprusBranchOfficeOrganizationUnitDomainEntityDto>(
                             x =>
                                 {
                                     var dto = new CyprusBranchOfficeOrganizationUnitDomainEntityDto

@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -54,7 +55,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             long appendToDealId;
             if (querySettings.TryGetExtendedProperty("appendToDealId", out appendToDealId))
             {
-                var clientId = _finder.Find(Specs.Find.ById<Deal>(appendToDealId)).Select(x => x.ClientId).Single();
+                var clientId = _finder.FindObsolete(Specs.Find.ById<Deal>(appendToDealId)).Select(x => x.ClientId).Single();
                 query = _filterHelper.ForClientAndItsDescendants(query, clientId);
             }
 

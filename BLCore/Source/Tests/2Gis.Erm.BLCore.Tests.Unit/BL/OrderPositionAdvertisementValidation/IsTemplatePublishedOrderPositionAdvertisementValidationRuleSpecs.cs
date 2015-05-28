@@ -15,6 +15,7 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
@@ -70,19 +71,18 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Advertisement>>()))
                               .Returns(
                                   (FindSpecification<Advertisement> x) =>
-                                  new[]
+                                  new QueryableFutureSequence<Advertisement>(new[]
                                       {
                                           AdvertisementWithPublishedTemplate,
                                           AdvertisementWithUnpublishedTemplate
-                                      }.AsQueryable().Where(x));
+                                      }.AsQueryable().Where(x)));
 
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Position>>()))
-                              .Returns(
-                                  (FindSpecification<Position> x) =>
-                                  new[]
+                              .Returns((FindSpecification<Position> x) =>
+                                  new QueryableFutureSequence<Position>(new[]
                                       {
                                           TestPosition
-                                      }.AsQueryable().Where(x));
+                                      }.AsQueryable().Where(x)));
 
                     ValidationRule = new IsTemplatePublishedOrderPositionAdvertisementValidationRule(FinderMock.Object);
                 };

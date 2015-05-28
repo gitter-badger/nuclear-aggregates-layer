@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.File
@@ -65,18 +66,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.File
 
         private IEnumerable<long> GetOrphanFilesIds()
         {
-            return _finder.Find(new FindSpecification<DoubleGis.Erm.Platform.Model.Entities.Erm.File>(x => !x.AdvertisementElements.Any() &&
-                                                    !x.BargainFiles.Any() &&
-                                                    !x.OrderFiles.Any() &&
-                                                    !x.Notes.Any() &&
-                                                    !x.ReleaseInfos.Any() &&
-                                                    !x.LocalMessages.Any() &&
-                                                    !x.NotificationEmailsAttachments.Any() &&
-                                                    !x.Operations.Any() &&
-                                                    !x.PrintFormTemplates.Any() &&
-                                                    !x.ThemeTemplates.Any() &&
-                                                    !x.Themes.Any()))
-                                                    .Select(x => x.Id).ToArray();
+            return _finder.Find(new FindSpecification<DoubleGis.Erm.Platform.Model.Entities.Erm.File>(
+                                    x => !x.AdvertisementElements.Any() &&
+                                         !x.BargainFiles.Any() &&
+                                         !x.OrderFiles.Any() &&
+                                         !x.Notes.Any() &&
+                                         !x.ReleaseInfos.Any() &&
+                                         !x.LocalMessages.Any() &&
+                                         !x.NotificationEmailsAttachments.Any() &&
+                                         !x.Operations.Any() &&
+                                         !x.PrintFormTemplates.Any() &&
+                                         !x.ThemeTemplates.Any() &&
+                                         !x.Themes.Any()))
+                          .Map(q => q.Select(x => x.Id))
+                          .Many();
         }
     }
 }

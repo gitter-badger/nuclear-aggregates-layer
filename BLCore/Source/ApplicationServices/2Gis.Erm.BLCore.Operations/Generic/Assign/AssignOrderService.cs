@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -61,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                 {
                     _publicService.Handle(new ValidateOwnerIsNotReserveRequest<Order> { Id = entityId });
 
-                    var order = _finder.Find(Specs.Find.ById<Order>(entityId))
+                    var order = _finder.FindObsolete(Specs.Find.ById<Order>(entityId))
                             .Select(x => new { HasDeal = x.DealId.HasValue, x.Number, OldOwnerCode = x.OwnerCode })
                         .Single();
 

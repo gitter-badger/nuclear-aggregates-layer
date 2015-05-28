@@ -6,11 +6,13 @@ using System.Text;
 using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages;
 using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages.DTO;
 using DoubleGis.Erm.Platform.API.Core.Identities;
-using NuClear.Storage;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 // ReSharper disable CheckNamespace
@@ -38,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
 
         public void Create(LocalMessage localMessage, int integrationType)
         {
-            localMessage.MessageTypeId = _finder.Find(new FindSpecification<MessageType>(x => x.IntegrationType == integrationType)).Select(x => x.Id).Single();
+            localMessage.MessageTypeId = _finder.FindObsolete(new FindSpecification<MessageType>(x => x.IntegrationType == integrationType)).Select(x => x.Id).Single();
             _identityProvider.SetFor(localMessage);
             _localMessageGenericRepository.Add(localMessage);
             _localMessageGenericRepository.Save();
@@ -46,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
 
         public IEnumerable<LocalMessage> GetByIds(long[] ids)
         {
-            return _finder.Find(new FindSpecification<LocalMessage>(x => ids.Contains(x.Id))).ToArray();
+            return _finder.Find(new FindSpecification<LocalMessage>(x => ids.Contains(x.Id))).Many();
         }
 
         public void SetProcessingState(LocalMessage localMessage)
@@ -65,20 +67,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
             }
 
             var localMessage = _finder.Find(new FindSpecification<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.WaitForProcess))
-                                .OrderBy(x => x.CreatedOn)
-                                .Select(x => new LocalMessageDto
-                                {
-                                    LocalMessage = x,
-                                    IntegrationType = x.MessageType.IntegrationType,
-                                    FileName = x.File.FileName,
-                    })
-                .FirstOrDefault();
+                                      .Map(q => q.OrderBy(x => x.CreatedOn)
+                                                 .Select(x => new LocalMessageDto
+                                                     {
+                                                         LocalMessage = x,
+                                                         IntegrationType = x.MessageType.IntegrationType,
+                                                         FileName = x.File.FileName,
+                                                     }))
+                                      .Top();
             return localMessage;
         }
 
         public void SetWaitForProcessState(long localMessageId)
         {
-            var localMessage = _finder.Find(Specs.Find.ById<LocalMessage>(localMessageId)).Single();
+            var localMessage = _finder.FindObsolete(Specs.Find.ById<LocalMessage>(localMessageId)).Single();
             localMessage.Status = LocalMessageStatus.WaitForProcess;
             _localMessageGenericRepository.Update(localMessage);
             _localMessageGenericRepository.Save();
@@ -90,8 +92,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LocalMessages
 
             var localMessages = _finder.Find(new FindSpecification<LocalMessage>(x => !x.IsDeleted && x.Status == LocalMessageStatus.Processing &&
                                                                                       (x.ModifiedOn.HasValue ? x.ModifiedOn <= period : x.CreatedOn <= period)))
-                                       .OrderBy(x => x.CreatedOn)
-                                       .ToArray();
+                                       .Map(q => q.OrderBy(x => x.CreatedOn))
+                                       .Many();
             return localMessages;
         }
 

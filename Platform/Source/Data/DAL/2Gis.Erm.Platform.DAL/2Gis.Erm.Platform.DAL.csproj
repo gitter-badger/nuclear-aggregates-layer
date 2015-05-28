@@ -73,6 +73,8 @@
     <Compile Include="IQueryProvider.cs" />
     <Compile Include="ISecureQuery.cs" />
     <Compile Include="MappedQueryableFutureSequence.cs" />
+    <Compile Include="Obsolete\FinderExtensions.cs" />
+    <Compile Include="Obsolete\IncapsulationBreakingQueryableFutureSequence.cs" />
     <Compile Include="QueryProvider.cs" />
     <Compile Include="EAV\WrappedQueryProvider.cs" />
     <Compile Include="EAV\QueryableExtensions.cs" />

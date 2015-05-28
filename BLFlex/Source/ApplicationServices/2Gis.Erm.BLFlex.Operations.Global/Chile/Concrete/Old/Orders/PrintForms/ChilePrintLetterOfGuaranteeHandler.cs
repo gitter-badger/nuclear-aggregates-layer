@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Orders.Print
 
         protected override Response Handle(PrintLetterOfGuaranteeRequest request)
         {
-            var order = _finder.Find(Specs.Find.ById<Order>(request.OrderId)).Single();
+            var order = _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId)).Single();
 
             if (order == null)
             {

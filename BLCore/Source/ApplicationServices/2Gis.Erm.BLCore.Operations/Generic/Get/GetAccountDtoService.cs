@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         protected override IDomainEntityDto<Account> GetDto(long id)
         {
             var dto = _finder.Find(new FindSpecification<Account>(x => x.Id == id))
-                             .Select(entity => new AccountDomainEntityDto
+                             .Map(q => q.Select(entity => new AccountDomainEntityDto
                                  {
                                      Id = entity.Id,
                                      AccountDetailBalance = entity.Balance,
@@ -58,8 +59,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                      ModifiedByRef = new EntityReference { Id = entity.ModifiedBy, Name = null },
                                      ModifiedOn = entity.ModifiedOn,
                                      OwnerRef = new EntityReference { Id = entity.OwnerCode, Name = null }
-                                 })
-                             .SingleOrDefault();
+                                 }))
+                             .One();
 
             if (dto == null)
             {
@@ -67,9 +68,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             }
 
             var lockDeatilCost = _finder.Find(new FindSpecification<Account>(x => x.Id == dto.Id))
-                                        .SelectMany(x => x.Locks)
-                                        .Where(x => !x.IsDeleted && x.IsActive)
-                                        .Sum(x => (decimal?)x.PlannedAmount) ?? 0;
+                                        .Fold(q => q.SelectMany(x => x.Locks)
+                                                    .Where(x => !x.IsDeleted && x.IsActive)
+                                                    .Sum(x => (decimal?)x.PlannedAmount)) ?? 0;
             dto.LockDetailBalance = dto.AccountDetailBalance - lockDeatilCost;
 
 
@@ -106,8 +107,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
             {
-                    dto.LegalPersonRef = new EntityReference(parentEntityId.Value,
-                                                             _finder.Find(new FindSpecification<LegalPerson>(x => x.Id == parentEntityId)).Select(x => x.LegalName).SingleOrDefault());
+                dto.LegalPersonRef = new EntityReference(parentEntityId.Value,
+                                                         _finder.Find(new FindSpecification<LegalPerson>(x => x.Id == parentEntityId)).Map(q => q.Select(x => x.LegalName)).One());
             }
 
             return dto;

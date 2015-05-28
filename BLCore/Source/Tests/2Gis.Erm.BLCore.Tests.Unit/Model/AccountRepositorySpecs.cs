@@ -12,6 +12,7 @@ using Machine.Specifications;
 
 using Moq;
 
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.Model
         Establish context = () =>
             {
                 var finderMock = new Mock<ISecureFinder>();
-                finderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Account>>())).Returns(new[] { Account }.AsQueryable());
+                finderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Account>>())).Returns(new QueryableFutureSequence<Account>(new[] { Account }.AsQueryable()));
 
                 _assignAccountRepository = new AccountRepository(null,
                                                                  null,

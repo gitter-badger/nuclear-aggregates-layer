@@ -25,9 +25,9 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<TerritoryGridDoc>> Project()
+            public static MapSpecification<ObjectAccessor, IndexedDocumentWrapper<TerritoryGridDoc>> Project()
             {
-                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<TerritoryGridDoc>>(
+                return new MapSpecification<ObjectAccessor, IndexedDocumentWrapper<TerritoryGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<Territory>();

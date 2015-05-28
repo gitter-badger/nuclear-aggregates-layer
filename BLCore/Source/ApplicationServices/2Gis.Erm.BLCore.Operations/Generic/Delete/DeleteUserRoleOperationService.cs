@@ -3,6 +3,7 @@ using System.Transactions;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Delete;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var userRole = _finder.Find(new FindSpecification<UserRole>(x => x.Id == entityId)).Single();
+                var userRole = _finder.FindObsolete(new FindSpecification<UserRole>(x => x.Id == entityId)).Single();
 
                 _userRepository.Delete(userRole);
 

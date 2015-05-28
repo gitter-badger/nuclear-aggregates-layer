@@ -17,6 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
 {
@@ -44,7 +45,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
         protected override Response Handle(PrintBillRequest request)
         {
             var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
-                                  .Select(bill => new
+                                  .Map(q => q.Select(bill => new
                                       {
                                           Bill = bill,
                                           bill.Order,
@@ -57,8 +58,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
                                           OrderVatRate = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                           bill.Order.Bargain,
                                           bill.Order.LegalPerson.LegalPersonTypeEnum
-                                      })
-                                  .SingleOrDefault();
+                                      }))
+                                  .One();
 
             if (billInfo == null)
             {
@@ -80,7 +81,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Bills
             var profile = _legalPersonReadModel.GetLegalPersonProfile(billInfo.LegalPersonProfileId.Value);
             var orderVatRate = (billInfo.OrderVatRate.Value == default(decimal)) ? BLResources.NoVatText : billInfo.OrderVatRate.ToString();
             var branchOfficeOrganizationUnit = billInfo.BranchOfficeOrganizationUnitId.HasValue
-                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(billInfo.BranchOfficeOrganizationUnitId.Value))
+                ? _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(billInfo.BranchOfficeOrganizationUnitId.Value)).One()
                 : null;
 
             var printData = new PrintData

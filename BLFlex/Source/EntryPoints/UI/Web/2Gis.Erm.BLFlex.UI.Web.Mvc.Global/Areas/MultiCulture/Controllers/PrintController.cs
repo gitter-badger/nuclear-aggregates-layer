@@ -67,7 +67,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
                 IsMassBillCreateAvailable = false
             };
 
-            var orderInfo = _secureFinder.Find(Specs.Find.ById<Order>(id) & Specs.Find.ActiveAndNotDeleted<Order>()).FirstOrDefault();
+            var orderInfo = _secureFinder.Find(Specs.Find.ById<Order>(id) & Specs.Find.ActiveAndNotDeleted<Order>()).Top();
             if (orderInfo != null)
             {
                 var request = new GetRelatedOrdersForPrintJointBillRequest { OrderId = orderInfo.Id };
@@ -81,7 +81,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.MultiCulture.Controllers
         [HttpGet]
         public JsonNetResult GetRelatedOrdersInfoForPrintJointBill(long orderId)
         {
-            var orderInfo = _secureFinder.FindOne(new FindSpecification<Order>(o => o.Id == orderId && o.IsActive && !o.IsDeleted));
+            var orderInfo = _secureFinder.Find(new FindSpecification<Order>(o => o.Id == orderId && o.IsActive && !o.IsDeleted)).One();
             if (orderInfo == null)
             {
                 return new JsonNetResult(null);

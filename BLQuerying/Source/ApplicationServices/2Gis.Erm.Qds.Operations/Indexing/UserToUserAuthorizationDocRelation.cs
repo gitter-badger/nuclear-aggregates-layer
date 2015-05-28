@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Qds.API.Operations;
@@ -23,7 +22,7 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         public UserToUserAuthorizationDocRelation(IFinder finder, IMetadataProvider metadataProvider)
         {
-            var departments = finder.Find(Specs.Find.Active<Department>()).ToArray();
+            var departments = finder.Find(Specs.Find.Active<Department>()).Many();
             var entityToDocumentProjectionMetadatas = metadataProvider.GetEntityToDocumentProjectionMetadatas();
             var relationFeatures = entityToDocumentProjectionMetadatas.SelectMany(x => x.Value).Distinct().ToArray();
 

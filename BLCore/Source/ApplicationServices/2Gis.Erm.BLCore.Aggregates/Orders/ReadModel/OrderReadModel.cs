@@ -23,6 +23,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -32,6 +33,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
@@ -66,18 +68,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public IReadOnlyDictionary<long, IEnumerable<long>> GetRelatedOrdersByFirm(IEnumerable<long> orderIds)
         {
             return _finder.Find(Specs.Find.ByIds<Order>(orderIds))
-                          .Select(o => new
+                          .Map(q => q.Select(o => new
                                             {
                                                 OrderId = o.Id,
                                                 RelatedOrderIds = o.Firm.Orders.Where(x => x.Id != o.Id).Select(x => x.Id)
-                                            })
-                          .ToDictionary(x => x.OrderId, x => x.RelatedOrderIds);
+                                            }))
+                          .Map(x => x.OrderId, x => x.RelatedOrderIds);
         }
 
         public IEnumerable<OrderReleaseInfo> GetOrderReleaseInfos(long organizationUnitId, TimePeriod period)
         {
             return _finder.Find(OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) && Specs.Find.ActiveAndNotDeleted<Order>())
-                          .Select(o => new OrderReleaseInfo
+                          .Map(q => q.Select(o => new OrderReleaseInfo
                                            {
                                                OrderId = o.Id,
                                                OrderNumber = o.Number,
@@ -103,22 +105,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                                        IsPlannedProvision =
                                                                                            SalesModelUtil.PlannedProvisionSalesModels.Contains(op.PricePosition.Position.SalesModel)
                                                                                    })
-                                           })
-                          .ToArray();
+                                           }))
+                          .Many();
         }
 
         public IEnumerable<long> GetOrderIdsForRelease(long organizationUnitId, TimePeriod period)
         {
             return _finder.Find(OrderSpecs.Orders.Find.ForRelease(organizationUnitId, period) &&
                                 Specs.Find.ActiveAndNotDeleted<Order>())
-                          .Select(x => x.Id)
-                          .ToArray();
+                          .Map(q => q.Select(x => x.Id))
+                          .Many();
         }
 
         public OrderValidationAdditionalInfo[] GetOrderValidationAdditionalInfos(IEnumerable<long> orderIds)
         {
             var orderInfos = _finder.Find(Specs.Find.ByIds<Order>(orderIds))
-                                    .Select(o => new
+                                    .Map(q => q.Select(o => new
                                         {
                                             o.Id,
                                             o.Number,
@@ -127,12 +129,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                             DestOrganizationUnitName = o.DestOrganizationUnit.Name,
                                             FirmName = o.Firm.Name,
                                             LegalPersonName = o.LegalPerson.ShortName
-                                        })
-                                    .ToArray();
+                                        }))
+                                    .Many();
 
             // есть вариант дальнейшее вытягивание инфы по пользователю делать через ISecurityServiceUserIdentifier.GetUserInfo(int? userCode),
             // но т.к. это будет делаться последовательными запросами по одной записи пока от этого отказались
-            var userInfos = _finder.Find(Specs.Find.ByIds<User>(orderInfos.Select(i => i.OwnerCode)))
+            var userInfos = _finder.FindObsolete(Specs.Find.ByIds<User>(orderInfos.Select(i => i.OwnerCode)))
                                    .Select(u => new
                                        {
                                            u.Id,
@@ -158,13 +160,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             return _finder
                 .Find(OrderSpecs.Orders.Find.CompletelyReleasedByOrganizationUnit(sourceOrganizationUnitId))
-                .ToArray();
+                .Many();
         }
 
         public IEnumerable<OrderWithDummyAdvertisementDto> GetOrdersWithDummyAdvertisement(long organizationUnitId, long ownerCode, bool includeOwnerDescendants)
         {
             var dummyAdvertisements =
-                _finder.Find(new FindSpecification<AdvertisementTemplate>(x => !x.IsDeleted)).Select(x => x.DummyAdvertisementId).Where(x => x.HasValue).ToArray();
+                _finder.Find(new FindSpecification<AdvertisementTemplate>(x => !x.IsDeleted))
+                       .Map(q => q.Select(x => x.DummyAdvertisementId).Where(x => x.HasValue))
+                       .Many();
 
             var userDescendantsQuery = _query.For<UsersDescendant>();
 
@@ -181,7 +185,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                                       y =>
                                                                       y.IsActive && !y.IsDeleted &&
                                                                       y.OrderPositionAdvertisements.Any(z => dummyAdvertisements.Contains(z.AdvertisementId)))))
-                                    .Select(x => new
+                                    .Map(q => q.Select(x => new
                                         {
                                             x.Id,
                                             DestOrganizationUnitName = x.DestOrganizationUnit.Name,
@@ -192,9 +196,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                             x.BeginDistributionDate,
                                             x.WorkflowStepId,
                                             x.OwnerCode
-                                        }).ToArray();
+                                        }))
+                                    .Many();
 
-            var userInfos = _finder.Find(Specs.Find.ByIds<User>(orderInfos.Select(x => x.OwnerCode)))
+            var userInfos = _finder.FindObsolete(Specs.Find.ByIds<User>(orderInfos.Select(x => x.OwnerCode)))
                                    .Select(u => new
                                        {
                                            u.Id,
@@ -220,30 +225,28 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                              .ToArray();
         }
 
-        public IDictionary<long, string> PickInactiveOrDeletedOrderPositionNames(IEnumerable<long> orderPositionIds)
+        public IReadOnlyDictionary<long, string> PickInactiveOrDeletedOrderPositionNames(IEnumerable<long> orderPositionIds)
         {
             return _finder.Find(Specs.Find.ByIds<OrderPosition>(orderPositionIds) && Specs.Find.InactiveOrDeletedEntities<OrderPosition>())
-                          .Select(x => new
+                          .Map(q => q.Select(x => new
                                            {
                                                Id = x.Id,
                                                Name = x.PricePosition.Position.Name
-                                           })
-                          .ToDictionary(x => x.Id, y => y.Name);
+                                           }))
+                          .Map(x => x.Id, y => y.Name);
         }
 
         public IEnumerable<long> GetExistingOrderPositionIds(IEnumerable<long> orderPositionIds)
         {
             return _finder.Find(Specs.Find.ByIds<OrderPosition>(orderPositionIds))
-                          .Select(x => x.Id)
-                          .ToArray();
+                          .Map(q => q.Select(x => x.Id))
+                          .Many();
         }
 
-        public Dictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(
-            IEnumerable<long> orderIds,
-            DateTime startPeriodDate,
-            DateTime endPeriodDate)
+        public IReadOnlyDictionary<long, Dictionary<PlatformEnum, decimal>> GetOrderPlatformDistributions(IEnumerable<long> orderIds, DateTime startPeriodDate, DateTime endPeriodDate)
         {
-            return _finder.Find(new FindSpecification<Order>(x => orderIds.Contains(x.Id))).Select(x => new
+            return _finder.Find(new FindSpecification<Order>(x => orderIds.Contains(x.Id)))
+                .Map(q => q.Select(x => new
                 {
                     x.Id,
                     distributions = x.OrderPositions.Where(y => y.IsActive && !y.IsDeleted)
@@ -258,12 +261,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                              Platform = (PlatformEnum)y.Key,
                                              AmountToWithdraw = y.Sum(z => z.AmountToWithdraw)
                                          })
-                }).ToDictionary(x => x.Id, x => x.distributions.ToDictionary(y => y.Platform, y => y.AmountToWithdraw));
+                }))
+                .Map(x => x.Id, x => x.distributions.ToDictionary(y => y.Platform, y => y.AmountToWithdraw));
         }
 
         public long? EvaluateOrderPlatformId(long orderId)
         {
-            var platformIds = _finder.Find(Specs.Find.ById<Order>(orderId))
+            var platformIds = _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .SelectMany(o => o.OrderPositions)
                           .Where(item => item.IsActive && !item.IsDeleted)
                           .Select(item => item.PricePosition.Position.PlatformId)
@@ -271,7 +275,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                           .ToArray(); 
             
             var platformId = platformIds.Count() > 1
-                                 ? _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (long)PlatformEnum.Independent)).Single().Id
+                                 ? _finder.FindObsolete(new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (long)PlatformEnum.Independent)).Single().Id
                                  : platformIds.FirstOrDefault();
 
            return platformId == 0 ? null : platformId as long?;
@@ -299,7 +303,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             // todo {all, 2013-07-24}: Если в рамках задачи ERM-104 свершится отказ от колонки DgppId, здесь не потребуется выборка
             //                         Кроме того, этот метод перестанет контактировать с хранилищем данных и его можно будет убрать из репозитория
             var orderPlatformType = orderPlatformId.HasValue
-                                        ? (PlatformEnum?)_finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Platform>(orderPlatformId.Value)).Single().DgppId
+                                        ? (PlatformEnum?)_finder.FindObsolete(Specs.Find.ById<Platform.Model.Entities.Erm.Platform>(orderPlatformId.Value)).Single().DgppId
                                         : null;
 
             // Имеем схему вариантов (есть/нет суффикс платформы, есть/нет платформа):
@@ -410,26 +414,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 _finder
                     .Find(Specs.Find.ActiveAndNotDeleted<Order>()
                           && OrderSpecs.Orders.Find.ForLegalPerson(legalPersonId))
-                    .ToArray();
+                    .Many();
         }
 
         public Order GetOrderByBill(long billId)
         {
-            return _finder.Find(new FindSpecification<Order>(x => x.IsActive && !x.IsDeleted && x.Bills.Any(y => y.Id == billId))).FirstOrDefault();
+            return _finder.Find(new FindSpecification<Order>(x => x.IsActive && !x.IsDeleted && x.Bills.Any(y => y.Id == billId))).Top();
         }
 
         public OrderWithBillsDto GetOrderWithBills(long orderId)
         {
             return
                 _finder.Find(Specs.Find.ById<Order>(orderId))
-                       .Select(x => new OrderWithBillsDto { Order = x, Bills = x.Bills.Where(y => y.IsActive && !y.IsDeleted) })
-                       .SingleOrDefault();
+                       .Map(q => q.Select(x => new OrderWithBillsDto { Order = x, Bills = x.Bills.Where(y => y.IsActive && !y.IsDeleted) }))
+                       .One();
         }
 
         public OrderPosition[] GetPositions(long orderId)
         {
             // сортируем от меньшего к большему для лучшей точности вычислений
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .SelectMany(x => x.OrderPositions)
                           .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
                           .OrderBy(x => x.PricePerUnit)
@@ -480,8 +484,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             var orderTypeId = EntityType.Instance.Order().Id;
             return _finder.Find(new FindSpecification<Note>(x => x.ParentId == orderId && x.ParentType == orderTypeId && x.ModifiedOn > sinceDate))
-                          .OrderByDescending(x => x.ModifiedOn)
-                          .FirstOrDefault();
+                          .Map(q => q.OrderByDescending(x => x.ModifiedOn))
+                          .Top();
         }
 
         public bool IsOrganizationUnitsBothBranches(long sourceOrganizationUnitId, long destOrganizationUnitId)
@@ -545,11 +549,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public bool TryGetActualPriceIdForOrder(long orderId, out long actualPriceId)
         {
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
-                                   .Select(x => new
+                                   .Map(q => q.Select(x => new
                                        {
                                            x.DestOrganizationUnitId,
                                            x.BeginDistributionDate
-                                       }).FirstOrDefault();
+                                       }))
+                                   .Top();
 
             if (orderInfo == null)
             {
@@ -563,12 +568,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public bool TryGetActualPriceId(long organizationUnitId, DateTime beginDistributionDate, out long actualPriceId)
         {
             var priceId = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
-                                 .SelectMany(
-                                             x =>
-                                             x.Prices.Where(
-                                                            y => y.IsActive && !y.IsDeleted && y.IsPublished && y.BeginDate <= beginDistributionDate))
-                                 .OrderByDescending(y => y.BeginDate)
-                                 .Select(price => price.Id).FirstOrDefault();
+                                 .Map(q => q.SelectMany(x => x.Prices
+                                                              .Where(y => y.IsActive && !y.IsDeleted && y.IsPublished && y.BeginDate <= beginDistributionDate))
+                                            .OrderByDescending(y => y.BeginDate)
+                                            .Select(price => price.Id))
+                                 .Top();
 
             actualPriceId = priceId;
             return priceId != 0;
@@ -576,13 +580,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public Order GetOrderSecure(long orderId)
         {
-            return _secureFinder.FindOne(Specs.Find.ById<Order>(orderId));
+            return _secureFinder.Find(Specs.Find.ById<Order>(orderId)).One();
         }
 
         public OrderLinkingObjectsDto GetOrderLinkingObjectsDto(long orderId)
         {
             var dto = _finder.Find(Specs.Find.ById<Order>(orderId))
-                             .Select(order => new OrderLinkingObjectsDto
+                             .Map(q => q.Select(order => new OrderLinkingObjectsDto
                                                   {
                                                       FirmId = order.FirmId,
                                                       DestOrganizationUnitId = order.DestOrganizationUnitId,
@@ -590,8 +594,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                       EndDistributionDatePlan = order.EndDistributionDatePlan,
                                                       ReleaseCountFact = order.ReleaseCountFact,
                                                       ReleaseCountPlan = order.ReleaseCountPlan,
-                                                  })
-                             .SingleOrDefault();
+                                                  }))
+                             .One();
 
             if (dto == null)
             {
@@ -603,7 +607,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public bool OrderPriceWasPublished(long organizationUnitId, DateTime orderBeginDistributionDate)
         {
-            return _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
+            return _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
                           .SelectMany(unit => unit.Prices)
                           .Where(Specs.Find.ActiveAndNotDeleted<Price>())
                           .Any(price => price.IsPublished && price.BeginDate <= orderBeginDistributionDate);
@@ -611,7 +615,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public OrderForProlongationDto GetOrderForProlongationInfo(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => new OrderForProlongationDto
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId)).Select(x => new OrderForProlongationDto
                 {
                     OrderId = x.Id,
                     OrderType = x.OrderType,
@@ -636,17 +640,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public OrderState GetOrderState(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.WorkflowStepId).Single();
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId)).Select(x => x.WorkflowStepId).Single();
         }
 
         public OrderType GetOrderType(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.OrderType).Single();
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId)).Select(x => x.OrderType).Single();
         }
 
         public OrderPositionWithAdvertisementsDto[] GetOrderPositionsWithAdvertisements(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .SelectMany(order => order.OrderPositions)
                           .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
                           .Select(position => new OrderPositionWithAdvertisementsDto
@@ -661,25 +665,25 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public IEnumerable<OrderPosition> GetOrderPositions(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .SelectMany(order => order.OrderPositions)
                           .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
                           .ToList();
         }
 
-        public IDictionary<long, string> GetOrderOrganizationUnitsSyncCodes(params long[] organizationUnitId)
+        public IReadOnlyDictionary<long, string> GetOrderOrganizationUnitsSyncCodes(params long[] organizationUnitId)
         {
             return _finder.Find(new FindSpecification<OrganizationUnit>(unit => organizationUnitId.Contains(unit.Id)))
-                          .ToDictionary(unit => unit.Id, unit => unit.SyncCode1C);
+                          .Map(unit => unit.Id, unit => unit.SyncCode1C);
         }
 
         public IEnumerable<RelatedOrderDescriptor> GetRelatedOrdersToCreateBill(long orderId)
         {
-            var modelOrder = _finder.Find(new FindSpecification<Order>(o => o.Id == orderId && o.IsActive && !o.IsDeleted)).Single();
+            var modelOrder = _finder.FindObsolete(new FindSpecification<Order>(o => o.Id == orderId && o.IsActive && !o.IsDeleted)).Single();
             var relatedOrders = (from order in _query.For<Order>()
                                  join sou in _query.For<OrganizationUnit>() on order.SourceOrganizationUnitId equals sou.Id
                                  join dou in _query.For<OrganizationUnit>() on order.DestOrganizationUnitId equals dou.Id
-                                 join bill in _finder.Find(new FindSpecification<Bill>(b => b.IsActive && !b.IsDeleted)) on order.Id equals bill.OrderId into
+                                 join bill in _query.For(new FindSpecification<Bill>(b => b.IsActive && !b.IsDeleted)) on order.Id equals bill.OrderId into
                                      orderBills
                                  from orderBill in orderBills.DefaultIfEmpty()
                                  where
@@ -705,7 +709,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             RelatedOrderDescriptor[] relatedOrders = null;
             var modelOrderEntries = (from order in _query.For<Order>()
-                                     join bill in _finder.Find(new FindSpecification<Bill>(b => b.IsActive && !b.IsDeleted)) on order.Id equals bill.OrderId into orderBills
+                                     join bill in _query.For(new FindSpecification<Bill>(b => b.IsActive && !b.IsDeleted)) on order.Id equals bill.OrderId into orderBills
                                      where order.Id == orderId && order.IsActive && !order.IsDeleted
                                      select order).ToArray();
 
@@ -717,8 +721,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                 relatedOrders = (from order in _query.For<Order>()
                                  join sou in _query.For<OrganizationUnit>() on order.SourceOrganizationUnitId equals sou.Id
                                  join dou in _query.For<OrganizationUnit>() on order.DestOrganizationUnitId equals dou.Id
-                                 join bill in _finder.Find(new FindSpecification<Bill>(b => b.IsActive && !b.IsDeleted)) on order.Id equals bill.OrderId
-                                 join modelBill in _finder.Find(new FindSpecification<Bill>(b => b.IsActive && !b.IsDeleted && b.OrderId == orderId)) on
+                                 join bill in _query.For(new FindSpecification<Bill>(b => b.IsActive && !b.IsDeleted)) on order.Id equals bill.OrderId
+                                 join modelBill in _query.For(new FindSpecification<Bill>(b => b.IsActive && !b.IsDeleted && b.OrderId == orderId)) on
                                      new { bill.BeginDistributionDate, bill.EndDistributionDate } equals
                                      new { modelBill.BeginDistributionDate, modelBill.EndDistributionDate } into orderBills
                                  where
@@ -749,31 +753,30 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             return
                 _finder.Find(new FindSpecification<Order>(x => x.Id == orderId))
-                       .Select(
-                               x =>
-                               new OrderInfoToCheckOrderBeginDistributionDate
-                                   {
-                                       OrderId = x.Id,
-                                       BeginDistributionDate = x.BeginDistributionDate,
-                                       SourceOrganizationUnitId = x.SourceOrganizationUnitId,
-                                       DestinationOrganizationUnitId = x.DestOrganizationUnitId
-                                   })
-                       .SingleOrDefault();
+                       .Map(q => q.Select(x =>
+                                          new OrderInfoToCheckOrderBeginDistributionDate
+                                              {
+                                                  OrderId = x.Id,
+                                                  BeginDistributionDate = x.BeginDistributionDate,
+                                                  SourceOrganizationUnitId = x.SourceOrganizationUnitId,
+                                                  DestinationOrganizationUnitId = x.DestOrganizationUnitId
+                                              }))
+                       .One();
         }
 
         public IEnumerable<OrderPayablePlanInfo> GetPayablePlans(long[] orderIds)
         {
             return
                 _finder.Find(new FindSpecification<Order>(o => o.IsActive && !o.IsDeleted && orderIds.Contains(o.Id)))
-                       .Select(o => new OrderPayablePlanInfo { OrderId = o.Id, PayablePlan = o.PayablePlan })
-                       .ToArray();
+                       .Map(q => q.Select(o => new OrderPayablePlanInfo { OrderId = o.Id, PayablePlan = o.PayablePlan }))
+                       .Many();
         }
 
         public OrderInfoToGetInitPayments GetOrderInfoForInitPayments(long orderId)
         {
             // Здесь нужен finder небезопасный
             return
-                _finder.Find(new FindSpecification<Order>(x => x.IsActive && !x.IsDeleted && x.Id == orderId))
+                _finder.FindObsolete(new FindSpecification<Order>(x => x.IsActive && !x.IsDeleted && x.Id == orderId))
                        .Select(
                                x =>
                                new OrderInfoToGetInitPayments
@@ -794,10 +797,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var startDateForNotActualClientPeriod = startDate.Date.AddDays(-1);
             var endDateForNotActualClientPeriod = startDate.Date.AddMilliseconds(-1);
 
-            var apiPlatformId = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (int)PlatformEnum.Api)).Select(x => x.Id).Single();
+            var apiPlatformId = _finder.FindObsolete(new FindSpecification<Platform.Model.Entities.Erm.Platform>(x => x.DgppId == (int)PlatformEnum.Api)).Select(x => x.Id).Single();
 
             // Получаем текущих рекламодателей
-            var actualRecepientsInfo = _finder.Find(new FindSpecification<Order>(
+            var actualRecepientsInfo = _finder.FindObsolete(new FindSpecification<Order>(
                                                                 x => x.IsActive && !x.IsDeleted &&
                                                                 x.OrderType != OrderType.SelfAds && x.OrderType != OrderType.SocialAds &&
                                                                 (includeRegional || x.SourceOrganizationUnitId == x.DestOrganizationUnitId) &&
@@ -837,7 +840,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                               .ToArray();
 
             // Получаем бывших рекламодателей
-            var notActualRecepientsInfo = _finder.Find(new FindSpecification<Order>(x => x.IsActive && !x.IsDeleted &&
+            var notActualRecepientsInfo = _finder.FindObsolete(new FindSpecification<Order>(x => x.IsActive && !x.IsDeleted &&
                                                                    x.OrderType != OrderType.SelfAds && x.OrderType != OrderType.SocialAds &&
                                                                    (includeRegional || x.SourceOrganizationUnitId == x.DestOrganizationUnitId) &&
                                                                    (x.WorkflowStepId == OrderState.Archive ||
@@ -880,7 +883,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             var ownerCodes = recepientsInfo.Select(x => x.Value.OwnerCode).Distinct().ToArray();
 
-            var userProfiles = _finder.Find(new FindSpecification<User>(x => x.IsActive && !x.IsDeleted && ownerCodes.Contains(x.Id))).SelectMany(x => x.UserProfiles).ToArray();
+            var userProfiles = _finder.Find(new FindSpecification<User>(x => x.IsActive && !x.IsDeleted && ownerCodes.Contains(x.Id)))
+                                      .Map(q => q.SelectMany(x => x.UserProfiles))
+                                      .Many();
 
             var result = recepientsInfo
                 .Select(x => new RecipientDto
@@ -910,8 +915,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public ReleaseNumbersDto CalculateReleaseNumbers(long organizationUnitId, DateTime rawBeginDistributuionDate, int releaseCountPlan, int releaseCountFact)
         {
             var firstEmitDate = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
-                                       .Select(x => (DateTime?)x.FirstEmitDate)
-                                       .FirstOrDefault();
+                                       .Map(q => q.Select(x => (DateTime?)x.FirstEmitDate))
+                                       .Top();
 
             if (firstEmitDate == null)
             {
@@ -968,14 +973,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         // COMMENT {all, 18.12.2014}: это PayablePriceWithVat
         public decimal GetPayablePlanSum(long orderId, int releaseCount)
         {
-            return _finder.Find(new FindSpecification<OrderPosition>(x => x.OrderId == orderId))
-                          .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
-                          .Sum(x => (decimal?)(x.PricePerUnitWithVat * x.Amount * releaseCount)) ?? 0m;
+            return _finder.Find(new FindSpecification<OrderPosition>(x => x.OrderId == orderId) &&
+                                Specs.Find.ActiveAndNotDeleted<OrderPosition>())
+                          .Fold(q => q.Sum(x => (decimal?)(x.PricePerUnitWithVat * x.Amount * releaseCount))) ?? 0m;
         }
 
         public OrderFinancialInfo GetFinancialInformation(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .Select(x => new OrderFinancialInfo
                               {
                                   DiscountSum = x.DiscountSum,
@@ -989,7 +994,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public OrderCompletionState GetOrderCompletionState(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .Select(order => new OrderCompletionState
                               {
                                   LegalPerson = order.LegalPersonId != null,
@@ -1001,7 +1006,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public OrderDeactivationPosibility IsOrderDeactivationPossible(long orderId)
         {
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
-                                   .Select(x => new
+                                   .Map(q => q.Select(x => new
                                        {
                                            x.Id,
                                            x.Number,
@@ -1012,7 +1017,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                            x.IsTerminated,
                                            x.TerminationReason,
                                            x.Comment
-                                       }).SingleOrDefault();
+                                       }))
+                                   .One();
 
             if (null == orderInfo)
             {
@@ -1074,7 +1080,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             if (orderInfo.BargainId.HasValue)
             {
-                var hasOtherOrdersInBargain = _finder.Find(Specs.Find.ById<Order>(orderId))
+                var hasOtherOrdersInBargain = _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                                                      .Select(x => x.Bargain.Orders.Any(y => y.IsActive && !y.IsDeleted && y.Id != orderInfo.Id))
                                                      .Single();
 
@@ -1100,7 +1106,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public OrderStateValidationInfo GetOrderStateValidationInfo(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(x => new OrderStateValidationInfo
+                          .Map(q => q.Select(x => new OrderStateValidationInfo
                               {
                                   LegalPersonId = x.LegalPersonId,
                                   BranchOfficeOrganizationUnitId = x.BranchOfficeOrganizationUnitId,
@@ -1108,8 +1114,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                   DestOrganizationUnitId = x.DestOrganizationUnitId,
                                   HasDocumentsDebt = x.HasDocumentsDebt,
                                   AnyPositions = x.OrderPositions.Any(y => y.IsActive && !y.IsDeleted)
-                              })
-                          .SingleOrDefault();
+                              }))
+                          .One();
         }
 
         public bool IsOrderForOrganizationUnitsPairExist(long orderId, long sourceOrganizationUnitId, long destOrganizationUnitId)
@@ -1122,12 +1128,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public IEnumerable<Order> GetOrdersForDeal(long dealId)
         {
-            return _finder.Find(new FindSpecification<Order>(x => x.DealId == dealId && x.IsActive && !x.IsDeleted)).ToArray();
+            return _finder.Find(new FindSpecification<Order>(x => x.DealId == dealId && x.IsActive && !x.IsDeleted)).Many();
         }
 
         public OrderPositionAdvertisementLinksDto GetOrderPositionAdvertisementLinksInfo(long orderPositionId)
         {
-            return _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionId))
+            return _finder.FindObsolete(Specs.Find.ById<OrderPosition>(orderPositionId))
                           .Select(position => new OrderPositionAdvertisementLinksDto
                               {
                                   AdvertisementLinks = position.OrderPositionAdvertisements,
@@ -1140,14 +1146,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public OrderUsageDto GetOrderUsage(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .Select(order => new OrderUsageDto { Order = order, AnyLocks = order.Locks.Any(@lock => !@lock.IsDeleted) })
                           .Single();
         }
 
         public OrderDiscountsDto GetOrderDiscounts(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .Select(x =>
                                   new OrderDiscountsDto
                                       {
@@ -1161,20 +1167,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public Order GetOrderUnsecure(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId)).SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<Order>(orderId)).One();
         }
 
         public IEnumerable<SubPositionDto> GetSelectedSubPositions(long orderPositionId)
         {
             return _finder.Find(new FindSpecification<OrderPosition>(x => x.Id == orderPositionId))
-                          .SelectMany(x => x.OrderPositionAdvertisements)
-                          .Select(x => new SubPositionDto
-                              {
-                                  PositionId = x.PositionId,
-                                  PlatformId = x.Position.PlatformId
-                              })
-                          .Distinct()
-                          .ToArray();
+                          .Map(q => q.SelectMany(x => x.OrderPositionAdvertisements)
+                                     .Select(x => new SubPositionDto
+                                         {
+                                             PositionId = x.PositionId,
+                                             PlatformId = x.Position.PlatformId
+                                         })
+                                     .Distinct())
+                          .Many();
         }
 
         public VatRateDetailsDto GetVatRateDetails(long? sourceOrganizationUnitId, long destOrganizationUnitId)
@@ -1185,11 +1191,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var sourceVat = DefaultVatRate;
             if (sourceOrganizationUnitId.HasValue)
             {
-                sourceVat = _finder.Find(Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value), OrganizationUnitSpecs.Select.VatRate())
+                sourceVat = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value), OrganizationUnitSpecs.Select.VatRate())
                                    .Single();
             }
 
-            var destVat = _finder.Find(Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId), OrganizationUnitSpecs.Select.VatRate())
+            var destVat = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId), OrganizationUnitSpecs.Select.VatRate())
                                  .Single();
 
             return DetermineVatRate(sourceVat, destVat);
@@ -1197,7 +1203,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public VatRateDetailsDto GetVatRateDetails(long orderId)
         {
-            var orderVatInfo = _finder.Find(Specs.Find.ById<Order>(orderId))
+            var orderVatInfo = _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                                     .Select(item => new
                                                         {
 
@@ -1248,17 +1254,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public long GetOrderOwnerCode(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.OwnerCode).Single();
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId)).Select(x => x.OwnerCode).Single();
         }
 
         public IReadOnlyCollection<Bargain> GetNonClosedClientBargains()
         {
-            return _finder.Find(OrderSpecs.Bargains.Find.NonClosed && OrderSpecs.Bargains.Find.ClientBargains()).ToArray();
+            return _finder.Find(OrderSpecs.Bargains.Find.NonClosed && OrderSpecs.Bargains.Find.ClientBargains()).Many();
         }
 
         public Bargain GetBargain(long bargainId)
         {
-            return _finder.FindOne(Specs.Find.ById<Bargain>(bargainId));
+            return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).One();
         }
 
         public string GetDuplicateAgentBargainNumber(long bargainId,
@@ -1270,13 +1276,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return
                 _finder.Find(OrderSpecs.Bargains.Find.Duplicate(bargainId, legalPersonId, branchOfficeOrganizationUnitId, bargainBeginDate, bargainEndDate) &&
                              Specs.Find.ActiveAndNotDeleted<Bargain>() && OrderSpecs.Bargains.Find.AgentBargains())
-                       .Select(x => x.Number)
-                       .FirstOrDefault();
+                       .Map(q => q.Select(x => x.Number))
+                       .Top();
         }
 
         public IDictionary<string, DateTime> GetBargainUsage(long bargainId)
         {
-            return _finder.Find(Specs.Find.ById<Bargain>(bargainId))
+            return _finder.FindObsolete(Specs.Find.ById<Bargain>(bargainId))
                           .SelectMany(x => x.Orders)
                           .Where(Specs.Find.ActiveAndNotDeleted<Order>())
                           .ToDictionary(x => x.Number, x => x.EndDistributionDateFact);
@@ -1285,13 +1291,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public BargainEndAndCloseDatesDto GetBargainEndAndCloseDates(long bargainId)
         {
             return _finder.Find(Specs.Find.ById<Bargain>(bargainId))
-                          .Select(x =>
+                          .Map(q => q.Select(x =>
                                   new BargainEndAndCloseDatesDto
                                       {
                                           BargainEndDate = x.BargainEndDate,
                                           BargainCloseDate = x.ClosedOn
-                                      })
-                          .SingleOrDefault();
+                                      }))
+                          .One();
         }
 
         public IEnumerable<OrderSuitableBargainDto> GetSuitableBargains(long legalPersonId,
@@ -1301,19 +1307,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return
                 _finder.Find(OrderSpecs.Bargains.Find.ByLegalPersons(legalPersonId, branchOfficeOrganizationUnitId) && Specs.Find.ActiveAndNotDeleted<Bargain>()
                              && OrderSpecs.Bargains.Find.NotClosedByCertainDate(orderEndDistributionDate))
-                       .Select(x => new OrderSuitableBargainDto
+                       .Map(q => q.Select(x => new OrderSuitableBargainDto
         {
                                Id = x.Id,
                                EndDate = x.BargainEndDate,
                                Number = x.Number,
                                BargainKind = x.BargainKind
-                           })
-                       .ToArray();
+                           }))
+                       .Many();
         }
 
         public OrderOrganizationUnitDerivedFieldsDto GetFieldValuesByOrganizationUnit(long organizationUnitId)
         {
-            var dto = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
+            var dto = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
                              .Select(x => new
                                               {
                                                   OrganizationUnit = new { x.Id, x.Name },
@@ -1356,13 +1362,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public IEnumerable<Bill> GetBillsForOrder(long orderId)
         {
-            return _finder.FindMany(OrderSpecs.Bills.Find.ByOrder(orderId) & Specs.Find.ActiveAndNotDeleted<Bill>());
+            return _finder.Find(OrderSpecs.Bills.Find.ByOrder(orderId) & Specs.Find.ActiveAndNotDeleted<Bill>()).Many();
         }
 
         public SalesModel GetOrderSalesModel(long orderId)
         {
             return
-                _finder.Find(Specs.Find.ById<Order>(orderId))
+                _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                        .SelectMany(x => x.OrderPositions)
                        .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
                        .Select(x => x.PricePosition.Position.SalesModel)
@@ -1372,7 +1378,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public OrderDocumentsDebtDto GetOrderDocumentsDebtInfo(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .Select(x => new OrderDocumentsDebtDto
                                            {
                                                Order = new EntityReference
@@ -1388,17 +1394,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public long? GetBargainIdByOrder(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.BargainId).Single();
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId)).Select(x => x.BargainId).Single();
         }
 
         public long GetLegalPersonIdByBargain(long bargainId)
         {
-            return _finder.Find(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
+            return _finder.FindObsolete(Specs.Find.ById<Bargain>(bargainId)).Select(x => x.CustomerLegalPersonId).Single();
         }
 
         public OrderDtoToCheckPossibilityOfOrderPositionCreation GetOrderInfoToCheckPossibilityOfOrderPositionCreation(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .Select(x => new OrderDtoToCheckPossibilityOfOrderPositionCreation
                                            {
                                                OrderId = x.Id,
@@ -1419,20 +1425,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public long? GetLegalPersonProfileIdByOrder(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(order => order.LegalPersonProfileId)
-                          .SingleOrDefault();
+                          .Map(q => q.Select(order => order.LegalPersonProfileId))
+                          .One();
         }
 
         public IEnumerable<Order> GetActiveOrdersForLegalPersonProfile(long legalPersonProfileId)
         {
-            return _finder.FindMany(OrderSpecs.Orders.Find.NotInArchive()
-                                    && Specs.Find.ActiveAndNotDeleted<Order>()
-                                    && OrderSpecs.Orders.Find.ByLegalPersonProfileId(legalPersonProfileId));
+            return _finder.Find(OrderSpecs.Orders.Find.NotInArchive()
+                                && Specs.Find.ActiveAndNotDeleted<Order>()
+                                && OrderSpecs.Orders.Find.ByLegalPersonProfileId(legalPersonProfileId))
+                          .Many();
         }
 
         public OrderAmountToWithdrawInfo GetOrderAmountToWithdrawInfo(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                            .Select(o => new OrderAmountToWithdrawInfo
                                                 {
                                                     Order = o,
@@ -1450,7 +1457,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public OrderRecalculateWithdrawalsDto GetOrderRecalculateWithdrawalsInfo(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                         .Select(x => new OrderRecalculateWithdrawalsDto
                         {
                             LocksCount = x.Locks.Count(@lock => !@lock.IsDeleted && !@lock.IsActive),
@@ -1484,20 +1491,20 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public OrderDeleteOrderPositionDto GetOrderPositionDeleteInfo(long orderPositionId)
         {
             return _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionId))
-                          .Select(position => new OrderDeleteOrderPositionDto
+                          .Map(q => q.Select(position => new OrderDeleteOrderPositionDto
                                                   {
                                                       OrderPosition = position,
                                                       Order = position.Order,
                                                       IsDiscountViaPercentCalculation = position.Order.OrderPositions
                                                                                          .Where(y => !y.IsDeleted && y.IsActive)
                                                                                          .All(y => y.CalculateDiscountViaPercent),
-                                                  })
-                          .SingleOrDefault();
+                                                  }))
+                          .One();
         }
 
         public OrderRepairOutdatedOrderPositionDto GetOrderInfoForRepairOutdatedPositions(long orderId)
         {
-            return _finder.Find(Specs.Find.ById<Order>(orderId))
+            return _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .Select(o => new OrderRepairOutdatedOrderPositionDto
                                            {
                                                ReleaseTotals = o.OrderReleaseTotals,
@@ -1537,16 +1544,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public decimal? TakeAmountToWithdrawForOrder(long orderId, int skip, int take)
         {
             return _finder.Find(new FindSpecification<OrderReleaseTotal>(x => x.OrderId == orderId))
-               .OrderBy(x => x.Id)
-               .Skip(skip)
-               .Take(take)
-               .Select(x => (decimal?)x.AmountToWithdraw)
-               .SingleOrDefault();
+                          .Map(q => q.OrderBy(x => x.Id)
+                                     .Skip(skip)
+                                     .Take(take)
+                                     .Select(x => (decimal?)x.AmountToWithdraw))
+                          .One();
         }
 
         public OrderLegalPersonProfileDto GetLegalPersonProfileByOrder(long orderId)
         {
-            var dto = _secureFinder.Find(Specs.Find.ById<Order>(orderId))
+            var dto = _secureFinder.FindObsolete(Specs.Find.ById<Order>(orderId))
                                    .Select(order => new 
                                        {
                                            LegalPersonId = order.LegalPersonId,
@@ -1570,7 +1577,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
         public OrderLegalPersonProfileDto GetLegalPersonProfileByBargain(long bargainId)
         {
-            var dto = _secureFinder.Find(Specs.Find.ById<Bargain>(bargainId))
+            var dto = _secureFinder.FindObsolete(Specs.Find.ById<Bargain>(bargainId))
                                    .Select(x => new
                                                     {
                                                         LegalPersonId = x.CustomerLegalPersonId,
@@ -1580,21 +1587,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 
             var profiles = _secureFinder.Find(LegalPersonSpecs.Profiles.Find.ByLegalPersonId(dto.LegalPersonId)
                                               && Specs.Find.ActiveAndNotDeleted<LegalPersonProfile>())
-                                        .Select(x => new { x.Id, x.Name })
-                                        .Take(2)
-                                        .ToArray();
+                                        .Map(q => q.Select(x => new { x.Id, x.Name })
+                                                   .Take(2))
+                                        .Many();
 
             return new OrderLegalPersonProfileDto
                        {
                            LegalPerson = new EntityReference(dto.LegalPersonId, dto.LegalPersonName),
-                           LegalPersonProfile = profiles.Length == 1 ? new EntityReference(profiles[0].Id, profiles[0].Name) : new EntityReference(),
+                           LegalPersonProfile = profiles.Count == 1 ? new EntityReference(profiles.Single().Id, profiles.Single().Name) : new EntityReference(),
                        };
         }
 
         private OrderParentEntityDerivedFieldsDto GetReferencesByDeal(long dealId)
         {
             var dto = _finder.Find(Specs.Find.ById<Deal>(dealId) & Specs.Find.NotDeleted<Deal>())
-                             .Select(x => new
+                             .Map(q => q.Select(x => new
                                               {
                                                   Deal = new { x.Id, x.Name },
                                                   Currency = new { x.Currency.Id, x.Currency.Name },
@@ -1604,8 +1611,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                                   AnyLinkedFirm = x.FirmDeals.Any(firmDeal => !firmDeal.IsDeleted),
                                                   x.MainFirmId,
                                                   MainFirmName = x.Firm.Name,
-                                              })
-                             .SingleOrDefault();
+                                              }))
+                             .One();
 
             if (dto == null)
             {
@@ -1625,7 +1632,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         private OrderParentEntityDerivedFieldsDto GetReferencesByLegalPerson(long legalPersonId)
         {
             var data = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
-                              .Select(person => new
+                              .Map(q => q.Select(person => new
                               {
                                   Client = new { person.Client.Id, person.Client.Name },
                                   Firms = person.Client.Firms.Select(firm => new
@@ -1636,8 +1643,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
                                       OrganizationUnitName = firm.OrganizationUnit.Name
                                   }),
                                   LegalPerson = new { person.Id, person.LegalName },
-                              })
-                              .SingleOrDefault();
+                              }))
+                              .One();
 
             var result = new OrderParentEntityDerivedFieldsDto();
             if (data != null)
@@ -1654,12 +1661,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         private OrderParentEntityDerivedFieldsDto GetReferencesByFirm(long firmId)
         {
             var data = _finder.Find(Specs.Find.ById<Firm>(firmId))
-                              .Select(firm => new
+                              .Map(q => q.Select(firm => new
                               {
                                   Firm = new { firm.Id, firm.Name, firm.OrganizationUnitId, OrganizationUnitName = firm.OrganizationUnit.Name },
                                   Client = new { firm.Client.Id, firm.Client.Name },
                                   LegalPersons = firm.Client.LegalPersons.Select(person => new { person.Id, person.LegalName })
-                              }).SingleOrDefault();
+                              }))
+                              .One();
 
             var result = new OrderParentEntityDerivedFieldsDto();
             if (data != null)
@@ -1676,19 +1684,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         private OrderParentEntityDerivedFieldsDto GetReferenceByClient(long clientId)
         {
             var data = _finder.Find(Specs.Find.ById<Client>(clientId))
-                              .Select(client => new
-                                           {
-                                  Client = new { client.Id, client.Name },
-                                  Firms = client.Firms.Select(firm => new
-                                                                     {
-                                      firm.Id,
-                                      firm.Name,
-                                      firm.OrganizationUnitId,
-                                      OrganizationUNitName = firm.OrganizationUnit.Name
-                                  }),
-                                  LegalPersons = client.LegalPersons.Select(person => new { person.Id, person.LegalName })
-                                                                     })
-                              .SingleOrDefault();
+                              .Map(q => q.Select(client => new
+                                  {
+                                      Client = new { client.Id, client.Name },
+                                      Firms = client.Firms.Select(firm => new
+                                          {
+                                              firm.Id,
+                                              firm.Name,
+                                              firm.OrganizationUnitId,
+                                              OrganizationUNitName = firm.OrganizationUnit.Name
+                                          }),
+                                      LegalPersons = client.LegalPersons.Select(person => new { person.Id, person.LegalName })
+                                  }))
+                              .One();
 
             var result = new OrderParentEntityDerivedFieldsDto();
             if (data != null)
@@ -1705,15 +1713,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         private Dictionary<long, ContributionTypeEnum?> GetBranchOfficesContributionTypes(params long[] organizationUnitIds)
         {
             var list = _finder.Find(new FindSpecification<OrganizationUnit>(unit => organizationUnitIds.Contains(unit.Id)))
-                              .Select(x => new
+                              .Map(q => q.Select(x => new
                                   {
                                       OrgUnitId = x.Id,
                                       ContributionType = x.BranchOfficeOrganizationUnits
                                                           .Where(boou => boou.IsPrimary && boou.IsActive && !boou.IsDeleted)
                                                           .Select(boou => boou.BranchOffice.ContributionTypeId)
                                                           .FirstOrDefault()
-                                  })
-                              .ToArray();
+                                  }))
+                              .Many();
 
             return list.ToDictionary(x => x.OrgUnitId, x => (ContributionTypeEnum?)x.ContributionType);
         }

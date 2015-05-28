@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Get
         {
         }
 
-        protected override ProjectSpecification<BranchOffice, CyprusBranchOfficeDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<BranchOffice, CyprusBranchOfficeDomainEntityDto> GetProjectSpecification()
         {
             return BranchOfficeFlexSpecs.BranchOffices.Cyprus.Project.DomainEntityDto();
         }

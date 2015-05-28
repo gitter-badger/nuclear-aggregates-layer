@@ -16,12 +16,12 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                  .Operation<CreateIdentity>()
                  .Operation<UpdateIdentity>()
                  .Operation<DeleteIdentity>()
-                 .Use((finder, ids) => finder.Find(Specs.Find.ByIds<PositionChildren>(ids))),
+                 .Use((query, ids) => query.For(Specs.Find.ByIds<PositionChildren>(ids))),
 
             () => EntityOperationMapping<PositionChildren>.ForEntity(EntityType.Instance.Position())
                  .Operation<DeleteIdentity>()
                  .Operation<ActivateIdentity>()
                  .Operation<DeactivateIdentity>()
-                 .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Position>(ids)).SelectMany(x => x.ChildPositions)));
+                 .Use((query, ids) => query.For(Specs.Find.ByIds<Position>(ids)).SelectMany(x => x.ChildPositions)));
     }
 }

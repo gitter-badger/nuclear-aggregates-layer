@@ -9,12 +9,14 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices
@@ -48,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         {
             var associatedPositions = _finder
                 .Find(AssociatedPositionSpecifications.Find.AssociatedPositionsByGroup(associatedPositionsGroup.Id))
-                .ToArray();
+                .Many();
 
             foreach (var associatedPosition in associatedPositions)
             {
@@ -71,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             }
 
             var associatedPositionsGroupInfo = _finder
-                .Find(Specs.Find.ById<AssociatedPositionsGroup>(associatedPositionsGroup.Id))
+                .FindObsolete(Specs.Find.ById<AssociatedPositionsGroup>(associatedPositionsGroup.Id))
                 .Select(x => new
                     {
                         IsPricePublished = x.PricePosition.Price.IsPublished,
@@ -109,7 +111,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
                 throw new ArgumentException(BLResources.AssociatedPositionIsInactiveAlready);
             }
 
-            var priceInfo = _finder.Find(Specs.Find.ById<AssociatedPosition>(associatedPosition.Id))
+            var priceInfo = _finder.FindObsolete(Specs.Find.ById<AssociatedPosition>(associatedPosition.Id))
                 .Select(x => new
                     {
                         x.AssociatedPositionsGroup.PricePosition.Price.IsPublished,
@@ -134,40 +136,40 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         public IEnumerable<PricePositionDto> GetPricePositions(IEnumerable<long> requiredPriceIds, IEnumerable<long> requiredPositionIds)
         {
             return _finder.Find(new FindSpecification<PricePosition>(x => requiredPriceIds.Contains(x.PriceId) && requiredPositionIds.Contains(x.PositionId)))
-                .Select(x => new PricePositionDto
-                {
-                    Id = x.Id,
-                    PositionId = x.PositionId,
-                    PositionName = x.Position.Name,
-                    PriceId = x.PriceId,
-                    Groups = x.AssociatedPositionsGroups
-                             .Where(y => y.IsActive && !y.IsDeleted)
-                             .Select(y => y.AssociatedPositions
-                                              .Where(z => z.IsActive && !z.IsDeleted)
-                                              .Select(z => new PricePositionDto.RelatedItemDto
-                                              {
-                                                  PositionId = z.PositionId,
-                                                  BindingCheckMode = z.ObjectBindingType,
-                                              })),
-                    DeniedPositions = x.Price.DeniedPositions
-                             .Where(y => y.PositionId == x.PositionId && y.IsActive && !y.IsDeleted)
-                             .Select(y => new PricePositionDto.RelatedItemDto
-                             {
-                                 PositionId = y.PositionDeniedId,
-                                 BindingCheckMode = y.ObjectBindingType
-                             })
-                })
-                .ToArray();
+                          .Map(q => q.Select(x => new PricePositionDto
+                              {
+                                  Id = x.Id,
+                                  PositionId = x.PositionId,
+                                  PositionName = x.Position.Name,
+                                  PriceId = x.PriceId,
+                                  Groups = x.AssociatedPositionsGroups
+                                            .Where(y => y.IsActive && !y.IsDeleted)
+                                            .Select(y => y.AssociatedPositions
+                                                          .Where(z => z.IsActive && !z.IsDeleted)
+                                                          .Select(z => new PricePositionDto.RelatedItemDto
+                                                              {
+                                                                  PositionId = z.PositionId,
+                                                                  BindingCheckMode = z.ObjectBindingType,
+                                                              })),
+                                  DeniedPositions = x.Price.DeniedPositions
+                                                     .Where(y => y.PositionId == x.PositionId && y.IsActive && !y.IsDeleted)
+                                                     .Select(y => new PricePositionDto.RelatedItemDto
+                                                         {
+                                                             PositionId = y.PositionDeniedId,
+                                                             BindingCheckMode = y.ObjectBindingType
+                                                         })
+                              }))
+                          .Many();
         }
 
         public bool TryGetActualPriceId(long organizationUnitId, DateTime date, out long actualPriceId)
         {
             var priceId = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
-                                 .SelectMany(unit => unit.Prices)
-                                 .Where(price => price.IsActive && !price.IsDeleted && price.IsPublished && price.BeginDate <= date)
-                                 .OrderByDescending(y => y.BeginDate)
-                                 .Select(price => price.Id)
-                                 .FirstOrDefault();
+                                 .Map(q => q.SelectMany(unit => unit.Prices)
+                                            .Where(price => price.IsActive && !price.IsDeleted && price.IsPublished && price.BeginDate <= date)
+                                            .OrderByDescending(y => y.BeginDate)
+                                            .Select(price => price.Id))
+                                 .Top();
 
             actualPriceId = priceId;
             return priceId != 0;
@@ -261,19 +263,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
         int IActivateAggregateRepository<AssociatedPositionsGroup>.Activate(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<AssociatedPositionsGroup>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<AssociatedPositionsGroup>(entityId)).Single();
             return Activate(entity);
         }
 
         int IDeactivateAggregateRepository<AssociatedPositionsGroup>.Deactivate(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<AssociatedPositionsGroup>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<AssociatedPositionsGroup>(entityId)).Single();
             return Deactivate(entity);
         }
 
         int IDeactivateAggregateRepository<AssociatedPosition>.Deactivate(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<AssociatedPosition>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<AssociatedPosition>(entityId)).Single();
             return Deactivate(entity);
         }
     }

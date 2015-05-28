@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
 
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+            var orderInfo = _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                                    .Select(order => new
                                        {
                                            WorkflowStep = order.WorkflowStepId,
@@ -99,8 +100,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
 
         private object GetBargainTerminationData(long orderId, long legalPersonProfileId)
         {
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId));
-            var data = _finder.Find(Specs.Find.ById<Order>(orderId))
+            var legalPersonProfile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId)).One();
+            var data = _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                           .Select(order => new
                           {
                               Bargain = new
@@ -155,8 +156,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Orders.Pr
 
         private object GetOrderTerminationData(long orderId, long legalPersonProfileId)
         {
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId));
-            var data = _finder.Find(Specs.Find.ById<Order>(orderId))
+            var legalPersonProfile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(legalPersonProfileId)).One();
+            var data = _finder.FindObsolete(Specs.Find.ById<Order>(orderId))
                               .Select(order => new
                                   {
                                       Order = new

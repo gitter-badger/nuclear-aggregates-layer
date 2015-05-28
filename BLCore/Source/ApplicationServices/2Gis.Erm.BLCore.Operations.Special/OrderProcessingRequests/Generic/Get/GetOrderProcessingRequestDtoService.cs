@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.Operations.Generic.Get;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Generic.Get
 {
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Generi
         {
             var timeOffset = _userContext.Profile != null ? _userContext.Profile.UserLocaleInfo.UserTimeZoneInfo.GetUtcOffset(DateTime.Now) : TimeSpan.Zero;
 
-            var modelDto = _finder.Find(Specs.Find.ById<OrderProcessingRequest>(entityId))
+            var modelDto = _finder.FindObsolete(Specs.Find.ById<OrderProcessingRequest>(entityId))
                 .Select(entity => new OrderProcessingRequestDomainEntityDto
                     {
                         Id = entity.Id,

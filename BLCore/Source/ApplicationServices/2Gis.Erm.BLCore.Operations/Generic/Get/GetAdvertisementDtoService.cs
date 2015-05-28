@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Advertisement> GetDto(long entityId)
         {
-            var dto = _secureFinder.Find(new FindSpecification<Advertisement>(x => x.Id == entityId))
+            var dto = _secureFinder.FindObsolete(new FindSpecification<Advertisement>(x => x.Id == entityId))
                              .Select(entity => new AdvertisementDomainEntityDto
                                  {
                                      Id = entity.Id,

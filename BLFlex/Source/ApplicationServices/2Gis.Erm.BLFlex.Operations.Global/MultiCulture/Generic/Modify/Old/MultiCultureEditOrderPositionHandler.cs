@@ -18,6 +18,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -75,7 +76,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
             var orderPosition = request.Entity;
             var advertisementsLinks = request.AdvertisementsLinks;
 
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(orderPosition.OrderId))
+            var orderInfo = _finder.FindObsolete(Specs.Find.ById<Order>(orderPosition.OrderId))
                                    .Select(x => new
                                                     {
                                                         x.Id,
@@ -104,7 +105,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
             {
                 // Во избежание несанкционированных изменений в позиции заказа, прошедшего этап "на оформлении",
                 // откатываем состояние сущности к тому, что лежит вместо того, что пришло от клиента
-                orderPosition = _finder.Find(Specs.Find.ById<OrderPosition>(orderPosition.Id)).Single();
+                orderPosition = _finder.FindObsolete(Specs.Find.ById<OrderPosition>(orderPosition.Id)).Single();
             }
 
             using (var scope = _scopeFactory.CreateOrUpdateOperationFor(orderPosition))
@@ -120,7 +121,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Old
                 {
                     orderPosition.OwnerCode = orderInfo.OwnerCode;
 
-                    var pricePositionInfo = _finder.Find(Specs.Find.ById<PricePosition>(orderPosition.PricePositionId))
+                    var pricePositionInfo = _finder.FindObsolete(Specs.Find.ById<PricePosition>(orderPosition.PricePositionId))
                                                    .Select(x => new
                                                                     {
                                                                         x.Cost,

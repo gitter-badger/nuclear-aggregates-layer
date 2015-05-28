@@ -3,6 +3,7 @@ using System.Linq;
 
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -27,7 +28,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         protected override IDomainEntityDto<DeniedPosition> GetDto(long entityId)
         {
             var positionQuery = _secureQuery.For<Position>();
-            return (from deniesPosition in _finder.Find(Specs.Find.ById<DeniedPosition>(entityId))
+            return (from deniesPosition in _finder.FindObsolete(Specs.Find.ById<DeniedPosition>(entityId))
                     join position in positionQuery on deniesPosition.PositionId equals position.Id
                     select new DeniedPositionDomainEntityDto
                         {
@@ -60,7 +61,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 throw new ArgumentNullException("parentEntityId");
             }
 
-            var model = _finder.Find(Specs.Find.ById<PricePosition>(pricePositionsId))
+            var model = _finder.FindObsolete(Specs.Find.ById<PricePosition>(pricePositionsId))
                                .Select(x => new DeniedPositionDomainEntityDto
                                                 {
                                                     PriceRef = new EntityReference { Id = x.PriceId, Name = null },

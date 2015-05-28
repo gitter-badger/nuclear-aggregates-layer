@@ -15,9 +15,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify
             {
                 public static class Project
                 {
-                    public static ProjectSpecification<BargainType, MultiCultureBargainTypeDomainEntityDto> DomainEntityDto()
+                    public static MapSpecification<BargainType, MultiCultureBargainTypeDomainEntityDto> DomainEntityDto()
                     {
-                        return new ProjectSpecification<BargainType, MultiCultureBargainTypeDomainEntityDto>(
+                        return new MapSpecification<BargainType, MultiCultureBargainTypeDomainEntityDto>(
                             x =>
                                 {
                                     var dto = new MultiCultureBargainTypeDomainEntityDto

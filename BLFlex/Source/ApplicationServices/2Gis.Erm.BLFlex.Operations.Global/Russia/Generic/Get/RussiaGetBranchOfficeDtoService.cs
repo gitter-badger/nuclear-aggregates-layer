@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         {
         }
 
-        protected override ProjectSpecification<BranchOffice, RussiaBranchOfficeDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<BranchOffice, RussiaBranchOfficeDomainEntityDto> GetProjectSpecification()
         {
             return BranchOfficeFlexSpecs.BranchOffices.Russia.Project.DomainEntityDto();
         }

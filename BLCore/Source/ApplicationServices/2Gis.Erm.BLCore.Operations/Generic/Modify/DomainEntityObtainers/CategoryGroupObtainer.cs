@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -25,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (CategoryGroupDomainEntityDto)domainEntityDto;
 
-            var entity = _finder.Find(Specs.Find.ById<CategoryGroup>(dto.Id)).SingleOrDefault() ??
+            var entity = _finder.Find(Specs.Find.ById<CategoryGroup>(dto.Id)).One() ??
                          new CategoryGroup { IsActive = true, Id = dto.Id };
 
             if (dto.Timestamp == null && entity.Timestamp != null)

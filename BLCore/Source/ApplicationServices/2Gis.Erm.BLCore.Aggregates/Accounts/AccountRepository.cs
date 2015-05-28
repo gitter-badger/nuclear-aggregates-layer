@@ -18,12 +18,14 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
@@ -95,17 +97,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public int GetNonDeletedLocksCount(long orderId)
         {
-            return _finder.Find(Specs.Find.NotDeleted<Lock>() && AccountSpecs.Locks.Find.ForOrder(orderId)).Count();
+            return _finder.Find(Specs.Find.NotDeleted<Lock>() && AccountSpecs.Locks.Find.ForOrder(orderId)).Fold(q => q.Count());
         }
 
         public int GetActiveLocksCount(long orderId)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() && AccountSpecs.Locks.Find.ForOrder(orderId)).Count();
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() && AccountSpecs.Locks.Find.ForOrder(orderId)).Fold(q => q.Count());
         }
 
         public int GetInactiveLocksCount(long orderId)
         {
-            return _finder.Find(Specs.Find.InactiveAndNotDeletedEntities<Lock>()).Count(x => x.OrderId == orderId);
+            return _finder.Find(Specs.Find.InactiveAndNotDeletedEntities<Lock>()).Fold(q => q.Count(x => x.OrderId == orderId));
         }
 
         public int Create(Lock @lock)
@@ -171,8 +173,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public Account CreateAccount(long legalPersonId, long branchOfficeOrganizationUnitId)
         {
-            var accounts = _finder.Find(AccountSpecs.Accounts.Find.Existing(legalPersonId, branchOfficeOrganizationUnitId)).ToArray();
-            if (accounts.Length > 1)
+            var accounts = _finder.Find(AccountSpecs.Accounts.Find.Existing(legalPersonId, branchOfficeOrganizationUnitId)).Many();
+            if (accounts.Count > 1)
             {
                 throw new NotificationException(BLResources.MultipleAccountsForLegalPersonAndBranchOfficeOrgUnit);
             }
@@ -182,7 +184,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public Account SecureCreateAccount(long legalPersonId, long branchOfficeOrganizationUnitId)
         {
-            var account = _secureFinder.Find(AccountSpecs.Accounts.Find.Existing(legalPersonId, branchOfficeOrganizationUnitId)).SingleOrDefault();
+            var account = _secureFinder.Find(AccountSpecs.Accounts.Find.Existing(legalPersonId, branchOfficeOrganizationUnitId)).Top();
             return account ?? CreateAccountImpl(legalPersonId, branchOfficeOrganizationUnitId);
         }
 
@@ -254,14 +256,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public GetLockDetailDto GetLockDetail(long entityId)
         {
             return _finder.Find(Specs.Find.ById<LockDetail>(entityId))
-                .Select(x => new GetLockDetailDto { LockDetail = x, Lock = x.Lock })
-                .SingleOrDefault();
+                .Map(q => q.Select(x => new GetLockDetailDto { LockDetail = x, Lock = x.Lock }))
+                .Top();
         }
 
         public IDictionary<long, decimal> GetBalanceByAccounts(IEnumerable<long> accountIds)
         {
             var distinctAccountIds = accountIds.Distinct().ToArray();
-            return (from account in _finder.Find(Specs.Find.ByIds<Account>(distinctAccountIds))
+            return (from account in _finder.FindObsolete(Specs.Find.ByIds<Account>(distinctAccountIds))
                     let balance = account.AccountDetails
                         .Where(x => !x.IsDeleted)
                         .Sum(y => (decimal?)(y.OperationType.IsPlus ? y.Amount : -y.Amount))
@@ -326,7 +328,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public IReadOnlyCollection<OperationType> GetOperationsInSyncWith1C()
         {
-            return _finder.Find(new FindSpecification<OperationType>(x => x.IsInSyncWith1C && x.IsActive && !x.IsDeleted)).ToArray();
+            return _finder.Find(new FindSpecification<OperationType>(x => x.IsInSyncWith1C && x.IsActive && !x.IsDeleted)).Many();
         }
 
         public int Delete(Account account)
@@ -397,7 +399,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public IEnumerable<OperationType> GetOperationTypes(string syncCode1C)
         {
-            return _finder.Find(new FindSpecification<OperationType>(x => x.IsActive && !x.IsDeleted && x.SyncCode1C == syncCode1C && x.IsInSyncWith1C)).ToArray();
+            return _finder.Find(new FindSpecification<OperationType>(x => x.IsActive && !x.IsDeleted && x.SyncCode1C == syncCode1C && x.IsInSyncWith1C)).Many();
         }
 
         public void UpdateAccountBalance(IEnumerable<long> accountIds)
@@ -405,14 +407,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             using (var operationScope = _scopeFactory.CreateSpecificFor<UpdateIdentity, Account>())
             {
                 var accountInfos = _finder.Find(new FindSpecification<Account>(x => accountIds.Contains(x.Id)))
-                                          .Select(x => new
+                                          .Map(q => q.Select(x => new
                                               {
                                                   Account = x,
                                                   NewBalance = x.AccountDetails
                                                                 .Where(y => !y.IsDeleted)
                                                                 .Sum(y => (decimal?)(y.OperationType.IsPlus ? y.Amount : -y.Amount))
-                                              })
-                                          .ToArray();
+                                              }))
+                                          .Many();
 
                 foreach (var accountInfo in accountInfos)
                 {
@@ -431,7 +433,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         {
             // Списание в счет оплаты БЗ
             // Определяется через неактивную блокировку на операции лицевого счета
-            return _finder.Find(Specs.Find.InactiveAndNotDeletedEntities<Lock>() && AccountSpecs.Locks.Find.ForOrder(orderId))
+            return _finder.FindObsolete(Specs.Find.InactiveAndNotDeletedEntities<Lock>() && AccountSpecs.Locks.Find.ForOrder(orderId))
                           .Where(l => l.AccountDetail.OperationType.SyncCode1C == OperationTypeDebitForOrderPayment
                                       && l.AccountDetail.IsActive && !l.AccountDetail.IsDeleted)
                           .Sum(l => (decimal?)l.AccountDetail.Amount);
@@ -439,7 +441,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public bool IsCreateAccountDetailValid(long accountId, long userCode, bool checkContributionType)
         {
-            var branchOfficeInfo = _finder.Find(new FindSpecification<Account>(x => x.Id == accountId))
+            var branchOfficeInfo = _finder.FindObsolete(new FindSpecification<Account>(x => x.Id == accountId))
                 .Select(x => new { x.BranchOfficeOrganizationUnit.BranchOfficeId, x.BranchOfficeOrganizationUnit.BranchOffice.ContributionTypeId })
                 .FirstOrDefault();
 
@@ -448,7 +450,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                 return false;
             }
 
-            var isCurrentUserInBranchOffice = _finder.Find(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == userCode))
+            var isCurrentUserInBranchOffice = _finder.FindObsolete(new FindSpecification<UserTerritoriesOrganizationUnits>(x => x.UserId == userCode))
                 .SelectMany(x => x.OrganizationUnit.BranchOfficeOrganizationUnits)
                 .Select(x => x.BranchOffice)
                 .Any(x => x.Id == branchOfficeInfo.BranchOfficeId);
@@ -457,31 +459,32 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         public Account FindAccount(long entityId)
         {
-            return _secureFinder.Find(Specs.Find.ById<Account>(entityId)).SingleOrDefault();
+            return _secureFinder.Find(Specs.Find.ById<Account>(entityId)).One();
         }
 
         public AccountDetail GetAccountDetail(long entityId)
         {
-            return _secureFinder.Find(Specs.Find.ById<AccountDetail>(entityId)).Single();
+            return _secureFinder.FindObsolete(Specs.Find.ById<AccountDetail>(entityId)).Single();
         }
 
         public OperationTypeDto GetOperationTypeDto(long entityId)
         {
-            // CR: {a.bakhturin}:{312}:{Minor}:{15.04.2011}: т.е. неактивные позиции тоже не будут позволять удалить тип операции
             return _finder.Find(Specs.Find.ById<OperationType>(entityId))
-                .Select(operationType => new OperationTypeDto
+                .Map(q => q.Select(operationType => new OperationTypeDto
                 {
                     OperationType = operationType,
                     AllAccountDetailsIsDeleted = operationType.AccountDetails.All(accountDetail => accountDetail.IsDeleted),
-                })
-               .SingleOrDefault();
+                }))
+               .One();
         }
 
         public AccountDetail[] GetAccountDetailsForImportFrom1COperation(string branchOfficeOrganizationUnit1CCode, DateTime transactionPeriodStart, DateTime transactionPeriodEnd)
         {
-            var operationTypeIds = _finder.Find(new FindSpecification<OperationType>(x => x.IsActive && x.IsDeleted == false && x.IsInSyncWith1C)).Select(x => x.Id).ToArray();
+            var operationTypeIds = _finder.Find(new FindSpecification<OperationType>(x => x.IsActive && x.IsDeleted == false && x.IsInSyncWith1C))
+                                          .Map(q => q.Select(x => x.Id))
+                                          .Many();
 
-            return _finder.Find(new FindSpecification<BranchOfficeOrganizationUnit>(x => !x.IsDeleted && branchOfficeOrganizationUnit1CCode == x.SyncCode1C))
+            return _finder.FindObsolete(new FindSpecification<BranchOfficeOrganizationUnit>(x => !x.IsDeleted && branchOfficeOrganizationUnit1CCode == x.SyncCode1C))
                           .SelectMany(x => x.Accounts)
                           .Where(x => !x.IsDeleted)
                           .SelectMany(x => x.AccountDetails)
@@ -495,7 +498,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         public IEnumerable<AccountInfoForImportFrom1C> GetAccountsForImportFrom1C(IEnumerable<string> branchOfficeSyncCodes, DateTime transactionPeriodStart, DateTime transactionPeriodEnd)
         {
             return _finder.Find(new FindSpecification<Account>(a => !a.IsDeleted && branchOfficeSyncCodes.Contains(a.BranchOfficeOrganizationUnit.SyncCode1C)))
-                          .Select(x => new AccountInfoForImportFrom1C
+                          .Map(q => q.Select(x => new AccountInfoForImportFrom1C
                           {
                               Id = x.Id,
                               AccountDetails = x.AccountDetails.Where(y => !y.IsDeleted && y.OperationType.IsActive &&
@@ -506,28 +509,30 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                               BranchOfficeSyncCode1C = x.BranchOfficeOrganizationUnit.SyncCode1C,
                               LegalPersonName = x.LegalPerson.LegalName,
                               OwnerCode = x.OwnerCode
-                          })
-                          .ToArray();
+                          }))
+                          .Many();
         }
 
         public Account FindAccount(long branchOfficeOrganizationUnitId, long legalPersonId)
         {
-            return _finder.FindOne(new FindSpecification<Account>(x => x.IsActive && !x.IsDeleted &&
-                                                                       x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId &&
-                                                                       x.LegalPersonId == legalPersonId));
+            return _finder.Find(new FindSpecification<Account>(x => x.IsActive && !x.IsDeleted &&
+                                                                    x.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId &&
+                                                                    x.LegalPersonId == legalPersonId))
+                          .One();
         }
 
         public IEnumerable<Account> GetAccountsByLegalPerson(string legalPersonSyncCode1C)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Account>() &&
-                                AccountSpecs.Accounts.Find.ByLegalPersonSyncCode1C(legalPersonSyncCode1C)).ToArray();
+                                AccountSpecs.Accounts.Find.ByLegalPersonSyncCode1C(legalPersonSyncCode1C))
+                          .Many();
         }
 
         public void RecalculateLockValue(Lock lockEntity)
         {
-            lockEntity.Balance = _finder.Find(Specs.Find.ActiveAndNotDeleted<LockDetail>())
-                                        .Where(detail => detail.LockId == lockEntity.Id)
-                                        .Sum(detail => (decimal?)detail.Amount) ?? 0;
+            lockEntity.Balance = _finder.Find(Specs.Find.ActiveAndNotDeleted<LockDetail>() &&
+                                              new FindSpecification<LockDetail>(detail => detail.LockId == lockEntity.Id))
+                                        .Fold(q => q.Sum(detail => (decimal?)detail.Amount)) ?? 0;
         }
 
         public IEnumerable<AccountFor1CExportDto> GetAccountsForExortTo1C(long organizationUnitId)
@@ -557,7 +562,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                 var limits = 
                     _secureFinder
                         .Find(AccountSpecs.Limits.Find.ForAccount(entityId) && Specs.Find.ActiveAndNotDeleted<Limit>())
-                        .ToArray();
+                        .Many();
 
                 foreach (var limit in limits)
                 {
@@ -569,7 +574,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
                 _limitGenericSecureRepository.Save();
 
-                var entity = _secureFinder.Find(Specs.Find.ById<Account>(entityId)).Single();
+                var entity = _secureFinder.FindObsolete(Specs.Find.ById<Account>(entityId)).Single();
                 entity.OwnerCode = ownerCode;
                 _accountGenericSecureRepository.Update(entity);
                 var count = _accountGenericSecureRepository.Save();
@@ -586,7 +591,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, AccountDetail>())
             {
-                var entity = _secureFinder.Find(Specs.Find.ById<AccountDetail>(entityId)).Single();
+                var entity = _secureFinder.FindObsolete(Specs.Find.ById<AccountDetail>(entityId)).Single();
                 entity.OwnerCode = ownerCode;
                 _accountDetailGenericSecureRepository.Update(entity);
                 var count = _accountDetailGenericSecureRepository.Save();
@@ -603,7 +608,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
         {
             using (var operationScope = _scopeFactory.CreateSpecificFor<AssignIdentity, Limit>())
             {
-                var entity = _secureFinder.Find(Specs.Find.ById<Limit>(entityId)).Single();
+                var entity = _secureFinder.FindObsolete(Specs.Find.ById<Limit>(entityId)).Single();
                 entity.OwnerCode = ownerCode;
                 _limitGenericSecureRepository.Update(entity);
                 var count = _limitGenericSecureRepository.Save();
@@ -618,19 +623,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
 
         int IDeleteAggregateRepository<Lock>.Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<Lock>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<Lock>(entityId)).Single();
             return Delete(entity);
         }
 
         int IDeleteAggregateRepository<LockDetail>.Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<LockDetail>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<LockDetail>(entityId)).Single();
             return Delete(entity);
         }
 
         int IDeleteAggregateRepository<OperationType>.Delete(long entityId)
         {
-            var entity = _finder.Find(Specs.Find.ById<OperationType>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<OperationType>(entityId)).Single();
             return Delete(entity);
         }
 
@@ -648,7 +653,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
                 return;
             }
 
-            var accountWithDebts = (from account in _finder.Find(Specs.Find.ById<Account>(entityId))
+            var accountWithDebts = (from account in _finder.FindObsolete(Specs.Find.ById<Account>(entityId))
                                     let lockDetailBalance = account.Balance - (account.Locks
                                                                                    .Where(x => x.IsActive && !x.IsDeleted)      // скобки и проверки на null тут НУЖНЫ,
                                                                                    .Sum(x => (decimal?)x.PlannedAmount) ?? 0)  // т.к. без них возможна ситуация decimal - null = null
@@ -673,21 +678,22 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts
             using (var operationScope = _scopeFactory.CreateSpecificFor<CreateIdentity, Account>())
             {
                 // Проверяем, есть ли ДРУГОЕ юр.лицо клиента с такими же ИНН/КПП, но имеющее лицевой счет
-                var legalPersonInfo = _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
+                var legalPersonInfo = _finder.FindObsolete(Specs.Find.ById<LegalPerson>(legalPersonId))
                                              .Select(x => new { x.Inn, x.Kpp, x.OwnerCode })
                                              .Single();
-                var isAccountExists = _finder.FindAny(new FindSpecification<LegalPerson>(
-                                                          x => x.Id != legalPersonId &&
-                                                               x.Inn.Equals(legalPersonInfo.Inn, StringComparison.Ordinal) &&
-                                                               x.Kpp.Equals(legalPersonInfo.Kpp, StringComparison.Ordinal) &&
-                                                               x.Accounts.Any(y => !y.IsDeleted &&
-                                                                                   y.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId)));
+                var isAccountExists = _finder.Find(new FindSpecification<LegalPerson>(
+                                                       x => x.Id != legalPersonId &&
+                                                            x.Inn.Equals(legalPersonInfo.Inn, StringComparison.Ordinal) &&
+                                                            x.Kpp.Equals(legalPersonInfo.Kpp, StringComparison.Ordinal) &&
+                                                            x.Accounts.Any(y => !y.IsDeleted &&
+                                                                                y.BranchOfficeOrganizationUnitId == branchOfficeOrganizationUnitId)))
+                                             .Any();
                 if (isAccountExists)
                 {
                     throw new ArgumentException(BLResources.LegalPersonWithTheSameInnKppAndAccountExists);
                 }
 
-                var syncCode1C = _secureFinder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId))
+                var syncCode1C = _secureFinder.FindObsolete(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId))
                                               .Select(x => x.OrganizationUnit.SyncCode1C)
                                               .Single();
                 var account = new Account

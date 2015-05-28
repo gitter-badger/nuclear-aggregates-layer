@@ -30,12 +30,12 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
             var targetFirm = 
                 _finder
                     .Find(Specs.Find.ActiveAndNotDeleted<Firm>())
-                    .First();
+                    .Top();
 
             var targetTerritory = 
                 _finder
                     .Find(Specs.Find.Active<Territory>() && new FindSpecification<Territory>(t => t.Id != targetFirm.TerritoryId))
-                    .First();
+                    .Top();
 
             return Result
                 .When(() => _changeEntityTerritoryService.ChangeTerritory(targetFirm.Id, targetTerritory.Id))

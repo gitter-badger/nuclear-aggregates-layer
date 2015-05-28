@@ -12,6 +12,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Project
 using DoubleGis.Erm.BLCore.API.Operations.Special.CostCalculation;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -19,6 +20,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
 {
@@ -290,20 +292,20 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
                                                                      bool calculateDiscountViaPercent)
         {
             var pricePositionInfo = _finder.Find(PriceSpecs.PricePositions.Find.ByPriceAndPosition(priceId, positionId) &&
-                Specs.Find.ActiveAndNotDeleted<PricePosition>())
-                                           .Select(x => new
+                                                 Specs.Find.ActiveAndNotDeleted<PricePosition>())
+                                           .Map(q => q.Select(x => new
                                                {
                                                    x.Id,
                                                    x.Cost,
                                                    x.RateType,
                                                    x.Position.IsComposite
-                                               })
-                                           .SingleOrDefault();
+                                               }))
+                                           .One();
 
             if (pricePositionInfo == null)
             {
                 // Такой позиции прайса нет, значит выбранную позицию нельзя приобрести в городе размещения
-                var positionName = _finder.Find(Specs.Find.ById<Position>(positionId)).Select(x => x.Name).Single();
+                var positionName = _finder.FindObsolete(Specs.Find.ById<Position>(positionId)).Select(x => x.Name).Single();
 
                 throw new PositionIsNotRepresentedException(string.Format(BLResources.PositionIsNotInPrice, positionName));
             }

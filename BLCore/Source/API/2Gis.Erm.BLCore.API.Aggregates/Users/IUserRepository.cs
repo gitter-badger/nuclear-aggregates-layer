@@ -59,8 +59,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users
         void CreateOrUpdate(UserTerritory userTerritory);
 
         UserProfile GetProfileForUser(long userCode);
-        UserProfileDto[] GetAllUserProfiles();
-        void UpdateUserProfiles(UserProfileDto[] userProfileDtos);
+        IReadOnlyCollection<UserProfileDto> GetAllUserProfiles();
+        void UpdateUserProfiles(IReadOnlyCollection<UserProfileDto> userProfileDtos);
         void CreateOrUpdate(UserProfile profile);
 
         LocaleInfo GetUserLocaleInfo(long userCode);

@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -69,7 +70,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
 
         public ActionResult Preview(long advertisementId)
         {
-            var advertisement = _finder.Find(new FindSpecification<Advertisement>(x => x.Id == advertisementId)).
+            var advertisement = _finder.FindObsolete(new FindSpecification<Advertisement>(x => x.Id == advertisementId)).
                 Select(x => new
                 {
                     TemplateName = x.AdvertisementTemplate.Name,

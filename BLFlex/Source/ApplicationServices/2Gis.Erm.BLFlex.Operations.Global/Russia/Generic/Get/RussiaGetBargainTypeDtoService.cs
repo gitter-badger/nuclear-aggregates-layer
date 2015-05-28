@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
         {
             var entity = _finder.FindOne(Specs.Find.ById<BargainType>(entityId));
 
-            return BargainTypeFlexSpecs.BargainTypes.Russia.Project.DomainEntityDto().Project(entity);
+            return BargainTypeFlexSpecs.BargainTypes.Russia.Project.DomainEntityDto().Map(entity);
         }
     }
 }

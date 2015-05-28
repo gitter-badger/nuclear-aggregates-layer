@@ -21,7 +21,7 @@ namespace NuClear.Storage.Futures
         protected IEnumerable<TSource> Sequence { get; private set; }
 
         public abstract FutureSequence<TSource> Find(FindSpecification<TSource> findSpecification);
-        public abstract FutureSequence<TResult> Project<TResult>(ProjectSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector);
+        public abstract FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector);
         
         public bool Any()
         {
@@ -41,6 +41,11 @@ namespace NuClear.Storage.Futures
         public virtual IReadOnlyCollection<TSource> Many()
         {
             return Sequence.ToArray();
+        }
+
+        public virtual TResult Fold<TResult>(MapSpecification<IEnumerable<TSource>, TResult> foldSpecification)
+        {
+            return foldSpecification.Map(Sequence);
         }
 
         public virtual IReadOnlyDictionary<TKey, TValue> Map<TKey, TValue>(Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector)

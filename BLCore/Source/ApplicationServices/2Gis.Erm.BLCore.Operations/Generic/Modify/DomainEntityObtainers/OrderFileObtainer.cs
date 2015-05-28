@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -24,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (OrderFileDomainEntityDto)domainEntityDto;
 
-            var entity = _finder.Find(Specs.Find.ById<OrderFile>(dto.Id)).SingleOrDefault() ??
+            var entity = _finder.Find(Specs.Find.ById<OrderFile>(dto.Id)).One() ??
                              new OrderFile { IsActive = true };
 
             entity.OrderId = dto.OrderId;

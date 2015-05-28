@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categor
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -15,6 +16,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categories
@@ -81,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
         public void Delete(CategoryGroup categoryGroup)
         {
-            var linkedCategories = _finder.Find(new FindSpecification<CategoryOrganizationUnit>(x => x.CategoryGroupId == categoryGroup.Id)).ToArray();
+            var linkedCategories = _finder.Find(new FindSpecification<CategoryOrganizationUnit>(x => x.CategoryGroupId == categoryGroup.Id)).Many();
 
             if (categoryGroup.Id == DefaultCategoryGroupId)
             {
@@ -121,7 +123,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
         private IEnumerable<long> ResolveParentIds(IEnumerable<long> categoryIds)
         {
-            return _finder.Find(new FindSpecification<Category>(category => categoryIds.Contains(category.Id)))
+            return _finder.FindObsolete(new FindSpecification<Category>(category => categoryIds.Contains(category.Id)))
                           .Where(category => category.ParentId.HasValue)
                           .Select(category => category.ParentId.Value)
                           .Distinct()
@@ -130,7 +132,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
         private void FixAffectedCategory(long categoryId)
         {
-            var organizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<Category>())
+            var organizationUnits = _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<Category>())
                                            .Where(category => category.ParentId == categoryId)
                                            .SelectMany(category => category.CategoryOrganizationUnits)
                                            .Where(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>())
@@ -144,7 +146,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
         {
             // В оригинальном коде использовался такой-же подход, возможно от того, что при удалении записи только помечаются удалёнными, 
             // этот подход позволяет избежать дублирования одинаковых записей, различающихся флагом удалённости.
-            var categoryUnits = _finder.Find(new FindSpecification<CategoryOrganizationUnit>(link => link.CategoryId == categoryId));
+            var categoryUnits = _finder.FindObsolete(new FindSpecification<CategoryOrganizationUnit>(link => link.CategoryId == categoryId));
 
             // Записи, которые должны быть, которые есть, но помечены удаленными.
             var linksToRestore = categoryUnits.Where(link => organizationUnitIds.Contains(link.OrganizationUnitId) && (!link.IsActive || link.IsDeleted));
@@ -211,9 +213,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
 
         private void ImportCategory(RubricServiceBusDto dto, CategoryImportContext context)
         {
-            var category = _finder.Find(new FindSpecification<Category>(x => x.Id == dto.Id))
-                                  .SingleOrDefault() ??
-                           new Category { Id = dto.Id };
+            var category = _finder.Find(new FindSpecification<Category>(x => x.Id == dto.Id)).One()
+                           ?? new Category { Id = dto.Id };
 
             if (!dto.IsDeleted && !category.IsNew() && category.Level != dto.Level)
             {
@@ -329,10 +330,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Categor
             }
 
             var resolvedFromDb = _finder.Find(new FindSpecification<OrganizationUnit>(unit => unit.DgppId.HasValue && unresolved.Contains(unit.DgppId.Value)))
-                                        .Select(unit => new { ErmId = unit.Id, DgppId = unit.DgppId.Value })
-                                        .ToArray();
+                                        .Map(q => q.Select(unit => new { ErmId = unit.Id, DgppId = unit.DgppId.Value }))
+                                        .Many();
 
-            if (resolvedFromDb.Length != unresolved.Count())
+            if (resolvedFromDb.Count != unresolved.Count())
             {
                 throw new ArgumentException(string.Format(BLResources.CannotFindOrgUnitWithDgppId,
                                                           unresolved.Except(resolvedFromDb.Select(i => i.DgppId)).First()));

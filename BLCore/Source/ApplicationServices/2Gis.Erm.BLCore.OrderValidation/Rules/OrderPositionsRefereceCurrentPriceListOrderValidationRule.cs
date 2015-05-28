@@ -13,6 +13,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -49,24 +50,24 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
             }
 
             var orderInfos = _finder.Find(Specs.Find.ById<Order>(ruleContext.ValidationParams.OrderId))
-                .Select(x => new
-                    {
-                        x.Id,
-                        x.Number,
-                        x.WorkflowStepId,
+                                    .Map(q => q.Select(x => new
+                                        {
+                                            x.Id,
+                                            x.Number,
+                                            x.WorkflowStepId,
 
-                        OrderPositions = x.OrderPositions
-                                 .Where(y => y.IsActive && !y.IsDeleted)
-                                 .Select(y => new
-                                     {
-                                         y.Id,
-                                         PositionId = y.PricePosition.Position.Id,
-                                         PositionName = y.PricePosition.Position.Name,
-                                         BadPriceList = y.PricePosition.PriceId != actualPriceId,
-                                         PricePositionIsNotActive = !y.PricePosition.IsActive || y.PricePosition.IsDeleted
-                                     })
-                    })
-                .ToArray();
+                                            OrderPositions = x.OrderPositions
+                                                              .Where(y => y.IsActive && !y.IsDeleted)
+                                                              .Select(y => new
+                                                                  {
+                                                                      y.Id,
+                                                                      PositionId = y.PricePosition.Position.Id,
+                                                                      PositionName = y.PricePosition.Position.Name,
+                                                                      BadPriceList = y.PricePosition.PriceId != actualPriceId,
+                                                                      PricePositionIsNotActive = !y.PricePosition.IsActive || y.PricePosition.IsDeleted
+                                                                  })
+                                        }))
+                                    .Many();
 
             var results = new List<OrderValidationMessage>();
 

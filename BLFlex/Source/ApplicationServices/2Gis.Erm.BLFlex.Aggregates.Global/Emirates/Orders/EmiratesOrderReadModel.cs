@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage.Futures.Queryable;
+
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.Orders
 {
     public class EmiratesOrderReadModel : IEmiratesOrderReadModel
@@ -27,13 +29,13 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.Orders
                                       OrderSpecs.Orders.Find.ByEndDistributionDateFact(month) &&
                                       OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved, OrderState.Archive, OrderState.OnTermination) &&
                                       Specs.Find.ActiveAndNotDeleted<Order>())
-                                .Select(x => new OrderForAcceptanceReportDto
+                                .Map(q => q.Select(x => new OrderForAcceptanceReportDto
                                     {
                                         OrderId = x.Id,
                                         ProfileId = x.LegalPersonProfileId,
                                         OrderNumber = x.Number
-                                    })
-                                .ToArray();
+                                    }))
+                                .Many();
         }
     }
 }

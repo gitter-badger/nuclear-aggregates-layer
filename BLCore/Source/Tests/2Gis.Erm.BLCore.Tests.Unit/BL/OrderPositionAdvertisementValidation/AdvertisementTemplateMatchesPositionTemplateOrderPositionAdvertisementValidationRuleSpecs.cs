@@ -15,6 +15,7 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
@@ -81,25 +82,17 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
 
                     FinderMock = new Mock<IFinder>();
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Advertisement>>()))
-                              .Returns(
-                                       (FindSpecification<Advertisement> x) =>
-                                       new[]
+                              .Returns((FindSpecification<Advertisement> x) =>
+                                       new QueryableFutureSequence<Advertisement>(new[]
                                            {
                                                AdvertisementWithFirstTemplate,
                                                AdvertisementWithSecondTemplate
                                            }
                                            .AsQueryable()
-                                           .Where(x));
+                                           .Where(x)));
 
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Position>>()))
-                              .Returns(
-                                       (FindSpecification<Position> x) =>
-                                       new[]
-                                           {
-                                               PositionWithFirstTemplate
-                                           }
-                                           .AsQueryable()
-                                           .Where(x));
+                              .Returns((FindSpecification<Position> x) => new QueryableFutureSequence<Position>(new[] { PositionWithFirstTemplate }.AsQueryable().Where(x)));
 
                     ValidationRule = new AdvertisementTemplateMatchesPositionTemplateOrderPositionAdvertisementValidationRule(FinderMock.Object);
                 };

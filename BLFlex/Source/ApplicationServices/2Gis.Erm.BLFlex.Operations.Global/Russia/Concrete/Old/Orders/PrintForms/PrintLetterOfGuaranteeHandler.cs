@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
         protected override Response Handle(PrintLetterOfGuaranteeRequest request)
         {
             var data =
-                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                        .Select(
                            order =>
                            new
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                 throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
-            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId.Value));
+            var profile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(data.ProfileId.Value)).One();
             var printData = new
                 {
                     data.Order,
@@ -64,9 +65,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                                       ChiefNameInNominative = profile.ChiefNameInNominative,
                                       PositionInNominative = profile.PositionInNominative
                                   },
-                    LegalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value)),
+                    LegalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value)).One(),
                     BranchOfficeOrganizationUnit = data.BranchOfficeOrganizationUnitId.HasValue
-                                                       ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value))
+                                                       ? _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value)).One()
                                                        : null,
                     data.BranchOfficeOrganizationUnitId,
                 };

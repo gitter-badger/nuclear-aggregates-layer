@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.Platform.Aggregates.EAV;
+﻿using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -8,6 +6,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel.Banks
 {
@@ -22,13 +22,14 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel
 
         public Bank GetBank(long bankId)
         {
-            return _finder.FindOne(Specs.Find.ById<Bank>(bankId));
+            return _finder.Find(Specs.Find.ById<Bank>(bankId)).One();
         }
 
         public string GetBankName(long bankId)
         {
-            return _finder.Find(Specs.Find.ById<DictionaryEntityInstance>(bankId), DictionaryEntitySpecs.DictionaryEntity.Select.Name())
-                          .SingleOrDefault();
+            return _finder.Find(Specs.Find.ById<DictionaryEntityInstance>(bankId))
+                          .Map(q => q.Select(DictionaryEntitySpecs.DictionaryEntity.Select.Name()))
+                          .One();
         }
 
         public bool IsBankUsed(long bankId)

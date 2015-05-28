@@ -1,6 +1,4 @@
-﻿using System;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Users;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.UserProfiles;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
@@ -37,7 +35,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.UserProfiles
                 userProfile.Birthday = adUserProfile.BirthDay;
                 userProfile.Company = adUserProfile.Company;
                 userProfile.Email = adUserProfile.Email;
-                userProfile.Gender = (Int32)adUserProfile.Gender;
+                userProfile.Gender = (int)adUserProfile.Gender;
                 userProfile.Mobile = adUserProfile.Mobile;
                 userProfile.Phone = adUserProfile.Phone;
                 userProfile.PlanetURL = adUserProfile.PlanetURL;

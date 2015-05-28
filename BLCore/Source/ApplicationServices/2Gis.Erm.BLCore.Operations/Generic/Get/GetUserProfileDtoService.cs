@@ -12,6 +12,7 @@ using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -30,34 +31,34 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         public IDomainEntityDto GetDomainEntityDto(long entityId, bool readOnly, long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = _finder.Find(new FindSpecification<UserProfile>(x => (entityId != 0 && x.Id == entityId) || (parentEntityId.HasValue && x.UserId == parentEntityId)))
-                             .Select(entity => new UserProfileDomainEntityDto
-                             {
-                                 Id = entity.Id,
-                                 UserRef = new EntityReference { Id = entity.UserId },
-                                 ProfileId = entity.Id,
-                                 DomainAccountName = entity.User.Account,
-                                 TimeZoneRef = new EntityReference { Id = entity.TimeZoneId },
-                                 CultureInfoLCID = entity.CultureInfoLCID,
-                                 Email = entity.Email,
-                                 Phone = entity.Phone,
-                                 Mobile = entity.Mobile,
-                                 Address = entity.Address,
-                                 Company = entity.Company,
-                                 Position = entity.Position,
-                                 Birthday = entity.Birthday,
-                                 Gender = entity.Gender,
-                                 PlanetURL = entity.PlanetURL,
+                             .Map(q => q.Select(entity => new UserProfileDomainEntityDto
+                                 {
+                                     Id = entity.Id,
+                                     UserRef = new EntityReference { Id = entity.UserId },
+                                     ProfileId = entity.Id,
+                                     DomainAccountName = entity.User.Account,
+                                     TimeZoneRef = new EntityReference { Id = entity.TimeZoneId },
+                                     CultureInfoLCID = entity.CultureInfoLCID,
+                                     Email = entity.Email,
+                                     Phone = entity.Phone,
+                                     Mobile = entity.Mobile,
+                                     Address = entity.Address,
+                                     Company = entity.Company,
+                                     Position = entity.Position,
+                                     Birthday = entity.Birthday,
+                                     Gender = entity.Gender,
+                                     PlanetURL = entity.PlanetURL,
 
-                                 CreatedByRef = new EntityReference { Id = entity.CreatedBy },
-                                 CreatedOn = entity.CreatedOn,
-                                 IsActive = entity.IsActive,
-                                 IsDeleted = entity.IsDeleted,
-                                 ModifiedByRef = new EntityReference { Id = entity.ModifiedBy },
-                                 ModifiedOn = entity.ModifiedOn,
+                                     CreatedByRef = new EntityReference { Id = entity.CreatedBy },
+                                     CreatedOn = entity.CreatedOn,
+                                     IsActive = entity.IsActive,
+                                     IsDeleted = entity.IsDeleted,
+                                     ModifiedByRef = new EntityReference { Id = entity.ModifiedBy },
+                                     ModifiedOn = entity.ModifiedOn,
 
-                                 Timestamp = entity.Timestamp
-                             })
-                             .FirstOrDefault();
+                                     Timestamp = entity.Timestamp
+                                 }))
+                             .Top();
 
             if (dto != null)
             {

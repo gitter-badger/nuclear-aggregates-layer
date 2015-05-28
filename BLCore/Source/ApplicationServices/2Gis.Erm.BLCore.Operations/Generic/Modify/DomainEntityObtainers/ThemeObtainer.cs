@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.Utils;
@@ -27,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (ThemeDomainEntityDto)domainEntityDto;
 
-            var theme = _finder.Find(Specs.Find.ById<Theme>(dto.Id)).SingleOrDefault() ??
+            var theme = _finder.Find(Specs.Find.ById<Theme>(dto.Id)).One() ??
                 new Theme { IsActive = true, Id = dto.Id };
 
             if (dto.Timestamp == null && theme.Timestamp != null)

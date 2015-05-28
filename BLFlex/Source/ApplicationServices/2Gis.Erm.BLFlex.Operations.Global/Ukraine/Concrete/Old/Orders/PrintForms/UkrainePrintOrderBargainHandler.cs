@@ -10,6 +10,7 @@ using DoubleGis.Erm.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -58,7 +59,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
                 throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
-            var bargainInfo = _finder.Find(Specs.Find.ById<Bargain>(bargainId.Value))
+            var bargainInfo = _finder.FindObsolete(Specs.Find.ById<Bargain>(bargainId.Value))
                                      .Select(x => new
                                          {
                                              Bargain = x,
@@ -73,7 +74,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             var profile = _legalPersonReadModel.GetLegalPersonProfile(legalPersonProfileId.Value);
             var legalPerson = _legalPersonReadModel.GetLegalPerson(bargainInfo.LegalPersonId);
             var branchOffice = _branchOfficeReadModel.GetBranchOffice(bargainInfo.BranchOfficeId);
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargainInfo.BranchOfficeOrganizationUnitId));
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(bargainInfo.BranchOfficeOrganizationUnitId)).One();
 
             var printData = new PrintData
                                 {

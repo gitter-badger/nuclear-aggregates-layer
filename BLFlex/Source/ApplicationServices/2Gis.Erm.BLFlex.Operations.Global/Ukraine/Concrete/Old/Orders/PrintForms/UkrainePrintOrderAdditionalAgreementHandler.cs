@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -45,7 +46,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
             var orderInfoValidation =
-                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new { WorkflowStep = order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
                     .Single();
 
@@ -65,7 +66,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             }
 
             var orderInfo =
-                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                        .Select(order => new
                            {
                                Order = order,
@@ -91,7 +92,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Concrete.Old.Orders.Pri
             var legalPerson = _legalPersonReadModel.GetLegalPerson(orderInfo.LegalPersonId);
             var branchOffice = _branchOfficeReadModelReadModel.GetBranchOffice(orderInfo.BranchOfficeId);
             var branchOfficeOrganizationUnit = orderInfo.BranchOfficeOrganizationUnitId.HasValue
-                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(orderInfo.BranchOfficeOrganizationUnitId.Value))
+                ? _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(orderInfo.BranchOfficeOrganizationUnitId.Value)).One()
                 : null;
 
             var printData = new PrintData

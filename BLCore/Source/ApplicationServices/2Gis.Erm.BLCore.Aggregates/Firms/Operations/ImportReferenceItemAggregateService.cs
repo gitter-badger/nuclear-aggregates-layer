@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
@@ -23,9 +22,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
         private readonly IRepository<ReferenceItem> _refrenceItemGenericRepository;
         private readonly IOperationScopeFactory _scopeFactory;
 
-        public ImportReferenceItemAggregateService(IRepository<ReferenceItem> refrenceItemGenericRepository,
-                                                   IFinder finder,
-                                                   IIdentityProvider identityProvider,
+        public ImportReferenceItemAggregateService(IRepository<ReferenceItem> refrenceItemGenericRepository, 
+                                                   IFinder finder, 
+                                                   IIdentityProvider identityProvider, 
                                                    IOperationScopeFactory scopeFactory)
         {
             _refrenceItemGenericRepository = refrenceItemGenericRepository;
@@ -46,13 +45,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 
         private void ProcessReferenceItemDto(ReferenceItemServiceBusDto referenceItemDto)
         {
-            var reference = _finder.Find(new FindSpecification<Reference>(x => x.CodeName == referenceItemDto.ReferenceCode)).SingleOrDefault();
+            var reference = _finder.Find(new FindSpecification<Reference>(x => x.CodeName == referenceItemDto.ReferenceCode)).One();
             if (reference == null)
             {
                 throw new ArgumentException(string.Format(BLResources.ReferenceWithIdNotFound, referenceItemDto.ReferenceCode));
             }
 
-            var referenceItem = _finder.Find(new FindSpecification<ReferenceItem>(x => x.Code == referenceItemDto.Code && x.ReferenceId == reference.Id)).SingleOrDefault() ??
+            var referenceItem = _finder.Find(new FindSpecification<ReferenceItem>(x => x.Code == referenceItemDto.Code && x.ReferenceId == reference.Id)).One() ??
                                 new ReferenceItem { Code = referenceItemDto.Code, ReferenceId = reference.Id };
 
             referenceItem.Name = referenceItemDto.Name;

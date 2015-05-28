@@ -8,12 +8,14 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.PrintForms
 {
@@ -35,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
             var orderInfo =
-                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new { WorkflowStep = order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
                     .Single();
 
@@ -55,7 +57,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
             }
 
             var printData = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                .Select(order => new
+                .Map(q => q.Select(order => new
                     {
                         Order = order,
                         order.Bargain,
@@ -66,8 +68,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                         CurrencyISOCode = order.Currency.ISOCode,
                         LegalPersonType = order.LegalPerson.LegalPersonTypeEnum,
                         order.BranchOfficeOrganizationUnitId,
-                    })
-                .ToArray()
+                    }))
+                .Many()
 
                 // in-memory transformations
                 .Select(x =>
@@ -77,7 +79,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                             throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
                         }
 
-                        var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(x.ProfileId.Value));
+                        var profile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(x.ProfileId.Value)).One();
                         return new
                             {
                                 x.Order,
@@ -85,12 +87,12 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Concrete.Old.Orders.Prin
                                                          ? string.Format(BLResources.RelatedToBargainInfoTemplate, x.Bargain.Number, _longDateFormatter.Format(x.Bargain.CreatedOn))
                                                          : null,
                                 NextReleaseDate = x.Order.RejectionDate.Value.AddMonths(1).GetFirstDateOfMonth(),
-                                LegalPerson = x.LegalPersonId.HasValue ? _finder.FindOne(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)) : null,
+                                LegalPerson = x.LegalPersonId.HasValue ? _finder.Find(Specs.Find.ById<LegalPerson>(x.LegalPersonId.Value)).One() : null,
                                 Profile = profile,
                                 BranchOfficeOrganizationUnit = x.BranchOfficeOrganizationUnitId.HasValue
-                                                                   ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(x.BranchOfficeOrganizationUnitId.Value))
+                                                                   ? _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(x.BranchOfficeOrganizationUnitId.Value)).One()
                                                                    : null,
-                                BranchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(x.BranchOfficeId)),
+                                BranchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(x.BranchOfficeId)).One(),
                                 x.CurrencyISOCode,
                                 x.LegalPersonType,
                                 x.BranchOfficeOrganizationUnitId,

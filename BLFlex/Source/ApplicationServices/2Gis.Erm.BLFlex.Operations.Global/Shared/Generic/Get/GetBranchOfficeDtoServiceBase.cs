@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
         {
             var branchOffice = _readModel.GetBranchOffice(entityId);
 
-            var dto = GetProjectSpecification().Project(branchOffice);
+            var dto = GetProjectSpecification().Map(branchOffice);
 
             var bargainTypeRef = dto.GetPropertyValue<TDto, EntityReference>("BargainTypeRef");
             if (bargainTypeRef.Id.HasValue)
@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
             return dto;
         }
 
-        protected abstract ProjectSpecification<BranchOffice, TDto> GetProjectSpecification();
+        protected abstract MapSpecification<BranchOffice, TDto> GetProjectSpecification();
 
         protected override IDomainEntityDto<BranchOffice> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {

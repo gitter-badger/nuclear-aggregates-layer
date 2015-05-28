@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.BranchOfficesAggregate.
 
         public override BranchOffice GetBranchOffice(long branchOfficeId)
         {
-            return _finder.FindOne(Specs.Find.ById<BranchOffice>(branchOfficeId));
+            return _finder.Find(Specs.Find.ById<BranchOffice>(branchOfficeId)).One();
         }
 
         public bool AreThereAnyActiveEgrpouDuplicates(long branchOfficeId, string egrpou)
@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.BranchOfficesAggregate.
 
         public bool AreThereAnyActiveIpnDuplicates(long branchOfficeId, string ipn)
         {
-            var duplicatesQuery = _finder.Find(BusinessEntitySpecs.BusinessEntity.Find.ByProperty(IpnIdentity.Instance.Id, ipn))
+            var duplicatesQuery = _query.For(BusinessEntitySpecs.BusinessEntity.Find.ByProperty(IpnIdentity.Instance.Id, ipn))
                                          .Where(x => x.EntityId != branchOfficeId).Select(x => x.EntityId);
 
             return _query.For<BranchOffice>().Join(duplicatesQuery, x => x.Id, y => y.Value, (x, y) => x).Any(x => x.IsActive && !x.IsDeleted);

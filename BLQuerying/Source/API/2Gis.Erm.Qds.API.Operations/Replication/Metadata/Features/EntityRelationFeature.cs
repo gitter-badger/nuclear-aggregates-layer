@@ -15,16 +15,16 @@ namespace DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features
         private readonly Type _documentType;
 
         private readonly SelectSpecification<TEntity, object> _selectSpec;
-        private readonly IProjectSpecification<ObjectAccessor, IIndexedDocumentWrapper> _projectSpec;
+        private readonly IMapSpecification<ObjectAccessor, IIndexedDocumentWrapper> _mapSpec;
         
         public EntityRelationFeature(SelectSpecification<TEntity, object> selectSpec,
-                                     IProjectSpecification<ObjectAccessor, IIndexedDocumentWrapper> projectSpec)
+                                     IMapSpecification<ObjectAccessor, IIndexedDocumentWrapper> mapSpec)
         {
             _entityType = typeof(TEntity);
             _documentType = typeof(TDocument);
 
             _selectSpec = selectSpec;
-            _projectSpec = projectSpec;
+            _mapSpec = mapSpec;
         }
 
         public Type EntityType
@@ -42,9 +42,9 @@ namespace DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features
             get { return _selectSpec; }
         }
 
-        public IProjectSpecification<ObjectAccessor, IIndexedDocumentWrapper> ProjectSpec
+        public IMapSpecification<ObjectAccessor, IIndexedDocumentWrapper> MapSpec
         {
-            get { return _projectSpec; }
+            get { return _mapSpec; }
         }
 
         public override bool Equals(object obj)

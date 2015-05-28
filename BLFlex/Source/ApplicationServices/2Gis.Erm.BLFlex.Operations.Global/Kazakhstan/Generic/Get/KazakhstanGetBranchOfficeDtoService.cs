@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
         private readonly IBranchOfficeReadModel _readModel;
         private readonly IBargainTypeReadModel _bargainTypeReadModel;
         private readonly IContributionTypeReadModel _contributionTypeReadModel;
-        private readonly ProjectSpecification<BranchOffice, KazakhstanBranchOfficeDomainEntityDto> _specification;
+        private readonly MapSpecification<BranchOffice, KazakhstanBranchOfficeDomainEntityDto> _specification;
 
         public KazakhstanGetBranchOfficeDtoService(IUserContext userContext,
                                                    IBranchOfficeReadModel readModel,
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
         protected override IDomainEntityDto<BranchOffice> GetDto(long entityId)
         {
             var entity = _readModel.GetBranchOffice(entityId);
-            var dto = _specification.Project(entity);
+            var dto = _specification.Map(entity);
 
             if (dto.BargainTypeRef.Id.HasValue)
             {

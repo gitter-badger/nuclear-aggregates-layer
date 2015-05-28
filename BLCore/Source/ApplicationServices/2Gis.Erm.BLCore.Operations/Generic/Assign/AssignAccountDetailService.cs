@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -56,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
             {
                 _publicService.Handle(new ValidateOwnerIsNotReserveRequest<AccountDetail> { Id = entityId });
 
-                var accountDetailInfo = _finder.Find(Specs.Find.ById<AccountDetail>(entityId))
+                var accountDetailInfo = _finder.FindObsolete(Specs.Find.ById<AccountDetail>(entityId))
                     .Select(x => new
                         {
                             x.AccountId,

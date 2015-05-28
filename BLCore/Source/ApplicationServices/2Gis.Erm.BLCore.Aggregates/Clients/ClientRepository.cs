@@ -23,6 +23,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities;
@@ -151,7 +152,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<AssignIdentity, Client>())
             {
-                var relatedEntities = (from client in _finder.Find(Specs.Find.ById<Client>(clientId))
+                var relatedEntities = (from client in _finder.FindObsolete(Specs.Find.ById<Client>(clientId))
                                        let clientPrevOwner = isPartialAssign ? client.OwnerCode : (long?)null
                                        select new
                                        {
@@ -183,7 +184,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                                        })
                                       .Single();
 
-                var clientToAssign = _finder.FindOne(Specs.Find.ById<Client>(clientId));
+                var clientToAssign = _finder.Find(Specs.Find.ById<Client>(clientId)).One();
                 clientToAssign.OwnerCode = ownerCode;
                 _clientGenericSecureRepository.Update(clientToAssign);
                 operationScope.Updated<Client>(clientToAssign.Id);
@@ -199,7 +200,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 _firmGenericRepository.Save();
 
-                var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(relatedEntities.LegalPersonsWithRelated.Select(x => x.LegalPersonId)));
+                var legalPersons = _finder.Find(Specs.Find.ByIds<LegalPerson>(relatedEntities.LegalPersonsWithRelated.Select(x => x.LegalPersonId))).Many();
                 foreach (var legalPerson in legalPersons)
                 {
                     legalPerson.OwnerCode = ownerCode;
@@ -207,7 +208,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                     operationScope.Updated<LegalPerson>(legalPerson.Id);
                 }
 
-                var legalPersonProfiles = _finder.FindMany(Specs.Find.ByIds<LegalPersonProfile>(relatedEntities.LegalPersonsWithRelated.SelectMany(x => x.ProfileIds)));
+                var legalPersonProfiles = _finder.Find(Specs.Find.ByIds<LegalPersonProfile>(relatedEntities.LegalPersonsWithRelated.SelectMany(x => x.ProfileIds)))
+                                                 .Many();
                 foreach (var profile in legalPersonProfiles)
                 {
                     profile.OwnerCode = ownerCode;
@@ -322,7 +324,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                         break;
                     case ReserveAccess.OrganizationUnit:
                     {
-                        var clientOrganizationUnit = _finder.Find(Specs.Find.ById<Client>(client.Id))
+                        var clientOrganizationUnit = _finder.FindObsolete(Specs.Find.ById<Client>(client.Id))
                                                             .Select(x => x.Territory.OrganizationUnitId)
                                                             .Single();
                         var withinFirmOrgUnitsOrTerritories = _finder
@@ -350,7 +352,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 var count = AssignWithRelatedEntities(client.Id, ownerCode, false);
 
-                var clientFirms = _finder.Find(FirmSpecs.Firms.Find.ByClient(client.Id)).ToArray();
+                var clientFirms = _finder.Find(FirmSpecs.Firms.Find.ByClient(client.Id)).Many();
                 foreach (var firm in clientFirms)
                 {
                     firm.LastQualifyTime = qualifyDate;
@@ -432,8 +434,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         public Tuple<Client, Client> MergeErmClients(long mainClientId, long appendedClientId, Client masterClient, bool assignAllObjects)
         {
-            var mainClient = _finder.FindOne(Specs.Find.ById<Client>(mainClientId));
-            var appendedClient = _finder.FindOne(Specs.Find.ById<Client>(appendedClientId));
+            var mainClient = _finder.Find(Specs.Find.ById<Client>(mainClientId)).One();
+            var appendedClient = _finder.Find(Specs.Find.ById<Client>(appendedClientId)).One();
 
             ValidateOwnerIsNotReserve(mainClient);
             ValidateOwnerIsNotReserve(appendedClient);
@@ -453,7 +455,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
                     Assign(appendedClient, masterClient.OwnerCode);
                 }
 
-                var relatedEntities = _secureFinder.Find(Specs.Find.ById<Client>(appendedClient.Id))
+                var relatedEntities = _secureFinder.FindObsolete(Specs.Find.ById<Client>(appendedClient.Id))
                                                    .Select(x => new
                                                        {
                                                            Deals = x.Deals.Where(y => !y.IsDeleted),
@@ -504,7 +506,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
                 using (var operationScope = _scopeFactory.CreateSpecificFor<ChangeClientIdentity, LegalPerson>())
                 {
-                    var legalPersons = _finder.FindMany(Specs.Find.ByIds<LegalPerson>(relatedEntities.LegalPersonIds));
+                    var legalPersons = _finder.Find(Specs.Find.ByIds<LegalPerson>(relatedEntities.LegalPersonIds)).Many();
 
                     foreach (var legalPerson in legalPersons)
                     {
@@ -544,7 +546,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         public IEnumerable<Client> GetClientsByTerritory(long territoryId)
         {
-            return _finder.FindMany(ClientSpecs.Clients.Find.ByTerritory(territoryId));
+            return _finder.Find(ClientSpecs.Clients.Find.ByTerritory(territoryId)).Many();
         }
 
         public void ChangeTerritory(IEnumerable<Client> clients, long territoryId)
@@ -619,14 +621,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         int IAssignAggregateRepository<Client>.Assign(long entityId, long ownerCode)
         {
-            var entity = _secureFinder.FindOne(Specs.Find.ById<Client>(entityId));
+            var entity = _secureFinder.Find(Specs.Find.ById<Client>(entityId)).One();
             return Assign(entity, ownerCode);
         }
 
         int IAssignAggregateRepository<Contact>.Assign(long entityId, long ownerCode)
         {
             // Изменения логируются в вызывающем коде
-            var entity = _finder.Find(Specs.Find.ById<Contact>(entityId)).Single();
+            var entity = _finder.FindObsolete(Specs.Find.ById<Contact>(entityId)).Single();
             entity.OwnerCode = ownerCode;
             _contactGenericSecureRepository.Update(entity);
             return _contactGenericSecureRepository.Save();
@@ -634,13 +636,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 
         int IQualifyAggregateRepository<Client>.Qualify(long entityId, long currentUserCode, long reserveCode, long ownerCode, DateTime qualifyDate)
         {
-            var entity = _secureFinder.FindOne(Specs.Find.ById<Client>(entityId));
+            var entity = _secureFinder.Find(Specs.Find.ById<Client>(entityId)).One();
             return Qualify(entity, currentUserCode, reserveCode, ownerCode, qualifyDate);
         }
 
         int IDisqualifyAggregateRepository<Client>.Disqualify(long entityId, long currentUserCode, long reserveCode, bool bypassValidation, DateTime disqualifyDate)
         {
-            var entity = _secureFinder.FindOne(Specs.Find.ById<Client>(entityId));
+            var entity = _secureFinder.Find(Specs.Find.ById<Client>(entityId)).One();
             return Disqualify(entity, currentUserCode, reserveCode, bypassValidation, disqualifyDate);
         }
 
@@ -683,15 +685,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Clients
         
         int IChangeAggregateTerritoryRepository<Client>.ChangeTerritory(long entityId, long territoryId)
         {
-            var entity = _secureFinder.FindOne(Specs.Find.ById<Client>(entityId));
+            var entity = _secureFinder.Find(Specs.Find.ById<Client>(entityId)).One();
             return ChangeTerritory(entity, territoryId);
         }
 
         [Obsolete("Используется только в DgppImportFirmsHandler")]
         public int HideFirm(long firmId)
         {
-            var clients = _finder.FindMany(ClientSpecs.Clients.Find.ByMainFirm(firmId)).ToArray();
-            var deals = _finder.Find(new FindSpecification<Deal>(deal => deal.MainFirmId == firmId)).ToArray();
+            var clients = _finder.Find(ClientSpecs.Clients.Find.ByMainFirm(firmId)).Many();
+            var deals = _finder.Find(new FindSpecification<Deal>(deal => deal.MainFirmId == firmId)).Many();
 
             foreach (var client in clients)
             {

@@ -2,6 +2,7 @@
 
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<CategoryGroup> GetDto(long entityId)
         {
-            return _finder.Find(new FindSpecification<CategoryGroup>(x => x.Id == entityId))
+            return _finder.FindObsolete(new FindSpecification<CategoryGroup>(x => x.Id == entityId))
                           .Select(entity => new CategoryGroupDomainEntityDto
                               {
                                   Id = entity.Id,

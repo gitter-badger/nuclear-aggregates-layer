@@ -36,9 +36,9 @@ namespace DoubleGis.Erm.Platform.DAL
             return new QueryableFutureSequence<TSource>(_queryable.Where(findSpecification));
         }
 
-        public override FutureSequence<TResult> Project<TResult>(ProjectSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)
+        public override FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)
         {
-            return new QueryableFutureSequence<TResult>(projector.Project(_queryable));
+            return new QueryableFutureSequence<TResult>(projector.Map(_queryable));
         }
     }
 }

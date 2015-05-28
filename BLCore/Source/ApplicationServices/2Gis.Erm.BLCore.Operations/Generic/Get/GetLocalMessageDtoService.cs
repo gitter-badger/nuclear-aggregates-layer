@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<LocalMessage> GetDto(long entityId)
         {
-            return _finder.Find(new FindSpecification<LocalMessage>(x => x.Id == entityId))
+            return _finder.FindObsolete(new FindSpecification<LocalMessage>(x => x.Id == entityId))
                           .Select(entity => new LocalMessageDomainEntityDto
                               {
                                   Id = entity.Id,

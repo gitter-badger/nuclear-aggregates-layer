@@ -4,11 +4,12 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadModel;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
@@ -24,21 +25,21 @@ namespace DoubleGis.Erm.BLCore.Aggregates.SimplifiedModel.Categories.ReadModel
 
         public IEnumerable<SalesModelCategoryRestriction> GetRestrictionsByProject(long projectId)
         {
-            return _finder.FindMany(CategorySpecs.SalesModelCategoryRestrictions.Find.ByProject(projectId));
+            return _finder.Find(CategorySpecs.SalesModelCategoryRestrictions.Find.ByProject(projectId)).Many();
         }
 
         public IReadOnlyCollection<long> GetDependedByRestrictionsInProjectOrderIds(long projectId)
         {
             return _finder.Find(Specs.Find.ById<Project>(projectId))
-                          .Select(x => x.OrganizationUnit)
-                          .SelectMany(x => x.OrdersByDestination)
-                          .Where(Specs.Find.ActiveAndNotDeleted<Order>() &&
-                                 OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved,
-                                                                     OrderState.OnApproval,
-                                                                     OrderState.OnRegistration,
-                                                                     OrderState.OnTermination))
-                          .Select(x => x.Id)
-                          .ToArray();
+                          .Map(q => q.Select(x => x.OrganizationUnit)
+                                     .SelectMany(x => x.OrdersByDestination)
+                                     .Where(Specs.Find.ActiveAndNotDeleted<Order>() &&
+                                            OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved,
+                                                                                OrderState.OnApproval,
+                                                                                OrderState.OnRegistration,
+                                                                                OrderState.OnTermination))
+                                     .Select(x => x.Id))
+                          .Many();
         }
     }
 }

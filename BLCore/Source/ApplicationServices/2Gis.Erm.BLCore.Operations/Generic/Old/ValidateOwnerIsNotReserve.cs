@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Old
 {
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Old
 
         protected override EmptyResponse Handle(ValidateOwnerIsNotReserveRequest<TEntity> request)
         {
-            var entityOwnerCode = _finder.Find(Specs.Find.ById<TEntity>(request.Id)).Select(x => (long?)x.OwnerCode).SingleOrDefault();
+            var entityOwnerCode = _finder.Find(Specs.Find.ById<TEntity>(request.Id)).Map(q => q.Select(x => (long?)x.OwnerCode)).One();
 
             if (!entityOwnerCode.HasValue)
             {

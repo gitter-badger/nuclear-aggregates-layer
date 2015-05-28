@@ -4,10 +4,10 @@ using System.Linq;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {
@@ -22,14 +22,14 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                 .Operation<DisqualifyIdentity>()
                                                 .Operation<QualifyIdentity>()
                                                 .Operation<MergeIdentity>()
-                                                .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Client>(ids))),
+                                                .Use((query, ids) => query.For(Specs.Find.ByIds<Client>(ids))),
 
             () => EntityOperationMapping<Client>.ForEntity(EntityType.Instance.Firm())
                                                 .Operation<ChangeClientIdentity>()
                                                 .Operation<UpdateIdentity>()
                                                 .Operation<QualifyIdentity>()
                                                 .NonCoupledOperation<ImportFirmIdentity>()
-                                                .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Firm>(ids))
+                                                .Use((query, ids) => query.For(Specs.Find.ByIds<Firm>(ids))
                                                                             .Where(firm => firm.ClientId != null)
                                                                             .Select(firm => firm.Client)),
 
@@ -37,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                 .Operation<CreateIdentity>()
                                                 .Operation<UpdateIdentity>()
                                                 .Operation<DeleteIdentity>()
-                                                .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Contact>(ids))
+                                                .Use((query, ids) => query.For(Specs.Find.ByIds<Contact>(ids))
                                                                             .Select(contact => contact.Client)),
 
             () => EntityOperationMapping<Client>.ForEntity(EntityType.Instance.LegalPerson())
@@ -47,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                 .Operation<DeactivateIdentity>()
                                                 .Operation<DeleteIdentity>()
                                                 .Operation<MergeIdentity>()
-                                                .Use((finder, ids) => finder.Find(Specs.Find.ByIds<LegalPerson>(ids))
+                                                .Use((query, ids) => query.For(Specs.Find.ByIds<LegalPerson>(ids))
                                                                             .Where(person => person.ClientId.HasValue)
                                                                             .Select(person => person.Client)));
     }

@@ -15,6 +15,7 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
@@ -78,11 +79,11 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Position>>()))
                               .Returns(
                                   (FindSpecification<Position> x) =>
-                                  new[]
+                                  new QueryableFutureSequence<Position>(new[]
                                       {
                                           PositionWithOptionalAdvertisement,
                                           PositionWithRequiredAdvertisement
-                                      }.AsQueryable().Where(x));
+                                      }.AsQueryable().Where(x)));
 
                     ValidationRule = new RequiredAdvertisementOrderPositionAdvertisementValidationRule(FinderMock.Object);
                 };

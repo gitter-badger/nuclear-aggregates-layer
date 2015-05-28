@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Firm> GetDto(long entityId)
         {
-            var modelDto = _finder.Find(new FindSpecification<Firm>(x => x.Id == entityId))
+            var modelDto = _finder.FindObsolete(new FindSpecification<Firm>(x => x.Id == entityId))
                                   .Select(entity => new FirmDomainEntityDto
                                       {
                                           Id = entity.Id,

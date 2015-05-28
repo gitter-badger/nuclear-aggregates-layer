@@ -37,9 +37,9 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserGridDoc>> Project()
+            public static MapSpecification<ObjectAccessor, IndexedDocumentWrapper<UserGridDoc>> Project()
             {
-                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserGridDoc>>(
+                return new MapSpecification<ObjectAccessor, IndexedDocumentWrapper<UserGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<User>();
@@ -91,11 +91,11 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserAuthorizationDoc>> ProjectToUserAuthorizationDoc(
+            public static MapSpecification<ObjectAccessor, IndexedDocumentWrapper<UserAuthorizationDoc>> ProjectToUserAuthorizationDoc(
                 IEnumerable<Department> departments,
                 IEnumerable<IEntityRelationFeature> relationFeatures)
             {
-                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<UserAuthorizationDoc>>(
+                return new MapSpecification<ObjectAccessor, IndexedDocumentWrapper<UserAuthorizationDoc>>(
                     x =>
                         {
                             var container = (UserPrivilegesContainer)x.Target;

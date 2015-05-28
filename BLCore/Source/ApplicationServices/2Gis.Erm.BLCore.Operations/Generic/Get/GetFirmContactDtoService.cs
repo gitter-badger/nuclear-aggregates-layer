@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<FirmContact> GetDto(long entityId)
         {
-            return _finder.Find(new FindSpecification<FirmContact>(x => x.Id == entityId))
+            return _finder.FindObsolete(new FindSpecification<FirmContact>(x => x.Id == entityId))
                           .Select(entity => new FirmContactDomainEntityDto
                               {
                                   IsFirmAddressDeleted = entity.FirmAddress.IsDeleted,

@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -24,7 +25,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<AssociatedPositionsGroup> GetDto(long entityId)
         {
-            return _finder.Find(new FindSpecification<AssociatedPositionsGroup>(x => x.Id == entityId))
+            return _finder.FindObsolete(new FindSpecification<AssociatedPositionsGroup>(x => x.Id == entityId))
                           .Select(entity => new AssociatedPositionsGroupDomainEntityDto
                               {
                                   Id = entity.Id,

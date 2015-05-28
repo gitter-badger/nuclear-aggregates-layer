@@ -14,9 +14,9 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
     public sealed class EntityOperationMapping<TEntity> where TEntity : class, IEntity, IEntityKey
     {
         private readonly StrictOperationIdentity _operationIdentity;
-        private readonly Func<IFinder, IEnumerable<long>, IQueryable<TEntity>> _selectExpression;
+        private readonly Func<IQuery, IEnumerable<long>, IQueryable<TEntity>> _selectExpression;
 
-        private EntityOperationMapping(StrictOperationIdentity operationIdentity, Func<IFinder, IEnumerable<long>, IQueryable<TEntity>> selectExpression)
+        private EntityOperationMapping(StrictOperationIdentity operationIdentity, Func<IQuery, IEnumerable<long>, IQueryable<TEntity>> selectExpression)
         {
             _operationIdentity = operationIdentity;
             _selectExpression = selectExpression;
@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
             get { return _operationIdentity; }
         }
 
-        public Func<IFinder, IEnumerable<long>, IQueryable<TEntity>> SelectExpression
+        public Func<IQuery, IEnumerable<long>, IQueryable<TEntity>> SelectExpression
         {
             get { return _selectExpression; }
         }
@@ -70,7 +70,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                 return this;
             }
 
-            public IEnumerable<EntityOperationMapping<TEntity>> Use(Func<IFinder, IEnumerable<long>, IQueryable<TEntity>> selectExpression)
+            public IEnumerable<EntityOperationMapping<TEntity>> Use(Func<IQuery, IEnumerable<long>, IQueryable<TEntity>> selectExpression)
             {
                 return _operationIdentities.Select(operationIdentity => new EntityOperationMapping<TEntity>(operationIdentity, selectExpression)).ToArray();
             }

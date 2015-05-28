@@ -4,11 +4,12 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using NuClear.Storage.Specifications;
 using NuClear.Storage;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Themes.ReadModel
 {
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Themes.ReadModel
 
         public IEnumerable<LinkingObjectsSchemaDto.ThemeDto> FindThemesCanBeUsedWithOrder(long destOrganizationUnitId, DateTime beginDistributionDate, DateTime endDistributionDate)
         {
-            return _finder.Find(Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
+            return _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
                           .SelectMany(unit => unit.ThemeOrganizationUnits)
                           .Where(Specs.Find.ActiveAndNotDeleted<ThemeOrganizationUnit>())
                           .Select(link => link.Theme)

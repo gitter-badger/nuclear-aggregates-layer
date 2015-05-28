@@ -19,7 +19,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic.Get
         {
         }
 
-        protected override ProjectSpecification<LegalPersonProfile, UkraineLegalPersonProfileDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<LegalPersonProfile, UkraineLegalPersonProfileDomainEntityDto> GetProjectSpecification()
         {
             return LegalPersonFlexSpecs.LegalPersonProfiles.Ukraine.Project.DomainEntityDto();
         }

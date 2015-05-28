@@ -7,12 +7,14 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currency
@@ -54,13 +56,13 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
         {
             return _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Currency>(entityId) 
                                     && Specs.Find.ActiveAndNotDeleted<Platform.Model.Entities.Erm.Currency>())
-                          .Select(currency => new CurrencyWithRelationsDto
+                          .Map(q => q.Select(currency => new CurrencyWithRelationsDto
                               {
                                   Currency = currency,
                                   RelatedCountryName = currency.Countries.FirstOrDefault(y => !y.IsDeleted).Name,
                                   RelatedCurrencyRateCreateDate = (DateTime?)currency.CurrencyRates.FirstOrDefault(y => !y.IsDeleted).CreatedOn,
-                              })
-                          .SingleOrDefault();
+                              }))
+                          .One();
         }
 
         public void CreateOrUpdate(Platform.Model.Entities.Erm.Currency currency)
@@ -101,12 +103,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
         public void SetCurrencyRate(CurrencyRate currencyRate)
         {
             var isCurrencyRateExistForDate = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Currency>(x => x.Id == currencyRate.CurrencyId))
-                .SelectMany(x => x.CurrencyRates)
-                .Where(x => !x.IsDeleted)
-                .Any(x => x.CreatedOn == currencyRate.CreatedOn);
+                                                    .Fold(q => q.SelectMany(x => x.CurrencyRates)
+                                                                .Where(x => !x.IsDeleted)
+                                                                .Any(x => x.CreatedOn == currencyRate.CreatedOn));
             if (isCurrencyRateExistForDate)
             {
-                var currency = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Currency>(x => x.Id == currencyRate.CurrencyId)).Single();
+                var currency = _finder.FindObsolete(new FindSpecification<Platform.Model.Entities.Erm.Currency>(x => x.Id == currencyRate.CurrencyId)).Single();
                 throw new NotificationException(string.Format(CultureInfo.InvariantCulture, BLResources.CurrencyRateForDateAlreadyExist, currency.Name, currencyRate.CreatedOn.ToShortDateString()));
             }
 

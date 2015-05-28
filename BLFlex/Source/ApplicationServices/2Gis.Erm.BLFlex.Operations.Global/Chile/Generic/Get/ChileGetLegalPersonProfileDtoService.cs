@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
             _bankReadModel = bankReadModel;
         }
 
-        protected override ProjectSpecification<LegalPersonProfile, ChileLegalPersonProfileDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<LegalPersonProfile, ChileLegalPersonProfileDomainEntityDto> GetProjectSpecification()
         {
             return LegalPersonFlexSpecs.LegalPersonProfiles.Chile.Project.DomainEntityDto();
             }

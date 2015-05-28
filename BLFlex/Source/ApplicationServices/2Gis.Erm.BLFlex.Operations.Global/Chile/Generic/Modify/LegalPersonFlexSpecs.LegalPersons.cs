@@ -18,9 +18,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Modify
             {
                 public static class Project
                 {
-                    public static ProjectSpecification<LegalPerson, ChileLegalPersonDomainEntityDto> DomainEntityDto()
+                    public static MapSpecification<LegalPerson, ChileLegalPersonDomainEntityDto> DomainEntityDto()
                     {
-                        return new ProjectSpecification<LegalPerson, ChileLegalPersonDomainEntityDto>(
+                        return new MapSpecification<LegalPerson, ChileLegalPersonDomainEntityDto>(
                             x =>
                             {
                                 if (x.IsNew())

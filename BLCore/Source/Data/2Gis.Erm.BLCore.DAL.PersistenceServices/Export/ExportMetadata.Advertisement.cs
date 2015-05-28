@@ -21,26 +21,26 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                        .Operation<UpdateIdentity>()
                                                        .Operation<DeleteIdentity>()
                                                        .NonCoupledOperation<SelectAdvertisementToWhitelistIdentity>()
-                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Advertisement>(ids))),
+                                                       .Use((query, ids) => query.For(Specs.Find.ByIds<Advertisement>(ids))),
 
             () => EntityOperationMapping<Advertisement>.ForEntity(EntityType.Instance.AdvertisementElement())
                                                        .Operation<CreateIdentity>()
                                                        .Operation<UpdateIdentity>()
                                                        .Operation<UploadIdentity>()
-                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdvertisementElement>(ids))
+                                                       .Use((query, ids) => query.For(Specs.Find.ByIds<AdvertisementElement>(ids))
                                                                                    .Select(element => element.Advertisement)),
 
             () => EntityOperationMapping<Advertisement>.ForEntity(EntityType.Instance.AdvertisementTemplate())
                                                        .Operation<CreateIdentity>()
                                                        .Operation<DeleteIdentity>()
-                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdvertisementTemplate>(ids))
+                                                       .Use((query, ids) => query.For(Specs.Find.ByIds<AdvertisementTemplate>(ids))
                                                                                    .SelectMany(template => template.Advertisements)),
 
             () => EntityOperationMapping<Advertisement>.ForEntity(EntityType.Instance.AdsTemplatesAdsElementTemplate())
                                                        .Operation<DeleteIdentity>()
                                                        .Operation<CreateIdentity>()
                                                        .Operation<UpdateIdentity>()
-                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdsTemplatesAdsElementTemplate>(ids))
+                                                       .Use((query, ids) => query.For(Specs.Find.ByIds<AdsTemplatesAdsElementTemplate>(ids))
                                                                                    .SelectMany(template => template.AdvertisementTemplate.Advertisements)),
 
             () => EntityOperationMapping<Advertisement>.ForEntity(EntityType.Instance.AdvertisementElementStatus())
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                        .NonCoupledOperation<TransferAdvertisementElementToReadyForValidationIdentity>()
                                                        .NonCoupledOperation<ApproveAdvertisementElementIdentity>()
                                                        .NonCoupledOperation<DenyAdvertisementElementIdentity>()
-                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByIds<AdvertisementElement>(ids))
+                                                       .Use((query, ids) => query.For(Specs.Find.ByIds<AdvertisementElement>(ids))
                                                                                    .Select(element => element.Advertisement)));
     }
 }

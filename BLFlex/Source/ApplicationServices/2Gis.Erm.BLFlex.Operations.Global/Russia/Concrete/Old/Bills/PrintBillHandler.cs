@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
 {
@@ -35,7 +36,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
         protected override Response Handle(PrintBillRequest request)
         {
             var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
-                                  .Select(bill => new
+                                  .Map(q => q.Select(bill => new
                                       {
                                           Bill = bill,
                                           bill.OrderId,
@@ -48,8 +49,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                           bill.Order.LegalPersonId,
                                                           bill.Order.SourceOrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(x => x.IsPrimary)
                                                               .BranchOffice.ContributionTypeId
-                                      })
-                                  .SingleOrDefault();
+                                      }))
+                                  .One();
 
             if (billInfo == null)
             {
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
             }
 
             var printDataInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
-                                   .Select(bill => new
+                                   .Map(q => q.Select(bill => new
                                        {
                                            Bill = new
                                                {
@@ -87,8 +88,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                    bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                                },
                                            bill.Order.Bargain,
-                                       })
-                                   .ToArray()
+                                       }))
+                                   .Many()
                                    .Select(x => new
                                        {
                                            x.Bill,
@@ -102,10 +103,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                        })
                                    .Single();
 
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(billInfo.BranchOfficeOrganizationUnitId.Value));
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(billInfo.BranchOfficeId));
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(billInfo.LegalPersonId.Value));
-            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(billInfo.LegalPersonProfileId.Value));
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(billInfo.BranchOfficeOrganizationUnitId.Value)).One();
+            var branchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(billInfo.BranchOfficeId)).One();
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(billInfo.LegalPersonId.Value)).One();
+            var profile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(billInfo.LegalPersonProfileId.Value)).One();
 
             var billPrintData = new PrintData
                                     {

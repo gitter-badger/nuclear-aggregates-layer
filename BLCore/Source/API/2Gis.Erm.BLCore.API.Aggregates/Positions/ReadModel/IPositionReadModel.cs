@@ -3,9 +3,10 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Positions.DTO;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Positions;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel
 {
@@ -15,7 +16,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel
         IReadOnlyDictionary<PlatformEnum, long> GetPlatformsDictionary(IEnumerable<long> platformDgppIds);
         IEnumerable<LinkingObjectsSchemaPositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId);
         IReadOnlyCollection<long> GetDependedByPositionOrderIds(long positionId);
-        IDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds);
+        IReadOnlyDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds);
         IReadOnlyDictionary<long, PositionBindingObjectType> GetPositionBindingObjectTypes(IEnumerable<long> positionIds);
         IReadOnlyDictionary<long, string> GetPositionNames(IEnumerable<long> positionIds);
         IEnumerable<PositionSortingOrderDto> GetPositionsSortingOrder();

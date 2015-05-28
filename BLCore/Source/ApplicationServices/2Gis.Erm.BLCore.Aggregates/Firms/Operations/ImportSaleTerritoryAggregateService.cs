@@ -5,6 +5,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Georgaphy;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -53,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 
         private void ProcessActiveTerritory(SaleTerritoryServiceBusDto saleTerritoryDto, IDictionary<int, long> dgppToErmIds)
         {
-            var territory = _finder.Find(new FindSpecification<Territory>(t => t.Id == saleTerritoryDto.Code)).SingleOrDefault() ??
+            var territory = _finder.Find(new FindSpecification<Territory>(t => t.Id == saleTerritoryDto.Code)).One() ??
                             new Territory { Id = saleTerritoryDto.Code };
 
             long organizationUnitId;
@@ -93,7 +94,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
         //                          т.е. логичным выглядит изменить поток географий, также есть предложение убрать сервис деактивации терриорий из public API ERM - эта операция должна выполняться только в случае импорта 
         private void ProcessDeletedTerritory(SaleTerritoryServiceBusDto saleTerritoryDto)
         {
-            var territory = _finder.Find(new FindSpecification<Territory>(t => t.Id == saleTerritoryDto.Code)).SingleOrDefault();
+            var territory = _finder.Find(new FindSpecification<Territory>(t => t.Id == saleTerritoryDto.Code)).One();
             if (territory == null)
             {
                 return;
@@ -111,7 +112,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
         // ключ - Дгпп, значение - Ерм
         private IDictionary<int, long> GetOrganizationUnits()
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
+            return _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
                           .Where(unit => unit.DgppId != null)
                           .Select(unit => new { unit.DgppId, unit.Id })
                           .ToDictionary(x => (int)x.DgppId, x => x.Id);

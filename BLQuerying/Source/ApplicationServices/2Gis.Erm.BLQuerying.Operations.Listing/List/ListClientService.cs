@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
@@ -203,7 +204,7 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
             var expr = CreateExpToFilterReserveClientsByPermission();
             var excludeClients = GetClientsAlreadyLinked(querySettings);
 
-            var clientsQuery = _secureFinder.Find(new NuClear.Storage.Specifications.FindSpecification<Client>(expr))
+            var clientsQuery = _secureFinder.FindObsolete(new NuClear.Storage.Specifications.FindSpecification<Client>(expr))
                                             .Where(c => !excludeClients.Contains(c.Id))
                                             .Where(c => !c.IsAdvertisingAgency);
 

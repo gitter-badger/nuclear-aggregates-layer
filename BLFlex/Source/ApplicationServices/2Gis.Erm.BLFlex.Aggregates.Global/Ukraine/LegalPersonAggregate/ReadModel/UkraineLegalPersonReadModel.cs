@@ -21,9 +21,9 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Ukraine.LegalPersonAggregate.Re
 
         public bool AreThereAnyActiveEgrpouDuplicates(long legalPersonId, string egrpou)
         {
-            var duplicatesQuery = _finder.Find(BusinessEntitySpecs.BusinessEntity.Find.ByProperty(EgrpouIdentity.Instance.Id, egrpou))
-                                         .Where(x => x.EntityId != legalPersonId)
-                                         .Select(x => x.EntityId);
+            var duplicatesQuery = _query.For(BusinessEntitySpecs.BusinessEntity.Find.ByProperty(EgrpouIdentity.Instance.Id, egrpou))
+                                        .Where(x => x.EntityId != legalPersonId)
+                                        .Select(x => x.EntityId);
 
             return _query.For<LegalPerson>().Join(duplicatesQuery, x => x.Id, y => y.Value, (x, y) => x).Any(x => x.IsActive && !x.IsDeleted);
         }

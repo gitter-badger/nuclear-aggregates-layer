@@ -3,12 +3,14 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.ReadModel;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
@@ -24,7 +26,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
 
         public AdvertisementElementModifyDto GetAdvertisementInfoForElement(long advertisementElementId)
         {
-            return _finder.Find(Specs.Find.ById<AdvertisementElement>(advertisementElementId))
+            return _finder.FindObsolete(Specs.Find.ById<AdvertisementElement>(advertisementElementId))
                           .Select(x => new AdvertisementElementModifyDto
                               {
                                   IsDummy = x.Advertisement.FirmId == null,
@@ -45,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
 
         public AdvertisementMailNotificationDto GetMailNotificationDto(long advertisementElementId)
         {
-            return _finder.Find(Specs.Find.ById<AdvertisementElement>(advertisementElementId))
+            return _finder.FindObsolete(Specs.Find.ById<AdvertisementElement>(advertisementElementId))
                           .Select(x => new AdvertisementMailNotificationDto
                                            {
                                                FirmRef = new EntityReference { Id = x.Advertisement.Firm.Id, Name = x.Advertisement.Firm.Name },
@@ -70,13 +72,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
 
         public AdvertisementElementStatus GetAdvertisementElementStatus(long advertisementElementId)
         {
-            return _finder.FindOne(AdvertisementSpecs.AdvertisementElementStatuses.Find.ByAdvertisementElement(advertisementElementId));
+            return _finder.Find(AdvertisementSpecs.AdvertisementElementStatuses.Find.ByAdvertisementElement(advertisementElementId)).One();
         }
 
         public IEnumerable<AdvertisementElementCreationDto> GetElementsToCreate(long advertisementTemplateId)
         {
             return _finder.Find(Specs.Find.ById<AdvertisementTemplate>(advertisementTemplateId))
-                          .SelectMany(x => x.AdsTemplatesAdsElementTemplates
+                          .Map(q => q.SelectMany(x => x.AdsTemplatesAdsElementTemplates
                                             .Where(y => !y.IsDeleted)
                                             .Select(y => new AdvertisementElementCreationDto
                                                 {
@@ -86,31 +88,31 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
                                                     NeedsValidation = y.AdvertisementElementTemplate.NeedsValidation,
                                                     IsRequired = y.AdvertisementElementTemplate.IsRequired,
                                                     DummyAdvertisementId = y.AdvertisementTemplate.DummyAdvertisementId
-                                                }))
-                          .ToArray();
+                                                })))
+                          .Many();
         }
 
         public Advertisement GetAdvertisement(long advertisementId)
         {
-            return _finder.FindOne(Specs.Find.ById<Advertisement>(advertisementId));
+            return _finder.Find(Specs.Find.ById<Advertisement>(advertisementId)).One();
         }
 
         public IEnumerable<long> GetElementDenialReasonIds(long advertisementElementId)
         {
             return
                 _finder.Find(AdvertisementSpecs.AdvertisementElementDenialReasons.Find.ByAdvertisementElement(advertisementElementId))
-                       .Select(x => x.Id)
-                       .ToArray();
+                       .Map(q => q.Select(x => x.Id))
+                       .Many();
         }
 
         public AdvertisementElementDenialReason GetAdvertisementElementDenialReason(long advertisementElementDenialReasonId)
         {
-            return _finder.FindOne(Specs.Find.ById<AdvertisementElementDenialReason>(advertisementElementDenialReasonId));
+            return _finder.Find(Specs.Find.ById<AdvertisementElementDenialReason>(advertisementElementDenialReasonId)).One();
         }
 
         public AdvertisementElementValidationState GetAdvertisementElementValidationState(long advertisementElementId)
         {
-            return _finder.Find(AdvertisementSpecs.AdvertisementElementStatuses.Find.ByAdvertisementElement(advertisementElementId))
+            return _finder.FindObsolete(AdvertisementSpecs.AdvertisementElementStatuses.Find.ByAdvertisementElement(advertisementElementId))
                           .Select(x => new AdvertisementElementValidationState
                               {
                                   NeedsValidation =
@@ -122,7 +124,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
 
         public IReadOnlyCollection<long> GetDependedOrderIds(IEnumerable<long> advertisementIds)
         {
-            return _finder.Find(new FindSpecification<Advertisement>(x => advertisementIds.Contains(x.Id)))
+            return _finder.FindObsolete(new FindSpecification<Advertisement>(x => advertisementIds.Contains(x.Id)))
                                   .SelectMany(x => x.OrderPositionAdvertisements)
                                   .Select(x => x.OrderPosition)
                                   .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())
@@ -135,7 +137,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.ReadModel
 
         public IReadOnlyCollection<long> GetDependedOrderIdsByAdvertisementElements(IEnumerable<long> advertisementElementIds)
         {
-            return _finder.Find(Specs.Find.ByIds<AdvertisementElement>(advertisementElementIds))
+            return _finder.FindObsolete(Specs.Find.ByIds<AdvertisementElement>(advertisementElementIds))
                                   .SelectMany(x => x.Advertisement.OrderPositionAdvertisements)
                                   .Select(x => x.OrderPosition)
                                   .Where(Specs.Find.ActiveAndNotDeleted<OrderPosition>())

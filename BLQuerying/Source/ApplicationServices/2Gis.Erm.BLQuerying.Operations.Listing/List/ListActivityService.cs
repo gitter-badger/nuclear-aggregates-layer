@@ -26,17 +26,17 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
     {
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly ICompositeEntityQuery _compositeEntityQuery;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly FilterHelper _filterHelper;
 
         public ListActivityService(ISecurityServiceUserIdentifier userIdentifierService,
                                    ICompositeEntityQuery compositeEntityQuery,
-                                   IFinder finder,
+                                   IQuery query,
                                    FilterHelper filterHelper)
         {
             _userIdentifierService = userIdentifierService;
             _compositeEntityQuery = compositeEntityQuery;
-            _finder = finder;
+            _query = query;
             _filterHelper = filterHelper;
         }
 
@@ -244,8 +244,8 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 var regardingClients = _compositeEntityQuery.For(new FindSpecification<TEntityReference>(x => x.TargetEntityTypeId == clientTypeId));
                 var regardingFirms = _compositeEntityQuery.For(new FindSpecification<TEntityReference>(x => x.TargetEntityTypeId == firmTypeId));
                 var regardingDeals = _compositeEntityQuery.For(new FindSpecification<TEntityReference>(x => x.TargetEntityTypeId == dealTypeId));
-                var firms = _finder.Find(Specs.Find.Active<Firm>());
-                var deals = _finder.Find(Specs.Find.Active<Deal>());
+                var firms = _query.For(Specs.Find.Active<Firm>());
+                var deals = _query.For(Specs.Find.Active<Deal>());
 
                 return activity => (from clientRef in regardingClients
                                     where clientRef.TargetEntityId == entityId

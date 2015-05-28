@@ -32,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms
         void ImportFirmPromisingValues(long userId);
         void UpdateFirmAddresses(IEnumerable<FirmAddress> syncFirmAddressesDtos);
 
-        long[] GetAdvertisementIds(long firmId);
+        IReadOnlyCollection<long> GetAdvertisementIds(long firmId);
 
         bool IsTerritoryReplaceable(long oldTerritoryId, long newTerritoryId);
     }

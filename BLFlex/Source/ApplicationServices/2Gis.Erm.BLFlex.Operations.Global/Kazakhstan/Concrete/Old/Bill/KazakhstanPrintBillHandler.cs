@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Bill
 {
@@ -43,7 +44,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Bill
         protected override Response Handle(PrintBillRequest request)
         {
             var billInfo = _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Bill>(request.BillId))
-                                  .Select(bill => new
+                                  .Map(q => q.Select(bill => new
                                       {
                                           Bill = bill,
                                           bill.Order,
@@ -56,8 +57,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Bill
                                           OrderVatRate = (long?)bill.Order.BranchOfficeOrganizationUnit.BranchOffice.BargainType.VatRate,
                                           bill.Order.Bargain,
                                           bill.Order.LegalPerson.LegalPersonTypeEnum
-                                      })
-                                  .SingleOrDefault();
+                                      }))
+                                  .One();
 
             if (billInfo == null)
             {

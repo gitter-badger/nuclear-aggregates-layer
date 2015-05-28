@@ -18,13 +18,13 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                                .Operation<CreateIdentity>()
                                                                .Operation<UpdateIdentity>()
                                                                .Operation<DeleteIdentity>()
-                                                               .Use((finder, ids) => finder.Find(Specs.Find.ByIds<ThemeOrganizationUnit>(ids))),
+                                                               .Use((query, ids) => query.For(Specs.Find.ByIds<ThemeOrganizationUnit>(ids))),
 
             () => EntityOperationMapping<ThemeOrganizationUnit>.ForEntity(EntityType.Instance.Theme())
                                                                .Operation<CreateIdentity>()
                                                                .Operation<UpdateIdentity>()
                                                                .Operation<DeleteIdentity>()
-                                                               .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Theme>(ids))
+                                                               .Use((query, ids) => query.For(Specs.Find.ByIds<Theme>(ids))
                                                                                            .SelectMany(theme => theme.ThemeOrganizationUnits)));
     }
 }

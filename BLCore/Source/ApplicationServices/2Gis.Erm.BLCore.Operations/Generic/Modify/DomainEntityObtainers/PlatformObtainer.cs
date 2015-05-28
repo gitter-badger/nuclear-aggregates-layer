@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+﻿using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -24,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (PlatformDomainEntityDto)domainEntityDto;
 
-            var platform = _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Platform>(dto.Id)).SingleOrDefault() ??
+            var platform = _finder.Find(Specs.Find.ById<Platform.Model.Entities.Erm.Platform>(dto.Id)).One() ??
                            new Platform.Model.Entities.Erm.Platform { Id = dto.Id };
 
             if (dto.Timestamp == null && platform.Timestamp != null)

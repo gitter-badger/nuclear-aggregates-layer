@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
             bool isNew = dto.IsNew();
             var accountDetail = isNew
                     ? new AccountDetail { IsActive = true }
-                    : _finder.Find(Specs.Find.ById<AccountDetail>(dto.Id)).Single();
+                    : _finder.FindObsolete(Specs.Find.ById<AccountDetail>(dto.Id)).Single();
 
             if (isNew)
             {

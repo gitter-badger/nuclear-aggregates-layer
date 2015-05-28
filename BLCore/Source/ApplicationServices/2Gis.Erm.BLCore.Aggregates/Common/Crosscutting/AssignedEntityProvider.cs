@@ -10,6 +10,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
 {
@@ -104,7 +105,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
         {
             if (parentEntityName.Equals(EntityType.Instance.AdvertisementElement()))
             {
-                return new[] { _finder.FindOne(Specs.Find.ById<Advertisement>(parentId)) };
+                return new[] { _finder.Find(Specs.Find.ById<Advertisement>(parentId)).One() };
             }
 
             return Enumerable.Empty<Advertisement>();
@@ -114,7 +115,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
         {
             if (parentEntityName.Equals(EntityType.Instance.AdvertisementElement()))
             {
-                return new[] { _finder.FindOne(Specs.Find.ById<AdvertisementElement>(parentId)) };
+                return new[] { _finder.Find(Specs.Find.ById<AdvertisementElement>(parentId)).One() };
             }
 
             return Enumerable.Empty<AdvertisementElement>();
@@ -124,7 +125,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
         {
             if (parentEntityName.Equals(EntityType.Instance.Deal()))
             {
-                return new[] { _finder.FindOne(Specs.Find.ById<Deal>(parentId)) };
+                return new[] { _finder.Find(Specs.Find.ById<Deal>(parentId)).One() };
             }
             
             if (parentEntityName.Equals(EntityType.Instance.Client()))
@@ -132,10 +133,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
                 IEnumerable<long> dealIds;
                 if (forceCaching && _entityNamesToIdsMap.TryGetValue(EntityType.Instance.Deal(), out dealIds))
                 {
-                    return _finder.FindMany(Specs.Find.ByIds<Deal>(dealIds));
+                    return _finder.Find(Specs.Find.ByIds<Deal>(dealIds)).Many();
                 }
 
-                var result = _finder.Find(Specs.Find.ById<Client>(parentId)).SelectMany(x => x.Firms.SelectMany(y => y.Deals)).ToArray();
+                var result = _finder.Find(Specs.Find.ById<Client>(parentId)).Map(q => q.SelectMany(x => x.Firms.SelectMany(y => y.Deals))).Many();
 
                 if (forceCaching)
                 {
@@ -150,10 +151,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
                 IEnumerable<long> dealIds;
                 if (_entityNamesToIdsMap.TryGetValue(EntityType.Instance.Deal(), out dealIds))
                 {
-                    return _finder.FindMany(Specs.Find.ByIds<Deal>(dealIds));
+                    return _finder.Find(Specs.Find.ByIds<Deal>(dealIds)).Many();
                 }
 
-                var result = _finder.FindMany(Specs.Find.Owned<Deal>(parentId));
+                var result = _finder.Find(Specs.Find.Owned<Deal>(parentId)).Many();
 
                 _entityNamesToIdsMap.Add(EntityType.Instance.Deal(), result.Select(x => x.Id).ToArray());
 
@@ -167,7 +168,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
         {
             if (parentEntityName.Equals(EntityType.Instance.Order()))
             {
-                return new[] { _finder.FindOne(Specs.Find.ById<Order>(parentId)) };
+                return new[] { _finder.Find(Specs.Find.ById<Order>(parentId)).One() };
             }
 
             if (parentEntityName.Equals(EntityType.Instance.Client()))
@@ -176,10 +177,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
 
                 if (forceCaching && _entityNamesToIdsMap.TryGetValue(EntityType.Instance.Order(), out orderIds))
                 {
-                    return _finder.FindMany(Specs.Find.ByIds<Order>(orderIds));
+                    return _finder.Find(Specs.Find.ByIds<Order>(orderIds)).Many();
                 }
 
-                var result = _finder.Find(Specs.Find.ById<Client>(parentId)).SelectMany(x => x.Firms.SelectMany(y => y.Orders)).ToArray();
+                var result = _finder.Find(Specs.Find.ById<Client>(parentId)).Map(q => q.SelectMany(x => x.Firms.SelectMany(y => y.Orders))).Many();
 
                 if (forceCaching)
                 {
@@ -195,10 +196,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
 
                 if (_entityNamesToIdsMap.TryGetValue(EntityType.Instance.Order(), out orderIds))
                 {
-                    return _finder.FindMany(Specs.Find.ByIds<Order>(orderIds));
+                    return _finder.Find(Specs.Find.ByIds<Order>(orderIds)).Many();
                 }
 
-                var result = _finder.FindMany(Specs.Find.Owned<Order>(parentId));
+                var result = _finder.Find(Specs.Find.Owned<Order>(parentId)).Many();
 
                 _entityNamesToIdsMap.Add(EntityType.Instance.Order(), result.Select(x => x.Id).ToArray());
 
@@ -207,7 +208,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
 
             if (parentEntityName.Equals(EntityType.Instance.Deal()))
             {
-                return _finder.FindMany(OrderSpecs.Orders.Find.ForDeal(parentId)).ToArray();
+                return _finder.Find(OrderSpecs.Orders.Find.ForDeal(parentId)).Many();
             }
 
             return Enumerable.Empty<Order>();
@@ -217,7 +218,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
         {
             if (parentEntityName.Equals(EntityType.Instance.Firm()))
             {
-                return new[] { _finder.FindOne(Specs.Find.ById<Firm>(parentId)) };
+                return new[] { _finder.Find(Specs.Find.ById<Firm>(parentId)).One() };
             }
 
             if (parentEntityName.Equals(EntityType.Instance.Client()))
@@ -225,10 +226,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
                 IEnumerable<long> firmIds;
                 if (forceCaching && _entityNamesToIdsMap.TryGetValue(EntityType.Instance.Firm(), out firmIds))
                 {
-                    return _finder.FindMany(Specs.Find.ByIds<Firm>(firmIds));
+                    return _finder.Find(Specs.Find.ByIds<Firm>(firmIds)).Many();
                 }
 
-                var result = _finder.Find(Specs.Find.ById<Client>(parentId)).SelectMany(x => x.Firms).ToArray();
+                var result = _finder.Find(Specs.Find.ById<Client>(parentId)).Map(q => q.SelectMany(x => x.Firms)).Many();
 
                 if (forceCaching)
                 {
@@ -243,10 +244,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
                 IEnumerable<long> firmIds;
                 if (_entityNamesToIdsMap.TryGetValue(EntityType.Instance.Firm(), out firmIds))
                 {
-                    return _finder.FindMany(Specs.Find.ByIds<Firm>(firmIds));
+                    return _finder.Find(Specs.Find.ByIds<Firm>(firmIds)).Many();
                 }
 
-                var result = _finder.FindMany(Specs.Find.Owned<Firm>(parentId));
+                var result = _finder.Find(Specs.Find.Owned<Firm>(parentId)).Many();
 
                 _entityNamesToIdsMap.Add(EntityType.Instance.Firm(), result.Select(x => x.Id).ToArray());
 
@@ -260,7 +261,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
         {
             if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
             {
-                return new[] { _finder.FindOne(Specs.Find.ById<LegalPerson>(parentId)) };
+                return new[] { _finder.Find(Specs.Find.ById<LegalPerson>(parentId)).One() };
             }
 
             return Enumerable.Empty<LegalPerson>();
@@ -270,7 +271,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
         {
             if (parentEntityName.Equals(EntityType.Instance.Bargain()))
             {
-                return new[] { _finder.FindOne(Specs.Find.ById<Bargain>(parentId)) };
+                return new[] { _finder.Find(Specs.Find.ById<Bargain>(parentId)).One() };
             }
 
             return Enumerable.Empty<Bargain>();
@@ -280,7 +281,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
         {
             if (parentEntityName.Equals(EntityType.Instance.Client()))
             {
-                return new[] { _finder.FindOne(Specs.Find.ById<Client>(parentId)) };
+                return new[] { _finder.Find(Specs.Find.ById<Client>(parentId)).One() };
             }
 
             if (parentEntityName.Equals(EntityType.Instance.User()))
@@ -288,10 +289,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
                 IEnumerable<long> clientIds;
                 if (_entityNamesToIdsMap.TryGetValue(EntityType.Instance.Client(), out clientIds))
                 {
-                    return _finder.FindMany(Specs.Find.ByIds<Client>(clientIds));
+                    return _finder.Find(Specs.Find.ByIds<Client>(clientIds)).Many();
                 }
 
-                var result = _finder.FindMany(Specs.Find.Owned<Client>(parentId));
+                var result = _finder.Find(Specs.Find.Owned<Client>(parentId)).Many();
 
                 _entityNamesToIdsMap.Add(EntityType.Instance.Client(), result.Select(x => x.Id).ToArray());
 
@@ -305,7 +306,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
         {
             if (parentEntityName.Equals(EntityType.Instance.Account()))
             {
-                return new[] { _finder.FindOne(Specs.Find.ById<Account>(parentId)) };
+                return new[] { _finder.Find(Specs.Find.ById<Account>(parentId)).One() };
             }
 
             if (parentEntityName.Equals(EntityType.Instance.Client()))
@@ -313,10 +314,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
                 IEnumerable<long> accountIds;
                 if (forceCaching && _entityNamesToIdsMap.TryGetValue(EntityType.Instance.Account(), out accountIds))
                 {
-                    return _finder.FindMany(Specs.Find.ByIds<Account>(accountIds));
+                    return _finder.Find(Specs.Find.ByIds<Account>(accountIds)).Many();
                 }
 
-                var result = _finder.Find(Specs.Find.ById<Client>(parentId)).SelectMany(x => x.LegalPersons.SelectMany(y => y.Accounts)).ToArray();
+                var result = _finder.Find(Specs.Find.ById<Client>(parentId)).Map(q => q.SelectMany(x => x.LegalPersons.SelectMany(y => y.Accounts))).Many();
 
                 if (forceCaching)
                 {
@@ -328,7 +329,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
 
             if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
             {
-                return _finder.FindMany(Specs.Find.ById<LegalPerson>(parentId)).SelectMany(lp => lp.Accounts).ToArray();
+                return _finder.Find(Specs.Find.ById<LegalPerson>(parentId)).Map(q => q.SelectMany(lp => lp.Accounts)).Many();
             }
 
             if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
@@ -336,10 +337,10 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
                 IEnumerable<long> accountIds;
                 if (_entityNamesToIdsMap.TryGetValue(EntityType.Instance.Account(), out accountIds))
                 {
-                    return _finder.FindMany(Specs.Find.ByIds<Account>(accountIds));
+                    return _finder.Find(Specs.Find.ByIds<Account>(accountIds)).Many();
                 }
 
-                var result = _finder.FindMany(Specs.Find.Owned<Account>(parentId));
+                var result = _finder.Find(Specs.Find.Owned<Account>(parentId)).Many();
 
                 _entityNamesToIdsMap.Add(EntityType.Instance.Account(), result.Select(x => x.Id).ToArray());
 
@@ -353,7 +354,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting
         {
             if (parentEntityName.Equals(EntityType.Instance.AccountDetail()))
             {
-                return new[] { _finder.FindOne(Specs.Find.ById<AccountDetail>(parentId)) };
+                return new[] { _finder.Find(Specs.Find.ById<AccountDetail>(parentId)).One() };
             }
 
             return Enumerable.Empty<AccountDetail>();

@@ -9,6 +9,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using FluentAssertions;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {
@@ -32,14 +33,15 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.G
         {
             var targetAccount = _finder
                 .Find(Specs.Find.ActiveAndNotDeleted<Account>())
-                .Select(a => new
-                    {
-                        a.Id,
-                        NetDebt = a.Balance - (a.Locks
-                                                .Where(l => l.IsActive && !l.IsDeleted)
-                                                .Sum(l => (decimal?)l.PlannedAmount) ?? 0)
-                    })
-                .First(x => x.NetDebt <= _debtProcessingSettings.MinDebtAmount);
+                .Fold(q =>
+                      q.Select(a => new
+                          {
+                              a.Id,
+                              NetDebt = a.Balance - (a.Locks
+                                                      .Where(l => l.IsActive && !l.IsDeleted)
+                                                      .Sum(l => (decimal?)l.PlannedAmount) ?? 0)
+                          })
+                       .First(x => x.NetDebt <= _debtProcessingSettings.MinDebtAmount));
 
             return Result
                 .When(_checkForDebtsGenericEntityService.CheckForDebts(targetAccount.Id))

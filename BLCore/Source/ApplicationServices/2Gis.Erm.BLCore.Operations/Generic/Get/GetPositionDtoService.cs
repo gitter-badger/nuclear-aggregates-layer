@@ -4,6 +4,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Prices;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Position> GetDto(long entityId)
         {
-            var dto = _finder.Find(new FindSpecification<Position>(x => x.Id == entityId))
+            var dto = _finder.FindObsolete(new FindSpecification<Position>(x => x.Id == entityId))
                              .Select(entity => new PositionDomainEntityDto
                                  {
                                      Id = entity.Id,

@@ -16,6 +16,7 @@ using Moq;
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 using NuClear.Security.API.UserContext.Identity;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
 
                     FinderMock = new Mock<ISecureFinder>();
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Platform.Model.Entities.Erm.Client>>()))
-                              .Returns(new[] { Client }.AsQueryable());
+                              .Returns(new QueryableFutureSequence<Platform.Model.Entities.Erm.Client>(new[] { Client }.AsQueryable()));
 
                     var userContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
                     

@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs
 {
@@ -18,8 +19,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Specs
             {
                 var dealLegalPersons = finder.Find(DealSpecs.LegalPersonDeals.Find.ByDeal(dealId) &&
                                                    Platform.DAL.Specifications.Specs.Find.NotDeleted<LegalPersonDeal>())
-                                             .Select(x => x.LegalPersonId)
-                                             .ToArray();
+                                             .Map(q => q.Select(x => x.LegalPersonId))
+                                             .Many();
 
                 if (dealLegalPersons.Any())
                 {

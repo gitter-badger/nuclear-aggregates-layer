@@ -11,6 +11,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -47,7 +48,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
         protected override Response Handle(PrintOrderAdditionalAgreementRequest request)
         {
             var orderInfoValidation =
-                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                     .Select(order => new { WorkflowStep = order.WorkflowStepId, order.IsTerminated, order.RejectionDate })
                     .Single();
 
@@ -67,7 +68,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
             }
 
             var orderInfo =
-                _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+                _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                        .Select(order => new
                            {
                                Order = order,

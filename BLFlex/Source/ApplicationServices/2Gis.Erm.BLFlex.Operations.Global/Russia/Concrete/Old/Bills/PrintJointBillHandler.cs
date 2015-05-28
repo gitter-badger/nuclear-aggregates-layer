@@ -16,6 +16,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
         protected override Response Handle(PrintJointBillRequest request)
         {
             var commonInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
-                                    .Select(x => new
+                                    .Map(q => q.Select(x => new
                                                      {
                                                          BillsBeginDistributionDate = x.BeginDistributionDate,
                                                          BillsEndDistributionDate = x.EndDistributionDate,
@@ -51,8 +52,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                          ProfileId = x.Order.LegalPersonProfileId,
                                                          x.Order.SourceOrganizationUnit.BranchOfficeOrganizationUnits.FirstOrDefault(y => y.IsPrimary)
                                                           .BranchOffice.ContributionTypeId
-                                                     })
-                                    .FirstOrDefault();
+                                                     }))
+                                    .Top();
 
             if (commonInfo == null || commonInfo.BranchOfficeOrganizationUnitId == null)
             {
@@ -64,10 +65,10 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                 throw new RequiredFieldIsEmptyException(BLResources.LegalPersonProfileMustBeSpecified);
             }
 
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(commonInfo.BranchOfficeId));
-            var legalPersonProfile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(commonInfo.ProfileId.Value));
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(commonInfo.LegalPersonId.Value));
-            var branchOfficeOrganizationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(commonInfo.BranchOfficeOrganizationUnitId.Value));
+            var branchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(commonInfo.BranchOfficeId)).One();
+            var legalPersonProfile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(commonInfo.ProfileId.Value)).One();
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(commonInfo.LegalPersonId.Value)).One();
+            var branchOfficeOrganizationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(commonInfo.BranchOfficeOrganizationUnitId.Value)).One();
 
             var billsInfo = _finder.Find(new FindSpecification<Bill>(bill => bill.IsActive && !bill.IsDeleted &&
                                                                              (bill.Id == request.BillId ||
@@ -75,7 +76,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                                                && bill.BeginDistributionDate == commonInfo.BillsBeginDistributionDate
                                                                                && bill.EndDistributionDate == commonInfo.BillsEndDistributionDate
                                                                                && request.RelatedOrdersId.Contains(bill.OrderId)))))
-                                   .Select(bill => new
+                                   .Map(q => q.Select(bill => new
                                        {
                                            Bill = new BillInfo
                                                {
@@ -99,8 +100,8 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Bills
                                                    bill.Order.CreatedOn
                                                },
                                            bill.Order.Bargain,
-                                       })
-                                   .ToArray();
+                                       }))
+                                   .Many();
 
             var summary = billsInfo.Aggregate(new SummaryJointBillInfo { PayableWithoutVatPlan = 0m, VatPlan = 0m, PayablePlan = 0m },
                                               (sum, item) =>

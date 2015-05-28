@@ -3,10 +3,10 @@
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Price;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {
@@ -21,6 +21,6 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                        .Operation<ActivateIdentity>()
                                                        .Operation<DeleteIdentity>()
                                                        .NonCoupledOperation<CopyPricePositionIdentity>()
-                                                       .Use((finder, ids) => finder.Find(Specs.Find.ByIds<PricePosition>(ids))));
+                                                       .Use((query, ids) => query.For(Specs.Find.ByIds<PricePosition>(ids))));
     }
 }

@@ -7,6 +7,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
         {
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+            var orderInfo = _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                                  {
                                      OrderState = order.WorkflowStepId,
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
                 throw new NotificationException(BLResources.OrderShouldBeTerminatedOrArchive);
             }
 
-            var data = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+            var data = _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                 .Select(order => new
                     {
                         Order = order,
@@ -70,11 +71,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Concrete.Old.Orders.Prin
             }
 
             var branchOfficeOrganizationUnit = data.BranchOfficeOrganizationUnitId.HasValue
-                ? _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value))
+                ? _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(data.BranchOfficeOrganizationUnitId.Value)).One()
                 : null;
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value));
-            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(data.ProfileId.Value));
-            var branchOffice = _finder.FindOne(Specs.Find.ById<BranchOffice>(data.BranchOfficeId));
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(data.LegalPersonId.Value)).One();
+            var profile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(data.ProfileId.Value)).One();
+            var branchOffice = _finder.Find(Specs.Find.ById<BranchOffice>(data.BranchOfficeId)).One();
 
             var printData = new
                 {

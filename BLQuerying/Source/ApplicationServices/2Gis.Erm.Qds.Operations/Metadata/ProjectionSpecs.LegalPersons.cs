@@ -33,9 +33,9 @@ namespace DoubleGis.Erm.Qds.Operations.Metadata
                              });
             }
 
-            public static ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<LegalPersonGridDoc>> Project()
+            public static MapSpecification<ObjectAccessor, IndexedDocumentWrapper<LegalPersonGridDoc>> Project()
             {
-                return new ProjectSpecification<ObjectAccessor, IndexedDocumentWrapper<LegalPersonGridDoc>>(
+                return new MapSpecification<ObjectAccessor, IndexedDocumentWrapper<LegalPersonGridDoc>>(
                     x =>
                         {
                             var accessor = x.BasedOn<LegalPerson>();

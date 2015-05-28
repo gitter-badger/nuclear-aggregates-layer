@@ -12,6 +12,6 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
         public static readonly QueryRuleContainer<BirthdayCongratulation> BirthdayCongratulation = QueryRuleContainer<BirthdayCongratulation>.Create(
             () => EntityOperationMapping<BirthdayCongratulation>.ForEntity(EntityType.Instance.BirthdayCongratulation())
                                                                 .Operation<CreateIdentity>()
-                                                                .Use((finder, ids) => finder.Find(Specs.Find.ByIds<BirthdayCongratulation>(ids))));
+                                                                .Use((query, ids) => query.For(Specs.Find.ByIds<BirthdayCongratulation>(ids))));
     }
 }

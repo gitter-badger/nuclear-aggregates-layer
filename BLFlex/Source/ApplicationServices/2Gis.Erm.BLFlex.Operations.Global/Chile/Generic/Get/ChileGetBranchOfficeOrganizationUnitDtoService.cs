@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.Get
             }
         }
 
-        protected override ProjectSpecification<BranchOfficeOrganizationUnit, ChileBranchOfficeOrganizationUnitDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<BranchOfficeOrganizationUnit, ChileBranchOfficeOrganizationUnitDomainEntityDto> GetProjectSpecification()
         {
             return BranchOfficeFlexSpecs.BranchOfficeOrganizationUnits.Chile.Project.DomainEntityDto();
         }

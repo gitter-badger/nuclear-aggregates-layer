@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Contact> GetDto(long entityId)
         {
-            return _finder.Find(new FindSpecification<Contact>(x => x.Id == entityId))
+            return _finder.FindObsolete(new FindSpecification<Contact>(x => x.Id == entityId))
                           .Select(x => new ContactDomainEntityDto
                               {
                                   Id = x.Id,
@@ -70,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         {
             if (parentEntityName.Equals(EntityType.Instance.Client()))
             {
-                return _finder.Find(new FindSpecification<Client>(x => x.Id == parentEntityId))
+                return _finder.FindObsolete(new FindSpecification<Client>(x => x.Id == parentEntityId))
                               .Select(x => new ContactDomainEntityDto
                                   {
                                       OwnerRef = new EntityReference { Id = x.OwnerCode, Name = null },

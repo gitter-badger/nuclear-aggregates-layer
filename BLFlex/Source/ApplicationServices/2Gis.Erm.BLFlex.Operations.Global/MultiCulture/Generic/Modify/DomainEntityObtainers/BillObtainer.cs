@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify.DomainEntityObtainers;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify.Dom
             bool isNew = dto.IsNew();
             var bill = isNew
                            ? new Bill { IsActive = true }
-                           : _finder.Find(Specs.Find.ById<Bill>(dto.Id)).Single();
+                           : _finder.FindObsolete(Specs.Find.ById<Bill>(dto.Id)).Single();
             if (isNew)
             {
                 bill.OrderId = dto.OrderId;

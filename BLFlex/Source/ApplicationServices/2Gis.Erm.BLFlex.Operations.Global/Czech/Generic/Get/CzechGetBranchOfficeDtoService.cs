@@ -25,7 +25,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Get
         {
         }
 
-        protected override ProjectSpecification<BranchOffice, CzechBranchOfficeDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<BranchOffice, CzechBranchOfficeDomainEntityDto> GetProjectSpecification()
         {
             return BranchOfficeFlexSpecs.BranchOffices.Czech.Project.DomainEntityDto();
         }

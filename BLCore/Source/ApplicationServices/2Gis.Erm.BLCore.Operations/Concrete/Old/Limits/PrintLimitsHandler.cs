@@ -13,11 +13,13 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Common.Compression;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
@@ -45,7 +47,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
 
         protected override StreamResponse Handle(PrintLimitsRequest request)
         {
-            var branchOfficeOrgUnitInfos = request.LimitIds.Select(x => _finder.Find(Specs.Find.ById<Limit>(x))
+            var branchOfficeOrgUnitInfos = request.LimitIds.Select(x => _finder.FindObsolete(Specs.Find.ById<Limit>(x))
                                                                                .Select(limit => new
                                                                                    {
                                                                                        limit.Account.BranchOfficeOrganizationUnit.ShortLegalName,
@@ -107,7 +109,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
         {
             var limits = limitIds.Select((id, index) =>
                                         _finder.Find(new FindSpecification<Limit>(limit => limit.Id == id && limit.Account.BranchOfficeOrganizationUnitId == branchOfficeOrgUnitId))
-                                             .Select(limit => new
+                                             .Map(q => q.Select(limit => new
                                                           {
                                                               ClientName = limit.Account.LegalPerson.Client.Name,
                                                               LegalPersonLegalName = limit.Account.LegalPerson.LegalName,
@@ -126,8 +128,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Limits
                                                               limit.InspectorCode,
                                                               limit.Comment,
                                                               CurrencyISOCode = limit.Account.BranchOfficeOrganizationUnit.OrganizationUnit.Country.Currency.ISOCode
-                                                          })
-                                             .AsEnumerable()
+                                                          }))
+                                             .Many()
                                              .Select(item => new
                                                           {
                                                               Number = index + 1,

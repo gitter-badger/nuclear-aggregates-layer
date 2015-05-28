@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Simplified;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.GeoClassifier;
@@ -32,12 +31,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Project
 
         public IEnumerable<Project> GetProjectsByOrganizationUnit(long organizationUnitId)
         {
-            return _finder.FindMany(ProjectSpecs.Find.ByOrganizationUnit(organizationUnitId) && Specs.Find.Active<Project>());
+            return _finder.Find(ProjectSpecs.Find.ByOrganizationUnit(organizationUnitId) && Specs.Find.Active<Project>()).Many();
         }
 
         public Project GetProjectByCode(long projectCode)
         {
-            return _finder.FindOne(Specs.Find.ById<Project>(projectCode));
+            return _finder.Find(Specs.Find.ById<Project>(projectCode)).One();
         }
 
         public bool DoesActiveProjectExist(long projectCode)
@@ -55,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Project
         {
             foreach (var projectDto in projects)
             {
-                var project = _finder.Find(Specs.Find.ById<Project>(projectDto.Code)).SingleOrDefault() ??
+                var project = _finder.Find(Specs.Find.ById<Project>(projectDto.Code)).One() ??
                               new Project { Id = projectDto.Code };
 
                 project.DisplayName = projectDto.DisplayName;

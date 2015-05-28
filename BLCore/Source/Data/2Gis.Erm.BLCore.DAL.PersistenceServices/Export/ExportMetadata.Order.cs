@@ -5,13 +5,13 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-
-using NuClear.Model.Common.Entities;
-using NuClear.Model.Common.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Bargain;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withdrawal;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {
@@ -29,56 +29,56 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                   .NonCoupledOperation<ChangeDealIdentity>()
                   .NonCoupledOperation<CloseWithDenialIdentity>()
                   .NonCoupledOperation<RepairOutdatedIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Order>(ids))),
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<Order>(ids))),
 
             () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.OrderPosition())
                   .Operation<CreateIdentity>()
                   .Operation<UpdateIdentity>()
                   .Operation<DeleteIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<OrderPosition>(ids)).Select(position => position.Order)),
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<OrderPosition>(ids)).Select(position => position.Order)),
 
             () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.Deal())
                   .Operation<AssignIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Deal>(ids)).SelectMany(deal => deal.Orders)),
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<Deal>(ids)).SelectMany(deal => deal.Orders)),
 
             () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.Client())
                   .Operation<AssignIdentity>()
                   .Operation<DisqualifyIdentity>()
                   .Operation<QualifyIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Client>(ids)).SelectMany(client => client.Firm.Orders)),
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<Client>(ids)).SelectMany(client => client.Firm.Orders)),
 
             () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.LegalPerson())
                   .Operation<ChangeClientIdentity>()
                   .Operation<AssignIdentity>()
                   .Operation<MergeIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<LegalPerson>(ids)).SelectMany(person => person.Orders)),
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<LegalPerson>(ids)).SelectMany(person => person.Orders)),
 
             () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.Bargain())
                   .NonCoupledOperation<BindToOrderIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Bargain>(ids)).SelectMany(bargain => bargain.Orders)),
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<Bargain>(ids)).SelectMany(bargain => bargain.Orders)),
 
             () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.Firm())
                   .NonCoupledOperation<ImportFirmIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Firm>(ids))
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<Firm>(ids))
                                               .SelectMany(firm => firm.Orders)),
 
             // При получении карточки адреса фирмы выгружаются все связанные с данной фирмой заказа активные, не удалённые, которые НЕ в статусе "Архив";
             // http://confluence.2gis.local/pages/viewpage.action?pageId=95748369
            () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.Firm())
                   .NonCoupledOperation<ImportCardIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Firm>(ids))
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<Firm>(ids))
                                               .SelectMany(firm => firm.Orders)
                                               .Where(order => order.WorkflowStepId != OrderState.Archive && order.IsActive && !order.IsDeleted)),
 
             () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.Firm())
                   .NonCoupledOperation<ImportCardForErmIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Firm>(ids))
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<Firm>(ids))
                                               .SelectMany(firm => firm.Orders)
                                               .Where(order => order.WorkflowStepId != OrderState.Archive && order.IsActive && !order.IsDeleted)),
      
             () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.WithdrawalInfo())
                   .NonCoupledOperation<WithdrawIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<WithdrawalInfo>(ids))
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<WithdrawalInfo>(ids))
                                               .SelectMany(info => info.OrganizationUnit.OrdersBySource
                                                                     .Where(order => order.WorkflowStepId == OrderState.Archive &&
                                                                                     order.Locks.Count(l => !l.IsDeleted && !l.IsActive) == order.ReleaseCountFact &&
@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 
             () => EntityOperationMapping<Order>.ForEntity(EntityType.Instance.WithdrawalInfo())
                   .NonCoupledOperation<RevertWithdrawalIdentity>()
-                  .Use((finder, ids) => finder.Find(Specs.Find.ByIds<WithdrawalInfo>(ids))
+                  .Use((query, ids) => query.For(Specs.Find.ByIds<WithdrawalInfo>(ids))
                                               .SelectMany(info => info.OrganizationUnit.OrdersBySource
                                                                         .Where(order => (order.WorkflowStepId == OrderState.Approved || 
                                                                                          order.WorkflowStepId == OrderState.OnTermination) &&

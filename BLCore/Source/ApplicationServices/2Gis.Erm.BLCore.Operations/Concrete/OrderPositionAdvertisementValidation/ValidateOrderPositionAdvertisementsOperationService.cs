@@ -7,7 +7,6 @@ using DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementValidat
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.Common.Utils;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -15,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderPosition;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementValidation
 {
@@ -71,14 +71,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.OrderPositionAdvertisementVal
             var boundCategoryChildPositionIds =
                 _finder.Find(Specs.Find.ById<OrderPosition>(orderPositionId) &&
                              Specs.Find.Custom<OrderPosition>(
-                                 x => x.PricePosition.RateType == PricePositionRateType.BoundCategory && x.PricePosition.Position.IsComposite))
-                       .SelectMany(
-                           x =>
-                           x.PricePosition.Position.ChildPositions.Where(cp => cp.IsActive && !cp.IsDeleted)
-                            .Select(cp => cp.ChildPosition)
-                            .Where(cpp => cpp.IsActive && !cpp.IsDeleted)
-                            .Select(cpp => cpp.Id))
-                       .ToArray();
+                                                              x => x.PricePosition.RateType == PricePositionRateType.BoundCategory && x.PricePosition.Position.IsComposite))
+                       .Map(q => q.SelectMany(
+                                              x =>
+                                              x.PricePosition.Position.ChildPositions.Where(cp => cp.IsActive && !cp.IsDeleted)
+                                               .Select(cp => cp.ChildPosition)
+                                               .Where(cpp => cpp.IsActive && !cpp.IsDeleted)
+                                               .Select(cpp => cpp.Id)))
+                       .Many();
 
             if (!boundCategoryChildPositionIds.Any())
             {

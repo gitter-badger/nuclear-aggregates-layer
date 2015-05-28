@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<OrderPosition> GetDto(long entityId)
         {
-            var dto = _finder.Find(new FindSpecification<OrderPosition>(x => x.Id == entityId))
+            var dto = _finder.FindObsolete(new FindSpecification<OrderPosition>(x => x.Id == entityId))
                           .Select(x => new OrderPositionDomainEntityDto
                               {
                                   Id = x.Id,

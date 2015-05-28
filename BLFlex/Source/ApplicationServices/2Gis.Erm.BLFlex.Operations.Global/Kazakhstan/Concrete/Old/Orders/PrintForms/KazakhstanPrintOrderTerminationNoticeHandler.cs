@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
 using DoubleGis.Erm.Platform.Common.PrintFormEngine;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -28,7 +29,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
 
         protected override Response Handle(PrintOrderTerminationNoticeRequest request)
         {
-            var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
+            var orderInfo = _finder.FindObsolete(Specs.Find.ById<Order>(request.OrderId))
                                    .Select(x => new { OrderState = (OrderState)x.WorkflowStepId, x.IsTerminated, x.Number, x.LegalPersonProfileId })
                                    .Single();
 
@@ -42,11 +43,11 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Concrete.Old.Orders.
                 throw new NotificationException(BLResources.OrderShouldBeTerminatedOrArchive);
             }
 
-            var order = _finder.FindOne(Specs.Find.ById<Order>(request.OrderId));
-            var legalPerson = _finder.FindOne(Specs.Find.ById<LegalPerson>(order.LegalPersonId));
-            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(orderInfo.LegalPersonProfileId));
-            var bargain = _finder.FindOne(Specs.Find.ById<Bargain>(order.BargainId));
-            var branchOfficeOrganiationUnit = _finder.FindOne(Specs.Find.ById<BranchOfficeOrganizationUnit>(order.BranchOfficeOrganizationUnitId));
+            var order = _finder.Find(Specs.Find.ById<Order>(request.OrderId)).One();
+            var legalPerson = _finder.Find(Specs.Find.ById<LegalPerson>(order.LegalPersonId)).One();
+            var profile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(orderInfo.LegalPersonProfileId)).One();
+            var bargain = _finder.Find(Specs.Find.ById<Bargain>(order.BargainId)).One();
+            var branchOfficeOrganiationUnit = _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(order.BranchOfficeOrganizationUnitId)).One();
 
             var printData = new PrintData
                                 {

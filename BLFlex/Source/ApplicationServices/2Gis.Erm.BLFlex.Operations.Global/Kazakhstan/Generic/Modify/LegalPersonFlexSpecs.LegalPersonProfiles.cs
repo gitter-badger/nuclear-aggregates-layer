@@ -18,9 +18,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Modify
             {
                 public static class Project
                 {
-                    public static ProjectSpecification<LegalPersonProfile, KazakhstanLegalPersonProfileDomainEntityDto> DomainEntityDto()
+                    public static MapSpecification<LegalPersonProfile, KazakhstanLegalPersonProfileDomainEntityDto> DomainEntityDto()
                     {
-                        return new ProjectSpecification<LegalPersonProfile, KazakhstanLegalPersonProfileDomainEntityDto>(
+                        return new MapSpecification<LegalPersonProfile, KazakhstanLegalPersonProfileDomainEntityDto>(
                             x =>
                                 {
                                     if (x.IsNew())

@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.RequestResponse;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -13,6 +14,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Emirates;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
 {
@@ -30,15 +32,15 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
         protected override Response Handle(PrintBillRequest request)
         {
             var billInfo = _finder.Find(Specs.Find.ById<Bill>(request.BillId))
-                                  .Select(bill => new
+                                  .Map(q => q.Select(bill => new
                                       {
                                           bill.OrderId,
                                           BillNumber = bill.Number,
                                           bill.Order.BranchOfficeOrganizationUnitId,
                                           CurrencyISOCode = bill.Order.Currency.ISOCode,
                                           bill.Order.LegalPersonProfileId,
-                                      })
-                                  .SingleOrDefault();
+                                      }))
+                                  .One();
 
             if (billInfo == null)
             {
@@ -69,7 +71,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
 
         private object GetPrintData(long billId, long profileId)
         {
-            var printData = _finder.Find(Specs.Find.ById<Bill>(billId))
+            var printData = _finder.FindObsolete(Specs.Find.ById<Bill>(billId))
                        .Select(bill => new
                        {
                            Bill = new
@@ -110,7 +112,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Concrete.Old.Bills
                        })
                        .Single();
 
-            var profile = _finder.FindOne(Specs.Find.ById<LegalPersonProfile>(profileId));
+            var profile = _finder.Find(Specs.Find.ById<LegalPersonProfile>(profileId)).One();
 
             return new
             {

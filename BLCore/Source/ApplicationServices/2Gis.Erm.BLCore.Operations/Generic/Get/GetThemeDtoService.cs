@@ -3,6 +3,7 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         protected override IDomainEntityDto<Theme> GetDto(long entityId)
         {
             var dto =
-                _finder.Find(new FindSpecification<Theme>(x => x.Id == entityId))
+                _finder.FindObsolete(new FindSpecification<Theme>(x => x.Id == entityId))
                        .Select(entity => new ThemeDomainEntityDto
                            {
                                Id = entity.Id,

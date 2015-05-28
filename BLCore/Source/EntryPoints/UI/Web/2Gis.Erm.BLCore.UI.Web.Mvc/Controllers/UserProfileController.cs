@@ -22,6 +22,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
@@ -63,14 +64,14 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         [OutputCache(Duration = 0)]
         public JsonNetResult GetLocalSettings(long userId)
         {
-            var profileInfo = _finder.Find(new FindSpecification<UserProfile>(x => x.UserId == userId)).Select(
-                p => new
-                    {
-                        Profile = p,
-                        p.User,
-                        p.TimeZone
-                    })
-                .FirstOrDefault();
+            var profileInfo = _finder.Find(new FindSpecification<UserProfile>(x => x.UserId == userId))
+                                     .Map(q => q.Select(p => new
+                                         {
+                                             Profile = p,
+                                             p.User,
+                                             p.TimeZone
+                                         }))
+                                     .Top();
             if (profileInfo != null)
             {
                 return new JsonNetResult(new LocalSettingsDto
@@ -87,14 +88,15 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         [OutputCache(Duration = 0)]
         public JsonNetResult GetPersonalInfo(long userId)
         {
-            var profileInfo = _finder.Find(new FindSpecification<UserProfile>(x => x.UserId == userId)).Select(
-                p => new
-                {
-                    Profile = p,
-                    p.User,
-                    p.TimeZone
-                })
-                .FirstOrDefault();
+            var profileInfo = _finder.Find(new FindSpecification<UserProfile>(x => x.UserId == userId))
+                                     .Map(q => q.Select(
+                                                        p => new
+                                                            {
+                                                                Profile = p,
+                                                                p.User,
+                                                                p.TimeZone
+                                                            }))
+                                     .Top();
             if (profileInfo != null)
             {
                 return new JsonNetResult(new UserPersonalInfoDto
@@ -158,8 +160,8 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
         private UserProfileViewModel CreateProfileDtoBasedOnAppropriateSettings(long userId)
         {
             var userAccountName = _finder.Find(new FindSpecification<User>(u => u.Id == userId && u.IsActive && !u.IsDeleted))
-                .Select(u => u.Account)
-                .FirstOrDefault();
+                .Map(q => q.Select(u => u.Account))
+                .Top();
             if (string.IsNullOrWhiteSpace(userAccountName))
             {
                 throw new NotificationException(string.Format(BLResources.UserWithIdHasNullOrEmptyAccount, userId));
@@ -198,7 +200,7 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers
 
 
             var appropriateUserLocaleInfo = _userProfileService.GetUserProfile(userId).UserLocaleInfo;
-            var appropriateTimeZone = _finder.Find(new FindSpecification<TimeZone>(tz => tz.TimeZoneId.Equals(appropriateUserLocaleInfo.UserTimeZoneInfo.Id))).FirstOrDefault();
+            var appropriateTimeZone = _finder.Find(new FindSpecification<TimeZone>(tz => tz.TimeZoneId.Equals(appropriateUserLocaleInfo.UserTimeZoneInfo.Id))).Top();
             if (appropriateTimeZone == null)
             {
                 throw new NotificationException(string.Format(BLResources.TimeZoneIsUnsupported, appropriateUserLocaleInfo.UserTimeZoneInfo.StandardName));

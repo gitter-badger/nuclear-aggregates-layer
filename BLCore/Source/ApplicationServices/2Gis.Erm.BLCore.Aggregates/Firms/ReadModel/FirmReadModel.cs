@@ -10,10 +10,12 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
@@ -38,37 +40,38 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public long GetOrderFirmId(long orderId)
         {
-            return _secureFinder.Find(Specs.Find.ById<Order>(orderId)).Select(x => x.FirmId).Single();
+            return _secureFinder.FindObsolete(Specs.Find.ById<Order>(orderId)).Select(x => x.FirmId).Single();
         }
 
         public IReadOnlyDictionary<long, FirmWithAddressesAndProjectDto> GetFirmInfosByIds(IEnumerable<long> ids)
         {
-            return _secureFinder.Find(Specs.Find.ByIds<Firm>(ids), FirmSpecs.Firms.Select.FirmWithAddressesAndProject())
-                                .ToDictionary(dto => dto.Id, dto => dto);
+            return _secureFinder.Find(Specs.Find.ByIds<Firm>(ids))
+                                .Map(q => q.Select(FirmSpecs.Firms.Select.FirmWithAddressesAndProject()))
+                                .Map(dto => dto.Id, dto => dto);
         }
 
         public IEnumerable<long> GetFirmNonArchivedOrderIds(long firmId)
         {
-            return _secureFinder.Find(OrderSpecs.Orders.Find.ActiveOrdersForFirm(firmId)).Select(x => x.Id).ToArray();
+            return _secureFinder.Find(OrderSpecs.Orders.Find.ActiveOrdersForFirm(firmId)).Map(q => q.Select(x => x.Id)).Many();
         }
 
         public long GetOrgUnitId(long firmId)
         {
-            return _secureFinder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.OrganizationUnitId).Single();
+            return _secureFinder.FindObsolete(Specs.Find.ById<Firm>(firmId)).Select(x => x.OrganizationUnitId).Single();
         }
 
         public bool HasFirmClient(long firmId)
         {
-            return _secureFinder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.ClientId != null).Single();
+            return _secureFinder.FindObsolete(Specs.Find.ById<Firm>(firmId)).Select(x => x.ClientId != null).Single();
         }
 
         public bool IsTelesaleFirmAddress(long firmAddressId)
         {
             var organizationUnitId = _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
-                                            .Select(address => address.Firm.Territory.OrganizationUnitId)
-                                            .SingleOrDefault();
+                                            .Map(q => q.Select(address => address.Firm.Territory.OrganizationUnitId))
+                                            .One();
 
-            var categoryIds = _finder.Find(Specs.Find.ById<FirmAddress>(firmAddressId))
+            var categoryIds = _finder.FindObsolete(Specs.Find.ById<FirmAddress>(firmAddressId))
                                      .SelectMany(address => address.Firm.FirmAddresses)
                                      .Where(Specs.Find.ActiveAndNotDeleted<FirmAddress>())
                                      .SelectMany(address => address.CategoryFirmAddresses)
@@ -80,9 +83,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             var mostExpensiveGroupId = _finder.Find(Specs.Find.ActiveAndNotDeleted<CategoryOrganizationUnit>()
                                                     && CategorySpecs.CategoryOrganizationUnits.Find.ForOrganizationUnit(organizationUnitId)
                                                     && CategorySpecs.CategoryOrganizationUnits.Find.ForCategories(categoryIds))
-                                              .OrderByDescending(x => x.CategoryGroup != null ? x.CategoryGroup.GroupRate : DefaultCategoryRate)
-                                              .Select(x => x.CategoryGroupId)
-                                              .FirstOrDefault();
+                                              .Map(q => q.OrderByDescending(x => x.CategoryGroup != null ? x.CategoryGroup.GroupRate : DefaultCategoryRate)
+                                                         .Select(x => x.CategoryGroupId))
+                                              .Top();
 
             return mostExpensiveGroupId == TelesaleCategoryGroupId;
         }
@@ -90,14 +93,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         public bool TryGetFirmAndClientByFirmAddress(long firmAddressCode, out FirmAndClientDto dto)
         {
             dto = null;
-            var tmp = _secureFinder.Find(Specs.Find.ById<FirmAddress>(firmAddressCode) && Specs.Find.NotDeleted<FirmAddress>())
-                                   .Where(x => !x.Firm.IsDeleted)
-                                   .Select(x => new
-                                   {
-                                       x.Firm,
-                                       x.Firm.ClientId
-                                   })
-                                   .FirstOrDefault();
+            var tmp = _secureFinder.Find(Specs.Find.ById<FirmAddress>(firmAddressCode) && Specs.Find.NotDeleted<FirmAddress>() &&
+                                         new FindSpecification<FirmAddress>(x => !x.Firm.IsDeleted))
+                                   .Map(q => q.Select(x => new
+                                       {
+                                           x.Firm,
+                                           x.Firm.ClientId
+                                       }))
+                                   .Top();
 
             if (tmp == null)
             {
@@ -107,30 +110,30 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             dto = new FirmAndClientDto
             {
                 Firm = tmp.Firm,
-                Client = tmp.ClientId.HasValue ? _secureFinder.FindOne(Specs.Find.ById<Client>(tmp.ClientId.Value)) : null
+                Client = tmp.ClientId.HasValue ? _secureFinder.Find(Specs.Find.ById<Client>(tmp.ClientId.Value)).One() : null
             };
             return true;
         }
 
         public IEnumerable<FirmAddress> GetFirmAddressesByFirm(long firmId)
         {
-            return _finder.FindMany(FirmSpecs.Addresses.Find.ByFirmId(firmId)
-                                    && Specs.Find.ActiveAndNotDeleted<FirmAddress>()).ToArray();
+            return _finder.Find(FirmSpecs.Addresses.Find.ByFirmId(firmId)
+                                    && Specs.Find.ActiveAndNotDeleted<FirmAddress>()).Many();
         }
 
         public IEnumerable<FirmAddress> GetActiveOrWithSalesByFirm(long firmId)
         {
-            return _finder.FindMany(FirmSpecs.Addresses.Find.ByFirmId(firmId) &&
-                                    (Specs.Find.ActiveAndNotDeleted<FirmAddress>() || FirmSpecs.Addresses.Find.WithSales())).ToArray();
+            return _finder.Find(FirmSpecs.Addresses.Find.ByFirmId(firmId) &&
+                                    (Specs.Find.ActiveAndNotDeleted<FirmAddress>() || FirmSpecs.Addresses.Find.WithSales())).Many();
         }
 
         public IEnumerable<FirmContact> GetContacts(long firmAddressId)
         {
             // В данном случае намеренно используется небезопасная версия файндера
-            var depCardsQuery = _finder.Find(new FindSpecification<DepCard>(x => !x.IsHiddenOrArchived));
+            var depCardsQuery = _finder.FindObsolete(new FindSpecification<DepCard>(x => !x.IsHiddenOrArchived));
 
             // В данном случае намеренно используется небезопасная версия файндера
-            var cardRelationsQuery = _finder.Find(new FindSpecification<CardRelation>(cardRelation => cardRelation.PosCardCode == firmAddressId && !cardRelation.IsDeleted));
+            var cardRelationsQuery = _finder.FindObsolete(new FindSpecification<CardRelation>(cardRelation => cardRelation.PosCardCode == firmAddressId && !cardRelation.IsDeleted));
 
             var depCardContacts = (from cardRelation in cardRelationsQuery
                                    join depCard in depCardsQuery on cardRelation.DepCardCode equals depCard.Id
@@ -158,83 +161,87 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
         public IDictionary<long, IEnumerable<FirmContact>> GetFirmContactsByAddresses(long firmId)
         {
             var firmAddresses = _secureFinder.Find(Specs.Find.ById<Firm>(firmId))
-                                             .SelectMany(firm => firm.FirmAddresses)
-                                             .Select(address => address.Id)
-                                             .ToArray();
+                                             .Map(q => q.SelectMany(firm => firm.FirmAddresses)
+                                                        .Select(address => address.Id))
+                                             .Many();
 
             return firmAddresses.ToDictionary(id => id, GetContacts);
         }
 
         public string GetFirmName(long firmId)
         {
-            return _secureFinder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.Name).Single();
+            return _secureFinder.FindObsolete(Specs.Find.ById<Firm>(firmId)).Select(x => x.Name).Single();
         }
 
         public string GetTerritoryName(long territoryId)
         {
-            return _secureFinder.Find(Specs.Find.ById<Territory>(territoryId)).Select(x => x.Name).Single();
+            return _secureFinder.FindObsolete(Specs.Find.ById<Territory>(territoryId)).Select(x => x.Name).Single();
         }
 
         public bool DoesFirmBelongToClient(long firmId, long clientId)
         {
-            return _finder.Find(Specs.Find.ById<Firm>(firmId) && Specs.Find.ActiveAndNotDeleted<Firm>())
-                                  .Any(x => x.ClientId == clientId);
+            return _finder.Find(Specs.Find.ById<Firm>(firmId) && Specs.Find.ActiveAndNotDeleted<Firm>() &&
+                                new FindSpecification<Firm>(x => x.ClientId == clientId))
+                          .Any();
         }
 
         public Firm GetFirm(long firmId)
         {
-            return _secureFinder.FindOne(Specs.Find.ById<Firm>(firmId));
+            return _secureFinder.Find(Specs.Find.ById<Firm>(firmId)).One();
         }
 
         public FirmAddress GetFirmAddress(long firmAddressId)
         {
-            return _secureFinder.FindOne(Specs.Find.ById<FirmAddress>(firmAddressId));
+            return _secureFinder.Find(Specs.Find.ById<FirmAddress>(firmAddressId)).One();
         }
 
         public CategoryFirmAddress GetCategoryFirmAddress(long categoryFirmAddressId)
         {
-            return _secureFinder.FindOne(Specs.Find.ById<CategoryFirmAddress>(categoryFirmAddressId));
+            return _secureFinder.Find(Specs.Find.ById<CategoryFirmAddress>(categoryFirmAddressId)).One();
         }
 
         public IEnumerable<CategoryFirmAddress> GetCategoryFirmAddressesByFirmAddresses(IEnumerable<long> firmAddressIds)
         {
-            return _secureFinder.FindMany(FirmSpecs.CategoryFirmAddresses.Find.ByAddresses(firmAddressIds));
+            return _secureFinder.Find(FirmSpecs.CategoryFirmAddresses.Find.ByAddresses(firmAddressIds)).Many();
         }
 
         public IEnumerable<FirmContact> GetFirmContactsByFirmAddresses(IEnumerable<long> firmAddressIds)
         {
-            return _secureFinder.FindMany(FirmSpecs.FirmContacts.Find.ByFirmAddresses(firmAddressIds));
+            return _secureFinder.Find(FirmSpecs.FirmContacts.Find.ByFirmAddresses(firmAddressIds)).Many();
         }
 
         public IEnumerable<FirmContact> GetFirmContactsByDepCards(IEnumerable<long> depCardIds)
         {
-            return _secureFinder.FindMany(FirmSpecs.FirmContacts.Find.ByDepCards(depCardIds));
+            return _secureFinder.Find(FirmSpecs.FirmContacts.Find.ByDepCards(depCardIds)).Many();
         }
 
-        public Dictionary<long, DepCard> GetDepCards(IEnumerable<long> depCardIds)
+        public IReadOnlyDictionary<long, DepCard> GetDepCards(IEnumerable<long> depCardIds)
         {
-            return _finder.FindMany(Specs.Find.ByIds<DepCard>(depCardIds)).ToDictionary(x => x.Id);
+            return _finder.Find(Specs.Find.ByIds<DepCard>(depCardIds)).Map(x => x.Id, x => x);
         }
 
-        public Dictionary<long, FirmAddress> GetFirmAddresses(IEnumerable<long> firmAddressIds)
+        public IReadOnlyDictionary<long, FirmAddress> GetFirmAddresses(IEnumerable<long> firmAddressIds)
         {
-            return _finder.FindMany(Specs.Find.ByIds<FirmAddress>(firmAddressIds)).ToDictionary(x => x.Id);
+            return _finder.Find(Specs.Find.ByIds<FirmAddress>(firmAddressIds)).Map(x => x.Id, x => x);
         }
 
-        public Dictionary<long, Firm> GetFirms(IEnumerable<long> firmIds)
+        public IReadOnlyDictionary<long, Firm> GetFirms(IEnumerable<long> firmIds)
         {
-            return _finder.FindMany(Specs.Find.ByIds<Firm>(firmIds)).ToDictionary(x => x.Id);
+            return _finder.Find(Specs.Find.ByIds<Firm>(firmIds)).Map(x => x.Id, x => x);
         }
 
         public IEnumerable<Firm> GetFirmsForClientAndLinkedChild(long clientId)
         {
-            var clientAndChild = _finder.Find(ClientSpecs.DenormalizedClientLinks.Find.ClientChild(clientId)).Select(s => (long?)s.ChildClientId).ToArray().Union(new[] { (long?)clientId });
-            return _finder.Find(FirmSpecs.Firms.Find.ByClientIds(clientAndChild)).ToArray();
+            var clientAndChild = _finder.Find(ClientSpecs.DenormalizedClientLinks.Find.ClientChild(clientId))
+                                        .Map(q => q.Select(s => (long?)s.ChildClientId))
+                                        .Many()
+                                        .Union(new[] { (long?)clientId });
+            return _finder.Find(FirmSpecs.Firms.Find.ByClientIds(clientAndChild)).Many();
         }
 
         public IReadOnlyDictionary<int, RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase)
         {
-            var territories = _finder.Find(OrganizationUnitSpecs.Find.ByDgppIds(branchCodes) && Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
+            var territories = _finder.FindObsolete(OrganizationUnitSpecs.Find.ByDgppIds(branchCodes) && Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
                                      .Select(x => new
                                      {
                                          BranchCode = x.DgppId.Value,
@@ -260,30 +267,30 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public FirmContact GetFirmContact(long firmContactId)
         {
-            return _secureFinder.FindOne(Specs.Find.ById<FirmContact>(firmContactId));
+            return _secureFinder.Find(Specs.Find.ById<FirmContact>(firmContactId)).One();
         }
 
-        public Dictionary<long, string> GetCityPhoneZones(IEnumerable<long> phoneZoneIds)
+        public IReadOnlyDictionary<long, string> GetCityPhoneZones(IEnumerable<long> phoneZoneIds)
         {
             return _finder
                 .Find(Specs.Find.ByIds<CityPhoneZone>(phoneZoneIds))
-                .Select(x => new { x.Id, x.Name })
-                .ToDictionary(x => x.Id, x => x.Name);
+                .Map(q => q.Select(x => new { x.Id, x.Name }))
+                .Map(x => x.Id, x => x.Name);
         }
 
-        public Dictionary<int, string> GetPhoneFormats(IEnumerable<int> phoneFormatCodes)
+        public IReadOnlyDictionary<int, string> GetPhoneFormats(IEnumerable<int> phoneFormatCodes)
         {
             return GetReferenceItems(phoneFormatCodes, "PhoneFormat");
         }
 
-        public Dictionary<int, string> GetPaymentMethods(IEnumerable<int> paymentMethodCodes)
+        public IReadOnlyDictionary<int, string> GetPaymentMethods(IEnumerable<int> paymentMethodCodes)
         {
             return GetReferenceItems(paymentMethodCodes, "PaymentMethod");
         }
 
         public HotClientRequest GetHotClientRequest(long hotClientRequestId)
         {
-            return _finder.FindOne(Specs.Find.ById<HotClientRequest>(hotClientRequestId));
+            return _finder.Find(Specs.Find.ById<HotClientRequest>(hotClientRequestId)).One();
         }
 
         public IReadOnlyDictionary<long, long> GetFirmTerritories(IEnumerable<long> firmIds, string regionalTerritoryWord)
@@ -291,7 +298,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             // Предполагается, что в FirmAddresses уже проставлен TerritoryId из соответствующего Building
             // Возможно стоит вытаскивать все адреса, а сортировать уже в памяти
             var firmTerritories = _finder.Find(Specs.Find.ByIds<Firm>(firmIds))
-                                         .Select(x => new
+                                         .Map(q => q.Select(x => new
                                          {
                                              FirmId = x.Id,
                                              x.OrganizationUnitId,
@@ -303,8 +310,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                                                             .ThenBy(y => y.SortingPosition)
                                                             .Select(y => y.TerritoryId)
                                                             .FirstOrDefault()
-                                         })
-                                         .ToArray();
+                                         }))
+                                         .Many();
 
             var firmWithTerritory = firmTerritories.Where(x => x.TerritoryId != null).ToArray();
             var firmsWithoutTerritory = firmTerritories.Where(x => x.TerritoryId == null).ToArray();
@@ -326,41 +333,43 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public IReadOnlyDictionary<long, CardRelation> GetCardRelationsByIds(IEnumerable<long> cardRelationIds)
         {
-            return _finder.Find(Specs.Find.ByIds<CardRelation>(cardRelationIds)).ToDictionary(x => x.Id);
+            return _finder.Find(Specs.Find.ByIds<CardRelation>(cardRelationIds)).Map(x => x.Id, x => x);
         }
 
         public bool IsFirmInReserve(long firmId)
         {
-            var firmOwner = _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(firm => firm.OwnerCode).Single();
+            var firmOwner = _finder.FindObsolete(Specs.Find.ById<Firm>(firmId)).Select(firm => firm.OwnerCode).Single();
             return firmOwner == _securityServiceUserIdentifier.GetReserveUserIdentity().Code;
         }
 
         public IEnumerable<string> GetAddressesNamesWhichNotBelongToFirm(long firmId, IEnumerable<long> firmAddressIds)
         {
             return _finder.Find(Specs.Find.ByIds<FirmAddress>(firmAddressIds) && FirmSpecs.Addresses.Find.NotBelongToFirm(firmId))
-                          .Select(x => x.Address)
-                          .ToArray();
+                          .Map(q => q.Select(x => x.Address))
+                          .Many();
         }
 
         public long GetFirmOwnerCodeUnsecure(long firmId)
         {
-            return _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.OwnerCode).Single();
+            return _finder.FindObsolete(Specs.Find.ById<Firm>(firmId)).Select(x => x.OwnerCode).Single();
         }
 
-        private Dictionary<int, string> GetReferenceItems(IEnumerable<int> referenceItemCodes, string referenceCode)
+        private IReadOnlyDictionary<int, string> GetReferenceItems(IEnumerable<int> referenceItemCodes, string referenceCode)
         {
             return _finder
                 .Find(Specs.Find.Custom<ReferenceItem>(x => referenceItemCodes.Contains(x.Code) && x.Reference.CodeName == referenceCode))
-                .Select(x => new { x.Code, x.Name })
-                .ToDictionary(x => x.Code, x => x.Name);
+                .Map(q => q.Select(x => new { x.Code, x.Name }))
+                .Map(x => x.Code, x => x.Name);
         }
 
         private IReadOnlyDictionary<long, long> GetRegionalTerritoriesByOrganizationUnits(IEnumerable<long> organizationUnits, string regionalTerritoryWord)
         {
             return _finder.Find(FirmSpecs.Territories.Find.TerritoriesFromOrganizationUnits(organizationUnits) &&
                                 FirmSpecs.Territories.Find.RegionalTerritories(regionalTerritoryWord))
-                          .GroupBy(x => x.OrganizationUnitId, (orgUnitId, territories) => territories.OrderByDescending(x => x.Id).FirstOrDefault())
-                          .ToDictionary(x => x.OrganizationUnitId, x => x.Id);
+                          .Map(q => q.GroupBy(x => x.OrganizationUnitId,
+                                              (orgUnitId, territories) => territories.OrderByDescending(x => x.Id)
+                                                                                     .FirstOrDefault()))
+                          .Map(x => x.OrganizationUnitId, x => x.Id);
         }
     }
 }

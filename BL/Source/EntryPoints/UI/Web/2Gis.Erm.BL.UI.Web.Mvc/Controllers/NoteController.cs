@@ -8,6 +8,7 @@ using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Controllers
         public JsonNetResult GetEntityNotes(IEntityType entityType, long entityId)
         {
             var entityTypeId = entityType.Id;
-            var data = _finder.Find(new FindSpecification<Note>(note => note.ParentType == entityTypeId && note.ParentId == entityId && note.IsDeleted == false))
+            var data = _finder.FindObsolete(new FindSpecification<Note>(note => note.ParentType == entityTypeId && note.ParentId == entityId && note.IsDeleted == false))
                               .Select(note => new
                                   {
                                       note.Id,

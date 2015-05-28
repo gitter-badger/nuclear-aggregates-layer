@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Core.EntityProjection;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Qds.API.Operations.Indexing;
 using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
@@ -11,6 +10,7 @@ using FastMember;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
@@ -20,21 +20,21 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
     {
         private readonly IFinder _finder;
         private readonly SelectSpecification<TEntity, object> _selectSpec;
-        private readonly IProjectSpecification<ObjectAccessor, IIndexedDocumentWrapper> _projectSpec;
+        private readonly IMapSpecification<ObjectAccessor, IIndexedDocumentWrapper> _mapSpec;
 
-        public EntityToDocumentRelation(IFinder finder,
+        public EntityToDocumentRelation(IFinder finder, 
                                         EntityRelationFeature<TDocument, TEntity> entityRelationFeature)
         {
             _finder = finder;
             _selectSpec = entityRelationFeature.SelectSpec;
-            _projectSpec = entityRelationFeature.ProjectSpec;
+            _mapSpec = entityRelationFeature.MapSpec;
         }
 
         public IEnumerable<IIndexedDocumentWrapper> SelectAllDocuments(IProgress<long> progress = null)
         {
             if (progress != null)
             {
-                var totalCount = _finder.Find(Specs.Find.Custom<TEntity>(x => true)).LongCount();
+                var totalCount = _finder.Find(Specs.Find.Custom<TEntity>(x => true)).Fold(q => q.LongCount());
                 progress.Report(totalCount);
             }
 
@@ -48,8 +48,8 @@ namespace DoubleGis.Erm.Qds.Operations.Indexing
 
         private IEnumerable<IIndexedDocumentWrapper> SelectDocuments(FindSpecification<TEntity> findSpec)
         {
-            var entities = _finder.Find(findSpec, _selectSpec).AsEnumerable();
-            return entities.Select(x => _projectSpec.Project(ObjectAccessor.Create(x)));
+            var entities = _finder.Find(findSpec).Map(q => q.Select(_selectSpec)).Many();
+            return entities.Select(x => _mapSpec.Map(ObjectAccessor.Create(x)));
         }
     }
 }

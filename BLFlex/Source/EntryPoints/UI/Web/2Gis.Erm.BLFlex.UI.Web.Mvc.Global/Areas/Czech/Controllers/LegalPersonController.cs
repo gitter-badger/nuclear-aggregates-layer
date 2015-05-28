@@ -19,6 +19,7 @@ using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Common.Utils;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
@@ -69,7 +70,7 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Areas.Czech.Controllers
             }
 
             // TODO {01.02.2013}: Убрать получение DTO-объекта в агрегирующий репозиторий
-            var model = _finder.Find(new FindSpecification<LegalPerson>(x => x.Id == id))
+            var model = _finder.FindObsolete(new FindSpecification<LegalPerson>(x => x.Id == id))
             .Select(legalPerson => new CzechChangeLegalPersonRequisitesViewModel
             {
                 Id = legalPerson.Id,

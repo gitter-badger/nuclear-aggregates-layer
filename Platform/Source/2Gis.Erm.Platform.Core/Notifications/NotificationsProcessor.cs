@@ -8,6 +8,7 @@ using System.Transactions;
 
 using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Notifications;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -31,9 +32,9 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
         private readonly IIdentityProvider _identityProvider;
 
         public NotificationsProcessor(
-            INotificationProcessingSettings notificationProcessingSettings,
+            INotificationProcessingSettings notificationProcessingSettings, 
             IFinder finder,                            
-            IRepository<NotificationProcessings> processingsEntityRepository,
+            IRepository<NotificationProcessings> processingsEntityRepository, 
             ITracer tracer, 
             IIdentityProvider identityProvider)
         {
@@ -61,12 +62,14 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                             smtpClient.Credentials = null;
                             break;
                         }
+
                         case MailSenderAuthenticationType.WindowsAuthentication:
                         {
                             smtpClient.UseDefaultCredentials = true;
                             smtpClient.Credentials = CredentialCache.DefaultNetworkCredentials;
                             break;
                         }
+
                         case MailSenderAuthenticationType.ClearText:
                         {
                             smtpClient.UseDefaultCredentials = false;
@@ -88,22 +91,22 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
         private IEnumerable<EmailDescriptor> GetEmailsForProcessing()
         {
             var currentTime = DateTime.UtcNow;
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<NotificationEmails>())
+            return _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<NotificationEmails>())
                           .Select(email => new
                               {
-                                  Email = email,
-                                  Sender = email.Sender,
+                                  Email = email, 
+                                  Sender = email.Sender, 
                                   ToAddresses =
                                                email.NotificationEmailsTo
                                                     .Where(e => e.IsActive && !e.IsDeleted)
                                                     .Select(e => e.NotificationAddress)
-                                                    .Where(a => a.IsActive && !a.IsDeleted),
+                                                    .Where(a => a.IsActive && !a.IsDeleted), 
                                   CcAddresses =
                                                email.NotificationEmailsCc
                                                     .Where(e => e.IsActive && !e.IsDeleted)
                                                     .Select(e => e.NotificationAddress)
-                                                    .Where(a => a.IsActive && !a.IsDeleted),
-                                  Attachments = email.NotificationEmailsAttachments.Where(e => e.IsActive && !e.IsDeleted).Select(e => e.Files),
+                                                    .Where(a => a.IsActive && !a.IsDeleted), 
+                                  Attachments = email.NotificationEmailsAttachments.Where(e => e.IsActive && !e.IsDeleted).Select(e => e.Files), 
                                   LastProcessing =
                                                email.NotificationProcessings
                                                     .Where(p => p.IsActive && !p.IsDeleted)
@@ -119,11 +122,11 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                                   (entry.Email.ExpirationTime.HasValue && currentTime <= entry.Email.ExpirationTime.Value)))
                           .Select(entry => new EmailDescriptor
                               {
-                                  Email = entry.Email,
-                                  Sender = entry.Sender,
-                                  ToAddresses = entry.ToAddresses,
-                                  CcAddresses = entry.CcAddresses,
-                                  Attachments = entry.Attachments,
+                                  Email = entry.Email, 
+                                  Sender = entry.Sender, 
+                                  ToAddresses = entry.ToAddresses, 
+                                  CcAddresses = entry.CcAddresses, 
+                                  Attachments = entry.Attachments, 
                                   AttemptCount = entry.LastProcessing == null ? 0 : entry.LastProcessing.AttemptsCount
                               })
                           .OrderBy(e => e.Email.ModifiedOn)
@@ -135,9 +138,9 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
         {
             var processings = new NotificationProcessings
             {
-                AttemptsCount = processingEmail.AttemptCount + 1,
-                EmailId = processingEmail.Email.Id,
-                Status = (int)NotificationStatus.Processing,
+                AttemptsCount = processingEmail.AttemptCount + 1, 
+                EmailId = processingEmail.Email.Id, 
+                Status = (int)NotificationStatus.Processing, 
                 IsActive = true
             };
 
@@ -171,9 +174,9 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                 smtpClient.Send(message);
                 var notificationProcessings = new NotificationProcessings
                 {
-                    AttemptsCount = processingEmail.AttemptCount + 1,
-                    EmailId = processingEmail.Email.Id,
-                    Status = (int)NotificationStatus.Sended,
+                    AttemptsCount = processingEmail.AttemptCount + 1, 
+                    EmailId = processingEmail.Email.Id, 
+                    Status = (int)NotificationStatus.Sended, 
                     IsActive = true
                 };
                 _identityProvider.SetFor(notificationProcessings);
@@ -185,10 +188,10 @@ namespace DoubleGis.Erm.Platform.Core.Notifications
                 _tracer.Error(ex, "Can't send notification message");
                 var notificationProcessings = new NotificationProcessings
                 {
-                    AttemptsCount = processingEmail.AttemptCount + 1,
-                    EmailId = processingEmail.Email.Id,
-                    Status = (int)NotificationStatus.Error,
-                    Description = "Can't send notification message. " + ex.Message,
+                    AttemptsCount = processingEmail.AttemptCount + 1, 
+                    EmailId = processingEmail.Email.Id, 
+                    Status = (int)NotificationStatus.Error, 
+                    Description = "Can't send notification message. " + ex.Message, 
                     IsActive = true
                 };
 

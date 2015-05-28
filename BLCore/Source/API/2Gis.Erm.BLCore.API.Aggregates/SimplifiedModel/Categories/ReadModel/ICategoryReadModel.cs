@@ -14,7 +14,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.Categories.ReadMod
         IDictionary<long, IEnumerable<LinkingObjectsSchemaCategoryDto>> GetFirmAddressesCategories(long destOrganizationUnitId, IEnumerable<long> firmAddressIds);
         IEnumerable<LinkingObjectsSchemaCategoryDto> GetFirmCategories(IEnumerable<long> firmCategoryIds, SalesModel salesModel, long organizationUnitId);
         IEnumerable<CategoryAsLinkingObjectDto> GetSalesIntoCategories(long orderPositionId);
-        IDictionary<long, string> PickCategoriesUnsupportedBySalesModelInOrganizationUnit(SalesModel salesModel, long destOrganizationUnitId, IEnumerable<long> categoryIds);
+        IReadOnlyDictionary<long, string> PickCategoriesUnsupportedBySalesModelInOrganizationUnit(SalesModel salesModel, long destOrganizationUnitId, IEnumerable<long> categoryIds);
         IEnumerable<CategoryGroupDto> GetCategoryGroups();
         IEnumerable<CategoryGroupMembershipDto> GetCategoryGroupMembership(long organizationUnitId);
         IEnumerable<CategoryOrganizationUnitDto> GetCategoryOrganizationUnits(IEnumerable<long> ids);

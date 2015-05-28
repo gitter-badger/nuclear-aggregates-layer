@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BL.Aggregates.SimplifiedModel.ReadModel
 {
@@ -21,7 +22,7 @@ namespace DoubleGis.Erm.BL.Aggregates.SimplifiedModel.ReadModel
 
         public DenialReason GetDenialReason(long denialReasonId)
         {
-            return _finder.FindOne(Specs.Find.ById<DenialReason>(denialReasonId));
+            return _finder.Find(Specs.Find.ById<DenialReason>(denialReasonId)).One();
         }
 
         public bool IsThereDuplicateByName(long denialReasonId, string name)
@@ -34,12 +35,12 @@ namespace DoubleGis.Erm.BL.Aggregates.SimplifiedModel.ReadModel
         public IEnumerable<DenialReasonDto> GetInactiveDenialReasons(IEnumerable<long> denialReasonIds)
         {
             return _finder.Find(Specs.Find.ByIds<DenialReason>(denialReasonIds) && Specs.Find.InactiveEntities<DenialReason>())
-                          .Select(x => new DenialReasonDto
+                          .Map(q => q.Select(x => new DenialReasonDto
                               {
                                   Id = x.Id,
                                   Name = x.Name
-                              })
-                          .ToArray();
+                              }))
+                          .Many();
         }
     }
 }

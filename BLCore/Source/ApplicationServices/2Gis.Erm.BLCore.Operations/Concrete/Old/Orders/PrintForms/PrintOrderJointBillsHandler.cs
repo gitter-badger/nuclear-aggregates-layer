@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
 {
@@ -31,12 +32,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Orders.PrintForms
         protected override StreamResponse Handle(PrintOrderJointBillRequest request)
         {
             var orderInfo = _finder.Find(Specs.Find.ById<Order>(request.OrderId))
-                .Select(order => new
-                                 {
-                                     order.Number,
-                                     BillIds = order.Bills.Where(bill => bill.IsActive && !bill.IsDeleted).Select(bill => bill.Id)
-                                 })
-                .SingleOrDefault();
+                                   .Map(q => q.Select(order => new
+                                       {
+                                           order.Number,
+                                           BillIds = order.Bills.Where(bill => bill.IsActive && !bill.IsDeleted).Select(bill => bill.Id)
+                                       }))
+                                   .One();
 
             if (orderInfo == null || !orderInfo.BillIds.Any())
                 throw new NotificationException(BLResources.NecessaryToCreateAtLeastOneBill);

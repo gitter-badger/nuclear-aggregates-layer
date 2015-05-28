@@ -4,6 +4,7 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -31,7 +32,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var bmp = ImageFormat.Bmp.ToString().ToLowerInvariant();
             const string chm = "chm";
 
-            var dto = (from template in _finder.Find(new FindSpecification<AdvertisementElementTemplate>(x => x.Id == entityId))
+            var dto = (from template in _finder.FindObsolete(new FindSpecification<AdvertisementElementTemplate>(x => x.Id == entityId))
                        let dummyAdsElementId = template.AdvertisementElements
                                                        .Where(y => y.Advertisement.FirmId == null && !y.IsDeleted && !y.Advertisement.IsDeleted)
                                                        .Select(y => y.Id)

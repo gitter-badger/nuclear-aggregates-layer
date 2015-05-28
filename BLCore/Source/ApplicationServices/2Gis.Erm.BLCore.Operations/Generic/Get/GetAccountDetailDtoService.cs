@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -40,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<AccountDetail> GetDto(long entityId)
         {
-            var accountDetailAndParentOwnerCodeDto = _finder.Find(new FindSpecification<AccountDetail>(x => x.Id == entityId))
+            var accountDetailAndParentOwnerCodeDto = _finder.FindObsolete(new FindSpecification<AccountDetail>(x => x.Id == entityId))
                              .Select(entity => new 
                                  {
                                  AccountDetail = new AccountDetailDomainEntityDto
@@ -101,7 +102,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                         dto.AccountRef = new EntityReference { Id = parentEntityId.Value };
 
                         // как куратор операции выставляется куратор родительского лицевого счёта
-                        dto.OwnerRef = new EntityReference { Id = _finder.Find(new FindSpecification<Account>(x => x.Id == parentEntityId)).Select(x => x.OwnerCode).Single() };
+                        dto.OwnerRef = new EntityReference { Id = _finder.FindObsolete(new FindSpecification<Account>(x => x.Id == parentEntityId)).Select(x => x.OwnerCode).Single() };
                         dto.IsActive = true;
                     }
 

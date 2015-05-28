@@ -12,6 +12,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete
 {
@@ -31,35 +32,33 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
 
         public IEnumerable<RequestMessageDetailDto> GetRequestMessages(long requestId)
         {
-            var result =
-                _finder
-                    .Find(
-                        Specs.Find.Active<OrderProcessingRequestMessage>()
-                        && OrderProcessingRequestMessageSpecifications.Find.ByRequestId(requestId))
-                    .Select(x => new
-                        {
-                            x.Id,
-                            x.GroupId,
-                            x.OrderRequestId,
-                            x.MessageParameters,
-                            x.MessageTemplateCode,
-                            x.MessageType,
-                            x.CreatedBy,
-                            x.CreatedOn
-                        })
-                    .ToArray()
-                    .Select(x => new RequestMessageDetailDto
-                        {
-                            CreatedBy = _userIdentifierService.GetUserInfo(x.CreatedBy).DisplayName,
-                            RequestId = x.OrderRequestId,
-                            CreatedOn = x.CreatedOn,
-                            GroupId = x.GroupId,
-                            Id = x.Id,
-                            MessageText = MessageHelper.MakeMessage(x.MessageTemplateCode, x.MessageParameters),
-                            MessageType =
-                                (x.MessageType).ToStringLocalized(EnumResources.ResourceManager,
-                                                                                      CultureInfo.CurrentCulture)
-                        }).ToArray();
+            var result = _finder.Find(Specs.Find.Active<OrderProcessingRequestMessage>()
+                                      && OrderProcessingRequestMessageSpecifications.Find.ByRequestId(requestId))
+                                .Map(q => q.Select(x => new
+                                    {
+                                        x.Id,
+                                        x.GroupId,
+                                        x.OrderRequestId,
+                                        x.MessageParameters,
+                                        x.MessageTemplateCode,
+                                        x.MessageType,
+                                        x.CreatedBy,
+                                        x.CreatedOn
+                                    }))
+                                .Many()
+                                .Select(x => new RequestMessageDetailDto
+                                    {
+                                        CreatedBy = _userIdentifierService.GetUserInfo(x.CreatedBy).DisplayName,
+                                        RequestId = x.OrderRequestId,
+                                        CreatedOn = x.CreatedOn,
+                                        GroupId = x.GroupId,
+                                        Id = x.Id,
+                                        MessageText = MessageHelper.MakeMessage(x.MessageTemplateCode, x.MessageParameters),
+                                        MessageType =
+                                            (x.MessageType).ToStringLocalized(EnumResources.ResourceManager,
+                                                                              CultureInfo.CurrentCulture)
+                                    })
+                                .ToArray();
 
             return result;
         }

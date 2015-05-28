@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Kazakhstan.LegalPerson.ReadModel
 {
@@ -22,13 +23,13 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Kazakhstan.LegalPerson.ReadMode
         public CheckForDublicatesResultDto CheckIfExistsIdentityCardDuplicate(long legalPersonId, string identityCardNumber)
         {
             var ids = _finder.Find(BusinessEntitySpecs.BusinessEntity.Find.ByProperty(IdentityCardNumberIdentity.Instance.Id, identityCardNumber))
-                             .Select(x => x.EntityId.Value)
-                             .ToArray();
+                             .Map(q => q.Select(x => x.EntityId.Value))
+                             .Many();
 
             var legalPersons = _finder.Find(Specs.Find.ByIds<Platform.Model.Entities.Erm.LegalPerson>(ids) &&
                                             Specs.Find.ExceptById<Platform.Model.Entities.Erm.LegalPerson>(legalPersonId))
-                                      .Select(person => new { person.Id, person.IsActive, person.IsDeleted })
-                                      .ToArray();
+                                      .Map(q => q.Select(person => new { person.Id, person.IsActive, person.IsDeleted }))
+                                      .Many();
 
             var result = new CheckForDublicatesResultDto
             {

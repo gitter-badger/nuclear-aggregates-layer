@@ -17,9 +17,9 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Modify
             {
                 public static class Project
                 {
-                    public static ProjectSpecification<FirmAddress, EmiratesFirmAddressDomainEntityDto> DomainEntityDto()
+                    public static MapSpecification<FirmAddress, EmiratesFirmAddressDomainEntityDto> DomainEntityDto()
                     {
-                        return new ProjectSpecification<FirmAddress, EmiratesFirmAddressDomainEntityDto>(
+                        return new MapSpecification<FirmAddress, EmiratesFirmAddressDomainEntityDto>(
                             x => new EmiratesFirmAddressDomainEntityDto
                                 {
                                     Id = x.Id,

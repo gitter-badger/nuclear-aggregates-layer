@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
 {
@@ -90,12 +91,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete
         public DeleteConfirmationInfo GetConfirmation(long entityId)
         {
             var orderPositionInfo = _finder.Find(Specs.Find.ById<OrderPosition>(entityId))
-                                           .Select(position => new
+                                           .Map(q => q.Select(position => new
                                                {
                                                    position.PricePosition.Position.Name,
                                                    OrderWorkflowStepId = position.Order.WorkflowStepId,
-                                               })
-                                           .SingleOrDefault();
+                                               }))
+                                           .One();
 
             if (orderPositionInfo == null)
             {

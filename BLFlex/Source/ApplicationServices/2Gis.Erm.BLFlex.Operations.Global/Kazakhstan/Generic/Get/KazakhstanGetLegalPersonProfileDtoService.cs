@@ -20,7 +20,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Kazakhstan.Generic.Get
         {
         }
 
-        protected override ProjectSpecification<LegalPersonProfile, KazakhstanLegalPersonProfileDomainEntityDto> GetProjectSpecification()
+        protected override MapSpecification<LegalPersonProfile, KazakhstanLegalPersonProfileDomainEntityDto> GetProjectSpecification()
         {
             return LegalPersonFlexSpecs.LegalPersonProfiles.Kazakhstan.Project.DomainEntityDto();
         }

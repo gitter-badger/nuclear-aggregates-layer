@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Currencies;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
@@ -30,7 +31,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Deal> GetDto(long entityId)
         {
-            var modelDto = _finder.Find(new FindSpecification<Deal>(x => x.Id == entityId))
+            var modelDto = _finder.FindObsolete(new FindSpecification<Deal>(x => x.Id == entityId))
                                   .Select(entity => new DealDomainEntityDto
                                       {
                                           Id = entity.Id,
@@ -73,7 +74,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var currencyId = _currencyService.GetBaseCurrency().Id;
 
             var dto = parentEntityName.Equals(EntityType.Instance.Client())
-                          ? _finder.Find(new FindSpecification<Client>(x => x.Id == parentEntityId))
+                          ? _finder.FindObsolete(new FindSpecification<Client>(x => x.Id == parentEntityId))
                                    .Select(x => new DealDomainEntityDto
                                        {
                                            ClientRef = new EntityReference { Id = x.Id, Name = x.Name },

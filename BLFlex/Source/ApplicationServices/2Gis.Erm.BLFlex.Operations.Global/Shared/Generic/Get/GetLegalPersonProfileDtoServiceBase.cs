@@ -58,7 +58,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
             return dto;
         }
 
-        protected abstract ProjectSpecification<LegalPersonProfile, TDto> GetProjectSpecification();
+        protected abstract MapSpecification<LegalPersonProfile, TDto> GetProjectSpecification();
 
         protected virtual void SetSpecificPropertyValues(TDto dto)
         {
@@ -72,7 +72,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get
 
         private TDto ProjectDto(LegalPersonProfile legalPersonProfile)
         {
-            var dto = GetProjectSpecification().Project(legalPersonProfile);
+            var dto = GetProjectSpecification().Map(legalPersonProfile);
 
             var legalPersonRef = dto.GetPropertyValue<TDto, EntityReference>("LegalPersonRef");
             if (legalPersonRef.Id.HasValue)

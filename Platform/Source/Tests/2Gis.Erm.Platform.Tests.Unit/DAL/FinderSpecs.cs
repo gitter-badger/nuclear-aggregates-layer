@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL.EAV;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 
 using FluentAssertions;
 
@@ -21,20 +22,15 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
     public class FinderSpecs
     {
         [Tags("Storage")]
-        [Subject(typeof(Finder))]
+        [Subject(typeof(ConsistentFinder))]
         class When_queryable_returned
         {
             static IFinder Finder;
-            static IQueryable<IEntity> Result;
+            static IncapsulationBreakingQueryableFutureSequence<IEntity> Result;
 
-            Establish context = () => Finder = new ConsistentFinder(new Finder(CreateReadDomainContextProvider()), null, null, null);
-            Because of = () => Result = Finder.Find(CreateSpecification());
-            It should_return_restricted_queryable = () => (Result is WrappedQuery).Should().BeTrue();
-
-            static FindSpecification<IEntity> CreateSpecification()
-            {
-                return new FindSpecification<IEntity>(x => true);
-            }
+            Establish context = () => Finder = new ConsistentFinder(CreateReadDomainContextProvider(), null, null, null);
+            Because of = () => Result = (IncapsulationBreakingQueryableFutureSequence<IEntity>)Finder.Find(new FindSpecification<IEntity>(x => true));
+            It should_return_restricted_queryable = () => (Result.Queryable is WrappedQuery).Should().BeTrue();
 
             static IReadDomainContextProvider CreateReadDomainContextProvider()
             {

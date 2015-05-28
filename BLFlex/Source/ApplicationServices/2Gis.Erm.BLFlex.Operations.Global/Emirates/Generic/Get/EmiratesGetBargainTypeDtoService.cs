@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.Get
         {
             var entity = _finder.FindOne(Specs.Find.ById<BargainType>(entityId));
 
-            return BargainTypeFlexSpecs.BargainTypes.Emirates.Project.DomainEntityDto().Project(entity);
+            return BargainTypeFlexSpecs.BargainTypes.Emirates.Project.DomainEntityDto().Map(entity);
         }
     }
 }

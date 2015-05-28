@@ -10,11 +10,13 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
@@ -36,7 +38,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         public IEnumerable<Limit> GetLimitsForRelease(long releasingOrganizationUnitId, TimePeriod period)
         {
             var ordersForCurrentRelease =
-                _finder.Find(OrderSpecs.Orders.Find.ForRelease(releasingOrganizationUnitId, period)
+                _finder.FindObsolete(OrderSpecs.Orders.Find.ForRelease(releasingOrganizationUnitId, period)
                                 && Specs.Find.ActiveAndNotDeleted<Order>()
                                 && OrderSpecs.Orders.Find.HasLegalPerson())
                        .SelectMany(o => o.BranchOfficeOrganizationUnit.Accounts.Where(a => a.IsActive
@@ -46,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                        .Select(x => x.FirstOrDefault());
 
             var ordersForReleasesByOtherOrganizationUnits =
-                _finder.Find(OrderSpecs.Orders.Find.AllForReleaseByPeriodExceptOrganizationUnit(releasingOrganizationUnitId, period)
+                _finder.FindObsolete(OrderSpecs.Orders.Find.AllForReleaseByPeriodExceptOrganizationUnit(releasingOrganizationUnitId, period)
                                && Specs.Find.ActiveAndNotDeleted<Order>()
                                && OrderSpecs.Orders.Find.HasLegalPerson())
                        .Select(o => new
@@ -88,13 +90,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
             // Собираем все потенциально блокирующие сборки по данному лимиту
             var releaseInfos = 
-                _finder.Find(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatuses(
+                _finder.FindObsolete(ReleaseSpecs.Releases.Find.FinalForPeriodWithStatuses(
                                     checkingPeriod,
                                     ReleaseStatus.InProgressInternalProcessingStarted, 
                                     ReleaseStatus.InProgressWaitingExternalProcessing, 
                                     ReleaseStatus.Success));
            
-            var checkingOrders = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>()
+            var checkingOrders = _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<Order>()
                                               && OrderSpecs.Orders.Find.ByPeriod(checkingPeriod)
                                               && OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved, OrderState.OnTermination, OrderState.Archive)
                                               && OrderSpecs.Orders.Find.ByAccountWithLegalPersonCorrectnessCheck(limit.AccountId));
@@ -118,15 +120,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public IEnumerable<Limit> GetHungLimitsByOrganizationUnitForDate(long organizationUnitId, DateTime limitStart)
         {
-            return _finder.FindMany(new FindSpecification<Limit>(limit => limit.StartPeriodDate <= limitStart &&
-                                                                          limit.Account.BranchOfficeOrganizationUnit.OrganizationUnitId == organizationUnitId &&
-                                                                          limit.IsActive &&
-                                                                          !limit.IsDeleted));
+            return _finder.Find(new FindSpecification<Limit>(limit => limit.StartPeriodDate <= limitStart &&
+                                                                      limit.Account.BranchOfficeOrganizationUnit.OrganizationUnitId == organizationUnitId &&
+                                                                      limit.IsActive &&
+                                                                      !limit.IsDeleted))
+                          .Many();
         }
 
         public IEnumerable<Limit> GetClosedLimits(long destinationOrganizationUnitId, TimePeriod period)
         {
-            return (from @lock in _finder.Find(AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(destinationOrganizationUnitId, period))
+            return (from @lock in _finder.FindObsolete(AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(destinationOrganizationUnitId, period))
                     from account in @lock.Order.BranchOfficeOrganizationUnit.Accounts
                         .Where(a => a.IsActive
                                     && !a.IsDeleted
@@ -142,13 +145,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         public IEnumerable<LockDto> GetActiveLocksForDestinationOrganizationUnitByPeriod(long organizationUnitId, TimePeriod period)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>()
-                                    && AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId, period))
-                   .Select(l =>
-                       new LockDto
-                           {
-                               Lock = l, 
-                               Details = l.LockDetails
-                           });
+                                && AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId, period))
+                          .Map(q => q.Select(l =>
+                                                 new LockDto
+                                                     {
+                                                         Lock = l,
+                                                         Details = l.LockDetails
+                                                     }))
+                          .Many();
         }
 
         public bool HasActiveLocksForSourceOrganizationUnitByPeriod(long organizationUnitId, TimePeriod period)
@@ -156,13 +160,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
                                 AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
                                 AccountSpecs.Locks.Find.ForPeriod(period.Start, period.End))
-                   .Select(l =>
-                       new LockDto
-                       {
-                           Lock = l,
-                           Details = l.LockDetails
-                       })
-                   .Any();
+                          .Map(q => q.Select(l =>
+                                                 new LockDto
+                                                     {
+                                                         Lock = l,
+                                                         Details = l.LockDetails
+                                                     }))
+                          .Any();
         }
 
         public bool HasInactiveLocksForDestinationOrganizationUnit(long organizationUnitId, TimePeriod period)
@@ -176,24 +180,24 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         {
             const string OperationTypeDebitForOrderPaymentSyncCode1C = "11";
 
-            return _finder.Find(AccountSpecs.OperationTypes.Find.BySyncCode1C(OperationTypeDebitForOrderPaymentSyncCode1C), Specs.Select.Id<OperationType>())
+            return _finder.FindObsolete(AccountSpecs.OperationTypes.Find.BySyncCode1C(OperationTypeDebitForOrderPaymentSyncCode1C), Specs.Select.Id<OperationType>())
                         .Single();
         }
 
         public IReadOnlyCollection<WithdrawalInfoDto> GetBlockingWithdrawals(long destProjectId, TimePeriod period)
         {
-            var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(destProjectId)).Select(x => x.OrganizationUnitId).SingleOrDefault();
+            var organizationUnitId = _finder.Find(Specs.Find.ById<Project>(destProjectId)).Map(q => q.Select(x => x.OrganizationUnitId)).One();
             if (organizationUnitId == null)
             {
                 return new WithdrawalInfoDto[0];
             }
 
-            var withdrawalInfosQuery = _finder.Find(AccountSpecs.Withdrawals.Find.ForPeriod(period) &&
+            var withdrawalInfosQuery = _finder.FindObsolete(AccountSpecs.Withdrawals.Find.ForPeriod(period) &&
                                                     AccountSpecs.Withdrawals.Find.InStates(WithdrawalStatus.InProgress,
                                                                                            WithdrawalStatus.Withdrawing,
                                                                                            WithdrawalStatus.Reverting));
 
-            return _finder.Find(Specs.Find.NotDeleted<Lock>() &&
+            return _finder.FindObsolete(Specs.Find.NotDeleted<Lock>() &&
                                 AccountSpecs.Locks.Find.ByDestinationOrganizationUnit(organizationUnitId.Value, period))
                           .Select(x => x.Order.SourceOrganizationUnit)
                           .GroupJoin(withdrawalInfosQuery,
@@ -220,13 +224,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                 && AccountSpecs.Withdrawals.Find.ByOrganization(organizationUnitId)
                                 && AccountSpecs.Withdrawals.Find.ForPeriod(period)
                                 && (AccountSpecs.Withdrawals.Find.ByAccoutingMethod(accountingMethod) || AccountSpecs.Withdrawals.Find.WithNoAccountingMethodSpecified()))
-                          .OrderByDescending(x => x.StartDate)
-                          .FirstOrDefault();
+                          .Map(q => q.OrderByDescending(x => x.StartDate))
+                          .Top();
         }
 
         public WithdrawalDto[] GetInfoForWithdrawal(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
+            return _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<Lock>() &&
                                 AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
                                 AccountSpecs.Locks.Find.ForPeriod(period.Start, period.End) &&
                                 AccountSpecs.Locks.Find.ByAccountingMethod(accountingMethod))
@@ -263,7 +267,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public RevertWithdrawalDto[] GetInfoForRevertWithdrawal(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod)
         {
-            return _finder.Find(Specs.Find.NotDeleted<Lock>() &&
+            return _finder.FindObsolete(Specs.Find.NotDeleted<Lock>() &&
                                 AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
                                 AccountSpecs.Locks.Find.ForPeriod(period.Start, period.End) &&
                                 AccountSpecs.Locks.Find.ByAccountingMethod(accountingMethod))
@@ -306,35 +310,36 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                 && AccountSpecs.Withdrawals.Find.ByOrganization(organizationUnitId)
                                 && AccountSpecs.Withdrawals.Find.ForPeriod(period)
                                 && AccountSpecs.Withdrawals.Find.ByAccoutingMethod(accountingMethod))
-                          .OrderByDescending(x => x.StartDate)
-                          .FirstOrDefault();
+                          .Map(q => q.OrderByDescending(x => x.StartDate))
+                          .Top();
         }
 
         public BranchOfficeOrganizationUnit FindPrimaryBranchOfficeOrganizationUnit(long organizationUnitId)
         {
-            return _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit() &&
-                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId));
+            return _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit() &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId))
+                          .One();
         }
 
         public Account FindAccount(long legalPersonId, long branchOfficeOrganizationUnitId)
         {
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Account>() &&
                                 AccountSpecs.Accounts.Find.ForLegalPersons(legalPersonId, branchOfficeOrganizationUnitId))
-                          .FirstOrDefault();
+                          .Top();
         }
 
         public string GetLegalPersonShortName(long legalPersonId)
         {
             return _finder.Find(Specs.Find.ById<LegalPerson>(legalPersonId))
-                          .Select(person => person.ShortName)
-                          .SingleOrDefault();
+                          .Map(q => q.Select(person => person.ShortName))
+                          .One();
         }
 
         public string GetBranchOfficeOrganizationUnitName(long branchOfficeOrganizationUnitId)
         {
             return _finder.Find(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId))
-                          .Select(unit => unit.ShortLegalName)
-                          .SingleOrDefault();
+                          .Map(q => q.Select(unit => unit.ShortLegalName))
+                          .One();
         }
 
         public bool AnyLockDetailsCreated(Guid chargeSessionId)
@@ -345,7 +350,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         public IEnumerable<AccountDetailInfoToSendNotificationDto> GetAccountDetailsInfoToSendNotification(IEnumerable<long> accountDetailIds)
         {
             return _finder.Find(Specs.Find.ByIds<AccountDetail>(accountDetailIds))
-                          .Select(x => new AccountDetailInfoToSendNotificationDto
+                          .Map(q => q.Select(x => new AccountDetailInfoToSendNotificationDto
                               {
                                   Amount = x.Amount,
                                   AccountId = x.AccountId,
@@ -355,26 +360,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                   BranchOfficeName = x.Account.BranchOfficeOrganizationUnit.ShortLegalName,
                                   LegalPersonName = x.Account.LegalPerson.LegalName,
                                   AccountOwnerCode = x.Account.OwnerCode
-                              })
-                          .ToArray();
+                              }))
+                          .Many();
         }
 
         public long GetAccountOwnerCode(long accountId)
         {
-            return _finder.Find(Specs.Find.ById<Account>(accountId)).Select(x => x.OwnerCode).Single();
+            return _finder.FindObsolete(Specs.Find.ById<Account>(accountId)).Select(x => x.OwnerCode).Single();
         }
 
         public AccountIdAndOwnerCodeDto GetAccountIdAndOwnerCodeByOrder(long orderId)
         {
             return _finder.Find(Specs.Find.ById<Order>(orderId))
-                          .Select(x => new AccountIdAndOwnerCodeDto { AccountId = x.Account.Id, OwnerCode = x.Account.OwnerCode })
-                          .SingleOrDefault();
+                          .Map(q => q.Select(x => new AccountIdAndOwnerCodeDto { AccountId = x.Account.Id, OwnerCode = x.Account.OwnerCode }))
+                          .One();
         }
 
         public IReadOnlyCollection<LockDto> GetLockDetailsWithPlannedProvision(long organizationUnitId, TimePeriod period)
         {
-            var orderPositionsQuery = _finder.Find(Specs.Find.ActiveAndNotDeleted<OrderPosition>());
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
+            var orderPositionsQuery = _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<OrderPosition>());
+            return _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<Lock>() &&
                                 AccountSpecs.Locks.Find.BySourceOrganizationUnit(organizationUnitId) &&
                                 AccountSpecs.Locks.Find.ForPeriod(period.Start, period.End))
                           .Select(l => new
@@ -401,17 +406,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public Limit GetLimitById(long id)
         {
-            return _finder.FindOne(Specs.Find.ById<Limit>(id));
+            return _finder.Find(Specs.Find.ById<Limit>(id)).One();
         }
 
         public Limit GetLimitByReplicationCode(Guid replicationCode)
         {
-            return _finder.FindOne(Specs.Find.ByReplicationCode<Limit>(replicationCode));
+            return _finder.Find(Specs.Find.ByReplicationCode<Limit>(replicationCode)).One();
         }
 
         public LimitDto InitializeLimitForAccount(long accountId)
         {
-            return _finder.Find(Specs.Find.ById<Account>(accountId))
+            return _finder.FindObsolete(Specs.Find.ById<Account>(accountId))
                           .Select(x => new LimitDto
                           {
                               LegalPersonId = x.LegalPerson.Id,
@@ -427,14 +432,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
         public bool IsThereLimitDuplicate(long limitId, long accountId, DateTime periodStartDate, DateTime periodEndDate)
         {
             return _finder.Find(Specs.Find.ById<Account>(accountId))
-                          .SelectMany(account => account.Limits)
-                          .Where(limit => !limit.IsDeleted)
-                          .Any(limit => limit.StartPeriodDate == periodStartDate && limit.EndPeriodDate == periodEndDate && limit.Id != limitId);
+                          .Map(q => q.SelectMany(account => account.Limits))
+                          .Find(new FindSpecification<Limit>(limit => !limit.IsDeleted))
+                          .Find(new FindSpecification<Limit>(limit => limit.StartPeriodDate == periodStartDate &&
+                                                                      limit.EndPeriodDate == periodEndDate && limit.Id != limitId))
+                          .Any();
         }
 
         public bool IsLimitRecalculationAvailable(long limitId)
         {
-            var limit = _finder.FindOne(Specs.Find.ById<Limit>(limitId));
+            var limit = _finder.Find(Specs.Find.ById<Limit>(limitId)).One();
             if (limit == null)
             {
                 throw new EntityNotFoundException(typeof(Limit), limitId);
@@ -445,17 +452,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                                       && OrderSpecs.Orders.Find.ByAccount(limit.AccountId)
                                                       && OrderSpecs.Orders.Find.ByPeriod(new TimePeriod(limit.StartPeriodDate, limit.EndPeriodDate))
                                                       && OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved, OrderState.OnTermination))
-                                                .Select(order => order.DestOrganizationUnitId)
-                                                .Distinct()
-                                                .ToArray();
+                                                .Map(q => q.Select(order => order.DestOrganizationUnitId)
+                                                               .Distinct())
+                                                .Many();
 
             var releaseOrganizationUnits = _finder.Find(Specs.Find.ActiveAndNotDeleted<ReleaseInfo>()
                                                         && ReleaseSpecs.Releases.Find.Final()
                                                         && ReleaseSpecs.Releases.Find.Succeeded()
                                                         && ReleaseSpecs.Releases.Find.ForPeriod(new TimePeriod(limit.StartPeriodDate, limit.EndPeriodDate)))
-                                                  .Select(info => info.OrganizationUnitId)
-                                                  .Distinct()
-                                                  .ToArray();
+                                                  .Map(q => q.Select(info => info.OrganizationUnitId)
+                                                                 .Distinct())
+                                                  .Many();
 
             var existsOrderWithoutFinalRelease = orderOrganizationUnits.Except(releaseOrganizationUnits).Any();
 
@@ -465,19 +472,19 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public decimal CalculateLimitValueForAccountByPeriod(long accountId, DateTime periodStart, DateTime periodEnd)
         {
-            var lockSum = _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>()
+            var lockSum = _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<Lock>()
                                        && AccountSpecs.Locks.Find.ByAccount(accountId)
                                        && AccountSpecs.Locks.Find.ForPreviousPeriods(periodStart, periodEnd))
                                  .Sum(@lock => (decimal?)@lock.PlannedAmount) ?? 0;
 
-            var orderReleaseSum = _finder.Find(Specs.Find.ActiveAndNotDeleted<Order>()
+            var orderReleaseSum = _finder.FindObsolete(Specs.Find.ActiveAndNotDeleted<Order>()
                                                && OrderSpecs.Orders.Find.ByAccount(accountId)
                                                && OrderSpecs.Orders.Find.WithStatuses(OrderState.Approved))
                                          .SelectMany(order => order.OrderReleaseTotals)
                                          .Where(OrderSpecs.OrderReleaseTotals.Find.ByPeriod(periodStart, periodEnd))
                                          .Sum(total => (decimal?)total.AmountToWithdraw) ?? 0;
 
-            var accountBalanceRaw = _finder.Find(Specs.Find.ById<Account>(accountId)).Select(x => x.Balance).Single();
+            var accountBalanceRaw = _finder.FindObsolete(Specs.Find.ById<Account>(accountId)).Select(x => x.Balance).Single();
             var accountBalance = accountBalanceRaw - (lockSum + orderReleaseSum);
 
             return accountBalance > 0 ? 0 : Math.Abs(accountBalance);
@@ -485,7 +492,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public decimal CalculateLimitIncreasingValue(long limitId)
         {
-            var limitInfo = _finder.Find(Specs.Find.ById<Limit>(limitId)).Select(x => new { x.AccountId, x.StartPeriodDate, x.EndPeriodDate, x.Amount }).Single();
+            var limitInfo = _finder.FindObsolete(Specs.Find.ById<Limit>(limitId)).Select(x => new { x.AccountId, x.StartPeriodDate, x.EndPeriodDate, x.Amount }).Single();
             var newLimitAmount = CalculateLimitValueForAccountByPeriod(limitInfo.AccountId, limitInfo.StartPeriodDate, limitInfo.EndPeriodDate);
             var difference = newLimitAmount - limitInfo.Amount;
 
@@ -494,7 +501,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
 
         public long GetLimitOwnerCode(long limitId)
         {
-            return _finder.Find(Specs.Find.ById<Limit>(limitId)).Select(x => x.OwnerCode).Single();
+            return _finder.FindObsolete(Specs.Find.ById<Limit>(limitId)).Select(x => x.OwnerCode).Single();
         }
 
         public IDictionary<long, IEnumerable<AccountDetailForExportDto>> GetAccountDetailsForExportTo1C(IEnumerable<long> organizationUnitIds,
@@ -502,7 +509,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                                                                                                         DateTime periodEndDate)
         {
             return
-                _finder.Find(AccountSpecs.Locks.Find.BySourceOrganizationUnits(organizationUnitIds) &&
+                _finder.FindObsolete(AccountSpecs.Locks.Find.BySourceOrganizationUnits(organizationUnitIds) &&
                              AccountSpecs.Locks.Find.ForPeriod(periodStartDate, periodEndDate) &&
                              Specs.Find.NotDeleted<Lock>() &&
                              Specs.Find.InactiveEntities<Lock>())
@@ -535,9 +542,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
             return _finder.Find(Specs.Find.ActiveAndNotDeleted<Lock>() &&
                                 AccountSpecs.Locks.Find.ForPeriod(periodStartDate, periodEndDate) &&
                                 AccountSpecs.Locks.Find.ByAccountingMethod(accountingMethod))
-                          .Select(l => l.Order.SourceOrganizationUnitId)
-                          .Distinct()
-                          .ToArray();
+                          .Map(q => q.Select(l => l.Order.SourceOrganizationUnitId)
+                                         .Distinct())
+                          .Many();
         }
     }
 }

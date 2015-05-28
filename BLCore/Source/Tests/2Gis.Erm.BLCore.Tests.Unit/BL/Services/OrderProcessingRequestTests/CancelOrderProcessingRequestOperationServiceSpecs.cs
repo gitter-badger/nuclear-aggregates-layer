@@ -17,6 +17,7 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;
@@ -42,7 +43,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
                     OrderProcessingRequest = GetOrderProcessingRequest();
                     var finderMock = new Mock<IFinder>();
                     finderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<OrderProcessingRequest>>()))
-                              .Returns(new[] { OrderProcessingRequest }.AsQueryable());
+                              .Returns(new QueryableFutureSequence<OrderProcessingRequest>(new[] { OrderProcessingRequest }.AsQueryable()));
 
                     Finder = finderMock.Object;
                     OrderProcessingRequestServiceMock = new Mock<IOrderProcessingRequestService>();

@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return new DynamicQueryableFutureSequence<TSource>(_dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification);
         }
 
-        public override FutureSequence<TResult> Project<TResult>(ProjectSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)
+        public override FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)
         {
             throw new NotSupportedException();
         }

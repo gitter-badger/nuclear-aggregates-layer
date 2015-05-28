@@ -24,6 +24,6 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                .NonCoupledOperation<ReplacePriceIdentity>()
                                                .NonCoupledOperation<PublishPriceIdentity>()
                                                .NonCoupledOperation<UnpublishPriceIdentity>()
-                                               .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Price>(ids))));
+                                               .Use((query, ids) => query.For(Specs.Find.ByIds<Price>(ids))));
     }
 }

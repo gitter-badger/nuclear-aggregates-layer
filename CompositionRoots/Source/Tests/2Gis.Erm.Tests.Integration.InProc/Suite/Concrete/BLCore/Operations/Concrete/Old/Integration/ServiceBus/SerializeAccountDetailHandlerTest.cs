@@ -11,6 +11,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using FluentAssertions;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLCore.Operations.Concrete.Old.Integration.ServiceBus
@@ -35,13 +36,13 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.BLCore.Operation
         {
             var withdrawOperation =
                 _finder.Find(new FindSpecification<PerformedBusinessOperation>(operation => operation.Operation == WithdrawFromAccountsIdentity.Instance.Id))
-                       .OrderByDescending(operation => operation.Date)
-                       .FirstOrDefault();
+                       .Map(q => q.OrderByDescending(operation => operation.Date))
+                       .Top();
 
             var revertWithdrawOperation =
                 _finder.Find(new FindSpecification<PerformedBusinessOperation>(operation => operation.Operation == RevertWithdrawFromAccountsIdentity.Instance.Id))
-                       .OrderByDescending(operation => operation.Date)
-                       .FirstOrDefault();
+                       .Map(q => q.OrderByDescending(operation => operation.Date))
+                       .Top();
 
             if (withdrawOperation == null || revertWithdrawOperation == null)
             {

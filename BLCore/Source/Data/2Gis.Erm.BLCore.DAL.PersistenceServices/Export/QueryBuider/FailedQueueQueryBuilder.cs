@@ -13,12 +13,12 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
     public sealed class FailedQueueQueryBuilder<TEntity> : IQueryBuilder<TEntity>
         where TEntity : class, IEntityKey, IEntity
     {
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly IEnumerable<ExportFailedEntity> _failedEntities;
 
-        public FailedQueueQueryBuilder(IFinder finder, IEnumerable<ExportFailedEntity> failedEntities)
+        public FailedQueueQueryBuilder(IQuery query, IEnumerable<ExportFailedEntity> failedEntities)
         {
-            _finder = finder;
+            _query = query;
             _failedEntities = failedEntities;
         }
 
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
                             .Distinct()
                             .ToArray();
 
-            var findByIdsQuery = _finder.Find(Specs.Find.ByIds<TEntity>(ids));
+            var findByIdsQuery = _query.For(Specs.Find.ByIds<TEntity>(ids));
             return filterSpecifications.Aggregate(findByIdsQuery, (current, filter) => current.Where(filter));
         }
     }

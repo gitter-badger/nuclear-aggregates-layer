@@ -10,6 +10,7 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Export;
 using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export;
 using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.ReadModel;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -17,6 +18,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withd
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
@@ -83,9 +85,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
         {
             var filter = CreateAccountDetailsFilter(operation);
             var selector = AccountDetailDtoSelectSpecification();
-            var exportData = _finder.Find(filter, selector).ToArray();
+            var exportData = _finder.Find(filter).Map(q => q.Select(selector)).Many();
 
-            if (exportData.Length == 0)
+            if (exportData.Count == 0)
             {
                 // Ещё один костыль, который можно будет убрать перейдя на новую выгрузку.
                 // Дело в том, что если после списания сразу сделали откат, 
@@ -197,8 +199,8 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Integration.ServiceBus.Ex
                 // Поэтому в том-же UseCase идем операцию активации блокировок и из неё извлекаем список блокировок
                 // Обращение в таблицу PBO в прикладной логике экспорта - ОГРОМНЫЙ тех долг, т.к. в прикладной логике мы оперируем понятием очереди,
                 // но никак не транспорта, на котором эта очередь реализована. То есть к таблице ни в коем случае нельзя обращаться.
-                var activateLocksOperation = _finder.Find(OperationSpecs.Performed.Find.InUseCase(operation.UseCaseId)
-                                                          && OperationSpecs.Performed.Find.Specific<BulkActivateIdentity, Lock>())
+                var activateLocksOperation = _finder.FindObsolete(OperationSpecs.Performed.Find.InUseCase(operation.UseCaseId)
+                                                                  && OperationSpecs.Performed.Find.Specific<BulkActivateIdentity, Lock>())
                                                     .Single();
 
                 string report;

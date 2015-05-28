@@ -34,7 +34,7 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
         private static readonly IMessageFlow SourceMessageFlow = PrimaryReplicate2MsCRMPerformedOperationsFlow.Instance;
 
         private readonly IConnectionStringSettings _connectionStringSettings;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly IPerformedOperationsProcessingReadModel _readModel;
         private readonly IProducedQueryLogContainer _producedQueryLogContainer;
         private readonly IUseCaseTuner _useCaseTuner;
@@ -42,14 +42,14 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
 
         public PerformedOperationsProcessingReadModelTest(
             IConnectionStringSettings connectionStringSettings,
-            IFinder finder,
+            IQuery query,
             IPerformedOperationsProcessingReadModel readModel,
             IProducedQueryLogContainer producedQueryLogContainer,
             IUseCaseTuner useCaseTuner,
             ITracer tracer)
         {
             _connectionStringSettings = connectionStringSettings;
-            _finder = finder;
+            _query = query;
             _readModel = readModel;
             _producedQueryLogContainer = producedQueryLogContainer;
             _useCaseTuner = useCaseTuner;
@@ -137,8 +137,8 @@ namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Platform.Operati
             DateTime oldestOperationBoundaryDate,
             int maxUseCaseCount)
         {
-            var performedOperations = _finder.Find(OperationSpecs.Performed.Find.AfterDate(oldestOperationBoundaryDate));
-            var processingTargetUseCases = _finder.Find(OperationSpecs.PrimaryProcessings.Find.ByFlowId(sourceMessageFlow.Id))
+            var performedOperations = _query.For(OperationSpecs.Performed.Find.AfterDate(oldestOperationBoundaryDate));
+            var processingTargetUseCases = _query.For(OperationSpecs.PrimaryProcessings.Find.ByFlowId(sourceMessageFlow.Id))
                        .OrderBy(targetUseCase => targetUseCase.CreatedOn)
                        .Take(maxUseCaseCount);
 

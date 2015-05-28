@@ -3,6 +3,7 @@
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -10,6 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -25,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<CurrencyRate> GetDto(long entityId)
         {
-            return _finder.Find(new FindSpecification<CurrencyRate>(x => x.Id == entityId))
+            return _finder.FindObsolete(new FindSpecification<CurrencyRate>(x => x.Id == entityId))
                           .Select(x => new CurrencyRateDomainEntityDto
                               {
                                   Id = x.Id,
@@ -50,25 +52,25 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
         protected override IDomainEntityDto<CurrencyRate> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = new CurrencyRateDomainEntityDto();
-            var baseCurrencies = _finder.Find(new FindSpecification<Currency>(x => x.IsBase && !x.IsDeleted && x.IsActive)).Take(2).ToArray();
+            var baseCurrencies = _finder.Find(new FindSpecification<Currency>(x => x.IsBase && !x.IsDeleted && x.IsActive)).Map(q => q.Take(2)).Many();
 
-            if (baseCurrencies.Length == 0)
+            if (baseCurrencies.Count == 0)
             {
                 throw new NotificationException(BLResources.BaseCurrencyNotFound);
             }
 
-            if (baseCurrencies.Length > 1 && baseCurrencies[1] != null)
+            if (baseCurrencies.Count > 1 && baseCurrencies.Skip(1).First() != null)
             {
                 throw new NotificationException(BLResources.MultipleBaseCurrencyFound);
             }
 
-            var baseCurrency = baseCurrencies[0];
+            var baseCurrency = baseCurrencies.First();
 
             dto.BaseCurrencyRef = new EntityReference { Id = baseCurrency.Id, Name = baseCurrency.Name };
 
             if (parentEntityId.HasValue && parentEntityName.Equals(EntityType.Instance.Currency()))
             {
-                dto.CurrencyRef = _finder.Find(new FindSpecification<Currency>(x => x.Id == parentEntityId.Value)).Select(x => new EntityReference { Id = x.Id, Name = x.Name }).Single();
+                dto.CurrencyRef = _finder.FindObsolete(new FindSpecification<Currency>(x => x.Id == parentEntityId.Value)).Select(x => new EntityReference { Id = x.Id, Name = x.Name }).Single();
             }
 
             return dto;
