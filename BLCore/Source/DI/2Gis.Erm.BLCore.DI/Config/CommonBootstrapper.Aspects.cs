@@ -147,8 +147,8 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IQuery, Query>(Lifetime.PerResolve)
                         .RegisterType<ISecureQuery, SecureQuery>(Lifetime.PerResolve)
 
-                        .RegisterType<IFinder>(Lifetime.PerResolve, new InjectionFactory(c => c.Resolve<ConsistentFinder>(new DependencyOverride<IFinder>(typeof(Finder)))))
-                        .RegisterType<ISecureFinder>(Lifetime.PerResolve, new InjectionFactory(c => c.Resolve<ConsistentSecureFinder>(new DependencyOverride<ISecureFinder>(typeof(SecureFinder)), new DependencyOverride<IFinder>(typeof(Finder)))))
+                        .RegisterType<IFinder, ConsistentFinder>(Lifetime.PerResolve)
+                        .RegisterType<ISecureFinder, ConsistentSecureFinder>(Lifetime.PerResolve)
                         .RegisterType<IFileContentFinder, EFFileRepository>(Lifetime.PerResolve)
 
                         .RegisterType<IDynamicStorageFinder, DynamicStorageFinder>(Lifetime.PerResolve)

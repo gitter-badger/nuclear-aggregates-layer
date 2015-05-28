@@ -40,12 +40,6 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
                 throw new ArgumentException("sequence");
             }
 
-            var sourceType = typeof(TSource);
-            if (!typeof(IEntityKey).IsAssignableFrom(sourceType))
-            {
-                throw new NotSupportedException("Type " + sourceType.Name + " must implement IEntityKey interface");
-            }
-
             _queryable = _queryable.ValidateQueryCorrectness();
         }
 
@@ -56,48 +50,94 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 
         public override FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)
         {
-            throw new NotSupportedException();
+            if (typeof(IPartable).IsAssignableFrom(typeof(TSource)))
+            {
+                throw new NotSupportedException();
+            }
+
+            return new ConsistentQueryableFutureSequence<TResult>(projector.Map(_queryable.Where(_findSpecification)));
         }
 
         public override TSource One()
         {
-            return GetInstance(q => q.SingleOrDefault());
+            if (typeof(IPartable).IsAssignableFrom(typeof(TSource)))
+            {
+                CheckForIEntityKeyImplementation();
+                return GetInstance(q => q.SingleOrDefault());
+            }
+
+            return _queryable.SingleOrDefault();
         }
 
         public override TSource Top()
         {
-            return GetInstance(q => q.FirstOrDefault());
+            if (typeof(IPartable).IsAssignableFrom(typeof(TSource)))
+            {
+                CheckForIEntityKeyImplementation();
+                return GetInstance(q => q.FirstOrDefault());
+            }
+
+            return _queryable.FirstOrDefault();
         }
 
         public override IReadOnlyCollection<TSource> Many()
         {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
+            if (typeof(IPartable).IsAssignableFrom(typeof(TSource)))
             {
-                var entities = _queryable.Where(_findSpecification).ToArray();
-                var specs = _dynamicEntityMetadataProvider.GetSpecifications<BusinessEntityInstance, BusinessEntityPropertyInstance>(typeof(TSource), 
-                                                                                                                                     entities.OfType<IEntityKey>().Select(e => e.Id));
-                var parts = _dynamicStorageFinder.Find(specs).Cast<IEntityPart>().GroupBy(part => part.EntityId).ToDictionary(group => group.Key);
-
-                foreach (var entity in entities)
+                CheckForIEntityKeyImplementation();
+                
+                using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
                 {
-                    var entityKey = (IEntityKey)entity;
+                    var entities = _queryable.Where(_findSpecification).ToArray();
+                    var specs = _dynamicEntityMetadataProvider.GetSpecifications<BusinessEntityInstance, BusinessEntityPropertyInstance>(typeof(TSource),
+                                                                                                                                         entities.OfType<IEntityKey>()
+                                                                                                                                                 .Select(e => e.Id));
+                    var parts = _dynamicStorageFinder.Find(specs).Cast<IEntityPart>().GroupBy(part => part.EntityId).ToDictionary(group => group.Key);
 
-                    IGrouping<long, IEntityPart> entityParts;
-                    if (parts.TryGetValue(entityKey.Id, out entityParts))
+                    foreach (var entity in entities)
                     {
-                        ((IPartable)entity).Parts = entityParts.ToArray();
+                        var entityKey = (IEntityKey)entity;
+
+                        IGrouping<long, IEntityPart> entityParts;
+                        if (parts.TryGetValue(entityKey.Id, out entityParts))
+                        {
+                            ((IPartable)entity).Parts = entityParts.ToArray();
+                        }
                     }
+
+                    transaction.Complete();
+
+                    return entities;
                 }
-
-                transaction.Complete();
-
-                return entities;
             }
+
+            return _queryable.ToArray();
         }
 
         public override IReadOnlyDictionary<TKey, TValue> Map<TKey, TValue>(Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector)
         {
-            return Many().ToDictionary(keySelector, valueSelector);
+            IEnumerable<TSource> source;
+            if (typeof(IPartable).IsAssignableFrom(typeof(TSource)))
+            {
+                CheckForIEntityKeyImplementation();
+
+                source = Many();
+            }
+            else
+            {
+                source = _queryable;
+            }
+
+            return source.ToDictionary(keySelector, valueSelector);
+        }
+
+        private static void CheckForIEntityKeyImplementation()
+        {
+            var sourceType = typeof(TSource);
+            if (!typeof(IEntityKey).IsAssignableFrom(sourceType))
+            {
+                throw new NotSupportedException("Type " + sourceType.Name + " must implement IEntityKey interface");
+            }
         }
 
         private TSource GetInstance(Func<IQueryable<TSource>, TSource> queryExecutor)
