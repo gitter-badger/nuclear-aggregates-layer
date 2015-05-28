@@ -85,7 +85,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             }
 
             // заполняем инфу о прайсе
-            var priceInfo = _finder.Find(new FindSpecification<Price>(x => x.Id == priceId))
+            var priceInfo = _finder.FindObsolete(new FindSpecification<Price>(x => x.Id == priceId))
                                    .Select(x => new
                                        {
                                            PriceBeginDate = x.BeginDate,

@@ -3,7 +3,6 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -11,6 +10,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Denie
 
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
+using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 {
@@ -21,9 +21,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
         private readonly IUserContext _userContext;
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
 
-        public ChangeDeniedPositionObjectBindingTypeAggregateService(IOperationScopeFactory operationScopeFactory,
-                                                                     IRepository<DeniedPosition> deniedPositionRepository,
-                                                                     IUserContext userContext,
+        public ChangeDeniedPositionObjectBindingTypeAggregateService(IOperationScopeFactory operationScopeFactory, 
+                                                                     IRepository<DeniedPosition> deniedPositionRepository, 
+                                                                     IUserContext userContext, 
                                                                      ISecurityServiceEntityAccess securityServiceEntityAccess)
         {
             _operationScopeFactory = operationScopeFactory;
@@ -78,11 +78,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
                 throw new SymmetricDeniedPositionExpectedException();
             }
 
-            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                              EntityType.Instance.DeniedPosition(),
-                                                              _userContext.Identity.Code,
-                                                              null,
-                                                              0,
+            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update, 
+                                                              EntityType.Instance.DeniedPosition(), 
+                                                              _userContext.Identity.Code, 
+                                                              null, 
+                                                              0, 
                                                               null))
             {
                 throw new OperationAccessDeniedException(ChangeDeniedPositionObjectBindingTypeIdentity.Instance);
@@ -96,11 +96,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
                 throw new SelfDeniedPositionExpectedException();
             }
 
-            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                              EntityType.Instance.DeniedPosition(),
-                                                              _userContext.Identity.Code,
-                                                              null,
-                                                              0,
+            if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update, 
+                                                              EntityType.Instance.DeniedPosition(), 
+                                                              _userContext.Identity.Code, 
+                                                              null, 
+                                                              0, 
                                                               null))
             {
                 throw new OperationAccessDeniedException(ChangeDeniedPositionObjectBindingTypeIdentity.Instance);

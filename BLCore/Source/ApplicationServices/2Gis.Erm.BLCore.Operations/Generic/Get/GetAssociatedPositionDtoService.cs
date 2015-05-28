@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 throw new NotSupportedException("Only AssociatedPositionsGroup parent type is supported");
             }
 
-            return _finder.Find(new FindSpecification<AssociatedPositionsGroup>(x => x.Id == parentEntityId))
+            return _finder.FindObsolete(new FindSpecification<AssociatedPositionsGroup>(x => x.Id == parentEntityId))
                           .Select(x => new AssociatedPositionDomainEntityDto
                               {
                                   AssociatedPositionsGroupRef = new EntityReference { Id = parentEntityId.Value, Name = x.Name },

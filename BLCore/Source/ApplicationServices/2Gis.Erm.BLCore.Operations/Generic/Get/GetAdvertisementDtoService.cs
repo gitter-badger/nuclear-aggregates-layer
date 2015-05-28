@@ -98,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     dto.AdvertisementTemplateRef = new EntityReference
                         {
                             Id = advertisementTemplateId,
-                            Name = _secureFinder.Find(new FindSpecification<AdvertisementTemplate>(x => x.Id == advertisementTemplateId)).Select(x => x.Name).Single()
+                            Name = _secureFinder.FindObsolete(new FindSpecification<AdvertisementTemplate>(x => x.Id == advertisementTemplateId)).Select(x => x.Name).Single()
                         };
                 }
             }
@@ -112,7 +112,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     dto.FirmRef = new EntityReference
                         {
                             Id = firmId,
-                            Name = _secureFinder.Find(new FindSpecification<Firm>(x => x.Id == firmId)).Select(x => x.Name).Single()
+                            Name = _secureFinder.FindObsolete(new FindSpecification<Firm>(x => x.Id == firmId)).Select(x => x.Name).Single()
                         };
                 }
             }

@@ -15,6 +15,7 @@ using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -88,16 +89,15 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                                            }).Single();
 
             // В данном случае намеренно используется небезопасная версия файндера
-            var firmInfo = _unsecureFinder
-                .Find(Specs.Find.ById<AdvertisementElement>(entityId))
-                .Select(x => x.Advertisement.Firm)
-                .Where(x => x != null)
-                .Select(x => new
-                    {
-                        x.Id,
-                        x.OwnerCode
-                    })
-                .SingleOrDefault();
+            var firmInfo = _unsecureFinder.Find(Specs.Find.ById<AdvertisementElement>(entityId))
+                                          .Map(q => q.Select(x => x.Advertisement.Firm)
+                                                     .Where(x => x != null)
+                                                     .Select(x => new
+                                                         {
+                                                             x.Id,
+                                                             x.OwnerCode
+                                                         }))
+                                          .One();
 
             // для заглушек вместо прав на фирму проверяем функциональную привилегию
             dtoInfo.Dto.SetReadonly = firmInfo != null

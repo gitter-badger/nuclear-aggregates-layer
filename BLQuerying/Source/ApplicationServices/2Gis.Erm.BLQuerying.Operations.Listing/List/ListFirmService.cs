@@ -15,6 +15,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
@@ -95,14 +96,16 @@ namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
                 "dealId",
                 dealId =>
                     {
-                        var dealFirms = _finder.Find(DealSpecs.FirmDeals.Find.ByDeal(dealId) && Specs.Find.NotDeleted<FirmDeal>()).Select(x => x.FirmId).ToArray();
+                        var dealFirms = _finder.Find(DealSpecs.FirmDeals.Find.ByDeal(dealId) && Specs.Find.NotDeleted<FirmDeal>())
+                                               .Map(q => q.Select(x => x.FirmId))
+                                               .Many();
 
                         if (dealFirms.Any())
                         {
                             return x => dealFirms.Contains(x.Id);
                         }
 
-                        var clientId = _finder.Find(Specs.Find.ById<Deal>(dealId)).Select(x => x.ClientId).Single();
+                        var clientId = _finder.FindObsolete(Specs.Find.ById<Deal>(dealId)).Select(x => x.ClientId).Single();
                         return x => x.ClientId == clientId;
                     });
 

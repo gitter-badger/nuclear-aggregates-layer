@@ -22,7 +22,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
         {
             var dto = (OrderPositionDomainEntityDto)domainEntityDto;
 
-            var orderPosition = _finder.Find(Specs.Find.ById<OrderPosition>(dto.Id)).SingleOrDefault() ?? 
+            var orderPosition = _finder.Find(Specs.Find.ById<OrderPosition>(dto.Id)).One() ?? 
                 new OrderPosition { IsActive = true };
 
             orderPosition.PricePositionId = dto.PricePositionRef.Id.Value;

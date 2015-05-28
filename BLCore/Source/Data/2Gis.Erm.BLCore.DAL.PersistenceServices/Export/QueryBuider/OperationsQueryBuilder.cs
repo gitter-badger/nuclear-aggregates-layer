@@ -15,18 +15,18 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
     public sealed class OperationsQueryBuilder<TEntity> : IQueryBuilder<TEntity> where TEntity : class, IEntityKey, IEntity
     {
         private readonly IDictionary<StrictOperationIdentity, HashSet<long>> _entityTypeToIds;
-        private readonly IFinder _finder;
+        private readonly IQuery _query;
         private readonly QueryRuleContainer<TEntity> _container;
         private readonly IOldOperationContextParser _oldOperationContextParser;
 
-        public OperationsQueryBuilder(IFinder finder,
+        public OperationsQueryBuilder(IQuery query,
                                       IEnumerable<PerformedBusinessOperation> operations,
                                       QueryRuleContainer<TEntity> container,
                                       IOldOperationContextParser oldOperationContextParser)
         {
             var performedBusinessOperations = operations as PerformedBusinessOperation[] ?? operations.ToArray();
 
-            _finder = finder;
+            _query = query;
             _container = container;
             _oldOperationContextParser = oldOperationContextParser;
             _entityTypeToIds = GetEntityTypeToIds(performedBusinessOperations);
@@ -36,7 +36,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
         {
             var curriedRules = from mapping in _entityTypeToIds
                                join expressionEntry in _container.SelectExpressionsByEntity on mapping.Key equals expressionEntry.Key
-                               select new Func<IFinder, IQueryable<TEntity>>(finder => expressionEntry.Value(finder, mapping.Value));
+                               select new Func<IQuery, IQueryable<TEntity>>(finder => expressionEntry.Value(finder, mapping.Value));
             
             if (!curriedRules.Any())
             {
@@ -44,9 +44,9 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export.QueryBuider
             }
 
             var baseQ = curriedRules
-                .Aggregate<Func<IFinder, IQueryable<TEntity>>, IQueryable<TEntity>>(
+                .Aggregate<Func<IQuery, IQueryable<TEntity>>, IQueryable<TEntity>>(
                         null,
-                        (current, rule) => current == null ? rule(_finder) : current.Concat(rule(_finder)))
+                        (current, rule) => current == null ? rule(_query) : current.Concat(rule(_query)))
                 .Distinct();
 
             return filterSpecifications.Aggregate(baseQ, (current, filter) => current.Where(filter));

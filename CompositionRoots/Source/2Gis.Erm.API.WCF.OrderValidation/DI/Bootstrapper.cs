@@ -27,9 +27,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.AccessSharing;
 using DoubleGis.Erm.Platform.Core.Identities;
-using DoubleGis.Erm.Platform.DAL;
-using DoubleGis.Erm.Platform.DAL.EntityFramework.DI;
-using DoubleGis.Erm.Platform.DI.Common.Config;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing;
 using DoubleGis.Erm.Platform.DI.Config.MassProcessing.Validation;
 using DoubleGis.Erm.Platform.DI.WCF;
@@ -42,13 +39,13 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Logging;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.EndpointBehaviors.SharedTypes;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.ServiceModel.ServiceBehaviors;
-using NuClear.IdentityService.Client.Interaction;
 
 using Microsoft.Practices.Unity;
 
 using NuClear.Aggregates.Storage.DI.Unity;
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
+using NuClear.IdentityService.Client.Interaction;
 using NuClear.Metamodeling.Validators;
 using NuClear.Security;
 using NuClear.Security.API;
@@ -66,8 +63,8 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
     internal static class Bootstrapper
     {
         public static IUnityContainer ConfigureUnity(
-            ISettingsContainer settingsContainer,
-            ITracer tracer,
+            ISettingsContainer settingsContainer, 
+            ITracer tracer, 
             ITracerContextManager tracerContextManager)
         {
             IUnityContainer container = new UnityContainer();
@@ -76,29 +73,30 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
             var massProcessors = new IMassProcessor[]
                 {
                     new CheckApplicationServicesConventionsMassProcessor(), 
-                    new CheckDomainModelEntitiesConsistencyMassProcessor(),
-                    new MetadataSourcesMassProcessor(container),
-                    new AggregatesLayerMassProcessor(container, AggregatesLayerRegistrationTypeMappingResolver),
+                    new CheckDomainModelEntitiesConsistencyMassProcessor(), 
+                    new MetadataSourcesMassProcessor(container), 
+                    new AggregatesLayerMassProcessor(container, AggregatesLayerRegistrationTypeMappingResolver), 
                     new SimplifiedModelConsumersProcessor(container), 
                     new PersistenceServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
-                    new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm),
+                    new OperationsServicesMassProcessor(container, EntryPointSpecificLifetimeManagerFactory, Mapping.Erm), 
                     new RequestHandlersMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
-                    new OrderValidationRuleMassProcessor(container, EntryPointSpecificLifetimeManagerFactory),
+                    new OrderValidationRuleMassProcessor(container, EntryPointSpecificLifetimeManagerFactory), 
                     new EFDbModelMassProcessor(container)
                 };
 
             CheckConventionsСomplianceExplicitly(settingsContainer.AsSettings<ILocalizationSettings>());
 
-            return container.ConfigureUnityTwoPhase(WcfOrderValidationRoot.Instance,
-                            settingsContainer,
-                            massProcessors,
-                            // TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
-                                                    c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(),
-                                                                          settingsContainer.AsSettings<IConnectionStringSettings>(),
-                                                                          settingsContainer.AsSettings<ICachingSettings>(),
-                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>(),
-                                                                          settingsContainer.AsSettings<IMsCrmSettings>(),
-                                                                          tracer,
+            return container.ConfigureUnityTwoPhase(WcfOrderValidationRoot.Instance, 
+                                                    settingsContainer, 
+                                                    massProcessors, 
+
+// TODO {all, 05.03.2014}: В идеале нужно избавиться от такого явного resolve необходимых интерфейсов, данную активность разумно совместить с рефакторингом bootstrappers (например, перевести на использование builder pattern, конструктор которого приезжали бы нужные настройки, например через DI)
+                                                    c => c.ConfigureUnity(settingsContainer.AsSettings<IEnvironmentSettings>(), 
+                                                                          settingsContainer.AsSettings<IConnectionStringSettings>(), 
+                                                                          settingsContainer.AsSettings<ICachingSettings>(), 
+                                                                          settingsContainer.AsSettings<IOperationLoggingSettings>(), 
+                                                                          settingsContainer.AsSettings<IMsCrmSettings>(), 
+                                                                          tracer, 
                                                                           tracerContextManager))
                         .ConfigureServiceClient()
                         .EnsureMetadataCorrectness();
@@ -110,13 +108,13 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
         }
 
         private static IUnityContainer ConfigureUnity(
-            this IUnityContainer container,
-            IEnvironmentSettings environmentSettings,
-            IConnectionStringSettings connectionStringSettings,
-            ICachingSettings cachingSettings,
-            IOperationLoggingSettings operationLoggingSettings,
-            IMsCrmSettings msCrmSettings,
-            ITracer tracer,
+            this IUnityContainer container, 
+            IEnvironmentSettings environmentSettings, 
+            IConnectionStringSettings connectionStringSettings, 
+            ICachingSettings cachingSettings, 
+            IOperationLoggingSettings operationLoggingSettings, 
+            IMsCrmSettings msCrmSettings, 
+            ITracer tracer, 
             ITracerContextManager tracerContextManager)
         {
             return container
@@ -131,11 +129,11 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                 .ConfigureIdentityInfrastructure()
                 .ConfigureReadWriteModels()
                 .ConfigureMetadata()
-                .ConfigureLocalization(typeof(Resources),
-                                       typeof(ResPlatform),
-                                       typeof(BLResources),
-                                       typeof(MetadataResources),
-                                       typeof(EnumResources),
+                .ConfigureLocalization(typeof(Resources), 
+                                       typeof(ResPlatform), 
+                                       typeof(BLResources), 
+                                       typeof(MetadataResources), 
+                                       typeof(EnumResources), 
                                        typeof(BLFlex.Resources.Server.Properties.BLResources))
                 .RegisterType<IClientProxyFactory, ClientProxyFactory>(Lifetime.Singleton)
                 .RegisterType<ISharedTypesBehaviorFactory, GenericSharedTypesBehaviorFactory>(Lifetime.Singleton)
@@ -149,8 +147,8 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
         {
             var checkingResourceStorages = new[]
                 {
-                    typeof(BLResources),
-                    typeof(MetadataResources),
+                    typeof(BLResources), 
+                    typeof(MetadataResources), 
                     typeof(EnumResources)
                 };
 
@@ -169,14 +167,14 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
         {
             var readConnectionStringNameMap = new Dictionary<string, IConnectionStringIdentity>
             {
-                    { ErmContainer.Instance.Name, OrderValidationConnectionStringIdentity.Instance },
-                    { ErmSecurityContainer.Instance.Name, ErmConnectionStringIdentity.Instance },
+                    { ErmContainer.Instance.Name, OrderValidationConnectionStringIdentity.Instance }, 
+                    { ErmSecurityContainer.Instance.Name, ErmConnectionStringIdentity.Instance }, 
                                                   };
 
             var writeConnectionStringNameMap = new Dictionary<string, IConnectionStringIdentity>
                 {
-                    { ErmContainer.Instance.Name, ErmConnectionStringIdentity.Instance },
-                    { ErmSecurityContainer.Instance.Name, ErmConnectionStringIdentity.Instance },
+                    { ErmContainer.Instance.Name, ErmConnectionStringIdentity.Instance }, 
+                    { ErmSecurityContainer.Instance.Name, ErmConnectionStringIdentity.Instance }, 
             };
 
             return container.RegisterInstance<IConnectionStringIdentityResolver>(new ConnectionStringIdentityResolver(readConnectionStringNameMap, writeConnectionStringNameMap));
@@ -216,11 +214,11 @@ namespace DoubleGis.Erm.API.WCF.OrderValidation.DI
                 .RegisterType<IUserContext, UserContext>(CustomLifetime.PerOperationContext, new InjectionFactory(c => new UserContext(null, null)))
                 .RegisterType<IUserLogonAuditor, NullUserLogonAuditor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<IUserIdentityLogonService, UserIdentityLogonService>(CustomLifetime.PerOperationContext, MappingScope)
-                .RegisterType<ISignInByIdentityService, ExplicitlyIdentitySignInService>(CustomLifetime.PerOperationContext,
+                .RegisterType<ISignInByIdentityService, ExplicitlyIdentitySignInService>(CustomLifetime.PerOperationContext, 
                                     new InjectionConstructor(typeof(IUserAuthenticationService), 
                                                              typeof(IUserIdentityLogonService)))
-                .RegisterType<IUserImpersonationService, UserImpersonationService>(CustomLifetime.PerOperationContext,
-                                    new InjectionConstructor(typeof(IUserAuthenticationService),
+                .RegisterType<IUserImpersonationService, UserImpersonationService>(CustomLifetime.PerOperationContext, 
+                                    new InjectionConstructor(typeof(IUserAuthenticationService), 
                                                              typeof(IUserIdentityLogonService)))
                 .RegisterType<IAuthorizationPolicy, UnityAuthorizationPolicy>(typeof(UnityAuthorizationPolicy).ToString(), Lifetime.Singleton);
         }

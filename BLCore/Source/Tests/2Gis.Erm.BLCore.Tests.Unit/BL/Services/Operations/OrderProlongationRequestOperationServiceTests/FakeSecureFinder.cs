@@ -6,6 +6,8 @@ using System.Linq.Expressions;
 using DoubleGis.Erm.Platform.DAL;
 
 using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Storage.Futures;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongationRequestOperationServiceTests
@@ -19,9 +21,9 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongati
 
         public List<object> Storage { get; private set; }
 
-        public IQueryable<TEntity> Find<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public FutureSequence<TEntity> Find<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
         {
-            return Storage.OfType<TEntity>().AsQueryable().Where(findSpecification).AsQueryable();
+            return new QueryableFutureSequence<TEntity>(Storage.OfType<TEntity>().AsQueryable().Where(findSpecification).AsQueryable());
         }
 
         public IQueryable<TOutput> Find<TEntity, TOutput>(FindSpecification<TEntity> findSpecification, SelectSpecification<TEntity, TOutput> selectSpecification) where TEntity : class, IEntity

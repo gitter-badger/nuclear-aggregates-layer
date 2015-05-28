@@ -9,6 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
@@ -51,7 +52,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 dto.MasterPositionRef = new EntityReference()
                             {
                                 Id = parentEntityId.Value,
-                                Name = _finder.Find(new FindSpecification<Position>(x => x.Id == parentEntityId)).Select(x => x.Name).SingleOrDefault()
+                                Name = _finder.Find(new FindSpecification<Position>(x => x.Id == parentEntityId)).Map(q => q.Select(x => x.Name)).One()
                             };
             }
             

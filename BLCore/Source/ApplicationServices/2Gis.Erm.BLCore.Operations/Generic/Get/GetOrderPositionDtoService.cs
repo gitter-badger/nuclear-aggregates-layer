@@ -114,7 +114,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             var modelDto = (OrderPositionDomainEntityDto)domainEntityDto;
 
             var minimumPublishDate = DateTime.Now.AddDays(1).Date;
-            var orderInfo = _finder.Find(new FindSpecification<Order>(x => x.Id == modelDto.OrderId))
+            var orderInfo = _finder.FindObsolete(new FindSpecification<Order>(x => x.Id == modelDto.OrderId))
                                    .Select(x => new
                                        {
                                            x.WorkflowStepId,
@@ -159,7 +159,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
             modelDto.OrderWorkflowStepId = (int)orderInfo.WorkflowStepId;
             modelDto.IsRated = modelDto.PricePositionRef != null &&
-                               _finder.Find(new FindSpecification<PricePosition>(x => x.Id == modelDto.PricePositionRef.Id)).Select(x => x.RateType != 0).Single();
+                               _finder.FindObsolete(new FindSpecification<PricePosition>(x => x.Id == modelDto.PricePositionRef.Id)).Select(x => x.RateType != 0).Single();
         }
     }
 }

@@ -7,6 +7,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Common.Caching;
 
 using NuClear.Storage;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currency
@@ -30,19 +31,21 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified.Dictionary.Currenc
 
             if (baseCurrency == null)
             {
-                var baseCurrencies = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Currency>(x => x.IsBase && !x.IsDeleted && x.IsActive)).Take(2).ToArray();
+                var baseCurrencies = _finder.Find(new FindSpecification<Platform.Model.Entities.Erm.Currency>(x => x.IsBase && !x.IsDeleted && x.IsActive))
+                    .Map(q => q.Take(2))
+                    .Many();
 
-                if (baseCurrencies.Length == 0)
+                if (baseCurrencies.Count == 0)
                 {
                     throw new NotificationException(BLResources.BaseCurrencyNotFound);
                 }
 
-                if (baseCurrencies.Length > 1 && baseCurrencies[1] != null)
+                if (baseCurrencies.Count > 1 && baseCurrencies.Skip(1).First() != null)
                 {
                     throw new NotificationException(BLResources.MultipleBaseCurrencyFound);
                 }
 
-                baseCurrency = baseCurrencies[0];
+                baseCurrency = baseCurrencies.First();
                 _cacheAdapter.Add(BaseCurrencyCacheKey, baseCurrency, _baseCurrencyCacheExpiration);
             }
 

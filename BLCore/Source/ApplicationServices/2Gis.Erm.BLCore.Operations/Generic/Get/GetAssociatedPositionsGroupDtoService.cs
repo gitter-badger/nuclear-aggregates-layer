@@ -57,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 throw new NotSupportedException("Only PricePosition parent type is supported");
             }
 
-            return _finder.Find(new FindSpecification<PricePosition>(x => x.Id == parentEntityId))
+            return _finder.FindObsolete(new FindSpecification<PricePosition>(x => x.Id == parentEntityId))
                           .Select(x => new AssociatedPositionsGroupDomainEntityDto
                               {
                                   PricePositionRef = new EntityReference { Id = x.Id, Name = x.Position.Name },
