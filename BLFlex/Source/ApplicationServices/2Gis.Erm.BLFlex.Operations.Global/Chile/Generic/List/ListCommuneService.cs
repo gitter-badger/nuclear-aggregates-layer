@@ -5,6 +5,7 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel.Com
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Chile.Operations.Generic.List;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -26,7 +27,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
         protected override IRemoteCollection List(QuerySettings querySettings)
         {
             // FIXME {all, 10.04.2014}: при рефаторинге EAV попытаться свести просто к For<Commune> и т.п. - то что bank это EAV нужно запрятать куда-то (finder)
-            return _finder.Find(CommuneSpecs.Find.OnlyCommunes, CommuneSpecs.Select.Communes)
+            return _finder.FindObsolete(CommuneSpecs.Find.OnlyCommunes, CommuneSpecs.Select.Communes)
                    .Select(x => new ChileListCommuneDto
                     {
                         Id = x.Id,

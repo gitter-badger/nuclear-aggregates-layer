@@ -14,6 +14,7 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
@@ -66,7 +67,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 
         protected override IDomainEntityDto<Order> GetDto(long entityId)
         {
-            var dto = _finder.Find(Specs.Find.ById<Order>(entityId), OrderSpecs.Orders.Select.OrderDomainEntityDto()).Single();
+            var dto = _finder.FindObsolete(Specs.Find.ById<Order>(entityId), OrderSpecs.Orders.Select.OrderDomainEntityDto()).Single();
 
             dto.ShowRegionalAttributes = dto.SourceOrganizationUnitRef.Id != dto.DestOrganizationUnitRef.Id &&
                 !_orderReadModel.CheckIsBranchToBranchOrder(dto.SourceOrganizationUnitRef.Id.Value, dto.DestOrganizationUnitRef.Id.Value, false);

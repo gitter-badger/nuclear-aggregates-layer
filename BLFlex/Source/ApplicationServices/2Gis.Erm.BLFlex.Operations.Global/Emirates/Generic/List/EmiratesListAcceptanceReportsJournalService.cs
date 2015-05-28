@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLFlex.API.Operations.Global.Emirates.Operations.Generic.Lis
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
 using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.API.Security;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
@@ -33,7 +34,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Emirates.Generic.List
         {
             var organizationUnitsQuery = _query.For<OrganizationUnit>();
 
-            return _finder.Find(AcceptanceReportsJournalSpecs.Find.OnlyAcceptanceReportsJournalRecords, AcceptanceReportsJournalSpecs.Select.AcceptanceReportsJournalRecords)
+            return _finder.FindObsolete(AcceptanceReportsJournalSpecs.Find.OnlyAcceptanceReportsJournalRecords, AcceptanceReportsJournalSpecs.Select.AcceptanceReportsJournalRecords)
                           .Select(x => new
                               {
                                   Id = x.Id,

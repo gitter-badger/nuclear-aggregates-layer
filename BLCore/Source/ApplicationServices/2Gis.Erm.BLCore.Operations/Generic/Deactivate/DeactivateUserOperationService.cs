@@ -2,7 +2,6 @@
 using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates;
-using DoubleGis.Erm.BLCore.API.Aggregates.Activities;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
@@ -20,6 +19,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
 {
@@ -29,7 +30,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly ISecureFinder _finder;
         private readonly IUserRepository _userRepository;
         private readonly IClientRepository _clientRepository;
-        private readonly IActionLogger _actionLogger;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserReadModel _userReadModel;
         private readonly IDeactivateUserAggregateService _deactivateUserAggregateService;
@@ -51,7 +51,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             ITaskReadModel taskReadModel,
             IUserRepository userRepository,
             IClientRepository clientRepository,
-            IActionLogger actionLogger,
             IDeactivateUserAggregateService deactivateUserAggregateService,
             IAssignGenericEntityService<Appointment> assignAppointmentOperationService,
             IAssignGenericEntityService<Letter> assignLetterOperationService,
@@ -64,7 +63,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             _finder = finder;
             _userRepository = userRepository;
             _clientRepository = clientRepository;
-            _actionLogger = actionLogger;
             _scopeFactory = scopeFactory;
             _userReadModel = userReadModel;
             _deactivateUserAggregateService = deactivateUserAggregateService;
@@ -100,7 +98,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
                 using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, User>())
                 {
                     // проверка на задолженности по лицевым счетам
-                    var clientIds = _finder.Find(Specs.Find.Owned<Client>(entityId), Specs.Select.Id<Client>()).ToArray();
+                    var clientIds = _finder.Find(Specs.Find.Owned<Client>(entityId)).Map(q => q.Select(Specs.Select.Id<Client>())).Many();
                     var checkAggregateForDebtsRepository = _clientRepository as ICheckAggregateForDebtsRepository<Client>;
                     foreach (var clientId in clientIds)
                     {
