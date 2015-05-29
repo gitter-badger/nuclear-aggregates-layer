@@ -131,6 +131,10 @@ function Get-WebMetadata ($EnvType, $Country, $EntryPoint, $Index) {
 	$metadata += Get-TakeOfflineMetadata $EnvType
 	$metadata += Get-OptionsMetadata $Country
 	
+	$metadata += @{
+		'EntrypointType' = 'Web'
+	}
+	
 	return $metadata
 }
 

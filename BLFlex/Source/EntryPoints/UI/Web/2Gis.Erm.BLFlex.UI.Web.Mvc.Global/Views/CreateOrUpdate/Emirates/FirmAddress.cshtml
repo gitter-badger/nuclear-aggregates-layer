@@ -13,7 +13,7 @@
     @Html.HiddenFor(m => m.Id)
     <div class="Tab" id="Div1" title="@BLResources.GeneralTabTitle">
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Firm, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Firm, ReadOnly = true })
+            @Html.TemplateField(m => m.Firm, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Firm(), ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Address, FieldFlex.lone, new Dictionary<string, object> { { "readonly", "readonly" } })

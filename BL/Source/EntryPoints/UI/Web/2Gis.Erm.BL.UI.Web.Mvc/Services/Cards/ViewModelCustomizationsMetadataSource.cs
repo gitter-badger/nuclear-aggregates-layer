@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
-using DoubleGis.Erm.BL.UI.Web.Mvc.Models.Contracts;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AdvertisementElements;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.AssociatedPositionGroups;
@@ -18,12 +17,14 @@ using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Locks;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.OrderPositions;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Orders;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Positions;
+using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Themes;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Provider.Sources;
+
+using NuClear.Metamodeling.Elements;
+using NuClear.Metamodeling.Provider.Sources;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
 {
@@ -58,9 +59,11 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .UseOrdered<AssociatedPositionGroupsPriceIsPublishedCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<Client, IEntityViewModelBase>()
+                                                       .Use<TelephonyAccessCustomization>()
                                                        .Use<WarnLinkToAdvAgencyExistsVmCustomization>(),
 
                         ViewModelCustomizationsMetadata.For<Contact, IEntityViewModelBase>()
+                                                       .Use<TelephonyAccessCustomization>()
                                                        .Use<BusinessModelAreaCustomization>()
                                                        .Use<ContactSalutationsCustomization>(),
 
@@ -91,6 +94,7 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards
                                                        .Use<CheckIfCanSwitchToAccountCustomization>()
                                                        .Use<OrderValidationCustomization>()
                                                        .Use<InspectorNameCustomization>()
+                                                       .Use<DisableOrderTypesOptionsCustomization>()
                                                        .Use<PrivilegesCustomization>()
                                                        .Use<WorkflowStepsCustomization>()
                                                        .Use<LockOrderByReleaseCustomization>()

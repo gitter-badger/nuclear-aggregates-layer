@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 
 namespace DoubleGis.Erm.Platform.DAL.Specifications
 {
@@ -112,6 +112,11 @@ namespace DoubleGis.Erm.Platform.DAL.Specifications
             public static FindSpecification<TEntity> ExceptById<TEntity>(long id) where TEntity : class, IEntity, IEntityKey
             {
                 return new FindSpecification<TEntity>(x => x.Id != id);
+            }
+
+            public static FindSpecification<TEntity> ExceptByIds<TEntity>(IEnumerable<long> ids) where TEntity : class, IEntity, IEntityKey
+            {
+                return new FindSpecification<TEntity>(x => !ids.Contains(x.Id));
             }
         }
 

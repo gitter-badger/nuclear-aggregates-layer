@@ -3,13 +3,14 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.UI.Metadata.Config;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.Model.Aspects;
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements.Features.Expressions;
 
+using NuClear.Metamodeling.Elements;
 using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
@@ -50,6 +51,27 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Shared
                                      ? model.Owner.Key.Value
                                      : _userContext.Identity.Code;
 
+            if (element.Features<SecuredByEntityTypePrivilegeFeature>().Any(feature => !_entityAccessService.HasEntityAccess(feature.Privilege, feature.Entity, _userContext.Identity.Code, null, _userContext.Identity.Code, null)))
+            {
+                return true;
+            }
+
+            foreach (var feature in element.Features<SecuredByEntityInstancePrivilegeFeature>())
+            {
+                if (feature.Entity == model.ViewConfig.EntityName)
+                {
+                    if (!_entityAccessService.HasEntityAccess(feature.Privilege, feature.Entity, _userContext.Identity.Code, model.Id, modelOwnerCode, null))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    throw new InvalidMetadataException(element.Identity, string.Format("Entity in feature {0} must be equal instance entity.", feature));
+                }
+            }
+
+            // TODO {y.baranihin, 13.05.2015}: Мы ввели 2 foreach которые введены на смену SecuredByEntityPrivelegeFeature. Убрать когда разделим проверку прав на сущность и экземпляр сущности
             foreach (var feature in element.Features<SecuredByEntityPrivelegeFeature>())
             {
                 if (feature.Entity == model.ViewConfig.EntityName)

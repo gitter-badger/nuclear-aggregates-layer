@@ -10,10 +10,9 @@ using DoubleGis.Erm.BLFlex.Aggregates.Global.Czech.Crosscutting;
 using DoubleGis.Erm.BLFlex.Aggregates.Global.MultiCulture.Crosscutting;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.Czech.Operations.Generic.List;
 using DoubleGis.Erm.BLFlex.API.Operations.Global.MultiCulture.Operations.Modify;
+using DoubleGis.Erm.BLFlex.DI.Shared;
 using DoubleGis.Erm.BLFlex.Operations.Global.Czech.Concrete;
 using DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete;
-using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Concrete.Old.Orders.Number;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic;
 using DoubleGis.Erm.BLFlex.Operations.Global.MultiCulture.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared;
@@ -26,6 +25,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using Microsoft.Practices.Unity;
 
+using NuClear.Model.Common.Entities;
 using NuClear.DI.Unity.Config;
 using NuClear.Security.API.UserContext;
 
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                         .RegisterType<ILegalPersonProfileConsistencyRuleContainer, CzechLegalPersonProfileConsistencyRuleContainer>(Lifetime.Singleton)
                         .RegisterType<IContactSalutationsProvider, CzechContactSalutationsProvider>(Lifetime.Singleton)
                         .RegisterType<IOrderPrintFormDataExtractor, OrderPrintFormDataExtractor>(Lifetime.PerResolve)
-                        .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
+                .RegisterType<IBillsConsistencyService, BillsConsistencyService>(Lifetime.PerResolve,
                                                                            new InjectionConstructor(new ResolvedArrayParameter<IBillConsistencyRule>(typeof(BillSummConsistencyRule),
                                                                                                                                                typeof(BillDistributionPeriodConsistencyRule))))
                         .RegisterType<IBargainPrintFormDataExtractor, BargainPrintFormDataExtractor>(Lifetime.PerResolve)
@@ -54,10 +54,12 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
         public static IUnityContainer ConfigureCzechSpecificNumberServices(this IUnityContainer container)
         {
             return container
-                        .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("S_{0}-{1}-{2}", "AS_{0}-{1}-{2}"))
-                        .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
-                        .RegisterType<IEvaluateOrderNumberService, EvaluateOrderNumberWithoutRegionalService>(Lifetime.Singleton, new InjectionConstructor("OBJ_{0}-{1}-{2}", OrderNumberGenerationStrategies.ForCountriesWithRomanAlphabet))
-                        .RegisterType<IEvaluateBillDateService, CzechEvaluateBillDateService>();
+                .RegisterType<IEvaluateBargainNumberService, EvaluateBargainNumberService>(Lifetime.Singleton, new InjectionConstructor("S_{0}-{1}-{2}", "AS_{0}-{1}-{2}"))
+                .RegisterType<IEvaluateBillNumberService, EvaluateBillNumberService>(Lifetime.Singleton, new InjectionConstructor("{1}"))
+                .RegisterType<IEvaluateOrderNumberService, CzechEvaluateOrderNumberService>(Lifetime.Singleton,
+                                                                                            new InjectionConstructor(
+                                                                                                OrderNumberGenerationStrategiesContainer.StrategiesForRomanAlphabetCountries))
+                .RegisterType<IEvaluateBillDateService, CzechEvaluateBillDateService>();
         }
 
         // TODO переделать на нормальную метадату
@@ -70,8 +72,8 @@ namespace DoubleGis.Erm.BLFlex.DI.Config
                 x => x.Ic,
                 x => x.Dic);
 
-            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonProfileDto>(EntityName.LegalPerson, x => x.LegalPersonId);
-            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonDto>(EntityName.Client, x => x.ClientId);
+            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonProfileDto>(EntityType.Instance.LegalPerson(), x => x.LegalPersonId);
+            RelationalMetadata.RegisterRelatedFilter<CzechListLegalPersonDto>(EntityType.Instance.Client(), x => x.ClientId);
 
             var extendedInfoFilterMetadata = container.Resolve<IExtendedInfoFilterMetadata>();
 

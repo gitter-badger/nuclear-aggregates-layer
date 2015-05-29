@@ -3,8 +3,9 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
 using DoubleGis.Erm.Platform.UI.Metadata.Config.Common.ViewModel.Features.Parts;
+
+using NuClear.ResourceUtilities;
 
 namespace DoubleGis.Erm.BLCore.UI.Metadata.Config.ViewModel
 {

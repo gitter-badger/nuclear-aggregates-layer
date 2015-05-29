@@ -61,7 +61,7 @@
                 @Html.TemplateField(m => m.IntegrationType, FieldFlex.lone, null, LocalMessageController.IntegrationTypeImportResourceManager)
             </div>
             <div class="row-wrapper">
-                @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOfficeOrganizationUnit })
+                @Html.TemplateField(m => m.BranchOfficeOrganizationUnit, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOfficeOrganizationUnit() })
             </div>
             <div class="row-wrapper">
                 <div class="display-wrapper field-wrapper">

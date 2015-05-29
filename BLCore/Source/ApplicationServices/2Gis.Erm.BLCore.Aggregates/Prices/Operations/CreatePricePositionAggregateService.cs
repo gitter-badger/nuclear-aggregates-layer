@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.API.Core.Identities;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 {
@@ -22,22 +22,17 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
             _operationScopeFactory = operationScopeFactory;
         }
 
-        public int Create(PricePosition pricePosition, long priceId, long positionId)
+        public void Create(PricePosition pricePosition)
         {
             using (var operationScope = _operationScopeFactory.CreateSpecificFor<CreateIdentity, PricePosition>())
             {
                 _identityProvider.SetFor(pricePosition);
-                pricePosition.PriceId = priceId;
-                pricePosition.PositionId = positionId;
 
                 _pricePositionGenericRepository.Add(pricePosition);
-                operationScope.Added<PricePosition>(pricePosition.Id);
+                _pricePositionGenericRepository.Save();
 
-                var count = _pricePositionGenericRepository.Save();
-
-                operationScope.Complete();
-
-                return count;
+                operationScope.Added(pricePosition)
+                              .Complete();
             }
         }
     }

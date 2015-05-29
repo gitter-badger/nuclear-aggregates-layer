@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
     </Reference>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
@@ -60,6 +64,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="Dial\IDialOperationService.cs" />
     <Compile Include="CostCalculation\PricePerUnitCalculationResult.cs" />
     <Compile Include="DI\BlCoreApiOperationsSpecialAssembly.cs" />
     <Compile Include="CostCalculation\BizAccountCostResult.cs" />
@@ -123,6 +128,8 @@
     <Compile Include="Remote\CostCalculation\CostCalculatonErrorDescription.cs" />
     <Compile Include="Remote\CostCalculation\ICostCalculationApplicationService.cs" />
     <Compile Include="OrderProcessingRequests\IOrderProcessingRequestService.cs" />
+    <Compile Include="Remote\Dial\DialErrorDescription.cs" />
+    <Compile Include="Remote\Dial\IDialApplicationRestService.cs" />
     <Compile Include="Remote\FirmInfo\FirmInfoOperationErrorDescription.cs" />
     <Compile Include="Remote\FirmInfo\IFirmInfoApplicationRestService.cs" />
     <Compile Include="Remote\OrderProcessing\IOrderProcessingApplicationService.cs" />
@@ -156,6 +163,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

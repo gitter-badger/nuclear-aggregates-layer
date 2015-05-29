@@ -456,7 +456,6 @@
   <data name="IntegrationTypeExportLegalPersonsTo1C" xml:space="preserve">
     <value>Выгрузка юр. лиц клиентов</value>
   </data>
-
   <data name="OrderDiscountReasonAdvertisingCampaign" xml:space="preserve">
     <value>Акционная</value>
   </data>
@@ -1110,6 +1109,9 @@
   </data>
   <data name="FunctionalPrivilegeNameHotClientTelemarketingProcessingBranch" xml:space="preserve">
     <value>Обработка горячих клиентов 5-й категории (филиал)</value>
+  </data>
+   <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
+    <value>Телефония</value>
   </data>
   <data name="EntityPrivilegeDepthStateNone" xml:space="preserve">
     <value>Отсутствует</value>
@@ -2023,5 +2025,11 @@
   </data>
   <data name="PositionsGroupNone" xml:space="preserve">
     <value />
+  </data>
+  <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
+    <value>Рекламное агентство</value>
+  </data>
+  <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
+    <value>Смена типа заказа РА</value>
   </data>
 </root>

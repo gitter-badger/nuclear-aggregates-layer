@@ -1,8 +1,8 @@
 ﻿using System;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Entities;
-
 using FluentValidation.Validators;
+
+using NuClear.Metamodeling.Domain.Entities;
 
 namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation.Converters
 {
@@ -18,6 +18,8 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation.Conv
         {
             get { return TargetValidatorFeature; }
         }
+
+        protected TValidatablePropertyFeature Settings { get; set; }
 
         public static bool TryConvert(IValidatablePropertyFeature validatablePropertyFeature, out IPropertyValidator validator)
         {
@@ -35,8 +37,6 @@ namespace DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation.Conv
             
             return true;
         }
-
-        protected TValidatablePropertyFeature Settings { get; set; }
 
         protected abstract IPropertyValidator CreateValidator();
         protected abstract ErrorDescription GetErrorDescription();

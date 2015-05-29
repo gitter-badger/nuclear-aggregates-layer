@@ -32,10 +32,10 @@
             @Html.TemplateField(m => m.ApplicationCityName, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.BranchOffice, FieldFlex.lone, new LookupSettings { EntityName = EntityName.BranchOffice})
+            @Html.TemplateField(m => m.BranchOffice, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.BranchOffice()})
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit})
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit()})
             @Html.TemplateField(m => m.PhoneNumber, FieldFlex.twins)
         </div>
         <div class="row-wrapper">

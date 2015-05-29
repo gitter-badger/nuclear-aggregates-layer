@@ -10,6 +10,8 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
 {
     public class CheckIsWarmClientHandler : RequestHandler<CheckIsWarmClientRequest, CheckIsWarmClientResponse>
@@ -42,7 +44,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             // потом у самого клиента.
             foreach (var firmId in client.Firms.Select(x => x.Id))
             {
-                var existingFirmTask = FindRelatedWarmTask(EntityName.Firm, firmId);
+                var existingFirmTask = FindRelatedWarmTask(EntityType.Instance.Firm(), firmId);
                 if (existingFirmTask != null)
                 {
                     response.IsWarmClient = true;
@@ -52,7 +54,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
                 }
             }
 
-            var existingClosedTask = FindRelatedWarmTask(EntityName.Client, client.Id);
+            var existingClosedTask = FindRelatedWarmTask(EntityType.Instance.Client(), client.Id);
             if (existingClosedTask != null)
             {
                 response.IsWarmClient = true;
@@ -63,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
             return response;
         }
 
-        private TaskSummary FindRelatedWarmTask(EntityName entityName, long entityId)
+        private TaskSummary FindRelatedWarmTask(IEntityType entityName, long entityId)
         {
             var days = _warmClientProcessingSettings.WarmClientDaysCount;
 

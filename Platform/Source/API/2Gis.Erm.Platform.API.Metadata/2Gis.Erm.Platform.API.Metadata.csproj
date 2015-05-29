@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="2GIS.NuClear.Settings.API, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5149c0be8b89ed8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Settings.API.1.1.0\lib\portable-net451+win81+wpa81\2GIS.NuClear.Settings.API.dll</HintPath>
@@ -54,14 +58,10 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="IIdentityProviderApplicationRestService.cs" />
-    <Compile Include="IIdentityProviderApplicationService.cs" />
     <Compile Include="IMetadataProviderApplicationRestService.cs" />
     <Compile Include="IMetadataProviderApplicationService.cs" />
     <Compile Include="MetadataOperationErrorDescription.cs" />
-    <Compile Include="Settings\APIIdentityServiceSettingsAspect.cs" />
     <Compile Include="Settings\APIIntrospectionServiceSettingsAspect.cs" />
-    <Compile Include="Settings\IAPIIdentityServiceSettings.cs" />
     <Compile Include="Settings\IAPIIntrospectionServiceSettings.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,10 +72,6 @@
     <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model.Metadata\2Gis.Erm.Platform.Model.Metadata.csproj">
       <Project>{5E81778F-67E3-4E23-B35F-F76A2ED728D3}</Project>
       <Name>2Gis.Erm.Platform.Model.Metadata</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Model\2Gis.Erm.Platform.Model\2Gis.Erm.Platform.Model.csproj">
-      <Project>{83f113b2-53e0-471c-ba04-189b85d90550}</Project>
-      <Name>2Gis.Erm.Platform.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\2Gis.Erm.Platform.API.Core\2Gis.Erm.Platform.API.Core.csproj">
       <Project>{0FEB67D9-78A5-491A-B4FB-A44FBA071F70}</Project>

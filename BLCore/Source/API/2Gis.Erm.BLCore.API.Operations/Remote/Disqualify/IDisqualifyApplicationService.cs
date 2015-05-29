@@ -2,7 +2,8 @@
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Disqualify;
 using DoubleGis.Erm.Platform.API.Core;
-using DoubleGis.Erm.Platform.Model.Entities;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify
 {
@@ -11,6 +12,6 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Remote.Disqualify
     {
         [OperationContract]
         [FaultContract(typeof(DisqualifyOperationErrorDescription), Namespace = ServiceNamespaces.BasicOperations.Disqualify201303)]
-        DisqualifyResult Execute(EntityName entityName, long entityId, bool? bypassValidation);
+        DisqualifyResult Execute(IEntityType entityName, long entityId, bool? bypassValidation);
     }
 }

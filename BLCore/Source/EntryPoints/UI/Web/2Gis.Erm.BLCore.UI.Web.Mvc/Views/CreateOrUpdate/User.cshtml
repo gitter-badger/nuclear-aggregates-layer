@@ -48,10 +48,10 @@
             @Html.TemplateField(m => m.Account, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Department, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Department})
+            @Html.TemplateField(m => m.Department, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Department()})
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Parent, FieldFlex.lone, new LookupSettings { EntityName = EntityName.User, ExtendedInfo = "excludeId={Id}" })
+            @Html.TemplateField(m => m.Parent, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.User(), ExtendedInfo = "excludeId={Id}" })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.IsServiceUser, FieldFlex.lone)

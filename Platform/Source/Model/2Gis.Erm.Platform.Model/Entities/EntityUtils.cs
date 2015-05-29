@@ -1,8 +1,10 @@
 ﻿using System;
 
+using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.Common.Utils.Data;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces.Integration;
+
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Model.Common.Entities.Aspects.Integration;
 
 namespace DoubleGis.Erm.Platform.Model.Entities
 {
@@ -60,6 +62,13 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             }
 
             return entity;
+        }
+
+        public static TEntity CreateBasedOn<TEntity>(this TEntity entity)
+            where TEntity : class, IEntity
+        {
+            var copy = CompareObjectsHelper.CreateObjectDeepClone(entity);
+            return copy.ResetToNew();
         }
 
         public static bool SameVersionAs(this IStateTrackingEntity entity1, IStateTrackingEntity entity2)

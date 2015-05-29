@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using DoubleGis.Erm.Platform.Model.Metadata.Common.Elements.Concrete.Hierarchy;
+using NuClear.Metamodeling.Elements.Concrete.Hierarchy;
 
 using Roslyn.Compilers.Common;
 

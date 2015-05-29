@@ -1,16 +1,17 @@
 ﻿using System;
 
 using DoubleGis.Erm.Platform.Core.Metadata.Security;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Limit;
 
 using FluentAssertions;
 
 using Machine.Specifications;
+
+using NuClear.Model.Common;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.Platform.Tests.Unit.Core.Services.Operations.Metadata.Security
 {
@@ -21,13 +22,13 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.Core.Services.Operations.Metadata.Se
             where TIdentity : IdentityBase<TIdentity>, new()
         {
             protected static OperationAccessRequirement<TIdentity> _actionPassedParameter;
-            protected static EntityName[] _expectedEntityNames;
+            protected static IEntityType[] _expectedEntityNames;
             protected static IOperationAccessRequirement _result;
             protected static Action<OperationAccessRequirement<TIdentity>> _storePassedParameterAction;
 
             Establish context = () => { _storePassedParameterAction = r => _actionPassedParameter = r; };
 
-            protected static void SetExpectedEntityNames(params EntityName[] entityNames)
+            protected static void SetExpectedEntityNames(params IEntityType[] entityNames)
             {
                 _expectedEntityNames = entityNames;
             }
@@ -36,7 +37,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.Core.Services.Operations.Metadata.Se
         [Subject(typeof(AccessRequirementBuilder))]
         class When_build_requirement_for_identity : AccessRequirementBuilderContext<CloseLimitIdenitity>
         {
-            Establish context = () => SetExpectedEntityNames(EntityName.None);
+            Establish context = () => SetExpectedEntityNames(EntityType.Instance.None());
 
             Because of = () => _result = AccessRequirementBuilder.ForOperation(_storePassedParameterAction);
 
@@ -71,7 +72,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.Core.Services.Operations.Metadata.Se
             where TIdentity : IdentityBase<TIdentity>, new()
         {
             protected static OperationAccessRequirement<TIdentity> _actionPassedParameter;
-            protected static EntityName[] _expectedEntityNames;
+            protected static IEntityType[] _expectedEntityNames;
             protected static IOperationAccessRequirement _result;
 
             It should_have_same_result_and_action_passed_parameter = () => _result.Should().BeSameAs(_actionPassedParameter);

@@ -2,12 +2,15 @@
 using System.Globalization;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.OrderValidation;
 using DoubleGis.Erm.BLCore.OrderValidation.Rules.Contexts;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
+
+using NuClear.Model.Common.Entities;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;
 
@@ -24,8 +27,6 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
         protected override IEnumerable<OrderValidationMessage> Validate(HybridParamsValidationRuleContext ruleContext)
         {
-            const int AdditionalPackageDgppId = 11572; // ДгппИд элемента номенклатуры "пакет "Дополнительный"" нужен для костыля-исключения на 2+2 месяца (до Июля)
-
             var orderInfos = _finder.Find(ruleContext.OrdersFilterPredicate).Select(x => new
             {
                 x.Id,
@@ -52,7 +53,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         z.Name,
 
                         OpaIsEmpty = y.OrderPositionAdvertisements.All(p => p.PositionId != z.Id)
-                                     && (!y.PricePosition.Position.DgppId.HasValue || y.PricePosition.Position.DgppId.Value != AdditionalPackageDgppId),
+                                     && (!y.PricePosition.Position.DgppId.HasValue || y.PricePosition.Position.DgppId.Value != PositionTools.AdditionalPackageDgppId),
 
                         AdvertisementIsRequired = 
                         y.OrderPositionAdvertisements.Where(p => p.PositionId == z.Id).Any(p => p.AdvertisementId == null),
@@ -88,7 +89,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                 // order positions fails
                 foreach (var orderPosition in orderInfo.OrderPositions)
                 {
-                    var orderPositionDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.OrderPosition, orderPosition.PositionName, orderPosition.Id);
+                    var orderPositionDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityType.Instance.OrderPosition(), orderPosition.PositionName, orderPosition.Id);
 
                     // position fails
                     foreach (var positionFail in orderPosition.RequiredPositionFails)
@@ -126,7 +127,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                     foreach (var advertisementFail in orderPosition.AdvertisementFails)
                     {
-                        var advertisementDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Advertisement, advertisementFail.Name, advertisementFail.Id);
+                        var advertisementDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityType.Instance.Advertisement(), advertisementFail.Name, advertisementFail.Id);
 
                         if (advertisementFail.AdvertisementIsDeleted)
                         {
@@ -144,7 +145,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
 
                         if (advertisementFail.AdvertisementNotBelongsToFirm)
                         {
-                            var firmDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.Firm, orderInfo.FirmName, orderInfo.FirmId);
+                            var firmDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityType.Instance.Firm(), orderInfo.FirmName, orderInfo.FirmId);
 
                             results.Add(new OrderValidationMessage
                             {
@@ -161,7 +162,7 @@ namespace DoubleGis.Erm.BLCore.OrderValidation.Rules
                         // element fails
                         foreach (var elementFail in advertisementFail.ElementFails)
                         {
-                            var elementDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityName.AdvertisementElement, elementFail.Name, elementFail.Id);
+                            var elementDescription = GenerateDescription(ruleContext.ValidationParams.IsMassValidation, EntityType.Instance.AdvertisementElement(), elementFail.Name, elementFail.Id);
 
                             if (elementFail.ElementIsRequired)
                             {

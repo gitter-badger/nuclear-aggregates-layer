@@ -4,8 +4,9 @@ using System.Linq;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
+
+using NuClear.Model.Common.Entities;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
 {
@@ -38,12 +39,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindOne(Specs.Find.Custom<LetterRecipient>(x => x.SourceEntityId == letterId));
         }
 
-        public bool CheckIfLetterExistsRegarding(EntityName entityName, long entityId)
+        public bool CheckIfLetterExistsRegarding(IEntityType entityName, long entityId)
         {
             return _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Letter, LetterRegardingObject>(entityName, entityId)).Any();
         }
 
-        public bool CheckIfOpenLetterExistsRegarding(EntityName entityName, long entityId)
+        public bool CheckIfOpenLetterExistsRegarding(IEntityType entityName, long entityId)
         {
             var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Letter, LetterRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
@@ -55,7 +56,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
                           .Any();
         }
 
-        public IEnumerable<Letter> LookupLettersRegarding(EntityName entityName, long entityId)
+        public IEnumerable<Letter> LookupLettersRegarding(IEntityType entityName, long entityId)
         {
             var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Letter, LetterRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)
@@ -64,7 +65,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Activities.ReadModel
             return _finder.FindMany(Specs.Find.Active<Letter>() & Specs.Find.ByIds<Letter>(ids)).ToArray();
         }
 
-        public IEnumerable<Letter> LookupOpenLettersRegarding(EntityName entityName, long entityId)
+        public IEnumerable<Letter> LookupOpenLettersRegarding(IEntityType entityName, long entityId)
         {
             var ids = (from reference in _finder.FindMany(ActivitySpecs.Find.ByReferencedObject<Letter, LetterRegardingObject>(entityName, entityId))
                        select reference.SourceEntityId)

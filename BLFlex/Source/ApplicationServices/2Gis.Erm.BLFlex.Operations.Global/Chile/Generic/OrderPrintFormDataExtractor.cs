@@ -141,6 +141,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic
                 .Select(order => new
                     {
                         order.BeginDistributionDate,
+                        order.SignupDate,
                         BargainNumber = order.Bargain.Number,
                         order.DestOrganizationUnit.ElectronicMedia,
                         SourceElectronicMedia = order.SourceOrganizationUnit.ElectronicMedia,
@@ -150,7 +151,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic
                 .Select(x => new PrintData
                     {
                         { "BargainNumber", x.BargainNumber ?? string.Empty },
-                        { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(x.BeginDistributionDate) },
+                        { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(x.BeginDistributionDate, x.SignupDate) },
                         { "ElectronicMedia", x.ElectronicMedia },
                         { "SourceElectronicMedia", x.SourceElectronicMedia },
                         { "Firm.Name", x.FirmName },

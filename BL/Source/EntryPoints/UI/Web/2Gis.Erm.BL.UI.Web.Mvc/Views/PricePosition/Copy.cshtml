@@ -54,7 +54,7 @@
         @Html.HiddenFor(m => m.PriceId)
         @Html.HiddenFor(m => m.SourcePricePositionId)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Position, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Position })
+            @Html.TemplateField(m => m.Position, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Position() })
         </div>
     }
 }

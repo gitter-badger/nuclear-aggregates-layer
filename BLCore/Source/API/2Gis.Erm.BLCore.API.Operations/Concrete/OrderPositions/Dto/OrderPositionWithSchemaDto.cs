@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.API.Operations.Concrete.OrderPositions.Dto
         [DataMember]
         public bool IsPositionComposite { get; set; }
         [DataMember]
-        public bool IsPositionOfPlannedProvisionSalesModel { get; set; }
+        public bool KeepCategoriesSynced { get; set; }
         [DataMember]
         public bool IsPositionCategoryBound { get; set; }
         [DataMember]

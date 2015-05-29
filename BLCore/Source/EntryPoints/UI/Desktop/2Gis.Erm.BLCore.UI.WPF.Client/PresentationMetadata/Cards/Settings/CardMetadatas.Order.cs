@@ -5,13 +5,13 @@ using DoubleGis.Erm.BLCore.UI.Metadata.Operations.Generic;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Common;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.ViewModels.Card;
 using DoubleGis.Erm.BLCore.UI.WPF.Client.Views.Cards;
-using DoubleGis.Erm.Platform.Model.Aggregates;
 using DoubleGis.Erm.Platform.Model.Aggregates.Aliases;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.UI.Metadata.UIElements;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.ViewModel.Validation;
+
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
 {
@@ -52,13 +52,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.PresentationMetadata.Cards.Settings
                         .RelatedItems.Attach(
                                              UIElementMetadata.Config
                                                               .Title.Resource(() => ErmConfigLocalization.CrdRelBills)
-                                                              .Handler.ShowGrid(OrderAggregate.Bill.AsEntityName()),
+                                                              .Handler.ShowGrid(OrderAggregate.Root, null, null),
                                              UIElementMetadata.Config
                                                               .Title.Resource(() => ErmConfigLocalization.CrdRelLocks)
-                                                              .Handler.ShowGrid(AccountAggregate.Lock.AsEntityName()),
+                                                              .Handler.ShowGrid(AccountAggregate.Root, null, null),
                                              UIElementMetadata.Config
                                                               .Title.Resource(() => ErmConfigLocalization.CrdRelOrderFiles)
-                                                              .Handler.ShowGrid(OrderAggregate.OrderFile.AsEntityName()))
+                                                              .Handler.ShowGrid(OrderAggregate.Root, null, null))
                         .MVVM.Bind<DynamicCardViewModel, OrderView>()
                         .WithDynamicProperties()
                         .Validator.Dynamic<DynamicViewModelValidator<DynamicViewModel>, DynamicViewModel>()

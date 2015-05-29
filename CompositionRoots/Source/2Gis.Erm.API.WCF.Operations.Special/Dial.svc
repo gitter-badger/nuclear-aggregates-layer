@@ -1,0 +1,4 @@
+﻿<%@ ServiceHost Language="C#" 
+                Debug="true" 
+                Service="DoubleGis.Erm.BLCore.WCF.Operations.Special.Dial.DialApplicationService" 
+                Factory="DoubleGis.Erm.API.WCF.Operations.Special.UnityServiceHostFactory" %>

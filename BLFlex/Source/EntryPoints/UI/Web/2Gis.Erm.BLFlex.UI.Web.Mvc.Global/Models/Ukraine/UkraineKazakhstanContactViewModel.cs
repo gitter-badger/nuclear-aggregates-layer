@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Aspects.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+using NuClear.Model.Common.Entities.Aspects;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Attributes;
@@ -16,7 +16,7 @@ using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 {
-    public sealed class UkraineKazakhstanContactViewModel : EntityViewModelBase<Contact>, IFullNameAspect, IContactSalutationsAspect, IBusinessModelAreaAspect, IUkraineAdapted, IKazakhstanAdapted
+    public sealed class UkraineKazakhstanContactViewModel : EntityViewModelBase<Contact>, IHaveTelephonyAccessAspect, IFullNameAspect, IContactSalutationsAspect, IBusinessModelAreaAspect, IUkraineAdapted, IKazakhstanAdapted
     {
         [StringLengthLocalized(160)]
         public string FullName { get; set; }
@@ -109,6 +109,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine
 
         // Определяет имя зоны для груповых операций 
         public string BusinessModelArea { get; set; }
+
+        public bool HaveTelephonyAccess { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {

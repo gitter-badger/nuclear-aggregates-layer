@@ -17,7 +17,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
@@ -71,7 +73,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
                     if (securityControlAspect == null || !securityControlAspect.SkipEntityAccessCheck)
                     {
                         var ownerCanBeChanged = _entityAccessService.HasEntityAccess(EntityAccessTypes.Assign,
-                                                                                     EntityName.Account,
+                                                                                     EntityType.Instance.Account(),
                                                                                      _userContext.Identity.Code,
                                                                                      entityId,
                                                                                      ownerCode,
