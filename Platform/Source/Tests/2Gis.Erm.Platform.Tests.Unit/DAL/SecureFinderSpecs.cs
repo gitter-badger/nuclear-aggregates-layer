@@ -2,6 +2,7 @@
 
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL;
+using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Tests.Unit.DAL.Infrastructure.Fakes;
 
@@ -12,7 +13,7 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Model.Common.Entities;
-using NuClear.Storage;
+using NuClear.Storage.Core;
 using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
@@ -39,7 +40,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Establish context = () =>
                 {
                     _findSpec = new FindSpecification<Deal>(e => true);
-                    Finder.Setup(f => f.Find(_findSpec)).Returns(new QueryableFutureSequence<Deal>(_finderEntities.Cast<Deal>()));
+                    var readableDomainContextMock = new Mock<IReadableDomainContext>();
+                    readableDomainContextMock.Setup(x => x.GetQueryableSource<Deal>()).Returns(_finderEntities.Cast<Deal>());
+                    ReadableDomainContextProvider.Setup(f => f.Get()).Returns(readableDomainContextMock.Object);
                 };
         }
 
@@ -68,18 +71,18 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                 {
                     _finderEntities = CreateEntities();
 
-                    Finder = new Mock<IFinder>();
+                    ReadableDomainContextProvider = new Mock<IReadableDomainContextProvider>();
 
                     _securityAccess = new Mock<ISecurityServiceEntityAccessInternal>();
 
                     _mockUserContext = new MockUserContext();
 
-                    Target = new SecureFinder(Finder.Object,
+                    Target = new SecureFinder(ReadableDomainContextProvider.Object,
                                               _mockUserContext.Object,
                                               _securityAccess.Object);
                 };
 
-            protected static Mock<IFinder> Finder { get; private set; }
+            protected static Mock<IReadableDomainContextProvider> ReadableDomainContextProvider { get; private set; }
             protected static SecureFinder Target { get; private set; }
 
             protected static void SetUpRestrictQuery()
@@ -123,7 +126,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SetUpRestrictQuery();
 
-            Because of = () => _result = Target.Find(_findSpec);
+            Because of = () => _result = new IncapsulationBreakingQueryableFutureSequence<Deal>(Target.Find(_findSpec)).Queryable;
 
             Behaves_like<RestrictAccessBehavior> restrict_query;
         }
@@ -137,7 +140,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SetUpRestrictQuery();
 
-            Because of = () => _result = Target.Find(_findSpec, _selectSpec);
+            Because of = () => _result = new IncapsulationBreakingQueryableFutureSequence<Deal>(Target.Find(_findSpec).Map(x => x.Select(_selectSpec))).Queryable;
 
             Behaves_like<RestrictAccessBehavior> restrict_query;
         }
@@ -151,7 +154,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SkipEntityAccess(true);
 
-            Because of = () => _result = Target.Find(_findSpec, _selectSpec);
+            Because of = () => _result = new IncapsulationBreakingQueryableFutureSequence<Deal>(Target.Find(_findSpec).Map(x => x.Select(_selectSpec))).Queryable;
 
             Behaves_like<SkipEntityAccessCheckBehavior> skip_entity_access;
         }
@@ -165,7 +168,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SkipEntityAccess(true);
 
-            Because of = () => _result = Target.Find(_findSpec);
+            Because of = () => _result = new IncapsulationBreakingQueryableFutureSequence<Deal>(Target.Find(_findSpec)).Queryable;
 
             Behaves_like<SkipEntityAccessCheckBehavior> skip_entity_access;
         }
