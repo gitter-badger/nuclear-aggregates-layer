@@ -5,19 +5,19 @@ namespace Storage.Tests.Fakes
 {
     public class StubFinder : Finder
     {
-        private readonly IReadDomainContextProvider _readDomainContextProvider;
+        private readonly IReadableDomainContextProvider _readableDomainContextProvider;
 
-        public StubFinder(IReadDomainContextProvider readDomainContextProvider)
-            : base(readDomainContextProvider)
+        public StubFinder(IReadableDomainContextProvider readableDomainContextProvider)
+            : base(readableDomainContextProvider)
         {
-            _readDomainContextProvider = readDomainContextProvider;
+            _readableDomainContextProvider = readableDomainContextProvider;
         }
 
-        public IReadDomainContextProvider ReadDomainContextProvider
+        public IReadableDomainContextProvider ReadableDomainContextProvider
         {
             get
             {
-                return _readDomainContextProvider;
+                return _readableDomainContextProvider;
             }
         }
     }

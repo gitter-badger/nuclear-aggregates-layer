@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations
 {
-    public interface IDetachClientFromFirmAggregateService : IAggregateSpecificOperation<Client, DetachIdentity>
+    public interface IDetachClientFromFirmAggregateService : IAggregateSpecificService<Client, DetachIdentity>
     {
         void Detach(IEnumerable<Client> clientsToDetach);
     }

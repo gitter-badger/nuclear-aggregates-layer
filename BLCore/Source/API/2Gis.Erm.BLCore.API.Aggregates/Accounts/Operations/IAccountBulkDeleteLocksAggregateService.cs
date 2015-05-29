@@ -7,7 +7,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations
 {
-    public interface IAccountBulkDeleteLocksAggregateService : IAggregateSpecificOperation<Account, BulkDeleteIdentity>
+    public interface IAccountBulkDeleteLocksAggregateService : IAggregateSpecificService<Account, BulkDeleteIdentity>
     {
         void Delete(IEnumerable<LockDto> locks);
     }

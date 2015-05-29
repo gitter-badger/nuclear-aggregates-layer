@@ -8,7 +8,7 @@ using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.Operations
 {
-    public class UpdateBranchOfficeAggregateService : IAggregateRootRepository<BranchOffice>, IUpdateAggregateRepository<BranchOffice>
+    public class UpdateBranchOfficeAggregateService : IAggregateRootService<BranchOffice>, IUpdateAggregateRepository<BranchOffice>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IRepository<BranchOffice> _branchOfficeRepository;

@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.Operations
 {
-    public interface IDeleteLegalPersonProfileAggregateService : IAggregateSpecificOperation<LegalPerson, DeleteIdentity>
+    public interface IDeleteLegalPersonProfileAggregateService : IAggregateSpecificService<LegalPerson, DeleteIdentity>
     {
         void Delete(LegalPersonProfile legalPersonProfile, IEnumerable<Order> referringOrders);
     }

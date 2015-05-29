@@ -2,14 +2,14 @@
 
 namespace Storage.Tests.Fakes
 {
-    public class StubReadDomainContextProvider : IReadDomainContextProvider
+    public class StubReadableDomainContextProvider : IReadableDomainContextProvider
     {
-        public IReadDomainContext Get<TEntity>() where TEntity : class
+        public IReadableDomainContext Get<TEntity>() where TEntity : class
         {
             return new StubDomainContext();
         }
 
-        public IReadDomainContext Get()
+        public IReadableDomainContext Get()
         {
             return new StubDomainContext();
         }

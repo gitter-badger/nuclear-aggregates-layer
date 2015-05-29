@@ -6,8 +6,8 @@ namespace NuClear.Aggregates
     {
         public static class Operations
         {
-            public static readonly Type OperationSpecific = typeof(IAggregateSpecificOperation<,>);
-            public static readonly Type OperationSpecificUnknownAggregate = typeof(IUnknownAggregateSpecificOperation<>);
+            public static readonly Type OperationSpecific = typeof(IAggregateSpecificService<,>);
+            public static readonly Type OperationSpecificUnknownAggregate = typeof(IUnknownAggregateSpecificService<>);
 
             /// <summary>
             /// Группы индикаторов

@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills
 {
-    public interface IBulkDeleteBillAggregateService : IAggregateSpecificOperation<Order, BulkDeleteIdentity>
+    public interface IBulkDeleteBillAggregateService : IAggregateSpecificService<Order, BulkDeleteIdentity>
     {
         void DeleteBills(Order order, IEnumerable<Bill> bills);
     }

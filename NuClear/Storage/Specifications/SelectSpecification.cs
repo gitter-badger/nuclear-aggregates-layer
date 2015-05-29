@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 
 namespace NuClear.Storage.Specifications
 {
+    [Obsolete("Use MapSpecification instead")]
     public class SelectSpecification<TInput, TOutput>
     {
         private readonly Expression<Func<TInput, TOutput>> _selector;

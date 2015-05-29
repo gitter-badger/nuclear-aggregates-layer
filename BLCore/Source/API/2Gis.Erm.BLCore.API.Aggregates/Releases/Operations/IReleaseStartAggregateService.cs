@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Releases.Operations
 {
-    public interface IReleaseStartAggregateService : IAggregateSpecificOperation<ReleaseInfo, CreateIdentity>
+    public interface IReleaseStartAggregateService : IAggregateSpecificService<ReleaseInfo, CreateIdentity>
     {
         ReleaseInfo Start(int countryCode, long organizationUnitId, TimePeriod period, bool isBeta, ReleaseStatus targetStatus);
     }

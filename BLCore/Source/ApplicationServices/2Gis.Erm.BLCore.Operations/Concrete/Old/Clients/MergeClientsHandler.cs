@@ -23,7 +23,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
 {
     public sealed class MergeClientsHandler : RequestHandler<MergeClientsRequest, EmptyResponse>
     {
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IAppointmentReadModel _appointmentReadModel;
         private readonly ILetterReadModel _letterReadModel;
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Old.Clients
         private readonly IAssignTaskAggregateService _assignTaskAggregateService;
         private readonly IUpdateTaskAggregateService _updateTaskAggregateService;
 
-        public MergeClientsHandler(IClientRepository clientRepository,
+        public MergeClientsHandler(IClientService clientRepository,
                                    IOperationScopeFactory scopeFactory,
                                    IAppointmentReadModel appointmentReadModel,
                                    ILetterReadModel letterReadModel,

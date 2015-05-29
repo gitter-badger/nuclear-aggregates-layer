@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.OrderPositions
 {
-    public interface IOrderReplaceOrderPositionAdvertisementLinksAggregateService : IAggregateSpecificOperation<Order, ReplaceOrderPositionAdvertisementLinksIdentity>
+    public interface IOrderReplaceOrderPositionAdvertisementLinksAggregateService : IAggregateSpecificService<Order, ReplaceOrderPositionAdvertisementLinksIdentity>
     {
         void Replace(IEnumerable<OrderPositionAdvertisement> replacedLinks, IEnumerable<AdvertisementLinkDescriptor> newLinks);
     }

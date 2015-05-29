@@ -39,7 +39,7 @@ using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 {
-    public class ClientRepository : IClientRepository
+    public class ClientRepository : IClientService
     {
         private static readonly DateTime MinMssqlDatetime = new DateTime(1753, 1, 1);
         private static readonly DateTime MaxMssqlDatetime = new DateTime(9999, 12, 31, 23, 59, 59, 997);

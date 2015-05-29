@@ -49,15 +49,15 @@ namespace Storage.Tests
         {
             Establish context = () =>
                 {
-                    ReadDomainContext = new Mock<IReadDomainContext>();
+                    ReadDomainContext = new Mock<IReadableDomainContext>();
 
-                    var readDomainContextProvider = new Mock<IReadDomainContextProvider>();
+                    var readDomainContextProvider = new Mock<IReadableDomainContextProvider>();
                     readDomainContextProvider.Setup(r => r.Get()).Returns(ReadDomainContext.Object);
 
                     Target = new Finder(readDomainContextProvider.Object);
                 };
 
-            protected static Mock<IReadDomainContext> ReadDomainContext { get; private set; }
+            protected static Mock<IReadableDomainContext> ReadDomainContext { get; private set; }
             protected static Finder Target { get; private set; }
         }
 

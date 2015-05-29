@@ -2,18 +2,17 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Simplified.Dictionary.Categories;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
+using NuClear.Aggregates;
 using NuClear.Security.API.UserContext.Profile;
 
 using OrganizationUnitDto = DoubleGis.Erm.BLCore.API.Aggregates.Users.Dto.OrganizationUnitDto;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Users
 {
-    public interface IUserRepository : IAggregateRootRepository<User>,
+    public interface IUserRepository : IAggregateRootService<User>,
                                        IActivateAggregateRepository<Department>,
                                        IActivateAggregateRepository<OrganizationUnit>,
                                        IDeactivateAggregateRepository<OrganizationUnit>,

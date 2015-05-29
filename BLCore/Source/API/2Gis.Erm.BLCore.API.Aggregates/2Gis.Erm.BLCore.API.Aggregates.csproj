@@ -157,7 +157,7 @@
     <Compile Include="Charges\Dto\OrderPositionWithChargeInfoDto.cs" />
     <Compile Include="Clients\DTO\ClientReplicationDto.cs" />
     <Compile Include="Clients\DTO\MasterClientDto.cs" />
-    <Compile Include="Clients\IClientRepository.cs" />
+    <Compile Include="Clients\IClientService.cs" />
     <Compile Include="Clients\Operations\ClientLinksDenormalizationException.cs" />
     <Compile Include="Clients\Operations\IDeleteClientLinkAggregateService.cs" />
     <Compile Include="Clients\Operations\ICreateClientLinkAggregateService.cs" />

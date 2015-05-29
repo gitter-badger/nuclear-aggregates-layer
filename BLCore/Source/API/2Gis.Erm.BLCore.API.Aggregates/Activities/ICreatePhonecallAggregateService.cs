@@ -4,7 +4,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
 {
-    public interface ICreatePhonecallAggregateService : IAggregateSpecificOperation<Phonecall, CreateIdentity>
+    public interface ICreatePhonecallAggregateService : IAggregateSpecificService<Phonecall, CreateIdentity>
     {
         void Create(Phonecall phonecall);
     }

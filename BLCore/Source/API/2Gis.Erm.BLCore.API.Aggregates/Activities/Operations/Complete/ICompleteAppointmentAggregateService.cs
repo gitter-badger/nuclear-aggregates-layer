@@ -5,7 +5,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Complete
 {
-    public interface ICompleteAppointmentAggregateService : IAggregateSpecificOperation<Appointment, CompleteIdentity>
+    public interface ICompleteAppointmentAggregateService : IAggregateSpecificService<Appointment, CompleteIdentity>
     {
         void Complete(Appointment appointment);
     }

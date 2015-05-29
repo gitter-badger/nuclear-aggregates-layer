@@ -4,7 +4,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Users
 {
-    public interface IActivateUserAggregateService : IAggregateSpecificOperation<User, ActivateIdentity>
+    public interface IActivateUserAggregateService : IAggregateSpecificService<User, ActivateIdentity>
     {
         void Activate(User user, UserProfile profile);
     }

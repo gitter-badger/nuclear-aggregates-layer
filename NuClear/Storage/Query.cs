@@ -9,11 +9,11 @@ namespace NuClear.Storage
 {
     public class Query : IQuery
     {
-        private readonly IReadDomainContextProvider _readDomainContextProvider;
+        private readonly IReadableDomainContextProvider _readableDomainContextProvider;
 
-        public Query(IReadDomainContextProvider readDomainContextProvider)
+        public Query(IReadableDomainContextProvider readableDomainContextProvider)
         {
-            _readDomainContextProvider = readDomainContextProvider;
+            _readableDomainContextProvider = readableDomainContextProvider;
         }
 
         public IQueryable For(Type entityType)
@@ -23,12 +23,12 @@ namespace NuClear.Storage
                 throw new ArgumentNullException("entityType");
             }
 
-            return _readDomainContextProvider.Get().GetQueryableSource(entityType);
+            return _readableDomainContextProvider.Get().GetQueryableSource(entityType);
         }
 
         public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
         {
-            return _readDomainContextProvider.Get().GetQueryableSource<TEntity>();
+            return _readableDomainContextProvider.Get().GetQueryableSource<TEntity>();
         }
 
         public IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
@@ -38,7 +38,7 @@ namespace NuClear.Storage
                 throw new ArgumentNullException("findSpecification");
             }
 
-            var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TEntity>();
+            var queryableSource = _readableDomainContextProvider.Get().GetQueryableSource<TEntity>();
             return queryableSource.Where(findSpecification.Predicate);
         }
     }

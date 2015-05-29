@@ -5,7 +5,7 @@ using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
-    public interface IReplaceDeniedPositionAggregateService : IAggregateSpecificOperation<Price, ReplaceDeniedPositionIdentity>
+    public interface IReplaceDeniedPositionAggregateService : IAggregateSpecificService<Price, ReplaceDeniedPositionIdentity>
     {
         void Replace(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition, long positionDeniedId);
         void ReplaceSelfDenied(DeniedPosition selfDeniedPosition, long positionDeniedId);

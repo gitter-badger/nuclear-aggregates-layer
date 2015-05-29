@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
 {
-    public interface IUpdateLetterAggregateService : IAggregateSpecificOperation<Letter, UpdateIdentity>
+    public interface IUpdateLetterAggregateService : IAggregateSpecificService<Letter, UpdateIdentity>
     {
         void Update(Letter letter);
 

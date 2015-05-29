@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages.DTO;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Aggregates;
+
 namespace DoubleGis.Erm.BLCore.API.Aggregates.LocalMessages
 {
-    public interface ILocalMessageRepository : IAggregateRootRepository<LocalMessage>
+    public interface ILocalMessageRepository : IAggregateRootService<LocalMessage>
     {
         void Delete(LocalMessage localMessage);
         void Create(LocalMessage localMessage, int integrationType); // тут пока не мен€ю на long // ј вдруг уже пора?

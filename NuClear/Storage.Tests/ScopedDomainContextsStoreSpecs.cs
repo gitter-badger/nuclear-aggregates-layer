@@ -27,8 +27,8 @@ namespace Storage.Tests
             static IDomainContextsScope _domainContextHostScope;
             static IDomainContextsScopeFactory _domainContextsScopeFactory;
 
-            static IReadDomainContext _readDomainContext1;
-            static IReadDomainContext _readDomainContext2;
+            static IReadableDomainContext _readableDomainContext1;
+            static IReadableDomainContext _readableDomainContext2;
 
             Establish context = () =>
                     {
@@ -39,14 +39,14 @@ namespace Storage.Tests
 
             Because of = () =>
             {
-                _readDomainContext1 = _scopedDomainContextsStore.GetReadable(_domainContextHost);
+                _readableDomainContext1 = _scopedDomainContextsStore.GetReadable(_domainContextHost);
                 using (_domainContextHostScope = _domainContextsScopeFactory.CreateScope())
                 {
-                    _readDomainContext2 = _scopedDomainContextsStore.GetReadable(_domainContextHostScope);
+                    _readableDomainContext2 = _scopedDomainContextsStore.GetReadable(_domainContextHostScope);
                 }
             };
 
-            It read_domain_contexts_should_be_the_same = () => _readDomainContext1.Should().BeSameAs(_readDomainContext2);
+            It read_domain_contexts_should_be_the_same = () => _readableDomainContext1.Should().BeSameAs(_readableDomainContext2);
             It scope_Ids_should_be_not_equal = () => _domainContextHost.ScopeId.Should().NotBe(_domainContextHostScope.ScopeId);
         }
 
@@ -61,7 +61,7 @@ namespace Storage.Tests
             Establish context = () =>
                     {
                         ModifiableDomainContextFactoryMock.Setup(x => x.Create<IEntity>()).Verifiable();
-                        _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadDomainContext>(), ModifiableDomainContextFactoryMock.Object);
+                        _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadableDomainContext>(), ModifiableDomainContextFactoryMock.Object);
                         _domainContextHost = new DomainContextHost(_scopedDomainContextsStore, new NullPendingChangesHandlingStrategy());
 
                     };
@@ -84,7 +84,7 @@ namespace Storage.Tests
             Establish context = () =>
                     {
                         ModifiableDomainContextFactoryMock.Setup(x => x.Create<IEntity>()).Verifiable();
-                        _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadDomainContext>(), ModifiableDomainContextFactoryMock.Object);
+                        _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadableDomainContext>(), ModifiableDomainContextFactoryMock.Object);
                         _domainContextHost = new DomainContextHost(_scopedDomainContextsStore, new NullPendingChangesHandlingStrategy());
                     };
 
@@ -111,7 +111,7 @@ namespace Storage.Tests
             Establish context = () =>
                     {
                         ModifiableDomainContextFactoryMock.Setup(x => x.Create<IEntity>()).Verifiable();
-                        _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadDomainContext>(), ModifiableDomainContextFactoryMock.Object);
+                        _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadableDomainContext>(), ModifiableDomainContextFactoryMock.Object);
                         _domainContextHost = new DomainContextHost(_scopedDomainContextsStore, new NullPendingChangesHandlingStrategy());
                         _domainContextsScopeFactory = (IDomainContextsScopeFactory)_domainContextHost;
                     };
@@ -141,7 +141,7 @@ namespace Storage.Tests
                     ModifiableDomainContextFactoryMock.Setup(x => x.Create<Entity1>()).Verifiable();
                     ModifiableDomainContextFactoryMock.Setup(x => x.Create<Entity2>()).Verifiable();
 
-                    _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadDomainContext>(), ModifiableDomainContextFactoryMock.Object);
+                    _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadableDomainContext>(), ModifiableDomainContextFactoryMock.Object);
                     _domainContextHost = new DomainContextHost(_scopedDomainContextsStore, new NullPendingChangesHandlingStrategy());
                 };
 
@@ -171,7 +171,7 @@ namespace Storage.Tests
                     ModifiableDomainContextFactoryMock.Setup(x => x.Create<Entity1>()).Returns(new StubDomainContext()).Verifiable();
                     ModifiableDomainContextFactoryMock.Setup(x => x.Create<Entity2>()).Returns(new StubDomainContext()).Verifiable();
 
-                    _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadDomainContext>(), ModifiableDomainContextFactoryMock.Object);
+                    _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadableDomainContext>(), ModifiableDomainContextFactoryMock.Object);
                     _domainContextHost = new DomainContextHost(_scopedDomainContextsStore, new NullPendingChangesHandlingStrategy());
                     _domainContextsScopeFactory = (IDomainContextsScopeFactory)_domainContextHost;
                 };
@@ -207,7 +207,7 @@ namespace Storage.Tests
                 {
                     ModifiableDomainContextFactoryMock.Setup(x => x.Create<IEntity>()).Returns(StubDomainContext).Verifiable();
 
-                    _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadDomainContext>(), ModifiableDomainContextFactoryMock.Object);
+                    _scopedDomainContextsStore = new ScopedDomainContextsStore(Mock.Of<IReadableDomainContext>(), ModifiableDomainContextFactoryMock.Object);
                     _domainContextHost = new DomainContextHost(_scopedDomainContextsStore, new NullPendingChangesHandlingStrategy());
                 };
 

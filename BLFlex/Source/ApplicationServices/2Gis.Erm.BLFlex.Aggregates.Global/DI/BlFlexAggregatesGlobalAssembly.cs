@@ -10,7 +10,7 @@ namespace DoubleGis.Erm.BLFlex.Aggregates.Global.DI
     public sealed class BlFlexAggregatesGlobalAssembly : IZoneAssembly<AggregatesZone>,
                                                          IZoneAnchor<AggregatesZone>,
                                                          IContainsType<IAggregateReadModel>,
-                                                         IContainsType<IAggregateRepository>,
+                                                         IContainsType<IAggregateService>,
                                                          IContainsType<ISimplifiedModelConsumerReadModel>,
                                                          IContainsType<IDeserializeServiceBusObjectService>,
                                                          IContainsType<IImportServiceBusDtoService>,

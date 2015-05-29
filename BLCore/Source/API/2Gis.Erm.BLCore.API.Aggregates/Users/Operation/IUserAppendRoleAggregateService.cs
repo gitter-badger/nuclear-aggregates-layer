@@ -4,7 +4,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.Operation
 {
-    public interface IUserAppendRoleAggregateService : IAggregateSpecificOperation<User, AppendIdentity>
+    public interface IUserAppendRoleAggregateService : IAggregateSpecificService<User, AppendIdentity>
     {
         void AppendRole(User user, long roleId);
     }

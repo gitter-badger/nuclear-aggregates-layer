@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withd
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations
 {
-    public interface IAccountRevertWithdrawFromAccountsAggregateService : IAggregateSpecificOperation<Account, WithdrawFromAccountsIdentity>
+    public interface IAccountRevertWithdrawFromAccountsAggregateService : IAggregateSpecificService<Account, WithdrawFromAccountsIdentity>
     {
         void RevertWithdraw(IEnumerable<RevertWithdrawFromAccountsDto> withdrawInfos);
     }

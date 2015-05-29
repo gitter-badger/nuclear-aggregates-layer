@@ -2,17 +2,17 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.DTO;
-using NuClear.Aggregates;
-using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Aggregates;
+
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders
 {
-    public interface IOrderRepository : IAggregateRootRepository<Order>,
-                                        IAssignAggregateRepository<Order>,
-                                        IDeleteAggregateRepository<OrderPosition>,
-                                        IUploadFileAggregateRepository<OrderFile>,
+    public interface IOrderRepository : IAggregateRootService<Order>, 
+                                        IAssignAggregateRepository<Order>, 
+                                        IDeleteAggregateRepository<OrderPosition>, 
+                                        IUploadFileAggregateRepository<OrderFile>, 
                                         IDownloadFileAggregateRepository<OrderFile>
     {
         void CloseOrder(Order order, string reason);

@@ -32,9 +32,9 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
             Because of = () => Result = (IncapsulationBreakingQueryableFutureSequence<IEntity>)Finder.Find(new FindSpecification<IEntity>(x => true));
             It should_return_restricted_queryable = () => (Result.Queryable is WrappedQuery).Should().BeTrue();
 
-            static IReadDomainContextProvider CreateReadDomainContextProvider()
+            static IReadableDomainContextProvider CreateReadDomainContextProvider()
             {
-                var domainContext = Mock.Of<IReadDomainContext>();
+                var domainContext = Mock.Of<IReadableDomainContext>();
                 Mock.Get(domainContext)
                     .Setup(x => x.GetQueryableSource(Moq.It.IsAny<Type>()))
                     .Returns(new object[0].AsQueryable());
@@ -43,7 +43,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
                     .Setup(x => x.GetQueryableSource<IEntity>())
                     .Returns(new IEntity[0].AsQueryable());
 
-                var domainContextProvider = Mock.Of<IReadDomainContextProvider>();
+                var domainContextProvider = Mock.Of<IReadableDomainContextProvider>();
                 Mock.Get(domainContextProvider)
                     .Setup(provider => provider.Get())
                     .Returns(domainContext);

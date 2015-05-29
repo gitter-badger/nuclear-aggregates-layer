@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
-    public interface IBulkDeleteDeniedPositionsAggregateService : IAggregateSpecificOperation<Price, DeleteIdentity>
+    public interface IBulkDeleteDeniedPositionsAggregateService : IAggregateSpecificService<Price, DeleteIdentity>
     {
         void Delete(IEnumerable<DeniedPosition> deniedPositions);
     }

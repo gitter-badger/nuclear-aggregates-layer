@@ -64,10 +64,10 @@
     <Compile Include="Core\IModifiableDomainContextFactory.cs" />
     <Compile Include="Core\IModifiableDomainContextProvider.cs" />
     <Compile Include="Core\IPendingChangesMonitorable.cs" />
-    <Compile Include="Core\IReadDomainContext.cs" />
-    <Compile Include="Core\IReadDomainContextFactory.cs" />
-    <Compile Include="Core\IReadDomainContextProvider.cs" />
-    <Compile Include="Core\CachingReadDomainContext.cs" />
+    <Compile Include="Core\IReadableDomainContext.cs" />
+    <Compile Include="Core\IReadableDomainContextFactory.cs" />
+    <Compile Include="Core\IReadableDomainContextProvider.cs" />
+    <Compile Include="Core\CachingReadableDomainContext.cs" />
     <Compile Include="Finder.cs" />
     <Compile Include="Futures\FutureSequence.cs" />
     <Compile Include="Futures\Queryable\QueryableFutureExtensions.cs" />

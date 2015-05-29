@@ -9,7 +9,7 @@ using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 {
-    public class CreateAssociatedPositionService : ICreateAggregateRepository<AssociatedPosition>, IAggregateRootRepository<Price>
+    public class CreateAssociatedPositionService : ICreateAggregateRepository<AssociatedPosition>, IAggregateRootService<Price>
     {
         private readonly IIdentityProvider _identityProvider;
         private readonly IRepository<AssociatedPosition> _associatedPositionGenericRepository;

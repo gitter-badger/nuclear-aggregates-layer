@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations
 {
-    public interface IBulkDeleteFirmContactAggregateService : IAggregateSpecificOperation<Firm, BulkDeleteIdentity>
+    public interface IBulkDeleteFirmContactAggregateService : IAggregateSpecificService<Firm, BulkDeleteIdentity>
     {
         void Delete(IReadOnlyCollection<FirmContact> firmContacts);
     }

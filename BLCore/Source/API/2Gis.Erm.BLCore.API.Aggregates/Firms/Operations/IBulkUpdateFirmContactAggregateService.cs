@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations
 {
-    public interface IBulkUpdateFirmContactAggregateService : IAggregateSpecificOperation<Firm, BulkUpdateIdentity>
+    public interface IBulkUpdateFirmContactAggregateService : IAggregateSpecificService<Firm, BulkUpdateIdentity>
     {
         void Update(IReadOnlyCollection<FirmContact> firmContacts);
     }

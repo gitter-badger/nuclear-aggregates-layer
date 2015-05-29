@@ -8,7 +8,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bargains
 {
-    public class UpdateBargainAggregateService : IAggregateRootRepository<Order>, IUpdateAggregateRepository<Bargain>
+    public class UpdateBargainAggregateService : IAggregateRootService<Order>, IUpdateAggregateRepository<Bargain>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecureRepository<Bargain> _entitySecureRepository;

@@ -22,14 +22,14 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeClient
         private readonly IUserContext _userContext;
         private readonly IFirmRepository _firmRepository;
         private readonly IOperationScopeFactory _scopeFactory;
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
 
         public ChangeFirmClientService(
             IUserContext userContext,
             IFirmRepository firmRepository,
             IOperationScopeFactory scopeFactory, 
-            IClientRepository clientRepository,
+            IClientService clientRepository,
             ISecurityServiceUserIdentifier userIdentifierService)
         {
             _userContext = userContext;

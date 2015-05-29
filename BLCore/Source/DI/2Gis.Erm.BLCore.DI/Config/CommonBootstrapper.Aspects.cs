@@ -123,9 +123,9 @@ namespace DoubleGis.Erm.BLCore.DI.Config
             return container
                         .RegisterType<IEFDbModelFactory, EFDbModelFactory>(Lifetime.Singleton)
                         .RegisterType<IDomainContextMetadataProvider, DomainContextMetadataProvider>(Lifetime.Singleton)
-                        .RegisterType<IReadDomainContextFactory, EFDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
+                        .RegisterType<IReadableDomainContextFactory, EFDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IModifiableDomainContextFactory, EFDomainContextFactory>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterType<IReadDomainContext, CachingReadDomainContext>(entryPointSpecificLifetimeManagerFactory())
+                        .RegisterType<IReadableDomainContext, CachingReadableDomainContext>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ErmConnectionStringIdentity.Instance)))
                         .RegisterType<IProcessingContext, ProcessingContext>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IUseCaseTuner, UseCaseTuner>(entryPointSpecificLifetimeManagerFactory())
@@ -137,7 +137,7 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         // TODO нужно удалить все явные регистрации всяких проксей и т.п. - всем этим должен заниматься только UoW внутри себя
                         // пока без них не смогут работать нарпимер handler в которые напрямую, инжектиться finder
                         .RegisterType<IDomainContextHost, DomainContextHost>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterType<IReadDomainContextProvider, ReadDomainContextProviderProxy>(entryPointSpecificLifetimeManagerFactory())
+                        .RegisterType<IReadableDomainContextProvider, ReadableDomainContextProviderProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IModifiableDomainContextProvider, ModifiableDomainContextProviderProxy>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IQueryProvider, QueryProvider>(Lifetime.PerResolve)
 

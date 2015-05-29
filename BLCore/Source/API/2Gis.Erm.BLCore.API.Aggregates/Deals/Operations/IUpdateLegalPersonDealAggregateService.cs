@@ -4,7 +4,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Deals.Operations
 {
-    public interface IUpdateLegalPersonDealAggregateService : IAggregateSpecificOperation<Deal, UpdateIdentity>
+    public interface IUpdateLegalPersonDealAggregateService : IAggregateSpecificService<Deal, UpdateIdentity>
     {
         void Update(LegalPersonDeal legalPersonDeal);
     }

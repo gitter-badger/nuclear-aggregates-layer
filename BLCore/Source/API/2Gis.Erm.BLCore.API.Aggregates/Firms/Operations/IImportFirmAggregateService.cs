@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations
 {
-    public interface IImportFirmAggregateService : IAggregatePartRepository<Firm>
+    public interface IImportFirmAggregateService : IAggregatePartService<Firm>
     {
         EntityChangesContext ImportFirms(IEnumerable<FirmServiceBusDto> dtos,
                                       long userId,

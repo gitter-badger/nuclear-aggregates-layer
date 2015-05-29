@@ -14,12 +14,12 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 {
     public sealed class ConsistentFinder : IFinder
     {
-        private readonly IReadDomainContextProvider _readDomainContextProvider;
+        private readonly IReadableDomainContextProvider _readableDomainContextProvider;
         private readonly IDynamicStorageFinder _dynamicStorageFinder;
         private readonly ICompositeEntityQuery _compositeEntityQuery;
         private readonly IDynamicEntityMetadataProvider _dynamicEntityMetadataProvider;
 
-        public ConsistentFinder(IReadDomainContextProvider readDomainContextProvider,
+        public ConsistentFinder(IReadableDomainContextProvider readableDomainContextProvider,
                                 IDynamicStorageFinder dynamicStorageFinder,
                                 ICompositeEntityQuery compositeEntityQuery,
                                 IDynamicEntityMetadataProvider dynamicEntityMetadataProvider)
@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
                 throw new ArgumentNullException("compositeEntityQuery");
             }
 
-            _readDomainContextProvider = readDomainContextProvider;
+            _readableDomainContextProvider = readableDomainContextProvider;
             _dynamicStorageFinder = dynamicStorageFinder;
             _compositeEntityQuery = compositeEntityQuery;
             _dynamicEntityMetadataProvider = dynamicEntityMetadataProvider;
@@ -53,7 +53,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
                 return new MappedQueryableFutureSequence<TSource>(_compositeEntityQuery, findSpecification);
             }
 
-            var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TSource>();
+            var queryableSource = _readableDomainContextProvider.Get().GetQueryableSource<TSource>();
             if (typeof(IPartable).IsAssignableFrom(typeof(TSource)))
             {
                 return new ConsistentQueryableFutureSequence<TSource>(queryableSource, _dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification);

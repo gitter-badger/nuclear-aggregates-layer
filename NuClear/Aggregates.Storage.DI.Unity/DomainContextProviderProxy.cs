@@ -5,18 +5,18 @@ using NuClear.Storage.Core;
 namespace NuClear.Aggregates.Storage.DI.Unity
 {
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public class ReadDomainContextProviderProxy : IReadDomainContextProvider
+    public class ReadableDomainContextProviderProxy : IReadableDomainContextProvider
     {
         private readonly ScopedDomainContextsStore _scopedDomainContextsStore;
         private readonly IDomainContextHost _domainContextHost;
 
-        public ReadDomainContextProviderProxy(ScopedDomainContextsStore scopedDomainContextsStore, IDomainContextHost domainContextHost)
+        public ReadableDomainContextProviderProxy(ScopedDomainContextsStore scopedDomainContextsStore, IDomainContextHost domainContextHost)
         {
             _scopedDomainContextsStore = scopedDomainContextsStore;
             _domainContextHost = domainContextHost;
         }
 
-        public IReadDomainContext Get()
+        public IReadableDomainContext Get()
         {
             return _scopedDomainContextsStore.GetReadable(_domainContextHost);
         }

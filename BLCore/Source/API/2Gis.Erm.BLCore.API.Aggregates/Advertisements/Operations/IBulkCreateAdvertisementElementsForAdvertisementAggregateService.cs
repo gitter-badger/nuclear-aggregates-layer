@@ -7,7 +7,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.Operations
 {
-    public interface IBulkCreateAdvertisementElementsForAdvertisementAggregateService : IAggregateSpecificOperation<Advertisement, BulkCreateIdentity>
+    public interface IBulkCreateAdvertisementElementsForAdvertisementAggregateService : IAggregateSpecificService<Advertisement, BulkCreateIdentity>
     {
         void Create(IEnumerable<AdvertisementElementCreationDto> advertisementElements, long advertisementId, long ownerCode);
     }

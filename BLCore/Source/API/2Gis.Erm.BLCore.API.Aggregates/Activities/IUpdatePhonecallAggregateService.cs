@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
 {
-    public interface IUpdatePhonecallAggregateService : IAggregateSpecificOperation<Phonecall, UpdateIdentity>
+    public interface IUpdatePhonecallAggregateService : IAggregateSpecificService<Phonecall, UpdateIdentity>
     {
         void Update(Phonecall phonecall);
 

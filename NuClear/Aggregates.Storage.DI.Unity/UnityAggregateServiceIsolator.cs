@@ -20,7 +20,7 @@ namespace NuClear.Aggregates.Storage.DI.Unity
             _tracer = tracer;
         }
 
-        public void Execute<TAggregateService>(Action<TAggregateService> action) where TAggregateService : class, IAggregateRepository
+        public void Execute<TAggregateService>(Action<TAggregateService> action) where TAggregateService : class, IAggregateService
         {
             Func<TAggregateService, bool> ignoreResultFunc = x =>
             {
@@ -31,7 +31,7 @@ namespace NuClear.Aggregates.Storage.DI.Unity
             Execute(ignoreResultFunc);
         }
 
-        public TResult Execute<TAggregateService, TResult>(Func<TAggregateService, TResult> func) where TAggregateService : class, IAggregateRepository
+        public TResult Execute<TAggregateService, TResult>(Func<TAggregateService, TResult> func) where TAggregateService : class, IAggregateService
         {
             try
             {

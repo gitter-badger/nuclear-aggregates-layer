@@ -9,7 +9,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons.Operations
 {
-    public class CreateLegalPersonAggregateService : IAggregateRootRepository<LegalPerson>, ICreateAggregateRepository<LegalPerson>
+    public class CreateLegalPersonAggregateService : IAggregateRootService<LegalPerson>, ICreateAggregateRepository<LegalPerson>
     {
         private readonly IIdentityProvider _identityProvider;
         private readonly IOperationScopeFactory _operationScopeFactory;

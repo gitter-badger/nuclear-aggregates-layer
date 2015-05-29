@@ -22,6 +22,7 @@ namespace NuClear.Storage.Specifications
             return source.Where(specification.Predicate);
         }
 
+        [Obsolete]
         public static IQueryable<T2> Select<T1, T2>(this IQueryable<T1> source, SelectSpecification<T1, T2> specification)
         {
             return source.Select(specification.Selector);

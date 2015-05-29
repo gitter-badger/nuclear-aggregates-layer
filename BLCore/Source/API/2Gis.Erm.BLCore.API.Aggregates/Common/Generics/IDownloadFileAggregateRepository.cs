@@ -9,7 +9,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics
 {
     [Obsolete("Use non-generic interface marked with IAggregateSpecificOperation")]
-    public interface IDownloadFileAggregateRepository<TEntity> : IUnknownAggregateSpecificOperation<DownloadIdentity>
+    public interface IDownloadFileAggregateRepository<TEntity> : IUnknownAggregateSpecificService<DownloadIdentity>
         where TEntity : class, IEntity, IEntityKey
     {
         StreamResponse DownloadFile(DownloadFileParams<TEntity> downloadFileParams);

@@ -5,7 +5,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Cancel
 {
-    public interface ICancelLetterAggregateService : IAggregateSpecificOperation<Letter, CancelIdentity>
+    public interface ICancelLetterAggregateService : IAggregateSpecificService<Letter, CancelIdentity>
     {
         void Cancel(Letter letter);
     }

@@ -9,7 +9,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.DI
     public sealed class BlCoreAggregatesAssembly : IZoneAssembly<AggregatesZone>,
                                                    IZoneAnchor<AggregatesZone>,
                                                    IContainsType<IAggregateReadModel>,
-                                                   IContainsType<IAggregateRepository>,
+                                                   IContainsType<IAggregateService>,
                                                    IContainsType<ISimplifiedModelConsumer>,
                                                    IContainsType<ISimplifiedModelConsumerReadModel>
     {

@@ -8,7 +8,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations
 {
-    public interface IChargeBulkCreateAggregateService : IAggregateSpecificOperation<Charge, BulkCreateIdentity>
+    public interface IChargeBulkCreateAggregateService : IAggregateSpecificService<Charge, BulkCreateIdentity>
     {
         void Create(long projectId, DateTime startDate, DateTime endDate, IReadOnlyCollection<ChargeDto> chargesDtos, Guid sessionId);
     }

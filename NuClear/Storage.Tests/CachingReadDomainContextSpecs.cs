@@ -17,42 +17,42 @@ namespace Storage.Tests
 {
     public class CachingReadDomainContextSpecs
     {
-        static CachingReadDomainContext _readDomainContextCachingProxy;
+        static CachingReadableDomainContext _readableDomainContextCachingProxy;
 
         [Tags("DAL")]
-        [Subject(typeof(CachingReadDomainContext))]
+        [Subject(typeof(CachingReadableDomainContext))]
         class When_call_GetQueryableSource_for_entity_from_Erm_scope
         {
             static IQueryable<Entity1> _query;
 
-            Establish context = () => _readDomainContextCachingProxy = new CachingReadDomainContext(new StubDomainContextFactory(),
+            Establish context = () => _readableDomainContextCachingProxy = new CachingReadableDomainContext(new StubDomainContextFactory(),
                                                                                                          new StubDomainContextMetadataProvider());
 
-            Because of = () => _query = _readDomainContextCachingProxy.GetQueryableSource<Entity1>();
+            Because of = () => _query = _readableDomainContextCachingProxy.GetQueryableSource<Entity1>();
 
             It should_return_empty_domain_context = () => _query.Should().BeEmpty();
             It domain_context_should_be_for_exactly_entity = () => _query.ToArray().Should().BeEquivalentTo(new Entity1[0]);
         }
 
         [Tags("DAL")]
-        [Subject(typeof(CachingReadDomainContext))]
+        [Subject(typeof(CachingReadableDomainContext))]
         class When_call_GetQueryableSource_for_types_from_the_same_scope
         {
-            static Mock<IReadDomainContextFactory> _readDomainContextFactoryMock;
+            static Mock<IReadableDomainContextFactory> _readDomainContextFactoryMock;
 
             Establish context = () =>
                 {
-                    _readDomainContextFactoryMock = new Mock<IReadDomainContextFactory>();
+                    _readDomainContextFactoryMock = new Mock<IReadableDomainContextFactory>();
                     _readDomainContextFactoryMock.Setup(x => x.Create(Moq.It.IsAny<DomainContextMetadata>())).Returns(new StubDomainContext()).Verifiable();
 
-                    _readDomainContextCachingProxy = new CachingReadDomainContext(_readDomainContextFactoryMock.Object,
+                    _readableDomainContextCachingProxy = new CachingReadableDomainContext(_readDomainContextFactoryMock.Object,
                                                                                        new StubDomainContextMetadataProvider());
                 };
 
             Because of = () =>
                 {
-                    _readDomainContextCachingProxy.GetQueryableSource<Entity1>();
-                    _readDomainContextCachingProxy.GetQueryableSource<Entity2>();
+                    _readableDomainContextCachingProxy.GetQueryableSource<Entity1>();
+                    _readableDomainContextCachingProxy.GetQueryableSource<Entity2>();
                 };
 
             It should_always_return_the_same_domain_context_for_entities_from_the_same_scope = 
@@ -60,28 +60,28 @@ namespace Storage.Tests
         }
 
         [Tags("DAL")]
-        [Subject(typeof(CachingReadDomainContext))]
+        [Subject(typeof(CachingReadableDomainContext))]
         class When_Disposing
         {
-            static Mock<IReadDomainContext> _readDomainContextMock;
+            static Mock<IReadableDomainContext> _readDomainContextMock;
             
             Establish context = () =>
                 {
-                    _readDomainContextMock = new Mock<IReadDomainContext>();
+                    _readDomainContextMock = new Mock<IReadableDomainContext>();
                     _readDomainContextMock.Setup(x => x.Dispose()).Verifiable();
 
-                    var readDomainContextFactoryMock = new Mock<IReadDomainContextFactory>();
+                    var readDomainContextFactoryMock = new Mock<IReadableDomainContextFactory>();
                     readDomainContextFactoryMock.Setup(x => x.Create(Moq.It.IsAny<DomainContextMetadata>())).Returns(_readDomainContextMock.Object);
 
-                    _readDomainContextCachingProxy = new CachingReadDomainContext(readDomainContextFactoryMock.Object,
+                    _readableDomainContextCachingProxy = new CachingReadableDomainContext(readDomainContextFactoryMock.Object,
                                                                                        new StubDomainContextMetadataProvider());
                 };
 
             Because of = () =>
                 {
-                    _readDomainContextCachingProxy.GetQueryableSource<Entity1>();
+                    _readableDomainContextCachingProxy.GetQueryableSource<Entity1>();
 
-                    _readDomainContextCachingProxy.Dispose();
+                    _readableDomainContextCachingProxy.Dispose();
                 };
 
             It should_dispose_all_read_domain_contexts_from_the_all_scopes = () => _readDomainContextMock.Verify(x => x.Dispose(), Times.Exactly(2));

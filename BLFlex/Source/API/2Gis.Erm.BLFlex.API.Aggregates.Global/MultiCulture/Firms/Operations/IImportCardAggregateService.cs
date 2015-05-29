@@ -8,7 +8,7 @@ using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLFlex.API.Aggregates.Global.MultiCulture.Firms.Operations
 {
-    public interface IImportCardAggregateService : IAggregatePartRepository<Firm>
+    public interface IImportCardAggregateService : IAggregatePartService<Firm>
     {
         EntityChangesContext ImportCards(IEnumerable<MultiCultureCardServiceBusDto> dtos,
                                       long userId,

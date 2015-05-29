@@ -5,7 +5,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Reopen
 {
-    public interface IReopenLetterAggregateService : IAggregateSpecificOperation<Letter, ReopenIdentity>
+    public interface IReopenLetterAggregateService : IAggregateSpecificService<Letter, ReopenIdentity>
     {
         void Reopen(Letter letter);
     }

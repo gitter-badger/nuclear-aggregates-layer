@@ -8,7 +8,7 @@ using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations
 {
-    public class UpdateAdvertisementElementStatusAggregateService : IAggregatePartRepository<Advertisement>,
+    public class UpdateAdvertisementElementStatusAggregateService : IAggregatePartService<Advertisement>,
                                                                     IUpdateAggregateRepository<AdvertisementElementStatus>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;

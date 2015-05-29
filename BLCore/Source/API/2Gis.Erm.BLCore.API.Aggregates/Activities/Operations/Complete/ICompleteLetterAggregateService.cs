@@ -5,7 +5,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Complete
 {
-    public interface ICompleteLetterAggregateService : IAggregateSpecificOperation<Letter, CompleteIdentity>
+    public interface ICompleteLetterAggregateService : IAggregateSpecificService<Letter, CompleteIdentity>
     {
         void Complete(Letter letter);
     }

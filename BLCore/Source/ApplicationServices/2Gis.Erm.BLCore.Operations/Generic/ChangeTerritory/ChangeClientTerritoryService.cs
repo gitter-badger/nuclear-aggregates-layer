@@ -10,11 +10,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.ChangeTerritory
 {
     public class ChangeClientTerritoryService : IChangeGenericEntityTerritoryService<Client>
     {
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly IClientReadModel _clientReadModel;
 
-        public ChangeClientTerritoryService(IClientRepository clientRepository, IOperationScopeFactory operationScopeFactory, IClientReadModel clientReadModel)
+        public ChangeClientTerritoryService(IClientService clientRepository, IOperationScopeFactory operationScopeFactory, IClientReadModel clientReadModel)
         {
             _clientRepository = clientRepository;
             _operationScopeFactory = operationScopeFactory;

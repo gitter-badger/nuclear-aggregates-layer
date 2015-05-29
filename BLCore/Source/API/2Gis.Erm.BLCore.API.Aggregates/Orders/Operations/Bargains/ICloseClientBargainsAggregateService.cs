@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Barga
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bargains
 {
-    public interface ICloseClientBargainsAggregateService : IAggregateSpecificOperation<Order, BulkCloseClientBargainsIdentity>
+    public interface ICloseClientBargainsAggregateService : IAggregateSpecificService<Order, BulkCloseClientBargainsIdentity>
     {
         void CloseBargains(IEnumerable<Bargain> bargains, DateTime closeDate);
     }

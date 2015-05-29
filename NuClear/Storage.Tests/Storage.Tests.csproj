@@ -71,7 +71,7 @@
     <Compile Include="Fakes\StubDomainContextHost.cs" />
     <Compile Include="Fakes\StubDomainContextMetadataProvider.cs" />
     <Compile Include="Fakes\StubFinder.cs" />
-    <Compile Include="Fakes\StubReadDomainContextProvider.cs" />
+    <Compile Include="Fakes\StubReadableDomainContextProvider.cs" />
     <Compile Include="FinderSpecs.cs" />
     <Compile Include="FindSpecificationParserSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

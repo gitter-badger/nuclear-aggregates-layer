@@ -4,7 +4,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
-    public interface ICreatePricePositionAggregateService : IAggregateSpecificOperation<Price, CreateIdentity>
+    public interface ICreatePricePositionAggregateService : IAggregateSpecificService<Price, CreateIdentity>
     {
         void Create(PricePosition pricePosition);
     }

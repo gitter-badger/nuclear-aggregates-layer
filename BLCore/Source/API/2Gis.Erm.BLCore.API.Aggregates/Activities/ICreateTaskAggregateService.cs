@@ -4,7 +4,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
 {
-    public interface ICreateTaskAggregateService : IAggregateSpecificOperation<Task, CreateIdentity>
+    public interface ICreateTaskAggregateService : IAggregateSpecificService<Task, CreateIdentity>
     {
         void Create(Task task);
     }

@@ -8,7 +8,7 @@ using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices
 {
-    public interface IPositionRepository : IAggregateRootRepository<Position>,
+    public interface IPositionRepository : IAggregateRootService<Position>,
                                            IActivateAggregateRepository<Position>,
                                            IDeactivateAggregateRepository<Position>,
                                            IDeleteAggregateRepository<Position>,

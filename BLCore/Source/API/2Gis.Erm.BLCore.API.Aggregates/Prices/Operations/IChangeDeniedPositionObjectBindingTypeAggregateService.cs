@@ -6,7 +6,7 @@ using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
-    public interface IChangeDeniedPositionObjectBindingTypeAggregateService : IAggregateSpecificOperation<Price, ChangeDeniedPositionObjectBindingTypeIdentity>
+    public interface IChangeDeniedPositionObjectBindingTypeAggregateService : IAggregateSpecificService<Price, ChangeDeniedPositionObjectBindingTypeIdentity>
     {
         void Change(DeniedPosition deniedPosition, DeniedPosition symmetricDeniedPosition, ObjectBindingType newObjectBindingType);
         void ChangeSelfDenied(DeniedPosition selfDeniedPosition, ObjectBindingType newObjectBindingType);

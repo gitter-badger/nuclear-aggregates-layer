@@ -4,7 +4,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
 {
-    public interface IAssignAppointmentAggregateService : IAggregateSpecificOperation<Appointment, AssignIdentity>
+    public interface IAssignAppointmentAggregateService : IAggregateSpecificService<Appointment, AssignIdentity>
     {
         void Assign(Appointment appointment, long ownerCode);
     }

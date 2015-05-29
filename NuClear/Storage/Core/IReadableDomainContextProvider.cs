@@ -3,8 +3,8 @@
     /// <summary>
     /// Абстракция для поставщика read domain context
     /// </summary>
-    public interface IReadDomainContextProvider
+    public interface IReadableDomainContextProvider
     {
-        IReadDomainContext Get();
+        IReadableDomainContext Get();
     }
 }

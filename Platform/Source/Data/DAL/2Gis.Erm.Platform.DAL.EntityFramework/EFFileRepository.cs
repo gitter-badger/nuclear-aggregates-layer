@@ -51,16 +51,16 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
         private readonly IUserContext _userContext;
         private readonly IPersistenceChangesRegistryProvider _changesRegistryProvider;
         private readonly string _connectionString;
-        private readonly IReadDomainContextProvider _readDomainContextProvider;
+        private readonly IReadableDomainContextProvider _readableDomainContextProvider;
 
         public EFFileRepository(IUserContext userContext,
-                                IReadDomainContextProvider readDomainContextProvider,
+                                IReadableDomainContextProvider readableDomainContextProvider,
                                 IConnectionStringSettings connectionStringSettings,
                                 IPersistenceChangesRegistryProvider changesRegistryProvider)
         {
             _userContext = userContext;
             _changesRegistryProvider = changesRegistryProvider;
-            _readDomainContextProvider = readDomainContextProvider;
+            _readableDomainContextProvider = readableDomainContextProvider;
 
             _connectionString = connectionStringSettings.GetConnectionString(ErmConnectionStringIdentity.Instance);
         }
@@ -75,7 +75,7 @@ DELETE FROM Shared.Files WHERE Id = @fileId";
 
         private IQueryable<File> RepositoryFileQuery
         {
-            get { return _readDomainContextProvider.Get().GetQueryableSource<File>(); }
+            get { return _readableDomainContextProvider.Get().GetQueryableSource<File>(); }
         }
 
         public void Add(FileWithContent entity)

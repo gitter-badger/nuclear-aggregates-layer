@@ -8,7 +8,7 @@ using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 {
-    public class UpdatePricePositionAggregateService : IAggregateRootRepository<Price>, IUpdateAggregateRepository<PricePosition>
+    public class UpdatePricePositionAggregateService : IAggregateRootService<Price>, IUpdateAggregateRepository<PricePosition>
     {
         private readonly IRepository<PricePosition> _pricePositionGenericRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;

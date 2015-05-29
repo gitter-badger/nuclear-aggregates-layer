@@ -11,7 +11,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Clients.Operations
 {
-    public class UpdateClientAggregateService : IAggregateRootRepository<Client>, IUpdateAggregateRepository<Client>
+    public class UpdateClientAggregateService : IAggregateRootService<Client>, IUpdateAggregateRepository<Client>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecureRepository<Client> _legalPersonSecureRepository;

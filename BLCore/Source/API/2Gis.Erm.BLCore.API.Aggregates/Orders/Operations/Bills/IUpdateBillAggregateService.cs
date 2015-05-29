@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations.Bills
 {
-    public interface IUpdateBillAggregateService : IAggregateSpecificOperation<Order, UpdateIdentity>
+    public interface IUpdateBillAggregateService : IAggregateSpecificService<Order, UpdateIdentity>
     {
         void Update(Bill bill, IEnumerable<Bill> bills, Order order);
     }

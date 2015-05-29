@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
 {
-    public interface IUpdateTaskAggregateService : IAggregateSpecificOperation<Task, UpdateIdentity>
+    public interface IUpdateTaskAggregateService : IAggregateSpecificService<Task, UpdateIdentity>
     {
         void Update(Task task);
 

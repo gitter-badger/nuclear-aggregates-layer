@@ -14,7 +14,7 @@ namespace NuClear.Aggregates
     /// </summary>
     /// <typeparam name="TAggregateRoot">Корень агрегата, который обрабатывается данной операцией</typeparam>
     /// <typeparam name="TOperationIdentity">Identity операции, которую выполняет тип реализующий данный интерфейс</typeparam>
-    public interface IAggregateSpecificOperation<TAggregateRoot, TOperationIdentity> : IAggregatePartRepository<TAggregateRoot>
+    public interface IAggregateSpecificService<TAggregateRoot, TOperationIdentity> : IAggregatePartService<TAggregateRoot>
         where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, new()
         where TAggregateRoot : class, IEntity, IEntityKey
     {

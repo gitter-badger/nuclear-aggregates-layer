@@ -13,12 +13,12 @@ namespace NuClear.Aggregates
         [SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1201:ElementsMustAppearInTheCorrectOrder", Justification = "Reviewed. Suppression is OK here.")]
         public static class Aggregates
         {
-            public static readonly Type Repository = typeof(IAggregateRepository);
+            public static readonly Type Repository = typeof(IAggregateService);
             public static readonly Type ReadModel = typeof(IAggregateReadModel);
             public static readonly Type ReadModelGeneric = typeof(IAggregateReadModel<>);
-            public static readonly Type RepositoryRoot = typeof(IAggregateRootRepository<>);
-            public static readonly Type UnknownAggregatePart = typeof(IUnknownAggregatePartRepository);
-            public static readonly Type RepositoryPart = typeof(IAggregatePartRepository<>);
+            public static readonly Type RepositoryRoot = typeof(IAggregateRootService<>);
+            public static readonly Type UnknownAggregatePart = typeof(IUnknownAggregatePartService);
+            public static readonly Type RepositoryPart = typeof(IAggregatePartService<>);
 
             internal static IEnumerable<Type> ExtractArgsForIndicator(Type checkingType, Type checkingIndicator)
             {

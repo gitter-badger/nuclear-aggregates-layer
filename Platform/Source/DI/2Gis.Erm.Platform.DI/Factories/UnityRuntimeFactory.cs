@@ -40,7 +40,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                                                     ". Factory must be used for concrete types only. Try check and use mapping interface2concrete");
             }
 
-            var readDomainContextProvider = new ReadDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
+            var readDomainContextProvider = new ReadableDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
             var modifiableDomainContextProvider = new ModifiableDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
 
             var dependencyOverrides = new DependencyOverrides
@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                     // указываем какие экземпляры использовать при resolve нижеуказанных зависимостей
                     // данные типы зависимостей даже не должны регистророваться в DI-контейнере, т.е. resolve
                     // работает ТОЛЬКО из-за того, что мы явно указываем какие экземпляры для каких типов зависимостей нужно использовать
-                    { typeof(IReadDomainContextProvider), readDomainContextProvider },
+                    { typeof(IReadableDomainContextProvider), readDomainContextProvider },
                     { typeof(IModifiableDomainContextProvider), modifiableDomainContextProvider }
                 };
 
@@ -68,14 +68,14 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                                                     ". Factory must be used for concrete types only. Try check and use mapping interface2concrete");
             }
 
-            var readDomainContextProvider = new ReadDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
+            var readDomainContextProvider = new ReadableDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
 
             var dependencyOverrides = new DependencyOverrides
                         {
                             // указываем какие экземпляры использовать при resolve нижеуказанных зависимостей
                             // данные типы зависимостей даже не должны регистророваться в DI-контейнере, т.е. resolve
                             // работает ТОЛЬКО из-за того, что мы явно указываем какие экземпляры для каких типов зависимостей нужно использовать
-                            { typeof(IReadDomainContextProvider), readDomainContextProvider }
+                            { typeof(IReadableDomainContextProvider), readDomainContextProvider }
                         };
 
             return (ISimplifiedModelConsumer)_unityContainer.Resolve(readModelType, dependencyOverrides);
@@ -99,7 +99,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                 throw new InvalidOperationException("Can't create persistence service instance by interface type: " + persistenceServiceType);
             }
 
-            var readDomainContextProvider = new ReadDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
+            var readDomainContextProvider = new ReadableDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
             var modifiableDomainContextProvider = new ModifiableDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
 
             var dependencyOverrides = new DependencyOverrides
@@ -107,7 +107,7 @@ namespace DoubleGis.Erm.Platform.DI.Factories
                     // указываем какие экземпляры использовать при resolve нижеуказанных зависимостей
                     // данные типы зависимостей даже не должны регистророваться в DI-контейнере, т.е. resolve
                     // работает ТОЛЬКО из-за того, что мы явно указываем какие экземпляры для каких типов зависимостей нужно использовать
-                    { typeof(IReadDomainContextProvider), readDomainContextProvider },
+                    { typeof(IReadableDomainContextProvider), readDomainContextProvider },
                     { typeof(IModifiableDomainContextProvider), modifiableDomainContextProvider }
                 };
 

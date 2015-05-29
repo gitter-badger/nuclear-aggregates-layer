@@ -8,7 +8,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.Operations
 {
-    public class CreateBranchOfficeOrganizationUnitAggregateService : IAggregateRootRepository<BranchOffice>, ICreateAggregateRepository<BranchOfficeOrganizationUnit>
+    public class CreateBranchOfficeOrganizationUnitAggregateService : IAggregateRootService<BranchOffice>, ICreateAggregateRepository<BranchOfficeOrganizationUnit>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecureRepository<BranchOfficeOrganizationUnit> _branchOfficeOrgUnitSecureRepository;

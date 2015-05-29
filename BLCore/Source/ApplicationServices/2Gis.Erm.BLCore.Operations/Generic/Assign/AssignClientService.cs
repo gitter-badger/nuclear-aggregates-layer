@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
     public class AssignClientService : IAssignGenericEntityService<Client>
     {
         private readonly IPublicService _publicService;
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly IUserContext _userContext;
         private readonly IOperationScopeFactory _scopeFactory;
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign
 
         public AssignClientService(
             IPublicService publicService,
-            IClientRepository clientRepository,
+            IClientService clientRepository,
             ISecurityServiceFunctionalAccess functionalAccessService,
             IUserContext userContext,
             IOperationScopeFactory scopeFactory,

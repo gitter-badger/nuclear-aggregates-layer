@@ -82,7 +82,7 @@
     <Compile Include="ISecureRepository.cs" />
     <Compile Include="SecureFinder.cs" />
     <Compile Include="SecureQuery.cs" />
-    <Compile Include="SecureQueryableFutureSequence.cs" />
+    <Compile Include="SecureQueryableFutureSequenceDecorator.cs" />
     <Compile Include="SecurityHelper.cs" />
     <Compile Include="Specifications\Specs.cs" />
     <Compile Include="Transactions\DefaultTransactionOptions.cs" />

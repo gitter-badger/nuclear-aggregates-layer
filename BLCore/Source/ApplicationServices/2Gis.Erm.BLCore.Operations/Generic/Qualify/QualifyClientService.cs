@@ -24,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
     public class QualifyClientService : IQualifyGenericEntityService<Client>
     {
         private readonly IUserContext _userContext;
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IClientReadModel _readModel;
@@ -41,7 +41,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Qualify
 
         public QualifyClientService(
             IUserContext userContext,
-            IClientRepository clientRepository,
+            IClientService clientRepository,
             ISecurityServiceUserIdentifier userIdentifierService,
             IOperationScopeFactory scopeFactory,
             IAppointmentReadModel appointmentReadModel,

@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
 {
-    public interface IUpdateAppointmentAggregateService : IAggregateSpecificOperation<Appointment, UpdateIdentity>
+    public interface IUpdateAppointmentAggregateService : IAggregateSpecificService<Appointment, UpdateIdentity>
     {
         void Update(Appointment appointment);
 

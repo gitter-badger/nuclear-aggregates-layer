@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts
 {
-    public interface IAccountRepository : IAggregateRootRepository<Account>,
+    public interface IAccountRepository : IAggregateRootService<Account>,
                                           IAssignAggregateRepository<Account>,
                                           IAssignAggregateRepository<AccountDetail>,
                                           IAssignAggregateRepository<Limit>,

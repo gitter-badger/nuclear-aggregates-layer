@@ -2,12 +2,13 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Roles.Dto;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Roles
 {
-    public interface IRoleRepository : IAggregateRootRepository<Role>,
+    public interface IRoleRepository : IAggregateRootService<Role>,
                                        IDeleteAggregateRepository<Role>
     {
         int Delete(Role role);

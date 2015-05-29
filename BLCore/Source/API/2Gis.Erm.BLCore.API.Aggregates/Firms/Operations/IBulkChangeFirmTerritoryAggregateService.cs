@@ -7,7 +7,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations
 {
-    public interface IBulkChangeFirmTerritoryAggregateService : IAggregateSpecificOperation<Firm, ChangeTerritoryIdentity>
+    public interface IBulkChangeFirmTerritoryAggregateService : IAggregateSpecificService<Firm, ChangeTerritoryIdentity>
     {
         void ChangeTerritory(IEnumerable<ChangeFirmTerritoryDto> firmTerritories);
     }

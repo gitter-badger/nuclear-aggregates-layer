@@ -6,7 +6,7 @@ using NuClear.Storage.Core;
 
 namespace Storage.Tests.Fakes
 {
-    public class StubDomainContext : IModifiableDomainContext, IReadDomainContext
+    public class StubDomainContext : IModifiableDomainContext, IReadableDomainContext
     {
         public bool IsDisposed { get; private set; }
 
@@ -22,7 +22,7 @@ namespace Storage.Tests.Fakes
             throw new NotImplementedException();
         }
 
-        IQueryable<TEntity> IReadDomainContext.GetQueryableSource<TEntity>()
+        IQueryable<TEntity> IReadableDomainContext.GetQueryableSource<TEntity>()
         {
             return new TEntity[0].AsQueryable();
         }

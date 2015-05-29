@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations
 {
-    public interface IBulkCreateDepCardAggregateService : IAggregateSpecificOperation<Firm, BulkCreateIdentity>
+    public interface IBulkCreateDepCardAggregateService : IAggregateSpecificService<Firm, BulkCreateIdentity>
     {
         void Create(IReadOnlyCollection<DepCard> depCards);
     }

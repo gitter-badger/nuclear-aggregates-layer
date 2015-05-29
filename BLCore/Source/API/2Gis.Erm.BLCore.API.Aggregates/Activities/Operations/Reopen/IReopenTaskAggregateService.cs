@@ -5,7 +5,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities.Operations.Reopen
 {
-    public interface IReopenTaskAggregateService : IAggregateSpecificOperation<Task, ReopenIdentity>
+    public interface IReopenTaskAggregateService : IAggregateSpecificService<Task, ReopenIdentity>
     {
         void Reopen(Task task);
     }

@@ -2,11 +2,11 @@
 
 namespace Storage.Tests.Fakes
 {
-    public class StubDomainContextFactory : IReadDomainContextFactory, IModifiableDomainContextFactory
+    public class StubDomainContextFactory : IReadableDomainContextFactory, IModifiableDomainContextFactory
     {
         #region Implementation of IDomainContextFactory
         
-        public IReadDomainContext Create(DomainContextMetadata contextMetadata)
+        public IReadableDomainContext Create(DomainContextMetadata contextMetadata)
         {
             return new StubDomainContext();
         }

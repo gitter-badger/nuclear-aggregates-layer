@@ -8,7 +8,7 @@ namespace NuClear.Aggregates
     /// “.е. расшир€ть этот интерфейс должны только главные интерфейсы агрегирующего репозитори€ (чаще всего такой один), 
     /// которые св€зывают контракт операций дл€ агрегата с самим агрегатом, через aggregate root
     /// </summary>
-    public interface IAggregateRootRepository<TAggregateRoot> : IAggregateRepository
+    public interface IAggregateRootService<TAggregateRoot> : IAggregateService
         where TAggregateRoot : class, IEntity, IEntityKey
     {
     }

@@ -1,11 +1,12 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Advertisements
 {
-    public interface IAdvertisementRepository : IAggregateRootRepository<Advertisement>,
+    public interface IAdvertisementRepository : IAggregateRootService<Advertisement>,
                                                 IDeleteAggregateRepository<Advertisement>,
                                                 IDeleteAggregateRepository<AdvertisementTemplate>,
                                                 IDeleteAggregateRepository<AdvertisementElement>,

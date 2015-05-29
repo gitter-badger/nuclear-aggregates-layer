@@ -9,7 +9,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.Operations
 {
-    public class DeleteBranchOfficeOrganizationUnitAggregateService : IAggregateRootRepository<BranchOffice>, IDeleteAggregateRepository<BranchOfficeOrganizationUnit>
+    public class DeleteBranchOfficeOrganizationUnitAggregateService : IAggregateRootService<BranchOffice>, IDeleteAggregateRepository<BranchOfficeOrganizationUnit>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecureRepository<BranchOfficeOrganizationUnit> _branchOfficeOrgUnitSecureRepository;

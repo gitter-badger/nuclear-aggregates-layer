@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
-    public interface IBulkActivatePricePositionsAggregateService : IAggregateSpecificOperation<Price, ActivateIdentity>
+    public interface IBulkActivatePricePositionsAggregateService : IAggregateSpecificService<Price, ActivateIdentity>
     {
         int Activate(IEnumerable<PricePosition> pricePositions,
                      IDictionary<long, IEnumerable<AssociatedPositionsGroup>> associatedPositionsGroupsMapping,

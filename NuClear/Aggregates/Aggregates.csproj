@@ -37,14 +37,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AggregateDescriptor.cs" />
-    <Compile Include="IAggregatePartRepository.cs" />
+    <Compile Include="IAggregatePartService.cs" />
     <Compile Include="IAggregateReadModel.cs" />
-    <Compile Include="IAggregateRepository.cs" />
+    <Compile Include="IAggregateService.cs" />
     <Compile Include="IAggregateRootRepository.cs" />
     <Compile Include="IAggregateServiceIsolator.cs" />
-    <Compile Include="IAggregateSpecificOperation.cs" />
-    <Compile Include="IUnknownAggregatePartRepository.cs" />
-    <Compile Include="IUnknownAggregateSpecificOperation.cs" />
+    <Compile Include="IAggregateSpecificService.cs" />
+    <Compile Include="IUnknownAggregatePartService.cs" />
+    <Compile Include="IUnknownAggregateSpecificService.cs" />
     <Compile Include="ModelIndicators.AggregateOperationSpecific.cs" />
     <Compile Include="ModelIndicators.Aggregates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -13,11 +13,11 @@ using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
-    public class SecureQueryableFutureSequence<TSource> : FutureSequence<TSource>
+    public class SecureQueryableFutureSequenceDecorator<TSource> : FutureSequence<TSource>
     {
         private readonly IQueryable<TSource> _queryable;
 
-        public SecureQueryableFutureSequence(
+        public SecureQueryableFutureSequenceDecorator(
             FutureSequence<TSource> futureSequence, 
             IUserContext userContext, 
             ISecurityServiceEntityAccessInternal entityAccessService)

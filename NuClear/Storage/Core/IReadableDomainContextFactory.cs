@@ -3,8 +3,8 @@ namespace NuClear.Storage.Core
     /// <summary>
     /// Интерфейс фабрики для создания domain context пригодного только для чтения
     /// </summary>
-    public interface IReadDomainContextFactory
+    public interface IReadableDomainContextFactory
     {
-        IReadDomainContext Create(DomainContextMetadata domainContextMetadata);
+        IReadableDomainContext Create(DomainContextMetadata domainContextMetadata);
     }
 }

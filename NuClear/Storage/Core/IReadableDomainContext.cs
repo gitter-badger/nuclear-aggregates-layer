@@ -6,7 +6,7 @@ namespace NuClear.Storage.Core
     /// <summary>
     /// Абстракция domain контекста поддерживающего только чтение
     /// </summary>
-    public interface IReadDomainContext : IDomainContext
+    public interface IReadableDomainContext : IDomainContext
     {
         IQueryable GetQueryableSource(Type entityType);
         IQueryable<TEntity> GetQueryableSource<TEntity>() where TEntity : class;

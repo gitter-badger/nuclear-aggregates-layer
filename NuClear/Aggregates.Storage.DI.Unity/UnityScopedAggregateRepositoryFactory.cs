@@ -23,7 +23,7 @@ namespace NuClear.Aggregates.Storage.DI.Unity
             _scopedDomainContextsStore = scopedDomainContextsStore;
         }
 
-        public IAggregateRepository CreateRepository(Type aggregateRepositoryType)
+        public IAggregateService CreateRepository(Type aggregateRepositoryType)
         {
             if (!aggregateRepositoryType.IsAggregateRepository())
             {
@@ -36,7 +36,7 @@ namespace NuClear.Aggregates.Storage.DI.Unity
                                                     ". Factory must be used for concrete types only. Try check and use mapping interface2concrete");
             }
 
-            var readDomainContextProviderProxy = new ReadDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
+            var readDomainContextProviderProxy = new ReadableDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
             var modifiableDomainContextProviderProxy = new ModifiableDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
 
             var dependencyOverrides = new DependencyOverrides
@@ -44,11 +44,11 @@ namespace NuClear.Aggregates.Storage.DI.Unity
                     // указываем какие экземпляры использовать при resolve нижеуказанных зависимостей
                     // данные типы зависимостей даже не должны регистророваться в DI-контейнере, т.е. resolve
                     // работает ТОЛЬКО из-за того, что мы явно указываем какие экземпляры для каких типов зависимостей нужно использовать
-                    { typeof(IReadDomainContextProvider), readDomainContextProviderProxy },
+                    { typeof(IReadableDomainContextProvider), readDomainContextProviderProxy },
                     { typeof(IModifiableDomainContextProvider), modifiableDomainContextProviderProxy }
                 };
 
-            return (IAggregateRepository)_unityContainer.Resolve(aggregateRepositoryType, Mapping.ExplicitlyCreatedAggregateRepositoriesScope, dependencyOverrides);
+            return (IAggregateService)_unityContainer.Resolve(aggregateRepositoryType, Mapping.ExplicitlyCreatedAggregateRepositoriesScope, dependencyOverrides);
         }
     }
 }

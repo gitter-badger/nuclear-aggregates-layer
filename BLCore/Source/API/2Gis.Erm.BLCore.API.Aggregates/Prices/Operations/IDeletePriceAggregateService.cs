@@ -4,7 +4,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
-    public interface IDeletePriceAggregateService : IAggregateSpecificOperation<Price, DeleteIdentity>
+    public interface IDeletePriceAggregateService : IAggregateSpecificService<Price, DeleteIdentity>
     {
         int Delete(Price price);
     }

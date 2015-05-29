@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices
 {
-    public interface IPriceRepository : IAggregateRootRepository<Price>,
+    public interface IPriceRepository : IAggregateRootService<Price>,
                                         IActivateAggregateRepository<AssociatedPositionsGroup>,
                                         IDeactivateAggregateRepository<AssociatedPositionsGroup>,
                                         IDeactivateAggregateRepository<AssociatedPosition>

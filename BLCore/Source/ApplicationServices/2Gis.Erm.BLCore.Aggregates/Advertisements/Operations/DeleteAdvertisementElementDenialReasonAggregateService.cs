@@ -9,7 +9,7 @@ using NuClear.Storage;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Advertisements.Operations
 {
-    public class DeleteAdvertisementElementDenialReasonAggregateService : IAggregatePartRepository<Advertisement>,
+    public class DeleteAdvertisementElementDenialReasonAggregateService : IAggregatePartService<Advertisement>,
                                                                           IDeleteAggregateRepository<AdvertisementElementDenialReason>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;

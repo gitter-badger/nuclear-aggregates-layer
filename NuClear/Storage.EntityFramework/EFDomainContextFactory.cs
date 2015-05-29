@@ -9,7 +9,7 @@ using NuClear.Storage.UseCases;
 
 namespace NuClear.Storage.EntityFramework
 {
-    public sealed class EFDomainContextFactory : IReadDomainContextFactory, IModifiableDomainContextFactory
+    public sealed class EFDomainContextFactory : IReadableDomainContextFactory, IModifiableDomainContextFactory
     {
         private readonly IDomainContextMetadataProvider _domainContextMetadataProvider;
         private readonly IConnectionStringSettings _connectionStringSettings;
@@ -33,7 +33,7 @@ namespace NuClear.Storage.EntityFramework
             _producedQueryLogAccessor = producedQueryLogAccessor;
         }
 
-        IReadDomainContext IReadDomainContextFactory.Create(DomainContextMetadata domainContextMetadata)
+        IReadableDomainContext IReadableDomainContextFactory.Create(DomainContextMetadata domainContextMetadata)
         {
             var readDomainContext = CreateDomainContext(domainContextMetadata);
             return readDomainContext;

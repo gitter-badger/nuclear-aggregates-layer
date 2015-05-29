@@ -228,7 +228,7 @@ namespace DoubleGis.Erm.BLCore.DI.Factories.Operations
                 return (TOperation)_container.Resolve(targetImplementationType);
             }
 
-            if (!typeof(IAggregateRepository).IsAssignableFrom(overrideGenericAggregateRepository))
+            if (!typeof(IAggregateService).IsAssignableFrom(overrideGenericAggregateRepository))
             {
                 throw new InvalidOperationException("Can't specified type can't be uesed as aggregate repository. Type: " + overrideGenericAggregateRepository);
             }

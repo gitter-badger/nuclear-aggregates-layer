@@ -8,7 +8,7 @@ using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
-    public interface ICopyDeniedPositionsAggregateService : IAggregateSpecificOperation<Price, CopyDeniedPositionsIdentity>
+    public interface ICopyDeniedPositionsAggregateService : IAggregateSpecificService<Price, CopyDeniedPositionsIdentity>
     {
         void Copy(IEnumerable<DeniedPositionToCopyDto> deniedPositionsToCopy, long targetPriceId);
     }

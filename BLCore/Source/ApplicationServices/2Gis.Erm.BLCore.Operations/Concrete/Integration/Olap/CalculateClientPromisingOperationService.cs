@@ -8,11 +8,11 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Olap
 {
     public class CalculateClientPromisingOperationService : ICalculateClientPromisingOperationService
     {
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserContext _userContext;
 
-        public CalculateClientPromisingOperationService(IClientRepository clientRepository, IOperationScopeFactory scopeFactory, IUserContext userContext)
+        public CalculateClientPromisingOperationService(IClientService clientRepository, IOperationScopeFactory scopeFactory, IUserContext userContext)
         {
             _clientRepository = clientRepository;
             _scopeFactory = scopeFactory;

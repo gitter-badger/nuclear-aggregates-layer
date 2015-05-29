@@ -8,7 +8,7 @@ namespace NuClear.Aggregates
     /// Полное описание см. у полной версии интерфейса IAggregateSpecificOperation.
     /// </summary>
     /// <typeparam name="TOperationIdentity">Identity операции, которую выполняет тип реализующий данный интерфейс</typeparam>
-    public interface IUnknownAggregateSpecificOperation<TOperationIdentity> : IUnknownAggregatePartRepository
+    public interface IUnknownAggregateSpecificService<TOperationIdentity> : IUnknownAggregatePartService
         where TOperationIdentity : OperationIdentityBase<TOperationIdentity>, new()
     {
     }

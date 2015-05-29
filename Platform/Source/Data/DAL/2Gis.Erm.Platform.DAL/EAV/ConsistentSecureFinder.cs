@@ -15,7 +15,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 {
     public sealed class ConsistentSecureFinder : ISecureFinder
     {
-        private readonly IReadDomainContextProvider _readDomainContextProvider;
+        private readonly IReadableDomainContextProvider _readableDomainContextProvider;
         private readonly IDynamicEntityMetadataProvider _dynamicEntityMetadataProvider;
         private readonly IDynamicStorageFinder _dynamicStorageFinder;
         private readonly ICompositeEntityQuery _compositeEntityQuery;
@@ -23,14 +23,14 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         private readonly ISecurityServiceEntityAccessInternal _entityAccessService;
 
         public ConsistentSecureFinder(
-            IReadDomainContextProvider readDomainContextProvider,
+            IReadableDomainContextProvider readableDomainContextProvider,
             IDynamicEntityMetadataProvider dynamicEntityMetadataProvider,
             IDynamicStorageFinder dynamicStorageFinder,
             ICompositeEntityQuery compositeEntityQuery,
             IUserContext userContext,
             ISecurityServiceEntityAccessInternal entityAccessService)
         {
-            _readDomainContextProvider = readDomainContextProvider;
+            _readableDomainContextProvider = readableDomainContextProvider;
             _dynamicEntityMetadataProvider = dynamicEntityMetadataProvider;
             _dynamicStorageFinder = dynamicStorageFinder;
             _compositeEntityQuery = compositeEntityQuery;
@@ -54,22 +54,22 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             IEntityType entityName;
             if (typeof(TSource).TryGetEntityName(out entityName) && entityName.HasMapping())
             {
-                return new SecureQueryableFutureSequence<TSource>(
+                return new SecureQueryableFutureSequenceDecorator<TSource>(
                     new MappedQueryableFutureSequence<TSource>(_compositeEntityQuery, findSpecification), 
                     _userContext, 
                     _entityAccessService);
             }
 
-            var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TSource>();
+            var queryableSource = _readableDomainContextProvider.Get().GetQueryableSource<TSource>();
             if (typeof(IPartable).IsAssignableFrom(typeof(TSource)))
             {
-                return new SecureQueryableFutureSequence<TSource>(
+                return new SecureQueryableFutureSequenceDecorator<TSource>(
                     new ConsistentQueryableFutureSequence<TSource>(queryableSource, _dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification),
                     _userContext,
                     _entityAccessService);
             }
 
-            return new SecureQueryableFutureSequence<TSource>(
+            return new SecureQueryableFutureSequenceDecorator<TSource>(
                 new QueryableFutureSequence<TSource>(queryableSource.ValidateQueryCorrectness().Where(findSpecification)),
                 _userContext,
                 _entityAccessService);

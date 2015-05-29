@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
     public class DisqualifyClientService : IDisqualifyGenericEntityService<Client>
     {
         private readonly IUserContext _userContext;
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
         private readonly ISecurityServiceFunctionalAccess _functionalAccessService;
         private readonly ISecurityServiceEntityAccess _securityServiceEntityAccess;
         private readonly ISecurityServiceUserIdentifier _userIdentifierService;
@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Disqualify
         private readonly IAssignTaskAggregateService _assignTaskAggregateService;
 
         public DisqualifyClientService(IUserContext userContext,
-                                       IClientRepository clientRepository,
+                                       IClientService clientRepository,
                                        ISecurityServiceUserIdentifier userIdentifierService,
                                        ISecurityServiceFunctionalAccess functionalAccessService,
                                        ITracer tracer,

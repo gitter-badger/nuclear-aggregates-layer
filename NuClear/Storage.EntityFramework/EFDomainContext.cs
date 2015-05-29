@@ -10,7 +10,7 @@ using NuClear.Storage.UseCases;
 
 namespace NuClear.Storage.EntityFramework
 {
-    public sealed class EFDomainContext : IModifiableDomainContext, IReadDomainContext
+    public sealed class EFDomainContext : IModifiableDomainContext, IReadableDomainContext
     {
         private readonly IProcessingContext _processingContext;
         private readonly DbContext _dbContext;

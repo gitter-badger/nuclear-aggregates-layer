@@ -29,7 +29,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
         private readonly IUserContext _userContext;
         private readonly ISecureFinder _finder;
         private readonly IUserRepository _userRepository;
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
         private readonly IOperationScopeFactory _scopeFactory;
         private readonly IUserReadModel _userReadModel;
         private readonly IDeactivateUserAggregateService _deactivateUserAggregateService;
@@ -50,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
             IPhonecallReadModel phonecallReadModel,
             ITaskReadModel taskReadModel,
             IUserRepository userRepository,
-            IClientRepository clientRepository,
+            IClientService clientRepository,
             IDeactivateUserAggregateService deactivateUserAggregateService,
             IAssignGenericEntityService<Appointment> assignAppointmentOperationService,
             IAssignGenericEntityService<Letter> assignLetterOperationService,

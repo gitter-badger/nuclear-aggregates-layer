@@ -7,18 +7,18 @@ namespace NuClear.Storage.Core
     /// <summary>
     /// Возвращает один и тот же ReadDomainContext для всех типов сущностей (он реально нужен только один для всех read-операций)
     /// </summary>
-    public sealed class CachingReadDomainContext : IReadDomainContext
+    public sealed class CachingReadableDomainContext : IReadableDomainContext
     {
-        private readonly IDictionary<string, IReadDomainContext> _readDomainContexts = new Dictionary<string, IReadDomainContext>();
+        private readonly IDictionary<string, IReadableDomainContext> _readDomainContexts = new Dictionary<string, IReadableDomainContext>();
 
-        private readonly IReadDomainContextFactory _readDomainContextFactory;
+        private readonly IReadableDomainContextFactory _readableDomainContextFactory;
         private readonly IDomainContextMetadataProvider _domainContextMetadataProvider;
 
-        public CachingReadDomainContext(
-            IReadDomainContextFactory readDomainContextFactory,
+        public CachingReadableDomainContext(
+            IReadableDomainContextFactory readableDomainContextFactory,
             IDomainContextMetadataProvider domainContextMetadataProvider)
         {
-            _readDomainContextFactory = readDomainContextFactory;
+            _readableDomainContextFactory = readableDomainContextFactory;
             _domainContextMetadataProvider = domainContextMetadataProvider;
         }
 
@@ -46,15 +46,15 @@ namespace NuClear.Storage.Core
             }
         }
 
-        private IReadDomainContext GetReadDomainContextFromCache(DomainContextMetadata domainContextMetadata)
+        private IReadableDomainContext GetReadDomainContextFromCache(DomainContextMetadata domainContextMetadata)
         {
-            IReadDomainContext context;
+            IReadableDomainContext context;
             if (_readDomainContexts.TryGetValue(domainContextMetadata.EntityContainerName, out context))
             {
                 return context;
             }
 
-            context = _readDomainContextFactory.Create(domainContextMetadata);
+            context = _readableDomainContextFactory.Create(domainContextMetadata);
             _readDomainContexts.Add(domainContextMetadata.EntityContainerName, context);
 
             return context;

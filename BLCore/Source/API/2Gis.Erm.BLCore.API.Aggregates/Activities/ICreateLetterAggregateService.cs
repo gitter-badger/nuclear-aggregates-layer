@@ -4,7 +4,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Activities
 {
-    public interface ICreateLetterAggregateService : IAggregateSpecificOperation<Letter, CreateIdentity>
+    public interface ICreateLetterAggregateService : IAggregateSpecificService<Letter, CreateIdentity>
     {
         void Create(Letter letter);
     }

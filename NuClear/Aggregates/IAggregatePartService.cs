@@ -9,7 +9,7 @@ namespace NuClear.Aggregates
     /// Т.е. расширять этот интерфейс должны интерфейсы определяющие часть контракта операций агрегата для какой-то конкретной сущности - составной части агрегата
     /// </summary>
     [Obsolete("Use non-generic interface marked with IAggregateSpecificOperation")]
-    public interface IAggregatePartRepository<TAggregateRoot> : IAggregateRepository
+    public interface IAggregatePartService<TAggregateRoot> : IAggregateService
         where TAggregateRoot : class, IEntity, IEntityKey
     {
     }

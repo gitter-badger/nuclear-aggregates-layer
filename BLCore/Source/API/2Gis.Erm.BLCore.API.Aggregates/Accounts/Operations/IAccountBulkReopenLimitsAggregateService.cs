@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations
 {
-    public interface IAccountBulkReopenLimitsAggregateService : IAggregateSpecificOperation<Account, BulkActivateIdentity>
+    public interface IAccountBulkReopenLimitsAggregateService : IAggregateSpecificService<Account, BulkActivateIdentity>
     {
         void Reopen(IEnumerable<Limit> limits);
     }

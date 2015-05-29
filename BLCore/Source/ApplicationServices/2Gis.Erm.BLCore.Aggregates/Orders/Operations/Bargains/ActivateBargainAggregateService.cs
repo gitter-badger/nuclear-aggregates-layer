@@ -9,7 +9,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.Operations.Bargains
 {
-    public class ActivateBargainAggregateService : IAggregateRootRepository<Order>, IActivateAggregateRepository<Bargain>
+    public class ActivateBargainAggregateService : IAggregateRootService<Order>, IActivateAggregateRepository<Bargain>
     {
         private readonly IOperationScopeFactory _operationScopeFactory;
         private readonly ISecureRepository<Bargain> _entityRepository;

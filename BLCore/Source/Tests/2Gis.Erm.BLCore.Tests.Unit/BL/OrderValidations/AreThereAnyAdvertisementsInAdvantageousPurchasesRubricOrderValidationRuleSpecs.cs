@@ -114,11 +114,11 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
 
             Establish context = () =>
                 {
-                    var readDomainContextMock = new Mock<IReadDomainContext>();
+                    var readDomainContextMock = new Mock<IReadableDomainContext>();
                     readDomainContextMock.Setup(x => x.GetQueryableSource<Order>()).Returns(Orders.AsQueryable());
                     readDomainContextMock.Setup(x => x.GetQueryableSource<Firm>()).Returns(Firms.AsQueryable());
 
-                    var readDomainContextProviderMock = new Mock<IReadDomainContextProvider>();
+                    var readDomainContextProviderMock = new Mock<IReadableDomainContextProvider>();
                     readDomainContextProviderMock.Setup(x => x.Get()).Returns(readDomainContextMock.Object);
 
                     var query = new Query(readDomainContextProviderMock.Object);

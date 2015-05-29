@@ -11,16 +11,16 @@ namespace NuClear.Storage
 {
     public class Finder : IFinder
     {
-        private readonly IReadDomainContextProvider _readDomainContextProvider;
+        private readonly IReadableDomainContextProvider _readableDomainContextProvider;
 
-        public Finder(IReadDomainContextProvider readDomainContextProvider)
+        public Finder(IReadableDomainContextProvider readableDomainContextProvider)
         {
-            if (readDomainContextProvider == null)
+            if (readableDomainContextProvider == null)
             {
-                throw new ArgumentNullException("readDomainContextProvider");
+                throw new ArgumentNullException("readableDomainContextProvider");
             }
 
-            _readDomainContextProvider = readDomainContextProvider;
+            _readableDomainContextProvider = readableDomainContextProvider;
         }
 
         public FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity
@@ -30,7 +30,7 @@ namespace NuClear.Storage
                 throw new ArgumentNullException("findSpecification");
             }
 
-            var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TSource>();
+            var queryableSource = _readableDomainContextProvider.Get().GetQueryableSource<TSource>();
             return new QueryableFutureSequence<TSource>(queryableSource.Where(findSpecification.Predicate));
         }
     }

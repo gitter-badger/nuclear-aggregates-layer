@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations
 {
-    public interface IOrderRestoreOrdersFromArchiveAggregateService : IAggregatePartRepository<Order>
+    public interface IOrderRestoreOrdersFromArchiveAggregateService : IAggregatePartService<Order>
     {
         IEnumerable<ChangesDescriptor> Restore(IEnumerable<Order> orders);
     }

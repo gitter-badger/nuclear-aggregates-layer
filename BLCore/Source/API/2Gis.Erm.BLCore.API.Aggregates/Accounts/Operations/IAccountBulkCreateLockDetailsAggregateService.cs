@@ -7,7 +7,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations
 {
-    public interface IAccountBulkCreateLockDetailsAggregateService : IAggregateSpecificOperation<Account, BulkCreateIdentity>
+    public interface IAccountBulkCreateLockDetailsAggregateService : IAggregateSpecificService<Account, BulkCreateIdentity>
     {
         void Create(IReadOnlyCollection<CreateLockDetailDto> createLockDetailDtos);
     }

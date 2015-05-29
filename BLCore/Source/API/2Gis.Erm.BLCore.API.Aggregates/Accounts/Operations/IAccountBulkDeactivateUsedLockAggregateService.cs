@@ -7,7 +7,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations
 {
-    public interface IAccountBulkDeactivateUsedLockAggregateService : IAggregateSpecificOperation<Account, BulkDeactivateIdentity>
+    public interface IAccountBulkDeactivateUsedLockAggregateService : IAggregateSpecificService<Account, BulkDeactivateIdentity>
     {
         void Deactivate(
             IEnumerable<DeactivateLockDto> lockInfos,

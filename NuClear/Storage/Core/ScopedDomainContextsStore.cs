@@ -8,31 +8,31 @@ namespace NuClear.Storage.Core
     {
         private readonly object _sync = new object();
 
-        private readonly IReadDomainContext _readDomainContext;
+        private readonly IReadableDomainContext _readableDomainContext;
         private readonly IModifiableDomainContextFactory _modifiableDomainContextFactory;
         private readonly IDictionary<Guid, HostDomainContextsStorage> _domainContextRegistrar = new Dictionary<Guid, HostDomainContextsStorage>();
 
         private bool _isDisposed;
 
-        public ScopedDomainContextsStore(IReadDomainContext readDomainContext, IModifiableDomainContextFactory modifiableDomainContextFactory)
+        public ScopedDomainContextsStore(IReadableDomainContext readableDomainContext, IModifiableDomainContextFactory modifiableDomainContextFactory)
         {
-            _readDomainContext = readDomainContext;
+            _readableDomainContext = readableDomainContext;
             _modifiableDomainContextFactory = modifiableDomainContextFactory;
         }
 
-        public IReadDomainContext GetReadable(IDomainContextHost domainContextHost)
+        public IReadableDomainContext GetReadable(IDomainContextHost domainContextHost)
         {
             lock (_sync)
             {
                 HostDomainContextsStorage hostDomainContextsStorage;
                 if (!_domainContextRegistrar.TryGetValue(domainContextHost.ScopeId, out hostDomainContextsStorage))
                 {
-                    hostDomainContextsStorage = new HostDomainContextsStorage(_readDomainContext);
+                    hostDomainContextsStorage = new HostDomainContextsStorage(_readableDomainContext);
                     _domainContextRegistrar.Add(domainContextHost.ScopeId, hostDomainContextsStorage);
                 }
             }
 
-            return _readDomainContext;
+            return _readableDomainContext;
         }
 
         public IModifiableDomainContext GetModifiable<TEntity>(IDomainContextHost domainContextHost) where TEntity : class
@@ -46,7 +46,7 @@ namespace NuClear.Storage.Core
                 HostDomainContextsStorage hostDomainContextsStorage;
                 if (!_domainContextRegistrar.TryGetValue(domainContextHost.ScopeId, out hostDomainContextsStorage))
                 {
-                    hostDomainContextsStorage = new HostDomainContextsStorage(_readDomainContext);
+                    hostDomainContextsStorage = new HostDomainContextsStorage(_readableDomainContext);
                     _domainContextRegistrar.Add(domainContextHost.ScopeId, hostDomainContextsStorage);
                 }
 
@@ -122,12 +122,12 @@ namespace NuClear.Storage.Core
         {
             private readonly IDictionary<Type, IModifiableDomainContext> _modifiableDomainContexts = new Dictionary<Type, IModifiableDomainContext>();
 
-            public HostDomainContextsStorage(IReadDomainContext readDomainContext)
+            public HostDomainContextsStorage(IReadableDomainContext readableDomainContext)
             {
-                ReadonlyDomainContext = readDomainContext;
+                ReadonlyDomainContext = readableDomainContext;
             }
 
-            public IReadDomainContext ReadonlyDomainContext { get; private set; }
+            public IReadableDomainContext ReadonlyDomainContext { get; private set; }
             public IDictionary<Type, IModifiableDomainContext> ModifiableDomainContexts
             {
                 get { return _modifiableDomainContexts; }

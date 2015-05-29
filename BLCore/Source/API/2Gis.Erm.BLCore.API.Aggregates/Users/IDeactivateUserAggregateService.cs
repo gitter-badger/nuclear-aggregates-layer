@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Users
 {
-    public interface IDeactivateUserAggregateService : IAggregateSpecificOperation<User, DeactivateIdentity>
+    public interface IDeactivateUserAggregateService : IAggregateSpecificService<User, DeactivateIdentity>
     {
         void Deactivate(User user, UserProfile profile, IEnumerable<UserRole> userRoleRelations);
     }

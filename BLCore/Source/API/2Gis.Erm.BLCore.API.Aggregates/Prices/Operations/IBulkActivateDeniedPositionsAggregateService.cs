@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
-    public interface IBulkActivateDeniedPositionsAggregateService : IAggregateSpecificOperation<Price, ActivateIdentity>
+    public interface IBulkActivateDeniedPositionsAggregateService : IAggregateSpecificService<Price, ActivateIdentity>
     {
         int Activate(IEnumerable<DeniedPosition> deniedPositions);
     }

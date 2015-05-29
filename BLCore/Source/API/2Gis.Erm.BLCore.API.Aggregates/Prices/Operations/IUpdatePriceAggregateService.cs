@@ -5,7 +5,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Prices.Operations
 {
-    public interface IUpdatePriceAggregateService : IAggregateSpecificOperation<Price, UpdateIdentity>
+    public interface IUpdatePriceAggregateService : IAggregateSpecificService<Price, UpdateIdentity>
     {
         void Update(Price price);
     }

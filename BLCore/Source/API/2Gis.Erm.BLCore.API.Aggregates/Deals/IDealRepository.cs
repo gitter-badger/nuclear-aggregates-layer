@@ -1,12 +1,13 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.DTO;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Aggregates;
+
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Deals
 {
-    public interface IDealRepository : IAggregateRootRepository<Deal>,
+    public interface IDealRepository : IAggregateRootService<Deal>,
                                        IAssignAggregateRepository<Deal>,
                                        IChangeAggregateClientRepository<Deal>
     {

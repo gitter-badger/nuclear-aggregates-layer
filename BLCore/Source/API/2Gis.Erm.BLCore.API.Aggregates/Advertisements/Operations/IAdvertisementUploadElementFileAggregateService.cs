@@ -5,7 +5,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Advertisements.Operations
 {
-    public interface IAdvertisementUploadElementFileAggregateService : IAggregateSpecificOperation<Advertisement, UploadIdentity>
+    public interface IAdvertisementUploadElementFileAggregateService : IAggregateSpecificService<Advertisement, UploadIdentity>
     {
         UploadFileResult UploadFile(AdvertisementElement advertisementElement,
                                     UploadFileParams<AdvertisementElement> uploadFileParams);

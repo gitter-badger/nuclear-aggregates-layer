@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations
 {
-    public interface IOrderActualizeAmountToWithdrawAggregateService : IAggregateSpecificOperation<Order, ActualizeOrderAmountToWithdrawIdentity>
+    public interface IOrderActualizeAmountToWithdrawAggregateService : IAggregateSpecificService<Order, ActualizeOrderAmountToWithdrawIdentity>
     {
         void Actualize(Order order, decimal amountToWithdraw);
     }

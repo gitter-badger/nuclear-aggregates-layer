@@ -4,7 +4,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Releases.Operations
 {
-    public interface IReleaseChangeStatusAggregateService : IAggregatePartRepository<ReleaseInfo>
+    public interface IReleaseChangeStatusAggregateService : IAggregatePartService<ReleaseInfo>
     {
         void InProgressInternalProcessingStarted(ReleaseInfo release, string changesDescription);
         void InProgressWaitingExternalProcessing(ReleaseInfo release);

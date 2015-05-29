@@ -10,9 +10,9 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.CheckForDebts
     public class CheckClientForDebtsService : ICheckGenericEntityForDebtsService<Client>
     {
         private readonly IUserContext _userContext;
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
 
-        public CheckClientForDebtsService(IUserContext userContext, IClientRepository clientRepository)
+        public CheckClientForDebtsService(IUserContext userContext, IClientService clientRepository)
         {
             _userContext = userContext;
             _clientRepository = clientRepository;

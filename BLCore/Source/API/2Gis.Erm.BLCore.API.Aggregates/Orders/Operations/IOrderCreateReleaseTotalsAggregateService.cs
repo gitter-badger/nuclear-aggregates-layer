@@ -6,7 +6,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Orders.Operations
 {
-    public interface IOrderCreateReleaseTotalsAggregateService : IAggregateSpecificOperation<Order, CreateIdentity>
+    public interface IOrderCreateReleaseTotalsAggregateService : IAggregateSpecificService<Order, CreateIdentity>
     {
         void Create(IEnumerable<OrderReleaseTotal> releaseTotals);
     }

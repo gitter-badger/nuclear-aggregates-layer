@@ -7,7 +7,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations
 {
-    public interface IAccountWithdrawalStartAggregateService : IAggregateSpecificOperation<Account, CreateIdentity>
+    public interface IAccountWithdrawalStartAggregateService : IAggregateSpecificService<Account, CreateIdentity>
     {
         WithdrawalInfo Start(long organizationUnitId, TimePeriod period, AccountingMethod accountingMethod);
     }

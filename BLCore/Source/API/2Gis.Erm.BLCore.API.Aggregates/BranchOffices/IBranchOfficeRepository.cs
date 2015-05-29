@@ -2,13 +2,14 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Aggregates;
+
 namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices
 {
-    public interface IBranchOfficeRepository : IAggregateRootRepository<BranchOffice>,
+    public interface IBranchOfficeRepository : IAggregateRootService<BranchOffice>,
                                                IActivateAggregateRepository<BranchOffice>,
                                                IActivateAggregateRepository<BranchOfficeOrganizationUnit>,
                                                IDeactivateAggregateRepository<BranchOffice>,

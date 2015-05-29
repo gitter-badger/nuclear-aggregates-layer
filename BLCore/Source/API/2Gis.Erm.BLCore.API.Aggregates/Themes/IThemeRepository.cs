@@ -3,12 +3,13 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.Themes.DTO;
 using DoubleGis.Erm.Platform.API.Core;
-using NuClear.Aggregates;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+
+using NuClear.Aggregates;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Themes
 {
-    public interface IThemeRepository : IAggregateRootRepository<Theme>,
+    public interface IThemeRepository : IAggregateRootService<Theme>,
                                         IDeleteAggregateRepository<Theme>,
                                         IDeleteAggregateRepository<ThemeTemplate>,
                                         IDeleteAggregateRepository<ThemeCategory>,

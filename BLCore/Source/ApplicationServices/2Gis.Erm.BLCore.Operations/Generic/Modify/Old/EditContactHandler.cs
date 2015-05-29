@@ -10,10 +10,10 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.Old
 {
     public sealed class EditContactHandler : RequestHandler<EditRequest<Contact>, EmptyResponse>
     {
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
-        public EditContactHandler(IClientRepository clientRepository, IOperationScopeFactory operationScopeFactory)
+        public EditContactHandler(IClientService clientRepository, IOperationScopeFactory operationScopeFactory)
         {
             _clientRepository = clientRepository;
             _operationScopeFactory = operationScopeFactory;

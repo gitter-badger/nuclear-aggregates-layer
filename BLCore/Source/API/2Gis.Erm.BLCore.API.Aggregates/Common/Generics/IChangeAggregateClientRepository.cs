@@ -9,7 +9,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics
 {
     [Obsolete("Use non-generic interface marked with IAggregateSpecificOperation")]
-    public interface IChangeAggregateClientRepository<TEntity> : IUnknownAggregateSpecificOperation<ChangeClientIdentity>
+    public interface IChangeAggregateClientRepository<TEntity> : IUnknownAggregateSpecificService<ChangeClientIdentity>
         where TEntity : class, IEntity, IEntityKey
     {
         ChangeAggregateClientValidationResult Validate(long entityId, long currentUserCode, long reserveCode);

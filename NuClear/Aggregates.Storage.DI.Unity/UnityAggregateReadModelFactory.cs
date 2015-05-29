@@ -36,14 +36,14 @@ namespace NuClear.Aggregates.Storage.DI.Unity
                                                     ". Factory must be used for concrete types only. Try check and use mapping interface2concrete");
             }
             
-            var readDomainContextProviderProxy = new ReadDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
+            var readDomainContextProviderProxy = new ReadableDomainContextProviderProxy(_scopedDomainContextsStore, _domainContextHost);
 
             var dependencyOverrides = new DependencyOverrides
                 {
                     // указываем какие экземпляры использовать при resolve нижеуказанных зависимостей
                     // данные типы зависимостей даже не должны регистророваться в DI-контейнере, т.е. resolve
                     // работает ТОЛЬКО из-за того, что мы явно указываем какие экземпляры для каких типов зависимостей нужно использовать
-                    { typeof(IReadDomainContextProvider), readDomainContextProviderProxy },
+                    { typeof(IReadableDomainContextProvider), readDomainContextProviderProxy },
                 };
 
             return (IAggregateReadModel)_unityContainer.Resolve(aggregateReadModelType, Mapping.ExplicitlyCreatedAggregateRepositoriesScope, dependencyOverrides);

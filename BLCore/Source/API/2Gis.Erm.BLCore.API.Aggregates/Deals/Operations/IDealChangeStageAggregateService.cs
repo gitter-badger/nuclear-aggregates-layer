@@ -8,7 +8,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Deals.Operations
 {
-    public interface IDealChangeStageAggregateService : IAggregateSpecificOperation<Deal, UpdateIdentity>
+    public interface IDealChangeStageAggregateService : IAggregateSpecificService<Deal, UpdateIdentity>
     {
         IEnumerable<ChangesDescriptor> ChangeStage(IEnumerable<DealChangeStageDto> dealInfos);
         IEnumerable<ChangesDescriptor> ChangeStageSecure(IEnumerable<DealChangeStageDto> dealInfos);

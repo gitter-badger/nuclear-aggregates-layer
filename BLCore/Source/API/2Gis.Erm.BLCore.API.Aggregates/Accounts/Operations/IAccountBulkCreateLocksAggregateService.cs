@@ -8,7 +8,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations
 {
-    public interface IAccountBulkCreateLocksAggregateService : IAggregateSpecificOperation<Account, BulkCreateIdentity>
+    public interface IAccountBulkCreateLocksAggregateService : IAggregateSpecificService<Account, BulkCreateIdentity>
     {
         void Create(TimePeriod period, IEnumerable<OrderReleaseInfo> orderReleaseInfo);
     }

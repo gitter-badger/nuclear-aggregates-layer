@@ -8,7 +8,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Withd
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts.Operations
 {
-    public interface IAccountWithdrawFromAccountsAggregateService : IAggregateSpecificOperation<Account, WithdrawFromAccountsIdentity>
+    public interface IAccountWithdrawFromAccountsAggregateService : IAggregateSpecificService<Account, WithdrawFromAccountsIdentity>
     {
         IReadOnlyDictionary<long, long> Withdraw(
             IEnumerable<WithdrawFromAccountsDto> withdrawInfos,

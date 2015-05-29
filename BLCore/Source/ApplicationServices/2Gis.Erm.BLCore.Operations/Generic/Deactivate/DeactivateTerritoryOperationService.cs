@@ -17,12 +17,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate
     {
         private readonly IUserRepository _userRepository;
         private readonly IFirmRepository _firmRepository;
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientRepository;
         private readonly IOperationScopeFactory _operationScopeFactory;
 
         public DeactivateTerritoryOperationService(IUserRepository userRepository,
                                                    IFirmRepository firmRepository,
-                                                   IClientRepository clientRepository,
+                                                   IClientService clientRepository,
                                                    IOperationScopeFactory operationScopeFactory)
         {
             _userRepository = userRepository;

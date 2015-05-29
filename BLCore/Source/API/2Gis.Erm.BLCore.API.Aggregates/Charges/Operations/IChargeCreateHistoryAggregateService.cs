@@ -5,7 +5,7 @@ using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations
 {
-    public interface IChargeCreateHistoryAggregateService : IAggregateSpecificOperation<Charge, CreateIdentity>
+    public interface IChargeCreateHistoryAggregateService : IAggregateSpecificService<Charge, CreateIdentity>
     {
         void Create(ChargesHistoryDto item);
     }
