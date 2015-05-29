@@ -114,6 +114,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                 .Select(order => new
                 {
                     order.BeginDistributionDate,
+                    order.SignupDate,
                     order.LegalPersonId,
                     order.DestOrganizationUnit.ElectronicMedia,
                     Bargain = new[] { order.Bargain }.Where(b => b != null).Select(b => new { b.Number, b.CreatedOn }).FirstOrDefault(),
@@ -135,7 +136,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
 
             return new PrintData
                 {
-                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(data.BeginDistributionDate) },
+                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(data.BeginDistributionDate, data.SignupDate) },
                     { "BeginContractParagraph", GetBeginContractParagraph(branchOfficeOrganizationUnit, legalPerson, legalPersonProfile) },
                     { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, legalPersonProfile) },
                     { "ElectronicMedia", data.ElectronicMedia },
