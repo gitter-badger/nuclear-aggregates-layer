@@ -8,6 +8,7 @@ using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage.Core;
 using NuClear.Storage.Futures;
+using NuClear.Storage.Futures.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
@@ -60,9 +61,17 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             }
 
             var queryableSource = _readDomainContextProvider.Get().GetQueryableSource<TSource>();
+            if (typeof(IPartable).IsAssignableFrom(typeof(TSource)))
+            {
+                return new SecureQueryableFutureSequence<TSource>(
+                    new ConsistentQueryableFutureSequence<TSource>(queryableSource, _dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification),
+                    _userContext,
+                    _entityAccessService);
+            }
+
             return new SecureQueryableFutureSequence<TSource>(
-                new ConsistentQueryableFutureSequence<TSource>(queryableSource, _dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification), 
-                _userContext, 
+                new QueryableFutureSequence<TSource>(queryableSource.ValidateQueryCorrectness().Where(findSpecification)),
+                _userContext,
                 _entityAccessService);
         }
     }

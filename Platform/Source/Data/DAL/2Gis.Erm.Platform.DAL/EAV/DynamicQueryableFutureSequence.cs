@@ -34,9 +34,14 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             _findSpecification = findSpecification;
         }
 
+        protected override IEnumerable<TSource> Sequence
+        {
+            get { throw new InvalidOperationException("DynamicQueryableFutureSequence class interface should be used to interact with Sequence"); }
+        }
+
         public override FutureSequence<TSource> Find(FindSpecification<TSource> findSpecification)
         {
-            return new DynamicQueryableFutureSequence<TSource>(_dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification);
+            throw new NotSupportedException();
         }
 
         public override FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)

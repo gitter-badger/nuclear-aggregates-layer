@@ -18,7 +18,7 @@ namespace NuClear.Storage.Futures
             Sequence = futureSequence.Sequence;
         }
 
-        protected IEnumerable<TSource> Sequence { get; private set; }
+        protected virtual IEnumerable<TSource> Sequence { get; private set; }
 
         public abstract FutureSequence<TSource> Find(FindSpecification<TSource> findSpecification);
         public abstract FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector);
