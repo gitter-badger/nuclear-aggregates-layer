@@ -960,9 +960,6 @@
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value />
   </data>
-  <data name="InvalidDateTimeText" xml:space="preserve">
-    <value />
-  </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
     <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
   </data>
