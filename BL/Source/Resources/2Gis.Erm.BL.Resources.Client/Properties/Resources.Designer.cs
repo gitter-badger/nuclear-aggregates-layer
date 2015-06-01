@@ -295,7 +295,7 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы действительно хотите опубликовать шаблон ракламного материала?&lt;br/&gt;На карточке есть изменения, которые будут утеряны при публикации.&lt;br/&gt;Если требуется их сохранить нажмите &quot;нет&quot; и сохраните карточку..
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string AdvertisementTemplatePublishConfirmationWithDirtyForm {
             get {
@@ -988,7 +988,7 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка при обращении к сервису {0}. Обратитесь к разработчикам..
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ErrorOnServiceAccess {
             get {
