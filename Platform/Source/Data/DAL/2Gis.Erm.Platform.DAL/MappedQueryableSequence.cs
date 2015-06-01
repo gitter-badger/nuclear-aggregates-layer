@@ -11,11 +11,11 @@ using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
-    public class MappedQueryableFutureSequence<TSource> : FutureSequence<TSource>
+    public class MappedQueryableSequence<TSource> : Sequence<TSource>
     {
         private readonly IQueryable<TSource> _queryable;
 
-        public MappedQueryableFutureSequence(ICompositeEntityQuery compositeEntityQuery, FindSpecification<TSource> findSpecification)
+        public MappedQueryableSequence(ICompositeEntityQuery compositeEntityQuery, FindSpecification<TSource> findSpecification)
             : this(compositeEntityQuery.For(findSpecification))
         {
             var sourceType = typeof(TSource);
@@ -26,19 +26,19 @@ namespace DoubleGis.Erm.Platform.DAL
             }
         }
 
-        private MappedQueryableFutureSequence(IEnumerable<TSource> sequence) : base(sequence)
+        private MappedQueryableSequence(IEnumerable<TSource> sequence) : base(sequence)
         {
             _queryable = (IQueryable<TSource>)sequence;
         }
 
-        public override FutureSequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
         {
-            return new QueryableFutureSequence<TSource>(_queryable.Where(findSpecification));
+            return new QueryableSequence<TSource>(_queryable.Where(findSpecification));
         }
 
-        public override FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)
+        public override Sequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> mapSpecification)
         {
-            return new QueryableFutureSequence<TResult>(projector.Map(_queryable));
+            return new QueryableSequence<TResult>(mapSpecification.Map(_queryable));
         }
     }
 }

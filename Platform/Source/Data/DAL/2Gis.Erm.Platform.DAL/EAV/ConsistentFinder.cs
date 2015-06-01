@@ -35,7 +35,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             _dynamicEntityMetadataProvider = dynamicEntityMetadataProvider;
         }
 
-        public FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity
+        public Sequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class
         {
             if (findSpecification == null)
             {
@@ -44,22 +44,22 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
 
             if (typeof(TSource).AsEntityName().IsDynamic())
             {
-                return new DynamicQueryableFutureSequence<TSource>(_dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification);
+                return new DynamicQueryableSequence<TSource>(_dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification);
             }
 
             IEntityType entityName;
             if (typeof(TSource).TryGetEntityName(out entityName) && entityName.HasMapping())
             {
-                return new MappedQueryableFutureSequence<TSource>(_compositeEntityQuery, findSpecification);
+                return new MappedQueryableSequence<TSource>(_compositeEntityQuery, findSpecification);
             }
 
             var queryableSource = _readableDomainContextProvider.Get().GetQueryableSource<TSource>();
             if (typeof(IPartable).IsAssignableFrom(typeof(TSource)))
             {
-                return new ConsistentQueryableFutureSequence<TSource>(queryableSource, _dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification);
+                return new ConsistentQueryableSequence<TSource>(queryableSource, _dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification);
             }
 
-            return new QueryableFutureSequence<TSource>(queryableSource.ValidateQueryCorrectness().Where(findSpecification));
+            return new QueryableSequence<TSource>(queryableSource.ValidateQueryCorrectness().Where(findSpecification));
         }
     }
 }

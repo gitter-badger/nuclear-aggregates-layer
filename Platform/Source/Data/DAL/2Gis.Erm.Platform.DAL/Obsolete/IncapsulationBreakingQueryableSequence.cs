@@ -8,14 +8,14 @@ using NuClear.Storage.Specifications;
 namespace DoubleGis.Erm.Platform.DAL.Obsolete
 {
     [Obsolete("Need to be deleted after FinderExtensions.FindObsolete refactoring")]
-    internal class IncapsulationBreakingQueryableFutureSequence<TSource> : FutureSequence<TSource>
+    internal class IncapsulationBreakingQueryableSequence<TSource> : Sequence<TSource>
     {
         private readonly IQueryable<TSource> _queryable; 
 
-        public IncapsulationBreakingQueryableFutureSequence(FutureSequence<TSource> futureSequence) 
-            : base(futureSequence)
+        public IncapsulationBreakingQueryableSequence(Sequence<TSource> sequence) 
+            : base(sequence)
         {
-            _queryable = Sequence as IQueryable<TSource>;
+            _queryable = Source as IQueryable<TSource>;
             if (_queryable == null)
             {
                 throw new ArgumentException("sequence");
@@ -27,12 +27,12 @@ namespace DoubleGis.Erm.Platform.DAL.Obsolete
             get { return _queryable; }
         }
 
-        public override FutureSequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
         {
             throw new NotSupportedException();
         }
 
-        public override FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)
+        public override Sequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> mapSpecification)
         {
             throw new NotSupportedException();
         }

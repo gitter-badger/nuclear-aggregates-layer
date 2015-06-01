@@ -62,7 +62,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
 
                     Mock.Get(finder)
                         .Setup(x => x.Find(Moq.It.IsAny<FindSpecification<OrderProcessingRequest>>()))
-                        .Returns<FindSpecification<OrderProcessingRequest>>(x => new QueryableFutureSequence<OrderProcessingRequest>(storage.AsQueryable().Where(x)));
+                        .Returns<FindSpecification<OrderProcessingRequest>>(x => new QueryableSequence<OrderProcessingRequest>(storage.AsQueryable().Where(x)));
 
                     SimplifiedModelConsumer = new OrderProcessingRequestService(operationScopeFactory,
                                                                                 requestRepository,

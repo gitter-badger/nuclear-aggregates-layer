@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             _entityAccessService = entityAccessService;
         }
 
-        public FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity
+        public Sequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class
         {
             if (findSpecification == null)
             {
@@ -48,14 +48,14 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             if (typeof(TSource).AsEntityName().IsDynamic())
             {
                 // NOTE: we don't check entity access for dynamic entities
-                return new DynamicQueryableFutureSequence<TSource>(_dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification);
+                return new DynamicQueryableSequence<TSource>(_dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification);
             }
 
             IEntityType entityName;
             if (typeof(TSource).TryGetEntityName(out entityName) && entityName.HasMapping())
             {
-                return new SecureQueryableFutureSequenceDecorator<TSource>(
-                    new MappedQueryableFutureSequence<TSource>(_compositeEntityQuery, findSpecification), 
+                return new SecureQueryableSequenceDecorator<TSource>(
+                    new MappedQueryableSequence<TSource>(_compositeEntityQuery, findSpecification), 
                     _userContext, 
                     _entityAccessService);
             }
@@ -63,14 +63,14 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             var queryableSource = _readableDomainContextProvider.Get().GetQueryableSource<TSource>();
             if (typeof(IPartable).IsAssignableFrom(typeof(TSource)))
             {
-                return new SecureQueryableFutureSequenceDecorator<TSource>(
-                    new ConsistentQueryableFutureSequence<TSource>(queryableSource, _dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification),
+                return new SecureQueryableSequenceDecorator<TSource>(
+                    new ConsistentQueryableSequence<TSource>(queryableSource, _dynamicEntityMetadataProvider, _dynamicStorageFinder, findSpecification),
                     _userContext,
                     _entityAccessService);
             }
 
-            return new SecureQueryableFutureSequenceDecorator<TSource>(
-                new QueryableFutureSequence<TSource>(queryableSource.ValidateQueryCorrectness().Where(findSpecification)),
+            return new SecureQueryableSequenceDecorator<TSource>(
+                new QueryableSequence<TSource>(queryableSource.ValidateQueryCorrectness().Where(findSpecification)),
                 _userContext,
                 _entityAccessService);
         }

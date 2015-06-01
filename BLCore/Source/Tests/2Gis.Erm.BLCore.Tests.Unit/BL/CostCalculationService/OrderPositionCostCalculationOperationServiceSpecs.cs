@@ -86,7 +86,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.CostCalculationService
 
                     FinderMock = new Mock<IFinder>();
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<PricePosition>>()))
-                              .Returns(new QueryableFutureSequence<PricePosition>(new[] { FakePricePosition }.AsQueryable()));
+                              .Returns(new QueryableSequence<PricePosition>(new[] { FakePricePosition }.AsQueryable()));
 
                     ProjectServiceMock = new Mock<IProjectService>();
                     ProjectServiceMock.Setup(x => x.GetProjectByCode(Moq.It.IsAny<long>()))

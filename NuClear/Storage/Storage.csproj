@@ -69,9 +69,9 @@
     <Compile Include="Core\IReadableDomainContextProvider.cs" />
     <Compile Include="Core\CachingReadableDomainContext.cs" />
     <Compile Include="Finder.cs" />
-    <Compile Include="Futures\FutureSequence.cs" />
-    <Compile Include="Futures\Queryable\QueryableFutureExtensions.cs" />
-    <Compile Include="Futures\Queryable\QueryableFutureSequence.cs" />
+    <Compile Include="Futures\Sequence.cs" />
+    <Compile Include="Futures\Queryable\SequenceExtensions.cs" />
+    <Compile Include="Futures\Queryable\QueryableSequence.cs" />
     <Compile Include="IFinder.cs" />
     <Compile Include="IProducedQueryLogAccessor.cs" />
     <Compile Include="IQuery.cs" />

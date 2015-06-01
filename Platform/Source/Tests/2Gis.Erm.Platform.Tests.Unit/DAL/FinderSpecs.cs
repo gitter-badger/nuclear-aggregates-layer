@@ -26,10 +26,10 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         class When_queryable_returned
         {
             static IFinder Finder;
-            static IncapsulationBreakingQueryableFutureSequence<IEntity> Result;
+            static IncapsulationBreakingQueryableSequence<IEntity> Result;
 
             Establish context = () => Finder = new ConsistentFinder(CreateReadDomainContextProvider(), null, null, null);
-            Because of = () => Result = (IncapsulationBreakingQueryableFutureSequence<IEntity>)Finder.Find(new FindSpecification<IEntity>(x => true));
+            Because of = () => Result = (IncapsulationBreakingQueryableSequence<IEntity>)Finder.Find(new FindSpecification<IEntity>(x => true));
             It should_return_restricted_queryable = () => (Result.Queryable is WrappedQuery).Should().BeTrue();
 
             static IReadableDomainContextProvider CreateReadDomainContextProvider()

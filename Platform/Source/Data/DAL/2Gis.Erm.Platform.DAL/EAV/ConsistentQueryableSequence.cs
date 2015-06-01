@@ -13,14 +13,14 @@ using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {
-    public class ConsistentQueryableFutureSequence<TSource> : FutureSequence<TSource> 
+    public class ConsistentQueryableSequence<TSource> : Sequence<TSource> 
     {
         private readonly IQueryable<TSource> _queryable;
         private readonly IDynamicEntityMetadataProvider _dynamicEntityMetadataProvider;
         private readonly IDynamicStorageFinder _dynamicStorageFinder;
         private readonly FindSpecification<TSource> _findSpecification;
 
-        public ConsistentQueryableFutureSequence(
+        public ConsistentQueryableSequence(
             IEnumerable<TSource> sequence, 
             IDynamicEntityMetadataProvider dynamicEntityMetadataProvider, 
             IDynamicStorageFinder dynamicStorageFinder,
@@ -44,27 +44,27 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             _findSpecification = findSpecification;
         }
 
-        protected override IEnumerable<TSource> Sequence
+        protected override IEnumerable<TSource> Source
         {
             get { return _queryable.Where(_findSpecification); }
         }
 
-        public override FutureSequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
         {
             throw new NotSupportedException();
         }
 
-        public override FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)
+        public override Sequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> mapSpecification)
         {
             if (typeof(TSource) == typeof(TResult))
             {
                 var castedFindSpecification = _findSpecification as FindSpecification<TResult>;
-                return new ConsistentQueryableFutureSequence<TResult>(projector.Map(_queryable), _dynamicEntityMetadataProvider, _dynamicStorageFinder, castedFindSpecification);
+                return new ConsistentQueryableSequence<TResult>(mapSpecification.Map(_queryable), _dynamicEntityMetadataProvider, _dynamicStorageFinder, castedFindSpecification);
             }
 
             if (!typeof(IPartable).IsAssignableFrom(typeof(TResult)))
             {
-                return new QueryableFutureSequence<TResult>(projector.Map(Sequence));
+                return new QueryableSequence<TResult>(mapSpecification.Map(Source));
             }
 
             throw new NotSupportedException();
@@ -84,7 +84,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var entities = Sequence.ToArray();
+                var entities = Source.ToArray();
                 var specs = _dynamicEntityMetadataProvider.GetSpecifications<BusinessEntityInstance, BusinessEntityPropertyInstance>(typeof(TSource),
                                                                                                                                      entities.OfType<IEntityKey>()
                                                                                                                                              .Select(e => e.Id));
@@ -116,7 +116,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
         {
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, DefaultTransactionOptions.Default))
             {
-                var entity = queryExecutor(Sequence.AsQueryable());
+                var entity = queryExecutor(Source.AsQueryable());
                 if (entity != null)
                 {
                     var entityKey = (IEntityKey)entity;

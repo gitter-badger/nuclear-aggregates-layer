@@ -1,5 +1,4 @@
-﻿using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage.Futures;
+﻿using NuClear.Storage.Futures;
 using NuClear.Storage.Specifications;
 
 namespace NuClear.Storage
@@ -12,6 +11,6 @@ namespace NuClear.Storage
         /// <summary>
         /// Compose future sequence based on findSpecification.
         /// </summary>
-        FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity;
+        Sequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class;
     }
 }

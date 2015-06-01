@@ -33,7 +33,7 @@ namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.
 
             Mock.Get(finder)
                 .Setup(f => f.Find(It.IsAny<FindSpecification<Order>>()))
-                .Returns(new QueryableFutureSequence<Order>(new[] { order }.AsQueryable()));
+                .Returns(new QueryableSequence<Order>(new[] { order }.AsQueryable()));
 
             Mock.Get(finder)
                 .Setup(f => f.Find(It.IsAny<FindSpecification<BranchOfficeOrganizationUnit>>()).One())

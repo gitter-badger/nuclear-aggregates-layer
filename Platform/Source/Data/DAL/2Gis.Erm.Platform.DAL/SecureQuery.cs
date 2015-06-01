@@ -5,7 +5,6 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 
 using NuClear.Model.Common.Entities;
-using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage;
 using NuClear.Storage.Specifications;
@@ -35,12 +34,12 @@ namespace DoubleGis.Erm.Platform.DAL
             return RestrictQueryWhenAccessCheck<IQueryable>(_query.For(entityType));
         }
 
-        public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
+        public IQueryable<TEntity> For<TEntity>() where TEntity : class
         {
             return RestrictQueryWhenAccessCheck<IQueryable<TEntity>>(_query.For<TEntity>());
         }
 
-        public IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class
         {
             return RestrictQueryWhenAccessCheck<IQueryable<TEntity>>(_query.For(findSpecification));
         }

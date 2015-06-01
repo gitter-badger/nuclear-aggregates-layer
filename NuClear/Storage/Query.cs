@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Storage.Core;
 using NuClear.Storage.Specifications;
 
@@ -26,12 +25,12 @@ namespace NuClear.Storage
             return _readableDomainContextProvider.Get().GetQueryableSource(entityType);
         }
 
-        public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
+        public IQueryable<TEntity> For<TEntity>() where TEntity : class
         {
             return _readableDomainContextProvider.Get().GetQueryableSource<TEntity>();
         }
 
-        public IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class
         {
             if (findSpecification == null)
             {

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using NuClear.Model.Common.Entities.Aspects;
-
 namespace NuClear.Storage
 {
     /// <summary>
@@ -14,7 +12,7 @@ namespace NuClear.Storage
     /// <summary>
     /// Generic Repository Pattern Interface
     /// </summary>
-    public interface IRepository<in TEntity> : IRepository where TEntity : class, IEntity
+    public interface IRepository<in TEntity> : IRepository where TEntity : class
     {
         /// <summary>
         /// Add the Entity Object to the Repository

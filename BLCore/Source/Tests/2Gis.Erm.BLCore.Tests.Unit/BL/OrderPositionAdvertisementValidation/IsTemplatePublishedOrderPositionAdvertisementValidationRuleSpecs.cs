@@ -71,7 +71,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Advertisement>>()))
                               .Returns(
                                   (FindSpecification<Advertisement> x) =>
-                                  new QueryableFutureSequence<Advertisement>(new[]
+                                  new QueryableSequence<Advertisement>(new[]
                                       {
                                           AdvertisementWithPublishedTemplate,
                                           AdvertisementWithUnpublishedTemplate
@@ -79,7 +79,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
 
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Position>>()))
                               .Returns((FindSpecification<Position> x) =>
-                                  new QueryableFutureSequence<Position>(new[]
+                                  new QueryableSequence<Position>(new[]
                                       {
                                           TestPosition
                                       }.AsQueryable().Where(x)));

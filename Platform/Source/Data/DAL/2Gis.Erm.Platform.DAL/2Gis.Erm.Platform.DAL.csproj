@@ -49,9 +49,9 @@
     <Compile Include="..\..\..\AssemblyInfo.InternalsVisibleTo.cs">
       <Link>Properties\AssemblyInfo.InternalsVisibleTo.cs</Link>
     </Compile>
-    <Compile Include="EAV\ConsistentQueryableFutureSequence.cs" />
+    <Compile Include="EAV\ConsistentQueryableSequence.cs" />
     <Compile Include="EAV\ConsistentQueryDecorator.cs" />
-    <Compile Include="EAV\DynamicQueryableFutureSequence.cs" />
+    <Compile Include="EAV\DynamicQueryableSequence.cs" />
     <Compile Include="EAV\DynamicStorageRepository.cs" />
     <Compile Include="EAV\ConsistentRepositoryDecorator.cs" />
     <Compile Include="EAV\ConsistentSecureFinder.cs" />
@@ -72,9 +72,9 @@
     <Compile Include="IPersistenceService.cs" />
     <Compile Include="IQueryProvider.cs" />
     <Compile Include="ISecureQuery.cs" />
-    <Compile Include="MappedQueryableFutureSequence.cs" />
+    <Compile Include="MappedQueryableSequence.cs" />
     <Compile Include="Obsolete\FinderExtensions.cs" />
-    <Compile Include="Obsolete\IncapsulationBreakingQueryableFutureSequence.cs" />
+    <Compile Include="Obsolete\IncapsulationBreakingQueryableSequence.cs" />
     <Compile Include="QueryProvider.cs" />
     <Compile Include="EAV\WrappedQueryProvider.cs" />
     <Compile Include="EAV\QueryableExtensions.cs" />
@@ -82,7 +82,7 @@
     <Compile Include="ISecureRepository.cs" />
     <Compile Include="SecureFinder.cs" />
     <Compile Include="SecureQuery.cs" />
-    <Compile Include="SecureQueryableFutureSequenceDecorator.cs" />
+    <Compile Include="SecureQueryableSequenceDecorator.cs" />
     <Compile Include="SecurityHelper.cs" />
     <Compile Include="Specifications\Specs.cs" />
     <Compile Include="Transactions\DefaultTransactionOptions.cs" />

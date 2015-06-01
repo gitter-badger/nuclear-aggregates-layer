@@ -11,13 +11,13 @@ using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
 {
-    public class DynamicQueryableFutureSequence<TSource> : FutureSequence<TSource> where TSource : class
+    public class DynamicQueryableSequence<TSource> : Sequence<TSource> where TSource : class
     {
         private readonly IDynamicEntityMetadataProvider _dynamicEntityMetadataProvider;
         private readonly IDynamicStorageFinder _dynamicStorageFinder;
         private readonly FindSpecification<TSource> _findSpecification;
 
-        public DynamicQueryableFutureSequence(
+        public DynamicQueryableSequence(
             IDynamicEntityMetadataProvider dynamicEntityMetadataProvider,
             IDynamicStorageFinder dynamicStorageFinder,
             FindSpecification<TSource> findSpecification)
@@ -34,17 +34,17 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             _findSpecification = findSpecification;
         }
 
-        protected override IEnumerable<TSource> Sequence
+        protected override IEnumerable<TSource> Source
         {
-            get { throw new InvalidOperationException("DynamicQueryableFutureSequence class interface should be used to interact with Sequence"); }
+            get { throw new InvalidOperationException("DynamicQueryableSequence class interface should be used to interact with Source"); }
         }
 
-        public override FutureSequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
         {
             throw new NotSupportedException();
         }
 
-        public override FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)
+        public override Sequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> mapSpecification)
         {
             throw new NotSupportedException();
         }

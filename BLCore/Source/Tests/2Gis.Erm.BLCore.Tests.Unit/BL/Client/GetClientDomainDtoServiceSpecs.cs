@@ -48,7 +48,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Client
 
                     FinderMock = new Mock<ISecureFinder>();
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Platform.Model.Entities.Erm.Client>>()))
-                              .Returns(new QueryableFutureSequence<Platform.Model.Entities.Erm.Client>(new[] { Client }.AsQueryable()));
+                              .Returns(new QueryableSequence<Platform.Model.Entities.Erm.Client>(new[] { Client }.AsQueryable()));
 
                     var userContext = Mock.Of<IUserContext>(x => x.Identity == new NullUserIdentity());
                     

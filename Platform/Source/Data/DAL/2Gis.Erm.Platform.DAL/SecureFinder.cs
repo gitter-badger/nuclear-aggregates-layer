@@ -2,7 +2,6 @@
 
 using DoubleGis.Erm.Platform.API.Security;
 
-using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage.Core;
 using NuClear.Storage.Futures;
@@ -42,11 +41,11 @@ namespace DoubleGis.Erm.Platform.DAL
             _entityAccessService = entityAccessService;
         }
 
-        public FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity
+        public Sequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class
         {
             var queryableSource = _readableDomainContextProvider.Get().GetQueryableSource<TSource>();
-            return new SecureQueryableFutureSequenceDecorator<TSource>(
-                new QueryableFutureSequence<TSource>(queryableSource.Where(findSpecification)), 
+            return new SecureQueryableSequenceDecorator<TSource>(
+                new QueryableSequence<TSource>(queryableSource.Where(findSpecification)), 
                 _userContext, 
                 _entityAccessService);
         }

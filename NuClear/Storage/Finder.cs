@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Storage.Core;
 using NuClear.Storage.Futures;
 using NuClear.Storage.Futures.Queryable;
@@ -23,7 +22,7 @@ namespace NuClear.Storage
             _readableDomainContextProvider = readableDomainContextProvider;
         }
 
-        public FutureSequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class, IEntity
+        public Sequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class
         {
             if (findSpecification == null)
             {
@@ -31,7 +30,7 @@ namespace NuClear.Storage
             }
 
             var queryableSource = _readableDomainContextProvider.Get().GetQueryableSource<TSource>();
-            return new QueryableFutureSequence<TSource>(queryableSource.Where(findSpecification.Predicate));
+            return new QueryableSequence<TSource>(queryableSource.Where(findSpecification.Predicate));
         }
     }
 }

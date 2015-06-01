@@ -156,7 +156,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<FirmAddress>>()))
                               .Returns(
                                   (FindSpecification<FirmAddress> x) =>
-                                  new QueryableFutureSequence<FirmAddress>(new[]
+                                  new QueryableSequence<FirmAddress>(new[]
                                       {
                                           HiddenFirmAddress,
                                           EmptyFirmAddress,
@@ -166,7 +166,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderPositionAdvertisementValidatio
                     FinderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Position>>()))
                               .Returns(
                                        (FindSpecification<Position> x) =>
-                                       new QueryableFutureSequence<Position>(new[]
+                                       new QueryableSequence<Position>(new[]
                                            {
                                                SponsoredLinkPosition,
                                                AdvantageousPurchasePosition,

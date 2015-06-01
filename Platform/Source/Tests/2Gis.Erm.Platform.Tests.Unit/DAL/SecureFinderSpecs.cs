@@ -126,7 +126,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SetUpRestrictQuery();
 
-            Because of = () => _result = new IncapsulationBreakingQueryableFutureSequence<Deal>(Target.Find(_findSpec)).Queryable;
+            Because of = () => _result = new IncapsulationBreakingQueryableSequence<Deal>(Target.Find(_findSpec)).Queryable;
 
             Behaves_like<RestrictAccessBehavior> restrict_query;
         }
@@ -140,7 +140,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SetUpRestrictQuery();
 
-            Because of = () => _result = new IncapsulationBreakingQueryableFutureSequence<Deal>(Target.Find(_findSpec).Map(x => x.Select(_selectSpec))).Queryable;
+            Because of = () => _result = new IncapsulationBreakingQueryableSequence<Deal>(Target.Find(_findSpec).Map(x => x.Select(_selectSpec))).Queryable;
 
             Behaves_like<RestrictAccessBehavior> restrict_query;
         }
@@ -154,7 +154,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SkipEntityAccess(true);
 
-            Because of = () => _result = new IncapsulationBreakingQueryableFutureSequence<Deal>(Target.Find(_findSpec).Map(x => x.Select(_selectSpec))).Queryable;
+            Because of = () => _result = new IncapsulationBreakingQueryableSequence<Deal>(Target.Find(_findSpec).Map(x => x.Select(_selectSpec))).Queryable;
 
             Behaves_like<SkipEntityAccessCheckBehavior> skip_entity_access;
         }
@@ -168,7 +168,7 @@ namespace DoubleGis.Erm.Platform.Tests.Unit.DAL
         {
             Establish context = () => SkipEntityAccess(true);
 
-            Because of = () => _result = new IncapsulationBreakingQueryableFutureSequence<Deal>(Target.Find(_findSpec)).Queryable;
+            Because of = () => _result = new IncapsulationBreakingQueryableSequence<Deal>(Target.Find(_findSpec)).Queryable;
 
             Behaves_like<SkipEntityAccessCheckBehavior> skip_entity_access;
         }

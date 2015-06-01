@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 
-using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Storage;
 using NuClear.Storage.Specifications;
 
@@ -22,12 +21,12 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             return _query.For(entityType).ValidateQueryCorrectness();
         }
 
-        public IQueryable<TEntity> For<TEntity>() where TEntity : class, IEntity
+        public IQueryable<TEntity> For<TEntity>() where TEntity : class
         {
             return _query.For<TEntity>().ValidateQueryCorrectness();
         }
 
-        public IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class, IEntity
+        public IQueryable<TEntity> For<TEntity>(FindSpecification<TEntity> findSpecification) where TEntity : class
         {
             return _query.For(findSpecification).ValidateQueryCorrectness();
         }

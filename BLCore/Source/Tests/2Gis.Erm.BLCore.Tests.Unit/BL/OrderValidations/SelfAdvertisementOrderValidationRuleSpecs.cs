@@ -80,7 +80,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
 
                 Mock.Get(Finder)
                     .Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Order>>()))
-                    .Returns(new QueryableFutureSequence<Order>(new[] { Order }.AsQueryable()));
+                    .Returns(new QueryableSequence<Order>(new[] { Order }.AsQueryable()));
             };
 
             protected static OrderPosition CreateSelfAdvertisementPosition()
@@ -140,7 +140,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
 
                 Mock.Get(Finder)
                     .Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Order>>()))
-                    .Returns(new QueryableFutureSequence<Order>(new[] { Order, Order_2 }.AsQueryable()));
+                    .Returns(new QueryableSequence<Order>(new[] { Order, Order_2 }.AsQueryable()));
             };
         }
 
@@ -163,7 +163,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.OrderValidations
 
                 Mock.Get(Finder)
                     .Setup(x => x.Find(Moq.It.IsAny<FindSpecification<Order>>()))
-                    .Returns(new QueryableFutureSequence<Order>(new[] { Order, Order_2, Order_3 }.AsQueryable()));
+                    .Returns(new QueryableSequence<Order>(new[] { Order, Order_2, Order_3 }.AsQueryable()));
             };
         }
 

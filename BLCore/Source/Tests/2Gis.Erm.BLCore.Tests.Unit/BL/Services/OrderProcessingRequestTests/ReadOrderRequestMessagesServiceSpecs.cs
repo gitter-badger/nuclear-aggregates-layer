@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.OrderProcessingRequestTest
                 {
                     var finderMock = new Mock<IFinder>();
                     finderMock.Setup(x => x.Find(Moq.It.IsAny<FindSpecification<OrderProcessingRequestMessage>>()))
-                              .Returns((FindSpecification<OrderProcessingRequestMessage> x) => new QueryableFutureSequence<OrderProcessingRequestMessage>(RequestMessages.AsQueryable().Where(x)));
+                              .Returns((FindSpecification<OrderProcessingRequestMessage> x) => new QueryableSequence<OrderProcessingRequestMessage>(RequestMessages.AsQueryable().Where(x)));
 
                     Finder = finderMock.Object;
 

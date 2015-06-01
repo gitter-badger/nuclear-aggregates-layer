@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.Platform.API.Security;
@@ -13,31 +12,32 @@ using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL
 {
-    public class SecureQueryableFutureSequenceDecorator<TSource> : FutureSequence<TSource>
+    public class SecureQueryableSequenceDecorator<TSource> : Sequence<TSource>
     {
-        private readonly IQueryable<TSource> _queryable;
-
-        public SecureQueryableFutureSequenceDecorator(
-            FutureSequence<TSource> futureSequence, 
+        public SecureQueryableSequenceDecorator(
+            Sequence<TSource> sequence, 
             IUserContext userContext, 
             ISecurityServiceEntityAccessInternal entityAccessService)
-            : base(futureSequence.Map(q => RestrictQueryWhenAccessCheck(q, userContext, entityAccessService)))
+            : base(sequence.Map(q => RestrictQueryWhenAccessCheck(q, userContext, entityAccessService)))
         {
-            _queryable = Sequence as IQueryable<TSource>;
-            if (_queryable == null)
+        }
+
+        private IQueryable<TSource> SecuredSource
+        {
+            get
             {
-                throw new ArgumentException("sequence");
+                return (IQueryable<TSource>)Source;
             }
         }
-
-        public override FutureSequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        
+        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
         {
-            return new QueryableFutureSequence<TSource>(_queryable.Where(findSpecification));
+            return new QueryableSequence<TSource>(SecuredSource.Where(findSpecification));
         }
 
-        public override FutureSequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> projector)
+        public override Sequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> mapSpecification)
         {
-            return new QueryableFutureSequence<TResult>(projector.Map(_queryable));
+            return new QueryableSequence<TResult>(mapSpecification.Map(SecuredSource));
         }
 
         private static IQueryable<TSource> RestrictQueryWhenAccessCheck(
