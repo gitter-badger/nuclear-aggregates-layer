@@ -13,8 +13,8 @@ using Machine.Specifications;
 
 using Moq;
 
-using NuClear.Storage;
 using NuClear.Storage.Core;
+using NuClear.Storage.Readings;
 
 using It = Machine.Specifications.It;
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;

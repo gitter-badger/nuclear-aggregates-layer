@@ -11,7 +11,7 @@ using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
 using DoubleGis.Erm.Qds.Operations.Metadata;
 
 using NuClear.Metamodeling.Provider;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing
 {

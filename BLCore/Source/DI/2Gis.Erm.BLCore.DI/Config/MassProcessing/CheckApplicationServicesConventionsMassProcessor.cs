@@ -17,7 +17,7 @@ using NuClear.Aggregates;
 using NuClear.Assembling.TypeProcessing;
 using NuClear.DI.Unity.Config;
 using NuClear.Model.Common.Entities;
-using NuClear.Storage;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.DI.Config.MassProcessing
 {

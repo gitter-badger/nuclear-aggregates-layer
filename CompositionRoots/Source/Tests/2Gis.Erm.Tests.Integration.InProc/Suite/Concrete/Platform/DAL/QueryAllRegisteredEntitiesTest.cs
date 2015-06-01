@@ -10,8 +10,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
 using NuClear.Storage.EntityFramework;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 

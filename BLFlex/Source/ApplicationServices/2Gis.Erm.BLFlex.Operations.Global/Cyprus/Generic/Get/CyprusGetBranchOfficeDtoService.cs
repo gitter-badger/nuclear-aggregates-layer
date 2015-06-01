@@ -4,9 +4,9 @@ using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ContributionTypes.Read
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Cyprus;
 using DoubleGis.Erm.BLFlex.Operations.Global.Cyprus.Generic.Modify;
 using DoubleGis.Erm.BLFlex.Operations.Global.Shared.Generic.Get;
-using NuClear.IdentityService.Client.Settings;
+
 using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.Core.EntityProjection;
+
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 

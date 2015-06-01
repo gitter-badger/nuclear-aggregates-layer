@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects.Integration;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BLCore.Operations.Crosscutting
 {

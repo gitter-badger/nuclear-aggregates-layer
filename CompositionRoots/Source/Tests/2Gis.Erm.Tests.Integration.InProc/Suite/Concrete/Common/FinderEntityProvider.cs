@@ -2,8 +2,8 @@
 using System.Linq;
 
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Common

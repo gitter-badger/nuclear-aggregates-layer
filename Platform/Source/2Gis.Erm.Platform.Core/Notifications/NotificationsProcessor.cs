@@ -13,7 +13,8 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Writings;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Core.Notifications

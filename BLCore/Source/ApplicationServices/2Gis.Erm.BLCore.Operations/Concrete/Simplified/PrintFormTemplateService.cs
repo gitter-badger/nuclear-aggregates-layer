@@ -17,8 +17,9 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Simplified
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using NuClear.Storage.Futures;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.Obsolete
@@ -27,7 +27,7 @@ namespace DoubleGis.Erm.Platform.DAL.Obsolete
             get { return _queryable; }
         }
 
-        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        public override Sequence<TSource> Filter(FindSpecification<TSource> findSpecification)
         {
             throw new NotSupportedException();
         }

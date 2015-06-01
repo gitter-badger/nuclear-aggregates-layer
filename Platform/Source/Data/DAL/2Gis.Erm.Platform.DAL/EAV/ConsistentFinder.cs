@@ -4,10 +4,9 @@ using DoubleGis.Erm.Platform.Model.Entities;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
 using NuClear.Storage.Core;
-using NuClear.Storage.Futures;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV

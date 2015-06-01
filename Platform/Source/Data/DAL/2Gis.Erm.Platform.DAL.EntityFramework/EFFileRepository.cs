@@ -12,10 +12,10 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
 using NuClear.Storage.ConnectionStrings;
 using NuClear.Storage.Core;
 using NuClear.Storage.Specifications;
+using NuClear.Storage.Writings;
 
 using File = DoubleGis.Erm.Platform.Model.Entities.Erm.File;
 

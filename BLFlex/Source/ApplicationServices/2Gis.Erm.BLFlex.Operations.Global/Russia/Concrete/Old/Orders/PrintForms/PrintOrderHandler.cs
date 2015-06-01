@@ -1,11 +1,7 @@
-﻿using System.Globalization;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
-using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Common;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Old.Orders.PrintForms;
-using DoubleGis.Erm.BLCore.API.Operations.Concrete.Orders;
 using DoubleGis.Erm.BLCore.Common.Infrastructure.Handlers;
 using DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;

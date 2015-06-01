@@ -5,8 +5,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
 using NuClear.Model.Common.Entities;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Chile.SimplifiedModel.ReadModel.Banks

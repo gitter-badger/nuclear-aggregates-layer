@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.API.Aggregates.SimplifiedModel.PerformedOperations.
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using NuClear.Storage;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.Platform.Aggregates.SimplifiedModel.PerformedOperations.Operations
 {

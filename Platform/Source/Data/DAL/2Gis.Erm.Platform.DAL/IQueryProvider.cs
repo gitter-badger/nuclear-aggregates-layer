@@ -1,5 +1,5 @@
 ﻿using NuClear.Model.Common.Entities;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.Platform.DAL
 {

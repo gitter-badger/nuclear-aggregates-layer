@@ -10,10 +10,7 @@ using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using NuClear.IdentityService.Client.Settings;
 using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities;
-
 using NuClear.Model.Common.Entities;
-using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 using ControllerBase = DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers.Base.ControllerBase;

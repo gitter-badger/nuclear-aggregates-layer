@@ -4,8 +4,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using Moq;
 
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLFlex.Tests.Unit.ApplicationServices.Operations.Global.Czech.Concrete.Old.Orders.PrintForms

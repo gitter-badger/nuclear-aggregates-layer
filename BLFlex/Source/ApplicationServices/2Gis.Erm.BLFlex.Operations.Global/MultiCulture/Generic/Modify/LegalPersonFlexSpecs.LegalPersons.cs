@@ -1,7 +1,5 @@
-﻿using DoubleGis.Erm.Platform.Core.EntityProjection;
-using DoubleGis.Erm.Platform.Model.Entities;
+﻿using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Storage.Specifications;

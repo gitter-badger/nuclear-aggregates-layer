@@ -1,6 +1,5 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Deals;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals;
 
 using FluentAssertions;

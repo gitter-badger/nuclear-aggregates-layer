@@ -2,7 +2,7 @@
 using System.Linq;
 
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.Obsolete

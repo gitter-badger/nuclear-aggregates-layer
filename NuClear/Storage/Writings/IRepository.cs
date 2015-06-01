@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NuClear.Storage
+namespace NuClear.Storage.Writings
 {
     /// <summary>
     /// Represents the non-generic repository contract.
@@ -45,7 +45,7 @@ namespace NuClear.Storage
         void DeleteRange(IEnumerable<TEntity> entities);
 
         /// <summary>
-        /// Persist the changes through the Add,Update,Delete to the persistence storage.
+        /// Persist the changes through the Add, Update, Delete to the persistence storage.
         /// </summary>
         /// <returns>The number of successful records persisted in the persistence storage</returns>
         int Save();

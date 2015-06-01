@@ -3,8 +3,8 @@ using System.Linq;
 
 using DoubleGis.Erm.Platform.DAL;
 
-using NuClear.Storage.Futures;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Tests.Unit.BL.Services.Operations.OrderProlongationRequestOperationServiceTests

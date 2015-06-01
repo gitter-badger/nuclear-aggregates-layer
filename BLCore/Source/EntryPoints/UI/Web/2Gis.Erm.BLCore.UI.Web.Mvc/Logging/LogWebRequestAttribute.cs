@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 
 using NuClear.Model.Common.Entities;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Logging

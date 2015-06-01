@@ -20,7 +20,7 @@ using DoubleGis.Erm.Platform.Resources.Server;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext.Identity;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Security

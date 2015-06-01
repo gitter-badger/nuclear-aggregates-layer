@@ -18,8 +18,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Erm.Parts.Chile;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Concrete.Old.Bills
 {

@@ -5,7 +5,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers
 {

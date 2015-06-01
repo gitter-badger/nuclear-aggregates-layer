@@ -17,9 +17,10 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 {
@@ -121,7 +122,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
             return _finder.Find(new FindSpecification<Position>(x => x.Id == positionId))
                           .Map(q => q.SelectMany(x => x.OrderPositionAdvertisements)
                                      .Select(x => x.OrderPosition))
-                          .Find(new FindSpecification<OrderPosition>(x => x.IsActive && !x.IsDeleted))
+                          .Filter(new FindSpecification<OrderPosition>(x => x.IsActive && !x.IsDeleted))
                           .Any();
         }
 
@@ -254,7 +255,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
             var hasChildren = _finder.Find(new FindSpecification<Position>(x => x.Id == position.Id))
                                      .Map(q => q.SelectMany(x => x.ChildPositions))
-                                     .Find(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
+                                     .Filter(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
                                      .Any();
             if (hasChildren && !position.IsComposite)
             {
@@ -263,7 +264,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
 
             var hasParent = _finder.Find(new FindSpecification<Position>(x => x.Id == position.Id))
                                    .Map(q => q.SelectMany(x => x.MasterPositions))
-                                   .Find(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
+                                   .Filter(Specs.Find.ActiveAndNotDeleted<PositionChildren>())
                                    .Any();
             if (hasParent && position.IsComposite)
             {
@@ -427,7 +428,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         {
             return _finder.Find(new FindSpecification<PositionChildren>(link => link.IsActive && !link.IsDeleted && link.ChildPositionId == position.Id))
                           .Map(q => q.Select(link => link.MasterPosition))
-                          .Find(new FindSpecification<Position>(masterPosition => masterPosition.RestrictChildPositionPlatforms
+                          .Filter(new FindSpecification<Position>(masterPosition => masterPosition.RestrictChildPositionPlatforms
                                                                                   && masterPosition.PlatformId != position.PlatformId))
                           .Any();
         }
@@ -436,7 +437,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Prices
         {
             return _finder.Find(new FindSpecification<PositionChildren>(link => link.IsActive && !link.IsDeleted && link.MasterPositionId == position.Id))
                           .Map(q => q.Select(link => link.ChildPosition))
-                          .Find(new FindSpecification<Position>(childPosition => childPosition.PlatformId != position.PlatformId))
+                          .Filter(new FindSpecification<Position>(childPosition => childPosition.PlatformId != position.PlatformId))
                           .Any();
         }
     }

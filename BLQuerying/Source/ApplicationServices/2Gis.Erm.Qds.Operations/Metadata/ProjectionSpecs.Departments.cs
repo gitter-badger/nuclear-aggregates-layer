@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.Platform.Core.EntityProjection;
-using DoubleGis.Erm.Platform.Model.Entities.Security;
+﻿using DoubleGis.Erm.Platform.Model.Entities.Security;
 using DoubleGis.Erm.Qds.API.Operations.Docs;
 using DoubleGis.Erm.Qds.Operations.Indexing;
 

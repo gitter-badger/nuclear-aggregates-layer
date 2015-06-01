@@ -14,7 +14,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic.Get
 {

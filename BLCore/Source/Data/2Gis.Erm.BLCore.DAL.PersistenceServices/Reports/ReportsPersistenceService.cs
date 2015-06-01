@@ -9,7 +9,6 @@ using DoubleGis.Erm.BLCore.DAL.PersistenceServices.Reports.DTO;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Settings.Globalization;
 using DoubleGis.Erm.Platform.DAL.AdoNet;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Enums;
 
 using NuClear.Model.Common.Entities;

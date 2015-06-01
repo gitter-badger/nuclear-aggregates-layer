@@ -25,7 +25,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 

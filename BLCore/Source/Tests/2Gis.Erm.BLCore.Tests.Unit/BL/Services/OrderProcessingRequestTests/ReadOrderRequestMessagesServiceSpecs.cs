@@ -13,8 +13,8 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Security.API.UserContext.Identity;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;

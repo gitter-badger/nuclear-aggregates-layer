@@ -2,9 +2,10 @@
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.HotClientRequest;
+
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Clients.Operations
 {

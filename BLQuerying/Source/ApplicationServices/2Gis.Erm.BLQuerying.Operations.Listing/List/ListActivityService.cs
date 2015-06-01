@@ -17,7 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List

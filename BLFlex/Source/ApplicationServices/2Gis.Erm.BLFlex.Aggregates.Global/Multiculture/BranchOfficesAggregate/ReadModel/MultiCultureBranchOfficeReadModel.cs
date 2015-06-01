@@ -1,7 +1,7 @@
 ﻿using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Multiculture.BranchOfficesAggregate.ReadModel
 {

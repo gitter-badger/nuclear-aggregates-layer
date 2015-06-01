@@ -3,7 +3,7 @@ using DoubleGis.Erm.Platform.API.Core.Operations.Logging.Transports.DB;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Simplified;
 
-using NuClear.Storage;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.Platform.Core.Operations.Logging.Transports.DB
 {

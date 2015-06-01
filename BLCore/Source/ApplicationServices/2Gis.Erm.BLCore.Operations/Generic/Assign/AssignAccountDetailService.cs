@@ -18,7 +18,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Assign

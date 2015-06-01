@@ -1,5 +1,5 @@
-﻿using NuClear.Storage;
-using NuClear.Storage.Core;
+﻿using NuClear.Storage.Core;
+using NuClear.Storage.Readings;
 
 namespace Storage.Tests.Fakes
 {

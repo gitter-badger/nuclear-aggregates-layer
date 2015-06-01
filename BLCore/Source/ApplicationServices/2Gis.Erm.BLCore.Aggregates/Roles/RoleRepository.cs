@@ -17,9 +17,10 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Roles
 {
@@ -255,7 +256,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Roles
         {
             var hasUsers = _finder.Find(new FindSpecification<Role>(x => x.Id == roleId))
                                   .Map(q => q.SelectMany(x => x.UserRoles).Select(x => x.User).Distinct())
-                                  .Find(Specs.Find.ActiveAndNotDeleted<User>())
+                                  .Filter(Specs.Find.ActiveAndNotDeleted<User>())
                                   .Any();
             return hasUsers;
         }

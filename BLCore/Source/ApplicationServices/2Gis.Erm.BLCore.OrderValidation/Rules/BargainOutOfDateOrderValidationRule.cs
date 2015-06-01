@@ -7,7 +7,7 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 
 using MessageType = DoubleGis.Erm.BLCore.API.OrderValidation.MessageType;

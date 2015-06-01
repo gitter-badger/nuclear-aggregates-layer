@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
+﻿using DoubleGis.Erm.BLCore.API.Aggregates.Prices.Dto;
 
 namespace DoubleGis.Erm.BLCore.OrderValidation.Settings
 {

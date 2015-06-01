@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
+﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Chile;
 using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Chile;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Cyprus;

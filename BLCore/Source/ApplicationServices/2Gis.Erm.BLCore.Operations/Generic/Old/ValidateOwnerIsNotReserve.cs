@@ -11,8 +11,8 @@ using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Old
 {

@@ -4,7 +4,7 @@ using System.Linq;
 
 using NuClear.Storage.Specifications;
 
-namespace NuClear.Storage.Futures.Queryable
+namespace NuClear.Storage.Readings.Queryable
 {
     public static class SequenceExtensions
     {

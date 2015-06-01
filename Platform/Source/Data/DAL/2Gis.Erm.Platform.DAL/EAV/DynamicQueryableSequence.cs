@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
-using NuClear.Storage.Futures;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
@@ -39,7 +39,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             get { throw new InvalidOperationException("DynamicQueryableSequence class interface should be used to interact with Source"); }
         }
 
-        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        public override Sequence<TSource> Filter(FindSpecification<TSource> findSpecification)
         {
             throw new NotSupportedException();
         }

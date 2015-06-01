@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Denie
 
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 {

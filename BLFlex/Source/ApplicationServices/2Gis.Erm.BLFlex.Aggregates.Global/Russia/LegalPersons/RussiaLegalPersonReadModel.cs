@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Russia.LegalPersons
 {

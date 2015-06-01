@@ -9,7 +9,6 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using FluentAssertions;
 using Machine.Specifications;
-using Moq;
 
 using It = Machine.Specifications.It;
 

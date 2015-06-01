@@ -11,8 +11,8 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
 using NuClear.Storage.Core;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;

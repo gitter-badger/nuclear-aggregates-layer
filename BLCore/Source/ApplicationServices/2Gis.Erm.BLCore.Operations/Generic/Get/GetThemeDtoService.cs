@@ -12,7 +12,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get

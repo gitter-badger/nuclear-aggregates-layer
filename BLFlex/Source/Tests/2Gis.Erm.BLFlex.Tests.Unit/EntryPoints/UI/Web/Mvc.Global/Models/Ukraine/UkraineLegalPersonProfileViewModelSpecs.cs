@@ -1,5 +1,4 @@
-﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs;
-using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
+﻿using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Ukraine;
 using DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.Shared;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Ukraine;
 

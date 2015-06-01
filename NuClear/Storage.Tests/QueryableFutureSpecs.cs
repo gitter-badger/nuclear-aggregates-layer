@@ -6,7 +6,7 @@ using FluentAssertions;
 
 using Machine.Specifications;
 
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace Storage.Tests

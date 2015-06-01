@@ -1,15 +1,14 @@
-﻿using NuClear.Storage.Futures;
-using NuClear.Storage.Specifications;
+﻿using NuClear.Storage.Specifications;
 
-namespace NuClear.Storage
+namespace NuClear.Storage.Readings
 {
     /// <summary>
-    /// Интерфейс для readonly доступа к данным
+    /// Readonly data access contract
     /// </summary>
     public interface IFinder 
     {
         /// <summary>
-        /// Compose future sequence based on findSpecification.
+        /// Compose sequence based on findSpecification.
         /// </summary>
         Sequence<TSource> Find<TSource>(FindSpecification<TSource> findSpecification) where TSource : class;
     }

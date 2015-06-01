@@ -9,8 +9,8 @@ using DoubleGis.Erm.Qds.API.Operations.Replication.Metadata.Features;
 using FastMember;
 
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Qds.Operations.Indexing

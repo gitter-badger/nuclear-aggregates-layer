@@ -4,8 +4,8 @@ using DoubleGis.Erm.Platform.API.Security;
 
 using NuClear.Security.API.UserContext;
 using NuClear.Storage.Core;
-using NuClear.Storage.Futures;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL

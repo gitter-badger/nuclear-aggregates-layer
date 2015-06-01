@@ -19,8 +19,8 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Order;
 using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.CostCalculation
 {

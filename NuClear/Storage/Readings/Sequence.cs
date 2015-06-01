@@ -4,7 +4,7 @@ using System.Linq;
 
 using NuClear.Storage.Specifications;
 
-namespace NuClear.Storage.Futures
+namespace NuClear.Storage.Readings
 {
     public abstract class Sequence<TSource>
     {
@@ -20,9 +20,20 @@ namespace NuClear.Storage.Futures
 
         protected virtual IEnumerable<TSource> Source { get; private set; }
 
-        public abstract Sequence<TSource> Find(FindSpecification<TSource> findSpecification);
+        public abstract Sequence<TSource> Filter(FindSpecification<TSource> findSpecification);
+
         public abstract Sequence<TResult> Map<TResult>(MapSpecification<IEnumerable<TSource>, IEnumerable<TResult>> mapSpecification);
         
+        public virtual IReadOnlyDictionary<TKey, TValue> Map<TKey, TValue>(Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector)
+        {
+            return Source.ToDictionary(keySelector, valueSelector);
+        }
+
+        public virtual TResult Fold<TResult>(MapSpecification<IEnumerable<TSource>, TResult> foldSpecification)
+        {
+            return foldSpecification.Map(Source);
+        }
+
         public bool Any()
         {
             return Source.Any();
@@ -41,16 +52,6 @@ namespace NuClear.Storage.Futures
         public virtual IReadOnlyCollection<TSource> Many()
         {
             return Source.ToArray();
-        }
-
-        public virtual TResult Fold<TResult>(MapSpecification<IEnumerable<TSource>, TResult> foldSpecification)
-        {
-            return foldSpecification.Map(Source);
-        }
-
-        public virtual IReadOnlyDictionary<TKey, TValue> Map<TKey, TValue>(Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector)
-        {
-            return Source.ToDictionary(keySelector, valueSelector);
         }
     }
 }

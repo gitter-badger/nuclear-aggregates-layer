@@ -16,7 +16,7 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure.Fakes;
 
 using FluentAssertions;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.UseCases;
 using NuClear.Tracing.API;
 

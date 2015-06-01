@@ -7,19 +7,21 @@ using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Security.API;
 using NuClear.Security.API.UserContext.Identity;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
+using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.Platform.Security
 {
     public sealed class SecurityServiceAuthentication : IUserAuthenticationService
     {
-        private readonly IQuery _query;
+        private readonly IFinder _finder;
         private readonly ITracer _tracer;
 
-        public SecurityServiceAuthentication(IQuery query, ITracer tracer)
+        public SecurityServiceAuthentication(IFinder finder, ITracer tracer)
         {
-            _query = query;
+            _finder = finder;
             _tracer = tracer;
         }
 
@@ -33,15 +35,14 @@ namespace DoubleGis.Erm.Platform.Security
             try
             {
                 _tracer.DebugFormat("Получаю учетную запись пользователя по аккаунту: [{0}]", userAccount);
-                var userInfo = _query.For<User>()
-                                     .Where(x => !x.IsDeleted && x.IsActive && x.Account == userAccount)
-                                     .Select(x => new
-                                         {
-                                             x.Id,
-                                             x.Account,
-                                             x.DisplayName
-                                         })
-                                     .SingleOrDefault();
+                var userInfo = _finder.Find(new FindSpecification<User>(x => !x.IsDeleted && x.IsActive && x.Account == userAccount))
+                                      .Map(q => q.Select(x => new
+                                          {
+                                              x.Id,
+                                              x.Account,
+                                              x.DisplayName
+                                          }))
+                                      .One();
             
                 _tracer.DebugFormat("Получил учетную запись пользователя по аккаунту: [{0}]. Полученная учетная запись: [{1}].", userAccount, (userInfo == null) ? "null" : userInfo.DisplayName);
 

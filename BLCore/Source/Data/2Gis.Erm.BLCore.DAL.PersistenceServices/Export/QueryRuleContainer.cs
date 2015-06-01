@@ -4,7 +4,7 @@ using System.Linq;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
 {

@@ -15,10 +15,10 @@ using Moq;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Entities.Aspects.Integration;
-using NuClear.Storage;
 using NuClear.Storage.Core;
 using NuClear.Storage.EntityFramework;
 using NuClear.Storage.UseCases;
+using NuClear.Storage.Writings;
 
 using Storage.EntityFramework.Tests.Fakes;
 

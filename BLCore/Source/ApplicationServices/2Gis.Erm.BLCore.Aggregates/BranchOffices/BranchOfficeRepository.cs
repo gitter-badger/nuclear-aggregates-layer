@@ -16,9 +16,10 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.BranchOfficeOrganizationUnit;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
+using NuClear.Storage.Writings;
 
 // ReSharper disable CheckNamespace
 
@@ -57,8 +58,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         public BranchOfficeOrganizationShortInformationDto GetBranchOfficeOrganizationUnitShortInfo(long organizationUnitId)
         {
             return _finder.Find(new FindSpecification<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId))
-                          .Find(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
-                          .Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
+                          .Filter(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
+                          .Filter(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
                           .Map(q => q.Select(x => new BranchOfficeOrganizationShortInformationDto
                               {
                                   Id = x.Id,

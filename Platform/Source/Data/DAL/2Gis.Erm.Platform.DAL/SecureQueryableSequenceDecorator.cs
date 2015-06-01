@@ -6,8 +6,8 @@ using DoubleGis.Erm.Platform.API.Security.UserContext.Identity;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage.Futures;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL
@@ -30,7 +30,7 @@ namespace DoubleGis.Erm.Platform.DAL
             }
         }
         
-        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        public override Sequence<TSource> Filter(FindSpecification<TSource> findSpecification)
         {
             return new QueryableSequence<TSource>(SecuredSource.Where(findSpecification));
         }

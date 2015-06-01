@@ -3,7 +3,7 @@
 using DoubleGis.Erm.BL.API.Aggregates.SimplifiedModel.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.SimplifiedModel.ReadModel;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BL.Aggregates.SimplifiedModel.ReadModel
 {

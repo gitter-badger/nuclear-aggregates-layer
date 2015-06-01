@@ -3,9 +3,9 @@ using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Charges.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Charges.Operations
 {

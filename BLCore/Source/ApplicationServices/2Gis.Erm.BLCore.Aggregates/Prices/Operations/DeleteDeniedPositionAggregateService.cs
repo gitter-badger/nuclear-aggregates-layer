@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Prices.Operations
 {

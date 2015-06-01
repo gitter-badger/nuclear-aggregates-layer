@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
 using NuClear.Model.Common.Entities;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.Aggregates.ReadModel.Activities
 {

@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 
 using NuClear.Aggregates;
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Modify.DomainEntityObtainers

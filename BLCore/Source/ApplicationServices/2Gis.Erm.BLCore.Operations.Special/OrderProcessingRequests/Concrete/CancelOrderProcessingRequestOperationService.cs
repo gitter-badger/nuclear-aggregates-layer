@@ -11,7 +11,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.OrderProcessingRequest;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 using MessageType = DoubleGis.Erm.BLCore.API.Operations.Metadata.MessageType;
 

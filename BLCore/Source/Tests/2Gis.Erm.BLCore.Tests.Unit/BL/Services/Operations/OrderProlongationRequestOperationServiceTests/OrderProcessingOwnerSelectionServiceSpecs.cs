@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-using DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Metadata;
 using DoubleGis.Erm.BLCore.API.Operations.Special.OrderProcessingRequests;

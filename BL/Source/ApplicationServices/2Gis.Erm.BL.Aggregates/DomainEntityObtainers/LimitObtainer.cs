@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Aggregates;
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BL.Aggregates.DomainEntityObtainers
 {

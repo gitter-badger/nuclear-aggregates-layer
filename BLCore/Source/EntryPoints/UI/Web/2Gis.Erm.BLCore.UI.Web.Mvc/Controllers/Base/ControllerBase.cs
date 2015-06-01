@@ -9,7 +9,6 @@ using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
 using NuClear.IdentityService.Client.Settings;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
-using NuClear.IdentityService.Client.Settings;
 
 using NuClear.Tracing.API;
 

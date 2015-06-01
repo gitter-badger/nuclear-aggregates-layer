@@ -1,7 +1,6 @@
 ﻿using DoubleGis.Erm.BLFlex.Tests.Unit.EntryPoints.UI.Web.Mvc.Global.Models.Shared;
 using DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Czech;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Enums;
 
 using FluentAssertions;
 

@@ -8,6 +8,7 @@ using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Entities.Aspects.Integration;
 using NuClear.Security.API.UserContext;
 using NuClear.Storage.Core;
+using NuClear.Storage.Writings;
 
 namespace NuClear.Storage.EntityFramework
 {

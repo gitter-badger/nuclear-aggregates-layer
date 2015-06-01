@@ -23,9 +23,10 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms
 {
@@ -322,7 +323,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms
             var advertisementIds =
                 _finder.Find(new FindSpecification<Firm>(x => x.Id == firmId))
                        .Map(q => q.SelectMany(x => x.Advertisements))
-                       .Find(new FindSpecification<Advertisement>(x => !x.IsDeleted))
+                       .Filter(new FindSpecification<Advertisement>(x => !x.IsDeleted))
                        .Map(q => q.Select(x => x.Id))
                        .Many();
             return advertisementIds;

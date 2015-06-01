@@ -15,7 +15,7 @@ using Machine.Specifications;
 using Moq;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
-using NuClear.Storage;
+using NuClear.Storage.Writings;
 
 using It = Machine.Specifications.It;
 

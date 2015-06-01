@@ -1,6 +1,4 @@
 ﻿using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.Model.Entities;
-
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 

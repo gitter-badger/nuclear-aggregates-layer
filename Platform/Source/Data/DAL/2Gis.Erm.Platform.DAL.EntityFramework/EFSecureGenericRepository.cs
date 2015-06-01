@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.Platform.DAL.EntityFramework
 {

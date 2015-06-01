@@ -1,5 +1,3 @@
-using System.Linq;
-
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Exceptions;
@@ -16,7 +14,7 @@ using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Czech.Generic.Activate
 {

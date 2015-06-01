@@ -9,7 +9,7 @@ using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BLFlex.Operations.Global.Chile.Generic.List
 {

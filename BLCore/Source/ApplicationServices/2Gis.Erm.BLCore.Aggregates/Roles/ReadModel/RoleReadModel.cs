@@ -1,7 +1,8 @@
 ﻿using DoubleGis.Erm.BLCore.API.Aggregates.Roles.ReadModel;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
+
+using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Roles.ReadModel
 {

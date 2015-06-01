@@ -10,7 +10,7 @@ using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Emirates.Orders
 {

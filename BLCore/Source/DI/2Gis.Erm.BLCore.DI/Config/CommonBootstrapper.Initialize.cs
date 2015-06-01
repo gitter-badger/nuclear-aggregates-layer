@@ -12,7 +12,7 @@ using Microsoft.Practices.Unity;
 using NuClear.Aggregates.Storage.DI.Unity;
 using NuClear.DI.Unity.Config;
 using NuClear.DI.Unity.Config.RegistrationResolvers;
-using NuClear.Storage;
+using NuClear.Storage.Writings;
 
 using Mapping = DoubleGis.Erm.Platform.DI.Common.Config.Mapping;
 

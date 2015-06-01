@@ -4,7 +4,7 @@ using System.Linq;
 
 using NuClear.Storage.Specifications;
 
-namespace NuClear.Storage.Futures.Queryable
+namespace NuClear.Storage.Readings.Queryable
 {
     public sealed class QueryableSequence<TSource> : Sequence<TSource>
     {
@@ -20,7 +20,7 @@ namespace NuClear.Storage.Futures.Queryable
             }
         }
 
-        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        public override Sequence<TSource> Filter(FindSpecification<TSource> findSpecification)
         {
             return new QueryableSequence<TSource>(_queryable.Where(findSpecification.Predicate));
         }

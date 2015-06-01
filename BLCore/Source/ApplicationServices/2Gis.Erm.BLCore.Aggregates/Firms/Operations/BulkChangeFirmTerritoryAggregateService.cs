@@ -3,9 +3,9 @@
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.Operations;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Firms.Operations
 {

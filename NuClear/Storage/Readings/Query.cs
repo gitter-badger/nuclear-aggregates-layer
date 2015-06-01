@@ -4,7 +4,7 @@ using System.Linq;
 using NuClear.Storage.Core;
 using NuClear.Storage.Specifications;
 
-namespace NuClear.Storage
+namespace NuClear.Storage.Readings
 {
     public class Query : IQuery
     {

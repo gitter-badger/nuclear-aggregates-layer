@@ -11,7 +11,7 @@ using Moq;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 using NUnit.Framework;
 

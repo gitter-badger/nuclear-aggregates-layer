@@ -6,8 +6,8 @@ using DoubleGis.Erm.Platform.Aggregates.EAV;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Metadata.Entities.EAV.PropertyIdentities;
 
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 
 namespace DoubleGis.Erm.BLFlex.Aggregates.Global.Kazakhstan.LegalPerson.ReadModel
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 
-using DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.API.Common.Enums;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Modify;

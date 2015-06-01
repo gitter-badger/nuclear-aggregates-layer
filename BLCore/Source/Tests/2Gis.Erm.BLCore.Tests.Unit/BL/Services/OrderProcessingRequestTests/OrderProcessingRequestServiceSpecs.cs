@@ -16,9 +16,10 @@ using Machine.Specifications;
 
 using Moq;
 
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
+using NuClear.Storage.Writings;
 
 using It = Machine.Specifications.It;
 

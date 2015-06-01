@@ -21,7 +21,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 using NuClear.Tracing.API;
 

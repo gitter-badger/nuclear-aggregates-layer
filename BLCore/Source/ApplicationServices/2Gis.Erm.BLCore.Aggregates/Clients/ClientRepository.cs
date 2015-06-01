@@ -34,8 +34,9 @@ using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Clien
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Clients
 {

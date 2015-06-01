@@ -2,11 +2,10 @@
 using System.Linq;
 
 using NuClear.Storage.Core;
-using NuClear.Storage.Futures;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
-namespace NuClear.Storage
+namespace NuClear.Storage.Readings
 {
     public class Finder : IFinder
     {

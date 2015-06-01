@@ -7,7 +7,7 @@ using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Delete

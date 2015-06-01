@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 using DoubleGis.Erm.BLCore.API.Aggregates.Users;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using NuClear.Storage;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using NuClear.Model.Common.Operations.Identity.Generic;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Users
 {

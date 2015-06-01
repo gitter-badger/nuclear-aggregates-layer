@@ -6,7 +6,7 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.UseCases;
 using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.UseCases;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.OrderValidation

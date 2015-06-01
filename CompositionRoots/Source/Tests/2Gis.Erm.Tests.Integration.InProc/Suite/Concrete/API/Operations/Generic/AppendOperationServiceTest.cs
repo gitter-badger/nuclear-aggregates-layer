@@ -10,8 +10,8 @@ using DoubleGis.Erm.Tests.Integration.InProc.Suite.Infrastructure;
 using FluentAssertions;
 
 using NuClear.Model.Common.Entities;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 
 namespace DoubleGis.Erm.Tests.Integration.InProc.Suite.Concrete.API.Operations.Generic
 {

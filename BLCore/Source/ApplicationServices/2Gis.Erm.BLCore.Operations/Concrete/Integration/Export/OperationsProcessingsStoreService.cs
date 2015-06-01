@@ -12,9 +12,10 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Entities.Aspects;
 using NuClear.Model.Common.Entities.Aspects.Integration;
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 using NuClear.Storage.Specifications;
 using NuClear.Storage.UseCases;
+using NuClear.Storage.Writings;
 
 namespace DoubleGis.Erm.BLCore.Operations.Concrete.Integration.Export
 {

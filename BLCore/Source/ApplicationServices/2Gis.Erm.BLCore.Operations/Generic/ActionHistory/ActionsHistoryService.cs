@@ -19,8 +19,8 @@ using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
 using NuClear.Model.Common.Entities;
 using NuClear.Model.Common.Operations.Identity.Generic;
 using NuClear.Security.API.UserContext;
-using NuClear.Storage;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.ActionHistory

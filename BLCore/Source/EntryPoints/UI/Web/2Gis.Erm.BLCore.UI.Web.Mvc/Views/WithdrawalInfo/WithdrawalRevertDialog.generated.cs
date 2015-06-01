@@ -13,12 +13,6 @@ namespace ASP
 {
     using System;
     using System.Collections.Generic;
-    
-    #line 1 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
-    using System.Data.Entity.Core.Metadata.Edm;
-    
-    #line default
-    #line hidden
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -51,7 +45,7 @@ namespace ASP
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
     
-    #line 2 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+    #line 1 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
     using EntityType = NuClear.Model.Common.Entities.EntityType;
     
     #line default
@@ -70,7 +64,7 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 5 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 4 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
   
     Layout = "../Shared/_DialogLayout.cshtml";
 
@@ -84,7 +78,7 @@ DefineSection("Title", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 8 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
             Write(BLResources.RevertWithdraw);
 
             
@@ -99,7 +93,7 @@ DefineSection("TopBarTitle", () => {
 WriteLiteral(" ");
 
             
-            #line 10 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 9 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
                   Write(BLResources.RevertWithdraw);
 
             
@@ -114,7 +108,7 @@ DefineSection("TopBarMessage", () => {
 WriteLiteral(" ");
 
             
-            #line 9 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 10 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
                     Write(BLResources.SpecifyPeriodAccountingMethodAndOrganizationUnit);
 
             
@@ -141,7 +135,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n    Ext.onReady(function ()\r\n    {\r\n        var isSuccess = \'");
 
             
-            #line 30 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 29 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
                     Write(Model.IsSuccess);
 
             
@@ -187,13 +181,13 @@ WriteLiteral(@"';
 ");
 
             
-            #line 67 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 66 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 67 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 66 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
      using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
 
@@ -217,7 +211,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 71 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 70 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Model.Message);
 
             
@@ -232,7 +226,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 74 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 73 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings{EntityName = EntityType.Instance.OrganizationUnit(), ExtendedInfo = "restrictByUser=true"}));
 
             
@@ -247,7 +241,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 75 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 76 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Html.TemplateField(m => m.AccountingMethod, FieldFlex.lone, null, EnumResources.ResourceManager));
 
             
@@ -262,7 +256,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 78 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 79 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Html.TemplateField(m => m.PeriodStart, FieldFlex.lone, new CalendarSettings { Store = CalendarSettings.StoreMode.Relative, Display = CalendarSettings.DisplayMode.Month }));
 
             
@@ -277,7 +271,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 81 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 82 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
            Write(Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object> { { "rows", "5" } }));
 
             
@@ -286,7 +280,7 @@ WriteLiteral("                ");
 WriteLiteral("\r\n            </div>\r\n       </div>\r\n");
 
             
-            #line 84 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
+            #line 85 "..\..\Views\WithdrawalInfo\WithdrawalRevertDialog.cshtml"
     }
 
             

@@ -15,7 +15,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 using BLCoreResources = DoubleGis.Erm.BLCore.Resources.Server.Properties.BLResources;
 using BLResources = DoubleGis.Erm.BLFlex.Resources.Server.Properties.BLResources;

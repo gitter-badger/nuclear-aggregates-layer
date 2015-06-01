@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Aggregates;
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
@@ -10,7 +9,6 @@ using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Assign;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Deactivate;
 using DoubleGis.Erm.BLCore.Resources.Server.Properties;
-using DoubleGis.Erm.Platform.API.Core.ActionLogging;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.DAL;
@@ -19,7 +17,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 using NuClear.Model.Common.Operations.Identity.Generic;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Deactivate

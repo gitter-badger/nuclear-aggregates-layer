@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-using DoubleGis.Erm.BLCore.Aggregates.Clients.Operations;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NUnit.Framework;

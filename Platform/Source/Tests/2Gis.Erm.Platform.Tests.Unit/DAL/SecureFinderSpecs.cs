@@ -14,7 +14,7 @@ using Moq;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Storage.Core;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 using It = Machine.Specifications.It;

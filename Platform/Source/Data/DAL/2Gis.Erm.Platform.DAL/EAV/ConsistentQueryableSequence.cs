@@ -7,8 +7,8 @@ using DoubleGis.Erm.Platform.DAL.Transactions;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities.Aspects;
-using NuClear.Storage.Futures;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL.EAV
@@ -49,7 +49,7 @@ namespace DoubleGis.Erm.Platform.DAL.EAV
             get { return _queryable.Where(_findSpecification); }
         }
 
-        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        public override Sequence<TSource> Filter(FindSpecification<TSource> findSpecification)
         {
             throw new NotSupportedException();
         }

@@ -9,7 +9,7 @@ using Machine.Specifications;
 
 using Moq;
 
-using NuClear.Storage;
+using NuClear.Storage.Readings;
 
 using It = Machine.Specifications.It;
 

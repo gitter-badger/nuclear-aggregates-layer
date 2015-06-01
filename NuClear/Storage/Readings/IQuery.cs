@@ -3,7 +3,7 @@ using System.Linq;
 
 using NuClear.Storage.Specifications;
 
-namespace NuClear.Storage
+namespace NuClear.Storage.Readings
 {
     public interface IQuery
     {

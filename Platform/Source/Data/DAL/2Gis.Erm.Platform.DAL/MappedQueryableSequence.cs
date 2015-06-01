@@ -5,8 +5,8 @@ using System.Linq;
 using DoubleGis.Erm.Platform.Model.Entities;
 
 using NuClear.Model.Common.Entities;
-using NuClear.Storage.Futures;
-using NuClear.Storage.Futures.Queryable;
+using NuClear.Storage.Readings;
+using NuClear.Storage.Readings.Queryable;
 using NuClear.Storage.Specifications;
 
 namespace DoubleGis.Erm.Platform.DAL
@@ -31,7 +31,7 @@ namespace DoubleGis.Erm.Platform.DAL
             _queryable = (IQueryable<TSource>)sequence;
         }
 
-        public override Sequence<TSource> Find(FindSpecification<TSource> findSpecification)
+        public override Sequence<TSource> Filter(FindSpecification<TSource> findSpecification)
         {
             return new QueryableSequence<TSource>(_queryable.Where(findSpecification));
         }
