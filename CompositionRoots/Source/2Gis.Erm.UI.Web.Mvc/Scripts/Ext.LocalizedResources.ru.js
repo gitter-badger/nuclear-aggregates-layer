@@ -1,6 +1,6 @@
 ﻿ 
 
-// File updated : 30.04.2015 13:18:38
+// File updated : 01.06.2015 12:31:44
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources

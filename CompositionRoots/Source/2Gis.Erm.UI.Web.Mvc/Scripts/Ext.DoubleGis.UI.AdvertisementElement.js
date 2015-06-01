@@ -263,7 +263,7 @@
             var body = this.RTE.getEd().getBody();
 
             if (textContainsControlList(body)) {
-                alert(Ext.LocalizedResources.AdvertisementElementTextContainsControlList);
+                alert(Ext.LocalizedResources.AdvertisementElementTextContainsNestedList);
                 return false;
             };
 
@@ -283,7 +283,7 @@
                 .replace(new RegExp('</p>', 'gim'), '<br />');
 
             if (textContainsSpace(plainText) || textContainsSpace(formattedText)) {
-                var userAgreedToRemoveSpaces = confirm(Ext.LocalizedResources.AdvertisementElementTextContainsControlSpaces);
+                var userAgreedToRemoveSpaces = confirm(Ext.LocalizedResources.AdvertisementElementTextContainsRepeatedSpaces);
                 if (userAgreedToRemoveSpaces) {
                     formattedText = ensureHasSingleSpaces(formattedText);
                     plainText = ensureHasSingleSpaces(plainText);
