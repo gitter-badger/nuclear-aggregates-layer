@@ -975,10 +975,10 @@
   <data name = "StartCalling" xml:space="preserve">
     <value>Call in progress</value>
   </data>
-  <data name="AdvertisementElementTextContainsControlList" xml:space="preserve">
-    <value>Текст содержит вложенные списки,текст не может быть сохранен.</value>
+  <data name="AdvertisementElementTextContainsNestedList" xml:space="preserve">
+    <value>The text contains nested lists and cannot be saved.</value>
   </data>
-  <data name="AdvertisementElementTextContainsControlSpaces" xml:space="preserve">
-    <value>Текст содержит повторяющиеся пробелы, удалить их перед сохранением?</value>
+  <data name="AdvertisementElementTextContainsRepeatedSpaces" xml:space="preserve">
+    <value>The text contains repeated whitespaces. Delete them before saving?</value>
   </data>
 </root>

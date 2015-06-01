@@ -978,10 +978,10 @@
   <data name = "StartCalling" xml:space="preserve">
     <value />
   </data>
-  <data name="AdvertisementElementTextContainsControlList" xml:space="preserve">
+  <data name="AdvertisementElementTextContainsNestedList" xml:space="preserve">
     <value/>
   </data>
-  <data name="AdvertisementElementTextContainsControlSpaces" xml:space="preserve">
+  <data name="AdvertisementElementTextContainsRepeatedSpaces" xml:space="preserve">
     <value />
   </data>
 </root>
