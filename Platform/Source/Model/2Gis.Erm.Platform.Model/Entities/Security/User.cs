@@ -22,6 +22,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
             UserTerritories = new HashSet<UserTerritory>();
             UserEntities = new HashSet<UserEntity>();
             UserProfiles = new HashSet<UserProfile>();
+            UserBranchOffices = new HashSet<UserBranchOffice>();
         }
 
         public long Id { get; set; }
@@ -48,6 +49,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities.Security
         public ICollection<UserTerritory> UserTerritories { get; set; }
         public ICollection<UserEntity> UserEntities { get; set; }
         public ICollection<UserProfile> UserProfiles { get; set; }
+        public ICollection<UserBranchOffice> UserBranchOffices { get; set; }
 
         public override bool Equals(object obj)
         {

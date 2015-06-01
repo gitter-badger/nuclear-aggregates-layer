@@ -353,6 +353,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             {"DListUserOrganizationUnit", "ParentsActiveAndNotDeleted=true"},
             {"DListUsersInOrganizationUnit", "ParentsActiveAndNotDeleted=true"},
 
+            {"DListUserBranchOffice", "NotDeleted=true"},
+
             {"DListThemeActive", "ActiveAndNotDeleted=true"},
             {"DListThemeTemplateActive", "ActiveAndNotDeleted=true"},
             {"DListThemeOrganizationUnit", "ActiveAndNotDeleted=true"},

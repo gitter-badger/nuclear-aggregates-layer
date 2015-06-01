@@ -1887,4 +1887,10 @@
   <data name ="ControlSaveAndCreateOnBasis" xml:space="preserve">
     <value>Сохранить и создать</value>
   </data>
+  <data name="CrdRelUsers" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
+  <data name="DListUserBranchOffice" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
 </root>
