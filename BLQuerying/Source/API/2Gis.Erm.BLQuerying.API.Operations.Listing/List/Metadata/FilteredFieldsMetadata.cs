@@ -258,11 +258,12 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
             .RegisterFilteredFields<ListUserOrganizationUnitDto>(
                 x => x.OrganizationUnitName,
                 x => x.UserName)
+            .RegisterFilteredFields<ListUserBranchOfficeDto>(
+                x => x.UserName)
             .RegisterFilteredFields<ListUserTerritoryDto>(
                 x => x.TerritoryName)
             .RegisterFilteredFields<ListWithdrawalInfoDto>(
-                x => x.OrganizationUnitName)
-            ;
+                x => x.OrganizationUnitName);
 
         private static Dictionary<Type, LambdaExpression[]> RegisterFilteredFields<TDocument>(this Dictionary<Type, LambdaExpression[]> map, params Expression<Func<TDocument, object>>[] expressions)
         {

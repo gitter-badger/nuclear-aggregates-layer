@@ -112,6 +112,8 @@ namespace DoubleGis.Erm.BLCore.DB.Migrations.Shared
         public static readonly SchemaQualifiedObjectName BranchOfficeOrganizationUnits = new SchemaQualifiedObjectName(ErmSchemas.Billing,
                                                                                                                        "BranchOfficeOrganizationUnits");
 
+        public static readonly SchemaQualifiedObjectName UserBranchOffices = new SchemaQualifiedObjectName(ErmSchemas.Billing, "UserBranchOffices");
+
         public static readonly SchemaQualifiedObjectName UserProfiles = new SchemaQualifiedObjectName(ErmSchemas.Security, "UserProfiles");
 
         public static readonly SchemaQualifiedObjectName Users = new SchemaQualifiedObjectName(ErmSchemas.Security, "Users");

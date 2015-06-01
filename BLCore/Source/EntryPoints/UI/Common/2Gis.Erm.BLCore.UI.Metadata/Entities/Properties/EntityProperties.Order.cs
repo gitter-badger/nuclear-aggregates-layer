@@ -59,7 +59,7 @@ namespace DoubleGis.Erm.BLCore.UI.Metadata.Entities.Properties
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.BranchOfficeOrganizationUnitRef)
                                   .WithFeatures(
                                       LookupPropertyFeature.Create(EntityType.Instance.BranchOfficeOrganizationUnit())
-                                                           .WithExtendedInfo("sourceOrganizationUnitId={SourceOrganizationUnitRef.Id}&restrictByFP=true&userId={CurrenctUserCode}"),
+                                                           .WithExtendedInfo("OrderSourceOrganizationUnitId={SourceOrganizationUnitRef.Id}"),
                                       DisplayNameLocalizedFeature.Create(() => MetadataResources.BranchOfficeOrganizationUnitName)),
 
                     EntityPropertyMetadata.Create<OrderDomainEntityDto>(dto => dto.LegalPersonRef)

@@ -5207,7 +5207,7 @@ Periodo de la publicación: {3}.</value>
     <value>Soporte técnico</value>
   </data>
   <data name="PositionAccessDenied" xml:space="preserve">
-    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+    <value>El usuario actual no tiene permisos para editar las posiciones de nomenclatura</value>
   </data>
   <data name="ManageDocumentsDebt" xml:space="preserve">
     <value>Gestión de la existencia de los documentos</value>
@@ -5271,5 +5271,11 @@ Periodo de la publicación: {3}.</value>
   </data>
   <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
     <value>Este tipo {0} de telefonía no se soporta.</value>
+  </data>
+  <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
+    <value>Usuario {0} ya está enlazado con la razón social {1}</value>
+  </data>
+  <data name="UserDoesntHaveSharedWithBranchOfficeOrganizationUnits" xml:space="preserve">
+    <value>El usuario {0} no tiene departamentos de empresa en común con la razón social {1}</value>
   </data>
 </root>

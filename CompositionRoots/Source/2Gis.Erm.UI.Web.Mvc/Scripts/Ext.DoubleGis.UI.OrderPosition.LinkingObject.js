@@ -119,7 +119,7 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
     },
 
     // Метод создаёт чекбокс отражающий не изменённое пользователем состояние заказа в базе данных и не доступный для изменения.
-    beginDisabledCheckboxCreation: function () {        
+    beginDisabledCheckboxCreation: function () {
         var key = this.key + '-disabled';
         var outerDivId = 'checkboxDiv-' + key;
         var div = document.createElement('div');
@@ -351,7 +351,8 @@ Ext.DoubleGis.UI.OrderPosition.LinkingObject = Ext.extend(Ext.util.Observable, {
                         if (buttonId == 'Continue') {
                             opt.linkingObjectNode.advertisementLookup.setValue({ id: opt.linkingObjectNode.position.DummyAdvertisementId, name: Ext.LocalizedResources.DummyValue }, true);
                             if (!opt.linkingObjectNode.checkbox.checked && !opt.linkingObjectNode.checkbox.disabled) {
-                                opt.linkingObjectNode.checkbox.click();
+                                opt.linkingObjectNode.checkbox.checked = true;
+                                opt.linkingObjectNode.onCheckboxClick();
                             }
                         } else {
                             opt.linkingObjectNode.isDummyCheckBox.checked = false;
