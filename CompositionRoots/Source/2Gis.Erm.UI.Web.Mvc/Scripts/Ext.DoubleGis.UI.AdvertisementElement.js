@@ -204,7 +204,7 @@
             var elements = oldStr.split(/<br \/>/gim);
             var result = "";
             elements.forEach(function (element) {
-                if (element != "") {
+                if (element) {
                     result += "<p>" + element + "</p>";
                 }
             });
