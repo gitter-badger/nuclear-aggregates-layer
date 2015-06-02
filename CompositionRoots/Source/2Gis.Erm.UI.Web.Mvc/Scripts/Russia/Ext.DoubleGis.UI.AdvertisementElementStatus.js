@@ -391,15 +391,15 @@
             }
         };
 
-        if (cardSurrogate.fireEvent('beforepost', this) === false) {
-            return false;
-        }
-
         var form = document.forms[0];
 
         var isValid = Ext.DoubleGis.FormValidator.validate(form);
         if (!isValid) {
             addErrorNotification(Ext.LocalizedResources.ActionIsNotAvailableSinceThereIsAnError, 'CriticalError');
+            return false;
+        }
+
+        if (cardSurrogate.fireEvent('beforepost', this) === false) {
             return false;
         }
 
