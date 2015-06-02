@@ -8,6 +8,7 @@ using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.FirmWorkStatus
@@ -39,7 +40,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.FirmWorkStatus
             }
 
             if (!_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Read,
-                                                              EntityName.Firm,
+                                                              EntityType.Instance.Firm(),
                                                               _userContext.Identity.Code,
                                                               firmId,
                                                               ownerCode,
