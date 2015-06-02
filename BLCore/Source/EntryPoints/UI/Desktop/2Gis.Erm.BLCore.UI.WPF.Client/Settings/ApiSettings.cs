@@ -6,6 +6,7 @@ using DoubleGis.Erm.BLCore.API.Releasing.Remote.Release.Settings;
 using DoubleGis.Erm.Platform.API.Core.Settings.APIServices;
 using DoubleGis.Erm.Platform.API.Core.Settings.Environments;
 using DoubleGis.Erm.Platform.API.Metadata.Settings;
+using NuClear.IdentityService.Client.Settings;
 using DoubleGis.Erm.Platform.UI.WPF.Infrastructure.Settings;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Settings;
 
@@ -20,14 +21,13 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Settings
         
         public ApiSettings(string configFileFullPath) : base(configFileFullPath)
         {
-            Aspects.Use(
-                RequiredServices
-                    .Is<APIReleasingServiceSettingsAspect>()
-                    .Is<APIIntrospectionServiceSettingsAspect>()
-                    .Is<APIOrderValidationServiceSettingsAspect>()
-                    .Is<APIIdentityServiceSettingsAspect>()
-                    .Is<APIOperationsServiceSettingsAspect>()
-                    .Apply(Configuration));
+            Aspects.Use<IdentityServiceClientSettingsAspect>()
+                   .Use(RequiredServices
+                            .Is<APIReleasingServiceSettingsAspect>()
+                            .Is<APIIntrospectionServiceSettingsAspect>()
+                            .Is<APIOrderValidationServiceSettingsAspect>()
+                            .Is<APIOperationsServiceSettingsAspect>()
+                            .Apply(Configuration));
         }
 
         public EnvironmentType TargetEnvironmentType

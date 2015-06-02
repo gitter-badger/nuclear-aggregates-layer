@@ -10,7 +10,9 @@ using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
@@ -97,7 +99,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             // для заглушек вместо прав на фирму проверяем функциональную привилегию
             dtoInfo.Dto.SetReadonly = firmInfo != null
                                           ? !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
-                                                                                          EntityName.Firm,
+                                                                                          EntityType.Instance.Firm(),
                                                                                           UserContext.Identity.Code,
                                                                                           firmInfo.Id,
                                                                                           firmInfo.OwnerCode,
@@ -108,18 +110,12 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
             return dtoInfo.Dto;
         }
 
-        protected override IDomainEntityDto<AdvertisementElement> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        protected override IDomainEntityDto<AdvertisementElement> CreateDto(long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             return new AdvertisementElementDomainEntityDto();
         }
 
-        protected override void SetDtoProperties(
-            IDomainEntityDto<AdvertisementElement> domainEntityDto, 
-            long entityId, 
-            bool readOnly, 
-            long? parentEntityId, 
-            EntityName parentEntityName, 
-            string extendedInfo)
+        protected override void SetDtoProperties(IDomainEntityDto<AdvertisementElement> domainEntityDto, long entityId, bool readOnly, long? parentEntityId, IEntityType parentEntityName, string extendedInfo)
         {
             var dto = (AdvertisementElementDomainEntityDto)domainEntityDto;
             dto.CanUserChangeStatus = _securityServiceFunctionalAccess.HasFunctionalPrivilegeGranted(FunctionalPrivilegeName.AdvertisementVerification, UserContext.Identity.Code);

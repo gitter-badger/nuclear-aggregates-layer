@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Territory
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Territory
 {
     public class ImportSaleTerritoryIdentity : OperationIdentityBase<ImportSaleTerritoryIdentity>, INonCoupledOperationIdentity
     {

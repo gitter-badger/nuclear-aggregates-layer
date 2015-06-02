@@ -1,38 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
 using DoubleGis.Erm.BLCore.API.Aggregates.Activities.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Clients.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Deals.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
-using NuClear.Security.API.UserContext;
+using DoubleGis.Erm.BLCore.Operations.Generic.Get.Activity;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Activity;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
+using NuClear.Security.API.UserContext;
 
 // ReSharper disable once CheckNamespace
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
 {
-    public class GetTaskDtoService : GetDomainEntityDtoServiceBase<Task>
+    public class GetTaskDtoService : GetActivityDtoService<Task>
     {
         private readonly ITaskReadModel _taskReadModel;
-        private readonly IClientReadModel _clientReadModel;
-        private readonly IDealReadModel _dealReadModel;
-        private readonly IFirmReadModel _firmReadModel;
 
         public GetTaskDtoService(IUserContext userContext,
-                                 ITaskReadModel taskReadModel,
+                                 IAppointmentReadModel appointmentReadModel,
                                  IClientReadModel clientReadModel,
+                                 IFirmReadModel firmReadModel,
                                  IDealReadModel dealReadModel,
-                                 IFirmReadModel firmReadModel)
-            : base(userContext)
+                                 ILetterReadModel letterReadModel,
+                                 IPhonecallReadModel phonecallReadModel,
+                                 ITaskReadModel taskReadModel)
+            : base(userContext, appointmentReadModel, clientReadModel, firmReadModel, dealReadModel, letterReadModel, phonecallReadModel, taskReadModel)
         {
             _taskReadModel = taskReadModel;
-            _clientReadModel = clientReadModel;
-            _dealReadModel = dealReadModel;
-            _firmReadModel = firmReadModel;
         }
 
         protected override IDomainEntityDto<Task> GetDto(long entityId)
@@ -43,8 +40,6 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                 throw new InvalidOperationException("The task does not exist for the specified ID.");
             }
 
-            var regardingObjects = _taskReadModel.GetRegardingObjects(entityId);
-
             return new TaskDomainEntityDto
                 {
                     Id = task.Id,
@@ -54,7 +49,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     TaskType = task.TaskType,
                     Priority = task.Priority,
                     Status = task.Status,
-                    RegardingObjects = AdaptReferences(regardingObjects),
+                    RegardingObjects = GetRegardingObjects(EntityType.Instance.Task(), entityId),
 
                     OwnerRef = new EntityReference { Id = task.OwnerCode, Name = null },
                     CreatedByRef = new EntityReference { Id = task.CreatedBy, Name = null },
@@ -66,63 +61,17 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Get
                     Timestamp = task.Timestamp,
                 };
         }
-
-        protected override IDomainEntityDto<Task> CreateDto(long? parentEntityId, EntityName parentEntityName, string extendedInfo)
+        
+        protected override IDomainEntityDto<Task> CreateDto(long? parentEntityId, IEntityType parentEntityType, string extendedInfo)
         {
-            var dto = new TaskDomainEntityDto
-                {
-                    ScheduledOn = DateTime.Now,
-                    Priority = ActivityPriority.Average,
-                    Status = ActivityStatus.InProgress,
-                };
+            return new TaskDomainEntityDto
+                       {
+                           ScheduledOn = DateTime.Now,
+                           Priority = ActivityPriority.Average,
+                           Status = ActivityStatus.InProgress,
 
-            EntityReference regardingObject = null;
-            if (parentEntityName.CanBeRegardingObject())
-            {
-                regardingObject = ToEntityReference(parentEntityName, parentEntityId);
-            }
-            else if (parentEntityName == EntityName.Contact && parentEntityId.HasValue)
-            {
-                var client = _clientReadModel.GetClientByContact(parentEntityId.Value);
-                if (client != null)
-                {
-                    regardingObject = ToEntityReference(EntityName.Client, client.Id);
-                }
-            }
-            if (regardingObject != null)
-            {
-                dto.RegardingObjects = new[] { regardingObject };
-            }
-
-            return dto;
-        }
-
-        private IEnumerable<EntityReference> AdaptReferences(IEnumerable<EntityReference<Task>> references)
-        {
-            return references.Select(x => ToEntityReference(x.TargetEntityName, x.TargetEntityId)).Where(x => x != null).ToList();
-        }
-
-        private EntityReference ToEntityReference(EntityName entityName, long? entityId)
-        {
-            if (!entityId.HasValue) return null;
-
-            string name;
-            switch (entityName)
-            {
-                case EntityName.Client:
-                    name = _clientReadModel.GetClientName(entityId.Value);
-                    break;
-                case EntityName.Deal:
-                    name = _dealReadModel.GetDeal(entityId.Value).Name;
-                    break;
-                case EntityName.Firm:
-                    name = _firmReadModel.GetFirmName(entityId.Value);
-                    break;
-                default:
-                    return null;
-            }
-
-            return new EntityReference { Id = entityId, Name = name, EntityName = entityName };
+                           RegardingObjects = GetRegardingObjects(parentEntityType, parentEntityId),
+                       };
         }
     }
 }

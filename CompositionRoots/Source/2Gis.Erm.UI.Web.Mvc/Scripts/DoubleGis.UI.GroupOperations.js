@@ -112,7 +112,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         }
 
         this.ProcessEntities();
-    },    
+    },
     IsUserSettingsValid: function () { /*переопределить в потомке*/ },
     PreProcessEntities: function () { /*реализация по-умолчанию*/ return true; },
     ConvertEntityIds: function () {
@@ -167,7 +167,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
                 entityId = nextEntity;
                 entityName = this.ResolveEntityName(nextEntity);
             }
-            var operationUrl = String.format(this.EvaluateOperationUrlTemplate(), entityName);
+        	var operationUrl = String.format(this.EvaluateOperationUrlTemplate(), entityName);
             var params = this.CreateParamsForControllerCall(entityId);
 
             this.ProcessSingleEntity(operationUrl, params);
@@ -195,7 +195,7 @@ Ext.DoubleGis.UI.GroupProcessor = Ext.extend(Ext.util.Observable, {
         });
     },
 	ResolveEntityName: function(entityId) {
-		return Ext.getDom("EntityTypeName").value;
+		return Ext.getDom("EntityType").value;
 	},
     OnSuccessProcessed: function (response) {
         var validatedProcessingStatus = this.ValidateEntryProcessingSuccessStatus(response.responseText);

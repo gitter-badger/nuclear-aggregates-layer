@@ -1,5 +1,5 @@
 ﻿
-@model Models.DepartmentViewModel
+@model DepartmentViewModel
 
 @{
     Layout = "../Shared/_CardLayout.cshtml";
@@ -19,7 +19,7 @@
             @Html.TemplateField(m => m.Name, FieldFlex.lone)
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Parent, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Department, ShowReadOnlyCard = true, ExtendedInfo = "excludeId={Id}" })
+            @Html.TemplateField(m => m.Parent, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Department(), ShowReadOnlyCard = true, ExtendedInfo = "excludeId={Id}" })
         </div>
     </div>
 }

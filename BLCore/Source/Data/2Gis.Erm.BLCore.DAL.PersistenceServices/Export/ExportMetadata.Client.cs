@@ -4,7 +4,9 @@ using System.Linq;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm;
 
 namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
@@ -13,7 +15,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
     {
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "Reviewed. Suppression is OK here.")]
         public static readonly QueryRuleContainer<Client> Client = QueryRuleContainer<Client>.Create(
-            () => EntityOperationMapping<Client>.ForEntity(EntityName.Client)
+            () => EntityOperationMapping<Client>.ForEntity(EntityType.Instance.Client())
                                                 .Operation<AssignIdentity>()
                                                 .Operation<CreateIdentity>()
                                                 .Operation<UpdateIdentity>()
@@ -22,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                 .Operation<MergeIdentity>()
                                                 .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Client>(ids))),
 
-            () => EntityOperationMapping<Client>.ForEntity(EntityName.Firm)
+            () => EntityOperationMapping<Client>.ForEntity(EntityType.Instance.Firm())
                                                 .Operation<ChangeClientIdentity>()
                                                 .Operation<UpdateIdentity>()
                                                 .Operation<QualifyIdentity>()
@@ -31,14 +33,14 @@ namespace DoubleGis.Erm.BLCore.DAL.PersistenceServices.Export
                                                                             .Where(firm => firm.ClientId != null)
                                                                             .Select(firm => firm.Client)),
 
-            () => EntityOperationMapping<Client>.ForEntity(EntityName.Contact)
+            () => EntityOperationMapping<Client>.ForEntity(EntityType.Instance.Contact())
                                                 .Operation<CreateIdentity>()
                                                 .Operation<UpdateIdentity>()
                                                 .Operation<DeleteIdentity>()
                                                 .Use((finder, ids) => finder.Find(Specs.Find.ByIds<Contact>(ids))
                                                                             .Select(contact => contact.Client)),
 
-            () => EntityOperationMapping<Client>.ForEntity(EntityName.LegalPerson)
+            () => EntityOperationMapping<Client>.ForEntity(EntityType.Instance.LegalPerson())
                                                 .Operation<ActivateIdentity>()
                                                 .Operation<CreateIdentity>()
                                                 .Operation<ChangeClientIdentity>()

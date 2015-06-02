@@ -953,9 +953,6 @@
   <data name="AdditionalStreet" xml:space="preserve">
     <value>Улица дополнительная</value>
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value>Запрещенная позиция уже деактивирована</value>
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value>Выбран в белый список</value>
   </data>
@@ -988,9 +985,6 @@
   </data>
   <data name="PricePositionsReferencesToInactivePositions" xml:space="preserve">
     <value>В списке позиций прайса присутствуют объекты, ссылающиеся на неактивные позиции</value>
-  </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
-    <value>Нельзя дективировать запрещенную позицию из деактивированного прайс-листа</value>
   </data>
   <data name="SpecifyMonthAndOrganizationUnit" xml:space="preserve">
     <value>Укажите отделение организации и месяц</value>
@@ -2452,9 +2446,6 @@
   <data name="AmountPlan" xml:space="preserve">
     <value>Изначальная сумма</value>
   </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value>Нельзя дективировать запрещенную позицию из опубликованного прайс-листа</value>
-  </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
     <value>Юридическое лицо клиента: {0}.
 Юридическое лицо исполнителя: {1}.
@@ -3196,7 +3187,7 @@ Cумма по операции: {5}.
   <data name="ServerRuntimeError" xml:space="preserve">
     <value>Ошибка выполнения {0} на сервере: '{1}'</value>
   </data>
-  <data name="OperationIsDiabled" xml:space="preserve">
+  <data name="OperationIsDisabled" xml:space="preserve">
     <value>Данная операция была отключена</value>
   </data>
   <data name="NoFirmsSelected" xml:space="preserve">
@@ -5120,7 +5111,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-</data>
+  </data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5148,9 +5139,6 @@ Cумма по операции: {5}.
   </data>
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value>В заказе могут присутствовать позиции только одной модели продаж</value>
-  </data>
-  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
-    <value>Набор рубрик для всех подпозиций должен совпадать</value>
   </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value>Попытка сохранить позицию заказа с моделью продаж '{0}' с количеством, не равным 1</value>
@@ -5191,6 +5179,9 @@ Cумма по операции: {5}.
   <data name="CancelOperationIsNotSpecifiedForThisEntity" xml:space="preserve">
     <value>Операция смены клиента не определена для указанного типа сущности</value>
   </data>
+  <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
+    <value>Недостаточно прав для создания заказа рекламного агентства</value>
+  </data>
   <data name="SpecifyPeriodAccountingMethodAndOrganizationUnit" xml:space="preserve">
     <value>Укажите период, способ учета оказания услуг и отделение организации</value>
   </data>
@@ -5221,6 +5212,30 @@ Cумма по операции: {5}.
   <data name="OperationCannotBePerformedSinceReleaseIsInProgress" xml:space="preserve">
     <value>Операция не может быть проведена т.к. выполняется сборка</value>
   </data>
+  <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
+    <value>Необходимо указать хотя бы одну привязку</value>
+  </data>
+  <data name="PublishedPriceCannotBeModified" xml:space="preserve">
+    <value>Опубликованный прайс не может быть отредактирован</value>
+  </data>
+  <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
+    <value>Найдены дубли правил запрещения для следующих позиций: {0}</value>
+  </data>
+  <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
+    <value>Не найдено симметричное правило запрещения для: {0}</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя создавать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя создавать запрещенную позицию в опубликованном прайс-листе</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value>Нельзя редактирвать запрещенную позицию в деактивированном прайс-листе</value>
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value>Нельзя редактирвать запрещенную позицию в опубликованном прайс-листе</value>
+  </data>
   <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
     <value>Для следующих позиций можно указать только одну привязку: {0}</value>
   </data>
@@ -5232,5 +5247,32 @@ Cумма по операции: {5}.
   </data>
   <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
     <value>Нельзя удалить ценовую группу по умолчанию</value>
+  </data>
+  <data name="AllPositionsMustBePicked" xml:space="preserve">
+    <value>Необходимо отметить все позиции</value>
+  </data>
+  <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
+    <value>Набор рубрик для позиций {0} должен быть одинаков</value>
+  </data>
+  <data name ="WorkPhoneIsNotSelected" xml:space="preserve">
+    <value>В вашем профиле не указан внутренний телефон, на который должны приходить звонки.</value>
+  </data>
+  <data name ="IncorrectPhoneNumber" xml:space="preserve">
+    <value>Телефон {0} имеет некорректный формат.</value>
+  </data>
+  <data name ="DialingIsNotAllowed" xml:space="preserve">
+    <value>У Вас нет прав на совершение звонков.</value>
+  </data>
+  <data name ="TelephonyUnitIsNotSelected" xml:space="preserve">
+    <value>В профиле не указан адрес сервиса телефонии.</value>
+  </data>
+  <data name ="TelephonyServiceInactive" xml:space="preserve">
+    <value>В данный момент сервис телефони не доступен.</value>
+  </data>
+  <data name ="TelephonyUnitInIncorrectFormat" xml:space="preserve">
+    <value>Адрес сервиса телефонии указан в некорректном формате.</value>
+  </data>
+  <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
+    <value>Данный тип {0} телефонии не поддерживается.</value>
   </data>
 </root>

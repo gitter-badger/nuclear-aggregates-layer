@@ -112,6 +112,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                 .Select(order => new
                 {
                     order.BeginDistributionDate,
+                    order.SignupDate,
                     order.LegalPersonId,
                     order.DestOrganizationUnit.ElectronicMedia,
                     Bargain = new[] { order.Bargain }.Where(b => b != null).Select(b => new { b.Number, b.CreatedOn }).FirstOrDefault(),
@@ -133,7 +134,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
 
             return new PrintData
                 {
-                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(data.BeginDistributionDate) },
+                    { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(data.BeginDistributionDate, data.SignupDate) },
                     { "BeginContractParagraph", GetBeginContractParagraph(branchOfficeOrganizationUnit, legalPerson, legalPersonProfile) },
                     { "ClientRequisitesParagraph", GetClientRequisitesParagraph(legalPerson, legalPersonProfile) },
                     { "ElectronicMedia", data.ElectronicMedia },
@@ -273,6 +274,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                         legalPerson.LegalName,
                         legalPerson.Inn,
                         legalPerson.LegalAddress,
+                        profile != null ? profile.PostAddress : string.Empty,
                         profile != null ? profile.PaymentEssentialElements : string.Empty);
                 case LegalPersonType.LegalPerson:
                     return string.Format(
@@ -282,6 +284,7 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Russia.Generic
                         legalPerson.Inn,
                         legalPerson.Kpp,
                         legalPerson.LegalAddress,
+                        profile != null ? profile.PostAddress : string.Empty,
                         profile != null ? profile.PaymentEssentialElements : string.Empty);
                 default:
                     throw new ArgumentOutOfRangeException();

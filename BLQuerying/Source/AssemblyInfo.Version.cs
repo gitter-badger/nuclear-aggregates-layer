@@ -4,11 +4,11 @@ using System.Resources;
 [assembly: AssemblyVersion("2.0.0")]
 [assembly: SatelliteContractVersion("2.0.0")]
 
-[assembly: AssemblyFileVersion("2.88.22")]
-[assembly: AssemblyInformationalVersion("2.88.0-ERM-6557-70c415-22")]
+[assembly: AssemblyFileVersion("2.94.33")]
+[assembly: AssemblyInformationalVersion("2.94.1-2.95.0-cd09ab-33")]
 
 internal static class ThisAssembly
 {
-    internal const string SemanticVersion = "2.88.0-ERM-6557-70c415-22";
-    internal const string Build = "22";
+    internal const string SemanticVersion = "2.94.1-2.95.0-cd09ab-33";
+    internal const string Build = "33";
 }

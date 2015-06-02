@@ -6,16 +6,17 @@ using DoubleGis.Erm.BLFlex.Model.Entities.DTOs.Emirates;
 using DoubleGis.Erm.Platform.Model.Aspects;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Metadata.Globalization;
 using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+using NuClear.Model.Common.Entities.Aspects;
+
 namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
 {
-    public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, INameAspect, IEmiratesAdapted
+    public sealed class EmiratesClientViewModel : EntityViewModelBase<Client>, IHaveTelephonyAccessAspect, INameAspect, IEmiratesAdapted
     {
         // Наименование
         [StringLengthLocalized(250)]
@@ -93,6 +94,8 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Emirates
         // Поле, необходимое для мерджа клиентов
         public long AppendedClient { get; set; }
         public bool AssignAllObjects { get; set; }
+
+        public bool HaveTelephonyAccess { get; set; }
 
         public override void LoadDomainEntityDto(IDomainEntityDto domainEntityDto)
         {

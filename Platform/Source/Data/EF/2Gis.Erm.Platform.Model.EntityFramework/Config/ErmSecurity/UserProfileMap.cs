@@ -45,7 +45,7 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
             // Table & Column Mappings
             ToTable("UserProfiles", "Security");
             Property(t => t.Id).HasColumnName("Id");
-            Property(t => t.UserId).HasColumnName("UserId");
+            Property(t => t.UserId).HasColumnName("UserId");            
             Property(t => t.TimeZoneId).HasColumnName("TimeZoneId");
             Property(t => t.CultureInfoLCID).HasColumnName("CultureInfoLCID");
             Property(t => t.IsDeleted).HasColumnName("IsDeleted");
@@ -64,6 +64,8 @@ namespace DoubleGis.Erm.Platform.Model.EntityFramework.Config.ErmSecurity
             Property(t => t.Birthday).HasColumnName("Birthday");
             Property(t => t.Gender).HasColumnName("Gender");
             Property(t => t.PlanetURL).HasColumnName("PlanetURL");
+            Property(t => t.TelephonyAddress).HasColumnName("TelephonyAddress");
+            
 
             // Relationships
             HasRequired(t => t.TimeZone)

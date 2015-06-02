@@ -41,6 +41,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Assembling.1.0.4\lib\portable-net451+win81+wpa81\2GIS.NuClear.Assembling.dll</HintPath>
     </Reference>
+    <Reference Include="2GIS.NuClear.Model.Common, Version=0.0.0.0, Culture=neutral, PublicKeyToken=3ad4d1ee93087517, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Model.Common.1.1.2\lib\portable-net451+win81+wpa81\2GIS.NuClear.Model.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="2GIS.NuClear.Security.API, Version=2.0.0.0, Culture=neutral, PublicKeyToken=28ae40ac5f6ca219, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\CompositionRoots\Source\packages\2GIS.NuClear.Security.API.1.1.0\lib\net451\2GIS.NuClear.Security.API.dll</HintPath>
@@ -104,7 +108,7 @@
     <Compile Include="..\..\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="Generic\Activate\ActivateLimitService.cs" />
+    <Compile Include="Generic\Activate\ActivateLimitOperationService.cs" />
     <Compile Include="Generic\Append\AppendException.cs" />
     <Compile Include="Generic\Append\AppendClientClientService.cs" />
     <Compile Include="Generic\Append\AppendAdvertisingAgencyException.cs" />
@@ -113,15 +117,15 @@
     <Compile Include="Generic\Append\SameIdsForEntitiesToLinkException.cs" />
     <Compile Include="Generic\Append\InvalidEntityTypesForLinkingException.cs" />
     <Compile Include="Generic\Deactivate\DeactivateDenialReasonOperationService.cs" />
-    <Compile Include="Generic\Deactivate\DeactivateLimitService.cs" />
-    <Compile Include="Generic\Delete\DeleteLimitService.cs" />
+    <Compile Include="Generic\Deactivate\DeactivateLimitOperationService.cs" />
+    <Compile Include="Generic\Delete\DeleteLimitOperationService.cs" />
     <Compile Include="Generic\File\AdvertisementElements\IUploadingAdvertisementElementValidator.cs" />
     <Compile Include="Generic\File\AdvertisementElements\UploadAdvertisementElementFileOperationService.cs" />
     <Compile Include="Generic\File\AdvertisementElements\UploadingAdvertisementElementValidator.cs" />
     <Compile Include="Generic\Get\GetDenialReasonDtoOperationService.cs" />
-    <Compile Include="Generic\Get\GetLimitDtoService.cs" />
-    <Compile Include="Generic\Modify\ModifyLegalPersonProfileService.cs" />
-    <Compile Include="Generic\Modify\ModifyLimitService.cs" />
+    <Compile Include="Generic\Get\GetLimitDtoOperationService.cs" />
+    <Compile Include="Generic\Modify\ModifyLegalPersonProfileOperationService.cs" />
+    <Compile Include="Generic\Modify\ModifyLimitOperationService.cs" />
     <Compile Include="Generic\Modify\SimplifiedModel\ModifyDenialReasonOperationService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -220,6 +224,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\flowDeliveryData.LetterSendRequest.xsd">
       <SubType>Designer</SubType>
     </None>

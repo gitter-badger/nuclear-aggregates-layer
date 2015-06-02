@@ -6,10 +6,10 @@ using System.ServiceModel.Web;
 
 using DoubleGis.Erm.BLCore.API.Operations;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.DownloadBinary;
-using NuClear.Security.API.UserContext;
-using DoubleGis.Erm.Platform.Common.Utils.Resources;
-using DoubleGis.Erm.Platform.Model.Entities;
 
+using NuClear.Model.Common.Entities;
+using NuClear.ResourceUtilities;
+using NuClear.Security.API.UserContext;
 using NuClear.Tracing.API;
 
 namespace DoubleGis.Erm.BLCore.WCF.Operations
@@ -33,10 +33,10 @@ namespace DoubleGis.Erm.BLCore.WCF.Operations
 
         public Stream Execute(string specifiedEntityName, string specifiedBinaryId)
         {
-            var entityName = EntityName.None;
+            IEntityType entityName = EntityType.Instance.None();
             try
             {
-                if (!Enum.TryParse(specifiedEntityName, out entityName))
+                if (!EntityType.Instance.TryParse(specifiedEntityName, out entityName))
                 {
                     throw new ArgumentException("Entity Name cannot be parsed");
                 }

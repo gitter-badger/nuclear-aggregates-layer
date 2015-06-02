@@ -2032,4 +2032,13 @@
   <data name="BusinessOperationWithdrawal" xml:space="preserve">
     <value>Writing-off</value>
   </data>
+  <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
+    <value>Telephony</value>
+  </data>
+  <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
+    <value>Advertising agency</value>
+  </data>
+  <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
+    <value>Changing Advertising Agency order type</value>
+  </data>
 </root>

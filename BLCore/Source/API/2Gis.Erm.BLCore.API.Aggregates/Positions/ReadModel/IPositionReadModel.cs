@@ -13,7 +13,6 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel
     {
         bool IsSupportedByExport(long positionId);
         IReadOnlyDictionary<PlatformEnum, long> GetPlatformsDictionary(IEnumerable<long> platformDgppIds);
-        Position GetPositionByPricePositionId(long pricePositionId);
         IEnumerable<LinkingObjectsSchemaPositionDto> GetPositionBindingObjectsInfo(bool isPricePositionComposite, long positionId);
         IReadOnlyCollection<long> GetDependedByPositionOrderIds(long positionId);
         IDictionary<long, PositionsGroup> GetPositionGroups(IEnumerable<long> positionIds);
@@ -21,5 +20,10 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Positions.ReadModel
         IReadOnlyDictionary<long, string> GetPositionNames(IEnumerable<long> positionIds);
         IEnumerable<PositionSortingOrderDto> GetPositionsSortingOrder();
         IEnumerable<Position> GetPositions(IEnumerable<long> ids);
+        IReadOnlyCollection<long> GetChildPositionIds(long positionId);
+        bool KeepCategoriesSynced(long positionId);
+        bool AllSubpositionsMustBePicked(long positionId);
+        bool AutoCheckPositionsWithFirmBindingType(long positionId);
+        PositionSalesModelAndCompositenessDto GetPositionSalesModelAndCompositenessByPricePosition(long pricePositionId);
     }
 }

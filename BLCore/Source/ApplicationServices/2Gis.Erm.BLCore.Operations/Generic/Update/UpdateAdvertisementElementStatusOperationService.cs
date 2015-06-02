@@ -4,12 +4,13 @@ using DoubleGis.Erm.BLCore.API.Operations.Concrete.AdvertisementElements;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Get;
 using DoubleGis.Erm.BLCore.API.Operations.Generic.Update;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
-using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.DTOs;
 using DoubleGis.Erm.Platform.Model.Entities.Enums;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
 using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.AdvertisementElement;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Update
 {
@@ -62,7 +63,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Update
                                                           advertisementElementStatusDomainEntityDto.Id,
                                                           false,
                                                           null,
-                                                          EntityName.None,
+                                                          EntityType.Instance.None(),
                                                           string.Empty);
 
             advertisementElementStatusDomainEntityDto.TransferRestrictionValuesTo(advertisementElementDomainEntityDto);

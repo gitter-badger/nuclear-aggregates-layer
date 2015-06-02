@@ -2,8 +2,9 @@
 
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.CardLink;
 using DoubleGis.Erm.BLCore.API.Operations.Remote.Settings;
-using DoubleGis.Erm.Platform.Model.Entities;
-using DoubleGis.Erm.Platform.Model.Entities.Interfaces;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Entities.Aspects;
 
 namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.CardLink
 {
@@ -23,7 +24,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Crosscutting.CardLink
         
         public Uri CreateLink<TEntity>(long entityId) where TEntity : class, IEntity
         {
-            return new Uri(_webClientServiceSettings.Url, string.Format(CardUrlTemplate, typeof(TEntity).AsEntityName(), entityId));
+            return new Uri(_webClientServiceSettings.Url, string.Format(CardUrlTemplate, typeof(TEntity).AsEntityName().Description, entityId));
         }
     }
 }

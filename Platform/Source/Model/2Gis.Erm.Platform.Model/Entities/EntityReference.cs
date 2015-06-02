@@ -27,6 +27,6 @@ namespace DoubleGis.Erm.Platform.Model.Entities
 
         // might be redundant
         [DataMember]
-        public EntityName EntityName { get; set; }
+        public int EntityTypeId { get; set; }
     }
 }

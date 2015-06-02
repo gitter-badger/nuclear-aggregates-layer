@@ -1,5 +1,4 @@
-﻿@using DoubleGis.Erm.Platform.Common.Utils
-@model DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation.ChangeClientViewModel
+﻿@model ChangeClientViewModel
 
 @{
     Layout = "../Shared/_DialogLayout.cshtml";
@@ -149,7 +148,7 @@
     @using (Html.BeginForm(null, null, null, FormMethod.Post, new Dictionary<string, object> { { "id", "EntityForm" } }))
     {
     <div class="Tab">
-        @Html.HiddenFor(m => m.EntityTypeName)
+        @Html.Hidden("EntityType", Model.EntityTypeName.Description)
         
         @* NOTE: Dependency убраны для уменьшения иерархии наследования ViewModel'ей *@
         @* @Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList) *@
@@ -158,7 +157,7 @@
             @Model.Message
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(x => x.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ExtendedInfo = "ForReserve=false" })
+            @Html.TemplateField(x => x.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ExtendedInfo = "ForReserve=false" })
         </div>
         <div id="pbDiv">
             <div id="pbInner">

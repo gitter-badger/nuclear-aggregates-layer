@@ -9,6 +9,8 @@ using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
 {
     public class AccountDetailGridViewService : GenericEntityGridViewService<AccountDetail>
@@ -30,12 +32,9 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Grid
             _publicService = publicService;
         }
 
-        protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings,
-                                                                     long? parentEntityId,
-                                                                     EntityName parentEntityName,
-                                                                     string parentEntityState)
+        protected override EntityViewSet SecureViewsToolbarsInternal(EntityViewSet gridViewSettings, long? parentEntityId, IEntityType parentEntityName, string parentEntityState)
         {
-            if (parentEntityName != EntityName.Account)
+            if (!parentEntityName.Equals(EntityType.Instance.Account()))
             {
                 return gridViewSettings;
             }

@@ -1,5 +1,5 @@
 ﻿
-@model Models.Russia.FirmViewModel
+@model DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Models.Russia.FirmViewModel
 
 @{
     Layout = "../../Shared/_CardLayout.cshtml";
@@ -23,7 +23,7 @@
             @Html.TemplateField(m => m.Name, FieldFlex.lone, new Dictionary<string, object> { { "readonly", "readonly" } })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityName.Client, ReadOnly = true })
+            @Html.TemplateField(m => m.Client, FieldFlex.lone, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = true })
         </div>
         <div class="row-wrapper">
             @Html.TemplateField(m => m.Comment, FieldFlex.lone, new Dictionary<string, object>{{"rows", "5"}})
@@ -47,7 +47,7 @@
         </div>
         @Html.SectionHead("SectionHead2", BLResources.AdditionalTabTitle)
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityName.OrganizationUnit, Disabled = true })
+            @Html.TemplateField(m => m.OrganizationUnit, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.OrganizationUnit(), Disabled = true })
             @Html.TemplateField(m => m.LastQualifyTime, FieldFlex.twins, new DateTimeSettings { Disabled = true })
         </div>
         <div class="row-wrapper">
@@ -63,16 +63,16 @@
         @if (Model.IsCurated && Model.IsSecurityRoot)
         {
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
-            @Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Territory, ReadOnly = true })
+            @Html.TemplateField(m => m.Owner, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Plugins = new[] { "new Ext.ux.LookupFieldOwner()" } })
+            @Html.TemplateField(m => m.Territory, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Territory(), ReadOnly = true })
         </div>
         }
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Disabled = true })
+            @Html.TemplateField(m => m.CreatedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Disabled = true })
             @Html.TemplateField(m => m.CreatedOn, FieldFlex.twins, new DateTimeSettings { Disabled = true })
         </div>
         <div class="row-wrapper">
-            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityName.User, Disabled = true })
+            @Html.TemplateField(m => m.ModifiedBy, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.User(), Disabled = true })
             @Html.TemplateField(m => m.ModifiedOn, FieldFlex.twins, new DateTimeSettings { Disabled = true })
         </div>
     </div>

@@ -12,7 +12,9 @@ using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
+
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concrete.Simplified
 {
@@ -75,7 +77,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Special.OrderProcessingRequests.Concre
         {
             var groupId = Guid.NewGuid();
 
-            using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity>(EntityName.OrderProcessingRequestMessage))
+            using (var scope = _scopeFactory.CreateSpecificFor<CreateIdentity>(EntityType.Instance.OrderProcessingRequestMessage()))
             {
                 var orderProcessingRequestMessages = messages
                     .Select(x => x.ToOrderProcessingRequestMessage(orderProcessingRequestId))

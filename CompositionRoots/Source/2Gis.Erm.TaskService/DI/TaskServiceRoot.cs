@@ -56,7 +56,6 @@ namespace DoubleGis.Erm.TaskService.DI
                                           .UseAnchor<PlatformCoreAssembly>()
                                           .UseAnchor<PlatformModelEntityFrameworkAssembly>()
                                       .RequireZone<MetadataZone>()
-                                          .UseAnchor<PlatformModelMetadataAssembly>()
                                           .UseAnchor<QdsMetadataZonePartAssembly>()
                                       .RequireZone<AppFabricZone>()
                                           .UseAnchor<PlatformAppFabricAssembly>();

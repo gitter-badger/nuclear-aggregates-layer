@@ -11,12 +11,13 @@ using DoubleGis.Erm.BLCore.Resources.Server.Properties;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
 using DoubleGis.Erm.Platform.API.Core.Settings.CRM;
+using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
-using DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Generic;
 
 using Microsoft.Crm.SdkTypeProxy;
 
-using EntityName = DoubleGis.Erm.Platform.Model.Entities.EntityName;
+using NuClear.Model.Common.Entities;
+using NuClear.Model.Common.Operations.Identity.Generic;
 
 namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
 {
@@ -49,7 +50,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Generic.Append
                 throw new ArgumentException(BLResources.UserIdOrRoleIdIsNotSpecified);
             }
 
-            if (appendParams.ParentType != EntityName.User || appendParams.AppendedType != EntityName.Role)
+            if (!appendParams.ParentType.Equals(EntityType.Instance.User()) || !appendParams.AppendedType.Equals(EntityType.Instance.Role()))
             {
                 throw new ArgumentException(BLResources.EntityNamesShouldBeUserAndRole);
             }

@@ -951,9 +951,6 @@
   <data name="AdditionalStreet" xml:space="preserve">
     <value />
   </data>
-  <data name="DeniedPositionIsDeactivatedAlready" xml:space="preserve">
-    <value />
-  </data>
   <data name="SelectedToWhiteList" xml:space="preserve">
     <value />
   </data>
@@ -985,9 +982,6 @@
     <value />
   </data>
   <data name="PricePositionsReferencesToInactivePositions" xml:space="preserve">
-    <value />
-  </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
     <value />
   </data>
   <data name="SpecifyMonthAndOrganizationUnit" xml:space="preserve">
@@ -2448,9 +2442,6 @@
   <data name="AmountPlan" xml:space="preserve">
     <value />
   </data>
-  <data name="CantDeactivateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
-    <value />
-  </data>
   <data name="AccountOperationLetterBodyTemplate" xml:space="preserve">
     <value />
   </data>
@@ -3186,7 +3177,7 @@
   <data name="ServerRuntimeError" xml:space="preserve">
     <value />
   </data>
-  <data name="OperationIsDiabled" xml:space="preserve">
+  <data name="OperationIsDisabled" xml:space="preserve">
     <value />
   </data>
   <data name="NoFirmsSelected" xml:space="preserve">
@@ -5130,9 +5121,6 @@
   <data name="CantAddOrderPositionWithSalesModelDifferentFromAnotherOrderPositionsSalesModel" xml:space="preserve">
     <value />
   </data>
-  <data name="CategoriesSetForAllPositionsMustBeTheSame" xml:space="preserve">
-    <value />
-  </data>
   <data name="AttemptToSaveOrderPositionWithAmountNotEqualToOne" xml:space="preserve">
     <value />
   </data>
@@ -5196,13 +5184,31 @@
   <data name="PositionAccessDenied" xml:space="preserve">
     <value />
   </data>
-  <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
-    <value />
-  </data>
   <data name="NeedToPickAtLeastOneLinkingObject" xml:space="preserve">
     <value />
   </data>
   <data name="PublishedPriceCannotBeModified" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DuplicateDeniedPositionsAreFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SymmetricDeniedPositionIsMissing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantCreateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsDeactivated" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CantUpdateDeniedPositionWhenPriceIsPublished" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ActivityClosingInFuturePeriodDenied" xml:space="preserve">
     <value />
   </data>
   <data name="CannotPickMoreThanOneLinkingObject" xml:space="preserve">
@@ -5212,6 +5218,39 @@
     <value />
   </data>
   <data name="CanNotDeleteDefaultCategoryGroup" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserIsNotAllowedToCreateAdvAgencyOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AllPositionsMustBePicked" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CategoriesSetForPositionsMustBeTheSame" xml:space="preserve">
+    <value />
+  </data>
+  <data name ="WorkPhoneIsNotSelected" xml:space="preserve">
+    <value />
+  </data>
+  <data name ="DialingIsNotAllowed" xml:space="preserve">
+    <value />
+  </data>
+  <data name ="TelephonyUnitIsNotSelected" xml:space="preserve">
+    <value />
+  </data>
+  <data name ="TelephonyUnitInIncorrectFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name ="TelephonyServiceInactive" xml:space="preserve">
+    <value />
+  </data>
+  <data name ="IncorrectPhoneNumber" xml:space="preserve">
+    <value />
+  </data>
+  <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
     <value />
   </data>
 </root>

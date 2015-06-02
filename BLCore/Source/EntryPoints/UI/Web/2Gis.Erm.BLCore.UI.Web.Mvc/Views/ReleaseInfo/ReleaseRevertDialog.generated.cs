@@ -28,9 +28,12 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.ReleaseInfo
     using System.Web.UI;
     using System.Web.WebPages;
     using DoubleGis.Erm.BLCore.Resources.Server.Properties;
+    using DoubleGis.Erm.BLCore.UI.Metadata.Confirmations;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Controllers;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Models.GroupOperation;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings;
+    using DoubleGis.Erm.BLCore.UI.Web.Mvc.Settings.ConfigurationDto;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.UserProfiles;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.Utils;
     using DoubleGis.Erm.BLCore.UI.Web.Mvc.ViewModels;
@@ -41,6 +44,9 @@ namespace DoubleGis.Erm.BLCore.UI.Web.Mvc.Views.ReleaseInfo
     using DoubleGis.Erm.Platform.UI.Web.Mvc;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Security;
     using DoubleGis.Erm.Platform.UI.Web.Mvc.Utils;
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/ReleaseInfo/ReleaseRevertDialog.cshtml")]
@@ -215,7 +221,7 @@ WriteLiteral("            ");
 
             
             #line 72 "..\..\Views\ReleaseInfo\ReleaseRevertDialog.cshtml"
-       Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings {EntityName = EntityName.OrganizationUnit}));
+       Write(Html.TemplateField(m => m.OrganizationUnit, FieldFlex.lone, new LookupSettings {EntityName = EntityType.Instance.OrganizationUnit()}));
 
             
             #line default

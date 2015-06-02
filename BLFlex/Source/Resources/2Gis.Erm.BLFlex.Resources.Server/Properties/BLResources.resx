@@ -411,9 +411,6 @@
   <data name="CannotFindActivity" xml:space="preserve">
     <value />
   </data>
-  <data name="RegionalOrdersAreNotSupported" xml:space="preserve">
-    <value />
-  </data>
   <data name="ChangingRequisitesOfInactiveLegalPersonIsForbidden" xml:space="preserve">
     <value />
   </data>

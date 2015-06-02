@@ -94,13 +94,14 @@ namespace DoubleGis.Erm.BLFlex.Operations.Global.Ukraine.Generic
                         FirmName = order.Firm.Name,
                         BargainNumber = order.Bargain.Number,
                         BeginDistributionDate = order.BeginDistributionDate,
+                        order.SignupDate,
                         BargainExists = order.Bargain != null,
                     })
                 .AsEnumerable()
                 .Select(x => new PrintData
                     {
                         { "UseBargainNumberExists", x.BargainExists && !string.IsNullOrWhiteSpace(x.BargainNumber) },
-                        { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMatherialsDeadline(x.BeginDistributionDate) },
+                        { "AdvMatherialsDeadline", PrintOrderHelper.GetAdvMaterialsDeadline(x.BeginDistributionDate, x.SignupDate) },
                         { "ElectronicMedia", x.ElectronicMedia },
                         { "SourceElectronicMedia", x.SourceElectronicMedia },
                         { "BargainNumber", x.BargainNumber },

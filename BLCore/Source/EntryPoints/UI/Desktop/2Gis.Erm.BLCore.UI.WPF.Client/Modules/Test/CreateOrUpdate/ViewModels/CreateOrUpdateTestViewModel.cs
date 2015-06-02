@@ -13,6 +13,8 @@ using DoubleGis.Erm.Platform.WCF.Infrastructure.Proxy;
 using DoubleGis.Platform.UI.WPF.Infrastructure.Modules.Layout.Regions.Documents;
 using DoubleGis.Platform.UI.WPF.Infrastructure.MVVM;
 
+using NuClear.Model.Common.Entities;
+
 namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.CreateOrUpdate.ViewModels
 {
     public sealed class CreateOrUpdateTestViewModel : ViewModelBase, IDocument
@@ -55,7 +57,7 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.CreateOrUpdate.ViewMod
 
         private void GetHiFromService()
         {
-            const EntityName AdvertisementElement = EntityName.AdvertisementElement;
+            var advertisementElement = EntityType.Instance.AdvertisementElement();
 
             var getDomainEntityDtoServiceProxy = _clientProxyFactory.GetClientProxy<IGetDomainEntityDtoApplicationService, WSHttpBinding>();
 
@@ -63,8 +65,8 @@ namespace DoubleGis.Erm.BLCore.UI.WPF.Client.Modules.Test.CreateOrUpdate.ViewMod
 
             try
             {
-                var dto = getDomainEntityDtoServiceProxy.Execute(x => x.GetDomainEntityDto(AdvertisementElement, 52217));
-                var id = createOrUpdateServiceProxy.Execute(x => x.Execute(AdvertisementElement, dto));
+                var dto = getDomainEntityDtoServiceProxy.Execute(x => x.GetDomainEntityDto(advertisementElement, 52217));
+                var id = createOrUpdateServiceProxy.Execute(x => x.Execute(advertisementElement, dto));
                 MessageBox.Show(string.Format("Entity Id = {0}", id));
             }
             catch (FaultException<GetDomainEntityDtoOperationErrorDescription> ex)

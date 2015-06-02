@@ -62,6 +62,7 @@
     <script src="/Scripts/Ext.ux.LookupField.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.ux.AsyncFileUpload.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.ux.LinkField.js?@ThisAssembly.Build" type="text/javascript"></script>
+    <script src="/Scripts/Ext.ux.PhonecallField.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.ux.Calendar.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.ux.LookupFieldOwner.js?@ThisAssembly.Build" type="text/javascript"></script>
     <script src="/Scripts/Ext.ux.NotePanel.js?@ThisAssembly.Build" type="text/javascript"></script>
@@ -96,14 +97,14 @@
                     </div>
 
                     @Html.CheckBoxFor(x => x.ViewConfig.ReadOnly)
-                    @Html.HiddenFor(m => m.ViewConfig.EntityName)
+                    @Html.Hidden("ViewConfig.EntityName", Model.ViewConfig.EntityName.Description)
                     @Html.HiddenFor(m => m.ViewConfig.Id)
                     @Html.HiddenFor(m => m.ViewConfig.PId)
-                    @Html.HiddenFor(m => m.ViewConfig.PType)
+                    @Html.Hidden("ViewConfig.PType", Model.ViewConfig.PType.Description)
                     @Html.HiddenFor(m => m.ViewConfig.ExtendedInfo)
                     @Html.HiddenFor(m => m.IsNew)
                     @Html.Hidden("EntityStatus", ViewData["EntityStatus"])
-                    @Html.Hidden("ViewConfig_DependencyList", Model.ViewConfig.DependencyList)
+                    @Html.Hidden("ViewConfig.DependencyList", Model.ViewConfig.DependencyList)
                     @Html.HiddenFor(m => m.EntityStateToken)
                     @Html.HiddenFor(m => m.IsDeleted)
                     @Html.HiddenFor(m => m.IsActive)

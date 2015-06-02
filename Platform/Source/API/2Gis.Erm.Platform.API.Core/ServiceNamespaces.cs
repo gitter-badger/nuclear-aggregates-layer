@@ -93,5 +93,10 @@ namespace DoubleGis.Erm.Platform.API.Core
             public const string HandleAdsState201407 = "http://2gis.ru/erm/api/adsmanagement/handleadsstate/2014/07";
             public const string ManageTextAds201407 = "http://2gis.ru/erm/api/adsmanagement/managetextads/2014/07";
         }
+
+        public static class Dialing
+        {
+            public const string Dial201503 = "http://2gis.ru/erm/api/dialing/dial/2015/03";
+        }
     }
 }

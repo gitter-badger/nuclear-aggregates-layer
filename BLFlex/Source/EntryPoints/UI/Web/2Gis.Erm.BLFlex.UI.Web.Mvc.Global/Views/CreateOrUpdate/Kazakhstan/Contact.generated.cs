@@ -43,6 +43,9 @@ namespace DoubleGis.Erm.BLFlex.UI.Web.Mvc.Global.Views.CreateOrUpdate.Kazakhstan
     
     #line default
     #line hidden
+    using NuClear.Model.Common.Entities;
+    using NuClear.Model.Common.Operations.Identity;
+    using NuClear.Model.Common.Operations.Identity.Generic;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/CreateOrUpdate/Kazakhstan/Contact.cshtml")]
@@ -301,7 +304,7 @@ WriteLiteral("            ");
 
             
             #line 45 "..\..\Views\CreateOrUpdate\Kazakhstan\Contact.cshtml"
-       Write(Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityName.Client, ReadOnly = Model != null && Model.Client != null && !string.IsNullOrEmpty(Model.Client.Value) }));
+       Write(Html.TemplateField(m => m.Client, FieldFlex.twins, new LookupSettings { EntityName = EntityType.Instance.Client(), ReadOnly = Model != null && Model.Client != null && !string.IsNullOrEmpty(Model.Client.Value) }));
 
             
             #line default

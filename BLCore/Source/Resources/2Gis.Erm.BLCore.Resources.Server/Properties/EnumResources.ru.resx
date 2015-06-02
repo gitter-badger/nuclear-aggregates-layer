@@ -514,10 +514,10 @@
     <value>Временный отказ. Не сезон.</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementBusinessman" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="TemplateCodeBillBusinessman" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="TemplateCodeTerminationNoticeBusinessman" xml:space="preserve">
     <value>Уведомление о расторжении для ИП</value>
@@ -559,10 +559,10 @@
     <value>Заявка на лимиты</value>
   </data>
   <data name="TemplateCodeAdditionalAgreementNaturalPerson" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="TemplateCodeBillNaturalPerson" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="TemplateCodeTerminationNoticeNaturalPerson" xml:space="preserve">
     <value>Уведомление о расторжении для физ. лица</value>
@@ -2022,5 +2022,14 @@
   </data>
   <data name="BusinessOperationWithdrawal" xml:space="preserve">
     <value>Списание</value>
+  </data>
+  <data name="OrderTypeAdvertisementAgency" xml:space="preserve">
+    <value>Рекламное агентство</value>
+  </data>
+  <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
+    <value>Смена типа заказа РА</value>
+  </data>
+  <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
+    <value>Телефония</value>
   </data>
 </root>

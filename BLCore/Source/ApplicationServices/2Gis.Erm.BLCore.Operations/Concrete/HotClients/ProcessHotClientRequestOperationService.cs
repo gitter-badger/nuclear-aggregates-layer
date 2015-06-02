@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Operations.Concrete.HotClients
                                                                        new TaskRegardingObject
                                                                            {
                                                                                SourceEntityId = task.Id,
-                                                                               TargetEntityName = regardingObject.EntityName,
+                                                                               TargetEntityTypeId = regardingObject.EntityName.Id,
                                                                                TargetEntityId = regardingObject.EntityId
                                                                            }
                                                                    });

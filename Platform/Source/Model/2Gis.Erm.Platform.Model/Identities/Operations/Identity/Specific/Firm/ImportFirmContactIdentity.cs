@@ -1,4 +1,6 @@
-﻿namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm
+﻿using NuClear.Model.Common.Operations.Identity;
+
+namespace DoubleGis.Erm.Platform.Model.Identities.Operations.Identity.Specific.Firm
 {
     public sealed class ImportFirmContactIdentity : OperationIdentityBase<ImportFirmContactIdentity>, INonCoupledOperationIdentity
     {
