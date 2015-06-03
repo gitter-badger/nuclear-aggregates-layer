@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using DoubleGis.Erm.Platform.Model.Entities;
 using DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail.Concrete;
@@ -15,7 +14,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
 {
     public static class OperationMetadataDetailRegistry
     {
-        private readonly static Dictionary<Type, Func<IEntityType[], IOperationMetadata>> Identities2MetadataResolverMap =
+        private static readonly Dictionary<Type, Func<IEntityType[], IOperationMetadata>> Identities2MetadataResolverMap =
             new Dictionary<Type, Func<IEntityType[], IOperationMetadata>>();
 
         static OperationMetadataDetailRegistry()
@@ -196,8 +195,15 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
 
             var parentEntityType = entityTypes[1];
             var appendedEntityType = entityTypes[0];
+
             if (parentEntityType.Equals(EntityType.Instance.Client()) &&
                 appendedEntityType.Equals(EntityType.Instance.Client()))
+            {
+                return new AppendMetadata();
+            }
+
+            if (parentEntityType.Equals(EntityType.Instance.BranchOffice()) &&
+                appendedEntityType.Equals(EntityType.Instance.User()))
             {
                 return new AppendMetadata();
             }
@@ -235,7 +241,7 @@ namespace DoubleGis.Erm.Platform.Model.Metadata.Operations.Detail
                 entityName.Equals(EntityType.Instance.Phonecall()) ||
                 entityName.Equals(EntityType.Instance.Task()))
             {
-                return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Status" } };
+                    return new ActionHistoryMetadata { Properties = new[] { "OwnerCode", "Status" } };
             }
 
             if (entityName.Equals(EntityType.Instance.Account()) ||

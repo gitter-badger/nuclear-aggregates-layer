@@ -383,6 +383,7 @@
     <Compile Include="Entities\Erm\DictionaryEntityInstance.cs" />
     <Compile Include="Entities\Erm\DictionaryEntityPropertyInstance.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeAppointmentOrganizer.cs" />
+    <Compile Include="Entities\Erm\EntityTypes\EntityTypeUserBranchOffice.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeExportFlowFinancialDataDebitsInfoInitial.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetter.cs" />
     <Compile Include="Entities\Erm\EntityTypes\EntityTypeLetterRecipient.cs" />
@@ -661,6 +662,7 @@
     <Compile Include="Entities\Security\TimeZone.cs" />
     <Compile Include="Entities\Security\User.cs" />
     <Compile Include="Entities\Security\UserEntity.cs" />
+    <Compile Include="Entities\Security\UserBranchOffice.cs" />
     <Compile Include="Entities\Security\UserOrganizationUnit.cs" />
     <Compile Include="Entities\Security\UserProfile.cs" />
     <Compile Include="Entities\Security\UserRole.cs" />

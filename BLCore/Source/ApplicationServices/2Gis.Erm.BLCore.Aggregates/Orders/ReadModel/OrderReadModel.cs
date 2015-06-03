@@ -21,7 +21,6 @@ using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
-using NuClear.Security.API.UserContext;
 using DoubleGis.Erm.Platform.Common.Utils;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.DAL.Specifications;
@@ -31,6 +30,7 @@ using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Model.Common.Entities;
+using NuClear.Security.API.UserContext;
 
 namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
 {
@@ -1175,12 +1175,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var sourceVat = DefaultVatRate;
             if (sourceOrganizationUnitId.HasValue)
             {
-                sourceVat = _finder.Find(OrganizationUnitSpecs.Select.VatRate(),
+                sourceVat = _finder.Find(OrganizationUnitSpecs.OrganizationUnits.Select.VatRate(),
                                                                     Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value))
                                    .Single();
             }
 
-            var destVat = _finder.Find(OrganizationUnitSpecs.Select.VatRate(),
+            var destVat = _finder.Find(OrganizationUnitSpecs.OrganizationUnits.Select.VatRate(),
                                                                   Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId))
                                  .Single();
 
@@ -1325,26 +1325,26 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             if (parentEntityName.Equals(EntityType.Instance.Client()))
             {
-                return GetReferenceByClient(parentEntityId);
+                    return GetReferenceByClient(parentEntityId);
             }
 
             if (parentEntityName.Equals(EntityType.Instance.Firm()))
             {
-                return GetReferencesByFirm(parentEntityId);
+                    return GetReferencesByFirm(parentEntityId);
             }
 
             if (parentEntityName.Equals(EntityType.Instance.LegalPerson()))
             {
-                return GetReferencesByLegalPerson(parentEntityId);
+                    return GetReferencesByLegalPerson(parentEntityId);
             }
 
             if (parentEntityName.Equals(EntityType.Instance.Deal()))
             {
-                return GetReferencesByDeal(parentEntityId);
+                    return GetReferencesByDeal(parentEntityId);
             }
             
-            return new OrderParentEntityDerivedFieldsDto();
-        }
+                    return new OrderParentEntityDerivedFieldsDto();
+            }
 
         public IEnumerable<Bill> GetBillsForOrder(long orderId)
         {
