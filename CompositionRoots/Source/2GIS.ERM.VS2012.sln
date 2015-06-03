@@ -581,6 +581,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.Tests", "..\..\NuCl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.EntityFramework.Tests", "..\..\NuClear\Storage.EntityFramework.Tests\Storage.EntityFramework.Tests.csproj", "{E27E4AC9-334F-48DD-8F3A-CDD0EA9B194D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.LinqToDB", "..\..\NuClear\Storage.LinqToDB\Storage.LinqToDB.csproj", "{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1891,6 +1893,16 @@ Global
 		{E27E4AC9-334F-48DD-8F3A-CDD0EA9B194D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E27E4AC9-334F-48DD-8F3A-CDD0EA9B194D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E27E4AC9-334F-48DD-8F3A-CDD0EA9B194D}.Release|x64.ActiveCfg = Release|Any CPU
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2102,5 +2114,6 @@ Global
 		{0C41F68D-C3C1-4958-9AA5-1FCD8AF9D07A} = {EC3A724E-7922-4D9B-A60D-715D3A0DA8CE}
 		{EB46F537-04EB-439D-AABD-37CC0014C2CA} = {EC3A724E-7922-4D9B-A60D-715D3A0DA8CE}
 		{E27E4AC9-334F-48DD-8F3A-CDD0EA9B194D} = {EC3A724E-7922-4D9B-A60D-715D3A0DA8CE}
+		{2BA47CC3-60C5-45C4-88DA-7A84D0798F2C} = {EC3A724E-7922-4D9B-A60D-715D3A0DA8CE}
 	EndGlobalSection
 EndGlobal

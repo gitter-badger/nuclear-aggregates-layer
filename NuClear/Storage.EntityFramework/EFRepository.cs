@@ -175,7 +175,7 @@ namespace NuClear.Storage.EntityFramework
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void ThrowIfEntityIsNull(TDomainEntity value, string parameterName)
         {
-            if (null == value)
+            if (value == null)
             {
                 throw new ArgumentNullException(parameterName);
             }
