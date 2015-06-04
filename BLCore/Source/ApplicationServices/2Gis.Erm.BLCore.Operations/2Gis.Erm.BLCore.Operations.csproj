@@ -297,9 +297,9 @@
     <Compile Include="Generic\Append\AppendUserRoleOperationOperationService.cs" />
     <Compile Include="Generic\Append\AppendUserTerritoryOperationService.cs" />
     <Compile Include="Generic\Assign\ActivitySecurityAccessExtension.cs" />
-    <Compile Include="Generic\Assign\AssignAccountDetailService.cs" />
-    <Compile Include="Generic\Assign\AssignAccountService.cs" />
-    <Compile Include="Generic\Assign\AssignAppointmentOperationService.cs" />
+    <Compile Include="Generic\Assign\AssignAccountDetailOperationService.cs" />
+    <Compile Include="Generic\Assign\AssignAccountOperationService.cs" />
+	<Compile Include="Generic\Assign\AssignAppointmentOperationService.cs" />
     <Compile Include="Generic\Assign\AssignClientService.cs" />
     <Compile Include="Generic\Assign\AssignContactService.cs" />
     <Compile Include="Generic\Assign\AssignDealService.cs" />
@@ -307,6 +307,7 @@
     <Compile Include="Generic\Assign\AssignGenericEntityService.cs" />
     <Compile Include="Generic\Assign\AssignLegalPersonService.cs" />
     <Compile Include="Generic\Assign\AssignLetterOperationService.cs" />
+    <Compile Include="Generic\Assign\AssignLimitOperationService.cs" />
     <Compile Include="Generic\Assign\AssignOrderService.cs" />
     <Compile Include="Generic\Assign\AssignPhonecallOperationService.cs" />
     <Compile Include="Generic\Assign\AssignTaskOperationService.cs" />
@@ -321,7 +322,7 @@
     <Compile Include="Generic\ChangeTerritory\ChangeClientTerritoryService.cs" />
     <Compile Include="Generic\ChangeTerritory\ChangeFirmTerritoryService.cs" />
     <Compile Include="Generic\ChangeTerritory\ChangeGenericEntityTerritoryService.cs" />
-    <Compile Include="Generic\CheckForDebts\CheckAccountForDebtsService.cs" />
+    <Compile Include="Generic\CheckForDebts\CheckAccountForDebtsOperationService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckClientForDebtsService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckGenericEntityForDebtsService.cs" />
     <Compile Include="Generic\CheckForDebts\CheckLegalPersonForDebtsService.cs" />
