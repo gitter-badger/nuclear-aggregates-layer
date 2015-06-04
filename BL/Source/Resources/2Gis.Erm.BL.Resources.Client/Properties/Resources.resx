@@ -975,4 +975,10 @@
   <data name = "StartCalling" xml:space="preserve">
     <value />
   </data>
+  <data name="AdvertisementElementTextContainsNestedList" xml:space="preserve">
+    <value/>
+  </data>
+  <data name="AdvertisementElementTextContainsRepeatedSpaces" xml:space="preserve">
+    <value />
+  </data>
 </root>

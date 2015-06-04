@@ -261,6 +261,24 @@ namespace DoubleGis.Erm.BL.Resources.Client.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AdvertisementElementTextContainsNestedList {
+            get {
+                return ResourceManager.GetString("AdvertisementElementTextContainsNestedList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string AdvertisementElementTextContainsRepeatedSpaces {
+            get {
+                return ResourceManager.GetString("AdvertisementElementTextContainsRepeatedSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string AdvertisementElementWasNotSaved {
             get {
                 return ResourceManager.GetString("AdvertisementElementWasNotSaved", resourceCulture);
