@@ -10,7 +10,6 @@ using NuClear.Storage.Readings;
 
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-
     public sealed class ListUserOrganizationUnitService : ListEntityDtoServiceBase<UserOrganizationUnit, ListUserOrganizationUnitDto>
     {
         private readonly IQuery _query;

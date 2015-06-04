@@ -2044,4 +2044,7 @@
   <data name="FunctionalPrivilegeNameTelephonyAccess" xml:space="preserve">
     <value>Telefonía</value>
   </data>
+  <data name="EntityNameUserBranchOffice" xml:space="preserve">
+    <value>Enlace del usuario con la razón social</value>
+  </data>
 </root>

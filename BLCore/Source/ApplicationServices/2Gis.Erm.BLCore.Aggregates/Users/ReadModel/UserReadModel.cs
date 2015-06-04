@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel.DTO;
 using DoubleGis.Erm.Platform.API.Security.FunctionalAccess;
 using DoubleGis.Erm.Platform.DAL.Obsolete;
 using DoubleGis.Erm.Platform.DAL.Specifications;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Storage.Readings;
@@ -105,9 +108,49 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Users.ReadModel
                           .Map(user => user.Id, user => user.DisplayName);
         }
 
+        public string GetUserName(long userId)
+        {
+            return _finder.FindObsolete(Specs.Find.ById<User>(userId))
+                          .Select(x => x.DisplayName)
+                          .Single();
+        }
+
+        public bool IsUserLinkedToBranchOffice(long userId, long branchOfficeId)
+        {
+            return _finder.Find(Specs.Find.NotDeleted<UserBranchOffice>() &&
+                                UserSpecs.UserBranchOffices.Find.ByUser(userId) &&
+                                UserSpecs.UserBranchOffices.Find.ByBranchOffice(branchOfficeId))
+                          .Any();
+        }
+
+        public IReadOnlyCollection<long> GetUserBranchOffices(long userId)
+        {
+            return _finder.Find(Specs.Find.NotDeleted<UserBranchOffice>() &&
+                                UserSpecs.UserBranchOffices.Find.ByUser(userId))
+                          .Map(q => q.Select(x => x.BranchOfficeId))
+                          .Many();
+        }
+
+        public IReadOnlyCollection<UserBranchOffice> GetUserBranchOfficeLinks(long userId)
+        {
+            return _finder.Find(Specs.Find.NotDeleted<UserBranchOffice>() &&
+                                UserSpecs.UserBranchOffices.Find.ByUser(userId))
+                          .Many();
+        }
+
         public IEnumerable<long> PickNonServiceUsers(IEnumerable<long> userIds)
         {
             return _finder.Find(Specs.Find.ByIds<User>(userIds) && UserSpecs.Users.Find.NotService()).Map(q => q.Select(x => x.Id)).Many();
+        }
+
+        public bool DoesUserAndBranchOfficeHaveCommonOrganizationUnit(long userId, long branchOfficeId)
+        {
+            var userOrganizationUnits = _finder.Find(OrganizationUnitSpecs.UserOrganizationUnits.Find.ByUser(userId))
+                                               .Map(q => q.Select(x => x.OrganizationUnitId))
+                                               .Many();
+            return _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByBranchOffice(branchOfficeId) &&
+                                new FindSpecification<BranchOfficeOrganizationUnit>(x => userOrganizationUnits.Contains(x.OrganizationUnitId)))
+                          .Any();
         }
     }
 }

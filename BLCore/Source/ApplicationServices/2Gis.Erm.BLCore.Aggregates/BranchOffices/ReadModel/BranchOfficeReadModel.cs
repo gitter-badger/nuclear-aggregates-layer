@@ -18,8 +18,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
     public abstract class BranchOfficeReadModel : IBranchOfficeReadModel
     {
         private readonly IFinder _finder;
-        // FIXME {y.baranihin, 04.06.2014}: Верно, что _secureFinder не используется?
-        // COMMENT {d.ivanov, 07.07.2014}: это очень интересный вопрос. _secureFinder убрал, чтобы глаза не мозолил
 
         protected BranchOfficeReadModel(IFinder finder)
         {
@@ -120,6 +118,33 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
                 _finder.FindObsolete(Specs.Find.ById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnitId))
                        .Select(x => x.BranchOffice.BargainTypeId.Value)
                        .Single();
+        }
+
+        public BranchOfficeOrganizationShortLegalNameDto GetPrimaryBranchOfficeOrganizationUnitName(long organizationUnitId)
+        {
+            return _finder.Find(new FindSpecification<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId) &&
+                                Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
+                          .Map(q => q.Select(x => new BranchOfficeOrganizationShortLegalNameDto
+                              {
+                                  Id = x.Id,
+                                  ShortLegalName = x.ShortLegalName,
+                              }))
+                          .One();
+        }
+
+        public IReadOnlyCollection<BranchOfficeOrganizationShortLegalNameDto>
+            GetBranchOfficeOrganizationUnitNames(long? organizationUnitId, IEnumerable<long> branchOfficeIds)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnitIfSpecified(organizationUnitId) &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByBranchOffice(branchOfficeIds))
+                          .Map(q => q.Select(x => new BranchOfficeOrganizationShortLegalNameDto
+                              {
+                                  Id = x.Id,
+                                  ShortLegalName = x.ShortLegalName
+                              }))
+                          .Many();
         }
 
         public IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode)

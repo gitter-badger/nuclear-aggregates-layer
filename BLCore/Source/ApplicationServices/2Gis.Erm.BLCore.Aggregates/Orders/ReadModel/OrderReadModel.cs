@@ -570,7 +570,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var priceId = _finder.Find(Specs.Find.ById<OrganizationUnit>(organizationUnitId))
                                  .Map(q => q.SelectMany(x => x.Prices
                                                               .Where(y => y.IsActive && !y.IsDeleted && y.IsPublished && y.BeginDate <= beginDistributionDate))
-                                            .OrderByDescending(y => y.BeginDate)
+                                 .OrderByDescending(y => y.BeginDate)
                                             .Select(price => price.Id))
                                  .Top();
 
@@ -754,12 +754,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             return
                 _finder.Find(new FindSpecification<Order>(x => x.Id == orderId))
                        .Map(q => q.Select(x =>
-                                          new OrderInfoToCheckOrderBeginDistributionDate
-                                              {
-                                                  OrderId = x.Id,
-                                                  BeginDistributionDate = x.BeginDistributionDate,
-                                                  SourceOrganizationUnitId = x.SourceOrganizationUnitId,
-                                                  DestinationOrganizationUnitId = x.DestOrganizationUnitId
+                               new OrderInfoToCheckOrderBeginDistributionDate
+                                   {
+                                       OrderId = x.Id,
+                                       BeginDistributionDate = x.BeginDistributionDate,
+                                       SourceOrganizationUnitId = x.SourceOrganizationUnitId,
+                                       DestinationOrganizationUnitId = x.DestOrganizationUnitId
                                               }))
                        .One();
         }
@@ -1174,11 +1174,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             return _finder.Find(new FindSpecification<OrderPosition>(x => x.Id == orderPositionId))
                           .Map(q => q.SelectMany(x => x.OrderPositionAdvertisements)
-                                     .Select(x => new SubPositionDto
-                                         {
-                                             PositionId = x.PositionId,
-                                             PlatformId = x.Position.PlatformId
-                                         })
+                          .Select(x => new SubPositionDto
+                              {
+                                  PositionId = x.PositionId,
+                                  PlatformId = x.Position.PlatformId
+                              })
                                      .Distinct())
                           .Many();
         }
@@ -1191,11 +1191,11 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
             var sourceVat = DefaultVatRate;
             if (sourceOrganizationUnitId.HasValue)
             {
-                sourceVat = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value), OrganizationUnitSpecs.Select.VatRate())
+                sourceVat = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(sourceOrganizationUnitId.Value), OrganizationUnitSpecs.OrganizationUnits.Select.VatRate())
                                    .Single();
             }
 
-            var destVat = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId), OrganizationUnitSpecs.Select.VatRate())
+            var destVat = _finder.FindObsolete(Specs.Find.ById<OrganizationUnit>(destOrganizationUnitId), OrganizationUnitSpecs.OrganizationUnits.Select.VatRate())
                                  .Single();
 
             return DetermineVatRate(sourceVat, destVat);
@@ -1432,7 +1432,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         public IEnumerable<Order> GetActiveOrdersForLegalPersonProfile(long legalPersonProfileId)
         {
             return _finder.Find(OrderSpecs.Orders.Find.NotInArchive()
-                                && Specs.Find.ActiveAndNotDeleted<Order>()
+                                    && Specs.Find.ActiveAndNotDeleted<Order>()
                                 && OrderSpecs.Orders.Find.ByLegalPersonProfileId(legalPersonProfileId))
                           .Many();
         }
@@ -1545,8 +1545,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             return _finder.Find(new FindSpecification<OrderReleaseTotal>(x => x.OrderId == orderId))
                           .Map(q => q.OrderBy(x => x.Id)
-                                     .Skip(skip)
-                                     .Take(take)
+               .Skip(skip)
+               .Take(take)
                                      .Select(x => (decimal?)x.AmountToWithdraw))
                           .One();
         }
@@ -1685,16 +1685,16 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Orders.ReadModel
         {
             var data = _finder.Find(Specs.Find.ById<Client>(clientId))
                               .Map(q => q.Select(client => new
-                                  {
-                                      Client = new { client.Id, client.Name },
-                                      Firms = client.Firms.Select(firm => new
-                                          {
-                                              firm.Id,
-                                              firm.Name,
-                                              firm.OrganizationUnitId,
-                                              OrganizationUNitName = firm.OrganizationUnit.Name
-                                          }),
-                                      LegalPersons = client.LegalPersons.Select(person => new { person.Id, person.LegalName })
+                                           {
+                                  Client = new { client.Id, client.Name },
+                                  Firms = client.Firms.Select(firm => new
+                                                                     {
+                                      firm.Id,
+                                      firm.Name,
+                                      firm.OrganizationUnitId,
+                                      OrganizationUNitName = firm.OrganizationUnit.Name
+                                  }),
+                                  LegalPersons = client.LegalPersons.Select(person => new { person.Id, person.LegalName })
                                   }))
                               .One();
 

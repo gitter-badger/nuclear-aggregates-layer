@@ -143,6 +143,7 @@
     <Compile Include="Advertisements\Operations\DeleteAdvertisementElementDenialReasonAggregateService.cs" />
     <Compile Include="Advertisements\Operations\BulkCreateAdvertisementElementsForAdvertisementAggregateService.cs" />
     <Compile Include="Advertisements\Operations\UpdateAdvertisementElementStatusAggregateService.cs" />
+    <Compile Include="BranchOffices\Operations\DeleteLegalPersonAggregateService.cs" />
     <Compile Include="Charges\Operations\ChargeBulkDeleteAggregateService.cs" />
     <Compile Include="Clients\Operations\CreateClientAggregateService.cs" />
     <Compile Include="Clients\Operations\DeleteClientLinkAggregateService.cs" />
@@ -297,6 +298,7 @@
     <Compile Include="Themes\ThemeRepository.cs" />
     <Compile Include="Users\ActivateUserAggregateService.cs" />
     <Compile Include="Users\DeactivateUserAggregateService.cs" />
+    <Compile Include="BranchOffices\Operations\AppendUserToBranchOfficeAggregateService.cs" />
     <Compile Include="Users\Operations\UserAppendRoleAggregateService.cs" />
     <Compile Include="Users\ReadModel\UserReadModel.cs" />
     <Compile Include="Users\UserRepository.cs" />

@@ -32,5 +32,7 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
         string GetBranchOfficeOrganizationName(long branchOfficeOrganizationUnitId);
         int? GetBranchOfficeOrganizationDgppid(long branchOfficeOrganizationUnitId);
         long GetBargainTypeId(long branchOfficeOrganizationUnitId);
+        BranchOfficeOrganizationShortLegalNameDto GetPrimaryBranchOfficeOrganizationUnitName(long organizationUnitId);
+        IReadOnlyCollection<BranchOfficeOrganizationShortLegalNameDto> GetBranchOfficeOrganizationUnitNames(long? organizationUnitId, IEnumerable<long> branchOfficeIds);
     }
 }

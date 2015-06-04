@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using DoubleGis.Erm.BLCore.Aggregates.BranchOffices.DTO;
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
@@ -42,9 +43,21 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId);
                 }
 
+                public static FindSpecification<BranchOfficeOrganizationUnit> ByOrganizationUnitIfSpecified(long? organizationUnitId)
+                {
+                    return !organizationUnitId.HasValue
+                               ? new FindSpecification<BranchOfficeOrganizationUnit>(x => true)
+                               : new FindSpecification<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId);
+                }
+
                 public static FindSpecification<BranchOfficeOrganizationUnit> ByBranchOffice(long branchOfficeId)
                 {
                     return new FindSpecification<BranchOfficeOrganizationUnit>(x => x.BranchOfficeId == branchOfficeId);
+                }
+
+                public static FindSpecification<BranchOfficeOrganizationUnit> ByBranchOffice(IEnumerable<long> branchOfficeIds)
+                {
+                    return new FindSpecification<BranchOfficeOrganizationUnit>(x => branchOfficeIds.Contains(x.BranchOfficeId));
                 }
 
                 public static FindSpecification<BranchOfficeOrganizationUnit> ByOrderId(long orderId)

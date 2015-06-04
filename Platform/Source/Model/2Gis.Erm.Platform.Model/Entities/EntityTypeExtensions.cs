@@ -56,6 +56,11 @@ namespace DoubleGis.Erm.Platform.Model.Entities
             return EntityTypeDeal.Instance;
         }
 
+        public static EntityTypeUserBranchOffice UserBranchOffice(this EntityType entityType)
+        {
+            return EntityTypeUserBranchOffice.Instance;
+        }
+
         public static EntityTypeBranchOfficeOrganizationUnit BranchOfficeOrganizationUnit(this EntityType entityType)
         {
             return EntityTypeBranchOfficeOrganizationUnit.Instance;

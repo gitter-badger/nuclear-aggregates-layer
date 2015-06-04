@@ -55,20 +55,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                           .Many();
         }
 
-        public BranchOfficeOrganizationShortInformationDto GetBranchOfficeOrganizationUnitShortInfo(long organizationUnitId)
-        {
-            return _finder.Find(new FindSpecification<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId))
-                          .Filter(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
-                          .Filter(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
-                          .Map(q => q.Select(x => new BranchOfficeOrganizationShortInformationDto
-                              {
-                                  Id = x.Id,
-                                  ShortLegalName = x.ShortLegalName,
-                              }))
-                          .One() ?? new BranchOfficeOrganizationShortInformationDto();
-            // null не возвращаем, логика была рассчитана на работу с пустыми значениями.
-        }
-
         public int Deactivate(BranchOffice branchOffice)
         {
             using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, BranchOffice>())
@@ -171,7 +157,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
             {
                 var otherBranchOfficeOrganizationUnits =
                     _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(branchOfficeOrganizationUnit.OrganizationUnitId)
-                                 & Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>()
+                                     & Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>()
                                  & Specs.Find.ExceptById<BranchOfficeOrganizationUnit>(branchOfficeOrganizationUnit.Id))
                            .Many();
 
@@ -268,15 +254,15 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         private PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
         {
             return new PrimaryBranchOfficeOrganizationUnits
-                {
-                    Primary =
+                       {
+                           Primary =
                         _finder.Find(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
-                                     BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId) &&
+                                               BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId) &&
                                      BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.Primary())
                                .One(),
-                    PrimaryForRegionalSales =
+                           PrimaryForRegionalSales =
                         _finder.Find(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId)).One()
-                };
+                       };
         }
 
         private int Activate(BranchOffice branchOffice)

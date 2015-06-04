@@ -20,6 +20,11 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Users.ReadModel
         Uri GetTelephonyServerAddress(long userId);
         long? GetUserOrganizationUnitId(long userId);
         IReadOnlyDictionary<long, string> GetUserNames(IEnumerable<long> userIds);
+        string GetUserName(long userId);
+        bool IsUserLinkedToBranchOffice(long userId, long branchOffice);
+        IReadOnlyCollection<long> GetUserBranchOffices(long userId);
+        IReadOnlyCollection<UserBranchOffice> GetUserBranchOfficeLinks(long userId);
         IEnumerable<long> PickNonServiceUsers(IEnumerable<long> userIds);
+        bool DoesUserAndBranchOfficeHaveCommonOrganizationUnit(long userId, long branchOfficeId);
     }
 }

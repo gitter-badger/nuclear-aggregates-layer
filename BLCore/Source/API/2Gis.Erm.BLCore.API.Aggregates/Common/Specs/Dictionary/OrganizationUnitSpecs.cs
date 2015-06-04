@@ -2,6 +2,7 @@
 using System.Linq;
 
 using DoubleGis.Erm.Platform.Model.Entities.Erm;
+using DoubleGis.Erm.Platform.Model.Entities.Security;
 
 using NuClear.Storage.Specifications;
 
@@ -9,6 +10,8 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
 {
     public static class OrganizationUnitSpecs
     {
+        public static class OrganizationUnits
+        {
         public static class Find
         {
             public static FindSpecification<OrganizationUnit> ByDgppId(long organizationUnitDgppId)
@@ -34,6 +37,18 @@ namespace DoubleGis.Erm.BLCore.API.Aggregates.Common.Specs.Dictionary
                 return new SelectSpecification<OrganizationUnit, decimal>(
                     x => x.BranchOfficeOrganizationUnits
                           .FirstOrDefault(unit => unit.IsPrimaryForRegionalSales).BranchOffice.BargainType.VatRate);
+            }
+        }
+    }
+
+        public static class UserOrganizationUnits
+        {
+            public static class Find
+            {
+                public static FindSpecification<UserOrganizationUnit> ByUser(long userId)
+                {
+                    return new FindSpecification<UserOrganizationUnit>(x => x.UserId == userId);
+                }
             }
         }
     }

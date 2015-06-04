@@ -35,13 +35,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
         {
             return _finder.Find(new FindSpecification<ReleaseValidationResult>(x => x.ReleaseInfoId == releaseInfoId))
                           .Map(q => q.OrderBy(x => x.IsBlocking)
-                                     .ThenBy(x => x.IsBlocking)
-                                     .Select(x => new ReleaseProcessingMessage
-                                         {
-                                             IsBlocking = x.IsBlocking,
-                                             Message = x.Message,
-                                             OrderId = x.OrderId,
-                                             RuleCode = x.RuleCode
+                .ThenBy(x => x.IsBlocking)
+                .Select(x => new ReleaseProcessingMessage
+                {
+                    IsBlocking = x.IsBlocking,
+                    Message = x.Message,
+                    OrderId = x.OrderId,
+                    RuleCode = x.RuleCode
                                          }))
                           .Many();
         }
@@ -51,12 +51,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             var userInfos = _query.For<User>().Select(user => new { user.Id, user.DisplayName }).ToArray();
             var orderInfos = _finder.Find(new FindSpecification<Order>(o => orderIds.Contains(o.Id)))
                                     .Map(q => q.Select(o => new
-                                        {
-                                            Id = o.Id,
-                                            Number = o.Number,
-                                            FirmName = o.Firm.Name,
-                                            LegalPersonName = o.LegalPerson.ShortName,
-                                            OwnerCode = o.OwnerCode
+                {
+                    Id = o.Id,
+                    Number = o.Number,
+                    FirmName = o.Firm.Name,
+                    LegalPersonName = o.LegalPerson.ShortName,
+                    OwnerCode = o.OwnerCode
                                         }))
                                     .Many();
 
@@ -83,7 +83,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
 
         public long GetOrganizationUnitId(int organizationUnitDgppId)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() && OrganizationUnitSpecs.Find.ByDgppId(organizationUnitDgppId))
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() && OrganizationUnitSpecs.OrganizationUnits.Find.ByDgppId(organizationUnitDgppId))
                           .Map(q => q.Select(x => x.Id))
                           .Top();
         }
@@ -126,18 +126,18 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
             if (organizationUnitId == UkOrganizationUnitId)
             {
                 organizationUnitQuery = _query.For<OrganizationUnit>()
-                                              .Select(x => new
-                                                  {
-                                                      OrganizationUnit = x,
-                                                      ContributionType = x.BranchOfficeOrganizationUnits
-                                                                          .Where(y => y.IsActive && !y.IsDeleted &&
-                                                                                      y.IsPrimaryForRegionalSales)
-                                                                          .Select(y => y.BranchOffice)
-                                                                          .Select(y => (ContributionTypeEnum?)y.ContributionTypeId)
-                                                                          .FirstOrDefault(),
-                                                  })
-                                              .Where(x => x.ContributionType == ContributionTypeEnum.Branch)
-                                              .Select(x => x.OrganizationUnit);
+                                               .Select(x => new
+                {
+                    OrganizationUnit = x,
+                                                                    ContributionType = x.BranchOfficeOrganizationUnits
+                                                                                        .Where(y => y.IsActive && !y.IsDeleted &&
+                                                                                                    y.IsPrimaryForRegionalSales)
+                                        .Select(y => y.BranchOffice)
+                                        .Select(y => (ContributionTypeEnum?)y.ContributionTypeId)
+                                        .FirstOrDefault(),
+                })
+                .Where(x => x.ContributionType == ContributionTypeEnum.Branch)
+                .Select(x => x.OrganizationUnit);
             }
             else
             {

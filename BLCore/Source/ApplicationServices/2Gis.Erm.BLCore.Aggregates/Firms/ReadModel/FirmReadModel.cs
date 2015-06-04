@@ -96,9 +96,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
             var tmp = _secureFinder.Find(Specs.Find.ById<FirmAddress>(firmAddressCode) && Specs.Find.NotDeleted<FirmAddress>() &&
                                          new FindSpecification<FirmAddress>(x => !x.Firm.IsDeleted))
                                    .Map(q => q.Select(x => new
-                                       {
-                                           x.Firm,
-                                           x.Firm.ClientId
+                                   {
+                                       x.Firm,
+                                       x.Firm.ClientId
                                        }))
                                    .Top();
 
@@ -151,9 +151,9 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                 });
 
             var firmAddressContacts = _secureQuery.For<FirmContact>()
-                                                  .Where(contact => contact.FirmAddressId == firmAddressId)
-                                                  .OrderBy(contact => contact.SortingPosition)
-                                                  .AsEnumerable();
+                                                   .Where(contact => contact.FirmAddressId == firmAddressId)
+                                                   .OrderBy(contact => contact.SortingPosition)
+                                                   .AsEnumerable();
 
             return firmAddressContacts.Union(depCardContacts).ToArray();
         }
@@ -241,7 +241,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
 
         public IReadOnlyDictionary<int, RegionalTerritoryDto> GetRegionalTerritoriesByBranchCodes(IEnumerable<int> branchCodes, string regionalTerritoryPhrase)
         {
-            var territories = _finder.FindObsolete(OrganizationUnitSpecs.Find.ByDgppIds(branchCodes) && Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
+            var territories = _finder.FindObsolete(OrganizationUnitSpecs.OrganizationUnits.Find.ByDgppIds(branchCodes) && Specs.Find.ActiveAndNotDeleted<OrganizationUnit>())
                                      .Select(x => new
                                      {
                                          BranchCode = x.DgppId.Value,
