@@ -49,20 +49,6 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
                           .ToArray();
         }
 
-        public BranchOfficeOrganizationShortInformationDto GetBranchOfficeOrganizationUnitShortInfo(long organizationUnitId)
-        {
-            return _finder.Find<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId)
-                          .Where(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
-                          .Where(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
-                          .Select(x => new BranchOfficeOrganizationShortInformationDto
-                              {
-                                  Id = x.Id,
-                                  ShortLegalName = x.ShortLegalName,
-                              })
-                          .SingleOrDefault() ?? new BranchOfficeOrganizationShortInformationDto();
-            // null не возвращаем, логика была рассчитана на работу с пустыми значениями.
-        }
-
         public int Deactivate(BranchOffice branchOffice)
         {
             using (var scope = _scopeFactory.CreateSpecificFor<DeactivateIdentity, BranchOffice>())
@@ -261,14 +247,14 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices
         private PrimaryBranchOfficeOrganizationUnits GetPrimaryBranchOfficeOrganizationUnits(long organizationUnitId)
         {
             return new PrimaryBranchOfficeOrganizationUnits
-                       {
-                           Primary =
+                {
+                    Primary =
                                _finder.FindOne(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
                                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnit(organizationUnitId) &&
                                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.Primary()),
-                           PrimaryForRegionalSales =
-                               _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
-                       };
+                    PrimaryForRegionalSales =
+                        _finder.FindOne(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryForRegionalSalesOfOrganizationUnit(organizationUnitId))
+                };
         }
 
         private int Activate(BranchOffice branchOffice)
