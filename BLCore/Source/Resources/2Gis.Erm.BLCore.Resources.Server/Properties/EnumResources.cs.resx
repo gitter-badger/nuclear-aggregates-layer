@@ -2032,4 +2032,7 @@
   <data name="FunctionalPrivilegeNameEditAdvertisementAgencyOrderType" xml:space="preserve">
     <value>Změna typu objednávky Reklamní agentury</value>
   </data>
+  <data name="EntityNameUserBranchOffice" xml:space="preserve">
+    <value>Spojení uživatele s právnickou osobou</value>
+  </data>
 </root>

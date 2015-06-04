@@ -1,16 +1,14 @@
 ﻿using System.Linq;
 
 using DoubleGis.Erm.BLCore.API.Operations.Generic.List;
+using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
 using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata;
+using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
 using DoubleGis.Erm.Platform.DAL;
 using DoubleGis.Erm.Platform.Model.Entities.Security;
 
-using DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.DTO;
-using DoubleGis.Erm.BLQuerying.Operations.Listing.List.Infrastructure;
-
 namespace DoubleGis.Erm.BLQuerying.Operations.Listing.List
 {
-
     public sealed class ListUserOrganizationUnitService : ListEntityDtoServiceBase<UserOrganizationUnit, ListUserOrganizationUnitDto>
     {
         private readonly IFinder _finder;

@@ -16,11 +16,12 @@ namespace DoubleGis.Erm.Platform.Model.Aggregates.Aliases
         public static IEntityType[] Entities
         {
             get
-            {
+    {
                 return new[] { Root }
                     .Concat(new IEntityType[]
                                 {
-                                    EntityType.Instance.BranchOfficeOrganizationUnit()
+                                    EntityType.Instance.BranchOfficeOrganizationUnit(),
+                                    EntityType.Instance.UserBranchOffice(),
                                 })
                     .ToArray();
             }

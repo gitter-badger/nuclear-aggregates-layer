@@ -849,6 +849,7 @@
     <Compile Include="2.1\201501261917 - Drop single replication SPs.cs" />
     <Compile Include="2.1\201503111149 - Drop obsoleted logging infrastructure.cs" />
     <Compile Include="2.1\201502130238 - add AccountingMethod column to WithdrawalInfos table.cs" />
+    <Compile Include="2.1\201504060351 - Add Security.UserBranchOffices.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />

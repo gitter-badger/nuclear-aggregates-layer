@@ -60,7 +60,7 @@ namespace DoubleGis.Erm.BLCore.Aggregates.OrganizationUnits.ReadModel
         public IReadOnlyDictionary<int, long> GetOrganizationUnitIdsByDgppIds(IEnumerable<int> dgppIds)
         {
             // ReSharper disable once PossibleInvalidOperationException
-            return _finder.Find(OrganizationUnitSpecs.Find.ByDgppIds(dgppIds)).ToDictionary(x => x.DgppId.Value, x => x.Id);
+            return _finder.Find(OrganizationUnitSpecs.OrganizationUnits.Find.ByDgppIds(dgppIds)).ToDictionary(x => x.DgppId.Value, x => x.Id);
         } 
     }
 }

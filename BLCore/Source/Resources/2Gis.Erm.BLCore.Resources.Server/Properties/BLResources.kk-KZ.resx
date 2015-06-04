@@ -5111,7 +5111,7 @@ Cумма по операции: {5}.
   </data>
   <data name="InactiveOrgUnitForBranchOfficeAlreadyExist" xml:space="preserve">
     <value>Уже существует неактивная связь отделения организации {0} с юридическим лицом {1}</value>
-  </data>
+</data>
   <data name="EntityIsAlreadyActive" xml:space="preserve">
     <value>Сущность {0} ({1}) уже активна</value>
   </data>
@@ -5274,5 +5274,11 @@ Cумма по операции: {5}.
   </data>
   <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
     <value>Данный тип {0} телефонии не поддерживается.</value>
+  </data>
+  <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
+    <value>Пользователь {0} уже связан с юр. лицом {1}</value>
+  </data>
+  <data name="UserDoesntHaveSharedWithBranchOfficeOrganizationUnits" xml:space="preserve">
+    <value>У пользователя {0} нет общих отделений организации с юр. лицом {1}</value>
   </data>
 </root>

@@ -44,6 +44,7 @@ namespace DoubleGis.Erm.Platform.Model.Entities
                 { EntityType.Instance.EmiratesFirmAddressPart(), typeof(EmiratesFirmAddressPart) },
                 { EntityType.Instance.FirmContact(), typeof(FirmContact) },
                 { EntityType.Instance.BranchOffice(), typeof(BranchOffice) },
+                { EntityType.Instance.UserBranchOffice(), typeof(UserBranchOffice) },
                 { EntityType.Instance.UkraineBranchOfficePart(), typeof(UkraineBranchOfficePart) },
                 { EntityType.Instance.OrganizationUnit(), typeof(OrganizationUnit) },
                 { EntityType.Instance.Project(), typeof(Project) },
