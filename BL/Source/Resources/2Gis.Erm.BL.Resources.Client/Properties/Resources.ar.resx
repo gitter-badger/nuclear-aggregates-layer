@@ -975,4 +975,10 @@
   <data name = "StartCalling" xml:space="preserve">
     <value>Call in progress</value>
   </data>
+  <data name="AdvertisementElementTextContainsNestedList" xml:space="preserve">
+    <value>The text contains nested lists and cannot be saved.</value>
+  </data>
+  <data name="AdvertisementElementTextContainsRepeatedSpaces" xml:space="preserve">
+    <value>The text contains repeated whitespaces. Delete them before saving?</value>
+  </data>
 </root>

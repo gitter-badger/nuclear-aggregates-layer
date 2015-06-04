@@ -39,9 +39,55 @@
         return text.replace(controlChars, '');
     };
 
+    function ensureHasSingleSpaces(text) {
+        return text
+            .replace(/&nbsp;/g, '\x20')
+            .replace(/(\x20){2,}/g, '\x20');
+    };
+
     function textContainsControlChars(text) {
         return text.match(controlChars);
     };
+
+    function textContainsControlList(element) {
+
+        function isMatch(el) {
+            return el.tagName.toLowerCase() == "ul";
+        }
+
+        function hasNestedMatch(el) {
+            var queue = [];
+            queue.push.apply(queue, el.children);
+
+            do {
+                var child = queue.shift();
+                if (isMatch(child))
+                    return true;
+                queue.push.apply(queue, child.children);
+            } while (queue.length > 0);
+
+            return false;
+        }
+
+        var queue = [element];
+        do {
+            var child = queue.shift();
+
+            if (isMatch(child)) {
+                if (hasNestedMatch(child))
+                    return true;
+            }
+            else {
+                queue.push.apply(queue, child.children);
+            }
+        } while (queue.length > 0);
+
+        return false;
+    };
+
+    function textContainsSpace(text) {
+        return text.match(/(&nbsp;)|(\x20){2,}/g);
+    }
 
     function characterCountValidationMessage(plainText, maxLength) {
         var diff = maxLength - plainText.replace(plainTextNewLineRegexp, '').length;
@@ -154,6 +200,22 @@
             Ext.DoubleGis.FormValidator.updateValidationMessage(fInfo, messages.join('<br/>'));
         };
 
+        function wrapInParagraph (oldStr) {
+            var elements = oldStr.split(/<br \/>/gim);
+            var result = "";
+            elements.forEach(function (element) {
+                if (element) {
+                    result += "<p>" + element + "</p>";
+                }
+            });
+            return result;
+        };
+
+        function getValue() {
+            var control = Ext.getDom(fieldWithPrefix("FormattedText"));
+            return control ? wrapInParagraph(control.value) : null;
+        };
+
         Ext.ux.TinyMCE.initTinyMCE();
         this.RTE = new Ext.ux.TinyMCE({
             renderTo: "TxtContainer",
@@ -180,21 +242,17 @@
                 theme_advanced_toolbar_align: "left",
                 theme_advanced_statusbar_location: "bottom",
                 theme_advanced_resizing: false,
-                valid_elements: "br,strong/b,em/i,ul,ol,li",
+                content_css: "/Scripts/tinymce/css/content.css",
+                valid_elements: "p,br,strong/b,em/i,ul,li",
 
                 // очищаем формат при вставке, иначе tinymce намертво повисает
                 paste_remove_styles: true,
                 paste_remove_spans: true,
-                paste_preprocess: function (pl, o) {
-                    o.content = Ext.util.Format.stripTags(o.content);
-                },
 
-                force_br_newlines: true,
-                force_p_newlines: false,
                 forced_root_block: false,
                 convert_newlines_to_brs: true
             },
-            value: Ext.getDom(fieldWithPrefix("FormattedText")).value
+            value: getValue()
         });
 
         var readOnlyField = Ext.getDom("ViewConfig_ReadOnly");
@@ -205,6 +263,12 @@
         this.on('beforepost', function () {
             // set plaintext
             var body = this.RTE.getEd().getBody();
+
+            if (textContainsControlList(body)) {
+                alert(Ext.LocalizedResources.AdvertisementElementTextContainsNestedList);
+                return false;
+            };
+
             var plainText = body.innerText || body.textContent || "";
 
             if (plainText) {
@@ -219,6 +283,17 @@
                 .replace(new RegExp('<p>', 'gim'), '')
                 .replace(new RegExp('&nbsp;</p>', 'gim'), '<br />')
                 .replace(new RegExp('</p>', 'gim'), '<br />');
+
+            if (textContainsSpace(plainText) || textContainsSpace(formattedText)) {
+                var userAgreedToRemoveSpaces = confirm(Ext.LocalizedResources.AdvertisementElementTextContainsRepeatedSpaces);
+                if (userAgreedToRemoveSpaces) {
+                    formattedText = ensureHasSingleSpaces(formattedText);
+                    plainText = ensureHasSingleSpaces(plainText);
+                } else {
+                    alert(Ext.LocalizedResources.AdvertisementElementWasNotSaved);
+                    return false;
+                }
+            }
 
             // Если в тексте РМ есть управляющие символы, пользователю предлагается их удалить автоматически.
             // Как правило, это неотображаемые символы и они могут быть безболезненно удалены, 

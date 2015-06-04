@@ -975,4 +975,10 @@
   <data name = "StartCalling" xml:space="preserve">
     <value>Voláme</value>
   </data>
+  <data name="AdvertisementElementTextContainsNestedList" xml:space="preserve">
+    <value>Text obsahuje přiložené seznamy, text nemůže být uložen.</value>
+  </data>
+  <data name="AdvertisementElementTextContainsRepeatedSpaces" xml:space="preserve">
+    <value>Text obsahuje opakující se mezery, chcete je odstranit před uložením?</value>
+  </data>
 </root>
