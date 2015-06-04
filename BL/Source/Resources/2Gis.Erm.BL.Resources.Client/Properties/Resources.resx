@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -937,7 +937,7 @@
     <value />
   </data>
   <data name="AdvertisementTemplatePublishConfirmationWithDirtyForm" xml:space="preserve">
-    <value>Вы действительно хотите опубликовать шаблон ракламного материала?&lt;br/&gt;На карточке есть изменения, которые будут утеряны при публикации.&lt;br/&gt;Если требуется их сохранить нажмите "нет" и сохраните карточку.</value>
+    <value />
   </data>
   <data name="UnpublishAdvertisementTemplateLabel" xml:space="preserve">
     <value />
@@ -960,11 +960,8 @@
   <data name="LegalPersonIsAlreadyMain" xml:space="preserve">
     <value />
   </data>
-  <data name="InvalidDateTimeText" xml:space="preserve">
-    <value />
-  </data>
   <data name="ErrorOnServiceAccess" xml:space="preserve">
-    <value>Ошибка при обращении к сервису {0}. Обратитесь к разработчикам.</value>
+    <value />
   </data>
   <data name="LimitIncreasingIsNotRequired" xml:space="preserve">
     <value />
