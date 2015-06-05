@@ -337,9 +337,13 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Firms.ReadModel
                           .ToArray();
         }
 
-        public long GetFirmOwnerCodeUnsecure(long firmId)
+        public bool TryGetFirmOwnerCodeUnsecure(long firmId, out long ownerCode)
         {
-            return _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => x.OwnerCode).Single();
+            var nullableOwnerCode = _finder.Find(Specs.Find.ById<Firm>(firmId)).Select(x => (long?)x.OwnerCode)
+                                           .SingleOrDefault();
+
+            ownerCode = nullableOwnerCode ?? 0;
+            return nullableOwnerCode.HasValue;
         }
 
         private Dictionary<int, string> GetReferenceItems(IEnumerable<int> referenceItemCodes, string referenceCode)

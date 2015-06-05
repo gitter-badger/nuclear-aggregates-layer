@@ -110,13 +110,11 @@ function Get-OptionsMetadata ($Country) {
 		'Russia' {
 			return @{
 				'OptionModi' = $true
-				'OptionFinancialOperations' = $true
 			}
 		}
 		default {
 			return @{
 				'OptionModi' = $false
-				'OptionFinancialOperations' = $false
 			}
 		}
 	}

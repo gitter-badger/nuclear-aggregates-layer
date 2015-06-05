@@ -60,11 +60,11 @@ Task Deploy-OrderValidation -Precondition { $OptionOrderValidation } {
 }
 
 Properties { $OptionFinancialOperations = $true }
-Task Build-FinancialOperations -Precondition { $OptionFinancialOperations -and (Get-Metadata '2Gis.Erm.API.WCF.Operations.Special').OptionFinancialOperations } -Depends Update-AssemblyInfo {
+Task Build-FinancialOperations -Precondition { $OptionFinancialOperations } -Depends Update-AssemblyInfo {
 	$projectFileName = Get-ProjectFileName '.' '2Gis.Erm.API.WCF.Operations.Special'
 	Build-WebPackage $projectFileName '2Gis.Erm.API.WCF.Operations.Special'
 }
-Task Deploy-FinancialOperations -Precondition { $OptionFinancialOperations -and (Get-Metadata '2Gis.Erm.API.WCF.Operations.Special').OptionFinancialOperations } {
+Task Deploy-FinancialOperations -Precondition { $OptionFinancialOperations } {
 	Deploy-WebPackage '2Gis.Erm.API.WCF.Operations.Special'
 	Validate-WebSite '2Gis.Erm.API.WCF.Operations.Special' 'Calculate.svc'
 }

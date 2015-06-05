@@ -28,7 +28,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Exceptions
                 throw new ArgumentNullException("entityType");
             }
 
-            return string.Format("Сущность {0}.Id = {1} не найдена", entityType.Name, entityId);
+            return string.Format("Could not find {0} with id  = {1}", entityType.Name, entityId);
         }
 
         private static string GenerateMessage(Type entityType)
@@ -38,7 +38,7 @@ namespace DoubleGis.Erm.Platform.API.Core.Exceptions
                 throw new ArgumentNullException("entityType");
             }
 
-            return string.Format("Сущность {0} не найдена", entityType.Name);
+            return string.Format("Could not find {0}", entityType.Name);
         }
     }
 }
