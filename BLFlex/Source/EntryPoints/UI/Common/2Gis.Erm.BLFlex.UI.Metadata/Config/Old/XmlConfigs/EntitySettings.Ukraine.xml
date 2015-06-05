@@ -632,7 +632,7 @@
           <Field Name="Id" NameLocaleResourceId="DFieldId" Width="0" Hidden="true" FieldType="Int" ExtTypeName="String" />
           <Field Name="FirmId" NameLocaleResourceId="DFieldFirmId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
           <Field Name="ClientId" NameLocaleResourceId="DFieldClientId" Width="0" Hidden="true" FieldType="String" ExtTypeName="String" />
-          <Field Name="Number" Width="150" FieldType="String" ExtTypeName="String" />
+          <Field Name="Number" NameLocaleResourceId="BillNumber" Width="150" FieldType="String" ExtTypeName="String" />
           <Field Name="CreatedOn" Width="100" FieldType="DateTime" ExtTypeName="Date" />
           <Field Name="PaymentDatePlan" Width="100" FieldType="Period" ExtTypeName="Date" />
           <Field Name="PayablePlan" Width="100" FieldType="Money" ExtTypeName="Float" />
@@ -659,6 +659,7 @@
         <RelatedItemsArea Name="Information" NameLocaleResourceId="CrdRelInformationHeader">
           <RelatedItem Name="ContentTab" NameLocaleResourceId="CrdRelInformation" Icon="en_ico_16_BranchOffice.gif" />
           <RelatedItem Name="BranchOfficeOrganizationUnits" NameLocaleResourceId="CrdRelBOOU" RequestUrl="/Grid/View/BranchOfficeOrganizationUnit" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" ExtendedInfo="filterToParent=true" />
+          <RelatedItem Name="UserBranchOffices" NameLocaleResourceId="CrdRelUsers" RequestUrl="/Grid/View/UserBranchOffice" DisabledExpression="Ext.getDom(&quot;Id&quot;).value==0" AppendableEntity="User" ExtendedInfo="filterToParent=true" />
         </RelatedItemsArea>
       </RelatedItems>
     </Card>
@@ -2876,6 +2877,22 @@
           <Field Name="UserName" NameLocaleResourceId="DFieldDisplayName" Width="250" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="UserId" />
           <Field Name="UserDepartmentName" NameLocaleResourceId="ContactDepartmentName" Width="200" FieldType="String" ExtTypeName="String" />
           <Field Name="UserRoleName" NameLocaleResourceId="AccountRole" Width="250" FieldType="String" ExtTypeName="String" Sortable="false" />
+        </Fields>
+      </DataList>
+    </DataLists>
+  </Entity>
+  <Entity Name="UserBranchOffice">
+    <DataLists>
+      <DataList NameLocaleResourceId="DListUserBranchOffice" DefaultSortField="UserName" SortDescending="0" RowsPerPage="40" AllowMultiple="true" ReadOnly="false" MainAttribute="UserName" Icon="en_ico_16_User.gif">
+        <ToolbarItems>
+          <ToolbarItem Name="Append" NameLocaleResourceId="ControlAppend" ControlType="TextButton" LockOnInactive="true" Action="scope.Append" SecurityPrivelegeFlag="16" />
+          <ToolbarItem Name="Splitter" NameLocaleResourceId="ControlSplitter" ControlType="Splitter" LockOnInactive="true" />
+          <ToolbarItem Name="Delete" NameLocaleResourceId="ControlDelete" ControlType="ImageButton" LockOnInactive="true" Action="scope.Delete" Icon="Delete.gif" SecurityPrivelegeFlag="65536" />
+        </ToolbarItems>
+        <Fields>
+          <Field Name="Id" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="Int" ExtTypeName="String" />
+          <Field Name="UserId" NameLocaleResourceId="DFieldId" Width="100" Hidden="true" FieldType="String" ExtTypeName="String" />
+          <Field Name="UserName" NameLocaleResourceId="EnUser" Width="300" FieldType="String" ExtTypeName="String" ReferenceEntityName="User" ReferenceFieldName="UserId" />
         </Fields>
       </DataList>
     </DataLists>

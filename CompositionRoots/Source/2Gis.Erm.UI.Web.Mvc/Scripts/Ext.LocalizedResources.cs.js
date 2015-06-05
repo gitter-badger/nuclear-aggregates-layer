@@ -1,4 +1,4 @@
-﻿// File updated : 5/25/2015 11:35:13 AM
+﻿// File updated : 01.06.2015 12:31:45
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -30,6 +30,8 @@ AdsCheckTooLongWord : 'Ve slove "{0}" byl prekrocen maximalni pocet symbolu: {1}
 AdvertisementElements : 'Prvky reklamního materiálu',
 AdvertisementElementTextContainsControlCharacters : 'Text obsahuje řídicí znaky, přejete si je před uložením odstranit?',
 AdvertisementElementTextContainsHtmlTags : 'Text obsahuje potenciálně nebezpečné prvky (HTML tagy), text nelze uložit.',
+AdvertisementElementTextContainsNestedList : 'Text obsahuje přiložené seznamy, text nemůže být uložen.',
+AdvertisementElementTextContainsRepeatedSpaces : 'Text obsahuje opakující se mezery, chcete je odstranit před uložením?',
 AdvertisementElementWasNotSaved : 'Element reklamního materiálu nebyl uložen.',
 Advertisements : 'Reklamní materiály',
 AdvertisementTemplatePublishConfirmation : 'Skutečně si přejete zveřejnit šablonu reklamního materiálu?',

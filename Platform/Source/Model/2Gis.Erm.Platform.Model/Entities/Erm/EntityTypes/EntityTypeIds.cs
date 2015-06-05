@@ -26,6 +26,7 @@
         public const int EmiratesFirmAddressPart = 608;
         public const int FirmContact = 165;
         public const int BranchOffice = 156;
+        public const int UserBranchOffice = 281;
         public const int UkraineBranchOfficePart = 603;
         public const int OrganizationUnit = 157;
         public const int Project = 158;

@@ -243,6 +243,7 @@
     <Compile Include="2.1\201505070309 - Add new AdvAgencies FP.cs" />
     <Compile Include="2.1\201504101044 - drop DeniedPosition OwnerCode.cs" />
     <Compile Include="2.1\201504101225 - remove some DeniedPositions Privileges.cs" />
+    <Compile Include="2.1\201505121131 - Remove AdditionalFirmService Privilege.cs" />
     <Compile Include="2.1\2014.12.08 rev. 201412081011.cs" />
     <Compile Include="2.1\2014.12.03 rev. 201412031042.cs" />
     <Compile Include="2.1\2014.12.02 rev. 201412021619.cs" />
@@ -849,6 +850,7 @@
     <Compile Include="2.1\201501261917 - Drop single replication SPs.cs" />
     <Compile Include="2.1\201503111149 - Drop obsoleted logging infrastructure.cs" />
     <Compile Include="2.1\201502130238 - add AccountingMethod column to WithdrawalInfos table.cs" />
+    <Compile Include="2.1\201504060351 - Add Security.UserBranchOffices.cs" />
     <Compile Include="ActivityMigration\ActivityMigration.cs" />
     <Compile Include="ActivityMigration\ActivityReference.cs" />
     <Compile Include="ActivityMigration\AnnotationMigration.cs" />

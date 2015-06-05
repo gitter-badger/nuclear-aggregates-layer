@@ -5253,4 +5253,10 @@
   <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
     <value />
   </data>
+  <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UserDoesntHaveSharedWithBranchOfficeOrganizationUnits" xml:space="preserve">
+    <value />
+  </data>
 </root>

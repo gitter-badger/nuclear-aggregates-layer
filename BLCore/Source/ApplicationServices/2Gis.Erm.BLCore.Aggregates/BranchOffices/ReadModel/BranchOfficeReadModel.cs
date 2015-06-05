@@ -115,6 +115,33 @@ namespace DoubleGis.Erm.BLCore.Aggregates.BranchOffices.ReadModel
                        .Single();
         }
 
+        public BranchOfficeOrganizationShortLegalNameDto GetPrimaryBranchOfficeOrganizationUnitName(long organizationUnitId)
+        {
+            return _finder.Find<BranchOfficeOrganizationUnit>(x => x.OrganizationUnitId == organizationUnitId)
+                          .Where(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>())
+                          .Where(BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.PrimaryBranchOfficeOrganizationUnit())
+                          .Select(x => new BranchOfficeOrganizationShortLegalNameDto
+                                           {
+                                               Id = x.Id,
+                                               ShortLegalName = x.ShortLegalName,
+                                           })
+                          .SingleOrDefault();
+        }
+
+        public IReadOnlyCollection<BranchOfficeOrganizationShortLegalNameDto>
+            GetBranchOfficeOrganizationUnitNames(long? organizationUnitId, IEnumerable<long> branchOfficeIds)
+        {
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<BranchOfficeOrganizationUnit>() &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByOrganizationUnitIfSpecified(organizationUnitId) &&
+                                BranchOfficeSpecs.BranchOfficeOrganizationUnits.Find.ByBranchOffice(branchOfficeIds))
+                          .Select(x => new BranchOfficeOrganizationShortLegalNameDto
+                                           {
+                                               Id = x.Id,
+                                               ShortLegalName = x.ShortLegalName
+                                           })
+                          .ToArray();
+        }
+
         public IEnumerable<long> GetProjectOrganizationUnitIds(long projectCode)
         {
             var organizationUnitIds = _finder.Find<Project>(project => project.Id == projectCode && project.OrganizationUnitId.HasValue)

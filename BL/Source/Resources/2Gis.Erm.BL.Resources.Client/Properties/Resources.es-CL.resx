@@ -975,4 +975,10 @@
   <data name = "StartCalling" xml:space="preserve">
     <value>La llamada en curso</value>
   </data>
+  <data name="AdvertisementElementTextContainsNestedList" xml:space="preserve">
+    <value>Texto contiene las listas adjuntas y no puede ser guardado</value>
+  </data>
+  <data name="AdvertisementElementTextContainsRepeatedSpaces" xml:space="preserve">
+    <value>Texto contiene los espacios repetidos, eliminarlos antes de guardar?</value>
+  </data>
 </root>

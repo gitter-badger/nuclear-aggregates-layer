@@ -1942,6 +1942,15 @@ namespace DoubleGis.Erm.BLCore.Resources.Server.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Связь пользователя с юр. лицом.
+        /// </summary>
+        public static string EntityNameUserBranchOffice {
+            get {
+                return ResourceManager.GetString("EntityNameUserBranchOffice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Отделение организации пользователя.
         /// </summary>
         public static string EntityNameUserOrganizationUnit {

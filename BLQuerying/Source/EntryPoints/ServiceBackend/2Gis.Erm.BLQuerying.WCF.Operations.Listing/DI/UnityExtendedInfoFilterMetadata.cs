@@ -132,7 +132,6 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, bool>("NotActiveAndNotDeleted", value => x => !x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, bool>("ParentsNotDeleted", value => x => !x.OrganizationUnitIsDeleted && !x.BranchOfficeIsDeleted);
-            RegisterExtendedInfoFilter<ListBranchOfficeOrganizationUnitDto, bool>("Primary", value => x => x.IsPrimary);
 
             RegisterExtendedInfoFilter<ListCategoryDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListCategoryDto, bool>("NotActiveAndNotDeleted", value => x => !x.IsActive && !x.IsDeleted);
@@ -364,6 +363,7 @@ namespace DoubleGis.Erm.BLQuerying.WCF.Operations.Listing.DI
             RegisterExtendedInfoFilter<ListThemeTemplateDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListThemeOrganizationUnitDto, bool>("ActiveAndNotDeleted", value => x => x.IsActive && !x.IsDeleted);
             RegisterExtendedInfoFilter<ListThemeCategoryDto, bool>("NotDeleted", value => x => !x.IsDeleted);
+            RegisterExtendedInfoFilter<ListUserBranchOfficeDto, bool>("NotDeleted", value => x => !x.IsDeleted);
         }
 
         public void RegisterExtendedInfoFilter<TDocument, TInfoType>(string filterName, Func<TInfoType, Expression<Func<TDocument, bool>>> func)

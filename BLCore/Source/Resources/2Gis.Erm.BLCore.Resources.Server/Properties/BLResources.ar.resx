@@ -5203,7 +5203,7 @@ Placement period: {3}.</value>
     <value>Technical support</value>
   </data>
   <data name="PositionAccessDenied" xml:space="preserve">
-    <value>Редактирование позиций номенклатуры текущему пользователю запрещено</value>
+    <value>Editing nomenclature items is forbidden for the current user</value>
   </data>
   <data name="ManageDocumentsDebt" xml:space="preserve">
     <value>Document availability management</value>
@@ -5267,5 +5267,11 @@ Placement period: {3}.</value>
   </data>
   <data name ="TelephonySchemeIsNotSupported" xml:space="preserve">
     <value>This {0} telephony type is not supported.</value>
+  </data>
+  <data name="UserIsAlreadyLinkedWithBranchOffice" xml:space="preserve">
+    <value>User {0} is already linked to legal entity {1}</value>
+  </data>
+  <data name="UserDoesntHaveSharedWithBranchOfficeOrganizationUnits" xml:space="preserve">
+    <value>User {0} has no common company divisions with the legal entity {1}</value>
   </data>
 </root>

@@ -77,7 +77,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Releases.ReadModel
 
         public long GetOrganizationUnitId(int organizationUnitDgppId)
         {
-            return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() && OrganizationUnitSpecs.Find.ByDgppId(organizationUnitDgppId))
+            return _finder.Find(Specs.Find.ActiveAndNotDeleted<OrganizationUnit>() &&
+                                OrganizationUnitSpecs.OrganizationUnits.Find.ByDgppId(organizationUnitDgppId))
                           .Select(x => x.Id)
                           .FirstOrDefault();
         }

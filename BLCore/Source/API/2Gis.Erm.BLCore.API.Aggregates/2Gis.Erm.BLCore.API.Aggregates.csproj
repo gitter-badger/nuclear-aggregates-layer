@@ -76,6 +76,7 @@
     <Compile Include="Accounts\DTO\AccountIdAndOwnerCodeDto.cs" />
     <Compile Include="Accounts\DTO\AccountInfoForImportFrom1C.cs" />
     <Compile Include="Accounts\DTO\ActivateLockDto.cs" />
+    <Compile Include="Accounts\DTO\AssignAccountDto.cs" />
     <Compile Include="Accounts\DTO\DeactivateLockDto.cs" />
     <Compile Include="Accounts\DTO\LockDto.cs" />
     <Compile Include="Accounts\DTO\AccountDetailInfoToSendNotificationDto.cs" />
@@ -95,6 +96,8 @@
     <Compile Include="Accounts\Operations\IAccountWithdrawalChangeStatusAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountWithdrawalStartAggregateService.cs" />
     <Compile Include="Accounts\Operations\IAccountWithdrawFromAccountsAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAssignAccountAggregateService.cs" />
+    <Compile Include="Accounts\Operations\IAssignAccountDetailAggregateService.cs" />
     <Compile Include="Accounts\Operations\IImportOperationsInfoAggregateService.cs" />
     <Compile Include="Accounts\ReadModel\AccountSpecs.Accounts.cs" />
     <Compile Include="Accounts\ReadModel\AccountSpecs.Limits.cs" />
@@ -146,10 +149,11 @@
     <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.AdvertisementElementStatus.cs" />
     <Compile Include="Advertisements\ReadModel\AdvertisementSpecs.AdvertisementElement.cs" />
     <Compile Include="Advertisements\ReadModel\IAdvertisementReadModel.cs" />
-    <Compile Include="BranchOffices\DTO\BranchOfficeOrganizationShortInformationDto.cs" />
+    <Compile Include="BranchOffices\DTO\BranchOfficeOrganizationShortLegalNameDto.cs" />
     <Compile Include="BranchOffices\DTO\BranchOfficeOrganizationUnitNamesDto.cs" />
     <Compile Include="BranchOffices\DTO\PrimaryBranchOfficeOrganizationUnits.cs" />
     <Compile Include="BranchOffices\IBranchOfficeRepository.cs" />
+    <Compile Include="BranchOffices\Operation\IDeleteUserBranchOfficesAggregateService.cs" />
     <Compile Include="BranchOffices\ReadModel\BranchOfficeSpecs.BranchOffice.cs" />
     <Compile Include="BranchOffices\ReadModel\IBranchOfficeReadModel.cs" />
     <Compile Include="Charges\Dto\ChargeInfoDto.cs" />
@@ -171,10 +175,13 @@
     <Compile Include="Clients\ReadModel\ClientSpecs.Clients.cs" />
     <Compile Include="Clients\ReadModel\IClientReadModel.cs" />
     <Compile Include="CommonService\MessageHelper.cs" />
+    <Compile Include="Common\Crosscutting\AccountsWithDebtsReportGenerator.cs" />
+    <Compile Include="Common\Crosscutting\IAccountDebtsChecker.cs" />
     <Compile Include="Common\Crosscutting\IAggregateServiceIsolator.cs" />
     <Compile Include="Common\Crosscutting\ICheckInnService.cs" />
     <Compile Include="Common\Crosscutting\IMonthPeriodValidationService.cs" />
     <Compile Include="Common\Crosscutting\IConcurrentPeriodCounter.cs" />
+    <Compile Include="Common\Crosscutting\IOwnerValidator.cs" />
     <Compile Include="Common\DTO\BusinessEntityInstanceDto.cs" />
     <Compile Include="Common\Generics\IActivateAggregateRepository.cs" />
     <Compile Include="Common\Generics\IAssignAggregateRepository.cs" />
@@ -400,11 +407,13 @@
     <Compile Include="Users\IActivateUserAggregateService.cs" />
     <Compile Include="Users\IDeactivateUserAggregateService.cs" />
     <Compile Include="Users\IUserRepository.cs" />
+    <Compile Include="BranchOffices\Operation\IAppendUserToBranchOfficeAggregateService.cs" />
     <Compile Include="Users\Operation\IUserAppendRoleAggregateService.cs" />
     <Compile Include="Users\ReadModel\DTO\UserWithRoleRelationsDto.cs" />
     <Compile Include="Users\ReadModel\IUserReadModel.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.Departments.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.UserProfiles.cs" />
+    <Compile Include="Users\ReadModel\UserSpecs.UserBranchOffices.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.UserRoles.cs" />
     <Compile Include="Users\ReadModel\UserSpecs.Users.cs" />
     <Compile Include="Charges\Dto\ChargesHistoryDto.cs" />

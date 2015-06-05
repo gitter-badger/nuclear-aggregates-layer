@@ -116,6 +116,8 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
 
             .RegisterRelatedFilter<ListUserTerritoryDto>(EntityType.Instance.User(), x => x.UserId)
 
+            .RegisterRelatedFilter<ListUserBranchOfficeDto>(EntityType.Instance.BranchOffice(), x => x.BranchOfficeId)
+
             .RegisterRelatedFilter<ListUserOrganizationUnitDto>(EntityType.Instance.User(), x => x.UserId)
             .RegisterRelatedFilter<ListUserOrganizationUnitDto>(EntityType.Instance.OrganizationUnit(), x => x.OrganizationUnitId)
 
@@ -147,7 +149,7 @@ namespace DoubleGis.Erm.BLQuerying.API.Operations.Listing.List.Metadata
         }
 
         public static bool TryGetFilterExpressionFromRelationalMap<TDocument>(IEntityType parentEntityName, out LambdaExpression lambdaExpression)
-            {
+        {
             var key = Tuple.Create(typeof(TDocument), parentEntityName);
             return RelationalMap.TryGetValue(key, out lambdaExpression);
         }
