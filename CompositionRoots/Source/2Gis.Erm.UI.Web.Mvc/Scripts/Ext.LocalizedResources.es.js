@@ -1,4 +1,4 @@
-﻿// File updated : 5/25/2015 11:35:13 AM
+﻿// File updated : 01.06.2015 12:31:45
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -30,6 +30,8 @@ AdsCheckTooLongWord : 'En la palabra "{0}" se ha excedido el número máximo per
 AdvertisementElements : 'Elementos del material publicitario',
 AdvertisementElementTextContainsControlCharacters : 'El texto contiene caracteres de control, ¿desea eliminarlos antes de guardar?',
 AdvertisementElementTextContainsHtmlTags : 'El texto contiene elementos potencialmente peligrosos (etiquetas HTML), el texto no se podrá guardar.',
+AdvertisementElementTextContainsNestedList : 'Texto contiene las listas adjuntas y no puede ser guardado',
+AdvertisementElementTextContainsRepeatedSpaces : 'Texto contiene los espacios repetidos, eliminarlos antes de guardar?',
 AdvertisementElementWasNotSaved : 'El elemento del material publicitario no se ha guardado.',
 Advertisements : 'Materiales publicitarios',
 AdvertisementTemplatePublishConfirmation : '¿Desea realmente publicar la plantilla de material publicitario?',

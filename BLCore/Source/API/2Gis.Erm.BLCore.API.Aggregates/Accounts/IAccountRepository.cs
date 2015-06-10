@@ -10,13 +10,9 @@ using NuClear.Aggregates;
 namespace DoubleGis.Erm.BLCore.API.Aggregates.Accounts
 {
     public interface IAccountRepository : IAggregateRootService<Account>,
-                                          IAssignAggregateRepository<Account>,
-                                          IAssignAggregateRepository<AccountDetail>,
-                                          IAssignAggregateRepository<Limit>,
                                           IDeleteAggregateRepository<OperationType>,
                                           IDeleteAggregateRepository<Lock>,
-                                          IDeleteAggregateRepository<LockDetail>,
-                                          ICheckAggregateForDebtsRepository<Account>
+                                          IDeleteAggregateRepository<LockDetail>
     {
         IDictionary<long, decimal> GetBalanceByAccounts(IEnumerable<long> accountIds);
         AccountDetail GetAccountDetail(long entityId);

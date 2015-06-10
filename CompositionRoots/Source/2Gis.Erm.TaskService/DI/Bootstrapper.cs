@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using DoubleGis.Erm.BL.Operations.Special.CostCalculation;
+using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Common.Crosscutting.AD;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Dto.Cards;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
@@ -211,6 +213,7 @@ namespace DoubleGis.Erm.TaskService.DI
 
                 .RegisterType<IPaymentsDistributor, PaymentsDistributor>(Lifetime.Singleton)
                 .RegisterTypeWithDependencies<ICostCalculator, CostCalculator>(Mapping.Erm, Lifetime.PerScope)
+                .RegisterType<IConcurrentPeriodCounter, ConcurrentPeriodCounter>()
 
                 // OperationScopeDisposableFactoryAccessor - необходимо для LOAD тестирования PerformedOperations инфраструктуры
                 .RegisterType<IOperationScopeDisposableFactoryAccessor, UnityOperationScopeDisposableFactoryAccessor<UnityOperationScopeFactoryProxy>>(Lifetime.PerScope)

@@ -1,4 +1,4 @@
-﻿// File updated : 5/25/2015 11:35:13 AM
+﻿// File updated : 01.06.2015 12:31:44
 // Processed resource entry host types:
 // DoubleGis.Erm.BL.Resources.Client.Properties.Resources
 // DoubleGis.Erm.BLCore.Resources.Client.Properties.Resources
@@ -30,6 +30,8 @@ AdsCheckTooLongWord : 'Maximum permitted number of symbols in the word {0} is ex
 AdvertisementElements : 'Components of advertising material',
 AdvertisementElementTextContainsControlCharacters : 'The text contains control symbols. Delete them before saving?',
 AdvertisementElementTextContainsHtmlTags : 'The text contains potentially dangerous elements (HTML tags) and cannot be saved.',
+AdvertisementElementTextContainsNestedList : 'The text contains nested lists and cannot be saved.',
+AdvertisementElementTextContainsRepeatedSpaces : 'The text contains repeated whitespaces. Delete them before saving?',
 AdvertisementElementWasNotSaved : 'AM element was not saved.',
 Advertisements : 'Advertising materials',
 AdvertisementTemplatePublishConfirmation : 'Are you sure you want to publish this advertising material template?',

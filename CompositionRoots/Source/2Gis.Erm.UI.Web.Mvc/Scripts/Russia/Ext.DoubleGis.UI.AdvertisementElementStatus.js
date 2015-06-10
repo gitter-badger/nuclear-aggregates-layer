@@ -399,6 +399,10 @@
             return false;
         }
 
+        if (cardSurrogate.fireEvent('beforepost', this) === false) {
+            return false;
+        }
+
         Ext.get('Reasons').setValue(Ext.util.JSON.encode(checkedRecords));
         Ext.get('Status').setValue(status);
 
@@ -409,7 +413,6 @@
         var mask = new Ext.LoadMask(document.body);
         mask.show();
 
-        cardSurrogate.fireEvent('beforepost');
         Ext.Ajax.request({
             url: form.action,
             method: 'POST',

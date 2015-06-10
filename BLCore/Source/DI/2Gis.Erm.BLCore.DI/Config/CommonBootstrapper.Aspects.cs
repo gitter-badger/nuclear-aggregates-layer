@@ -129,7 +129,6 @@ namespace DoubleGis.Erm.BLCore.DI.Config
                         .RegisterType<IDatabaseCaller, AdoNetDatabaseCaller>(Lifetime.Singleton, new InjectionConstructor(connectionStringSettings.GetConnectionString(ErmConnectionStringIdentity.Instance)))
                         .RegisterType<IProcessingContext, ProcessingContext>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IUseCaseTuner, UseCaseTuner>(entryPointSpecificLifetimeManagerFactory())
-                        .RegisterType<IConcurrentPeriodCounter, ConcurrentPeriodCounter>()
                         .RegisterType<IAggregateServiceIsolator, UnityAggregateServiceIsolator>(entryPointSpecificLifetimeManagerFactory())
                         .RegisterType<IProducedQueryLogAccessor, NullProducedQueryLogAccessor>(entryPointSpecificLifetimeManagerFactory())
                         

@@ -243,6 +243,7 @@
     <Compile Include="2.1\201505070309 - Add new AdvAgencies FP.cs" />
     <Compile Include="2.1\201504101044 - drop DeniedPosition OwnerCode.cs" />
     <Compile Include="2.1\201504101225 - remove some DeniedPositions Privileges.cs" />
+    <Compile Include="2.1\201505121131 - Remove AdditionalFirmService Privilege.cs" />
     <Compile Include="2.1\2014.12.08 rev. 201412081011.cs" />
     <Compile Include="2.1\2014.12.03 rev. 201412031042.cs" />
     <Compile Include="2.1\2014.12.02 rev. 201412021619.cs" />

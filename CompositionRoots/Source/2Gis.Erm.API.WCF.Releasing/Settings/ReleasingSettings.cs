@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DoubleGis.Erm.BLCore.Aggregates.Settings;
 using DoubleGis.Erm.BLCore.API.Operations.Concrete.Integration.Settings;
 using DoubleGis.Erm.BLCore.API.OrderValidation.Remote.Settings;
 using DoubleGis.Erm.Platform.API.Core.Operations.Logging;
@@ -24,6 +25,7 @@ namespace DoubleGis.Erm.API.WCF.Releasing.Settings
             Aspects
                .UseUsuallyRequiredFor(supportedBusinessModelIndicators)
                .Use<IntegrationSettingsAspect>()
+               .Use<DebtProcessingSettingsAspect>()
                .Use<CachingSettingsAspect>()
                .Use<OperationLoggingSettingsAspect>()
                .Use<IdentityServiceClientSettingsAspect>()

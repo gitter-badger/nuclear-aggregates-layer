@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.Aggregates.Positions;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.DTO;
 using DoubleGis.Erm.BLCore.API.Aggregates.Accounts.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.BranchOffices.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Orders.ReadModel;
 using DoubleGis.Erm.BLCore.API.Aggregates.Releases.ReadModel;
+using DoubleGis.Erm.BLCore.API.Aggregates.Settings;
 using DoubleGis.Erm.Platform.API.Core;
 using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.DAL.Obsolete;
@@ -24,10 +27,12 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
     public sealed class AccountReadModel : IAccountReadModel
     {
         private readonly IFinder _finder;
+        private readonly IDebtProcessingSettings _debtProcessingSettings;
 
-        public AccountReadModel(IFinder finder)
+        public AccountReadModel(IFinder finder, IDebtProcessingSettings debtProcessingSettings)
         {
             _finder = finder;
+            _debtProcessingSettings = debtProcessingSettings;
         }
 
         /// <summary>
@@ -545,6 +550,38 @@ namespace DoubleGis.Erm.BLCore.Aggregates.Accounts.ReadModel
                           .Map(q => q.Select(l => l.Order.SourceOrganizationUnitId)
                                          .Distinct())
                           .Many();
+        }
+
+        public IReadOnlyCollection<AccountWithDebtInfo> GetAccountsWithDebts(IEnumerable<long> accountIds)
+        {
+            return (from account in _finder.FindObsolete(Specs.Find.ByIds<Account>(accountIds))
+                    let lockDetailBalance = account.Balance - (account.Locks
+                                                                      .Where(x => x.IsActive && !x.IsDeleted) // скобки и проверки на null тут НУЖНЫ,
+                                                                      .Sum(x => (decimal?)x.PlannedAmount) ?? 0) // т.к. без них возможна ситуация decimal - null = null
+                    where lockDetailBalance <= _debtProcessingSettings.MinDebtAmount
+                    select new AccountWithDebtInfo
+                               {
+                                   LegalPersonName = account.LegalPerson.ShortName,
+                                   AccountNumber = account.Id,
+                                   LockDetailBalance = lockDetailBalance
+                               }).ToArray();
+        }
+
+        public AssignAccountDto GetInfoForAssignAccount(long accountId)
+        {
+            var account = _finder.Find(Specs.Find.ById<Account>(accountId)).One().EnsureFound();
+            var limits = _finder.Find(AccountSpecs.Limits.Find.ForAccount(accountId) && Specs.Find.ActiveAndNotDeleted<Limit>()).Many();
+
+            return new AssignAccountDto
+            {
+                Account = account,
+                Limits = limits
+            };
+        }
+
+        public AccountDetail GetAccountDetail(long accountDetailId)
+        {
+            return _finder.Find(Specs.Find.ById<AccountDetail>(accountDetailId)).One().EnsureFound();
         }
     }
 }

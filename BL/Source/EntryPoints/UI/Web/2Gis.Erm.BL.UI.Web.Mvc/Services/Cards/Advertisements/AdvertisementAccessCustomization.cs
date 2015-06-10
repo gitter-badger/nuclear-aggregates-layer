@@ -3,9 +3,11 @@ using System.Web.Mvc;
 using DoubleGis.Erm.BL.UI.Web.Mvc.Models;
 using DoubleGis.Erm.BLCore.API.Aggregates.Firms.ReadModel;
 using DoubleGis.Erm.BLCore.UI.Web.Mvc.Services.Cards;
+using DoubleGis.Erm.Platform.API.Core.Exceptions;
 using DoubleGis.Erm.Platform.API.Security;
 using DoubleGis.Erm.Platform.API.Security.EntityAccess;
 using DoubleGis.Erm.Platform.Model.Entities;
+using DoubleGis.Erm.Platform.Model.Entities.Erm;
 
 using NuClear.Model.Common.Entities;
 using NuClear.Security.API.UserContext;
@@ -33,7 +35,12 @@ namespace DoubleGis.Erm.BL.UI.Web.Mvc.Services.Cards.Advertisements
             }
 
             var firmId = viewModel.Firm.Key.Value;
-            var firmOwnerCode = _firmReadModel.GetFirmOwnerCodeUnsecure(firmId);
+
+            long firmOwnerCode;
+            if (!_firmReadModel.TryGetFirmOwnerCodeUnsecure(firmId, out firmOwnerCode))
+            {
+                throw new EntityNotFoundException(typeof(Firm));
+            }
 
             viewModel.ViewConfig.ReadOnly |= !_securityServiceEntityAccess.HasEntityAccess(EntityAccessTypes.Update,
                                                                                            EntityType.Instance.Firm(),

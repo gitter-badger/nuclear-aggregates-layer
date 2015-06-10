@@ -6,6 +6,7 @@ using System.Transactions;
 
 using DoubleGis.Erm.BLCore.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates;
+using DoubleGis.Erm.BLCore.API.Aggregates.Common.Crosscutting;
 using DoubleGis.Erm.BLCore.API.Aggregates.Common.Generics;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons;
 using DoubleGis.Erm.BLCore.API.Aggregates.LegalPersons.DTO;
@@ -451,11 +452,8 @@ namespace DoubleGis.Erm.BLCore.Aggregates.LegalPersons
                                             LockDetailBalance = lockDetailBalance
                                         })
                 .ToArray();
-            var errorMessage = CheckForDebtsHelper.CollectErrors(accountWithDebts);
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                throw new ProcessAccountsWithDebtsException(errorMessage);
-            }
+            AccountsWithDebtsReportGenerator.TryGenerateAndThrow(accountWithDebts);
+
         }
 
         ChangeAggregateClientValidationResult IChangeAggregateClientRepository<LegalPerson>.Validate(long entityId, long currentUserCode, long reserveCode)
