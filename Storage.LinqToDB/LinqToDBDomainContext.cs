@@ -21,17 +21,14 @@ namespace NuClear.Storage.LinqToDB
         private readonly DataConnection _dataConnection;
         private readonly TransactionOptions _transactionOptions;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
-        
-        private readonly MethodInfo _genericGetTableMethod;
+
+        private readonly MethodInfo _genericGetTableMethod = typeof(DataConnection).GetMethod("GetTable");
         
         public LinqToDBDomainContext(
             DataConnection dataConnection, 
             TransactionOptions transactionOptions,
             IPendingChangesHandlingStrategy pendingChangesHandlingStrategy)
         {
-            const string MethodName = "GetTable";
-            _genericGetTableMethod = _dataConnection.GetType().GetMethod(MethodName);
-
             _dataConnection = dataConnection;
             _transactionOptions = transactionOptions;
             _pendingChangesHandlingStrategy = pendingChangesHandlingStrategy;
