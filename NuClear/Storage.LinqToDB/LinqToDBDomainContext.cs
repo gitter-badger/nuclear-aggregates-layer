@@ -14,6 +14,8 @@ namespace NuClear.Storage.LinqToDB
 {
     public class LinqToDBDomainContext : IModifiableDomainContext, IReadableDomainContext
     {
+        private static readonly MethodInfo GetTableMethodInfo = typeof(DataConnection).GetMethod("GetTable", new Type[] { });
+
         private readonly HashSet<object> _added = new HashSet<object>();
         private readonly HashSet<object> _updated = new HashSet<object>();
         private readonly HashSet<object> _deleted = new HashSet<object>();
@@ -22,8 +24,6 @@ namespace NuClear.Storage.LinqToDB
         private readonly TransactionOptions _transactionOptions;
         private readonly IPendingChangesHandlingStrategy _pendingChangesHandlingStrategy;
 
-        private readonly MethodInfo _genericGetTableMethod = typeof(DataConnection).GetMethod("GetTable");
-        
         public LinqToDBDomainContext(
             DataConnection dataConnection, 
             TransactionOptions transactionOptions,
@@ -41,8 +41,8 @@ namespace NuClear.Storage.LinqToDB
 
         IQueryable IReadableDomainContext.GetQueryableSource(Type entityType)
         {
-            var methodInfo = _genericGetTableMethod.MakeGenericMethod(entityType);
-            var lambda = Expression.Lambda<Func<IQueryable>>(Expression.Call(methodInfo, Expression.Constant(_dataConnection)));
+            var methodInfo = GetTableMethodInfo.MakeGenericMethod(entityType);
+            var lambda = Expression.Lambda<Func<IQueryable>>(Expression.Call(Expression.Constant(_dataConnection), methodInfo));
             return lambda.Compile()();
         }
 
