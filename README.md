@@ -19,7 +19,7 @@ As well as Storage it contains readonly abstrations and abstrations for writings
 TODO: present all storage abstractions
 
 ##DI-package
-_There is runtime factories and processors used for search and register storage and aggregate services implementations with [Unity][unity]
+_There is runtime factories and processors used for search and register storage and aggregate services implementations with [Unity][unity]_
 
 TODO: present how these factories works
 
