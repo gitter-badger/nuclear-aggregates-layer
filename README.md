@@ -1,5 +1,7 @@
 ![NuClear](media/nuclear-logo.png)
 # NuClear Aggeregates Layer
+
+[![Join the chat at https://gitter.im/2gis/nuclear-aggregates-layer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/2gis/nuclear-aggregates-layer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 _NuClear is the set of 2GIS projects used internally and open for contribution_
 
 This repo contains source code of 3 logical packages - **Storage**, **Aggregates** and **DI-package** for composing them in runtime. 
